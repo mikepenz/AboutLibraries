@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="define_HoloGraphLibrary"></string>
+    <string name="libray_HoloGraphLibrary_author">Daniel Nadeau</string>
+    <string name="libray_HoloGraphLibrary_authorWebsite">https://bitbucket.org/danielnadeau</string>
+    <string name="libray_HoloGraphLibrary_libraryName">HoloGraphLibrary</string>
+    <string name="libray_HoloGraphLibrary_libraryDescription">This library is an open-source set of graph types that are easy to add to your app, and in addition, look gorgeous. Themed in the much-loved Holo style of Android, the graphing library should fit in with any of your modern, standards-compliant apps.</string>
+    <string name="libray_HoloGraphLibrary_libraryVersion">#1</string>
+    <string name="libray_HoloGraphLibrary_libraryWebsite">https://bitbucket.org/danielnadeau/holographlibrary</string>
+    <string name="libray_HoloGraphLibrary_licenseVersion"></string>
+    <string name="libray_HoloGraphLibrary_licenseContent"></string>
+    <string name="libray_HoloGraphLibrary_isOpenSource">true</string>
+    <string name="libray_HoloGraphLibrary_repositoryLink">https://bitbucket.org/danielnadeau/holographlibrary</string>
+
+</resources>

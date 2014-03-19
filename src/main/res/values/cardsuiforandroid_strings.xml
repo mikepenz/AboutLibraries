@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="define_cardsuiForAndroid"></string>
+    <string name="libray_cardsuiForAndroid_author">nadavfirm</string>
+    <string name="libray_cardsuiForAndroid_authorWebsite">https://github.com/nadavfima</string>
+    <string name="libray_cardsuiForAndroid_libraryName">CardsUI</string>
+    <string name="libray_cardsuiForAndroid_libraryDescription">Google’s Now popular Cards UI has everyone fascinated. This library aims to mimick this widget.</string>
+    <string name="libray_cardsuiForAndroid_libraryVersion">#16</string>
+    <string name="libray_cardsuiForAndroid_libraryWebsite">https://github.com/nadavfima/cardsui-for-android</string>
+    <string name="libray_cardsuiForAndroid_licenseVersion"></string>
+    <string name="libray_cardsuiForAndroid_licenseContent"></string>
+    <string name="libray_cardsuiForAndroid_isOpenSource">true</string>
+    <string name="libray_cardsuiForAndroid_repositoryLink">https://github.com/nadavfima/cardsui-for-android</string>
+
+</resources>

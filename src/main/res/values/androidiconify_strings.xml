@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="define_androidIconify"></string>
+    <string name="libray_androidIconify_author">Joan Zapata</string>
+    <string name="libray_androidIconify_authorWebsite">https://github.com/JoanZapata</string>
+    <string name="libray_androidIconify_libraryName">Android-Iconify</string>
+    <string name="libray_androidIconify_libraryDescription">Iconify allows you to include any of the 361 FontAwesome icons by Dave Gandy in your texts, your ActionBar, and even in your EditTexts. Icons are infinitely scalable, and customizable with shadows and everything you can do on texts.</string>
+    <string name="libray_androidIconify_libraryVersion">1.0.1</string>
+    <string name="libray_androidIconify_libraryWebsite">http://joanzapata.com/android-iconify/</string>
+    <string name="libray_androidIconify_licenseVersion">Apache Version 2.0</string>
+    <string name="libray_androidIconify_licenseContent">Copyright 2013 Joan Zapata
+		
+		Licensed under the Apache License, Version 2.0 (the "License");
+		you may not use this file except in compliance with the License.
+		You may obtain a copy of the License at
+		
+		    http://www.apache.org/licenses/LICENSE-2.0
+		
+		Unless required by applicable law or agreed to in writing, software
+		distributed under the License is distributed on an "AS IS" BASIS,
+		WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+		See the License for the specific language governing permissions and
+		limitations under the License.
+		
+		It uses FontAwesome font by Dave Gandy, licensed under OFL 1.1, which is compatible
+		with this library\'s license.
+		
+		http://scripts.sil.org/cms/scripts/render_download.php?format=file&amp;media_id=OFL_plaintext&amp;filename=OFL.txt</string>
+    <string name="libray_androidIconify_isOpenSource">true</string>
+    <string name="libray_androidIconify_repositoryLink">https://github.com/JoanZapata/android-iconify</string>
+
+</resources>
