@@ -55,7 +55,6 @@ Developed By
 * Mike Penz - http://penz.tundem.com - <mikepenz@gmail.com>
 
 
-
 License
 =======
 
