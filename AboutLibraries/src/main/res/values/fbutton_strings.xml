@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="define_FButton"></string>
+    <string name="libray_FButton_author">Le Van Hoang</string>
+    <string name="libray_FButton_authorWebsite">https://github.com/hoang8f</string>
+    <string name="libray_FButton_libraryName">FButton</string>
+    <string name="libray_FButton_libraryDescription">FButton is a custom Button of Android with "Flat UI" concept. FButton's design get inspiration from
+        designmono. This library is very small and highly customizable.
+    </string>
+    <string name="libray_FButton_libraryVersion">1.0.0</string>
+    <string name="libray_FButton_libraryWebsite">https://github.com/hoang8f/android-flat-button</string>
+    <string name="libray_FButton_licenseVersion">Apache Version 2.0</string>
+    <string name="libray_FButton_licenseContent">Copyright {2014} {Le Van Hoang}
+
+        Licensed under the Apache License, Version 2.0 (the "License");
+        you may not use this file except in compliance with the License.
+        You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+        Unless required by applicable law or agreed to in writing, software
+        distributed under the License is distributed on an "AS IS" BASIS,
+        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+        See the License for the specific language governing permissions and
+        limitations under the License.
+    </string>
+    <string name="libray_FButton_isOpenSource">true</string>
+    <string name="libray_FButton_repositoryLink">https://github.com/hoang8f/android-flat-button</string>
+
+</resources>
