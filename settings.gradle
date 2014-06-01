@@ -1,1 +1,2 @@
-include ':AboutLibraries'
+include ':sample'
+include ':library'

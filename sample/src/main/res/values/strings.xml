@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">AboutLibraries Sample</string>
+
+    <string name="action_all">All Libraries</string>
+    <string name="action_internal">Internal Libraries</string>
+    <string name="action_external">External Libraries</string>
+    <string name="action_defined">Defined Libraries</string>
+    <string name="action_opensource">Open Source</string>
+
+</resources>
