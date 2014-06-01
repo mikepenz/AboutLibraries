@@ -1,6 +1,5 @@
 AboutLibraries
 ==============
-http://mikepenz.github.io/AboutLibraries
 
 AboutLibraries is a library to offer you all the information you need of your libraries!
 
@@ -16,8 +15,39 @@ You can do a pull-request for this project, or better do the pull request for th
 After that you can sipmly use the new information in all your projects!
 
 
-Sample *_strings.xml (ActionBarSherlock)
+Including in your project
 ============
+###Using Maven
+AnimatedGridView Library is pushed to [Maven Central], so you just need to add the following dependency to your `build.gradle`.
+
+```javascript
+dependencies {
+	compile 'com.tundem.aboutlibraries:library:1.1.0@aar'
+}
+```
+
+Usage
+-------------------------
+
+The prefered method to get a Libs instance is by passing the string-field-array
+```java
+Libs libs = Libs.getInstance(getActivity(), R.string.class.getFields());
+```
+
+Now you can use the instance to get the information
+```java
+libs.getLibrary("ActionBarSherlock")
+```
+done.
+
+
+Including in your library
+============
+
+Create a {yourlib}_strings.xml in your values folder and define the required information.
+
+Sample *_strings.xml (ActionBarSherlock)
+-------------
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -50,22 +80,11 @@ Sample *_strings.xml (ActionBarSherlock)
 </resources>
 ```
 
-- To use this information get an Instance of the Libs class, and call
-```xml
-Libs.getInstance(context).getLibrary("ActionBarSherlock")
-```
-- with "ActionBarSherlock" -> define_*ActionBarSherlock*
-
-- If you use libs which include the *_strings.xml definition in their project you have just add an extra line. You have to first initialize the Libs instance with the strings of your project, because otherwhise it wouldn't find the info file.
-```xml
-Libs.getInstance(getActivity(), R.string.class.getFields());
-```
-- done.
 
 Developed By
 ============
 
-* Mike Penz - http://mikepenz.com - <mikepenz@gmail.com>
+* Mike Penz - http://mikepenz.com - <penz@tundem.com>
 
 
 License
