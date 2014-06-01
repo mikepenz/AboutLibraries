@@ -31,8 +31,6 @@
         <h1>
 <a name="aboutlibraries" class="anchor" href="#aboutlibraries"><span class="octicon octicon-link"></span></a>AboutLibraries</h1>
 
-<p><a href="http://mikepenz.github.io/AboutLibraries">http://mikepenz.github.io/AboutLibraries</a></p>
-
 <p>AboutLibraries is a library to offer you all the information you need of your libraries!</p>
 
 <p>Most modern apps feature an "Used Library"-Section and for this some information of those libs is required. As it gets annoying to copy those strings always to your app I've developed this small helper library to provide the required information.</p>
@@ -47,7 +45,40 @@ You can do a pull-request for this project, or better do the pull request for th
 <p>After that you can sipmly use the new information in all your projects!</p>
 
 <h1>
-<a name="sample-_stringsxml-actionbarsherlock" class="anchor" href="#sample-_stringsxml-actionbarsherlock"><span class="octicon octicon-link"></span></a>Sample *_strings.xml (ActionBarSherlock)</h1>
+<a name="including-in-your-project" class="anchor" href="#including-in-your-project"><span class="octicon octicon-link"></span></a>Including in your project</h1>
+
+<h3>
+<a name="using-maven" class="anchor" href="#using-maven"><span class="octicon octicon-link"></span></a>Using Maven</h3>
+
+<p>AnimatedGridView Library is pushed to [Maven Central], so you just need to add the following dependency to your <code>build.gradle</code>.</p>
+
+<div class="highlight highlight-javascript"><pre><span class="nx">dependencies</span> <span class="p">{</span>
+    <span class="nx">compile</span> <span class="s1">'com.tundem.aboutlibraries:library:1.1.0@aar'</span>
+<span class="p">}</span>
+</pre></div>
+
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>The prefered method to get a Libs instance is by passing the string-field-array</p>
+
+<div class="highlight highlight-java"><pre><span class="n">Libs</span> <span class="n">libs</span> <span class="o">=</span> <span class="n">Libs</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="n">getActivity</span><span class="o">(),</span> <span class="n">R</span><span class="o">.</span><span class="na">string</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getFields</span><span class="o">());</span>
+</pre></div>
+
+<p>Now you can use the instance to get the information</p>
+
+<div class="highlight highlight-java"><pre><span class="n">libs</span><span class="o">.</span><span class="na">getLibrary</span><span class="o">(</span><span class="s">"ActionBarSherlock"</span><span class="o">)</span>
+</pre></div>
+
+<p>done.</p>
+
+<h1>
+<a name="including-in-your-library" class="anchor" href="#including-in-your-library"><span class="octicon octicon-link"></span></a>Including in your library</h1>
+
+<p>Create a {yourlib}_strings.xml in your values folder and define the required information.</p>
+
+<h2>
+<a name="sample-_stringsxml-actionbarsherlock" class="anchor" href="#sample-_stringsxml-actionbarsherlock"><span class="octicon octicon-link"></span></a>Sample *_strings.xml (ActionBarSherlock)</h2>
 
 <div class="highlight highlight-xml"><pre><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
 <span class="nt">&lt;resources&gt;</span>
@@ -79,24 +110,11 @@ You can do a pull-request for this project, or better do the pull request for th
 <span class="nt">&lt;/resources&gt;</span>
 </pre></div>
 
-<ul>
-<li>To use this information get an Instance of the Libs class, and call</li>
-</ul><div class="highlight highlight-xml"><pre>Libs.getInstance(context).getLibrary("ActionBarSherlock")
-</pre></div>
-
-<ul>
-<li><p>with "ActionBarSherlock" -&gt; define_<em>ActionBarSherlock</em></p></li>
-<li><p>If you use libs which include the *_strings.xml definition in their project you have just add an extra line. You have to first initialize the Libs instance with the strings of your project, because otherwhise it wouldn't find the info file.</p></li>
-</ul><div class="highlight highlight-xml"><pre>Libs.getInstance(getActivity(), R.string.class.getFields());
-</pre></div>
-
-<ul>
-<li>done.</li>
-</ul><h1>
+<h1>
 <a name="developed-by" class="anchor" href="#developed-by"><span class="octicon octicon-link"></span></a>Developed By</h1>
 
 <ul>
-<li>Mike Penz - <a href="http://mikepenz.com">http://mikepenz.com</a> - <a href="mailto:mikepenz@gmail.com">mikepenz@gmail.com</a>
+<li>Mike Penz - <a href="http://mikepenz.com">http://mikepenz.com</a> - <a href="mailto:penz@tundem.com">penz@tundem.com</a>
 </li>
 </ul><h1>
 <a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h1>
