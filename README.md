@@ -45,6 +45,7 @@ Including in your library
 ============
 
 Create a {yourlib}_strings.xml in your values folder and define the required information.
+You can also find a sample in one of my other open source projects here: [LINK](https://github.com/mikepenz/AnimatedGridView/blob/master/library/src/main/res/values/info_strings.xml)
 
 Sample *_strings.xml (ActionBarSherlock)
 -------------
