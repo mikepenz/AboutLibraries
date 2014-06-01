@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="define_androidStyledDialogs"></string>
+    <string name="define_int_androidStyledDialogs"></string>
     <string name="libray_androidStyledDialogs_author">inmite</string>
     <string name="libray_androidStyledDialogs_authorWebsite">http://www.inmite.eu</string>
     <string name="libray_androidStyledDialogs_libraryName">StyledDialogs</string>

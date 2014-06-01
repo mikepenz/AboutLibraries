@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="define_Crouton"></string>
+    <string name="define_int_Crouton"></string>
     <string name="libray_Crouton_author">Benjamin Weiss</string>
     <string name="libray_Crouton_authorWebsite">https://plus.google.com/117509657298845443204</string>
     <string name="libray_Crouton_libraryName">Crouton</string>

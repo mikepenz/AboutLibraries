@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="define_HoloGraphLibrary"></string>
+    <string name="define_int_HoloGraphLibrary"></string>
     <string name="libray_HoloGraphLibrary_author">Daniel Nadeau</string>
     <string name="libray_HoloGraphLibrary_authorWebsite">https://bitbucket.org/danielnadeau</string>
     <string name="libray_HoloGraphLibrary_libraryName">HoloGraphLibrary</string>

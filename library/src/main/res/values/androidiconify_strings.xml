@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="define_androidIconify"></string>
+    <string name="define_int_androidIconify"></string>
     <string name="libray_androidIconify_author">Joan Zapata</string>
     <string name="libray_androidIconify_authorWebsite">https://github.com/JoanZapata</string>
     <string name="libray_androidIconify_libraryName">Android-Iconify</string>

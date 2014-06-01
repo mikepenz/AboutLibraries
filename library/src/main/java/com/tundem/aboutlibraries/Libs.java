@@ -12,31 +12,44 @@ public class Libs {
     private static Context ctx;
     private static Libs libs = null;
 
-    private ArrayList<Library> libraries = new ArrayList<Library>();
+    private ArrayList<Library> internLibraries = new ArrayList<Library>();
+    private ArrayList<Library> externLibraries = new ArrayList<Library>();
 
     private Libs() {
         Field[] fields = R.string.class.getFields();
-        for (int i = 0; i < fields.length; i++) {
-            if (fields[i].getName().contains("define_")) {
-                Library library = genLibrary(fields[i].getName().replace("define_", ""));
-                if (library != null) {
-                    libraries.add(library);
-                }
-            }
-        }
+        init(fields);
     }
 
     private Libs(Field[] fields) {
-        for (int i = 0; i < fields.length; i++) {
-            if (fields[i].getName().contains("define_")) {
-                Library library = genLibrary(fields[i].getName().replace("define_", ""));
-                if (library != null) {
-                    libraries.add(library);
+        init(fields);
+    }
+
+    private void init(Field[] fields) {
+        if (fields != null) {
+            for (int i = 0; i < fields.length; i++) {
+                if (fields[i].getName().contains("define_int_")) {
+                    Library library = genLibrary(fields[i].getName().replace("define_int_", ""));
+                    if (library != null) {
+                        library.setInternal(true);
+                        internLibraries.add(library);
+                    }
+                } else if (fields[i].getName().contains("define_")) {
+                    Library library = genLibrary(fields[i].getName().replace("define_", ""));
+                    if (library != null) {
+                        library.setInternal(false);
+                        externLibraries.add(library);
+                    }
                 }
             }
         }
     }
 
+    /**
+     * Creates a new Instance of Libs. This only includes internal internLibraries
+     *
+     * @param context
+     * @return
+     */
     public static Libs getInstance(Context context) {
         ctx = context;
         if (libs == null) {
@@ -45,6 +58,14 @@ public class Libs {
         return libs;
     }
 
+    /**
+     * Creates a new Instance of Libs. This give fields[] also contains the ressources of any lib you've used
+     * Retrieve the fields[] by calling following method: Field[] fields = R.string.class.getFields();
+     *
+     * @param context
+     * @param fields
+     * @return
+     */
     public static Libs getInstance(Context context, Field[] fields) {
         ctx = context;
         if (libs == null) {
@@ -54,12 +75,33 @@ public class Libs {
     }
 
     /**
+     * Get all intern available Libraries
+     *
+     * @return an ArrayList<Library> with all available internLibraries
+     */
+    public ArrayList<Library> getInternLibraries() {
+        return internLibraries;
+    }
+
+    /**
+     * Get all extern available Libraries
+     *
+     * @return an ArrayList<Library> with all available externLibraries
+     */
+    public ArrayList<Library> getExternLibraries() {
+        return externLibraries;
+    }
+
+    /**
      * Get all available Libraries
      *
-     * @return an ArrayList<Library> with all available libraries
+     * @return an ArrayList<Library> with all available Libraries
      */
     public ArrayList<Library> getLibraries() {
-        return libraries;
+        ArrayList<Library> libs = new ArrayList<Library>();
+        libs.addAll(getInternLibraries());
+        libs.addAll(getExternLibraries());
+        return libs;
     }
 
     /**
@@ -84,7 +126,7 @@ public class Libs {
      *
      * @param searchTerm the term which is in the libs name (NOT case sensitiv) or the real name of the lib (this is the name used for github)
      * @param limit      -1 for all results or > 0 for a limitted result
-     * @return an ArrayList<Library> with the found libraries
+     * @return an ArrayList<Library> with the found internLibraries
      */
     public ArrayList<Library> findLibrary(String searchTerm, int limit) {
         ArrayList<Library> localLibs = new ArrayList<Library>();

@@ -1,13 +1,12 @@
 apply plugin: 'android-library'
 android {
     compileSdkVersion 19
-    buildToolsVersion '19.0.3'
-
+    buildToolsVersion '19.1.0'
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 19
-        versionCode 102
-        versionName "1.0.2"
+        versionCode 110
+        versionName '1.1.0'
     }
     buildTypes {
         release {
@@ -15,5 +14,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
+    productFlavors {
+    }
 }
-apply from: 'https://raw.github.com/chrisbanes/gradle-mvn-push/master/gradle-mvn-push.gradle'
+apply from: 'gradle-mvn-push.gradle'
+
+dependencies {
+}

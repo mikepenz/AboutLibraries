@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="define_androidBetterpickers"></string>
+    <string name="define_int_androidBetterpickers"></string>
     <string name="libray_androidBetterpickers_author">Derek Brameyer</string>
     <string name="libray_androidBetterpickers_authorWebsite">https://github.com/derekbrameyer</string>
     <string name="libray_androidBetterpickers_libraryName">BetterPickers</string>

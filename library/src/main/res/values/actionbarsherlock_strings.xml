@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="define_ActionBarSherlock"></string>
+    <string name="define_int_ActionBarSherlock"></string>
     <string name="libray_ActionBarSherlock_author">Jake Wharton</string>
     <string name="libray_ActionBarSherlock_authorWebsite">http://jakewharton.com/</string>
     <string name="libray_ActionBarSherlock_libraryName">ActionBarSherlock</string>

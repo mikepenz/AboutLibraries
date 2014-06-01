@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="define_ShowcaseView"></string>
+    <string name="define_int_ShowcaseView"></string>
     <string name="libray_ShowcaseView_author">Alex Curran</string>
     <string name="libray_ShowcaseView_authorWebsite">https://github.com/Espiandev</string>
     <string name="libray_ShowcaseView_libraryName">ShowcaseView</string>
