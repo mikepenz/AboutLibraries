@@ -18,7 +18,7 @@ After that you can sipmly use the new information in all your projects!
 Including in your project
 ============
 ###Using Maven
-AnimatedGridView Library is pushed to [Maven Central], so you just need to add the following dependency to your `build.gradle`.
+The AboutLibraries Library is pushed to [Maven Central], so you just need to add the following dependency to your `build.gradle`.
 
 ```javascript
 dependencies {
