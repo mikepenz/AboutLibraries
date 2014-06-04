@@ -9,6 +9,12 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 public class Libs {
+    public static final String BUNDLE_LIBS = "ABOUT_LIBRARIES_LIBS";
+    public static final String BUNDLE_FIELDS = "ABOUT_LIBRARIES_FIELDS";
+
+    private static final String DEFINE_INT = "define_int_";
+    private static final String DEFINE_EXT = "define_";
+
     private static Context ctx;
     private static Libs libs = null;
 
@@ -16,25 +22,30 @@ public class Libs {
     private ArrayList<Library> externLibraries = new ArrayList<Library>();
 
     private Libs() {
-        Field[] fields = R.string.class.getFields();
+        String[] fields = toStringArray(R.string.class.getFields());
         init(fields);
     }
 
-    private Libs(Field[] fields) {
+    private Libs(String[] fields) {
         init(fields);
     }
 
-    private void init(Field[] fields) {
+    /**
+     * init method
+     *
+     * @param fields
+     */
+    private void init(String[] fields) {
         if (fields != null) {
             for (int i = 0; i < fields.length; i++) {
-                if (fields[i].getName().contains("define_int_")) {
-                    Library library = genLibrary(fields[i].getName().replace("define_int_", ""));
+                if (fields[i].contains(DEFINE_INT)) {
+                    Library library = genLibrary(fields[i].replace(DEFINE_INT, ""));
                     if (library != null) {
                         library.setInternal(true);
                         internLibraries.add(library);
                     }
-                } else if (fields[i].getName().contains("define_")) {
-                    Library library = genLibrary(fields[i].getName().replace("define_", ""));
+                } else if (fields[i].contains(DEFINE_EXT)) {
+                    Library library = genLibrary(fields[i].replace(DEFINE_EXT, ""));
                     if (library != null) {
                         library.setInternal(false);
                         externLibraries.add(library);
@@ -42,6 +53,23 @@ public class Libs {
                 }
             }
         }
+    }
+
+
+    /**
+     * A helper method to get a String[] out of a fieldArray
+     *
+     * @param fields R.strings.class.getFields()
+     * @return a String[] with the string ids we need
+     */
+    public static String[] toStringArray(Field[] fields) {
+        ArrayList<String> fieldArray = new ArrayList<String>();
+        for (Field field : fields) {
+            if (field.getName().contains(DEFINE_EXT)) {
+                fieldArray.add(field.getName());
+            }
+        }
+        return fieldArray.toArray(new String[fieldArray.size()]);
     }
 
     /**
@@ -66,7 +94,7 @@ public class Libs {
      * @param fields
      * @return
      */
-    public static Libs getInstance(Context context, Field[] fields) {
+    public static Libs getInstance(Context context, String[] fields) {
         ctx = context;
         if (libs == null) {
             libs = new Libs(fields);
@@ -80,7 +108,7 @@ public class Libs {
      * @return an ArrayList<Library> with all available internLibraries
      */
     public ArrayList<Library> getInternLibraries() {
-        return internLibraries;
+        return new ArrayList<Library>(internLibraries);
     }
 
     /**
@@ -89,7 +117,7 @@ public class Libs {
      * @return an ArrayList<Library> with all available externLibraries
      */
     public ArrayList<Library> getExternLibraries() {
-        return externLibraries;
+        return new ArrayList<Library>(externLibraries);
     }
 
     /**
