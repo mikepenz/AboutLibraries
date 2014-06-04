@@ -22,7 +22,7 @@ AnimatedGridView Library is pushed to [Maven Central], so you just need to add t
 
 ```javascript
 dependencies {
-	compile 'com.tundem.aboutlibraries:library:1.1.0@aar'
+	compile 'com.tundem.aboutlibraries:library:1.2.0@aar'
 }
 ```
 
