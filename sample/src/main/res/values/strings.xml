@@ -9,4 +9,7 @@
     <string name="action_defined">Defined Libraries</string>
     <string name="action_opensource">Open Source</string>
 
+    <string name="action_extendactivity">Extended Activity</string>
+    <string name="action_fragmentactivity">Fragment Activity</string>
+    <string name="action_manifestactivity">Manifest Activity</string>
 </resources>

@@ -12,6 +12,7 @@ import com.fima.cardsui.views.CardUI;
 import com.tundem.aboutlibraries.Libs;
 import com.tundem.aboutlibraries.entity.Library;
 import com.tundem.aboutlibraries.sample.cardsui.LibraryCard;
+import com.tundem.aboutlibraries.ui.LibsActivity;
 
 import java.util.List;
 
@@ -22,11 +23,12 @@ public class MainActivity extends Activity {
     private Libs libs;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
-        libs = Libs.getInstance(this, R.string.class.getFields());
+        libs = Libs.getInstance(this, Libs.toStringArray(R.string.class.getFields()));
 
         // init CardView
         mCardView = (CardUI) findViewById(R.id.cardsview);
@@ -125,6 +127,17 @@ public class MainActivity extends Activity {
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/mikepenz/AboutLibraries"));
             startActivity(browserIntent);
             return true;
+        } else if (id == R.id.action_extendactivity) {
+            Intent i = new Intent(getApplicationContext(), ExtendActivity.class);
+            startActivity(i);
+        } else if (id == R.id.action_fragmentactivity) {
+            Intent i = new Intent(getApplicationContext(), FragmentActivity.class);
+            startActivity(i);
+        } else if (id == R.id.action_manifestactivity) {
+            Intent i = new Intent(getApplicationContext(), LibsActivity.class);
+            i.putExtra(Libs.BUNDLE_FIELDS, Libs.toStringArray(R.string.class.getFields()));
+            i.putExtra(Libs.BUNDLE_LIBS, new String[]{"crouton", "actionbarsherlock", "showcaseview"});
+            startActivity(i);
         }
         return super.onOptionsItemSelected(item);
     }
