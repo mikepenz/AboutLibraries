@@ -12,12 +12,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@drawable/card_background">
+        android:background="@drawable/cardbackground_opensource">
 
         <LinearLayout
             android:gravity="center_vertical"
             android:paddingLeft="8dp"
-            android:paddingTop="8dp"
+            android:paddingTop="4dp"
             android:paddingRight="8dp"
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -25,6 +25,7 @@
 
             <TextView
                 android:id="@+id/libraryName"
+                android:textColor="#000"
                 android:textSize="24sp"
                 android:textStyle="normal"
                 android:layout_width="wrap_content"
@@ -33,6 +34,7 @@
 
             <TextView
                 android:id="@+id/libraryVersion"
+                android:textColor="#101010"
                 android:textStyle="normal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -44,6 +46,7 @@
 
             <TextView
                 android:id="@+id/libraryCreator"
+                android:textColor="#101010"
                 android:textStyle="normal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -63,6 +66,7 @@
             android:id="@+id/libraryDescription"
             android:textSize="14sp"
             android:textStyle="normal"
+            android:textColor="#101010"
             android:padding="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
