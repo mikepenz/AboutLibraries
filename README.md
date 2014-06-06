@@ -22,7 +22,15 @@ The AboutLibraries Library is pushed to [Maven Central], so you just need to add
 
 ```javascript
 dependencies {
-	compile 'com.tundem.aboutlibraries:library:1.2.0@aar'
+	compile 'com.tundem.aboutlibraries:library:1.3.0@aar'
+}
+```
+
+The project is deployed to the snapshot repository so you need to add the following maven repo if you haven't already:
+
+```javascript
+maven { 
+    url 'https://oss.sonatype.org/content/repositories/snapshots/' 
 }
 ```
 
