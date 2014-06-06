@@ -24,10 +24,12 @@ public class LibsActivity extends FragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        boolean customTheme = false;
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             int themeId = bundle.getInt(Libs.BUNDLE_THEME, -1);
             if (themeId != -1) {
+                customTheme = true;
                 setTheme(themeId);
             }
         }
@@ -65,7 +67,9 @@ public class LibsActivity extends FragmentActivity {
 
         ActionBar ab = getActionBar();
         if (ab != null) {
-            ab.setBackgroundDrawable(null);
+            if (!customTheme) {
+                ab.setBackgroundDrawable(null);
+            }
             ab.setDisplayHomeAsUpEnabled(true);
             ab.setDisplayShowTitleEnabled(false);
             ab.setDisplayUseLogoEnabled(true);
