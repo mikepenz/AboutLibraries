@@ -137,6 +137,11 @@ public class MainActivity extends Activity {
             Intent i = new Intent(getApplicationContext(), LibsActivity.class);
             i.putExtra(Libs.BUNDLE_FIELDS, Libs.toStringArray(R.string.class.getFields()));
             i.putExtra(Libs.BUNDLE_LIBS, new String[]{"crouton", "actionbarsherlock", "showcaseview"});
+
+            i.putExtra(Libs.BUNDLE_THEME, android.R.style.Theme_Holo);
+            i.putExtra(Libs.BUNDLE_ACCENTCOLOR, "#3396E5");
+            i.putExtra(Libs.BUNDLE_TRANSLUCENTDECOR, true);
+
             startActivity(i);
         }
         return super.onOptionsItemSelected(item);
