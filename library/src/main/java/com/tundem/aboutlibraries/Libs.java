@@ -11,6 +11,9 @@ import java.util.ArrayList;
 public class Libs {
     public static final String BUNDLE_LIBS = "ABOUT_LIBRARIES_LIBS";
     public static final String BUNDLE_FIELDS = "ABOUT_LIBRARIES_FIELDS";
+    public static final String BUNDLE_THEME = "ABOUT_LIBRARIES_THEME";
+    public static final String BUNDLE_ACCENTCOLOR = "ABOUT_LIBRARIES_ACCENTCOLOR";
+    public static final String BUNDLE_TRANSLUCENTDECOR = "ABOUT_LIBRARIES_TRANSLUCENTDECOR";
 
     private static final String DEFINE_INT = "define_int_";
     private static final String DEFINE_EXT = "define_";
