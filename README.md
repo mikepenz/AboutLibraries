@@ -121,6 +121,16 @@ You can also find a sample in one of my other open source projects here: [LINK](
 ```
 
 
+##Contribute
+You can contribute by creating an informationfile for a new library, and make a pull-request at the creators git repository. if he doesn't include the information file in his repo, or if the library isn't maintained anymore you can create a pull-request here.
+
+Please remind that if you make a pull-request here, that you have to change the *define_* string to *define_int_*. It is also very important that the *_strings.xml* has an unique filename (it should be named *{libraryidentifier}_strings.xml*
+
+
+##Contributors
+none
+
+
 #Developed By
 
 * Mike Penz - http://mikepenz.com - <penz@tundem.com>
