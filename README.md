@@ -24,10 +24,7 @@ maven {
 ```
 
 ##Usage
-
 You can use this library in a few different ways. You can create your own activity, including a custom style and just use the information, or you can use the built in Activity or Fragment and just pass the libs you would love to include.
-
-
 ###Activity / Fragment
 ####Fragment
 ```java
@@ -42,9 +39,6 @@ Fragment fragment = new LibsFragment();
 //Set the arguments
 fragment.setArguments(bundle);
 ```
- 
- 
- 
 ####Activity
 #####Code:
 ```java
@@ -65,7 +59,6 @@ i.putExtra(Libs.BUNDLE_TRANSLUCENTDECOR, true);
 //start the activity
 startActivity(i);
 ```
-
 #####Xml:
 ```xml
 <!-- Don't forget to define the Activity in the manifest -->
@@ -96,7 +89,6 @@ Create a {yourlib}_strings.xml in your values folder and define the required inf
 You can also find a sample in one of my other open source projects here: [LINK](https://github.com/mikepenz/AnimatedGridView/blob/master/library/src/main/res/values/info_strings.xml)
 
 ###Sample *_strings.xml (ActionBarSherlock)
-
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
