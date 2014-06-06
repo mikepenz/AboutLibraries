@@ -74,6 +74,13 @@ public class LibsListViewAdapter extends BaseAdapter {
             }
         });
 
+        int padding = parent.getResources().getDimensionPixelSize(R.dimen.card_padding_opensource);
+        if (position + 1 == getCount()) {
+            convertView.setPadding(padding, padding, padding, padding);
+        } else {
+            convertView.setPadding(padding, padding, padding, 0);
+        }
+
         return convertView;
     }
 

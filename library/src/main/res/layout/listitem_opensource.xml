@@ -3,9 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="12dp"
-    android:paddingLeft="12dp"
-    android:paddingRight="12dp"
+    android:paddingTop="@dimen/card_padding_opensource"
+    android:paddingLeft="@dimen/card_padding_opensource"
+    android:paddingRight="@dimen/card_padding_opensource"
     android:paddingBottom="0dp">
 
     <LinearLayout
