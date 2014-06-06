@@ -36,11 +36,14 @@ public class LibsActivity extends FragmentActivity {
 
         setContentView(R.layout.activity_opensource);
 
+        boolean usedAccentColor = false;
         if (bundle != null) {
             String accentColorString = bundle.getString(Libs.BUNDLE_ACCENTCOLOR, "");
             boolean useTranslucentDecor = bundle.getBoolean(Libs.BUNDLE_TRANSLUCENTDECOR, false);
 
             if (!TextUtils.isEmpty(accentColorString)) {
+                usedAccentColor = true;
+
                 int accentColor = Color.parseColor(accentColorString);
                 int accentSecondaryColor = Color.parseColor("#88" + Integer.toHexString(accentColor).toUpperCase().substring(2));
                 int backgroundColor = Color.parseColor("#e5e5e5");
@@ -67,7 +70,7 @@ public class LibsActivity extends FragmentActivity {
 
         ActionBar ab = getActionBar();
         if (ab != null) {
-            if (!customTheme) {
+            if (!customTheme && usedAccentColor) {
                 ab.setBackgroundDrawable(null);
             }
             ab.setDisplayHomeAsUpEnabled(true);
