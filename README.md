@@ -1,22 +1,11 @@
-AboutLibraries
-==============
+#AboutLibraries
 
 AboutLibraries is a library to offer you all the information you need of your libraries!
 
 Most modern apps feature an "Used Library"-Section and for this some information of those libs is required. As it gets annoying to copy those strings always to your app I've developed this small helper library to provide the required information.
 
-All libraries are provided as *_strings.xml file in this library project. The project will auto-initialize those wihtout any extra effort.
 
-It is also possible that devs include a *_strings.xml in their project (if they follow the specific definition) and you can use those information too!
-
-If you would love to add a new library just create a {libraryName}_strings.xml file and add the specific information.
-You can do a pull-request for this project, or better do the pull request for the library project.
-
-After that you can sipmly use the new information in all your projects!
-
-
-Including in your project
-============
+##Include in your project
 ###Using Maven
 The AboutLibraries Library is pushed to [Maven Central], so you just need to add the following dependency to your `build.gradle`.
 
@@ -34,8 +23,60 @@ maven {
 }
 ```
 
-Usage
--------------------------
+##Usage
+
+You can use this library in a few different ways. You can create your own activity, including a custom style and just use the information, or you can use the built in Activity or Fragment and just pass the libs you would love to include.
+
+
+###Activity / Fragment
+####Fragment
+```java
+Bundle bundle = new Bundle();
+//Pass the fields of your application to the lib so it can find all external lib information
+bundle.putStringArray(Libs.BUNDLE_FIELDS, Libs.toStringArray(R.string.class.getFields()));
+//Define the libs you want (only those who don't include the information, and are managed by the AboutLibraries library) (OPTIONAL if all used libraries offer the information)
+bundle.putStringArray(Libs.BUNDLE_LIBS, new String[]{"AndroidIconify", "ActiveAndroid", "FButton", "Crouton", "HoloGraphLibrary", "ShowcaseView", "NineOldAndroids", "AndroidViewpagerIndicator"});
+
+//Create a new Fragment (you can do this whereever you want
+Fragment fragment = new LibsFragment();
+//Set the arguments
+fragment.setArguments(bundle);
+```
+ 
+ 
+ 
+####Activity
+#####Code:
+```java
+//Create an intent with context and the Activity class
+Intent i = new Intent(getApplicationContext(), LibsActivity.class);
+//Pass the fields of your application to the lib so it can find all external lib information
+i.putExtra(Libs.BUNDLE_FIELDS, Libs.toStringArray(R.string.class.getFields()));
+//Define the libs you want (only those who don't include the information, and are managed by the AboutLibraries library) (OPTIONAL if all used libraries offer the information)
+i.putExtra(Libs.BUNDLE_LIBS, new String[]{"crouton", "actionbarsherlock", "showcaseview"});
+
+//Pass your theme (OPTIONAL)
+i.putExtra(Libs.BUNDLE_THEME, android.R.style.Theme_Holo);
+//Pass a custom Accentcolor (OPTIONAL)
+i.putExtra(Libs.BUNDLE_ACCENTCOLOR, "#3396E5");
+//Pass the information if it should use the Translucent decor (OPTIONAL) -> requires ACCENTCOLOR
+i.putExtra(Libs.BUNDLE_TRANSLUCENTDECOR, true);
+
+//start the activity
+startActivity(i);
+```
+
+#####Xml:
+```xml
+<!-- Don't forget to define the Activity in the manifest -->
+<activity
+	android:name="com.tundem.aboutlibraries.ui.LibsActivity">
+</activity>
+```
+
+###Custom
+------------
+Use the Library class and build your view on-your-own
 
 The prefered method to get a Libs instance is by passing the string-field-array
 ```java
@@ -49,15 +90,12 @@ libs.getLibrary("ActionBarSherlock")
 done.
 
 
-Including in your library
-============
-
+##Including in your library
 Create a {yourlib}_strings.xml in your values folder and define the required information.
 
 You can also find a sample in one of my other open source projects here: [LINK](https://github.com/mikepenz/AnimatedGridView/blob/master/library/src/main/res/values/info_strings.xml)
 
-Sample *_strings.xml (ActionBarSherlock)
--------------
+###Sample *_strings.xml (ActionBarSherlock)
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -91,14 +129,12 @@ Sample *_strings.xml (ActionBarSherlock)
 ```
 
 
-Developed By
-============
+#Developed By
 
 * Mike Penz - http://mikepenz.com - <penz@tundem.com>
 
 
-License
-=======
+#License
 
     Copyright 2014 Mike Penz
 
