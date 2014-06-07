@@ -6,10 +6,10 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 19
-        versionCode 130
-        versionName '1.3.0'
+        versionCode 140
+        versionName '1.4.0'
     }
-    
+
     buildTypes {
         release {
             runProguard false
