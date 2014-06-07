@@ -11,6 +11,10 @@ import java.util.ArrayList;
 public class Libs {
     public static final String BUNDLE_LIBS = "ABOUT_LIBRARIES_LIBS";
     public static final String BUNDLE_FIELDS = "ABOUT_LIBRARIES_FIELDS";
+
+    public static final String BUNDLE_LICENSE = "ABOUT_LIBRARIES_LICENSE";
+    public static final String BUNDLE_VERSION = "ABOUT_LIBRARIES_VERSION";
+
     public static final String BUNDLE_THEME = "ABOUT_LIBRARIES_THEME";
     public static final String BUNDLE_ACCENTCOLOR = "ABOUT_LIBRARIES_ACCENTCOLOR";
     public static final String BUNDLE_TRANSLUCENTDECOR = "ABOUT_LIBRARIES_TRANSLUCENTDECOR";
@@ -190,6 +194,7 @@ public class Libs {
             lib.setLibraryVersion(getStringResourceByName("libray_" + libraryName + "_libraryVersion"));
             lib.setLibraryWebsite(getStringResourceByName("libray_" + libraryName + "_libraryWebsite"));
             lib.setLicenseVersion(getStringResourceByName("libray_" + libraryName + "_licenseVersion"));
+            lib.setLicenseLink(getStringResourceByName("libray_" + libraryName + "_licenseLink"));
             lib.setLicenseContent(getStringResourceByName("libray_" + libraryName + "_licenseContent"));
             lib.setOpenSource(Boolean.valueOf(getStringResourceByName("libray_" + libraryName + "_isOpenSource")));
             lib.setRepositoryLink(getStringResourceByName("libray_" + libraryName + "_repositoryLink"));

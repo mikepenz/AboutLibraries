@@ -138,6 +138,9 @@ public class MainActivity extends Activity {
             i.putExtra(Libs.BUNDLE_FIELDS, Libs.toStringArray(R.string.class.getFields()));
             i.putExtra(Libs.BUNDLE_LIBS, new String[]{"crouton", "actionbarsherlock", "showcaseview"});
 
+            i.putExtra(Libs.BUNDLE_VERSION, true);
+            i.putExtra(Libs.BUNDLE_LICENSE, true);
+
             i.putExtra(Libs.BUNDLE_THEME, android.R.style.Theme_Holo);
             i.putExtra(Libs.BUNDLE_ACCENTCOLOR, "#3396E5");
             i.putExtra(Libs.BUNDLE_TRANSLUCENTDECOR, true);

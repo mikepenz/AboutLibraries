@@ -24,6 +24,8 @@ public class LibsFragment extends Fragment {
     private ListView listView;
     private ArrayList<Library> libraries;
 
+    boolean showLicense = false;
+    boolean showVersion = false;
 
     /**
      * Default Constructor
@@ -44,6 +46,8 @@ public class LibsFragment extends Fragment {
         if (bundle != null) {
             internalLibraries = bundle.getStringArray(Libs.BUNDLE_LIBS);
             fields = bundle.getStringArray(Libs.BUNDLE_FIELDS);
+            showLicense = bundle.getBoolean(Libs.BUNDLE_LICENSE, false);
+            showVersion = bundle.getBoolean(Libs.BUNDLE_VERSION, false);
         }
 
         //init the Libs instance with fields if they were set
@@ -79,7 +83,7 @@ public class LibsFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        listView.setAdapter(new LibsListViewAdapter(getActivity(), libraries));
+        listView.setAdapter(new LibsListViewAdapter(getActivity(), libraries, showLicense, showVersion));
         super.onViewCreated(view, savedInstanceState);
     }
 }

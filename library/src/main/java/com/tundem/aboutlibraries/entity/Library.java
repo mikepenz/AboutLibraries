@@ -13,6 +13,7 @@ public class Library {
     private String libraryVersion = "";
     private String libraryWebsite = "";
     private String licenseVersion = "";
+    private String licenseLink = "";
     private String licenseContent = "";
 
     private boolean isOpenSource = true;
@@ -131,6 +132,14 @@ public class Library {
 
     public void setLicenseVersion(String licenseVersion) {
         this.licenseVersion = licenseVersion;
+    }
+
+    public String getLicenseLink() {
+        return licenseLink;
+    }
+
+    public void setLicenseLink(String licenseLink) {
+        this.licenseLink = licenseLink;
     }
 
     public String getLicenseContent() {
