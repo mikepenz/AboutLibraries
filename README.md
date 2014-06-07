@@ -111,6 +111,7 @@ You can also find a sample in one of my other open source projects here: [LINK](
     <string name="libray_ActionBarSherlock_libraryVersion">4.3.1</string>
     <string name="libray_ActionBarSherlock_libraryWebsite">http://actionbarsherlock.com/</string>
     <string name="libray_ActionBarSherlock_licenseVersion">Apache Version 2.0</string>
+    <string name="libray_ActionBarSherlock_licenseLink">www.apache.org/licenses/LICENSE-2.0.html</string>
     <string name="libray_ActionBarSherlock_licenseContent">Copyright 2012 Jake Wharton
 
 		Licensed under the Apache License, Version 2.0 (the "License");
