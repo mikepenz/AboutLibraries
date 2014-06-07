@@ -11,6 +11,7 @@
     <string name="libray_FButton_libraryVersion">1.0.0</string>
     <string name="libray_FButton_libraryWebsite">https://github.com/hoang8f/android-flat-button</string>
     <string name="libray_FButton_licenseVersion">Apache Version 2.0</string>
+    <string name="libray_FButton_licenseLink">http://www.apache.org/licenses/LICENSE-2.0.html</string>
     <string name="libray_FButton_licenseContent">Copyright {2014} {Le Van Hoang}
 
         Licensed under the Apache License, Version 2.0 (the "License");

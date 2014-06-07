@@ -11,6 +11,7 @@
     <string name="libray_ShowcaseView_libraryVersion">5.0</string>
     <string name="libray_ShowcaseView_libraryWebsite">http://espiandev.github.io/ShowcaseView/</string>
     <string name="libray_ShowcaseView_licenseVersion">Apache Version 2.0</string>
+    <string name="libray_ShowcaseView_licenseLink">http://www.apache.org/licenses/LICENSE-2.0.html</string>
     <string name="libray_ShowcaseView_licenseContent">Copyright 2012 Alex Curran
 
         Licensed under the Apache License, Version 2.0 (the "License");

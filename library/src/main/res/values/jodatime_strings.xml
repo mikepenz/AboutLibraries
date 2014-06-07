@@ -9,6 +9,7 @@
     <string name="libray_jodaTime_libraryVersion">2.2</string>
     <string name="libray_jodaTime_libraryWebsite">http://joda-time.sourceforge.net/</string>
     <string name="libray_jodaTime_licenseVersion">Apache Version 2.0</string>
+    <string name="libray_jodaTime_licenseLink">http://www.apache.org/licenses/LICENSE-2.0.html</string>
     <string name="libray_jodaTime_licenseContent">
         Licensed under the Apache License, Version 2.0 (the "License");
         you may not use this file except in compliance with the License.

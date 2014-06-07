@@ -13,6 +13,7 @@
     <string name="libray_AboutLibraries_libraryVersion">1.3.0</string>
     <string name="libray_AboutLibraries_libraryWebsite">https://github.com/mikepenz/AboutLibraries</string>
     <string name="libray_AboutLibraries_licenseVersion">Apache Version 2.0</string>
+    <string name="libray_AboutLibraries_licenseLink">http://www.apache.org/licenses/LICENSE-2.0.html</string>
     <string name="libray_AboutLibraries_licenseContent">Copyright 2014 Mike Penz
 
         Licensed under the Apache License, Version 2.0 (the "License");

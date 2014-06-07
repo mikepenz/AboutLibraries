@@ -11,6 +11,7 @@
     <string name="libray_NineOldAndroids_libraryVersion">2.4.0</string>
     <string name="libray_NineOldAndroids_libraryWebsite">http://nineoldandroids.com/</string>
     <string name="libray_NineOldAndroids_licenseVersion">Apache Version 2.0</string>
+    <string name="libray_NineOldAndroids_licenseLink">http://www.apache.org/licenses/LICENSE-2.0.html</string>
     <string name="libray_NineOldAndroids_licenseContent">Copyright 2012 Jake Wharton
 
         Licensed under the Apache License, Version 2.0 (the "License");

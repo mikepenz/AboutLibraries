@@ -11,6 +11,7 @@
     <string name="libray_caldroid_libraryVersion">#57</string>
     <string name="libray_caldroid_libraryWebsite">https://github.com/roomorama/Caldroid</string>
     <string name="libray_caldroid_licenseVersion">MIT License</string>
+    <string name="libray_caldroid_licenseLink">http://opensource.org/licenses/MIT</string>
     <string name="libray_caldroid_licenseContent">Available for use under the MIT License
 
         Copyright (&#169;) 2013 by Roomorama Inc.

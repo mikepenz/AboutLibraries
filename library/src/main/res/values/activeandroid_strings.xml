@@ -9,6 +9,7 @@
     <string name="libray_ActiveAndroid_libraryVersion">#218</string>
     <string name="libray_ActiveAndroid_libraryWebsite">http://www.activeandroid.com/</string>
     <string name="libray_ActiveAndroid_licenseVersion">Apache Version 2.0</string>
+    <string name="libray_ActiveAndroid_licenseLink">http://www.apache.org/licenses/LICENSE-2.0.html</string>
     <string name="libray_ActiveAndroid_licenseContent">Copyright (&#169;) 2010 Michael Pardo
 
         Licensed under the Apache License, Version 2.0 (the "License");
