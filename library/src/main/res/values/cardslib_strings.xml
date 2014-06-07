@@ -1,0 +1,30 @@
+<resources>
+
+    <string name="define_int_cardslib"></string>
+    <string name="libray_cardslib_author">Gabriele Mariotti</string>
+    <string name="libray_cardslib_authorWebsite">https://plus.google.com/+GabrieleMariotti</string>
+    <string name="libray_cardslib_libraryName">Cardslib</string>
+    <string name="libray_cardslib_libraryDescription">Cardslib provides an easy way to display a UI Card in your Android app.
+    </string>
+    <string name="libray_cardslib_libraryVersion">1.6.0</string>
+    <string name="libray_cardslib_libraryWebsite">https://github.com/gabrielemariotti/cardslib</string>
+    <string name="libray_cardslib_licenseVersion">Apache Version 2.0</string>
+    <string name="libray_cardslib_licenseLink">http://www.apache.org/licenses/LICENSE-2.0.html</string>
+    <string name="libray_cardslib_licenseContent">Copyright 2013-2014 Gabriele Mariotti
+
+        Licensed under the Apache License, Version 2.0 (the "License");
+        you may not use this file except in compliance with the License.
+        You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+        Unless required by applicable law or agreed to in writing, software
+        distributed under the License is distributed on an "AS IS" BASIS,
+        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+        See the License for the specific language governing permissions and
+        limitations under the License.
+    </string>
+    <string name="libray_cardslib_isOpenSource">true</string>
+    <string name="libray_cardslib_repositoryLink">https://github.com/gabrielemariotti/cardslib</string>
+
+</resources>
