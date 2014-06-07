@@ -34,6 +34,11 @@ bundle.putStringArray(Libs.BUNDLE_FIELDS, Libs.toStringArray(R.string.class.getF
 //Define the libs you want (only those who don't include the information, and are managed by the AboutLibraries library) (OPTIONAL if all used libraries offer the information)
 bundle.putStringArray(Libs.BUNDLE_LIBS, new String[]{"AndroidIconify", "ActiveAndroid", "FButton", "Crouton", "HoloGraphLibrary", "ShowcaseView", "NineOldAndroids", "AndroidViewpagerIndicator"});
 
+//Display the library version (OPTIONAL)
+bundle.putBoolean(Libs.BUNDLE_VERSION, true);
+//Display the library license (OPTIONAL
+bundle.putBoolean(Libs.BUNDLE_LICENSE, true);
+
 //Create a new Fragment (you can do this whereever you want
 Fragment fragment = new LibsFragment();
 //Set the arguments
@@ -48,6 +53,11 @@ Intent i = new Intent(getApplicationContext(), LibsActivity.class);
 i.putExtra(Libs.BUNDLE_FIELDS, Libs.toStringArray(R.string.class.getFields()));
 //Define the libs you want (only those who don't include the information, and are managed by the AboutLibraries library) (OPTIONAL if all used libraries offer the information)
 i.putExtra(Libs.BUNDLE_LIBS, new String[]{"crouton", "actionbarsherlock", "showcaseview"});
+
+//Display the library version (OPTIONAL)
+i.putExtra(Libs.BUNDLE_VERSION, true);
+//Display the library license (OPTIONAL
+i.putExtra(Libs.BUNDLE_LICENSE, true);
 
 //Pass your theme (OPTIONAL)
 i.putExtra(Libs.BUNDLE_THEME, android.R.style.Theme_Holo);
