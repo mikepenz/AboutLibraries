@@ -25,8 +25,7 @@
             android:label="@string/app_name">
         </activity>
         <activity
-            android:name="com.tundem.aboutlibraries.ui.LibsActivity"
-            android:label="@string/app_name">
+            android:name="com.tundem.aboutlibraries.ui.LibsActivity">
         </activity>
     </application>
 
