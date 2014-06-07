@@ -46,9 +46,8 @@ public class LibsActivity extends FragmentActivity {
 
                 int accentColor = Color.parseColor(accentColorString);
                 int accentSecondaryColor = Color.parseColor("#88" + Integer.toHexString(accentColor).toUpperCase().substring(2));
-                int backgroundColor = Color.parseColor("#e5e5e5");
 
-                UIUtils.init(getApplicationContext(), accentColor, accentSecondaryColor, backgroundColor, true, true, true, true);
+                UIUtils.init(getApplicationContext(), accentColor, accentSecondaryColor, true, true, true, true);
 
                 if (useTranslucentDecor) {
                     UIUtils.getInstance().initActivity(this);

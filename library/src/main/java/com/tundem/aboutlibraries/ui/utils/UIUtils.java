@@ -2,8 +2,6 @@ package com.tundem.aboutlibraries.ui.utils;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.Configuration;
-import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Build;
 import android.util.TypedValue;
@@ -22,7 +20,6 @@ public class UIUtils {
     private Context c;
     private int accentColor;
     private int accentSecondaryColor;
-    private int backgroundColor;
     private boolean translucentStatusBar;
     private boolean marginStatusBar;
     private boolean translucentNavigationBar;
@@ -38,12 +35,11 @@ public class UIUtils {
         return singleton;
     }
 
-    public static UIUtils init(Context c, int accentColor, int accentSecondaryColor, int backgroundColor, boolean translucentStatusBar, boolean marginStatusBar, boolean translucentNavigationBar, boolean marginNavigationBar) {
+    public static UIUtils init(Context c, int accentColor, int accentSecondaryColor, boolean translucentStatusBar, boolean marginStatusBar, boolean translucentNavigationBar, boolean marginNavigationBar) {
         getInstance().c = c;
         getInstance().accentColor = accentColor;
         getInstance().accentSecondaryColor = accentSecondaryColor;
         getInstance().translucentStatusBar = translucentStatusBar;
-        getInstance().backgroundColor = backgroundColor;
         getInstance().marginStatusBar = marginStatusBar;
         getInstance().translucentNavigationBar = translucentNavigationBar;
         getInstance().marginNavigationBar = marginNavigationBar;
@@ -51,21 +47,6 @@ public class UIUtils {
         getInstance().initDone = true;
 
         return getInstance();
-    }
-
-    public UIUtils update(int accentColor, int accentSecondaryColor, int backgroundColor, boolean translucentStatusBar, boolean marginStatusBar, boolean translucentNavigationBar, boolean marginNavigationBar) {
-        return init(getInstance().c, accentColor, accentSecondaryColor, backgroundColor, translucentStatusBar, marginStatusBar, translucentNavigationBar, marginNavigationBar);
-    }
-
-    public UIUtils updateColors(Activity act, int accentColor) {
-        act.getWindow().getDecorView().setBackgroundColor(accentColor);
-        int accentSecondaryColor = Color.parseColor("#88" + Integer.toHexString(accentColor).toUpperCase().substring(2));
-        return init(getInstance().c, accentColor, accentSecondaryColor, getInstance().getBackgroundColor(), getInstance().translucentStatusBar, getInstance().marginStatusBar, getInstance().translucentNavigationBar, getInstance().marginNavigationBar);
-    }
-
-    public UIUtils updateColors(Activity act, int accentColor, int accentSecondaryColor, int backgroundColor) {
-        act.getWindow().getDecorView().setBackgroundColor(accentColor);
-        return init(getInstance().c, accentColor, accentSecondaryColor, backgroundColor, getInstance().translucentStatusBar, getInstance().marginStatusBar, getInstance().translucentNavigationBar, getInstance().marginNavigationBar);
     }
 
     public void initActivity(Activity act) {
@@ -82,65 +63,6 @@ public class UIUtils {
             //set translucent navigation
             act.getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         }
-    }
-
-    public void initActivity(Activity act, boolean cTranslucentStatusBar, boolean cTranslucentNavigationBar) {
-        //set background color
-        act.getWindow().getDecorView().setBackgroundColor(accentColor);
-
-        if (cTranslucentStatusBar && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            //set translucent statusBar
-            act.getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        }
-
-        if (cTranslucentNavigationBar && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            //set translucent navigation
-            act.getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-        }
-    }
-
-    public void initActivity(Activity act, int cAccentColor, boolean cTranslucentStatusBar, boolean cTranslucentNavigationBar) {
-        //set background color
-        act.getWindow().getDecorView().setBackgroundColor(cAccentColor);
-
-        if (cTranslucentStatusBar && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            //set translucent statusBar
-            act.getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        }
-
-        if (cTranslucentNavigationBar && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            //set translucent navigation
-            act.getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-        }
-    }
-
-
-    public FrameLayout.LayoutParams handleTranslucentDecorMargins(int orientation, FrameLayout.LayoutParams layoutParams) {
-        return handleTranslucentDecorMargins(orientation, layoutParams, marginStatusBar, marginNavigationBar);
-    }
-
-    public FrameLayout.LayoutParams handleTranslucentDecorMargins(int orientation, FrameLayout.LayoutParams layoutParams, boolean cMarginStatusBar, boolean cMarginNavigationBar) {
-        int statusBarHeight = 0;
-        int actionBarHeight = 0;
-        if (marginStatusBar) {
-            statusBarHeight = getStatusBarHeight();
-            actionBarHeight = getActionBarHeight();
-        }
-
-        int navigationBarHeight = 0;
-        if (marginNavigationBar) {
-            navigationBarHeight = getNavigationBarHeight();
-        }
-
-        if (layoutParams != null) {
-            if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                layoutParams.setMargins(0, actionBarHeight + statusBarHeight, 0, 0);
-            } else {
-                layoutParams.setMargins(0, actionBarHeight + statusBarHeight, 0, navigationBarHeight);
-            }
-        }
-
-        return layoutParams;
     }
 
     public FrameLayout.LayoutParams handleTranslucentDecorMargins(FrameLayout.LayoutParams layoutParams, Rect insets) {
@@ -191,10 +113,6 @@ public class UIUtils {
 
     public int getAccentSecondaryColor() {
         return accentSecondaryColor;
-    }
-
-    public int getBackgroundColor() {
-        return backgroundColor;
     }
 
     public boolean isTranslucentStatusBar() {
