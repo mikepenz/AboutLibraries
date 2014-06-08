@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources translatable="false">
 
     <string name="define_license_bsd_2"></string>
     <string name="license_bsd_2_licenseName">BSD 2-Clause License</string>
