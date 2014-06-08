@@ -143,8 +143,8 @@ public class MainActivity extends Activity {
 
             i.putExtra(Libs.BUNDLE_TITLE, "Open Source");
             i.putExtra(Libs.BUNDLE_THEME, android.R.style.Theme_Holo);
-            i.putExtra(Libs.BUNDLE_ACCENTCOLOR, "#3396E5");
-            i.putExtra(Libs.BUNDLE_TRANSLUCENTDECOR, true);
+            i.putExtra(Libs.BUNDLE_ACCENT_COLOR, "#3396E5");
+            i.putExtra(Libs.BUNDLE_TRANSLUCENT_DECOR, true);
 
             startActivity(i);
         }

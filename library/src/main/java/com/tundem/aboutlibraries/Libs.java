@@ -19,8 +19,8 @@ public class Libs {
 
     public static final String BUNDLE_THEME = "ABOUT_LIBRARIES_THEME";
     public static final String BUNDLE_TITLE = "ABOUT_LIBRARIES_TITLE";
-    public static final String BUNDLE_ACCENTCOLOR = "ABOUT_LIBRARIES_ACCENTCOLOR";
-    public static final String BUNDLE_TRANSLUCENTDECOR = "ABOUT_LIBRARIES_TRANSLUCENTDECOR";
+    public static final String BUNDLE_ACCENT_COLOR = "ABOUT_LIBRARIES_ACCENT_COLOR";
+    public static final String BUNDLE_TRANSLUCENT_DECOR = "ABOUT_LIBRARIES_TRANSLUCENT_DECOR";
 
     private static final String DEFINE_LICENSE = "define_license_";
     private static final String DEFINE_INT = "define_int_";
@@ -241,26 +241,26 @@ public class Libs {
         try {
             Library lib = new Library();
             lib.setDefinedName(libraryName);
-            lib.setAuthor(getStringResourceByName("libray_" + libraryName + "_author"));
-            lib.setAuthorWebsite(getStringResourceByName("libray_" + libraryName + "_authorWebsite"));
-            lib.setLibraryName(getStringResourceByName("libray_" + libraryName + "_libraryName"));
-            lib.setLibraryDescription(getStringResourceByName("libray_" + libraryName + "_libraryDescription"));
-            lib.setLibraryVersion(getStringResourceByName("libray_" + libraryName + "_libraryVersion"));
-            lib.setLibraryWebsite(getStringResourceByName("libray_" + libraryName + "_libraryWebsite"));
+            lib.setAuthor(getStringResourceByName("library_" + libraryName + "_author"));
+            lib.setAuthorWebsite(getStringResourceByName("library_" + libraryName + "_authorWebsite"));
+            lib.setLibraryName(getStringResourceByName("library_" + libraryName + "_libraryName"));
+            lib.setLibraryDescription(getStringResourceByName("library_" + libraryName + "_libraryDescription"));
+            lib.setLibraryVersion(getStringResourceByName("library_" + libraryName + "_libraryVersion"));
+            lib.setLibraryWebsite(getStringResourceByName("library_" + libraryName + "_libraryWebsite"));
 
-            String licenseId = getStringResourceByName("libray_" + libraryName + "_licenseId");
+            String licenseId = getStringResourceByName("library_" + libraryName + "_licenseId");
             if (TextUtils.isEmpty(licenseId)) {
                 License license = new License();
-                license.setLicenseName(getStringResourceByName("libray_" + libraryName + "_licenseVersion"));
-                license.setLicenseWebsite(getStringResourceByName("libray_" + libraryName + "_licenseLink"));
-                license.setLicenseShortDescription(getStringResourceByName("libray_" + libraryName + "_licenseContent"));
+                license.setLicenseName(getStringResourceByName("library_" + libraryName + "_licenseVersion"));
+                license.setLicenseWebsite(getStringResourceByName("library_" + libraryName + "_licenseLink"));
+                license.setLicenseShortDescription(getStringResourceByName("library_" + libraryName + "_licenseContent"));
                 lib.setLicense(license);
             } else {
                 lib.setLicense(getLicense(licenseId));
             }
 
-            lib.setOpenSource(Boolean.valueOf(getStringResourceByName("libray_" + libraryName + "_isOpenSource")));
-            lib.setRepositoryLink(getStringResourceByName("libray_" + libraryName + "_repositoryLink"));
+            lib.setOpenSource(Boolean.valueOf(getStringResourceByName("library_" + libraryName + "_isOpenSource")));
+            lib.setRepositoryLink(getStringResourceByName("library_" + libraryName + "_repositoryLink"));
             return lib;
         } catch (Exception ex) {
             Log.e("com.tundem.aboutlibraries", "Failed to generateLibrary from file: " + ex.toString());
@@ -268,7 +268,7 @@ public class Libs {
         }
     }
 
-    private String getStringResourceByName(String aString) {
+    public String getStringResourceByName(String aString) {
         String packageName = ctx.getPackageName();
 
         int resId = ctx.getResources().getIdentifier(aString, "string", packageName);

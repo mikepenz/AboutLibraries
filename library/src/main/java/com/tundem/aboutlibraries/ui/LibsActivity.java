@@ -39,8 +39,8 @@ public class LibsActivity extends FragmentActivity {
         String title = "";
         boolean usedAccentColor = false;
         if (bundle != null) {
-            String accentColorString = bundle.getString(Libs.BUNDLE_ACCENTCOLOR, "");
-            boolean useTranslucentDecor = bundle.getBoolean(Libs.BUNDLE_TRANSLUCENTDECOR, false);
+            String accentColorString = bundle.getString(Libs.BUNDLE_ACCENT_COLOR, "");
+            boolean useTranslucentDecor = bundle.getBoolean(Libs.BUNDLE_TRANSLUCENT_DECOR, false);
             title = bundle.getString(Libs.BUNDLE_TITLE, "");
 
             if (!TextUtils.isEmpty(accentColorString)) {
