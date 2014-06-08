@@ -1,9 +1,11 @@
 package com.tundem.aboutlibraries;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.tundem.aboutlibraries.entity.Library;
+import com.tundem.aboutlibraries.entity.License;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -16,9 +18,11 @@ public class Libs {
     public static final String BUNDLE_VERSION = "ABOUT_LIBRARIES_VERSION";
 
     public static final String BUNDLE_THEME = "ABOUT_LIBRARIES_THEME";
+    public static final String BUNDLE_TITLE = "ABOUT_LIBRARIES_TITLE";
     public static final String BUNDLE_ACCENTCOLOR = "ABOUT_LIBRARIES_ACCENTCOLOR";
     public static final String BUNDLE_TRANSLUCENTDECOR = "ABOUT_LIBRARIES_TRANSLUCENTDECOR";
 
+    private static final String DEFINE_LICENSE = "define_license_";
     private static final String DEFINE_INT = "define_int_";
     private static final String DEFINE_EXT = "define_";
 
@@ -27,6 +31,7 @@ public class Libs {
 
     private ArrayList<Library> internLibraries = new ArrayList<Library>();
     private ArrayList<Library> externLibraries = new ArrayList<Library>();
+    private ArrayList<License> licenses = new ArrayList<License>();
 
     private Libs() {
         String[] fields = toStringArray(R.string.class.getFields());
@@ -45,6 +50,17 @@ public class Libs {
     private void init(String[] fields) {
         if (fields != null) {
             for (int i = 0; i < fields.length; i++) {
+                if (fields[i].contains(DEFINE_LICENSE)) {
+                    License license = genLicense(fields[i].replace(DEFINE_LICENSE, ""));
+                    if (license != null) {
+                        licenses.add(license);
+                    }
+                }
+            }
+            for (int i = 0; i < fields.length; i++) {
+                if (fields[i].contains(DEFINE_LICENSE)) {
+                    continue;
+                }
                 if (fields[i].contains(DEFINE_INT)) {
                     Library library = genLibrary(fields[i].replace(DEFINE_INT, ""));
                     if (library != null) {
@@ -128,6 +144,15 @@ public class Libs {
     }
 
     /**
+     * Get all available licenses
+     *
+     * @return an ArrayLIst<License> with all available Licenses
+     */
+    public ArrayList<License> getLicenses() {
+        return new ArrayList<License>(licenses);
+    }
+
+    /**
      * Get all available Libraries
      *
      * @return an ArrayList<Library> with all available Libraries
@@ -181,6 +206,35 @@ public class Libs {
         return localLibs;
     }
 
+
+    public License getLicense(String licenseName) {
+        for (License license : getLicenses()) {
+            if (license.getLicenseName().toLowerCase().equals(licenseName.toLowerCase())) {
+                return license;
+            } else if (license.getDefinedName().toLowerCase().equals(licenseName.toLowerCase())) {
+                return license;
+            }
+        }
+        return null;
+    }
+
+    private License genLicense(String licenseName) {
+        licenseName = licenseName.replace("-", "_");
+
+        try {
+            License lic = new License();
+            lic.setDefinedName(licenseName);
+            lic.setLicenseName(getStringResourceByName("license_" + licenseName + "_licenseName"));
+            lic.setLicenseWebsite(getStringResourceByName("license_" + licenseName + "_licenseWebsite"));
+            lic.setLicenseShortDescription(getStringResourceByName("license_" + licenseName + "_licenseShortDescription"));
+            lic.setLicenseDescription(getStringResourceByName("license_" + licenseName + "_licenseDescription"));
+            return lic;
+        } catch (Exception ex) {
+            Log.e("com.tundem.aboutlibraries", "Failed to generateLicense from file: " + ex.toString());
+            return null;
+        }
+    }
+
     private Library genLibrary(String libraryName) {
         libraryName = libraryName.replace("-", "_");
 
@@ -193,9 +247,18 @@ public class Libs {
             lib.setLibraryDescription(getStringResourceByName("libray_" + libraryName + "_libraryDescription"));
             lib.setLibraryVersion(getStringResourceByName("libray_" + libraryName + "_libraryVersion"));
             lib.setLibraryWebsite(getStringResourceByName("libray_" + libraryName + "_libraryWebsite"));
-            lib.setLicenseVersion(getStringResourceByName("libray_" + libraryName + "_licenseVersion"));
-            lib.setLicenseLink(getStringResourceByName("libray_" + libraryName + "_licenseLink"));
-            lib.setLicenseContent(getStringResourceByName("libray_" + libraryName + "_licenseContent"));
+
+            String licenseId = getStringResourceByName("libray_" + libraryName + "_licenseId");
+            if (TextUtils.isEmpty(licenseId)) {
+                License license = new License();
+                license.setLicenseName(getStringResourceByName("libray_" + libraryName + "_licenseVersion"));
+                license.setLicenseWebsite(getStringResourceByName("libray_" + libraryName + "_licenseLink"));
+                license.setLicenseShortDescription(getStringResourceByName("libray_" + libraryName + "_licenseContent"));
+                lib.setLicense(license);
+            } else {
+                lib.setLicense(getLicense(licenseId));
+            }
+
             lib.setOpenSource(Boolean.valueOf(getStringResourceByName("libray_" + libraryName + "_isOpenSource")));
             lib.setRepositoryLink(getStringResourceByName("libray_" + libraryName + "_repositoryLink"));
             return lib;

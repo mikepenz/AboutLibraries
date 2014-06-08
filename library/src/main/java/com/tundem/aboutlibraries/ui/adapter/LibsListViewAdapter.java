@@ -77,7 +77,7 @@ public class LibsListViewAdapter extends BaseAdapter {
         holder.libraryDescription.setText(library.getLibraryDescription());
 
         //Set License or Version Text
-        if (TextUtils.isEmpty(library.getLibraryVersion()) && TextUtils.isEmpty(library.getLicenseVersion()) || (!showVersion && !showLicense)) {
+        if (TextUtils.isEmpty(library.getLibraryVersion()) && library.getLicense() != null && TextUtils.isEmpty(library.getLicense().getLicenseName()) || (!showVersion && !showLicense)) {
             holder.libraryBottomDivider.setVisibility(View.GONE);
             holder.libraryBottomContainer.setVisibility(View.GONE);
         } else {
@@ -87,8 +87,8 @@ public class LibsListViewAdapter extends BaseAdapter {
             if (!TextUtils.isEmpty(library.getLibraryVersion()) && showVersion) {
                 holder.libraryVersion.setText(library.getLibraryVersion());
             }
-            if (!TextUtils.isEmpty(library.getLicenseVersion()) && showLicense) {
-                holder.libraryLicense.setText(library.getLicenseVersion());
+            if (library.getLicense() != null && !TextUtils.isEmpty(library.getLicense().getLicenseName()) && showLicense) {
+                holder.libraryLicense.setText(library.getLicense().getLicenseName());
             }
         }
 
@@ -119,12 +119,12 @@ public class LibsListViewAdapter extends BaseAdapter {
             });
         }
 
-        if (!TextUtils.isEmpty((library.getLicenseLink()))) {
+        if (library.getLicense() != null && !TextUtils.isEmpty((library.getLicense().getLicenseWebsite()))) {
             holder.libraryBottomContainer.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     try {
-                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(library.getLicenseLink()));
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(library.getLicense().getLicenseWebsite()));
                         parent.getContext().startActivity(browserIntent);
                     } catch (Exception ex) {
                     }

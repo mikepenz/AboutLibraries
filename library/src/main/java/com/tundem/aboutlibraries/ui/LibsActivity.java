@@ -36,10 +36,12 @@ public class LibsActivity extends FragmentActivity {
 
         setContentView(R.layout.activity_opensource);
 
+        String title = "";
         boolean usedAccentColor = false;
         if (bundle != null) {
             String accentColorString = bundle.getString(Libs.BUNDLE_ACCENTCOLOR, "");
             boolean useTranslucentDecor = bundle.getBoolean(Libs.BUNDLE_TRANSLUCENTDECOR, false);
+            title = bundle.getString(Libs.BUNDLE_TITLE, "");
 
             if (!TextUtils.isEmpty(accentColorString)) {
                 usedAccentColor = true;
@@ -73,7 +75,15 @@ public class LibsActivity extends FragmentActivity {
                 ab.setBackgroundDrawable(null);
             }
             ab.setDisplayHomeAsUpEnabled(true);
-            ab.setDisplayShowTitleEnabled(false);
+
+            if (TextUtils.isEmpty(title)) {
+                ab.setDisplayShowTitleEnabled(false);
+            } else {
+                ab.setDisplayShowTitleEnabled(true);
+                ab.setTitle(title);
+            }
+
+
             ab.setDisplayUseLogoEnabled(true);
         }
 

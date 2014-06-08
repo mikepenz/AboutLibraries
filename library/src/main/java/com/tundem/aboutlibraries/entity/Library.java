@@ -12,9 +12,7 @@ public class Library {
     private String libraryDescription = "";
     private String libraryVersion = "";
     private String libraryWebsite = "";
-    private String licenseVersion = "";
-    private String licenseLink = "";
-    private String licenseContent = "";
+    private License license;
 
     private boolean isOpenSource = true;
     private String repositoryLink = "";
@@ -34,40 +32,6 @@ public class Library {
         this.libraryName = libraryName;
         this.libraryDescription = libraryDescription;
         this.libraryVersion = libraryVersion;
-    }
-
-    public Library(String author, String libraryName, String libraryDescription, String libraryVersion, String licenseVersion, String licenseContent) {
-        this.author = author;
-        this.libraryName = libraryName;
-        this.libraryDescription = libraryDescription;
-        this.libraryVersion = libraryVersion;
-        this.licenseVersion = licenseVersion;
-        this.licenseContent = licenseContent;
-    }
-
-    public Library(String author, String authorWebsite, String libraryName, String libraryDescription, String libraryVersion, String libraryWebsite, String licenseVersion, String licenseContent) {
-        this.author = author;
-        this.authorWebsite = authorWebsite;
-        this.libraryName = libraryName;
-        this.libraryDescription = libraryDescription;
-        this.libraryVersion = libraryVersion;
-        this.libraryWebsite = libraryWebsite;
-        this.licenseVersion = licenseVersion;
-        this.licenseContent = licenseContent;
-    }
-
-    public Library(String author, String authorWebsite, String libraryName, String libraryDescription, String libraryVersion, String libraryWebsite, String licenseVersion, String licenseContent,
-                   boolean isOpenSource, String repositoryLink) {
-        this.author = author;
-        this.authorWebsite = authorWebsite;
-        this.libraryName = libraryName;
-        this.libraryDescription = libraryDescription;
-        this.libraryVersion = libraryVersion;
-        this.libraryWebsite = libraryWebsite;
-        this.licenseVersion = licenseVersion;
-        this.licenseContent = licenseContent;
-        this.isOpenSource = isOpenSource;
-        this.repositoryLink = repositoryLink;
     }
 
     public String getDefinedName() {
@@ -126,28 +90,12 @@ public class Library {
         this.libraryWebsite = libraryWebsite;
     }
 
-    public String getLicenseVersion() {
-        return licenseVersion;
+    public License getLicense() {
+        return license;
     }
 
-    public void setLicenseVersion(String licenseVersion) {
-        this.licenseVersion = licenseVersion;
-    }
-
-    public String getLicenseLink() {
-        return licenseLink;
-    }
-
-    public void setLicenseLink(String licenseLink) {
-        this.licenseLink = licenseLink;
-    }
-
-    public String getLicenseContent() {
-        return licenseContent;
-    }
-
-    public void setLicenseContent(String licenseContent) {
-        this.licenseContent = licenseContent;
+    public void setLicense(License license) {
+        this.license = license;
     }
 
     public boolean isOpenSource() {
