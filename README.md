@@ -84,7 +84,6 @@ startActivity(i);
 ```
 
 ###Custom
-------------
 Use the Library class and build your view on-your-own
 
 The preferred method to get a Libs instance is by passing the string-field-array
@@ -97,6 +96,20 @@ Now you can use the instance to get the information
 libs.getLibrary("ActionBarSherlock")
 ```
 done.
+
+
+##Small extra
+For those who read the whole REAME here's one more thing.
+You can also use the AboutLibraries activity as "about this app" screen. You ask how?
+Yeah pretty simple just add the following .xml file (or just the strings (the key must be the same)) to your project.
+
+```xml
+<resources>
+    <string name="aboutLibraries_description_showIcon">true</string>
+    <string name="aboutLibraries_description_showVersion">true</string>
+    <string name="aboutLibraries_description_text">Place your description here :D</string>
+</resources>
+```
 
 
 ##Including in your library
