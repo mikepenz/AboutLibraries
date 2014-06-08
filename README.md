@@ -62,6 +62,9 @@ i.putExtra(Libs.BUNDLE_VERSION, true);
 //Display the library license (OPTIONAL
 i.putExtra(Libs.BUNDLE_LICENSE, true);
 
+//Set a title (OPTIONAL)
+i.putExtra(Libs.BUNDLE_TITLE, "Open Source");
+
 //Pass your theme (OPTIONAL)
 i.putExtra(Libs.BUNDLE_THEME, android.R.style.Theme_Holo);
 //Pass a custom Accentcolor (OPTIONAL)
@@ -105,7 +108,8 @@ You can also find a sample in one of my other open source projects here: [LINK](
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <!-- If you include it in your own library use this pattern: define_* -->
+    <!-- If it should be included in the AboutLibraries lib use this pattern: define_int_* -->
     <string name="define_ActionBarSherlock"></string>
     <string name="libray_ActionBarSherlock_author">Jake Wharton</string>
     <string name="libray_ActionBarSherlock_authorWebsite">http://jakewharton.com/</string>
@@ -113,24 +117,12 @@ You can also find a sample in one of my other open source projects here: [LINK](
     <string name="libray_ActionBarSherlock_libraryDescription">ActionBarSherlock is an standalone library designed to facilitate the use of the action bar design pattern across all versions of Android through a single API.</string>
     <string name="libray_ActionBarSherlock_libraryVersion">4.3.1</string>
     <string name="libray_ActionBarSherlock_libraryWebsite">http://actionbarsherlock.com/</string>
-    <string name="libray_ActionBarSherlock_licenseVersion">Apache Version 2.0</string>
-    <string name="libray_ActionBarSherlock_licenseLink">www.apache.org/licenses/LICENSE-2.0.html</string>
-    <string name="libray_ActionBarSherlock_licenseContent">Copyright 2012 Jake Wharton
-
-		Licensed under the Apache License, Version 2.0 (the "License");
-		you may not use this file except in compliance with the License.
-		You may obtain a copy of the License at
-		
-		   http://www.apache.org/licenses/LICENSE-2.0
-		
-		Unless required by applicable law or agreed to in writing, software
-		distributed under the License is distributed on an "AS IS" BASIS,
-		WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-		See the License for the specific language governing permissions and
-		limitations under the License.</string>
+    <!-- Possible values right now: apache_2_0, mit, bsd_2, bsd_3 -->
+    <string name="libray_ActionBarSherlock_licenseId">apache_2_0</string>
+    <!-- you still can define the license within your library definition, but it is recommend to use the id -->
+    <!-- possible fields for a custom license: *_licenseVersion, *_licenseLink, *_licenseContent -->
     <string name="libray_ActionBarSherlock_isOpenSource">true</string>
     <string name="libray_ActionBarSherlock_repositoryLink">https://github.com/JakeWharton/ActionBarSherlock</string>
-
 </resources>
 ```
 
