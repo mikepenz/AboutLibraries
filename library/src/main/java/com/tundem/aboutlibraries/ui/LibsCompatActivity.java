@@ -1,13 +1,11 @@
 package com.tundem.aboutlibraries.ui;
 
-import android.annotation.TargetApi;
-import android.app.ActionBar;
 import android.graphics.Color;
 import android.graphics.Rect;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
@@ -20,16 +18,11 @@ import com.tundem.aboutlibraries.ui.view.DrawInsetsFrameLayout;
 /**
  * Created by mikepenz on 04.06.14.
  */
-public class LibsActivity extends FragmentActivity {
+public class LibsCompatActivity extends ActionBarActivity {
 
     @Override
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (Build.VERSION.SDK_INT < 11) {
-            throw new IllegalStateException("Please use the LibsCompatActivity for pre api level 11 applications");
-        }
 
         boolean customTheme = false;
         Bundle bundle = getIntent().getExtras();
@@ -72,10 +65,11 @@ public class LibsActivity extends FragmentActivity {
             }
         }
 
+
         LibsFragment fragment = new LibsFragment();
         fragment.setArguments(bundle);
 
-        ActionBar ab = getActionBar();
+        ActionBar ab = getSupportActionBar();
         if (ab != null) {
             if (!customTheme && usedAccentColor) {
                 ab.setBackgroundDrawable(null);
@@ -89,6 +83,7 @@ public class LibsActivity extends FragmentActivity {
                 ab.setTitle(title);
             }
 
+
             ab.setDisplayUseLogoEnabled(true);
         }
 
@@ -100,7 +95,7 @@ public class LibsActivity extends FragmentActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home: {
-                LibsActivity.this.finish();
+                LibsCompatActivity.this.finish();
                 return true;
             }
             default:
