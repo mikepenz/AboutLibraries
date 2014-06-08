@@ -8,6 +8,11 @@ Most modern apps feature an "Used Library"-Section and for this some information
 The description files should be included in the specific libraries (as far as possible) so the AboutLibraries library can take care about which libs to show. If a library contains the description file, the lib will auto-detect this file and will auto-show this library. You can find more details in the *Contribute* section of this README.
 
 
+#Wiki
+You can find all required information (in a structured format) in the wiki.
+
+[Bring me to the wiki](https://github.com/mikepenz/AboutLibraries/wiki)
+
 ##Include in your project
 ###Using Maven
 The AboutLibraries Library is pushed to [Maven Central], so you just need to add the following dependency to your `build.gradle`.
