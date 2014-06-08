@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="secondgrey_opensource">#ff999999</color>
-    <color name="cardwhite_opensource">#ffffffff</color>
-    <color name="cardshadow_opensource">#8c666666</color>
+    <color name="secondGrey_openSource">#ff999999</color>
+    <color name="cardWhite_openSource">#ffffffff</color>
+    <color name="cardShadow_openSource">#8c666666</color>
+
+    <color name="listBackground_openSource">#e5e5e5</color>
+
+    <color name="title_openSource">#000</color>
+    <color name="text_openSource">#101010</color>
+
+    <color name="dividerDark_openSource">#AAA</color>
+    <color name="dividerLight_openSource">#EEE</color>
 </resources>

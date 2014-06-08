@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="card_padding_opensource">12dp</dimen>
+    <dimen name="card_padding_openSource">12dp</dimen>
+
+    <dimen name="aboutImage_openSource">72dp</dimen>
+
+    <dimen name="textSizeLarge_openSource">24sp</dimen>
+    <dimen name="textSizeSmall_openSource">14sp</dimen>
 </resources>

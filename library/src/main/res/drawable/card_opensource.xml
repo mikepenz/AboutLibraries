@@ -3,7 +3,7 @@
 
     <item>
         <shape android:shape="rectangle">
-            <solid android:color="@color/secondgrey_opensource"/>
+            <solid android:color="@color/secondGrey_openSource"/>
         </shape>
     </item>
     <item
@@ -14,7 +14,7 @@
         <shape android:shape="rectangle">
             <corners android:radius="3dp"/>
 
-            <solid android:color="@color/cardshadow_opensource"/>
+            <solid android:color="@color/cardShadow_openSource"/>
         </shape>
     </item>
     <item
@@ -25,7 +25,7 @@
         <shape android:shape="rectangle">
             <corners android:radius="3dp"/>
 
-            <solid android:color="@color/cardwhite_opensource"/>
+            <solid android:color="@color/cardWhite_openSource"/>
         </shape>
     </item>
 </layer-list>
