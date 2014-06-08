@@ -14,7 +14,7 @@ The AboutLibraries Library is pushed to [Maven Central], so you just need to add
 
 ```javascript
 dependencies {
-	compile 'com.tundem.aboutlibraries:library:1.4.0@aar'
+	compile 'com.tundem.aboutlibraries:library:1.5.0@aar'
 }
 ```
 
