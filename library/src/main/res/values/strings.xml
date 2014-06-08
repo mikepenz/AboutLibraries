@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">AboutlLibraries</string>
+    <string name="version">Version</string>
 </resources>

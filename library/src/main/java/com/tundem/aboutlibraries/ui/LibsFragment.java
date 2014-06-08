@@ -1,12 +1,18 @@
 package com.tundem.aboutlibraries.ui;
 
 import android.app.Activity;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.tundem.aboutlibraries.Libs;
 import com.tundem.aboutlibraries.R;
@@ -24,8 +30,12 @@ public class LibsFragment extends Fragment {
     private ListView listView;
     private ArrayList<Library> libraries;
 
-    boolean showLicense = false;
-    boolean showVersion = false;
+    private boolean showLicense = false;
+    private boolean showVersion = false;
+
+    private Boolean aboutShowIcon = null;
+    private Boolean aboutShowVersion = null;
+    private String aboutDescription = "";
 
     /**
      * Default Constructor
@@ -69,6 +79,24 @@ public class LibsFragment extends Fragment {
                 }
             }
         }
+
+        //The last step is to look if we would love to show some about text for this project
+        String descriptionShowIcon = libs.getStringResourceByName("aboutLibraries_description_showIcon");
+        if (!TextUtils.isEmpty(descriptionShowIcon)) {
+            try {
+                aboutShowIcon = Boolean.parseBoolean(descriptionShowIcon);
+            } catch (Exception ex) {
+            }
+        }
+        String descriptionShowVersion = libs.getStringResourceByName("aboutLibraries_description_showVersion");
+        if (!TextUtils.isEmpty(descriptionShowIcon)) {
+            try {
+                aboutShowVersion = Boolean.parseBoolean(descriptionShowVersion);
+            } catch (Exception ex) {
+            }
+        }
+
+        aboutDescription = libs.getStringResourceByName("aboutLibraries_description_text");
     }
 
     @Override
@@ -83,7 +111,65 @@ public class LibsFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+        generateAboutThisAppSection();
+
         listView.setAdapter(new LibsListViewAdapter(getActivity(), libraries, showLicense, showVersion));
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    private void generateAboutThisAppSection() {
+        if (aboutShowIcon != null && aboutShowVersion != null) {
+            View headerView = getActivity().getLayoutInflater().inflate(R.layout.listheader_opensource, null);
+
+            //get the about this app views
+            ImageView aboutIcon = (ImageView) headerView.findViewById(R.id.aboutIcon);
+            TextView aboutVersion = (TextView) headerView.findViewById(R.id.aboutVersion);
+            View aboutDivider = headerView.findViewById(R.id.aboutDivider);
+            TextView aboutAppDescription = (TextView) headerView.findViewById(R.id.aboutDescription);
+
+            //get the packageManager to load and read some values :D
+            PackageManager pm = getActivity().getPackageManager();
+            //get the packageName
+            String packageName = getActivity().getPackageName();
+            //Try to load the applicationInfo
+            ApplicationInfo appInfo = null;
+            PackageInfo packageInfo = null;
+            try {
+                appInfo = pm.getApplicationInfo(packageName, 0);
+                packageInfo = pm.getPackageInfo(packageName, 0);
+            } catch (Exception ex) {
+            }
+
+            //Set the Icon or hide it
+            if (aboutShowIcon && appInfo != null) {
+                aboutIcon.setImageDrawable(appInfo.loadIcon(pm));
+            } else {
+                aboutIcon.setVisibility(View.GONE);
+            }
+
+            //set the Version or hide it
+            if (aboutShowVersion && packageInfo != null) {
+                String versionName = packageInfo.versionName;
+                int versionCode = packageInfo.versionCode;
+                aboutVersion.setText(getString(R.string.version) + " " + versionName + " (" + versionCode + ")");
+            } else {
+                aboutVersion.setVisibility(View.GONE);
+            }
+
+            //Set the description or hide it
+            if (!TextUtils.isEmpty(aboutDescription)) {
+                aboutAppDescription.setText(aboutDescription);
+            } else {
+                aboutAppDescription.setVisibility(View.GONE);
+            }
+
+            //if there is no description or no icon and version number hide the divider
+            if (!aboutShowIcon && !aboutShowVersion || TextUtils.isEmpty(aboutDescription)) {
+                aboutDivider.setVisibility(View.GONE);
+            }
+
+            //add this cool thing to the headerView of our listView
+            listView.addHeaderView(headerView, null, false);
+        }
     }
 }
