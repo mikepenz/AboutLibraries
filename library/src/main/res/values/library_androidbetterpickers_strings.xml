@@ -2,16 +2,16 @@
 <resources>
 
     <string name="define_int_androidBetterpickers"></string>
-    <string name="libray_androidBetterpickers_author">Derek Brameyer</string>
-    <string name="libray_androidBetterpickers_authorWebsite">https://github.com/derekbrameyer</string>
-    <string name="libray_androidBetterpickers_libraryName">BetterPickers</string>
-    <string name="libray_androidBetterpickers_libraryDescription">DialogFragments modeled after the 4.2 Alarm Clock TimePicker to improve UX for picking time,
+    <string name="library_androidBetterpickers_author">Derek Brameyer</string>
+    <string name="library_androidBetterpickers_authorWebsite">https://github.com/derekbrameyer</string>
+    <string name="library_androidBetterpickers_libraryName">BetterPickers</string>
+    <string name="library_androidBetterpickers_libraryDescription">DialogFragments modeled after the 4.2 Alarm Clock TimePicker to improve UX for picking time,
         date, and numbers.
     </string>
-    <string name="libray_androidBetterpickers_libraryVersion">1.5.2</string>
-    <string name="libray_androidBetterpickers_libraryWebsite">https://github.com/derekbrameyer/android-betterpickers</string>
-    <string name="libray_androidBetterpickers_licenseId">apache_2_0</string>
-    <string name="libray_androidBetterpickers_isOpenSource">true</string>
-    <string name="libray_androidBetterpickers_repositoryLink">https://github.com/derekbrameyer/android-betterpickers</string>
+    <string name="library_androidBetterpickers_libraryVersion">1.5.2</string>
+    <string name="library_androidBetterpickers_libraryWebsite">https://github.com/derekbrameyer/android-betterpickers</string>
+    <string name="library_androidBetterpickers_licenseId">apache_2_0</string>
+    <string name="library_androidBetterpickers_isOpenSource">true</string>
+    <string name="library_androidBetterpickers_repositoryLink">https://github.com/derekbrameyer/android-betterpickers</string>
 
 </resources>

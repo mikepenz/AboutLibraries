@@ -2,16 +2,16 @@
 <resources>
 
     <string name="define_int_FButton"></string>
-    <string name="libray_FButton_author">Le Van Hoang</string>
-    <string name="libray_FButton_authorWebsite">https://github.com/hoang8f</string>
-    <string name="libray_FButton_libraryName">FButton</string>
-    <string name="libray_FButton_libraryDescription">FButton is a custom Button of Android with Flat UI concept. FButton\'s design get inspiration from
+    <string name="library_FButton_author">Le Van Hoang</string>
+    <string name="library_FButton_authorWebsite">https://github.com/hoang8f</string>
+    <string name="library_FButton_libraryName">FButton</string>
+    <string name="library_FButton_libraryDescription">FButton is a custom Button of Android with Flat UI concept. FButton\'s design get inspiration from
         designmono. This library is very small and highly customizable.
     </string>
-    <string name="libray_FButton_libraryVersion">1.0.0</string>
-    <string name="libray_FButton_libraryWebsite">https://github.com/hoang8f/android-flat-button</string>
-    <string name="libray_FButton_licenseId">apache_2_0</string>
-    <string name="libray_FButton_isOpenSource">true</string>
-    <string name="libray_FButton_repositoryLink">https://github.com/hoang8f/android-flat-button</string>
+    <string name="library_FButton_libraryVersion">1.0.0</string>
+    <string name="library_FButton_libraryWebsite">https://github.com/hoang8f/android-flat-button</string>
+    <string name="library_FButton_licenseId">apache_2_0</string>
+    <string name="library_FButton_isOpenSource">true</string>
+    <string name="library_FButton_repositoryLink">https://github.com/hoang8f/android-flat-button</string>
 
 </resources>
