@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="define_int_ShowcaseView"></string>
+    <string name="libray_ShowcaseView_author">Alex Curran</string>
+    <string name="libray_ShowcaseView_authorWebsite">https://github.com/amlcurran</string>
+    <string name="libray_ShowcaseView_libraryName">ShowcaseView</string>
+    <string name="libray_ShowcaseView_libraryDescription">The ShowcaseView library is designed to highlight and showcase specific parts of apps to the user with
+        a distinctive and attractive overlay. This library is great for pointing out points of interest for users, gestures, or obscure but useful items.
+    </string>
+    <string name="libray_ShowcaseView_libraryVersion">5.0</string>
+    <string name="libray_ShowcaseView_libraryWebsite">http://amlcurran.github.io/ShowcaseView/</string>
+    <string name="libray_ShowcaseView_licenseId">mit</string>
+    <string name="libray_ShowcaseView_isOpenSource">true</string>
+    <string name="libray_ShowcaseView_repositoryLink">https://github.com/amlcurran/ShowcaseView</string>
+
+</resources>

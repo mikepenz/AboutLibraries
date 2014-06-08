@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="define_int_ActiveAndroid"></string>
+    <string name="libray_ActiveAndroid_author">Michael Pardo</string>
+    <string name="libray_ActiveAndroid_authorWebsite">http://www.michaelpardo.com</string>
+    <string name="libray_ActiveAndroid_libraryName">ActiveAndroid</string>
+    <string name="libray_ActiveAndroid_libraryDescription">ActiveAndroid is an active record style ORM (object relational mapper).</string>
+    <string name="libray_ActiveAndroid_libraryVersion">#218</string>
+    <string name="libray_ActiveAndroid_libraryWebsite">http://www.activeandroid.com/</string>
+    <string name="libray_ActiveAndroid_licenseId">apache_2_0</string>
+    <string name="libray_ActiveAndroid_isOpenSource">true</string>
+    <string name="libray_ActiveAndroid_repositoryLink">https://github.com/pardom/ActiveAndroid</string>
+
+</resources>
