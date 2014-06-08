@@ -5,7 +5,7 @@ AboutLibraries is a library to offer you all the information you need of your li
 Most modern apps feature an "Used Library"-Section and for this some information of those libs is required. As it gets annoying to copy those strings always to your app I've developed this small helper library to provide the required information.
 
 ######Note:
-The description files should be included in the specific libraries (as far as possible) so the AboutLibraries library can take care about which libs to show. If a library contains the description file, the lib will auto-detect this file and will auto-show this library. You can fien more details in the *Contribute* section of this README.
+The description files should be included in the specific libraries (as far as possible) so the AboutLibraries library can take care about which libs to show. If a library contains the description file, the lib will auto-detect this file and will auto-show this library. You can find more details in the *Contribute* section of this README.
 
 
 ##Include in your project
@@ -14,7 +14,7 @@ The AboutLibraries Library is pushed to [Maven Central], so you just need to add
 
 ```javascript
 dependencies {
-	compile 'com.tundem.aboutlibraries:library:1.5.0@aar'
+	compile 'com.tundem.aboutlibraries:library:2.0.0@aar'
 }
 ```
 
@@ -42,7 +42,7 @@ bundle.putBoolean(Libs.BUNDLE_VERSION, true);
 //Display the library license (OPTIONAL
 bundle.putBoolean(Libs.BUNDLE_LICENSE, true);
 
-//Create a new Fragment (you can do this whereever you want
+//Create a new Fragment (you can do this where ever you want
 Fragment fragment = new LibsFragment();
 //Set the arguments
 fragment.setArguments(bundle);
@@ -67,10 +67,10 @@ i.putExtra(Libs.BUNDLE_TITLE, "Open Source");
 
 //Pass your theme (OPTIONAL)
 i.putExtra(Libs.BUNDLE_THEME, android.R.style.Theme_Holo);
-//Pass a custom Accentcolor (OPTIONAL)
-i.putExtra(Libs.BUNDLE_ACCENTCOLOR, "#3396E5");
-//Pass the information if it should use the Translucent decor (OPTIONAL) -> requires ACCENTCOLOR
-i.putExtra(Libs.BUNDLE_TRANSLUCENTDECOR, true);
+//Pass a custom accent color (OPTIONAL)
+i.putExtra(Libs.BUNDLE_ACCENT_COLOR, "#3396E5");
+//Pass the information if it should use the Translucent decor (OPTIONAL) -> requires ACCENT_COLOR
+i.putExtra(Libs.BUNDLE_TRANSLUCENT_DECOR, true);
 
 //start the activity
 startActivity(i);
@@ -87,7 +87,7 @@ startActivity(i);
 ------------
 Use the Library class and build your view on-your-own
 
-The prefered method to get a Libs instance is by passing the string-field-array
+The preferred method to get a Libs instance is by passing the string-field-array
 ```java
 Libs libs = Libs.getInstance(getActivity(), R.string.class.getFields());
 ```
@@ -111,24 +111,24 @@ You can also find a sample in one of my other open source projects here: [LINK](
     <!-- If you include it in your own library use this pattern: define_* -->
     <!-- If it should be included in the AboutLibraries lib use this pattern: define_int_* -->
     <string name="define_ActionBarSherlock"></string>
-    <string name="libray_ActionBarSherlock_author">Jake Wharton</string>
-    <string name="libray_ActionBarSherlock_authorWebsite">http://jakewharton.com/</string>
-    <string name="libray_ActionBarSherlock_libraryName">ActionBarSherlock</string>
-    <string name="libray_ActionBarSherlock_libraryDescription">ActionBarSherlock is an standalone library designed to facilitate the use of the action bar design pattern across all versions of Android through a single API.</string>
-    <string name="libray_ActionBarSherlock_libraryVersion">4.3.1</string>
-    <string name="libray_ActionBarSherlock_libraryWebsite">http://actionbarsherlock.com/</string>
+    <string name="library_ActionBarSherlock_author">Jake Wharton</string>
+    <string name="library_ActionBarSherlock_authorWebsite">http://jakewharton.com/</string>
+    <string name="library_ActionBarSherlock_libraryName">ActionBarSherlock</string>
+    <string name="library_ActionBarSherlock_libraryDescription">ActionBarSherlock is an standalone library designed to facilitate the use of the action bar design pattern across all versions of Android through a single API.</string>
+    <string name="library_ActionBarSherlock_libraryVersion">4.3.1</string>
+    <string name="library_ActionBarSherlock_libraryWebsite">http://actionbarsherlock.com/</string>
     <!-- Possible values right now: apache_2_0, mit, bsd_2, bsd_3 -->
-    <string name="libray_ActionBarSherlock_licenseId">apache_2_0</string>
+    <string name="library_ActionBarSherlock_licenseId">apache_2_0</string>
     <!-- you still can define the license within your library definition, but it is recommend to use the id -->
     <!-- possible fields for a custom license: *_licenseVersion, *_licenseLink, *_licenseContent -->
-    <string name="libray_ActionBarSherlock_isOpenSource">true</string>
-    <string name="libray_ActionBarSherlock_repositoryLink">https://github.com/JakeWharton/ActionBarSherlock</string>
+    <string name="library_ActionBarSherlock_isOpenSource">true</string>
+    <string name="library_ActionBarSherlock_repositoryLink">https://github.com/JakeWharton/ActionBarSherlock</string>
 </resources>
 ```
 
 
 ##Contribute
-You can contribute by creating an informationfile for a new library, and make a pull-request at the creators git repository. If he doesn't include the information file in his repo, or if the library isn't maintained anymore you can create a pull-request here.
+You can contribute by creating an information file for a new library, and make a pull-request at the creators git repository. If he doesn't include the information file in his repo, or if the library isn't maintained anymore you can create a pull-request here.
 
 Please remind that if you make a pull-request here, that you have to change the *define_* string to *define_int_*. It is also very important that the *_strings.xml* has an unique filename (it should be named *{libraryidentifier}_strings.xml*
 
