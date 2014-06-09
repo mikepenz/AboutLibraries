@@ -261,6 +261,11 @@ public class Libs {
 
             lib.setOpenSource(Boolean.valueOf(getStringResourceByName("library_" + libraryName + "_isOpenSource")));
             lib.setRepositoryLink(getStringResourceByName("library_" + libraryName + "_repositoryLink"));
+
+            if (TextUtils.isEmpty(lib.getLibraryName()) && TextUtils.isEmpty(lib.getLibraryDescription())) {
+                return null;
+            }
+
             return lib;
         } catch (Exception ex) {
             Log.e("com.tundem.aboutlibraries", "Failed to generateLibrary from file: " + ex.toString());
