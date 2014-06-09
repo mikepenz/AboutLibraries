@@ -13,6 +13,11 @@ You can find all required information (in a structured format) in the wiki.
 
 [Bring me to the wiki](https://github.com/mikepenz/AboutLibraries/wiki)
 
+It also contains a complete list of all supported libraries. Updated as soon as new libs are added.
+Please let me know i you include the definition file in your library. Thanks.
+
+[Here's a complete list](https://github.com/mikepenz/AboutLibraries/wiki/Compatible-Libs)
+
 ##Include in your project
 ###Using Maven
 The AboutLibraries Library is pushed to [Maven Central], so you just need to add the following dependency to your `build.gradle`.
@@ -151,8 +156,12 @@ You can contribute by creating an information file for a new library, and make a
 Please remind that if you make a pull-request here, that you have to change the *define_* string to *define_int_*. It is also very important that the *_strings.xml* has an unique filename (it should be named *{libraryidentifier}_strings.xml*
 
 
-##Contributors
-Moddus
+##Already in use in following apps
+(feel free to send me new projects)
+
+[Numbers](https://play.google.com/store/apps/details?id=com.tundem.numbersreloaded.free)
+
+[MegaYatzy](https://play.google.com/store/apps/details?id=com.tundem.yatzyTJ)
 
 
 
