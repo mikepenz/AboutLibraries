@@ -13,6 +13,11 @@ You can find all required information (in a structured format) in the wiki.
 
 [Bring me to the wiki](https://github.com/mikepenz/AboutLibraries/wiki)
 
+It also contains a complete list of all supported libraries. Updated as soon as new libs are added.
+Please let me know i you include the definition file in your library. Thanks.
+
+[Here's a complete list](https://github.com/mikepenz/AboutLibraries/wiki/Compatible-Libs)
+
 ##Include in your project
 ###Using Maven
 The AboutLibraries Library is pushed to [Maven Central], so you just need to add the following dependency to your `build.gradle`.
