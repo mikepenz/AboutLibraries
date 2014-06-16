@@ -22,8 +22,8 @@ Please let me know i you include the definition file in your library. Thanks.
 
 
 #Screenshots
-![Image](/DEV/screenshots/screenshot1.png?raw=true)
-![Image](/DEV/screenshots/screenshot2.png?raw=true)
+![Image](../blob/master/DEV/screenshots/screenshot1.png?raw=true)
+![Image](../blob/master/DEV/screenshots/screenshot2.png?raw=true)
 
 ##Include in your project
 ###Using Maven
