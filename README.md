@@ -31,11 +31,13 @@ The AboutLibraries Library is pushed to [Maven Central], so you just need to add
 
 ```javascript
 dependencies {
-	compile 'com.tundem.aboutlibraries:library:2.0.2@aar'
+	compile 'com.tundem.aboutlibraries:library:2.0.3@aar'
 }
 ```
 
-The project is deployed to the snapshot repository so you need to add the following maven repo if you haven't already:
+The project is now deployed to the main central maven. So for all main versions no extra step is required.
+
+For the hackers here. If there are snapshot releases (i think they are equal to beta software) you have to add the following to your `build.gradle`. It is also required to use the specific SNAPSHOT version. (Right now the newest release is the above mentioned version 2.0.3)
 
 ```javascript
 maven { 
