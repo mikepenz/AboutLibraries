@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="define_int_Retrofit"></string>
+    <string name="library_Retrofit_author">Square</string>
+    <string name="library_Retrofit_libraryName">Retrofit</string>
+    <string name="library_Retrofit_libraryDescription">A type-safe REST client for Android and Java.
+    </string>
+    <string name="library_Retrofit_libraryVersion">1.5.0</string>
+    <string name="library_Retrofit_libraryWebsite">http://square.github.io/retrofit/</string>
+    <string name="library_Retrofit_licenseId">apache_2_0</string>
+    <string name="library_Retrofit_isOpenSource">true</string>
+    <string name="library_Retrofit_repositoryLink">https://github.com/square/retrofit</string>
+</resources>
