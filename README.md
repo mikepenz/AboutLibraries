@@ -35,15 +35,7 @@ dependencies {
 }
 ```
 
-The project is now deployed to the main central maven. So for all main versions no extra step is required.
-
-For the hackers here. If there are snapshot releases (i think they are equal to beta software) you have to add the following to your `build.gradle`. It is also required to use the specific SNAPSHOT version. (Right now the newest release is the above mentioned version 2.0.3)
-
-```javascript
-maven { 
-    url 'https://oss.sonatype.org/content/repositories/snapshots/' 
-}
-```
+Further information can be found in the [wiki](https://github.com/mikepenz/AboutLibraries/wiki/HOWTO:-Include)
 
 ##Usage
 You can use this library in a few different ways. You can create your own activity, including a custom style and just use the information, or you can use the built in Activity or Fragment and just pass the libs you would love to include.
