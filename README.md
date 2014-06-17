@@ -21,10 +21,6 @@ Please let me know i you include the definition file in your library. Thanks.
 [Here's a complete list](https://github.com/mikepenz/AboutLibraries/wiki/Compatible-Libs)
 
 
-#Screenshots
-![Image](https://raw.githubusercontent.com/mikepenz/AboutLibraries/master/DEV/screenshots/screenshot1.png)
-![Image](https://raw.githubusercontent.com/mikepenz/AboutLibraries/master/DEV/screenshots/screenshot2.png)
-
 ##Include in your project
 ###Using Maven
 The AboutLibraries Library is pushed to [Maven Central], so you just need to add the following dependency to your `build.gradle`.
@@ -36,6 +32,12 @@ dependencies {
 ```
 
 Further information can be found in the [wiki](https://github.com/mikepenz/AboutLibraries/wiki/HOWTO:-Include)
+
+
+#Screenshots
+![Image](https://raw.githubusercontent.com/mikepenz/AboutLibraries/master/DEV/screenshots/screenshot1.png)
+![Image](https://raw.githubusercontent.com/mikepenz/AboutLibraries/master/DEV/screenshots/screenshot2.png)
+
 
 ##Usage
 You can use this library in a few different ways. You can create your own activity, including a custom style and just use the information, or you can use the built in Activity or Fragment and just pass the libs you would love to include.
