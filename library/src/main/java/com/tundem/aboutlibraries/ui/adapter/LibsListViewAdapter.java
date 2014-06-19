@@ -1,8 +1,10 @@
 package com.tundem.aboutlibraries.ui.adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,13 +23,15 @@ public class LibsListViewAdapter extends BaseAdapter {
     private List<Library> libs;
 
     private boolean showLicense = false;
+    private boolean showLicenseDialog = true;
     private boolean showVersion = false;
 
-    public LibsListViewAdapter(Context ctx, List<Library> libs, boolean showLicense, boolean showVersion) {
+    public LibsListViewAdapter(Context ctx, List<Library> libs, boolean showLicense, boolean showLicenseDialog, boolean showVersion) {
         this.libs = libs;
         this.inflater = LayoutInflater.from(ctx);
 
         this.showLicense = showLicense;
+        this.showLicenseDialog = showLicenseDialog;
         this.showVersion = showVersion;
     }
 
@@ -124,8 +128,14 @@ public class LibsListViewAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View view) {
                     try {
-                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(library.getLicense().getLicenseWebsite()));
-                        parent.getContext().startActivity(browserIntent);
+                        if (showLicenseDialog && !TextUtils.isEmpty(library.getLicense().getLicenseDescription())) {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(parent.getContext());
+                            builder.setMessage(Html.fromHtml(library.getLicense().getLicenseDescription()));
+                            builder.create().show();
+                        } else {
+                            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(library.getLicense().getLicenseWebsite()));
+                            parent.getContext().startActivity(browserIntent);
+                        }
                     } catch (Exception ex) {
                     }
                 }

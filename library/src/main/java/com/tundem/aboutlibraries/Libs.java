@@ -15,6 +15,7 @@ public class Libs {
     public static final String BUNDLE_FIELDS = "ABOUT_LIBRARIES_FIELDS";
 
     public static final String BUNDLE_LICENSE = "ABOUT_LIBRARIES_LICENSE";
+    public static final String BUNDLE_LICENSE_DIALOG = "ABOUT_LIBRARIES_LICENSE_DIALOG";
     public static final String BUNDLE_VERSION = "ABOUT_LIBRARIES_VERSION";
 
     public static final String BUNDLE_THEME = "ABOUT_LIBRARIES_THEME";
