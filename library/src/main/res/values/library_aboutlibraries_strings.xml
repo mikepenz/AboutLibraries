@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="define_AboutLibraries"></string>
+    <string name="define_AboutLibraries">year;owner</string>
     <string name="library_AboutLibraries_author">Mike Penz</string>
     <string name="library_AboutLibraries_authorWebsite">http://mikepenz.com/</string>
     <string name="library_AboutLibraries_libraryName">AboutLibraries</string>
@@ -15,5 +15,6 @@
     <string name="library_AboutLibraries_licenseId">apache_2_0</string>
     <string name="library_AboutLibraries_isOpenSource">true</string>
     <string name="library_AboutLibraries_repositoryLink">https://github.com/mikepenz/AboutLibraries</string>
-
+    <string name="library_AboutLibraries_owner">Mike Penz</string>
+    <string name="library_AboutLibraries_year">2014</string>
 </resources>
