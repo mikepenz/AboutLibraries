@@ -6,29 +6,26 @@
     <string name="license_bsd_2_licenseWebsite">http://opensource.org/licenses/BSD-2-Clause</string>
     <string name="license_bsd_2_licenseShortDescription">
         <![CDATA[
+        Copyright &#169; <<<YEAR>>>, <<<OWNER>>>
+        <br />
+        All rights reserved.
+        <br /><br />
         Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
         <br /><br />
-        1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+         1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
         <br /><br />
         2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation
         and/or other materials provided with the distribution.
-        <br /><br />
-        3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software
-        without specific prior written permission.
         ]]>
     </string>
     <string name="license_bsd_2_licenseDescription">
         <![CDATA[
-        OWNER = Regents of the University of California
-        ORGANIZATION = University of California, Berkeley
-        YEAR = 1998
-        <br /><br />
-        In the original BSD license, the occurrence of "copyright holder" in the 3rd clause read "ORGANIZATION", placeholder for "University of California". In
-        the original BSD license, both occurrences of the phrase "COPYRIGHT HOLDERS AND CONTRIBUTORS" in the disclaimer read "REGENTS AND CONTRIBUTORS".
+        In the original BSD license, both occurrences of the phrase "COPYRIGHT HOLDERS AND CONTRIBUTORS" in the disclaimer read "REGENTS AND CONTRIBUTORS".
         <br /><br />
         Here is the license template:
         <br /><br />
-        Copyright &#169; YEAR, OWNER
+        Copyright &#169; <<<YEAR>>>, <<<OWNER>>>
+        <br />
         All rights reserved.
         <br /><br />
         Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -37,9 +34,6 @@
         <br /><br />
         2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation
         and/or other materials provided with the distribution.
-        <br /><br />
-        3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software
-        without specific prior written permission.
         <br /><br />
         THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
         IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
