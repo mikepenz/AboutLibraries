@@ -21,6 +21,10 @@ public class License {
         this.licenseDescription = licenseDescription;
     }
 
+    public License copy() {
+        return new License(this.licenseName, this.licenseWebsite, this.licenseShortDescription, this.licenseDescription);
+    }
+
     public String getDefinedName() {
         return definedName;
     }

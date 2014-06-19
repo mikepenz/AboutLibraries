@@ -9,6 +9,8 @@ import com.tundem.aboutlibraries.entity.License;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Libs {
     public static final String BUNDLE_LIBS = "ABOUT_LIBRARIES_LIBS";
@@ -49,32 +51,44 @@ public class Libs {
      * @param fields
      */
     private void init(String[] fields) {
+        ArrayList<String> foundLicenseIdentifiers = new ArrayList<String>();
+        ArrayList<String> foundInternalLibraryIdentifiers = new ArrayList<String>();
+        ArrayList<String> foundExternalLibraryIdentifiers = new ArrayList<String>();
+
         if (fields != null) {
             for (int i = 0; i < fields.length; i++) {
-                if (fields[i].contains(DEFINE_LICENSE)) {
-                    License license = genLicense(fields[i].replace(DEFINE_LICENSE, ""));
-                    if (license != null) {
-                        licenses.add(license);
-                    }
+                if (fields[i].startsWith(DEFINE_LICENSE)) {
+                    foundLicenseIdentifiers.add(fields[i].replace(DEFINE_LICENSE, ""));
+                } else if (fields[i].startsWith(DEFINE_INT)) {
+                    foundInternalLibraryIdentifiers.add(fields[i].replace(DEFINE_INT, ""));
+                } else if (fields[i].startsWith(DEFINE_EXT)) {
+                    foundExternalLibraryIdentifiers.add(fields[i].replace(DEFINE_EXT, ""));
                 }
             }
-            for (int i = 0; i < fields.length; i++) {
-                if (fields[i].contains(DEFINE_LICENSE)) {
-                    continue;
-                }
-                if (fields[i].contains(DEFINE_INT)) {
-                    Library library = genLibrary(fields[i].replace(DEFINE_INT, ""));
-                    if (library != null) {
-                        library.setInternal(true);
-                        internLibraries.add(library);
-                    }
-                } else if (fields[i].contains(DEFINE_EXT)) {
-                    Library library = genLibrary(fields[i].replace(DEFINE_EXT, ""));
-                    if (library != null) {
-                        library.setInternal(false);
-                        externLibraries.add(library);
-                    }
-                }
+        }
+
+        //add licenses
+        for (String licenseIdentifier : foundLicenseIdentifiers) {
+            License license = genLicense(licenseIdentifier);
+            if (license != null) {
+                licenses.add(license);
+            }
+        }
+        //add internal libs
+        for (String internalIdentifier : foundInternalLibraryIdentifiers) {
+            Library library = genLibrary(internalIdentifier);
+            if (library != null) {
+                library.setInternal(true);
+                internLibraries.add(library);
+            }
+        }
+
+        //add external libs
+        for (String externalIdentifier : foundExternalLibraryIdentifiers) {
+            Library library = genLibrary(externalIdentifier);
+            if (library != null) {
+                library.setInternal(false);
+                externLibraries.add(library);
             }
         }
     }
@@ -241,11 +255,15 @@ public class Libs {
 
         try {
             Library lib = new Library();
+
+            //Get custom vars to insert into defined areas
+            HashMap<String, String> customVariables = getCustomVariables(libraryName);
+
             lib.setDefinedName(libraryName);
             lib.setAuthor(getStringResourceByName("library_" + libraryName + "_author"));
             lib.setAuthorWebsite(getStringResourceByName("library_" + libraryName + "_authorWebsite"));
             lib.setLibraryName(getStringResourceByName("library_" + libraryName + "_libraryName"));
-            lib.setLibraryDescription(getStringResourceByName("library_" + libraryName + "_libraryDescription"));
+            lib.setLibraryDescription(insertVariables(getStringResourceByName("library_" + libraryName + "_libraryDescription"), customVariables));
             lib.setLibraryVersion(getStringResourceByName("library_" + libraryName + "_libraryVersion"));
             lib.setLibraryWebsite(getStringResourceByName("library_" + libraryName + "_libraryWebsite"));
 
@@ -254,10 +272,16 @@ public class Libs {
                 License license = new License();
                 license.setLicenseName(getStringResourceByName("library_" + libraryName + "_licenseVersion"));
                 license.setLicenseWebsite(getStringResourceByName("library_" + libraryName + "_licenseLink"));
-                license.setLicenseShortDescription(getStringResourceByName("library_" + libraryName + "_licenseContent"));
+                license.setLicenseShortDescription(insertVariables(getStringResourceByName("library_" + libraryName + "_licenseContent"), customVariables));
                 lib.setLicense(license);
             } else {
-                lib.setLicense(getLicense(licenseId));
+                License license = getLicense(licenseId);
+                if (license != null) {
+                    license = license.copy();
+                    license.setLicenseShortDescription(insertVariables(license.getLicenseShortDescription(), customVariables));
+                    license.setLicenseDescription(insertVariables(license.getLicenseDescription(), customVariables));
+                    lib.setLicense(license);
+                }
             }
 
             lib.setOpenSource(Boolean.valueOf(getStringResourceByName("library_" + libraryName + "_isOpenSource")));
@@ -272,6 +296,32 @@ public class Libs {
             Log.e("com.tundem.aboutlibraries", "Failed to generateLibrary from file: " + ex.toString());
             return null;
         }
+    }
+
+    public HashMap<String, String> getCustomVariables(String libraryName) {
+        HashMap<String, String> customVariables = new HashMap<String, String>();
+
+        String customVariablesString = getStringResourceByName("define_" + libraryName);
+        if (!TextUtils.isEmpty(customVariablesString)) {
+            String[] customVariableArray = customVariablesString.split(";");
+            if (customVariableArray.length > 0) {
+                for (String customVariableKey : customVariableArray) {
+                    String customVariableContent = getStringResourceByName("library_" + libraryName + "_" + customVariableKey);
+                    if (!TextUtils.isEmpty(customVariableContent)) {
+                        customVariables.put(customVariableKey, customVariableContent);
+                    }
+                }
+            }
+        }
+
+        return customVariables;
+    }
+
+    public String insertVariables(String insertInto, HashMap<String, String> variables) {
+        for (Map.Entry<String, String> entry : variables.entrySet()) {
+            insertInto = insertInto.replace("<<<" + entry.getKey().toUpperCase() + ">>>", entry.getValue());
+        }
+        return insertInto;
     }
 
     public String getStringResourceByName(String aString) {
