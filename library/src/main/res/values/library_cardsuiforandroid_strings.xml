@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="define_int_cardsuiForAndroid"></string>
+    <string name="define_int_cardsuiForAndroid">year;owner</string>
     <string name="library_cardsuiForAndroid_author">nadavfirm</string>
     <string name="library_cardsuiForAndroid_authorWebsite">https://github.com/nadavfima</string>
     <string name="library_cardsuiForAndroid_libraryName">CardsUI</string>
@@ -12,5 +12,7 @@
     <string name="library_cardsuiForAndroid_licenseId">apache_2_0</string>
     <string name="library_cardsuiForAndroid_isOpenSource">true</string>
     <string name="library_cardsuiForAndroid_repositoryLink">https://github.com/nadavfima/cardsui-for-android</string>
-
+    <!-- Custom variables section -->
+    <string name="library_cardsuiForAndroid_owner">nadavfirm</string>
+    <string name="library_cardsuiForAndroid_year">2014</string>
 </resources>

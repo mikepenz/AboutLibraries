@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="define_int_FButton"></string>
+    <string name="define_int_FButton">year;owner</string>
     <string name="library_FButton_author">Le Van Hoang</string>
     <string name="library_FButton_authorWebsite">https://github.com/hoang8f</string>
     <string name="library_FButton_libraryName">FButton</string>
@@ -13,5 +13,7 @@
     <string name="library_FButton_licenseId">apache_2_0</string>
     <string name="library_FButton_isOpenSource">true</string>
     <string name="library_FButton_repositoryLink">https://github.com/hoang8f/android-flat-button</string>
-
+    <!-- Custom variables section -->
+    <string name="library_FButton_owner">Le Van Hoang</string>
+    <string name="library_FButton_year">2014</string>
 </resources>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="define_int_Butterknife"></string>
+    <string name="define_int_Butterknife">year;owner</string>
     <string name="library_Butterknife_author">Jake Wharton</string>
     <string name="library_Butterknife_libraryName">Butterknife</string>
     <string name="library_Butterknife_libraryDescription">View "injection" library for Android which uses annotation processing to generate boilerplate code for you.</string>
@@ -9,5 +9,8 @@
     <string name="library_Butterknife_licenseId">apache_2_0</string>
     <string name="library_Butterknife_isOpenSource">true</string>
     <string name="library_Butterknife_repositoryLink">https://github.com/JakeWharton/butterknife</string>
+    <!-- Custom variables section -->
+    <string name="library_Butterknife_owner">Jake Wharton</string>
+    <string name="library_Butterknife_year">2014</string>
 </resources> 
 

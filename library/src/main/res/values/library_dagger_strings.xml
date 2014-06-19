@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="define_int_Dagger"></string>
+    <string name="define_int_Dagger">year;owner</string>
     <string name="library_Dagger_author">Square</string>
     <string name="library_Dagger_libraryName">Dagger</string>
     <string name="library_Dagger_libraryDescription">A fast dependency injector for Android and Java.</string>
@@ -9,4 +9,7 @@
     <string name="library_Dagger_licenseId">apache_2_2</string>
     <string name="library_Dagger_isOpenSource">true</string>
     <string name="library_Dagger_repositoryLink">https://github.com/square/dagger</string>
+    <!-- Custom variables section -->
+    <string name="library_Dagger_owner">Square</string>
+    <string name="library_Dagger_year">2014</string>
 </resources>

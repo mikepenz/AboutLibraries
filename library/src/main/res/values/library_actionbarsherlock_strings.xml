@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="define_int_ActionBarSherlock"></string>
+    <string name="define_int_ActionBarSherlock">year;owner</string>
     <string name="library_ActionBarSherlock_author">Jake Wharton</string>
     <string name="library_ActionBarSherlock_authorWebsite">http://jakewharton.com/</string>
     <string name="library_ActionBarSherlock_libraryName">ActionBarSherlock</string>
@@ -14,5 +14,7 @@
     <string name="library_ActionBarSherlock_licenseId">apache_2_0</string>
     <string name="library_ActionBarSherlock_isOpenSource">true</string>
     <string name="library_ActionBarSherlock_repositoryLink">https://github.com/JakeWharton/ActionBarSherlock</string>
-
+    <!-- Custom variables section -->
+    <string name="library_ActionBarSherlock_owner">Jake Wharton</string>
+    <string name="library_ActionBarSherlock_year">2014</string>
 </resources>

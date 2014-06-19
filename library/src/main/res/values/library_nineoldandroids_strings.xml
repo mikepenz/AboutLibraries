@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="define_int_NineOldAndroids"></string>
+    <string name="define_int_NineOldAndroids">year;owner</string>
     <string name="library_NineOldAndroids_author">Jake Wharton</string>
     <string name="library_NineOldAndroids_authorWebsite">http://jakewharton.com/</string>
     <string name="library_NineOldAndroids_libraryName">NineOldAndroids</string>
@@ -13,5 +13,7 @@
     <string name="library_NineOldAndroids_licenseId">apache_2_0</string>
     <string name="library_NineOldAndroids_isOpenSource">true</string>
     <string name="library_NineOldAndroids_repositoryLink">https://github.com/JakeWharton/NineOldAndroids</string>
-
+    <!-- Custom variables section -->
+    <string name="library_NineOldAndroids_owner">Jake Wharton</string>
+    <string name="library_NineOldAndroids_year">2014</string>
 </resources>

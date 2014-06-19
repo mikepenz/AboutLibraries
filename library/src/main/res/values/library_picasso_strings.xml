@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="define_int_Picasso"></string>
+    <string name="define_int_Picasso">year;owner</string>
     <string name="library_Picasso_author">Square</string>
     <string name="library_Picasso_libraryName">Picasso</string>
     <string name="library_Picasso_libraryDescription">A powerful image downloading and caching library for Android.
@@ -11,4 +11,7 @@
     <string name="library_Picasso_licenseId">apache_2_0</string>
     <string name="library_Picasso_isOpenSource">true</string>
     <string name="library_Picasso_repositoryLink">https://github.com/square/picasso</string>
+    <!-- Custom variables section -->
+    <string name="library_Picasso_owner">Square</string>
+    <string name="library_Picasso_year">2014</string>
 </resources>

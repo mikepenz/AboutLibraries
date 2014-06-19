@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="define_int_ShowcaseView"></string>
+    <string name="define_int_ShowcaseView">year;owner</string>
     <string name="library_ShowcaseView_author">Alex Curran</string>
     <string name="library_ShowcaseView_authorWebsite">https://github.com/amlcurran</string>
     <string name="library_ShowcaseView_libraryName">ShowcaseView</string>
@@ -13,5 +13,7 @@
     <string name="library_ShowcaseView_licenseId">mit</string>
     <string name="library_ShowcaseView_isOpenSource">true</string>
     <string name="library_ShowcaseView_repositoryLink">https://github.com/amlcurran/ShowcaseView</string>
-
+    <!-- Custom variables section -->
+    <string name="library_ShowcaseView_owner">Alex Curran</string>
+    <string name="library_ShowcaseView_year">2014</string>
 </resources>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="define_int_HoloGraphLibrary"></string>
+    <string name="define_int_HoloGraphLibrary">year;owner</string>
     <string name="library_HoloGraphLibrary_author">Daniel Nadeau</string>
     <string name="library_HoloGraphLibrary_authorWebsite">https://bitbucket.org/danielnadeau</string>
     <string name="library_HoloGraphLibrary_libraryName">HoloGraphLibrary</string>
@@ -14,5 +14,7 @@
     <string name="library_HoloGraphLibrary_licenseId">apache_2_0</string>
     <string name="library_HoloGraphLibrary_isOpenSource">true</string>
     <string name="library_HoloGraphLibrary_repositoryLink">https://bitbucket.org/danielnadeau/holographlibrary</string>
-
+    <!-- Custom variables section -->
+    <string name="library_HoloGraphLibrary_owner">Daniel Nadeau</string>
+    <string name="library_HoloGraphLibrary_year">2014</string>
 </resources>

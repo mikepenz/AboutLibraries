@@ -15,6 +15,7 @@
     <string name="library_AboutLibraries_licenseId">apache_2_0</string>
     <string name="library_AboutLibraries_isOpenSource">true</string>
     <string name="library_AboutLibraries_repositoryLink">https://github.com/mikepenz/AboutLibraries</string>
+    <!-- Custom variables section -->
     <string name="library_AboutLibraries_owner">Mike Penz</string>
     <string name="library_AboutLibraries_year">2014</string>
 </resources>

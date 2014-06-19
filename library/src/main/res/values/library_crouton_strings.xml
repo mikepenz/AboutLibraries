@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="define_int_Crouton"></string>
+    <string name="define_int_Crouton">year;owner</string>
     <string name="library_Crouton_author">Benjamin Weiss</string>
     <string name="library_Crouton_authorWebsite">https://plus.google.com/117509657298845443204</string>
     <string name="library_Crouton_libraryName">Crouton</string>
@@ -13,5 +13,7 @@
     <string name="library_Crouton_licenseId">apache_2_0</string>
     <string name="library_Crouton_isOpenSource">true</string>
     <string name="library_Crouton_repositoryLink">https://github.com/keyboardsurfer/Crouton</string>
-
+    <!-- Custom variables section -->
+    <string name="library_Crouton_owner">Benjamin Weiss</string>
+    <string name="library_Crouton_year">2014</string>
 </resources>

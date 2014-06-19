@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="define_int_androidBetterpickers"></string>
+    <string name="define_int_androidBetterpickers">year;owner</string>
     <string name="library_androidBetterpickers_author">Derek Brameyer</string>
     <string name="library_androidBetterpickers_authorWebsite">https://github.com/derekbrameyer</string>
     <string name="library_androidBetterpickers_libraryName">BetterPickers</string>
@@ -13,5 +13,7 @@
     <string name="library_androidBetterpickers_licenseId">apache_2_0</string>
     <string name="library_androidBetterpickers_isOpenSource">true</string>
     <string name="library_androidBetterpickers_repositoryLink">https://github.com/derekbrameyer/android-betterpickers</string>
-
+    <!-- Custom variables section -->
+    <string name="library_androidBetterpickers_owner">Derek Brameyer</string>
+    <string name="library_androidBetterpickers_year">2014</string>
 </resources>

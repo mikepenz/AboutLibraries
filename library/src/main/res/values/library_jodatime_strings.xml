@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="define_int_jodaTime"></string>
+    <string name="define_int_jodaTime">year;owner</string>
     <string name="library_jodaTime_author">Joda.org</string>
     <string name="library_jodaTime_authorWebsite">http://joda-time.sourceforge.net/</string>
     <string name="library_jodaTime_libraryName">Joda-Time</string>
@@ -11,5 +11,7 @@
     <string name="library_jodaTime_licenseId">apache_2_0</string>
     <string name="library_jodaTime_isOpenSource">true</string>
     <string name="library_jodaTime_repositoryLink">https://github.com/JodaOrg/joda-time</string>
-
+    <!-- Custom variables section -->
+    <string name="library_jodaTime_owner">Joda.org</string>
+    <string name="library_jodaTime_year">2014</string>
 </resources>
