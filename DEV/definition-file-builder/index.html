@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>AboutLibraries definition builder</title>
+		<meta name="description" content="Natural Language Form with custom text input and drop-down lists" />
+		<meta name="keywords" content="Natural Language UI, sentence form, text input, contenteditable, html5, css3, jquery" />
+		<meta name="author" content="Codrops" />
+		<link rel="shortcut icon" href="../favicon.ico">
+		<link rel="stylesheet" type="text/css" href="css/default.css" />
+		<link rel="stylesheet" type="text/css" href="css/component.css" />
+		<link rel="stylesheet" type="text/css" href="css/prism.css" />
+		<script src="js/modernizr.custom.js"></script>
+		<script src="js/prism.js"></script>
+		<script src="js/custom.js"></script>
+	</head>
+	<body class="nl-blurred">
+		<div class="container demo-1">
+			<!-- Top Navigation -->
+			<div class="codrops-top clearfix">
+				<a class="codrops-icon codrops-icon-prev" href="https://github.com/mikepenz/AboutLibraries"><span>Back to the AboutLibraries library</span></a>
+				<span class="right"><a class="codrops-icon codrops-icon-drop" href="http://tympanus.net/codrops/?p=15139"><span>Design and functionality thanks to codrops</span></a></span>
+			</div>
+			<header>
+				<h1>AboutLibrary definition-file builder<span>by Mike Penz</span></h1>
+			</header>
+			<div class="main clearfix">
+				<form id="nl-form" class="nl-form">
+					I would love to create an
+					<select  name="isInternal">
+						<option value="int_" selected>internal</option>
+						<option value="">external</option>
+					</select>
+					definition file for
+					<input type="text" value="" placeholder="About Libraries" data-subline="AboutLibraries library" name="libraryName"/>,
+					with an AboutLibrariesId 
+					<input type="text" value="" placeholder="aboutlibraries" data-subline="Unique identifier for the AboutLibraries lib used to display this lib" name="libraryId"/>.
+					<br /><br />
+					This library is by
+					<input type="text" value="" placeholder="Mike Penz" data-subline="Mike Penz" name="authorName"/>,
+					who can be found at
+					<input type="text" value="" placeholder="mikepenz.com" data-subline="For example: http://mikepenz.com" name="authorWebsite"/>
+					.
+					<br /><br />
+					This
+					<select  name="isOpenSource">
+						<option value="true" selected>open-source</option>
+						<option value="false">private</option>
+					</select>
+					library is in version
+					<input  name="libraryVersion" type="text" value="" placeholder="1.0.0" data-subline="For example: 2.1.0"/>,
+					licensed under
+					<select  name="licenseId">
+						<option value="apache_2_0" selected>Apache 2.0</option>
+						<option value="mit">MIT License</option>
+						<option value="bsd_2">BSD 2-Clause License</option>
+						<option value="bsd_3">BSD 3-Clause License</option>
+						<option value="">custom</option>
+					</select>
+					and hosted at
+					<input  name="repositoryLink" type="text" value="" placeholder="github.com" data-subline="For example: http://github.com"/>.
+					<br /><br />
+					There's also an awesome website at
+					<input  name="libraryWebsite" type="text" value="" placeholder="github.com"/ data-subline="For example: http://github.com"/>.
+					, were you can find more details.
+					<div class="nl-submit-wrap">
+						<button class="nl-submit" type="button" onClick="doSomeMagic()">Do some magic!</button>
+					</div>
+					<div class="nl-overlay"></div>
+				</form>
+			</div>
+			<div class="main clearfix" id="output_container" style="display:none;">
+				<pre><code class="language-markup" id="output"></code></pre>
+			</div>
+		</div><!-- /container -->
+		<script src="js/nlform.js"></script>
+		<script>
+			var nlform = new NLForm( document.getElementById( 'nl-form' ) );
+		</script>
+	</body>
+</html>
