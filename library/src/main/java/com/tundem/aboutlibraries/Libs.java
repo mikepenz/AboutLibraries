@@ -301,7 +301,11 @@ public class Libs {
     public HashMap<String, String> getCustomVariables(String libraryName) {
         HashMap<String, String> customVariables = new HashMap<String, String>();
 
-        String customVariablesString = getStringResourceByName("define_" + libraryName);
+        String customVariablesString = getStringResourceByName(DEFINE_EXT + libraryName);
+        if (TextUtils.isEmpty(customVariablesString)) {
+            customVariablesString = getStringResourceByName(DEFINE_INT + libraryName);
+        }
+
         if (!TextUtils.isEmpty(customVariablesString)) {
             String[] customVariableArray = customVariablesString.split(";");
             if (customVariableArray.length > 0) {
