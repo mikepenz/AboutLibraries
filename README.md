@@ -31,6 +31,8 @@ dependencies {
 }
 ```
 
+Newest SNAPSHOT: 2.1.0
+
 Further information can be found in the [wiki](https://github.com/mikepenz/AboutLibraries/wiki/HOWTO:-Include)
 
 
