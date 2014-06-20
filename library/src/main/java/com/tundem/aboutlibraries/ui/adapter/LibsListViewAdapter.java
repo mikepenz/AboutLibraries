@@ -78,7 +78,11 @@ public class LibsListViewAdapter extends BaseAdapter {
         //Set texts
         holder.libraryName.setText(library.getLibraryName());
         holder.libraryCreator.setText(library.getAuthor());
-        holder.libraryDescription.setText(library.getLibraryDescription());
+        if (TextUtils.isEmpty(library.getLibraryDescription())) {
+            holder.libraryDescription.setText(library.getLibraryDescription());
+        } else {
+            holder.libraryDescription.setText(Html.fromHtml(library.getLibraryDescription()));
+        }
 
         //Set License or Version Text
         if (TextUtils.isEmpty(library.getLibraryVersion()) && library.getLicense() != null && TextUtils.isEmpty(library.getLicense().getLicenseName()) || (!showVersion && !showLicense)) {
