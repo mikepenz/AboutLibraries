@@ -16,10 +16,9 @@ The description files should be included in the specific libraries (as far as po
 - [Everything clear. Here's a list of compatible/included libs](https://github.com/mikepenz/AboutLibraries/wiki/Compatible-Libs)
 
 
-#Definition-File-Builder
-For the lazy ones, i've created a small and hopefully useful tool to create definition files for new libs.
-
-[Definition-File-Builder](http://def-builder.mikepenz.com/)
+#Screenshots
+![Image](https://raw.githubusercontent.com/mikepenz/AboutLibraries/master/DEV/screenshots/screenshot1_small.png).
+![Image](https://raw.githubusercontent.com/mikepenz/AboutLibraries/master/DEV/screenshots/screenshot2_small.png)
 
 
 #Wiki
@@ -46,11 +45,6 @@ dependencies {
 ```
 
 Further information can be found in the [wiki](https://github.com/mikepenz/AboutLibraries/wiki/HOWTO:-Include)
-
-
-#Screenshots
-![Image](https://raw.githubusercontent.com/mikepenz/AboutLibraries/master/DEV/screenshots/screenshot1_small.png).
-![Image](https://raw.githubusercontent.com/mikepenz/AboutLibraries/master/DEV/screenshots/screenshot2_small.png)
 
 
 ##Usage
@@ -137,6 +131,12 @@ Yeah pretty simple just add the following .xml file (or just the strings (the ke
     <string name="aboutLibraries_description_text">Place your description here :D</string>
 </resources>
 ```
+
+
+##Definition-File-Builder
+For the lazy ones, i've created a small and hopefully useful tool to create definition files for new libs.
+
+[Definition-File-Builder](http://def-builder.mikepenz.com/)
 
 
 ##Including in your library
