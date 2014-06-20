@@ -8,13 +8,14 @@
 		<meta name="description" content="Natural Language Form with custom text input and drop-down lists" />
 		<meta name="keywords" content="Natural Language UI, sentence form, text input, contenteditable, html5, css3, jquery" />
 		<meta name="author" content="Codrops" />
-		<link rel="shortcut icon" href="../favicon.ico">
+		<link rel="shortcut icon" href="image/favicon.ico">
 		<link rel="stylesheet" type="text/css" href="css/default.css" />
 		<link rel="stylesheet" type="text/css" href="css/component.css" />
 		<link rel="stylesheet" type="text/css" href="css/prism.css" />
 		<script src="js/modernizr.custom.js"></script>
 		<script src="js/prism.js"></script>
 		<script src="js/custom.js"></script>
+		<script src="js/download.js"></script>
 	</head>
 	<body class="nl-blurred">
 		<div class="container demo-1">
@@ -65,8 +66,11 @@
 					There's also an awesome website at
 					<input  name="libraryWebsite" type="text" value="" placeholder="github.com"/ data-subline="For example: http://github.com"/>.
 					, were you can find more details.
-					<div class="nl-submit-wrap">
+					<div class="nl-submit-wrap"style="float:left;padding-right:10px">
 						<button class="nl-submit" type="button" onClick="doSomeMagic()">Do some magic!</button>
+					</div>
+					<div class="nl-submit-wrap">
+						<button class="nl-submit" type="button" onClick="downloadIt()">Download</button>
 					</div>
 					<div class="nl-overlay"></div>
 				</form>

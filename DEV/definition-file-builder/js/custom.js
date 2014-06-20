@@ -1,4 +1,24 @@
+function downloadIt() {
+	var libraryId = fixString(document.getElementsByName("libraryId")[0].value);
+	var xmlFile = generateXmlFile();
+
+	if(xmlFile != "") {
+		xmlFile = unescapeHTML(xmlFile);
+		download(xmlFile, 'library_' + libraryId + '_strings.xml', 'text/plain');
+	}
+}
+
 function doSomeMagic() {
+	var xmlFile = generateXmlFile();
+
+	if(xmlFile != "") {
+		document.getElementById("output").innerHTML = xmlFile;
+		Prism.highlightAll();
+		document.getElementById("output_container").removeAttribute("style");
+	}
+}
+
+function generateXmlFile() {
 	var libraryId = fixString(document.getElementsByName("libraryId")[0].value);
 	
 	var e = document.getElementsByName("isInternal")[0];
@@ -46,10 +66,9 @@ function doSomeMagic() {
 		result = result + '\t' + '&lt;!-- Custom variables section -->' + '\n';
 		result = result + '&lt;/resources>' + '\n';
 
-		document.getElementById("output").innerHTML = result;
-		Prism.highlightAll();
-		document.getElementById("output_container").removeAttribute("style");
+		return result;
 	}
+	return "";
 }
 
 function fixString(elem) {
@@ -57,4 +76,8 @@ function fixString(elem) {
 		return '';
 	}
 	return elem;
+}
+
+function unescapeHTML(escapedHTML) {
+  return escapedHTML.replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&');
 }
