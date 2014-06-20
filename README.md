@@ -32,11 +32,9 @@ The AboutLibraries Library is pushed to [Maven Central], so you just need to add
 
 ```javascript
 dependencies {
-	compile 'com.tundem.aboutlibraries:library:2.0.3@aar'
+	compile 'com.tundem.aboutlibraries:library:2.1.1@aar'
 }
 ```
-
-Newest SNAPSHOT: 2.1.0
 
 Further information can be found in the [wiki](https://github.com/mikepenz/AboutLibraries/wiki/HOWTO:-Include)
 
