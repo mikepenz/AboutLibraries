@@ -4,7 +4,7 @@
 
     <string name="action_manifestactivity">Manifest Activity</string>
     <string name="action_extendactivity">Extended Activity</string>
-    <string name="action_fragmentactivity">Fragment Activity</string>
+    <string name="action_customactivity">Custom Activity</string>
 
     <string name="action_all">(Cust) All Libraries</string>
     <string name="action_internal">(Cust) Internal Libraries</string>

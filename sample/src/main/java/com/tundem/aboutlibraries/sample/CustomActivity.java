@@ -1,8 +1,6 @@
 package com.tundem.aboutlibraries.sample;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,12 +10,11 @@ import com.fima.cardsui.views.CardUI;
 import com.tundem.aboutlibraries.Libs;
 import com.tundem.aboutlibraries.entity.Library;
 import com.tundem.aboutlibraries.sample.cardsui.LibraryCard;
-import com.tundem.aboutlibraries.ui.LibsActivity;
 
 import java.util.List;
 
 
-public class MainActivity extends Activity {
+public class CustomActivity extends Activity {
 
     private CardUI mCardView;
     private Libs libs;
@@ -123,30 +120,6 @@ public class MainActivity extends Activity {
         } else if (id == R.id.action_defined) {
             setDefined();
             return true;
-        } else if (id == R.id.action_opensource) {
-            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/mikepenz/AboutLibraries"));
-            startActivity(browserIntent);
-            return true;
-        } else if (id == R.id.action_extendactivity) {
-            Intent i = new Intent(getApplicationContext(), ExtendActivity.class);
-            startActivity(i);
-        } else if (id == R.id.action_fragmentactivity) {
-            Intent i = new Intent(getApplicationContext(), FragmentActivity.class);
-            startActivity(i);
-        } else if (id == R.id.action_manifestactivity) {
-            Intent i = new Intent(getApplicationContext(), LibsActivity.class);
-            i.putExtra(Libs.BUNDLE_FIELDS, Libs.toStringArray(R.string.class.getFields()));
-            i.putExtra(Libs.BUNDLE_LIBS, new String[]{"crouton", "actionbarsherlock", "showcaseview"});
-
-            i.putExtra(Libs.BUNDLE_VERSION, true);
-            i.putExtra(Libs.BUNDLE_LICENSE, true);
-
-            i.putExtra(Libs.BUNDLE_TITLE, "Open Source");
-            i.putExtra(Libs.BUNDLE_THEME, android.R.style.Theme_Holo);
-            i.putExtra(Libs.BUNDLE_ACCENT_COLOR, "#3396E5");
-            i.putExtra(Libs.BUNDLE_TRANSLUCENT_DECOR, true);
-
-            startActivity(i);
         }
         return super.onOptionsItemSelected(item);
     }
