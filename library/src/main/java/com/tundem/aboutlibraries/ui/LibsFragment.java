@@ -72,7 +72,7 @@ public class LibsFragment extends Fragment {
         //Add all external libraries
         libraries = libs.getExternLibraries();
 
-        //Now add all libs which do not contains the info file, but are in the AboutLibraires lib
+        //Now add all libs which do not contains the info file, but are in the AboutLibraries lib
         if (internalLibraries != null) {
             for (String internalLibrary : internalLibraries) {
                 Library lib = libs.getLibrary(internalLibrary);
