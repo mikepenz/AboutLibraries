@@ -8,8 +8,17 @@ Most modern apps feature an "Used Library"-Section and for this some information
 The description files should be included in the specific libraries (as far as possible) so the AboutLibraries library can take care about which libs to show. If a library contains the description file, the lib will auto-detect this file and will auto-show this library. You can find more details in the *Contribute* section of this README.
 
 
+#Get started
+- [Create new definition files](http://def-builder.mikepenz.com/)
+- [Test the library in the sample](https://play.google.com/store/apps/details?id=com.tundem.aboutlibraries.sample)
+- [Get detailed instructions in the wiki](https://github.com/mikepenz/AboutLibraries/wiki)
+- [Want to see some images? Click here](https://github.com/mikepenz/AboutLibraries/wiki/Screenshots)
+- [Everything clear. Here's a list of compatible/included libs](https://github.com/mikepenz/AboutLibraries/wiki/Compatible-Libs)
+
+
 #Definition-File-Builder
 For the lazy ones, i've created a small and hopefully useful tool to create definition files for new libs.
+
 [Definition-File-Builder](http://def-builder.mikepenz.com/)
 
 
