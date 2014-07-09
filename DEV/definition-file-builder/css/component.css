@@ -61,16 +61,16 @@
 .nl-form select  {
 	line-height: inherit;
 	display: inline-block;
-	color: #b14943;
+	color: #3396E5;
 	cursor: pointer;
-	border-bottom: 1px dashed #b14943;
+	border-bottom: 1px dashed #3396E5;
 }
 
 /* drop-down list / text element */
 .nl-field ul {
 	position: absolute;
 	visibility: hidden;
-	background: #76C3BD;
+	background: #3396E5;
 	left: -0.5em;
 	top: 50%;
 	font-size: 80%;
@@ -106,7 +106,7 @@
 }
 
 .nl-dd ul li.nl-dd-checked {
-	color: #478982;
+	color: #222;
 }
 
 .no-touch .nl-dd ul li:hover {
@@ -114,7 +114,7 @@
 }
 
 .no-touch .nl-dd ul li:hover:active {
-	color: #478982;
+	color: #222;
 }
 
 /* icons for some elements */
@@ -204,7 +204,7 @@ input:focus::-ms-input-placeholder {
 	font-style: italic;
 	font-weight: 400;
 	padding: 0.4em 1em;
-	color: rgba(0,0,0,0.2);
+	color: rgba(0,0,0,0.7);
 	border-top: 1px dashed rgba(255,255,255,0.7);
 }
 
@@ -222,7 +222,7 @@ input:focus::-ms-input-placeholder {
 	text-transform: uppercase;
 	cursor: pointer;
 	position: relative;
-	background: #76C3BD;
+	background: #3396E5;
 	color: #fff;
 	padding: 0 1em 0 0;
 	font-size: 40%;
@@ -236,16 +236,16 @@ input:focus::-ms-input-placeholder {
 	float: left;
 	padding: 0 0.7em;
 	margin: 0 0.8em 0 0;
-	background: #69B1A9;
+	background: #3772AF;
 }
 
 .no-touch .nl-form .nl-submit:hover,
 .no-touch .nl-form .nl-submit:active {
-	background: #69B1A9;
+	background: #3772AF;
 }
 
 .no-touch .nl-form .nl-submit:hover:before {
-	background: #58a199;
+	background: #264E78;
 }
 
 /* overlay becomes visible when a field is opened */

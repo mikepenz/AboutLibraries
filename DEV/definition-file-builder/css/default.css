@@ -21,8 +21,8 @@ body, html { font-size: 100%; padding: 0; margin: 0;}
 
 body {
 	font-family: 'Lato', Calibri, Arial, sans-serif;
-	color: #ffe8e7;
-	background: #E96D65;
+	color: #222;
+	background: #EEE;
 	font-weight: 300;
 	overflow-x: hidden;
 }
@@ -59,7 +59,7 @@ a:active {
 .container > header span {
 	display: block;
 	font-size: 60%;
-	color: #b14943;
+	color: #222;
 	padding: 0 0 0.6em 0.1em;
 }
 
@@ -81,14 +81,14 @@ a:active {
 .codrops-top a {
 	padding: 0 1em;
 	letter-spacing: 0.1em;
-	color: #E96D65;
+	color: #666;
 	font-weight: 700;
 	display: inline-block;
 }
 
 .codrops-top a:hover {
 	background: rgba(255,255,255,0.5);
-	color: #bd4a43;
+	color: #000;
 }
 
 .codrops-top span.right {
