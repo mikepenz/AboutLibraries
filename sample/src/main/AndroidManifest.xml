@@ -24,9 +24,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.tundem.aboutlibraries.ui.LibsActivity">
-        </activity>
     </application>
 
 </manifest>
