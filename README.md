@@ -40,7 +40,7 @@ The AboutLibraries Library is pushed to [Maven Central], so you just need to add
 
 ```javascript
 dependencies {
-	compile 'com.tundem.aboutlibraries:library:2.1.1@aar'
+	compile 'com.tundem.aboutlibraries:library:2.1.2@aar'
 }
 ```
 
@@ -95,13 +95,6 @@ i.putExtra(Libs.BUNDLE_TRANSLUCENT_DECOR, true);
 
 //start the activity
 startActivity(i);
-```
-#####Xml:
-```xml
-<!-- Don't forget to define the Activity in the manifest -->
-<activity
-	android:name="com.tundem.aboutlibraries.ui.LibsActivity">
-</activity>
 ```
 
 ###Custom
