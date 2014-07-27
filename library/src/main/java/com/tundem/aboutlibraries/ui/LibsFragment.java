@@ -6,6 +6,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Html;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,7 +38,7 @@ public class LibsFragment extends Fragment {
 
     private Boolean aboutShowIcon = null;
     private Boolean aboutShowVersion = null;
-    private String aboutDescription = "";
+    private Spanned aboutDescription = null;
 
     /**
      * Default Constructor
@@ -98,7 +100,7 @@ public class LibsFragment extends Fragment {
             }
         }
 
-        aboutDescription = libs.getStringResourceByName("aboutLibraries_description_text");
+        aboutDescription = Html.fromHtml(libs.getStringResourceByName("aboutLibraries_description_text"));
     }
 
     @Override

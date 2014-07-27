@@ -2,5 +2,7 @@
 <resources>
     <string name="aboutLibraries_description_showIcon">true</string>
     <string name="aboutLibraries_description_showVersion">true</string>
-    <string name="aboutLibraries_description_text">This is a small sample which can be set in the about my app description file.</string>
+    <string name="aboutLibraries_description_text">
+        <![CDATA[This is a small sample which can be set in the about my app description file.<br /><b>You can style this with html markup :D</b>]]>
+    </string>
 </resources>
