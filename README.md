@@ -1,4 +1,4 @@
-#AboutLibraries
+#AboutLibraries  [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.tundem.aboutlibraries/library/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/com.tundem.aboutlibraries/library)
 
 AboutLibraries is a library to offer you all the information you need of your libraries!
 
