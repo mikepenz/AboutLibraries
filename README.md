@@ -1,4 +1,4 @@
-#AboutLibraries  [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.tundem.aboutlibraries/library/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/com.tundem.aboutlibraries/library)
+#AboutLibraries  [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.tundem.aboutlibraries/library/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/com.tundem.aboutlibraries/library) [![Android Arsenal](http://img.shields.io/badge/Android%20Arsenal-AboutLibraries-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/102)
 
 AboutLibraries is a library to offer you all the information you need of your libraries!
 
