@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_alexei"></string>
+    <string name="library_alexei_author">Thiago Rocha</string>
+    <string name="library_alexei_authorWebsite">http://github.com/thiagokimo</string>
+    <string name="library_alexei_libraryName">Alexei</string>
+    <string name="library_alexei_libraryDescription">Alexei is a type-face Image Processor that allows developers to easily perform calculations over images.</string>
+    <string name="library_alexei_libraryWebsite">http://github.com/thiagokimo</string>
+    <string name="library_alexei_libraryVersion">1.1</string>
+    <string name="library_alexei_isOpenSource">true</string>
+    <string name="library_alexei_repositoryLink">http://github.com/thiagokimo</string>
+    <string name="library_alexei_licenseId">apache_2_0</string>
+</resources>
