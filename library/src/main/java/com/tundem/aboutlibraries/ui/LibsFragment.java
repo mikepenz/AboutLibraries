@@ -22,6 +22,8 @@ import com.tundem.aboutlibraries.entity.Library;
 import com.tundem.aboutlibraries.ui.adapter.LibsListViewAdapter;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Created by mikepenz on 04.06.14.
@@ -40,11 +42,17 @@ public class LibsFragment extends Fragment {
     private Boolean aboutShowVersion = null;
     private Spanned aboutDescription = null;
 
+    private Comparator<Library> comparator;
+
     /**
      * Default Constructor
      * Gets an libs instance and gets all external libs
      */
     public LibsFragment() {
+    }
+
+    public void setLibraryComparator(final Comparator<Library> comparator){
+        this.comparator = comparator;
     }
 
     @Override
@@ -101,6 +109,10 @@ public class LibsFragment extends Fragment {
         }
 
         aboutDescription = Html.fromHtml(libs.getStringResourceByName("aboutLibraries_description_text"));
+
+        if (comparator != null) {
+            Collections.sort(libraries, comparator);
+        }
     }
 
     @Override
