@@ -7,7 +7,7 @@ android {
         minSdkVersion 7
         targetSdkVersion 20
         versionCode 220
-        versionName '2.2.1'
+        versionName '2.3.0'
     }
 
     buildTypes {
