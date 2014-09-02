@@ -25,6 +25,6 @@ android {
 }
 
 dependencies {
-    compile 'com.fima.cardsui:library:1.1.0-SNAPSHOT@aar'
+    compile 'com.fima.cardsui:library:1.+'
     compile project(':library')
 }
