@@ -7,7 +7,7 @@ android {
         minSdkVersion 7
         targetSdkVersion 20
         versionCode 220
-        versionName '2.2.0'
+        versionName '2.2.1'
     }
 
     buildTypes {
@@ -26,5 +26,5 @@ android {
 apply from: 'gradle-mvn-push.gradle'
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:20.+'
+    compile 'com.android.support:appcompat-v7:20.0.0'
 }
