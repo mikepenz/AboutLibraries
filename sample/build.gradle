@@ -8,7 +8,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 20
         versionCode 220
-        versionName '2.3.0'
+        versionName '2.'
     }
     buildTypes {
         release {
@@ -25,6 +25,6 @@ android {
 }
 
 dependencies {
-    compile 'com.fima.cardsui:library:1.+'
+    compile 'com.fima.cardsui:library:1.+@aar'
     compile project(':library')
 }
