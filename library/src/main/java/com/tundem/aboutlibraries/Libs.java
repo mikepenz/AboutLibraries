@@ -1,22 +1,26 @@
 package com.tundem.aboutlibraries;
 
 import android.content.Context;
+import android.content.pm.PackageInfo;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.tundem.aboutlibraries.detector.Detect;
 import com.tundem.aboutlibraries.entity.Library;
 import com.tundem.aboutlibraries.entity.License;
+import com.tundem.aboutlibraries.util.Util;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Libs {
-    public static final String BUNDLE_LIBS = "ABOUT_LIBRARIES_LIBS";
     public static final String BUNDLE_FIELDS = "ABOUT_LIBRARIES_FIELDS";
+    public static final String BUNDLE_LIBS = "ABOUT_LIBRARIES_LIBS";
+    public static final String BUNDLE_EXCLUDE_LIBS = "ABOUT_LIBRARIES_EXCLUDE_LIBS";
     public static final String BUNDLE_AUTODETECT = "ABOUT_LIBRARIES_AUTODETECT";
     public static final String BUNDLE_SORT = "ABOUT_LIBRARIES_SORT";
 
@@ -149,14 +153,16 @@ public class Libs {
      * This will summarize all libraries and elimate duplicates
      *
      * @param internalLibraries the String[] with the internalLibraries (if set manual)
+     * @param excludeLibraries  the String[] with the libs to be excluded
      * @param autoDetect        defines if the libraries should be resolved by their classpath (if possible)
+     * @param sort              defines if the array should be sorted
      * @return the summarized list of included Libraries
      */
-    public ArrayList<Library> prepareLibraries(String[] internalLibraries, boolean autoDetect, boolean sort) {
+    public ArrayList<Library> prepareLibraries(String[] internalLibraries, String[] excludeLibraries, boolean autoDetect, boolean sort) {
         HashMap<String, Library> libraries = new HashMap<String, Library>();
 
         if (autoDetect) {
-            for (Library lib : libs.getAutodetectedLibraries()) {
+            for (Library lib : libs.getAutoDetectedLibraries()) {
                 libraries.put(lib.getDefinedName(), lib);
             }
         }
@@ -177,6 +183,23 @@ public class Libs {
         }
 
         ArrayList<Library> resultLibraries = new ArrayList<Library>(libraries.values());
+
+        //remove libraries which should be excluded
+        if (excludeLibraries != null) {
+            List<Library> libsToRemove = new ArrayList<Library>();
+            for (String excludeLibrary : excludeLibraries) {
+                for (Library library : resultLibraries) {
+                    if (library.getDefinedName().equals(excludeLibrary)) {
+                        libsToRemove.add(library);
+                        break;
+                    }
+                }
+            }
+            for (Library libToRemove : libsToRemove) {
+                resultLibraries.remove(libToRemove);
+            }
+        }
+
         if (sort) {
             Collections.sort(resultLibraries);
         }
@@ -188,9 +211,39 @@ public class Libs {
      *
      * @return an ArrayList<Library> with all found libs by their classpath
      */
-    public ArrayList<Library> getAutodetectedLibraries() {
-        //TODO improve by setting a preference with the found libraries per app version :D
-        return new ArrayList<Library>(Detect.detect(ctx, getLibraries()));
+    public ArrayList<Library> getAutoDetectedLibraries() {
+        ArrayList<Library> libraries = new ArrayList<Library>();
+
+        PackageInfo pi = Util.getPackageInfo(ctx);
+        if (pi != null) {
+            String[] autoDetectedLibraries = ctx.getSharedPreferences("aboutLibraries_" + pi.versionCode, Context.MODE_PRIVATE).getString("autoDetectedLibraries", "").split(";");
+
+            if (autoDetectedLibraries.length > 0) {
+                for (String autoDetectedLibrary : autoDetectedLibraries) {
+                    Library lib = getLibrary(autoDetectedLibrary);
+                    if (lib != null) {
+                        libraries.add(lib);
+                    }
+                }
+            }
+        }
+
+        if (libraries.size() == 0) {
+            String delimiter = "";
+            String autoDetectedLibrariesPref = "";
+            for (Library lib : Detect.detect(ctx, getLibraries())) {
+                libraries.add(lib);
+
+                autoDetectedLibrariesPref = autoDetectedLibrariesPref + delimiter + lib.getDefinedName();
+                delimiter = ";";
+            }
+
+            if (pi != null) {
+                ctx.getSharedPreferences("aboutLibraries_" + pi.versionCode, Context.MODE_PRIVATE).edit().putString("autoDetectedLibraries", autoDetectedLibrariesPref).commit();
+            }
+        }
+
+        return libraries;
     }
 
     /**

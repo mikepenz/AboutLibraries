@@ -64,12 +64,14 @@ public class LibsFragment extends Fragment {
 
         String[] fields = null;
         String[] internalLibraries = null;
+        String[] excludeLibraries = null;
 
         //read and get our arguments
         Bundle bundle = getArguments();
         if (bundle != null) {
-            internalLibraries = bundle.getStringArray(Libs.BUNDLE_LIBS);
             fields = bundle.getStringArray(Libs.BUNDLE_FIELDS);
+            internalLibraries = bundle.getStringArray(Libs.BUNDLE_LIBS);
+            excludeLibraries = bundle.getStringArray(Libs.BUNDLE_EXCLUDE_LIBS);
 
             autoDetect = bundle.getBoolean(Libs.BUNDLE_AUTODETECT, false);
             sort = bundle.getBoolean(Libs.BUNDLE_SORT, true);
@@ -85,8 +87,6 @@ public class LibsFragment extends Fragment {
         } else {
             libs = Libs.getInstance(activity, fields);
         }
-
-        libraries = libs.prepareLibraries(internalLibraries, autoDetect, sort);
 
         //The last step is to look if we would love to show some about text for this project
         String descriptionShowIcon = libs.getStringResourceByName("aboutLibraries_description_showIcon");
@@ -105,6 +105,9 @@ public class LibsFragment extends Fragment {
         }
 
         aboutDescription = Html.fromHtml(libs.getStringResourceByName("aboutLibraries_description_text"));
+
+        //fetch the libraries and sort if a comparator was set
+        libraries = libs.prepareLibraries(internalLibraries, excludeLibraries, autoDetect, sort);
 
         if (comparator != null) {
             Collections.sort(libraries, comparator);
