@@ -15,6 +15,7 @@
     <!-- OpenSource section -->
     <string name="library_androidcountrypicker_isOpenSource">true</string>
     <string name="library_androidcountrypicker_repositoryLink">https://github.com/roomorama/AndroidCountryPicker</string>
+    <string name="library_androidcountrypicker_classPath">com.countrypicker.CountryPicker</string>
     <!-- License section -->
     <string name="library_androidcountrypicker_licenseId">mit</string>
     <!-- Custom variables section -->

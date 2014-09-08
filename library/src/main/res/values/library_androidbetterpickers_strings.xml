@@ -13,6 +13,7 @@
     <string name="library_androidBetterpickers_licenseId">apache_2_0</string>
     <string name="library_androidBetterpickers_isOpenSource">true</string>
     <string name="library_androidBetterpickers_repositoryLink">https://github.com/derekbrameyer/android-betterpickers</string>
+    <string name="library_androidBetterpickers_classPath">com.doomonafireball.betterpickers.Utils</string>
     <!-- Custom variables section -->
     <string name="library_androidBetterpickers_owner">Derek Brameyer</string>
     <string name="library_androidBetterpickers_year">2014</string>

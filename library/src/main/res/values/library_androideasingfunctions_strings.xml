@@ -13,6 +13,7 @@
     <!-- OpenSource section -->
     <string name="library_androideasingfunctions_isOpenSource">true</string>
     <string name="library_androideasingfunctions_repositoryLink">https://github.com/daimajia/AnimationEasingFunctions</string>
+    <string name="library_androideasingfunctions_classPath">com.daimajia.easing.BaseEasingMethod</string>
     <!-- License section -->
     <string name="library_androideasingfunctions_licenseId">apache_2_0</string>
     <!-- Custom variables section -->

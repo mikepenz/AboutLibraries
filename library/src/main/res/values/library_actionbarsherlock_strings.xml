@@ -14,6 +14,7 @@
     <string name="library_ActionBarSherlock_licenseId">apache_2_0</string>
     <string name="library_ActionBarSherlock_isOpenSource">true</string>
     <string name="library_ActionBarSherlock_repositoryLink">https://github.com/JakeWharton/ActionBarSherlock</string>
+    <string name="library_ActionBarSherlock_classPath">com.actionbarsherlock.ActionBarSherlock</string>
     <!-- Custom variables section -->
     <string name="library_ActionBarSherlock_owner">Jake Wharton</string>
     <string name="library_ActionBarSherlock_year">2014</string>
