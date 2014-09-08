@@ -65,6 +65,7 @@ public class FragmentActivity extends android.support.v4.app.FragmentActivity {
             Intent i = new Intent(getApplicationContext(), LibsActivity.class);
             i.putExtra(Libs.BUNDLE_FIELDS, Libs.toStringArray(com.tundem.aboutlibraries.sample.R.string.class.getFields()));
             i.putExtra(Libs.BUNDLE_LIBS, new String[]{"crouton", "actionbarsherlock", "showcaseview"});
+            i.putExtra(Libs.BUNDLE_AUTODETECT, true);
 
             i.putExtra(Libs.BUNDLE_VERSION, true);
             i.putExtra(Libs.BUNDLE_LICENSE, true);
