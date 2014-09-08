@@ -7,8 +7,8 @@ android {
         applicationId 'com.tundem.aboutlibraries.sample'
         minSdkVersion 16
         targetSdkVersion 20
-        versionCode 231
-        versionName '2.3.1'
+        versionCode 300
+        versionName '3.0.0'
     }
     buildTypes {
         release {

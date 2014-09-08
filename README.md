@@ -40,7 +40,7 @@ The AboutLibraries Library is pushed to [Maven Central], so you just need to add
 
 ```javascript
 dependencies {
-	compile 'com.tundem.aboutlibraries:library:2.3.1@aar'
+	compile 'com.tundem.aboutlibraries:library:3.0.0-SNAPSHOT@aar'
 }
 ```
 
@@ -102,7 +102,7 @@ Use the Library class and build your view on-your-own
 
 The preferred method to get a Libs instance is by passing the string-field-array
 ```java
-Libs libs = Libs.getInstance(getActivity(), R.string.class.getFields());
+Libs libs = new Libs(getActivity(), R.string.class.getFields());
 ```
 
 Now you can use the instance to get the information
