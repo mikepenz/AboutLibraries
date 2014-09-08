@@ -18,10 +18,10 @@ public class LibraryCard extends Card {
 
     private Library library;
 
-    public LibraryCard(Context context, String libraryName) {
+    public LibraryCard(Context context, Libs libs, String libraryName) {
         super(libraryName);
 
-        library = Libs.getInstance(context).getLibrary(libraryName);
+        library = libs.getLibrary(libraryName);
     }
 
     public LibraryCard(Context context, Library library) {

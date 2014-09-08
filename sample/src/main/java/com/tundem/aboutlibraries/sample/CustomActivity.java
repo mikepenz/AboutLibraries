@@ -25,7 +25,7 @@ public class CustomActivity extends Activity {
 
         setContentView(R.layout.activity_main);
 
-        libs = Libs.getInstance(this, Libs.toStringArray(R.string.class.getFields()));
+        libs = new Libs(this, Libs.toStringArray(R.string.class.getFields()));
 
         // init CardView
         mCardView = (CardUI) findViewById(R.id.cardsview);
@@ -80,15 +80,15 @@ public class CustomActivity extends Activity {
         mCardView.clearCards();
 
         mCardView.addStack(new CardStack(" "));
-        mCardView.addCard(new LibraryCard(this, "AndroidIconify"));
-        mCardView.addCard(new LibraryCard(this, "ActiveAndroid"));
-        mCardView.addCard(new LibraryCard(this, "CardsUI"));
-        mCardView.addCard(new LibraryCard(this, "FButton"));
-        mCardView.addCard(new LibraryCard(this, "Crouton"));
-        mCardView.addCard(new LibraryCard(this, "HoloGraphLibrary"));
-        mCardView.addCard(new LibraryCard(this, "ShowcaseView"));
-        mCardView.addCard(new LibraryCard(this, "NineOldAndroids"));
-        mCardView.addCard(new LibraryCard(this, "AndroidViewpagerIndicator"));
+        mCardView.addCard(new LibraryCard(this, libs, "AndroidIconify"));
+        mCardView.addCard(new LibraryCard(this, libs, "ActiveAndroid"));
+        mCardView.addCard(new LibraryCard(this, libs, "CardsUI"));
+        mCardView.addCard(new LibraryCard(this, libs, "FButton"));
+        mCardView.addCard(new LibraryCard(this, libs, "Crouton"));
+        mCardView.addCard(new LibraryCard(this, libs, "HoloGraphLibrary"));
+        mCardView.addCard(new LibraryCard(this, libs, "ShowcaseView"));
+        mCardView.addCard(new LibraryCard(this, libs, "NineOldAndroids"));
+        mCardView.addCard(new LibraryCard(this, libs, "AndroidViewpagerIndicator"));
         mCardView.addStack(new CardStack(" "));
 
         mCardView.refresh();

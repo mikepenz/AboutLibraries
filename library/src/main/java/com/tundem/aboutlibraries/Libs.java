@@ -38,7 +38,6 @@ public class Libs {
     private static final String DEFINE_EXT = "define_";
 
     private Context ctx;
-    private Libs libs = null;
 
     private ArrayList<Library> internLibraries = new ArrayList<Library>();
     private ArrayList<Library> externLibraries = new ArrayList<Library>();
@@ -133,20 +132,20 @@ public class Libs {
         HashMap<String, Library> libraries = new HashMap<String, Library>();
 
         if (autoDetect) {
-            for (Library lib : libs.getAutoDetectedLibraries()) {
+            for (Library lib : getAutoDetectedLibraries()) {
                 libraries.put(lib.getDefinedName(), lib);
             }
         }
 
         //Add all external libraries
-        for (Library lib : libs.getExternLibraries()) {
+        for (Library lib : getExternLibraries()) {
             libraries.put(lib.getDefinedName(), lib);
         }
 
         //Now add all libs which do not contains the info file, but are in the AboutLibraries lib
         if (internalLibraries != null) {
             for (String internalLibrary : internalLibraries) {
-                Library lib = libs.getLibrary(internalLibrary);
+                Library lib = getLibrary(internalLibrary);
                 if (lib != null) {
                     libraries.put(lib.getDefinedName(), lib);
                 }
