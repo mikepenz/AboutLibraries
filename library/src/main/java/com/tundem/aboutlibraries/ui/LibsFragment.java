@@ -34,6 +34,9 @@ public class LibsFragment extends Fragment {
     private ListView listView;
     private ArrayList<Library> libraries;
 
+    private boolean autoDetect = false;
+    private boolean sort = true;
+
     private boolean showLicense = false;
     private boolean showLicenseDialog = true;
     private boolean showVersion = false;
@@ -51,7 +54,7 @@ public class LibsFragment extends Fragment {
     public LibsFragment() {
     }
 
-    public void setLibraryComparator(final Comparator<Library> comparator){
+    public void setLibraryComparator(final Comparator<Library> comparator) {
         this.comparator = comparator;
     }
 
@@ -67,6 +70,10 @@ public class LibsFragment extends Fragment {
         if (bundle != null) {
             internalLibraries = bundle.getStringArray(Libs.BUNDLE_LIBS);
             fields = bundle.getStringArray(Libs.BUNDLE_FIELDS);
+
+            autoDetect = bundle.getBoolean(Libs.BUNDLE_AUTODETECT, false);
+            sort = bundle.getBoolean(Libs.BUNDLE_SORT, true);
+
             showLicense = bundle.getBoolean(Libs.BUNDLE_LICENSE, false);
             showLicenseDialog = bundle.getBoolean(Libs.BUNDLE_LICENSE_DIALOG, true);
             showVersion = bundle.getBoolean(Libs.BUNDLE_VERSION, false);
@@ -79,18 +86,7 @@ public class LibsFragment extends Fragment {
             libs = Libs.getInstance(activity, fields);
         }
 
-        //Add all external libraries
-        libraries = libs.getExternLibraries();
-
-        //Now add all libs which do not contains the info file, but are in the AboutLibraries lib
-        if (internalLibraries != null) {
-            for (String internalLibrary : internalLibraries) {
-                Library lib = libs.getLibrary(internalLibrary);
-                if (lib != null) {
-                    libraries.add(lib);
-                }
-            }
-        }
+        libraries = libs.prepareLibraries(internalLibraries, autoDetect, sort);
 
         //The last step is to look if we would love to show some about text for this project
         String descriptionShowIcon = libs.getStringResourceByName("aboutLibraries_description_showIcon");

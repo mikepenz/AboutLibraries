@@ -1,6 +1,6 @@
 package com.tundem.aboutlibraries.entity;
 
-public class Library {
+public class Library implements Comparable<Library> {
 
     private String definedName = "";
 
@@ -16,6 +16,8 @@ public class Library {
 
     private boolean isOpenSource = true;
     private String repositoryLink = "";
+
+    private String classPath = "";
 
     public Library() {
 
@@ -120,5 +122,18 @@ public class Library {
 
     public void setInternal(boolean internal) {
         this.internal = internal;
+    }
+
+    public String getClassPath() {
+        return classPath;
+    }
+
+    public void setClassPath(String classPath) {
+        this.classPath = classPath;
+    }
+
+    @Override
+    public int compareTo(Library another) {
+        return (this.getLibraryName()).compareTo(another.getLibraryName());
     }
 }

@@ -4,17 +4,21 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.tundem.aboutlibraries.detector.Detect;
 import com.tundem.aboutlibraries.entity.Library;
 import com.tundem.aboutlibraries.entity.License;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Libs {
     public static final String BUNDLE_LIBS = "ABOUT_LIBRARIES_LIBS";
     public static final String BUNDLE_FIELDS = "ABOUT_LIBRARIES_FIELDS";
+    public static final String BUNDLE_AUTODETECT = "ABOUT_LIBRARIES_AUTODETECT";
+    public static final String BUNDLE_SORT = "ABOUT_LIBRARIES_SORT";
 
     public static final String BUNDLE_LICENSE = "ABOUT_LIBRARIES_LICENSE";
     public static final String BUNDLE_LICENSE_DIALOG = "ABOUT_LIBRARIES_LICENSE_DIALOG";
@@ -138,6 +142,55 @@ public class Libs {
             libs = new Libs(fields);
         }
         return libs;
+    }
+
+
+    /**
+     * This will summarize all libraries and elimate duplicates
+     *
+     * @param internalLibraries the String[] with the internalLibraries (if set manual)
+     * @param autoDetect        defines if the libraries should be resolved by their classpath (if possible)
+     * @return the summarized list of included Libraries
+     */
+    public ArrayList<Library> prepareLibraries(String[] internalLibraries, boolean autoDetect, boolean sort) {
+        HashMap<String, Library> libraries = new HashMap<String, Library>();
+
+        if (autoDetect) {
+            for (Library lib : libs.getAutodetectedLibraries()) {
+                libraries.put(lib.getDefinedName(), lib);
+            }
+        }
+
+        //Add all external libraries
+        for (Library lib : libs.getExternLibraries()) {
+            libraries.put(lib.getDefinedName(), lib);
+        }
+
+        //Now add all libs which do not contains the info file, but are in the AboutLibraries lib
+        if (internalLibraries != null) {
+            for (String internalLibrary : internalLibraries) {
+                Library lib = libs.getLibrary(internalLibrary);
+                if (lib != null) {
+                    libraries.put(lib.getDefinedName(), lib);
+                }
+            }
+        }
+
+        ArrayList<Library> resultLibraries = new ArrayList<Library>(libraries.values());
+        if (sort) {
+            Collections.sort(resultLibraries);
+        }
+        return resultLibraries;
+    }
+
+    /**
+     * Get all autoDetected Libraries
+     *
+     * @return an ArrayList<Library> with all found libs by their classpath
+     */
+    public ArrayList<Library> getAutodetectedLibraries() {
+        //TODO improve by setting a preference with the found libraries per app version :D
+        return new ArrayList<Library>(Detect.detect(ctx, getLibraries()));
     }
 
     /**
@@ -286,6 +339,8 @@ public class Libs {
 
             lib.setOpenSource(Boolean.valueOf(getStringResourceByName("library_" + libraryName + "_isOpenSource")));
             lib.setRepositoryLink(getStringResourceByName("library_" + libraryName + "_repositoryLink"));
+
+            lib.setClassPath(getStringResourceByName("library_" + libraryName + "_classPath"));
 
             if (TextUtils.isEmpty(lib.getLibraryName()) && TextUtils.isEmpty(lib.getLibraryDescription())) {
                 return null;
