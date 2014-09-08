@@ -83,9 +83,9 @@ public class LibsFragment extends Fragment {
 
         //init the Libs instance with fields if they were set
         if (fields == null) {
-            libs = Libs.getInstance(activity);
+            libs = new Libs(getActivity());
         } else {
-            libs = Libs.getInstance(activity, fields);
+            libs = new Libs(getActivity(), fields);
         }
 
         //The last step is to look if we would love to show some about text for this project

@@ -37,19 +37,21 @@ public class Libs {
     private static final String DEFINE_INT = "define_int_";
     private static final String DEFINE_EXT = "define_";
 
-    private static Context ctx;
-    private static Libs libs = null;
+    private Context ctx;
+    private Libs libs = null;
 
     private ArrayList<Library> internLibraries = new ArrayList<Library>();
     private ArrayList<Library> externLibraries = new ArrayList<Library>();
     private ArrayList<License> licenses = new ArrayList<License>();
 
-    private Libs() {
+    public Libs(Context context) {
+        ctx = context;
         String[] fields = toStringArray(R.string.class.getFields());
         init(fields);
     }
 
-    private Libs(String[] fields) {
+    public Libs(Context context, String[] fields) {
+        ctx = context;
         init(fields);
     }
 
@@ -117,37 +119,6 @@ public class Libs {
         }
         return fieldArray.toArray(new String[fieldArray.size()]);
     }
-
-    /**
-     * Creates a new Instance of Libs. This only includes internal internLibraries
-     *
-     * @param context
-     * @return
-     */
-    public static Libs getInstance(Context context) {
-        ctx = context;
-        if (libs == null) {
-            libs = new Libs();
-        }
-        return libs;
-    }
-
-    /**
-     * Creates a new Instance of Libs. This give fields[] also contains the ressources of any lib you've used
-     * Retrieve the fields[] by calling following method: Field[] fields = R.string.class.getFields();
-     *
-     * @param context
-     * @param fields
-     * @return
-     */
-    public static Libs getInstance(Context context, String[] fields) {
-        ctx = context;
-        if (libs == null) {
-            libs = new Libs(fields);
-        }
-        return libs;
-    }
-
 
     /**
      * This will summarize all libraries and elimate duplicates
