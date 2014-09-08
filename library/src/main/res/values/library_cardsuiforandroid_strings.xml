@@ -12,6 +12,8 @@
     <string name="library_cardsuiForAndroid_licenseId">apache_2_0</string>
     <string name="library_cardsuiForAndroid_isOpenSource">true</string>
     <string name="library_cardsuiForAndroid_repositoryLink">https://github.com/nadavfima/cardsui-for-android</string>
+    <!-- ClassPath for autoDetect -->
+    <string name="library_cardsuiForAndroid_classPath">com.fima.cardsui.views.CardUI</string>
     <!-- Custom variables section -->
     <string name="library_cardsuiForAndroid_owner">nadavfirm</string>
     <string name="library_cardsuiForAndroid_year">2014</string>
