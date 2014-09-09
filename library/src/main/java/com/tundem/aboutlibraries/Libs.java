@@ -401,8 +401,15 @@ public class Libs {
 
     public String insertVariables(String insertInto, HashMap<String, String> variables) {
         for (Map.Entry<String, String> entry : variables.entrySet()) {
-            insertInto = insertInto.replace("<<<" + entry.getKey().toUpperCase() + ">>>", entry.getValue());
+            if (!TextUtils.isEmpty(entry.getValue())) {
+                insertInto = insertInto.replace("<<<" + entry.getKey().toUpperCase() + ">>>", entry.getValue());
+            }
         }
+
+        //remove the placeholder chars so the license is shown correct
+        insertInto = insertInto.replace("<<<", "");
+        insertInto = insertInto.replace(">>>", "");
+
         return insertInto;
     }
 
