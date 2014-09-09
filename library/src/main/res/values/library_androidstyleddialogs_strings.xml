@@ -11,6 +11,7 @@
     <string name="library_androidStyledDialogs_licenseId">apache_2_0</string>
     <string name="library_androidStyledDialogs_isOpenSource">true</string>
     <string name="library_androidStyledDialogs_repositoryLink">https://github.com/inmite/android-styled-dialogs</string>
+    <string name="library_androidStyledDialogs_classPath">eu.inmite.android.lib.dialogs.BaseDialogBuilder</string>
     <!-- Custom variables section -->
     <string name="library_androidStyledDialogs_owner">inmite</string>
     <string name="library_androidStyledDialogs_year">2014</string>

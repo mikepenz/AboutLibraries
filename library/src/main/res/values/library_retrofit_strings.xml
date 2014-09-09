@@ -11,6 +11,7 @@
     <string name="library_Retrofit_licenseId">apache_2_0</string>
     <string name="library_Retrofit_isOpenSource">true</string>
     <string name="library_Retrofit_repositoryLink">https://github.com/square/retrofit</string>
+    <string name="library_Retrofit_classPath">retrofit.Utils</string>
     <!-- Custom variables section -->
     <string name="library_Retrofit_owner">Square</string>
     <string name="library_Retrofit_year">2014</string>

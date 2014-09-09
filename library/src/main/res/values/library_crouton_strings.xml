@@ -13,6 +13,7 @@
     <string name="library_Crouton_licenseId">apache_2_0</string>
     <string name="library_Crouton_isOpenSource">true</string>
     <string name="library_Crouton_repositoryLink">https://github.com/keyboardsurfer/Crouton</string>
+    <string name="library_Crouton_classPath">de.keyboardsurfer.android.widget.crouton.Crouton</string>
     <!-- Custom variables section -->
     <string name="library_Crouton_owner">Benjamin Weiss</string>
     <string name="library_Crouton_year">2014</string>

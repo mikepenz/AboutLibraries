@@ -11,6 +11,7 @@
     <string name="library_jodaTime_licenseId">apache_2_0</string>
     <string name="library_jodaTime_isOpenSource">true</string>
     <string name="library_jodaTime_repositoryLink">https://github.com/JodaOrg/joda-time</string>
+    <string name="library_jodaTime_classPath">org.joda.time.LocalDate</string>
     <!-- Custom variables section -->
     <string name="library_jodaTime_owner">Joda.org</string>
     <string name="library_jodaTime_year">2014</string>

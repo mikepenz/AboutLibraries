@@ -9,6 +9,7 @@
     <string name="library_Dagger_licenseId">apache_2_2</string>
     <string name="library_Dagger_isOpenSource">true</string>
     <string name="library_Dagger_repositoryLink">https://github.com/square/dagger</string>
+    <string name="library_Dagger_classPath">dagger.Module</string>
     <!-- Custom variables section -->
     <string name="library_Dagger_owner">Square</string>
     <string name="library_Dagger_year">2014</string>

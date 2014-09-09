@@ -12,6 +12,7 @@
     <string name="library_PagerSlidingTabStrip_licenseId">apache_2_0</string>
     <string name="library_PagerSlidingTabStrip_isOpenSource">true</string>
     <string name="library_PagerSlidingTabStrip_repositoryLink">https://github.com/astuetz/PagerSlidingTabStrip</string>
+    <string name="library_PagerSlidingTabStrip_classPath">com.astuetz.PagerSlidingTabStrip</string>
     <!-- Custom variables section -->
     <string name="library_PagerSlidingTabStrip_owner">Andreas Stuetz</string>
     <string name="library_PagerSlidingTabStrip_year">2014</string>

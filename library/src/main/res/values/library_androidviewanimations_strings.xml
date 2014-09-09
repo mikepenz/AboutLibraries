@@ -13,6 +13,7 @@
     <!-- OpenSource section -->
     <string name="library_androidviewanimations_isOpenSource">true</string>
     <string name="library_androidviewanimations_repositoryLink">https://github.com/daimajia/AndroidViewAnimations</string>
+    <string name="library_androidviewanimations_classPath">com.daimajia.androidanimations.library.BaseViewAnimator</string>
     <!-- License section -->
     <string name="library_androidviewanimations_licenseId">apache_2_0</string>
     <!-- Custom variables section -->

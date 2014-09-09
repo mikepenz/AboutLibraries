@@ -13,6 +13,7 @@
     <!-- OpenSource section -->
     <string name="library_androidviewhover_isOpenSource">true</string>
     <string name="library_androidviewhover_repositoryLink">https://github.com/daimajia/AndroidViewHover</string>
+    <string name="library_androidviewhover_classPath">com.daimajia.androidviewhover.BlurLayout</string>
     <!-- License section -->
     <string name="library_androidviewhover_licenseId">apache_2_0</string>
     <!-- Custom variables section -->

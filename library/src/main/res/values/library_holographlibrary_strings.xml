@@ -14,6 +14,7 @@
     <string name="library_HoloGraphLibrary_licenseId">apache_2_0</string>
     <string name="library_HoloGraphLibrary_isOpenSource">true</string>
     <string name="library_HoloGraphLibrary_repositoryLink">https://bitbucket.org/danielnadeau/holographlibrary</string>
+    <string name="library_HoloGraphLibrary_classPath">com.echo.holographlibrary.Bar</string>
     <!-- Custom variables section -->
     <string name="library_HoloGraphLibrary_owner">Daniel Nadeau</string>
     <string name="library_HoloGraphLibrary_year">2014</string>

@@ -15,6 +15,7 @@
     <!-- OpenSource section -->
     <string name="library_paymill_isOpenSource">true</string>
     <string name="library_paymill_repositoryLink">https://github.com/paymill/paymill-android</string>
+    <string name="library_paymill_classPath">com.paymill.android.api.Client</string>
     <!-- License section -->
     <string name="libray_paymill_licenseVersion"></string>
     <string name="libray_paymill_licenseLink"></string>

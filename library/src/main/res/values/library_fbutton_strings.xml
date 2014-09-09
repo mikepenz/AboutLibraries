@@ -13,6 +13,7 @@
     <string name="library_FButton_licenseId">apache_2_0</string>
     <string name="library_FButton_isOpenSource">true</string>
     <string name="library_FButton_repositoryLink">https://github.com/hoang8f/android-flat-button</string>
+    <string name="library_FButton_classPath">info.hoang8f.widget.FButton</string>
     <!-- Custom variables section -->
     <string name="library_FButton_owner">Le Van Hoang</string>
     <string name="library_FButton_year">2014</string>

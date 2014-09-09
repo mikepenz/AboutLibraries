@@ -9,6 +9,7 @@
     <string name="library_Smoothprogressbar_licenseId">apache_2_0</string>
     <string name="library_Smoothprogressbar_isOpenSource">true</string>
     <string name="library_Smoothprogressbar_repositoryLink">https://github.com/castorflex/SmoothProgressBar</string>
+    <string name="library_Smoothprogressbar_classPath">fr.castorflex.android.smoothprogressbar.SmoothProgressBar</string>
     <!-- Custom variables section -->
     <string name="library_Smoothprogressbar_owner">Antoine Merle</string>
     <string name="library_Smoothprogressbar_year">2014</string>
