@@ -55,7 +55,8 @@ You can use this library in a few different ways. You can create your own activi
 Bundle bundle = new Bundle();
 //Pass the fields of your application to the lib so it can find all external lib information
 bundle.putStringArray(Libs.BUNDLE_FIELDS, Libs.toStringArray(R.string.class.getFields()));
-//Define the libs you want (only those who don't include the information, and are managed by the AboutLibraries library) (OPTIONAL if all used libraries offer the information)
+//Define the libs you want (only those which don't include the information, and are not autoDetected) 
+//(OPTIONAL if all used libraries offer the information, or are autoDetected)
 bundle.putStringArray(Libs.BUNDLE_LIBS, new String[]{"AndroidIconify", "ActiveAndroid", "FButton", "Crouton", "HoloGraphLibrary", "ShowcaseView", "NineOldAndroids", "AndroidViewpagerIndicator"});
 
 //Display the library version (OPTIONAL)
@@ -75,7 +76,8 @@ fragment.setArguments(bundle);
 Intent i = new Intent(getApplicationContext(), LibsActivity.class);
 //Pass the fields of your application to the lib so it can find all external lib information
 i.putExtra(Libs.BUNDLE_FIELDS, Libs.toStringArray(R.string.class.getFields()));
-//Define the libs you want (only those who don't include the information, and are managed by the AboutLibraries library) (OPTIONAL if all used libraries offer the information)
+//Define the libs you want (only those which don't include the information, and are not autoDetected) 
+//(OPTIONAL if all used libraries offer the information, or are autoDetected)
 i.putExtra(Libs.BUNDLE_LIBS, new String[]{"crouton", "actionbarsherlock", "showcaseview"});
 
 //Display the library version (OPTIONAL)
