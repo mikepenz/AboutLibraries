@@ -34,7 +34,7 @@ public class LibsFragment extends Fragment {
     private ListView listView;
     private ArrayList<Library> libraries;
 
-    private boolean autoDetect = false;
+    private boolean autoDetect = true;
     private boolean sort = true;
 
     private boolean showLicense = false;
@@ -73,7 +73,7 @@ public class LibsFragment extends Fragment {
             internalLibraries = bundle.getStringArray(Libs.BUNDLE_LIBS);
             excludeLibraries = bundle.getStringArray(Libs.BUNDLE_EXCLUDE_LIBS);
 
-            autoDetect = bundle.getBoolean(Libs.BUNDLE_AUTODETECT, false);
+            autoDetect = bundle.getBoolean(Libs.BUNDLE_AUTODETECT, true);
             sort = bundle.getBoolean(Libs.BUNDLE_SORT, true);
 
             showLicense = bundle.getBoolean(Libs.BUNDLE_LICENSE, false);
