@@ -79,7 +79,7 @@ Please let me know i you include the definition file in your library. Thanks.</p
 <p>The AboutLibraries Library is pushed to [Maven Central], so you just need to add the following dependency to your <code>build.gradle</code>.</p>
 
 <div class="highlight highlight-javascript"><pre><span class="nx">dependencies</span> <span class="p">{</span>
-    <span class="nx">compile</span> <span class="s1">'com.tundem.aboutlibraries:library:2.3.1@aar'</span>
+    <span class="nx">compile</span> <span class="s1">'com.tundem.aboutlibraries:library:3.0.0@aar'</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -99,7 +99,8 @@ Please let me know i you include the definition file in your library. Thanks.</p
 <div class="highlight highlight-java"><pre><span class="n">Bundle</span> <span class="n">bundle</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Bundle</span><span class="o">();</span>
 <span class="c1">//Pass the fields of your application to the lib so it can find all external lib information</span>
 <span class="n">bundle</span><span class="o">.</span><span class="na">putStringArray</span><span class="o">(</span><span class="n">Libs</span><span class="o">.</span><span class="na">BUNDLE_FIELDS</span><span class="o">,</span> <span class="n">Libs</span><span class="o">.</span><span class="na">toStringArray</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">string</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getFields</span><span class="o">()));</span>
-<span class="c1">//Define the libs you want (only those who don't include the information, and are managed by the AboutLibraries library) (OPTIONAL if all used libraries offer the information)</span>
+<span class="c1">//Define the libs you want (only those which don't include the information, and are not autoDetected) </span>
+<span class="c1">//(OPTIONAL if all used libraries offer the information, or are autoDetected)</span>
 <span class="n">bundle</span><span class="o">.</span><span class="na">putStringArray</span><span class="o">(</span><span class="n">Libs</span><span class="o">.</span><span class="na">BUNDLE_LIBS</span><span class="o">,</span> <span class="k">new</span> <span class="n">String</span><span class="o">[]{</span><span class="s">"AndroidIconify"</span><span class="o">,</span> <span class="s">"ActiveAndroid"</span><span class="o">,</span> <span class="s">"FButton"</span><span class="o">,</span> <span class="s">"Crouton"</span><span class="o">,</span> <span class="s">"HoloGraphLibrary"</span><span class="o">,</span> <span class="s">"ShowcaseView"</span><span class="o">,</span> <span class="s">"NineOldAndroids"</span><span class="o">,</span> <span class="s">"AndroidViewpagerIndicator"</span><span class="o">});</span>
 
 <span class="c1">//Display the library version (OPTIONAL)</span>
@@ -123,7 +124,8 @@ Please let me know i you include the definition file in your library. Thanks.</p
 <span class="n">Intent</span> <span class="n">i</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Intent</span><span class="o">(</span><span class="n">getApplicationContext</span><span class="o">(),</span> <span class="n">LibsActivity</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
 <span class="c1">//Pass the fields of your application to the lib so it can find all external lib information</span>
 <span class="n">i</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="n">Libs</span><span class="o">.</span><span class="na">BUNDLE_FIELDS</span><span class="o">,</span> <span class="n">Libs</span><span class="o">.</span><span class="na">toStringArray</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">string</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getFields</span><span class="o">()));</span>
-<span class="c1">//Define the libs you want (only those who don't include the information, and are managed by the AboutLibraries library) (OPTIONAL if all used libraries offer the information)</span>
+<span class="c1">//Define the libs you want (only those which don't include the information, and are not autoDetected) </span>
+<span class="c1">//(OPTIONAL if all used libraries offer the information, or are autoDetected)</span>
 <span class="n">i</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="n">Libs</span><span class="o">.</span><span class="na">BUNDLE_LIBS</span><span class="o">,</span> <span class="k">new</span> <span class="n">String</span><span class="o">[]{</span><span class="s">"crouton"</span><span class="o">,</span> <span class="s">"actionbarsherlock"</span><span class="o">,</span> <span class="s">"showcaseview"</span><span class="o">});</span>
 
 <span class="c1">//Display the library version (OPTIONAL)</span>
@@ -152,7 +154,7 @@ Please let me know i you include the definition file in your library. Thanks.</p
 
 <p>The preferred method to get a Libs instance is by passing the string-field-array</p>
 
-<div class="highlight highlight-java"><pre><span class="n">Libs</span> <span class="n">libs</span> <span class="o">=</span> <span class="n">Libs</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="n">getActivity</span><span class="o">(),</span> <span class="n">R</span><span class="o">.</span><span class="na">string</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getFields</span><span class="o">());</span>
+<div class="highlight highlight-java"><pre><span class="n">Libs</span> <span class="n">libs</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Libs</span><span class="o">(</span><span class="n">getActivity</span><span class="o">(),</span> <span class="n">R</span><span class="o">.</span><span class="na">string</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getFields</span><span class="o">());</span>
 </pre></div>
 
 <p>Now you can use the instance to get the information</p>
