@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_ViewPagerIndicator">year;owner</string>
+    <string name="library_ViewPagerIndicator_author">Jake Wharton</string>
+    <string name="library_ViewPagerIndicator_libraryName">Android-ViewPagerIndicator</string>
+    <string name="library_ViewPagerIndicator_libraryDescription">Paging indicator widgets compatible with the ViewPager from Android Stupport Library and ActionBarSherlock.</string>
+    <string name="library_ViewPagerIndicator_libraryVersion">2.4.1</string>
+    <string name="library_ViewPagerIndicator_libraryWebsite">http://viewpagerindicator.com/</string>
+    <string name="library_ViewPagerIndicator_licenseId">apache_2_0</string>
+    <string name="library_ViewPagerIndicator_isOpenSource">true</string>
+    <string name="library_ViewPagerIndicator_repositoryLink">https://github.com/JakeWharton/Android-ViewPagerIndicator</string>
+    <string name="library_ViewPagerIndicator_classPath">com.viewpagerindicator</string>
+    <!-- Custom variables section -->
+    <string name="library_ViewPagerIndicator_owner">Jake Wharton</string>
+    <string name="library_ViewPagerIndicator_year">2012</string>
+</resources>
