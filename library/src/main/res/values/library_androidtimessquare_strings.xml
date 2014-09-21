@@ -9,7 +9,7 @@
     <string name="library_AndroidTimesSquare_licenseId">apache_2_2</string>
     <string name="library_AndroidTimesSquare_isOpenSource">true</string>
     <string name="library_AndroidTimesSquare_repositoryLink">https://github.com/square/android-times-square</string>
-    <string name="library_AndroidTimesSquare_classPath">com.squareup.timessquare</string>
+    <string name="library_AndroidTimesSquare_classPath">com.squareup.timessquare.MonthView</string>
     <!-- Custom variables section -->
     <string name="library_AndroidTimesSquare_owner">Square</string>
     <string name="library_AndroidTimesSquare_year">2014</string>

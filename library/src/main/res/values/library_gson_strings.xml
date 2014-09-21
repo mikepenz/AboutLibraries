@@ -9,7 +9,7 @@
     <string name="library_gson_licenseId">apache_2_0</string>
     <string name="library_gson_isOpenSource">true</string>
     <string name="library_gson_repositoryLink">https://code.google.com/p/google-gson/</string>
-    <string name="library_gson_classPath">com.google.gson</string>
+    <string name="library_gson_classPath">com.google.gson.Gson</string>
     <!-- Custom variables section -->
     <string name="library_gson_owner">Google Inc.</string>
     <string name="library_gson_year">2014</string>
