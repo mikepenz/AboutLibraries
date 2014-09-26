@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_int_snackbar">year;owner</string>
+	<!-- Author section -->
+	<string name="library_snackbar_author">William Mora</string>
+	<string name="library_snackbar_authorWebsite">http://www.williammora.com</string>
+	<!-- Library section -->
+	<string name="library_snackbar_libraryName">Snackbar</string>
+	<string name="library_snackbar_libraryDescription">Android library that implements Snackbars from Google\'s Material Design documentation.</string>
+	<string name="library_snackbar_libraryWebsite">https://github.com/wmora/snackbar</string>
+	<string name="library_snackbar_libraryVersion">1.2.0</string>
+	<!-- OpenSource section -->
+	<string name="library_snackbar_isOpenSource">true</string>
+	<string name="library_snackbar_repositoryLink">https://github.com/wmora/snackbar</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_snackbar_classPath">com.williammora.snackbar.Snackbar</string>
+	<!-- License section -->
+	<string name="library_snackbar_licenseId">mit</string>
+	<!-- Custom variables section -->
+</resources>
