@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_rxJavaAndroid"></string>
+    <!-- Author section -->
+    <string name="library_rxJavaAndroid_author">Netflix</string>
+    <string name="library_rxJavaAndroid_authorWebsite">https://github.com/Netflix/RxJava</string>
+    <!-- Library section -->
+    <string name="library_rxJavaAndroid_libraryName">RxJava-Android</string>
+    <string name="library_rxJavaAndroid_libraryDescription">Reactive Extensions for the JVM –
+        a library for composing asynchronous and event-based programs using observable sequences</string>
+    <string name="library_rxJavaAndroid_libraryWebsite">https://github.com/Netflix/RxJava</string>
+    <string name="library_rxJavaAndroid_libraryVersion">0.20.5</string>
+    <!-- OpenSource section -->
+    <string name="library_rxJavaAndroid_isOpenSource">true</string>
+    <string name="library_rxJavaAndroid_repositoryLink">https://github.com/Netflix/RxJava</string>
+    <!-- License section -->
+    <string name="library_rxJavaAndroid_licenseId">apache_2_0</string>
+</resources> 
