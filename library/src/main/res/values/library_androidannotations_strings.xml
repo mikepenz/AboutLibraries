@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_androidannotations"></string>
+    <string name="library_androidannotations_author">Pierre-Yves Ricau</string>
+    <string name="library_androidannotations_authorWebsite">http://www.piwai.info/</string>
+    <string name="library_androidannotations_libraryName">AndroidAnnotations</string>
+<string name="library_androidannotations_libraryDescription">AndroidAnnotations is an Open Source framework that speeds up Android development. It takes care of the plumbing, and lets you concentrate on what\'s really important. By simplifying your code, it facilitates its maintenance.
+</string>
+    <string name="library_androidannotations_libraryVersion">3.1</string>
+    <string name="library_androidannotations_libraryWebsite">http://androidannotations.org/</string>
+    <string name="library_androidannotations_licenseId">cc30</string>
+    <string name="library_androidannotations_isOpenSource">true</string>
+    <string name="library_androidannotations_repositoryLink">https://github.com/excilys/androidannotations.git</string>
+</resources>
