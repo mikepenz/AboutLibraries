@@ -8,7 +8,7 @@
 </string>
     <string name="library_androidannotations_libraryVersion">3.1</string>
     <string name="library_androidannotations_libraryWebsite">http://androidannotations.org/</string>
-    <string name="library_androidannotations_licenseId">cc_by_3_0</string>
+    <string name="library_androidannotations_licenseId">cc30</string>
     <string name="library_androidannotations_isOpenSource">true</string>
     <string name="library_androidannotations_repositoryLink">https://github.com/excilys/androidannotations.git</string>
 </resources>
