@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_int_materialmenu">year;owner</string>
+	<!-- Author section -->
+	<string name="library_materialmenu_author">Balys Valentukevicius</string>
+	<string name="library_materialmenu_authorWebsite">https://github.com/balysv</string>
+	<!-- Library section -->
+	<string name="library_materialmenu_libraryName">Material Menu</string>
+	<string name="library_materialmenu_libraryDescription">The library provides two wrappers of MaterialMenuDrawable that eases implementation into the ActionBar, NavigationDrawer slide interaction or into any other custom layout.</string>
+	<string name="library_materialmenu_libraryWebsite">https://github.com/balysv/material-menu</string>
+	<string name="library_materialmenu_libraryVersion">1.4.0</string>
+	<!-- OpenSource section -->
+	<string name="library_materialmenu_isOpenSource">true</string>
+	<string name="library_materialmenu_repositoryLink">https://github.com/balysv/material-menu</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_materialmenu_classPath">com.balysv.materialmenu. MaterialMenu</string>
+	<!-- License section -->
+	<string name="library_materialmenu_licenseId">apache_2_0</string>
+	<!-- Custom variables section -->
+    	<string name="library_materialmenu_owner">Balys Valentukevicius</string>
+    	<string name="library_materialmenu_year">2014</string>
+</resources>
