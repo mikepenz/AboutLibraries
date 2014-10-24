@@ -50,10 +50,12 @@
 <li><a href="https://github.com/mikepenz/AboutLibraries/wiki">Get detailed instructions in the wiki</a></li>
 <li><a href="https://github.com/mikepenz/AboutLibraries/wiki/Screenshots">Want to see some images? Click here</a></li>
 <li><a href="https://github.com/mikepenz/AboutLibraries/wiki/Compatible-Libs">Everything clear. Here's a list of compatible/included libs</a></li>
-</ul><h1>
+</ul>
+
+<h1>
 <a name="screenshots" class="anchor" href="#screenshots"><span class="octicon octicon-link"></span></a>Screenshots</h1>
 
-<p><img src="https://raw.githubusercontent.com/mikepenz/AboutLibraries/master/DEV/screenshots/screenshot1_small.png" alt="Image">.
+<p><img src="https://raw.githubusercontent.com/mikepenz/AboutLibraries/master/DEV/screenshots/screenshot1_small.png" alt="Image">
 <img src="https://raw.githubusercontent.com/mikepenz/AboutLibraries/master/DEV/screenshots/screenshot2_small.png" alt="Image"></p>
 
 <h1>
@@ -79,7 +81,7 @@ Please let me know i you include the definition file in your library. Thanks.</p
 <p>The AboutLibraries Library is pushed to [Maven Central], so you just need to add the following dependency to your <code>build.gradle</code>.</p>
 
 <div class="highlight highlight-javascript"><pre><span class="nx">dependencies</span> <span class="p">{</span>
-    <span class="nx">compile</span> <span class="s1">'com.tundem.aboutlibraries:library:3.0.3@aar'</span>
+    <span class="nx">compile</span> <span class="s1">'com.tundem.aboutlibraries:library:4.0.1@aar'</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -137,11 +139,8 @@ Please let me know i you include the definition file in your library. Thanks.</p
 <span class="n">i</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="n">Libs</span><span class="o">.</span><span class="na">BUNDLE_TITLE</span><span class="o">,</span> <span class="s">"Open Source"</span><span class="o">);</span>
 
 <span class="c1">//Pass your theme (OPTIONAL)</span>
-<span class="n">i</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="n">Libs</span><span class="o">.</span><span class="na">BUNDLE_THEME</span><span class="o">,</span> <span class="n">android</span><span class="o">.</span><span class="na">R</span><span class="o">.</span><span class="na">style</span><span class="o">.</span><span class="na">Theme_Holo</span><span class="o">);</span>
+<span class="n">i</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="n">Libs</span><span class="o">.</span><span class="na">BUNDLE_THEME</span><span class="o">,</span> <span class="n">R</span><span class="o">.</span><span class="na">style</span><span class="o">.</span><span class="na">Theme_AppCompat</span><span class="o">);</span>
 <span class="c1">//Pass a custom accent color (OPTIONAL)</span>
-<span class="n">i</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="n">Libs</span><span class="o">.</span><span class="na">BUNDLE_ACCENT_COLOR</span><span class="o">,</span> <span class="s">"#3396E5"</span><span class="o">);</span>
-<span class="c1">//Pass the information if it should use the Translucent decor (OPTIONAL) -&gt; requires ACCENT_COLOR</span>
-<span class="n">i</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="n">Libs</span><span class="o">.</span><span class="na">BUNDLE_TRANSLUCENT_DECOR</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
 
 <span class="c1">//start the activity</span>
 <span class="n">startActivity</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
@@ -167,7 +166,7 @@ Please let me know i you include the definition file in your library. Thanks.</p
 <h2>
 <a name="small-extra" class="anchor" href="#small-extra"><span class="octicon octicon-link"></span></a>Small extra</h2>
 
-<p>For those who read the whole REAME here's one more thing.
+<p>For those who read the whole README here's one more thing.
 You can also use the AboutLibraries activity as "about this app" screen. You ask how?
 Yeah pretty simple just add the following .xml file (or just the strings (the key must be the same)) to your project.</p>
 
@@ -176,6 +175,14 @@ Yeah pretty simple just add the following .xml file (or just the strings (the ke
     <span class="nt">&lt;string</span> <span class="na">name=</span><span class="s">"aboutLibraries_description_showVersion"</span><span class="nt">&gt;</span>true<span class="nt">&lt;/string&gt;</span>
     <span class="nt">&lt;string</span> <span class="na">name=</span><span class="s">"aboutLibraries_description_text"</span><span class="nt">&gt;</span>Place your description here :D<span class="nt">&lt;/string&gt;</span>
 <span class="nt">&lt;/resources&gt;</span>
+</pre></div>
+
+<p>or</p>
+
+<div class="highlight highlight-java"><pre><span class="n">i</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="n">Libs</span><span class="o">.</span><span class="na">BUNDLE_APP_ABOUT_ICON</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+<span class="n">i</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="n">Libs</span><span class="o">.</span><span class="na">BUNDLE_APP_ABOUT_VERSION</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+<span class="n">i</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="n">Libs</span><span class="o">.</span><span class="na">BUNDLE_APP_ABOUT_DESCRIPTION</span><span class="o">,</span> <span class="s">"Place your description here :D"</span><span class="o">);</span>
+
 </pre></div>
 
 <h2>
@@ -237,7 +244,9 @@ Yeah pretty simple just add the following .xml file (or just the strings (the ke
 <ul>
 <li>Mike Penz - <a href="http://mikepenz.com">http://mikepenz.com</a> - <a href="mailto:penz@tundem.com">penz@tundem.com</a>
 </li>
-</ul><h1>
+</ul>
+
+<h1>
 <a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h1>
 
 <pre><code>Copyright 2014 Mike Penz
