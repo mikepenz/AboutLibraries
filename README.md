@@ -40,7 +40,7 @@ The AboutLibraries Library is pushed to [Maven Central], so you just need to add
 
 ```javascript
 dependencies {
-	compile 'com.tundem.aboutlibraries:library:4.0.0@aar'
+	compile 'com.tundem.aboutlibraries:library:4.0.1@aar'
 }
 ```
 
@@ -115,7 +115,7 @@ done.
 
 
 ##Small extra
-For those who read the whole REAME here's one more thing.
+For those who read the whole README here's one more thing.
 You can also use the AboutLibraries activity as "about this app" screen. You ask how?
 Yeah pretty simple just add the following .xml file (or just the strings (the key must be the same)) to your project.
 
