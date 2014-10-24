@@ -104,7 +104,7 @@ public class UIUtils {
         return 0;
     }
 
-    /**
+    /*
      * GETTER UND SETTER!!
      */
     public int getAccentColor() {
