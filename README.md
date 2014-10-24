@@ -126,6 +126,13 @@ Yeah pretty simple just add the following .xml file (or just the strings (the ke
     <string name="aboutLibraries_description_text">Place your description here :D</string>
 </resources>
 ```
+or
+```java
+i.putExtra(Libs.BUNDLE_APP_ABOUT_ICON, true);
+i.putExtra(Libs.BUNDLE_APP_ABOUT_VERSION, true);
+i.putExtra(Libs.BUNDLE_APP_ABOUT_DESCRIPTION, "Place your description here :D");
+
+```
 
 
 ##Definition-File-Builder
