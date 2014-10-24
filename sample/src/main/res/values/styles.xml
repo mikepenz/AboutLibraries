@@ -1,8 +1,15 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <style name="AppTheme" parent="Theme.AppCompat">
+
+        <!-- Here we setting appcompat’s actionBarStyle -->
+        <item name="windowActionBar">true</item>
+
+        <!-- ...and here we setting appcompat’s color theming attrs -->
+        <item name="colorPrimary">@color/theme_default_primary</item>
+        <item name="colorPrimaryDark">@color/theme_default_primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
     </style>
 
 </resources>

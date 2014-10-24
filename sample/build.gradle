@@ -1,14 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 20
-    buildToolsVersion '20.0.0'
+    compileSdkVersion 21
+    buildToolsVersion '21.0.2'
     defaultConfig {
         applicationId 'com.tundem.aboutlibraries.sample'
         minSdkVersion 16
-        targetSdkVersion 20
-        versionCode 304
-        versionName '3.0.4'
+        targetSdkVersion 21
+        versionCode 400
+        versionName '4.0.0'
     }
     buildTypes {
         release {

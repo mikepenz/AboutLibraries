@@ -1,16 +1,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:tools="http://schemas.android.com/tools"
+      xmlns:tools="http://schemas.android.com/tools" xmlns:app="http://schemas.android.com/apk/res-auto"
       tools:context=".MainActivity">
     <item android:id="@+id/action_all"
           android:title="@string/action_all"
-          android:showAsAction="never"/>
+          app:showAsAction="never"/>
     <item android:id="@+id/action_external"
           android:title="@string/action_external"
-          android:showAsAction="never"/>
+          app:showAsAction="never"/>
     <item android:id="@+id/action_internal"
           android:title="@string/action_internal"
-          android:showAsAction="never"/>
+          app:showAsAction="never"/>
     <item android:id="@+id/action_defined"
           android:title="@string/action_defined"
-          android:showAsAction="never"/>
+          app:showAsAction="never"/>
 </menu>

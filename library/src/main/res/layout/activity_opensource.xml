@@ -9,9 +9,4 @@
         android:layout_height="match_parent">
 
     </FrameLayout>
-
-    <com.tundem.aboutlibraries.ui.view.DrawInsetsFrameLayout
-        android:id="@+id/drawinsetsframelayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
 </FrameLayout>

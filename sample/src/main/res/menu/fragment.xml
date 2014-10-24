@@ -1,16 +1,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:tools="http://schemas.android.com/tools"
+      xmlns:tools="http://schemas.android.com/tools" xmlns:app="http://schemas.android.com/apk/res-auto"
       tools:context=".MainActivity">
     <item android:id="@+id/action_manifestactivity"
           android:title="@string/action_manifestactivity"
-          android:showAsAction="never"/>
+          app:showAsAction="never"/>
     <item android:id="@+id/action_extendactivity"
           android:title="@string/action_extendactivity"
-          android:showAsAction="never"/>
+          app:showAsAction="never"/>
     <item android:id="@+id/action_customactivity"
           android:title="@string/action_customactivity"
-          android:showAsAction="never"/>
+          app:showAsAction="never"/>
     <item android:id="@+id/action_opensource"
           android:title="@string/action_opensource"
-          android:showAsAction="never"/>
+          app:showAsAction="never"/>
 </menu>

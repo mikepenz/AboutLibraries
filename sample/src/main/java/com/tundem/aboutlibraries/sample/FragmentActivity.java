@@ -4,18 +4,18 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.tundem.aboutlibraries.Libs;
-import com.tundem.aboutlibraries.R;
 import com.tundem.aboutlibraries.ui.LibsActivity;
 import com.tundem.aboutlibraries.ui.LibsFragment;
 
 /**
  * Created by mikepenz on 04.06.14.
  */
-public class FragmentActivity extends android.support.v4.app.FragmentActivity {
+public class FragmentActivity extends ActionBarActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,9 +71,7 @@ public class FragmentActivity extends android.support.v4.app.FragmentActivity {
             i.putExtra(Libs.BUNDLE_LICENSE, true);
 
             i.putExtra(Libs.BUNDLE_TITLE, "Open Source");
-            i.putExtra(Libs.BUNDLE_THEME, android.R.style.Theme_Holo);
-            i.putExtra(Libs.BUNDLE_ACCENT_COLOR, "#3396E5");
-            i.putExtra(Libs.BUNDLE_TRANSLUCENT_DECOR, true);
+            i.putExtra(Libs.BUNDLE_THEME, R.style.AppTheme);
 
             startActivity(i);
         }

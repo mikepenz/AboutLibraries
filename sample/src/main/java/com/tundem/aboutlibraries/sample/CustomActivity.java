@@ -1,7 +1,7 @@
 package com.tundem.aboutlibraries.sample;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -14,7 +14,7 @@ import com.tundem.aboutlibraries.sample.cardsui.LibraryCard;
 import java.util.List;
 
 
-public class CustomActivity extends Activity {
+public class CustomActivity extends ActionBarActivity {
 
     private CardUI mCardView;
     private Libs libs;

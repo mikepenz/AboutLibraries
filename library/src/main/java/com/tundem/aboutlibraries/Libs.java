@@ -30,8 +30,6 @@ public class Libs {
 
     public static final String BUNDLE_THEME = "ABOUT_LIBRARIES_THEME";
     public static final String BUNDLE_TITLE = "ABOUT_LIBRARIES_TITLE";
-    public static final String BUNDLE_ACCENT_COLOR = "ABOUT_LIBRARIES_ACCENT_COLOR";
-    public static final String BUNDLE_TRANSLUCENT_DECOR = "ABOUT_LIBRARIES_TRANSLUCENT_DECOR";
 
     private static final String DEFINE_LICENSE = "define_license_";
     private static final String DEFINE_INT = "define_int_";
