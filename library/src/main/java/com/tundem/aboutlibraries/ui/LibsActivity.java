@@ -17,8 +17,7 @@ public class LibsActivity extends ActionBarActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
+        //set the theme
         boolean customTheme = false;
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
@@ -29,14 +28,13 @@ public class LibsActivity extends ActionBarActivity {
             }
         }
         if (!customTheme) {
-            setTheme(R.style.Base_Theme_AppCompat);
+            setTheme(R.style.Theme_AppCompat);
         }
 
-
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_opensource);
 
         String title = "";
-
         if (bundle != null) {
             title = bundle.getString(Libs.BUNDLE_TITLE);
         }
