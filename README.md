@@ -89,11 +89,8 @@ i.putExtra(Libs.BUNDLE_LICENSE, true);
 i.putExtra(Libs.BUNDLE_TITLE, "Open Source");
 
 //Pass your theme (OPTIONAL)
-i.putExtra(Libs.BUNDLE_THEME, android.R.style.Theme_Holo);
+i.putExtra(Libs.BUNDLE_THEME, R.style.Theme_AppCompat);
 //Pass a custom accent color (OPTIONAL)
-i.putExtra(Libs.BUNDLE_ACCENT_COLOR, "#3396E5");
-//Pass the information if it should use the Translucent decor (OPTIONAL) -> requires ACCENT_COLOR
-i.putExtra(Libs.BUNDLE_TRANSLUCENT_DECOR, true);
 
 //start the activity
 startActivity(i);
