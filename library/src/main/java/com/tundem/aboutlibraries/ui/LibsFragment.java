@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Html;
-import android.text.Spanned;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,8 +28,6 @@ import java.util.Comparator;
  * Created by mikepenz on 04.06.14.
  */
 public class LibsFragment extends Fragment {
-
-    private Libs libs;
     private ListView listView;
     private ArrayList<Library> libraries;
 
@@ -43,7 +40,7 @@ public class LibsFragment extends Fragment {
 
     private Boolean aboutShowIcon = null;
     private Boolean aboutShowVersion = null;
-    private Spanned aboutDescription = null;
+    private String aboutDescription = null;
 
     private Comparator<Library> comparator;
 
@@ -61,6 +58,8 @@ public class LibsFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+
+        Libs libs;
 
         String[] fields = null;
         String[] internalLibraries = null;
@@ -89,22 +88,34 @@ public class LibsFragment extends Fragment {
         }
 
         //The last step is to look if we would love to show some about text for this project
-        String descriptionShowIcon = libs.getStringResourceByName("aboutLibraries_description_showIcon");
-        if (!TextUtils.isEmpty(descriptionShowIcon)) {
-            try {
-                aboutShowIcon = Boolean.parseBoolean(descriptionShowIcon);
-            } catch (Exception ex) {
+        if (bundle != null && bundle.containsKey(Libs.BUNDLE_APP_ABOUT_ICON)) {
+            aboutShowIcon = bundle.getBoolean(Libs.BUNDLE_APP_ABOUT_ICON);
+        } else {
+            String descriptionShowIcon = libs.getStringResourceByName("aboutLibraries_description_showIcon");
+            if (!TextUtils.isEmpty(descriptionShowIcon)) {
+                try {
+                    aboutShowIcon = Boolean.parseBoolean(descriptionShowIcon);
+                } catch (Exception ex) {
+                }
             }
         }
-        String descriptionShowVersion = libs.getStringResourceByName("aboutLibraries_description_showVersion");
-        if (!TextUtils.isEmpty(descriptionShowIcon)) {
-            try {
-                aboutShowVersion = Boolean.parseBoolean(descriptionShowVersion);
-            } catch (Exception ex) {
+        if (bundle != null && bundle.containsKey(Libs.BUNDLE_APP_ABOUT_VERSION)) {
+            aboutShowVersion = bundle.getBoolean(Libs.BUNDLE_APP_ABOUT_VERSION);
+        } else {
+            String descriptionShowVersion = libs.getStringResourceByName("aboutLibraries_description_showVersion");
+            if (!TextUtils.isEmpty(descriptionShowVersion)) {
+                try {
+                    aboutShowVersion = Boolean.parseBoolean(descriptionShowVersion);
+                } catch (Exception ex) {
+                }
             }
         }
 
-        aboutDescription = Html.fromHtml(libs.getStringResourceByName("aboutLibraries_description_text"));
+        if (bundle != null && bundle.containsKey(Libs.BUNDLE_APP_ABOUT_DESCRIPTION)) {
+            aboutDescription = bundle.getString(Libs.BUNDLE_APP_ABOUT_DESCRIPTION);
+        } else {
+            aboutDescription = libs.getStringResourceByName("aboutLibraries_description_text");
+        }
 
         //fetch the libraries and sort if a comparator was set
         libraries = libs.prepareLibraries(internalLibraries, excludeLibraries, autoDetect, sort);
@@ -173,7 +184,7 @@ public class LibsFragment extends Fragment {
 
             //Set the description or hide it
             if (!TextUtils.isEmpty(aboutDescription)) {
-                aboutAppDescription.setText(aboutDescription);
+                aboutAppDescription.setText(Html.fromHtml(aboutDescription));
             } else {
                 aboutAppDescription.setVisibility(View.GONE);
             }

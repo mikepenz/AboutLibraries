@@ -73,6 +73,13 @@ public class FragmentActivity extends ActionBarActivity {
             i.putExtra(Libs.BUNDLE_TITLE, "Open Source");
             i.putExtra(Libs.BUNDLE_THEME, R.style.AppTheme);
 
+            /*
+            //INFO you can set the about app text with these extra data too
+            i.putExtra(Libs.BUNDLE_APP_ABOUT_ICON, true);
+            i.putExtra(Libs.BUNDLE_APP_ABOUT_VERSION, true);
+            i.putExtra(Libs.BUNDLE_APP_ABOUT_DESCRIPTION, "This is a small sample which can be set in the about my app description file.<br /><b>You can style this with html markup :D</b>");
+            */
+
             startActivity(i);
         }
         return super.onOptionsItemSelected(item);
