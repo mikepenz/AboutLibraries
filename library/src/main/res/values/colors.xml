@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="secondGrey_openSource">#ff999999</color>
-    <color name="cardWhite_openSource">#ffffffff</color>
-    <color name="cardShadow_openSource">#8c666666</color>
+    <!-- Theme colors -->
+    <color name="theme_default_primary">#536dfe</color>
+    <color name="theme_default_primary_dark">#3f51b5</color>
+    <color name="theme_accent">#ff4081</color>
+    <color name="theme_window_background">#ECECEC</color>
 
-    <color name="listBackground_openSource">#e5e5e5</color>
+    <color name="card">#FAFAFA</color>
 
-    <color name="title_openSource">#000</color>
-    <color name="text_openSource">#101010</color>
+    <color name="title_openSource">#212121</color>
+    <color name="text_openSource">#727272</color>
 
     <color name="dividerDark_openSource">#AAA</color>
-    <color name="dividerLight_openSource">#EEE</color>
+    <color name="dividerLight_openSource">#DADADA</color>
 </resources>

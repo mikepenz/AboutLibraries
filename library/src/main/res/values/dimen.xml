@@ -4,6 +4,11 @@
 
     <dimen name="aboutImage_openSource">72dp</dimen>
 
-    <dimen name="textSizeLarge_openSource">24sp</dimen>
+    <dimen name="textSizeLarge_openSource">20sp</dimen>
     <dimen name="textSizeSmall_openSource">14sp</dimen>
+
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
 </resources>

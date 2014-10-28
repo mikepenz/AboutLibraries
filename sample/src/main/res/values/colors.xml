@@ -5,6 +5,6 @@
     <color name="theme_default_primary">#536dfe</color>
     <color name="theme_default_primary_dark">#3f51b5</color>
     <color name="theme_window_background">#DEDEDE</color>
-    <color name="accent">#ff4081</color>
+    <color name="theme_accent">#ff4081</color>
 
 </resources>
