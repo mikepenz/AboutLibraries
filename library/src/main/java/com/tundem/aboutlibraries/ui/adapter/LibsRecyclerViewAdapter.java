@@ -164,16 +164,6 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                     }
                 });
             }
-
-            /*
-            int padding = ctx.getResources().getDimensionPixelSize(R.dimen.card_padding_openSource);
-
-            if (position + 1 == getItemCount()) {
-                holder.card.setPadding(padding, padding, padding, padding);
-            } else {
-                holder.card.setPadding(padding, padding, padding, 0);
-            }
-            */
         }
     }
 
