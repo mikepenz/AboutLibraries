@@ -4,21 +4,24 @@ import android.app.Activity;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.Html;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 
 import com.tundem.aboutlibraries.Libs;
 import com.tundem.aboutlibraries.R;
 import com.tundem.aboutlibraries.entity.Library;
-import com.tundem.aboutlibraries.ui.adapter.LibsListViewAdapter;
+import com.tundem.aboutlibraries.ui.adapter.LibsRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,7 +31,9 @@ import java.util.Comparator;
  * Created by mikepenz on 04.06.14.
  */
 public class LibsFragment extends Fragment {
-    private ListView listView;
+    private RecyclerView mRecyclerView;
+    private LibsRecyclerViewAdapter mAdapter;
+
     private ArrayList<Library> libraries;
 
     private boolean autoDetect = true;
@@ -123,6 +128,7 @@ public class LibsFragment extends Fragment {
         if (comparator != null) {
             Collections.sort(libraries, comparator);
         }
+
     }
 
     @Override
@@ -130,29 +136,33 @@ public class LibsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_opensource, container, false);
 
         // init CardView
-        listView = (ListView) view.findViewById(R.id.cardListView);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.cardListView);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(LibsFragment.this.getActivity()));
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mAdapter = new LibsRecyclerViewAdapter(getActivity(), showLicense, showLicenseDialog, showVersion);
+        mRecyclerView.setAdapter(mAdapter);
+
+        generateAboutThisAppSection();
 
         return view;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        generateAboutThisAppSection();
+        mAdapter.setLibs(libraries);
 
-        listView.setAdapter(new LibsListViewAdapter(getActivity(), libraries, showLicense, showLicenseDialog, showVersion));
+        //TODO if animate :D
+        Animation fadeIn = AnimationUtils.loadAnimation(LibsFragment.this.getActivity(), android.R.anim.slide_in_left);
+        fadeIn.setDuration(500);
+        LayoutAnimationController layoutAnimationController = new LayoutAnimationController(fadeIn);
+        mRecyclerView.setLayoutAnimation(layoutAnimationController);
+        mRecyclerView.startLayoutAnimation();
+
         super.onViewCreated(view, savedInstanceState);
     }
 
     private void generateAboutThisAppSection() {
         if (aboutShowIcon != null && aboutShowVersion != null) {
-            View headerView = getActivity().getLayoutInflater().inflate(R.layout.listheader_opensource, null);
-
-            //get the about this app views
-            ImageView aboutIcon = (ImageView) headerView.findViewById(R.id.aboutIcon);
-            TextView aboutVersion = (TextView) headerView.findViewById(R.id.aboutVersion);
-            View aboutDivider = headerView.findViewById(R.id.aboutDivider);
-            TextView aboutAppDescription = (TextView) headerView.findViewById(R.id.aboutDescription);
-
             //get the packageManager to load and read some values :D
             PackageManager pm = getActivity().getPackageManager();
             //get the packageName
@@ -167,35 +177,21 @@ public class LibsFragment extends Fragment {
             }
 
             //Set the Icon or hide it
+            Drawable icon = null;
             if (aboutShowIcon && appInfo != null) {
-                aboutIcon.setImageDrawable(appInfo.loadIcon(pm));
-            } else {
-                aboutIcon.setVisibility(View.GONE);
+                icon = appInfo.loadIcon(pm);
             }
 
             //set the Version or hide it
-            if (aboutShowVersion && packageInfo != null) {
-                String versionName = packageInfo.versionName;
-                int versionCode = packageInfo.versionCode;
-                aboutVersion.setText(getString(R.string.version) + " " + versionName + " (" + versionCode + ")");
-            } else {
-                aboutVersion.setVisibility(View.GONE);
-            }
-
-            //Set the description or hide it
-            if (!TextUtils.isEmpty(aboutDescription)) {
-                aboutAppDescription.setText(Html.fromHtml(aboutDescription));
-            } else {
-                aboutAppDescription.setVisibility(View.GONE);
-            }
-
-            //if there is no description or no icon and version number hide the divider
-            if (!aboutShowIcon && !aboutShowVersion || TextUtils.isEmpty(aboutDescription)) {
-                aboutDivider.setVisibility(View.GONE);
+            String versionName = null;
+            Integer versionCode = null;
+            if (packageInfo != null) {
+                versionName = packageInfo.versionName;
+                versionCode = packageInfo.versionCode;
             }
 
             //add this cool thing to the headerView of our listView
-            listView.addHeaderView(headerView, null, false);
+            mAdapter.setHeader(aboutDescription, versionName, versionCode, aboutShowVersion, icon, aboutShowIcon);
         }
     }
 }
