@@ -38,6 +38,7 @@ public class LibsFragment extends Fragment {
 
     private boolean autoDetect = true;
     private boolean sort = true;
+    private boolean animate = true;
 
     private boolean showLicense = false;
     private boolean showLicenseDialog = true;
@@ -79,6 +80,7 @@ public class LibsFragment extends Fragment {
 
             autoDetect = bundle.getBoolean(Libs.BUNDLE_AUTODETECT, true);
             sort = bundle.getBoolean(Libs.BUNDLE_SORT, true);
+            animate = bundle.getBoolean(Libs.BUNDLE_ANIMATE, true);
 
             showLicense = bundle.getBoolean(Libs.BUNDLE_LICENSE, false);
             showLicenseDialog = bundle.getBoolean(Libs.BUNDLE_LICENSE_DIALOG, true);
@@ -151,12 +153,13 @@ public class LibsFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         mAdapter.setLibs(libraries);
 
-        //TODO if animate :D
-        Animation fadeIn = AnimationUtils.loadAnimation(LibsFragment.this.getActivity(), android.R.anim.slide_in_left);
-        fadeIn.setDuration(500);
-        LayoutAnimationController layoutAnimationController = new LayoutAnimationController(fadeIn);
-        mRecyclerView.setLayoutAnimation(layoutAnimationController);
-        mRecyclerView.startLayoutAnimation();
+        if (animate) {
+            Animation fadeIn = AnimationUtils.loadAnimation(LibsFragment.this.getActivity(), android.R.anim.slide_in_left);
+            fadeIn.setDuration(500);
+            LayoutAnimationController layoutAnimationController = new LayoutAnimationController(fadeIn);
+            mRecyclerView.setLayoutAnimation(layoutAnimationController);
+            mRecyclerView.startLayoutAnimation();
+        }
 
         super.onViewCreated(view, savedInstanceState);
     }

@@ -23,6 +23,7 @@ public class Libs {
     public static final String BUNDLE_EXCLUDE_LIBS = "ABOUT_LIBRARIES_EXCLUDE_LIBS";
     public static final String BUNDLE_AUTODETECT = "ABOUT_LIBRARIES_AUTODETECT";
     public static final String BUNDLE_SORT = "ABOUT_LIBRARIES_SORT";
+    public static final String BUNDLE_ANIMATE = "ABOUT_LIBRARIES_ANIMATE";
 
     public static final String BUNDLE_LICENSE = "ABOUT_LIBRARIES_LICENSE";
     public static final String BUNDLE_LICENSE_DIALOG = "ABOUT_LIBRARIES_LICENSE_DIALOG";
