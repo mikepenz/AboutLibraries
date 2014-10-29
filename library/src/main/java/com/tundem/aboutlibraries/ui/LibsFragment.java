@@ -151,7 +151,7 @@ public class LibsFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        mAdapter.setLibs(libraries);
+        mAdapter.addLibs(libraries);
 
         if (animate) {
             Animation fadeIn = AnimationUtils.loadAnimation(LibsFragment.this.getActivity(), android.R.anim.slide_in_left);
