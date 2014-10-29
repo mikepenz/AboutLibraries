@@ -24,7 +24,7 @@ public class FragmentActivity extends ActionBarActivity {
         setContentView(R.layout.activity_opensource);
 
         Bundle bundle = new Bundle();
-        bundle.putStringArray(Libs.BUNDLE_FIELDS, Libs.toStringArray(com.tundem.aboutlibraries.sample.R.string.class.getFields()));
+        bundle.putStringArray(Libs.BUNDLE_FIELDS, Libs.toStringArray(R.string.class.getFields()));
         bundle.putStringArray(Libs.BUNDLE_LIBS, new String[]{"crouton", "activeandroid", "actionbarsherlock", "showcaseview"});
 
         bundle.putBoolean(Libs.BUNDLE_VERSION, true);
@@ -63,7 +63,7 @@ public class FragmentActivity extends ActionBarActivity {
             startActivity(i);
         } else if (id == com.tundem.aboutlibraries.sample.R.id.action_manifestactivity) {
             Intent i = new Intent(getApplicationContext(), LibsActivity.class);
-            i.putExtra(Libs.BUNDLE_FIELDS, Libs.toStringArray(com.tundem.aboutlibraries.sample.R.string.class.getFields()));
+            i.putExtra(Libs.BUNDLE_FIELDS, Libs.toStringArray(R.string.class.getFields()));
             i.putExtra(Libs.BUNDLE_LIBS, new String[]{"crouton", "actionbarsherlock", "showcaseview"});
             i.putExtra(Libs.BUNDLE_AUTODETECT, true);
 
