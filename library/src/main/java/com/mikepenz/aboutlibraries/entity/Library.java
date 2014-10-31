@@ -1,4 +1,4 @@
-package com.tundem.aboutlibraries.entity;
+package com.mikepenz.aboutlibraries.entity;
 
 public class Library implements Comparable<Library> {
 

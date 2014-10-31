@@ -1,4 +1,4 @@
-package com.tundem.aboutlibraries.ui.adapter;
+package com.mikepenz.aboutlibraries.ui.adapter;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -14,8 +14,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.tundem.aboutlibraries.R;
-import com.tundem.aboutlibraries.entity.Library;
+import com.mikepenz.aboutlibraries.R;
+import com.mikepenz.aboutlibraries.entity.Library;
 
 import java.util.LinkedList;
 import java.util.List;

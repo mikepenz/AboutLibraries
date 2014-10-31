@@ -1,4 +1,4 @@
-package com.tundem.aboutlibraries.util;
+package com.mikepenz.aboutlibraries.util;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;

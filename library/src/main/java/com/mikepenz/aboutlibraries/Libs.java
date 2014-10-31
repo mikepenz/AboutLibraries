@@ -1,14 +1,14 @@
-package com.tundem.aboutlibraries;
+package com.mikepenz.aboutlibraries;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.tundem.aboutlibraries.detector.Detect;
-import com.tundem.aboutlibraries.entity.Library;
-import com.tundem.aboutlibraries.entity.License;
-import com.tundem.aboutlibraries.util.Util;
+import com.mikepenz.aboutlibraries.detector.Detect;
+import com.mikepenz.aboutlibraries.entity.Library;
+import com.mikepenz.aboutlibraries.entity.License;
+import com.mikepenz.aboutlibraries.util.Util;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -324,7 +324,7 @@ public class Libs {
             lic.setLicenseDescription(getStringResourceByName("license_" + licenseName + "_licenseDescription"));
             return lic;
         } catch (Exception ex) {
-            Log.e("com.tundem.aboutlibraries", "Failed to generateLicense from file: " + ex.toString());
+            Log.e("com.mikepenz.aboutlibraries", "Failed to generateLicense from file: " + ex.toString());
             return null;
         }
     }
@@ -374,7 +374,7 @@ public class Libs {
 
             return lib;
         } catch (Exception ex) {
-            Log.e("com.tundem.aboutlibraries", "Failed to generateLibrary from file: " + ex.toString());
+            Log.e("com.mikepenz.aboutlibraries", "Failed to generateLibrary from file: " + ex.toString());
             return null;
         }
     }

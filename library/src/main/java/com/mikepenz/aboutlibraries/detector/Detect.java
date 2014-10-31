@@ -1,10 +1,10 @@
-package com.tundem.aboutlibraries.detector;
+package com.mikepenz.aboutlibraries.detector;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.text.TextUtils;
 
-import com.tundem.aboutlibraries.entity.Library;
+import com.mikepenz.aboutlibraries.entity.Library;
 
 import java.util.ArrayList;
 import java.util.List;

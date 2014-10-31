@@ -1,4 +1,4 @@
-package com.tundem.aboutlibraries.ui;
+package com.mikepenz.aboutlibraries.ui;
 
 import android.app.Activity;
 import android.content.pm.ApplicationInfo;
@@ -18,10 +18,10 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 
-import com.tundem.aboutlibraries.Libs;
-import com.tundem.aboutlibraries.R;
-import com.tundem.aboutlibraries.entity.Library;
-import com.tundem.aboutlibraries.ui.adapter.LibsRecyclerViewAdapter;
+import com.mikepenz.aboutlibraries.Libs;
+import com.mikepenz.aboutlibraries.R;
+import com.mikepenz.aboutlibraries.entity.Library;
+import com.mikepenz.aboutlibraries.ui.adapter.LibsRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;

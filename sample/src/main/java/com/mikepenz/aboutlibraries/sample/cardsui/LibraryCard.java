@@ -1,4 +1,4 @@
-package com.tundem.aboutlibraries.sample.cardsui;
+package com.mikepenz.aboutlibraries.sample.cardsui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,9 +9,9 @@ import android.view.View.OnClickListener;
 import android.widget.TextView;
 
 import com.fima.cardsui.objects.Card;
-import com.tundem.aboutlibraries.Libs;
-import com.tundem.aboutlibraries.entity.Library;
-import com.tundem.aboutlibraries.sample.R;
+import com.mikepenz.aboutlibraries.Libs;
+import com.mikepenz.aboutlibraries.entity.Library;
+import com.mikepenz.aboutlibraries.sample.R;
 
 public class LibraryCard extends Card {
     private Context ctx;

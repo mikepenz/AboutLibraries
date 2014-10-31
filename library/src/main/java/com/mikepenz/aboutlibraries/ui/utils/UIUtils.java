@@ -1,4 +1,4 @@
-package com.tundem.aboutlibraries.ui.utils;
+package com.mikepenz.aboutlibraries.ui.utils;
 
 import android.app.Activity;
 import android.content.Context;

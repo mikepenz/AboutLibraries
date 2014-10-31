@@ -1,4 +1,4 @@
-package com.tundem.aboutlibraries.sample;
+package com.mikepenz.aboutlibraries.sample;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -7,9 +7,9 @@ import android.view.MenuItem;
 
 import com.fima.cardsui.objects.CardStack;
 import com.fima.cardsui.views.CardUI;
-import com.tundem.aboutlibraries.Libs;
-import com.tundem.aboutlibraries.entity.Library;
-import com.tundem.aboutlibraries.sample.cardsui.LibraryCard;
+import com.mikepenz.aboutlibraries.Libs;
+import com.mikepenz.aboutlibraries.entity.Library;
+import com.mikepenz.aboutlibraries.sample.cardsui.LibraryCard;
 
 import java.util.List;
 

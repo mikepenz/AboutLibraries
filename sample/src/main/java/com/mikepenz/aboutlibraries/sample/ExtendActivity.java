@@ -1,10 +1,10 @@
-package com.tundem.aboutlibraries.sample;
+package com.mikepenz.aboutlibraries.sample;
 
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.tundem.aboutlibraries.Libs;
-import com.tundem.aboutlibraries.ui.LibsActivity;
+import com.mikepenz.aboutlibraries.Libs;
+import com.mikepenz.aboutlibraries.ui.LibsActivity;
 
 
 public class ExtendActivity extends LibsActivity {

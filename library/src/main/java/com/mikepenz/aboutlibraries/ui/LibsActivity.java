@@ -1,4 +1,4 @@
-package com.tundem.aboutlibraries.ui;
+package com.mikepenz.aboutlibraries.ui;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -7,8 +7,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.text.TextUtils;
 import android.view.MenuItem;
 
-import com.tundem.aboutlibraries.Libs;
-import com.tundem.aboutlibraries.R;
+import com.mikepenz.aboutlibraries.Libs;
+import com.mikepenz.aboutlibraries.R;
 
 /**
  * Created by mikepenz on 04.06.14.

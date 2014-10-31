@@ -1,4 +1,4 @@
-package com.tundem.aboutlibraries.entity;
+package com.mikepenz.aboutlibraries.entity;
 
 /**
  * Created by mikepenz on 08.06.14.
