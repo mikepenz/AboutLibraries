@@ -4,11 +4,11 @@ android {
     compileSdkVersion 21
     buildToolsVersion '21.0.2'
     defaultConfig {
-        applicationId 'com.tundem.aboutlibraries.sample'
+        applicationId 'com.mikepenz.aboutlibraries.sample'
         minSdkVersion 16
         targetSdkVersion 21
-        versionCode 411
-        versionName '4.1.1'
+        versionCode 420
+        versionName '4.2.0'
     }
     buildTypes {
         release {
