@@ -26,6 +26,7 @@ import com.mikepenz.aboutlibraries.ui.adapter.LibsRecyclerViewAdapter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 
 /**
  * Created by mikepenz on 04.06.14.
@@ -47,6 +48,8 @@ public class LibsFragment extends Fragment {
     private Boolean aboutShowIcon = null;
     private Boolean aboutShowVersion = null;
     private String aboutDescription = null;
+
+    private HashMap<String, HashMap<String, String>> libraryModification;
 
     private Comparator<Library> comparator;
 
@@ -85,6 +88,12 @@ public class LibsFragment extends Fragment {
             showLicense = bundle.getBoolean(Libs.BUNDLE_LICENSE, false);
             showLicenseDialog = bundle.getBoolean(Libs.BUNDLE_LICENSE_DIALOG, true);
             showVersion = bundle.getBoolean(Libs.BUNDLE_VERSION, false);
+
+            try {
+                libraryModification = (HashMap<String, HashMap<String, String>>) bundle.getSerializable(Libs.BUNDLE_LIBS_MODIFICATION);
+            } catch (Exception ex) {
+
+            }
         }
 
         //init the Libs instance with fields if they were set
@@ -123,6 +132,9 @@ public class LibsFragment extends Fragment {
         } else {
             aboutDescription = libs.getStringResourceByName("aboutLibraries_description_text");
         }
+
+        //apply modifications
+        libs.modifyLibraries(libraryModification);
 
         //fetch the libraries and sort if a comparator was set
         libraries = libs.prepareLibraries(internalLibraries, excludeLibraries, autoDetect, sort);

@@ -30,6 +30,15 @@ public class FragmentActivity extends ActionBarActivity {
         bundle.putBoolean(Libs.BUNDLE_VERSION, true);
         bundle.putBoolean(Libs.BUNDLE_LICENSE, true);
 
+        /*
+        //NOTE: This is how you can modify a specific library definition during runtime
+        HashMap<String, HashMap<String, String>> libsModification = new HashMap<String, HashMap<String, String>>();
+        HashMap<String, String> modifyAboutLibraries = new HashMap<String, String>();
+        modifyAboutLibraries.put("name", "_AboutLibraries");
+        libsModification.put("aboutlibraries", modifyAboutLibraries);
+        bundle.putSerializable(Libs.BUNDLE_LIBS_MODIFICATION, libsModification);
+        */
+
         LibsFragment fragment = new LibsFragment();
         fragment.setArguments(bundle);
 

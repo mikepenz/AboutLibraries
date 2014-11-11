@@ -29,6 +29,8 @@ public class Libs {
     public static final String BUNDLE_LICENSE_DIALOG = "ABOUT_LIBRARIES_LICENSE_DIALOG";
     public static final String BUNDLE_VERSION = "ABOUT_LIBRARIES_VERSION";
 
+    public static final String BUNDLE_LIBS_MODIFICATION = "ABOUT_LIBRARIES_LIBS_MODIFICATION";
+
     public static final String BUNDLE_THEME = "ABOUT_LIBRARIES_THEME";
     public static final String BUNDLE_TITLE = "ABOUT_LIBRARIES_TITLE";
 
@@ -283,16 +285,58 @@ public class Libs {
      * @return an ArrayList Library with the found internLibraries
      */
     public ArrayList<Library> findLibrary(String searchTerm, int limit) {
+        return find(getLibraries(), searchTerm, false, limit);
+    }
+
+    /**
+     * @param searchTerm
+     * @param idOnly
+     * @param limit
+     * @return
+     */
+    public ArrayList<Library> findInInternalLibrary(String searchTerm, boolean idOnly, int limit) {
+        return find(getInternLibraries(), searchTerm, idOnly, limit);
+    }
+
+    /**
+     * @param searchTerm
+     * @param idOnly
+     * @param limit
+     * @return
+     */
+    public ArrayList<Library> findInExternalLibrary(String searchTerm, boolean idOnly, int limit) {
+        return find(getExternLibraries(), searchTerm, idOnly, limit);
+    }
+
+    /**
+     * @param libraries
+     * @param searchTerm
+     * @param idOnly
+     * @param limit
+     * @return
+     */
+    private ArrayList<Library> find(ArrayList<Library> libraries, String searchTerm, boolean idOnly, int limit) {
         ArrayList<Library> localLibs = new ArrayList<Library>();
 
         int count = 0;
-        for (Library library : getLibraries()) {
-            if (library.getLibraryName().toLowerCase().contains(searchTerm.toLowerCase()) || library.getDefinedName().toLowerCase().contains(searchTerm.toLowerCase())) {
-                localLibs.add(library);
-                count = count + 1;
+        for (Library library : libraries) {
+            if (idOnly) {
+                if (library.getDefinedName().toLowerCase().contains(searchTerm.toLowerCase())) {
+                    localLibs.add(library);
+                    count = count + 1;
 
-                if (limit != -1 && limit < count) {
-                    break;
+                    if (limit != -1 && limit < count) {
+                        break;
+                    }
+                }
+            } else {
+                if (library.getLibraryName().toLowerCase().contains(searchTerm.toLowerCase()) || library.getDefinedName().toLowerCase().contains(searchTerm.toLowerCase())) {
+                    localLibs.add(library);
+                    count = count + 1;
+
+                    if (limit != -1 && limit < count) {
+                        break;
+                    }
                 }
             }
         }
@@ -301,6 +345,10 @@ public class Libs {
     }
 
 
+    /**
+     * @param licenseName
+     * @return
+     */
     public License getLicense(String licenseName) {
         for (License license : getLicenses()) {
             if (license.getLicenseName().toLowerCase().equals(licenseName.toLowerCase())) {
@@ -312,6 +360,10 @@ public class Libs {
         return null;
     }
 
+    /**
+     * @param licenseName
+     * @return
+     */
     private License genLicense(String licenseName) {
         licenseName = licenseName.replace("-", "_");
 
@@ -329,6 +381,10 @@ public class Libs {
         }
     }
 
+    /**
+     * @param libraryName
+     * @return
+     */
     private Library genLibrary(String libraryName) {
         libraryName = libraryName.replace("-", "_");
 
@@ -379,6 +435,10 @@ public class Libs {
         }
     }
 
+    /**
+     * @param libraryName
+     * @return
+     */
     public HashMap<String, String> getCustomVariables(String libraryName) {
         HashMap<String, String> customVariables = new HashMap<String, String>();
 
@@ -424,6 +484,70 @@ public class Libs {
             return "";
         } else {
             return ctx.getString(resId);
+        }
+    }
+
+
+    /**
+     * @param modifications
+     */
+    public void modifyLibraries(HashMap<String, HashMap<String, String>> modifications) {
+        if (modifications != null) {
+            for (Map.Entry<String, HashMap<String, String>> entry : modifications.entrySet()) {
+                ArrayList<Library> foundLibs = findInExternalLibrary(entry.getKey(), true, 1);
+                if (foundLibs == null || foundLibs.size() == 0) {
+                    foundLibs = findInInternalLibrary(entry.getKey(), true, 1);
+                }
+
+                if (foundLibs != null && foundLibs.size() == 1) {
+                    Library lib = foundLibs.get(0);
+                    for (Map.Entry<String, String> modification : entry.getValue().entrySet()) {
+                        String key = modification.getKey().toLowerCase();
+                        String value = modification.getValue();
+
+                        if (key.equals("author")) {
+                            lib.setAuthor(value);
+                        } else if (key.equals("website")) {
+                            lib.setAuthorWebsite(value);
+                        } else if (key.equals("name")) {
+                            lib.setLibraryName(value);
+                        } else if (key.equals("description")) {
+                            lib.setLibraryDescription(value);
+                        } else if (key.equals("version")) {
+                            lib.setLibraryVersion(value);
+                        } else if (key.equals("website")) {
+                            lib.setLibraryWebsite(value);
+                        } else if (key.equals("openSource")) {
+                            lib.setOpenSource(Boolean.parseBoolean(value));
+                        } else if (key.equals("repositoryLink")) {
+                            lib.setRepositoryLink(value);
+                        } else if (key.equals("classPath")) {
+                            //note this can be set but won't probably work for autodetect
+                            lib.setClassPath(value);
+                        } else if (key.equals("licenseName")) {
+                            if (lib.getLicense() == null) {
+                                lib.setLicense(new License());
+                            }
+                            lib.getLicense().setLicenseName(value);
+                        } else if (key.equals("licenseShortDescription")) {
+                            if (lib.getLicense() == null) {
+                                lib.setLicense(new License());
+                            }
+                            lib.getLicense().setLicenseShortDescription(value);
+                        } else if (key.equals("licenseDescription")) {
+                            if (lib.getLicense() == null) {
+                                lib.setLicense(new License());
+                            }
+                            lib.getLicense().setLicenseDescription(value);
+                        } else if (key.equals("licenseWebsite")) {
+                            if (lib.getLicense() == null) {
+                                lib.setLicense(new License());
+                            }
+                            lib.getLicense().setLicenseWebsite(value);
+                        }
+                    }
+                }
+            }
         }
     }
 }
