@@ -23,10 +23,10 @@ android {
     buildToolsVersion '21.0.2'
     defaultConfig {
         applicationId 'com.mikepenz.aboutlibraries.sample'
-        minSdkVersion 16
+        minSdkVersion 11
         targetSdkVersion 21
-        versionCode 421
-        versionName '4.2.1'
+        versionCode 422
+        versionName '4.2.2'
     }
 
     buildTypes {
