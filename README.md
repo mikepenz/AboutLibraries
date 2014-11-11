@@ -10,7 +10,7 @@ The description files should be included in the specific libraries (as far as po
 
 #Get started
 - [Create new definition files](http://def-builder.mikepenz.com/)
-- [Test the library in the sample](https://play.google.com/store/apps/details?id=com.tundem.aboutlibraries.sample)
+- [Test the library in the sample](https://play.google.com/store/apps/details?id=com.mikepenz.aboutlibraries.sample)
 - [Get detailed instructions in the wiki](https://github.com/mikepenz/AboutLibraries/wiki)
 - [Want to see some images? Click here](https://github.com/mikepenz/AboutLibraries/wiki/Screenshots)
 - [Everything clear. Here's a list of compatible/included libs](https://github.com/mikepenz/AboutLibraries/wiki/Compatible-Libs)
