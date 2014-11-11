@@ -25,8 +25,8 @@ android {
         applicationId 'com.mikepenz.aboutlibraries.sample'
         minSdkVersion 11
         targetSdkVersion 21
-        versionCode 422
-        versionName '4.2.2'
+        versionCode 430
+        versionName '4.3.0'
     }
 
     buildTypes {

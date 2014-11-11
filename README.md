@@ -40,7 +40,7 @@ The AboutLibraries Library is pushed to [Maven Central], so you just need to add
 
 ```javascript
 dependencies {
-	compile 'com.mikepenz.aboutlibraries:library:4.2.1@aar'
+	compile 'com.mikepenz.aboutlibraries:library:4.3.0@aar'
 }
 ```
 
