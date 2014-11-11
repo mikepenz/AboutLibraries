@@ -29,7 +29,7 @@
       </header>
       <section>
         <h1>
-<a name="aboutlibraries---" class="anchor" href="#aboutlibraries---"><span class="octicon octicon-link"></span></a>AboutLibraries  <a href="https://maven-badges.herokuapp.com/maven-central/com.mikepenz.aboutlibraries/library"><img src="https://maven-badges.herokuapp.com/maven-central/com.mikepenz.aboutlibraries/library/badge.svg?style=flat" alt="Maven Central"></a> <a href="http://android-arsenal.com/details/1/102"><img src="http://img.shields.io/badge/Android%20Arsenal-AboutLibraries-brightgreen.svg?style=flat" alt="Android Arsenal"></a>
+<a id="aboutlibraries---" class="anchor" href="#aboutlibraries---" aria-hidden="true"><span class="octicon octicon-link"></span></a>AboutLibraries  <a href="https://maven-badges.herokuapp.com/maven-central/com.mikepenz.aboutlibraries/library"><img src="https://maven-badges.herokuapp.com/maven-central/com.mikepenz.aboutlibraries/library/badge.svg?style=flat" alt="Maven Central"></a> <a href="http://android-arsenal.com/details/1/102"><img src="http://img.shields.io/badge/Android%20Arsenal-AboutLibraries-brightgreen.svg?style=flat" alt="Android Arsenal"></a>
 </h1>
 
 <p>AboutLibraries is a library to offer you all the information you need of your libraries!</p>
@@ -37,12 +37,12 @@
 <p>Most modern apps feature an "Used Library"-Section and for this some information of those libs is required. As it gets annoying to copy those strings always to your app I've developed this small helper library to provide the required information.</p>
 
 <h6>
-<a name="note" class="anchor" href="#note"><span class="octicon octicon-link"></span></a>Note:</h6>
+<a id="note" class="anchor" href="#note" aria-hidden="true"><span class="octicon octicon-link"></span></a>Note:</h6>
 
 <p>The description files should be included in the specific libraries (as far as possible) so the AboutLibraries library can take care about which libs to show. If a library contains the description file, the lib will auto-detect this file and will auto-show this library. You can find more details in the <em>Contribute</em> section of this README.</p>
 
 <h1>
-<a name="get-started" class="anchor" href="#get-started"><span class="octicon octicon-link"></span></a>Get started</h1>
+<a id="get-started" class="anchor" href="#get-started" aria-hidden="true"><span class="octicon octicon-link"></span></a>Get started</h1>
 
 <ul>
 <li><a href="http://def-builder.mikepenz.com/">Create new definition files</a></li>
@@ -53,13 +53,13 @@
 </ul>
 
 <h1>
-<a name="screenshots" class="anchor" href="#screenshots"><span class="octicon octicon-link"></span></a>Screenshots</h1>
+<a id="screenshots" class="anchor" href="#screenshots" aria-hidden="true"><span class="octicon octicon-link"></span></a>Screenshots</h1>
 
 <p><img src="https://raw.githubusercontent.com/mikepenz/AboutLibraries/master/DEV/screenshots/screenshot1_small.png" alt="Image">
 <img src="https://raw.githubusercontent.com/mikepenz/AboutLibraries/master/DEV/screenshots/screenshot2_small.png" alt="Image"></p>
 
 <h1>
-<a name="wiki" class="anchor" href="#wiki"><span class="octicon octicon-link"></span></a>Wiki</h1>
+<a id="wiki" class="anchor" href="#wiki" aria-hidden="true"><span class="octicon octicon-link"></span></a>Wiki</h1>
 
 <p>You can find all required information (in a structured format) in the wiki.</p>
 
@@ -73,164 +73,156 @@ Please let me know i you include the definition file in your library. Thanks.</p
 <p><a href="https://github.com/mikepenz/AboutLibraries/wiki/Compatible-Libs">Here's a complete list</a></p>
 
 <h2>
-<a name="include-in-your-project" class="anchor" href="#include-in-your-project"><span class="octicon octicon-link"></span></a>Include in your project</h2>
+<a id="include-in-your-project" class="anchor" href="#include-in-your-project" aria-hidden="true"><span class="octicon octicon-link"></span></a>Include in your project</h2>
 
 <h3>
-<a name="using-maven" class="anchor" href="#using-maven"><span class="octicon octicon-link"></span></a>Using Maven</h3>
+<a id="using-maven" class="anchor" href="#using-maven" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using Maven</h3>
 
 <p>The AboutLibraries Library is pushed to [Maven Central], so you just need to add the following dependency to your <code>build.gradle</code>.</p>
 
-<div class="highlight highlight-javascript"><pre><span class="nx">dependencies</span> <span class="p">{</span>
-    <span class="nx">compile</span> <span class="s1">'com.mikepenz.aboutlibraries:library:4.2.1@aar'</span>
-<span class="p">}</span>
-</pre></div>
+<div class="highlight highlight-javascript"><pre>dependencies {
+    compile <span class="s1">'com.mikepenz.aboutlibraries:library:4.3.0@aar'</span>
+}</pre></div>
 
 <p>Further information can be found in the <a href="https://github.com/mikepenz/AboutLibraries/wiki/HOWTO:-Include">wiki</a></p>
 
 <h2>
-<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
 
 <p>You can use this library in a few different ways. You can create your own activity, including a custom style and just use the information, or you can use the built in Activity or Fragment and just pass the libs you would love to include.</p>
 
 <h3>
-<a name="activity--fragment" class="anchor" href="#activity--fragment"><span class="octicon octicon-link"></span></a>Activity / Fragment</h3>
+<a id="activity--fragment" class="anchor" href="#activity--fragment" aria-hidden="true"><span class="octicon octicon-link"></span></a>Activity / Fragment</h3>
 
 <h4>
-<a name="fragment" class="anchor" href="#fragment"><span class="octicon octicon-link"></span></a>Fragment</h4>
+<a id="fragment" class="anchor" href="#fragment" aria-hidden="true"><span class="octicon octicon-link"></span></a>Fragment</h4>
 
-<div class="highlight highlight-java"><pre><span class="n">Bundle</span> <span class="n">bundle</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Bundle</span><span class="o">();</span>
+<div class="highlight highlight-java"><pre><span class="kt">Bundle</span> bundle <span class="o">=</span> <span class="k">new</span> <span class="kt">Bundle</span>();
 <span class="c1">//Pass the fields of your application to the lib so it can find all external lib information</span>
-<span class="n">bundle</span><span class="o">.</span><span class="na">putStringArray</span><span class="o">(</span><span class="n">Libs</span><span class="o">.</span><span class="na">BUNDLE_FIELDS</span><span class="o">,</span> <span class="n">Libs</span><span class="o">.</span><span class="na">toStringArray</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">string</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getFields</span><span class="o">()));</span>
+bundle<span class="o">.</span>putStringArray(<span class="kt">Libs</span><span class="no"><span class="o">.</span>BUNDLE_FIELDS</span>, <span class="kt">Libs</span><span class="o">.</span>toStringArray(<span class="kt">R</span><span class="o">.</span>string<span class="o">.</span>class<span class="o">.</span>getFields()));
 <span class="c1">//Define the libs you want (only those which don't include the information, and are not autoDetected) </span>
 <span class="c1">//(OPTIONAL if all used libraries offer the information, or are autoDetected)</span>
-<span class="n">bundle</span><span class="o">.</span><span class="na">putStringArray</span><span class="o">(</span><span class="n">Libs</span><span class="o">.</span><span class="na">BUNDLE_LIBS</span><span class="o">,</span> <span class="k">new</span> <span class="n">String</span><span class="o">[]{</span><span class="s">"AndroidIconify"</span><span class="o">,</span> <span class="s">"ActiveAndroid"</span><span class="o">,</span> <span class="s">"FButton"</span><span class="o">,</span> <span class="s">"Crouton"</span><span class="o">,</span> <span class="s">"HoloGraphLibrary"</span><span class="o">,</span> <span class="s">"ShowcaseView"</span><span class="o">,</span> <span class="s">"NineOldAndroids"</span><span class="o">,</span> <span class="s">"AndroidViewpagerIndicator"</span><span class="o">});</span>
+bundle<span class="o">.</span>putStringArray(<span class="kt">Libs</span><span class="no"><span class="o">.</span>BUNDLE_LIBS</span>, <span class="k">new</span> <span class="kt">String</span>[]{<span class="s2">"AndroidIconify"</span>, <span class="s2">"ActiveAndroid"</span>, <span class="s2">"FButton"</span>, <span class="s2">"Crouton"</span>, <span class="s2">"HoloGraphLibrary"</span>, <span class="s2">"ShowcaseView"</span>, <span class="s2">"NineOldAndroids"</span>, <span class="s2">"AndroidViewpagerIndicator"</span>});
 
 <span class="c1">//Display the library version (OPTIONAL)</span>
-<span class="n">bundle</span><span class="o">.</span><span class="na">putBoolean</span><span class="o">(</span><span class="n">Libs</span><span class="o">.</span><span class="na">BUNDLE_VERSION</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+bundle<span class="o">.</span>putBoolean(<span class="kt">Libs</span><span class="no"><span class="o">.</span>BUNDLE_VERSION</span>, <span class="kc">true</span>);
 <span class="c1">//Display the library license (OPTIONAL</span>
-<span class="n">bundle</span><span class="o">.</span><span class="na">putBoolean</span><span class="o">(</span><span class="n">Libs</span><span class="o">.</span><span class="na">BUNDLE_LICENSE</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+bundle<span class="o">.</span>putBoolean(<span class="kt">Libs</span><span class="no"><span class="o">.</span>BUNDLE_LICENSE</span>, <span class="kc">true</span>);
 
 <span class="c1">//Create a new Fragment (you can do this where ever you want</span>
-<span class="n">Fragment</span> <span class="n">fragment</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">LibsFragment</span><span class="o">();</span>
+<span class="kt">Fragment</span> fragment <span class="o">=</span> <span class="k">new</span> <span class="kt">LibsFragment</span>();
 <span class="c1">//Set the arguments</span>
-<span class="n">fragment</span><span class="o">.</span><span class="na">setArguments</span><span class="o">(</span><span class="n">bundle</span><span class="o">);</span>
-</pre></div>
+fragment<span class="o">.</span>setArguments(bundle);</pre></div>
 
 <h4>
-<a name="activity" class="anchor" href="#activity"><span class="octicon octicon-link"></span></a>Activity</h4>
+<a id="activity" class="anchor" href="#activity" aria-hidden="true"><span class="octicon octicon-link"></span></a>Activity</h4>
 
 <h5>
-<a name="code" class="anchor" href="#code"><span class="octicon octicon-link"></span></a>Code:</h5>
+<a id="code" class="anchor" href="#code" aria-hidden="true"><span class="octicon octicon-link"></span></a>Code:</h5>
 
 <div class="highlight highlight-java"><pre><span class="c1">//Create an intent with context and the Activity class</span>
-<span class="n">Intent</span> <span class="n">i</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Intent</span><span class="o">(</span><span class="n">getApplicationContext</span><span class="o">(),</span> <span class="n">LibsActivity</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="kt">Intent</span> i <span class="o">=</span> <span class="k">new</span> <span class="kt">Intent</span>(getApplicationContext(), <span class="kt">LibsActivity</span><span class="o">.</span>class);
 <span class="c1">//Pass the fields of your application to the lib so it can find all external lib information</span>
-<span class="n">i</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="n">Libs</span><span class="o">.</span><span class="na">BUNDLE_FIELDS</span><span class="o">,</span> <span class="n">Libs</span><span class="o">.</span><span class="na">toStringArray</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">string</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getFields</span><span class="o">()));</span>
+i<span class="o">.</span>putExtra(<span class="kt">Libs</span><span class="no"><span class="o">.</span>BUNDLE_FIELDS</span>, <span class="kt">Libs</span><span class="o">.</span>toStringArray(<span class="kt">R</span><span class="o">.</span>string<span class="o">.</span>class<span class="o">.</span>getFields()));
 <span class="c1">//Define the libs you want (only those which don't include the information, and are not autoDetected) </span>
 <span class="c1">//(OPTIONAL if all used libraries offer the information, or are autoDetected)</span>
-<span class="n">i</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="n">Libs</span><span class="o">.</span><span class="na">BUNDLE_LIBS</span><span class="o">,</span> <span class="k">new</span> <span class="n">String</span><span class="o">[]{</span><span class="s">"crouton"</span><span class="o">,</span> <span class="s">"actionbarsherlock"</span><span class="o">,</span> <span class="s">"showcaseview"</span><span class="o">});</span>
+i<span class="o">.</span>putExtra(<span class="kt">Libs</span><span class="no"><span class="o">.</span>BUNDLE_LIBS</span>, <span class="k">new</span> <span class="kt">String</span>[]{<span class="s2">"crouton"</span>, <span class="s2">"actionbarsherlock"</span>, <span class="s2">"showcaseview"</span>});
 
 <span class="c1">//Display the library version (OPTIONAL)</span>
-<span class="n">i</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="n">Libs</span><span class="o">.</span><span class="na">BUNDLE_VERSION</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+i<span class="o">.</span>putExtra(<span class="kt">Libs</span><span class="no"><span class="o">.</span>BUNDLE_VERSION</span>, <span class="kc">true</span>);
 <span class="c1">//Display the library license (OPTIONAL</span>
-<span class="n">i</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="n">Libs</span><span class="o">.</span><span class="na">BUNDLE_LICENSE</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+i<span class="o">.</span>putExtra(<span class="kt">Libs</span><span class="no"><span class="o">.</span>BUNDLE_LICENSE</span>, <span class="kc">true</span>);
 
 <span class="c1">//Set a title (OPTIONAL)</span>
-<span class="n">i</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="n">Libs</span><span class="o">.</span><span class="na">BUNDLE_TITLE</span><span class="o">,</span> <span class="s">"Open Source"</span><span class="o">);</span>
+i<span class="o">.</span>putExtra(<span class="kt">Libs</span><span class="no"><span class="o">.</span>BUNDLE_TITLE</span>, <span class="s2">"Open Source"</span>);
 
 <span class="c1">//Pass your theme (OPTIONAL)</span>
-<span class="n">i</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="n">Libs</span><span class="o">.</span><span class="na">BUNDLE_THEME</span><span class="o">,</span> <span class="n">R</span><span class="o">.</span><span class="na">style</span><span class="o">.</span><span class="na">Theme_AppCompat</span><span class="o">);</span>
+i<span class="o">.</span>putExtra(<span class="kt">Libs</span><span class="no"><span class="o">.</span>BUNDLE_THEME</span>, <span class="kt">R</span><span class="o">.</span><span class="kt">style<span class="o">.</span>Theme_AppCompat</span>);
 <span class="c1">//Pass a custom accent color (OPTIONAL)</span>
 
 <span class="c1">//start the activity</span>
-<span class="n">startActivity</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
-</pre></div>
+startActivity(i);</pre></div>
 
 <h3>
-<a name="custom" class="anchor" href="#custom"><span class="octicon octicon-link"></span></a>Custom</h3>
+<a id="custom" class="anchor" href="#custom" aria-hidden="true"><span class="octicon octicon-link"></span></a>Custom</h3>
 
 <p>Use the Library class and build your view on-your-own</p>
 
 <p>The preferred method to get a Libs instance is by passing the string-field-array</p>
 
-<div class="highlight highlight-java"><pre><span class="n">Libs</span> <span class="n">libs</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Libs</span><span class="o">(</span><span class="n">getActivity</span><span class="o">(),</span> <span class="n">R</span><span class="o">.</span><span class="na">string</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getFields</span><span class="o">());</span>
-</pre></div>
+<div class="highlight highlight-java"><pre><span class="kt">Libs</span> libs <span class="o">=</span> <span class="k">new</span> <span class="kt">Libs</span>(getActivity(), <span class="kt">R</span><span class="o">.</span>string<span class="o">.</span>class<span class="o">.</span>getFields());</pre></div>
 
 <p>Now you can use the instance to get the information</p>
 
-<div class="highlight highlight-java"><pre><span class="n">libs</span><span class="o">.</span><span class="na">getLibrary</span><span class="o">(</span><span class="s">"ActionBarSherlock"</span><span class="o">)</span>
-</pre></div>
+<div class="highlight highlight-java"><pre>libs<span class="o">.</span>getLibrary(<span class="s2">"ActionBarSherlock"</span>)</pre></div>
 
 <p>done.</p>
 
 <h2>
-<a name="small-extra" class="anchor" href="#small-extra"><span class="octicon octicon-link"></span></a>Small extra</h2>
+<a id="small-extra" class="anchor" href="#small-extra" aria-hidden="true"><span class="octicon octicon-link"></span></a>Small extra</h2>
 
 <p>For those who read the whole README here's one more thing.
 You can also use the AboutLibraries activity as "about this app" screen. You ask how?
 Yeah pretty simple just add the following .xml file (or just the strings (the key must be the same)) to your project.</p>
 
-<div class="highlight highlight-xml"><pre><span class="nt">&lt;resources&gt;</span>
-    <span class="nt">&lt;string</span> <span class="na">name=</span><span class="s">"aboutLibraries_description_showIcon"</span><span class="nt">&gt;</span>true<span class="nt">&lt;/string&gt;</span>
-    <span class="nt">&lt;string</span> <span class="na">name=</span><span class="s">"aboutLibraries_description_showVersion"</span><span class="nt">&gt;</span>true<span class="nt">&lt;/string&gt;</span>
-    <span class="nt">&lt;string</span> <span class="na">name=</span><span class="s">"aboutLibraries_description_text"</span><span class="nt">&gt;</span>Place your description here :D<span class="nt">&lt;/string&gt;</span>
-<span class="nt">&lt;/resources&gt;</span>
-</pre></div>
+<div class="highlight highlight-xml"><pre>&lt;<span class="nt">resources</span>&gt;
+    &lt;<span class="nt">string</span> <span class="na">name</span>=<span class="s2">"aboutLibraries_description_showIcon"</span>&gt;true&lt;/<span class="nt">string</span>&gt;
+    &lt;<span class="nt">string</span> <span class="na">name</span>=<span class="s2">"aboutLibraries_description_showVersion"</span>&gt;true&lt;/<span class="nt">string</span>&gt;
+    &lt;<span class="nt">string</span> <span class="na">name</span>=<span class="s2">"aboutLibraries_description_text"</span>&gt;Place your description here :D&lt;/<span class="nt">string</span>&gt;
+&lt;/<span class="nt">resources</span>&gt;</pre></div>
 
 <p>or</p>
 
-<div class="highlight highlight-java"><pre><span class="n">i</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="n">Libs</span><span class="o">.</span><span class="na">BUNDLE_APP_ABOUT_ICON</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
-<span class="n">i</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="n">Libs</span><span class="o">.</span><span class="na">BUNDLE_APP_ABOUT_VERSION</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
-<span class="n">i</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="n">Libs</span><span class="o">.</span><span class="na">BUNDLE_APP_ABOUT_DESCRIPTION</span><span class="o">,</span> <span class="s">"Place your description here :D"</span><span class="o">);</span>
-
+<div class="highlight highlight-java"><pre>i<span class="o">.</span>putExtra(<span class="kt">Libs</span><span class="no"><span class="o">.</span>BUNDLE_APP_ABOUT_ICON</span>, <span class="kc">true</span>);
+i<span class="o">.</span>putExtra(<span class="kt">Libs</span><span class="no"><span class="o">.</span>BUNDLE_APP_ABOUT_VERSION</span>, <span class="kc">true</span>);
+i<span class="o">.</span>putExtra(<span class="kt">Libs</span><span class="no"><span class="o">.</span>BUNDLE_APP_ABOUT_DESCRIPTION</span>, <span class="s2">"Place your description here :D"</span>);
 </pre></div>
 
 <h2>
-<a name="definition-file-builder" class="anchor" href="#definition-file-builder"><span class="octicon octicon-link"></span></a>Definition-File-Builder</h2>
+<a id="definition-file-builder" class="anchor" href="#definition-file-builder" aria-hidden="true"><span class="octicon octicon-link"></span></a>Definition-File-Builder</h2>
 
 <p>For the lazy ones, i've created a small and hopefully useful tool to create definition files for new libs.</p>
 
 <p><a href="http://def-builder.mikepenz.com/">Definition-File-Builder</a></p>
 
 <h2>
-<a name="including-in-your-library" class="anchor" href="#including-in-your-library"><span class="octicon octicon-link"></span></a>Including in your library</h2>
+<a id="including-in-your-library" class="anchor" href="#including-in-your-library" aria-hidden="true"><span class="octicon octicon-link"></span></a>Including in your library</h2>
 
 <p>Create a {yourlib}_strings.xml in your values folder and define the required information.</p>
 
 <p>You can also find a sample in one of my other open source projects here: <a href="https://github.com/mikepenz/AnimatedGridView/blob/master/library/src/main/res/values/info_strings.xml">LINK</a></p>
 
 <h3>
-<a name="sample-_stringsxml-actionbarsherlock" class="anchor" href="#sample-_stringsxml-actionbarsherlock"><span class="octicon octicon-link"></span></a>Sample *_strings.xml (ActionBarSherlock)</h3>
+<a id="sample-_stringsxml-actionbarsherlock" class="anchor" href="#sample-_stringsxml-actionbarsherlock" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sample *_strings.xml (ActionBarSherlock)</h3>
 
-<div class="highlight highlight-xml"><pre><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
-<span class="nt">&lt;resources&gt;</span>
-    <span class="c">&lt;!-- If you include it in your own library use this pattern: define_* --&gt;</span>
-    <span class="c">&lt;!-- If it should be included in the AboutLibraries lib use this pattern: define_int_* --&gt;</span>
-    <span class="nt">&lt;string</span> <span class="na">name=</span><span class="s">"define_ActionBarSherlock"</span><span class="nt">&gt;&lt;/string&gt;</span>
-    <span class="nt">&lt;string</span> <span class="na">name=</span><span class="s">"library_ActionBarSherlock_author"</span><span class="nt">&gt;</span>Jake Wharton<span class="nt">&lt;/string&gt;</span>
-    <span class="nt">&lt;string</span> <span class="na">name=</span><span class="s">"library_ActionBarSherlock_authorWebsite"</span><span class="nt">&gt;</span>http://jakewharton.com/<span class="nt">&lt;/string&gt;</span>
-    <span class="nt">&lt;string</span> <span class="na">name=</span><span class="s">"library_ActionBarSherlock_libraryName"</span><span class="nt">&gt;</span>ActionBarSherlock<span class="nt">&lt;/string&gt;</span>
-    <span class="nt">&lt;string</span> <span class="na">name=</span><span class="s">"library_ActionBarSherlock_libraryDescription"</span><span class="nt">&gt;</span>ActionBarSherlock is an standalone library designed to facilitate the use of the action bar design pattern across all versions of Android through a single API.<span class="nt">&lt;/string&gt;</span>
-    <span class="nt">&lt;string</span> <span class="na">name=</span><span class="s">"library_ActionBarSherlock_libraryVersion"</span><span class="nt">&gt;</span>4.3.1<span class="nt">&lt;/string&gt;</span>
-    <span class="nt">&lt;string</span> <span class="na">name=</span><span class="s">"library_ActionBarSherlock_libraryWebsite"</span><span class="nt">&gt;</span>http://actionbarsherlock.com/<span class="nt">&lt;/string&gt;</span>
-    <span class="c">&lt;!-- Possible values right now: apache_2_0, mit, bsd_2, bsd_3 --&gt;</span>
-    <span class="nt">&lt;string</span> <span class="na">name=</span><span class="s">"library_ActionBarSherlock_licenseId"</span><span class="nt">&gt;</span>apache_2_0<span class="nt">&lt;/string&gt;</span>
-    <span class="c">&lt;!-- you still can define the license within your library definition, but it is recommend to use the id --&gt;</span>
-    <span class="c">&lt;!-- possible fields for a custom license: *_licenseVersion, *_licenseLink, *_licenseContent --&gt;</span>
-    <span class="nt">&lt;string</span> <span class="na">name=</span><span class="s">"library_ActionBarSherlock_isOpenSource"</span><span class="nt">&gt;</span>true<span class="nt">&lt;/string&gt;</span>
-    <span class="nt">&lt;string</span> <span class="na">name=</span><span class="s">"library_ActionBarSherlock_repositoryLink"</span><span class="nt">&gt;</span>https://github.com/JakeWharton/ActionBarSherlock<span class="nt">&lt;/string&gt;</span>
-<span class="nt">&lt;/resources&gt;</span>
-</pre></div>
+<div class="highlight highlight-xml"><pre>&lt;?<span class="nt">xml</span><span class="na"> version</span>=<span class="s2">"1.0"</span><span class="na"> encoding</span>=<span class="s2">"utf-8"</span>?&gt;
+&lt;<span class="nt">resources</span>&gt;
+    <span class="cm">&lt;!-- If you include it in your own library use this pattern: define_* --&gt;</span>
+    <span class="cm">&lt;!-- If it should be included in the AboutLibraries lib use this pattern: define_int_* --&gt;</span>
+    &lt;<span class="nt">string</span> <span class="na">name</span>=<span class="s2">"define_ActionBarSherlock"</span>&gt;&lt;/<span class="nt">string</span>&gt;
+    &lt;<span class="nt">string</span> <span class="na">name</span>=<span class="s2">"library_ActionBarSherlock_author"</span>&gt;Jake Wharton&lt;/<span class="nt">string</span>&gt;
+    &lt;<span class="nt">string</span> <span class="na">name</span>=<span class="s2">"library_ActionBarSherlock_authorWebsite"</span>&gt;http://jakewharton.com/&lt;/<span class="nt">string</span>&gt;
+    &lt;<span class="nt">string</span> <span class="na">name</span>=<span class="s2">"library_ActionBarSherlock_libraryName"</span>&gt;ActionBarSherlock&lt;/<span class="nt">string</span>&gt;
+    &lt;<span class="nt">string</span> <span class="na">name</span>=<span class="s2">"library_ActionBarSherlock_libraryDescription"</span>&gt;ActionBarSherlock is an standalone library designed to facilitate the use of the action bar design pattern across all versions of Android through a single API.&lt;/<span class="nt">string</span>&gt;
+    &lt;<span class="nt">string</span> <span class="na">name</span>=<span class="s2">"library_ActionBarSherlock_libraryVersion"</span>&gt;4.3.1&lt;/<span class="nt">string</span>&gt;
+    &lt;<span class="nt">string</span> <span class="na">name</span>=<span class="s2">"library_ActionBarSherlock_libraryWebsite"</span>&gt;http://actionbarsherlock.com/&lt;/<span class="nt">string</span>&gt;
+    <span class="cm">&lt;!-- Possible values right now: apache_2_0, mit, bsd_2, bsd_3 --&gt;</span>
+    &lt;<span class="nt">string</span> <span class="na">name</span>=<span class="s2">"library_ActionBarSherlock_licenseId"</span>&gt;apache_2_0&lt;/<span class="nt">string</span>&gt;
+    <span class="cm">&lt;!-- you still can define the license within your library definition, but it is recommend to use the id --&gt;</span>
+    <span class="cm">&lt;!-- possible fields for a custom license: *_licenseVersion, *_licenseLink, *_licenseContent --&gt;</span>
+    &lt;<span class="nt">string</span> <span class="na">name</span>=<span class="s2">"library_ActionBarSherlock_isOpenSource"</span>&gt;true&lt;/<span class="nt">string</span>&gt;
+    &lt;<span class="nt">string</span> <span class="na">name</span>=<span class="s2">"library_ActionBarSherlock_repositoryLink"</span>&gt;https://github.com/JakeWharton/ActionBarSherlock&lt;/<span class="nt">string</span>&gt;
+&lt;/<span class="nt">resources</span>&gt;</pre></div>
 
 <h2>
-<a name="contribute" class="anchor" href="#contribute"><span class="octicon octicon-link"></span></a>Contribute</h2>
+<a id="contribute" class="anchor" href="#contribute" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contribute</h2>
 
 <p>You can contribute by creating an information file for a new library, and make a pull-request at the creators git repository. If he doesn't include the information file in his repo, or if the library isn't maintained anymore you can create a pull-request here.</p>
 
 <p>Please remind that if you make a pull-request here, that you have to change the <em>define_</em> string to <em>define_int_</em>. It is also very important that the <em>_strings.xml</em> has an unique filename (it should be named <em>{libraryidentifier}_strings.xml</em></p>
 
 <h2>
-<a name="already-in-use-in-following-apps" class="anchor" href="#already-in-use-in-following-apps"><span class="octicon octicon-link"></span></a>Already in use in following apps</h2>
+<a id="already-in-use-in-following-apps" class="anchor" href="#already-in-use-in-following-apps" aria-hidden="true"><span class="octicon octicon-link"></span></a>Already in use in following apps</h2>
 
 <p>(feel free to send me new projects)</p>
 
@@ -239,7 +231,7 @@ Yeah pretty simple just add the following .xml file (or just the strings (the ke
 <p><a href="https://play.google.com/store/apps/details?id=com.tundem.yatzyTJ">MegaYatzy</a></p>
 
 <h1>
-<a name="developed-by" class="anchor" href="#developed-by"><span class="octicon octicon-link"></span></a>Developed By</h1>
+<a id="developed-by" class="anchor" href="#developed-by" aria-hidden="true"><span class="octicon octicon-link"></span></a>Developed By</h1>
 
 <ul>
 <li>Mike Penz - <a href="http://mikepenz.com">http://mikepenz.com</a> - <a href="mailto:mikepenz@gmail.com">mikepenz@gmail.com</a>
@@ -247,7 +239,7 @@ Yeah pretty simple just add the following .xml file (or just the strings (the ke
 </ul>
 
 <h1>
-<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h1>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h1>
 
 <pre><code>Copyright 2014 Mike Penz
 
