@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_int_ldialogs"/>
+	<!-- Author section -->
+	<string name="library_ldialogs_author">Lewis Deane</string>
+	<string name="library_ldialogs_authorWebsite">https://github.com/lewisjdeane</string>
+	<!-- Library section -->
+	<string name="library_ldialogs_libraryName">LDialogs</string>
+	<string name="library_ldialogs_libraryDescription">A small library replicating the new dialogs in android L.</string>
+	<string name="library_ldialogs_libraryWebsite">https://github.com/lewisjdeane/L-Dialogs</string>
+	<string name="library_ldialogs_libraryVersion">1.0.0</string>
+	<!-- OpenSource section -->
+	<string name="library_ldialogs_isOpenSource">true</string>
+	<string name="library_ldialogs_repositoryLink">https://github.com/lewisjdeane/L-Dialogs</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_ldialogs_classPath">uk.me.lewisdeane.ldialogs</string>
+	<!-- License section -->
+	<string name="library_ldialogs_licenseId">apache_2_0</string>
+	<!-- Custom variables section -->
+</resources>

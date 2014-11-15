@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_int_textdrawable"/>
+	<!-- Author section -->
+	<string name="library_textdrawable_author">Dave Smith</string>
+	<string name="library_textdrawable_authorWebsite">http://blog.wiresareobsolete.com/</string>
+	<!-- Library section -->
+	<string name="library_textdrawable_libraryName">TextDrawable</string>
+	<string name="library_textdrawable_libraryDescription">TextDrawable is a Drawable object used to display text content and is intended for use on the Android mobile platform.</string>
+	<string name="library_textdrawable_libraryWebsite">http://wiresareobsolete.com/wordpress/2012/12/textdrawable-draw-some-text/</string>
+	<string name="library_textdrawable_libraryVersion">1.0.0</string>
+	<!-- OpenSource section -->
+	<string name="library_textdrawable_isOpenSource">true</string>
+	<string name="library_textdrawable_repositoryLink">https://github.com/devunwired/textdrawable</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_textdrawable_classPath">com.example.textdrawable.drawable</string>
+	<!-- License section -->
+	<string name="library_textdrawable_licenseId">mit</string>
+	<!-- Custom variables section -->
+</resources>
