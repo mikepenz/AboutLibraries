@@ -40,7 +40,7 @@ The AboutLibraries Library is pushed to [Maven Central], so you just need to add
 
 ```javascript
 dependencies {
-	compile 'com.mikepenz.aboutlibraries:library:4.3.0@aar'
+	compile 'com.mikepenz.aboutlibraries:library:4.3.5@aar'
 	compile 'com.android.support:support-v4:21.0.0'
 	compile 'com.android.support:appcompat-v7:21.0.0'
 	compile 'com.android.support:cardview-v7:21.0.0'
