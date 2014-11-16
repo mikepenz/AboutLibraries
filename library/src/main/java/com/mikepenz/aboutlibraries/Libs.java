@@ -33,8 +33,9 @@ public class Libs {
 
     public static final String BUNDLE_THEME = "ABOUT_LIBRARIES_THEME";
     public static final String BUNDLE_TITLE = "ABOUT_LIBRARIES_TITLE";
+	public static final String BUNDLE_COLORS = "ABOUT_COLOR";
 
-    public static final String BUNDLE_APP_ABOUT_ICON = "ABOUT_LIBRARIES_APP_ABOUT_ICON";
+	public static final String BUNDLE_APP_ABOUT_ICON = "ABOUT_LIBRARIES_APP_ABOUT_ICON";
     public static final String BUNDLE_APP_ABOUT_VERSION = "ABOUT_LIBRARIES_APP_ABOUT_VERSION";
     public static final String BUNDLE_APP_ABOUT_DESCRIPTION = "ABOUT_LIBRARIES_APP_ABOUT_DESCRIPTION";
 

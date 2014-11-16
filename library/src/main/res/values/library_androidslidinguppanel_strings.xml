@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_int_androidslidinguppanel"/>
+	<!-- Author section -->
+	<string name="library_androidslidinguppanel_author">Umano team</string>
+	<string name="library_androidslidinguppanel_authorWebsite">http://umanoapp.com/</string>
+	<!-- Library section -->
+	<string name="library_androidslidinguppanel_libraryName">AndroidSlidingUpPanel</string>
+	<string name="library_androidslidinguppanel_libraryDescription">Android Sliding Up Panel provides a simple way to add a draggable sliding up panel (popularized by Google Music, Google Maps and Rdio) to your Android application</string>
+	<string name="library_androidslidinguppanel_libraryWebsite">http://github.com/umano/AndroidSlidingUpPanel</string>
+	<string name="library_androidslidinguppanel_libraryVersion">2.0.2</string>
+	<!-- OpenSource section -->
+	<string name="library_androidslidinguppanel_isOpenSource">true</string>
+	<string name="library_androidslidinguppanel_repositoryLink">http://github.com/umano/AndroidSlidingUpPanel</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_androidslidinguppanel_classPath">com.sothree.slidinguppanel</string>
+	<!-- License section -->
+	<string name="library_androidslidinguppanel_licenseId">apache_2_0</string>
+	<!-- Custom variables section -->
+</resources>
