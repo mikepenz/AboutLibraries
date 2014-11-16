@@ -78,10 +78,14 @@ Please let me know i you include the definition file in your library. Thanks.</p
 <h3>
 <a id="using-maven" class="anchor" href="#using-maven" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using Maven</h3>
 
-<p>The AboutLibraries Library is pushed to [Maven Central], so you just need to add the following dependency to your <code>build.gradle</code>.</p>
+<p>The AboutLibraries Library is pushed to [Maven Central], so you just need to add the following dependency to your <code>build.gradle</code>. It seems it is also required to add the support dependencies to the application. If it works without, you should be fine too :).</p>
 
 <div class="highlight highlight-javascript"><pre>dependencies {
-    compile <span class="s1">'com.mikepenz.aboutlibraries:library:4.3.0@aar'</span>
+    compile <span class="pl-s1"><span class="pl-pds">'</span>com.mikepenz.aboutlibraries:library:4.3.5@aar<span class="pl-pds">'</span></span>
+    compile <span class="pl-s1"><span class="pl-pds">'</span>com.android.support:support-v4:21.0.0<span class="pl-pds">'</span></span>
+    compile <span class="pl-s1"><span class="pl-pds">'</span>com.android.support:appcompat-v7:21.0.0<span class="pl-pds">'</span></span>
+    compile <span class="pl-s1"><span class="pl-pds">'</span>com.android.support:cardview-v7:21.0.0<span class="pl-pds">'</span></span>
+    compile <span class="pl-s1"><span class="pl-pds">'</span>com.android.support:recyclerview-v7:21.0.0<span class="pl-pds">'</span></span>
 }</pre></div>
 
 <p>Further information can be found in the <a href="https://github.com/mikepenz/AboutLibraries/wiki/HOWTO:-Include">wiki</a></p>
@@ -97,22 +101,22 @@ Please let me know i you include the definition file in your library. Thanks.</p
 <h4>
 <a id="fragment" class="anchor" href="#fragment" aria-hidden="true"><span class="octicon octicon-link"></span></a>Fragment</h4>
 
-<div class="highlight highlight-java"><pre><span class="kt">Bundle</span> bundle <span class="o">=</span> <span class="k">new</span> <span class="kt">Bundle</span>();
-<span class="c1">//Pass the fields of your application to the lib so it can find all external lib information</span>
-bundle<span class="o">.</span>putStringArray(<span class="kt">Libs</span><span class="no"><span class="o">.</span>BUNDLE_FIELDS</span>, <span class="kt">Libs</span><span class="o">.</span>toStringArray(<span class="kt">R</span><span class="o">.</span>string<span class="o">.</span>class<span class="o">.</span>getFields()));
-<span class="c1">//Define the libs you want (only those which don't include the information, and are not autoDetected) </span>
-<span class="c1">//(OPTIONAL if all used libraries offer the information, or are autoDetected)</span>
-bundle<span class="o">.</span>putStringArray(<span class="kt">Libs</span><span class="no"><span class="o">.</span>BUNDLE_LIBS</span>, <span class="k">new</span> <span class="kt">String</span>[]{<span class="s2">"AndroidIconify"</span>, <span class="s2">"ActiveAndroid"</span>, <span class="s2">"FButton"</span>, <span class="s2">"Crouton"</span>, <span class="s2">"HoloGraphLibrary"</span>, <span class="s2">"ShowcaseView"</span>, <span class="s2">"NineOldAndroids"</span>, <span class="s2">"AndroidViewpagerIndicator"</span>});
+<div class="highlight highlight-java"><pre><span class="pl-s">Bundle</span> bundle <span class="pl-ko">=</span> <span class="pl-k">new</span> <span class="pl-s">Bundle</span>();
+<span class="pl-c"><span class="pl-pdc">//</span>Pass the fields of your application to the lib so it can find all external lib information</span>
+bundle<span class="pl-ko">.</span>putStringArray(<span class="pl-s">Libs</span><span class="pl-c1"><span class="pl-ko">.</span>BUNDLE_FIELDS</span>, <span class="pl-s">Libs</span><span class="pl-ko">.</span>toStringArray(<span class="pl-s">R</span><span class="pl-ko">.</span>string<span class="pl-ko">.</span>class<span class="pl-ko">.</span>getFields()));
+<span class="pl-c"><span class="pl-pdc">//</span>Define the libs you want (only those which don't include the information, and are not autoDetected) </span>
+<span class="pl-c"><span class="pl-pdc">//</span>(OPTIONAL if all used libraries offer the information, or are autoDetected)</span>
+bundle<span class="pl-ko">.</span>putStringArray(<span class="pl-s">Libs</span><span class="pl-c1"><span class="pl-ko">.</span>BUNDLE_LIBS</span>, <span class="pl-k">new</span> <span class="pl-s">String</span>[]{<span class="pl-s1"><span class="pl-pds">"</span>AndroidIconify<span class="pl-pds">"</span></span>, <span class="pl-s1"><span class="pl-pds">"</span>ActiveAndroid<span class="pl-pds">"</span></span>, <span class="pl-s1"><span class="pl-pds">"</span>FButton<span class="pl-pds">"</span></span>, <span class="pl-s1"><span class="pl-pds">"</span>Crouton<span class="pl-pds">"</span></span>, <span class="pl-s1"><span class="pl-pds">"</span>HoloGraphLibrary<span class="pl-pds">"</span></span>, <span class="pl-s1"><span class="pl-pds">"</span>ShowcaseView<span class="pl-pds">"</span></span>, <span class="pl-s1"><span class="pl-pds">"</span>NineOldAndroids<span class="pl-pds">"</span></span>, <span class="pl-s1"><span class="pl-pds">"</span>AndroidViewpagerIndicator<span class="pl-pds">"</span></span>});
 
-<span class="c1">//Display the library version (OPTIONAL)</span>
-bundle<span class="o">.</span>putBoolean(<span class="kt">Libs</span><span class="no"><span class="o">.</span>BUNDLE_VERSION</span>, <span class="kc">true</span>);
-<span class="c1">//Display the library license (OPTIONAL</span>
-bundle<span class="o">.</span>putBoolean(<span class="kt">Libs</span><span class="no"><span class="o">.</span>BUNDLE_LICENSE</span>, <span class="kc">true</span>);
+<span class="pl-c"><span class="pl-pdc">//</span>Display the library version (OPTIONAL)</span>
+bundle<span class="pl-ko">.</span>putBoolean(<span class="pl-s">Libs</span><span class="pl-c1"><span class="pl-ko">.</span>BUNDLE_VERSION</span>, <span class="pl-c1">true</span>);
+<span class="pl-c"><span class="pl-pdc">//</span>Display the library license (OPTIONAL</span>
+bundle<span class="pl-ko">.</span>putBoolean(<span class="pl-s">Libs</span><span class="pl-c1"><span class="pl-ko">.</span>BUNDLE_LICENSE</span>, <span class="pl-c1">true</span>);
 
-<span class="c1">//Create a new Fragment (you can do this where ever you want</span>
-<span class="kt">Fragment</span> fragment <span class="o">=</span> <span class="k">new</span> <span class="kt">LibsFragment</span>();
-<span class="c1">//Set the arguments</span>
-fragment<span class="o">.</span>setArguments(bundle);</pre></div>
+<span class="pl-c"><span class="pl-pdc">//</span>Create a new Fragment (you can do this where ever you want</span>
+<span class="pl-s">Fragment</span> fragment <span class="pl-ko">=</span> <span class="pl-k">new</span> <span class="pl-s">LibsFragment</span>();
+<span class="pl-c"><span class="pl-pdc">//</span>Set the arguments</span>
+fragment<span class="pl-ko">.</span>setArguments(bundle);</pre></div>
 
 <h4>
 <a id="activity" class="anchor" href="#activity" aria-hidden="true"><span class="octicon octicon-link"></span></a>Activity</h4>
@@ -120,27 +124,27 @@ fragment<span class="o">.</span>setArguments(bundle);</pre></div>
 <h5>
 <a id="code" class="anchor" href="#code" aria-hidden="true"><span class="octicon octicon-link"></span></a>Code:</h5>
 
-<div class="highlight highlight-java"><pre><span class="c1">//Create an intent with context and the Activity class</span>
-<span class="kt">Intent</span> i <span class="o">=</span> <span class="k">new</span> <span class="kt">Intent</span>(getApplicationContext(), <span class="kt">LibsActivity</span><span class="o">.</span>class);
-<span class="c1">//Pass the fields of your application to the lib so it can find all external lib information</span>
-i<span class="o">.</span>putExtra(<span class="kt">Libs</span><span class="no"><span class="o">.</span>BUNDLE_FIELDS</span>, <span class="kt">Libs</span><span class="o">.</span>toStringArray(<span class="kt">R</span><span class="o">.</span>string<span class="o">.</span>class<span class="o">.</span>getFields()));
-<span class="c1">//Define the libs you want (only those which don't include the information, and are not autoDetected) </span>
-<span class="c1">//(OPTIONAL if all used libraries offer the information, or are autoDetected)</span>
-i<span class="o">.</span>putExtra(<span class="kt">Libs</span><span class="no"><span class="o">.</span>BUNDLE_LIBS</span>, <span class="k">new</span> <span class="kt">String</span>[]{<span class="s2">"crouton"</span>, <span class="s2">"actionbarsherlock"</span>, <span class="s2">"showcaseview"</span>});
+<div class="highlight highlight-java"><pre><span class="pl-c"><span class="pl-pdc">//</span>Create an intent with context and the Activity class</span>
+<span class="pl-s">Intent</span> i <span class="pl-ko">=</span> <span class="pl-k">new</span> <span class="pl-s">Intent</span>(getApplicationContext(), <span class="pl-s">LibsActivity</span><span class="pl-ko">.</span>class);
+<span class="pl-c"><span class="pl-pdc">//</span>Pass the fields of your application to the lib so it can find all external lib information</span>
+i<span class="pl-ko">.</span>putExtra(<span class="pl-s">Libs</span><span class="pl-c1"><span class="pl-ko">.</span>BUNDLE_FIELDS</span>, <span class="pl-s">Libs</span><span class="pl-ko">.</span>toStringArray(<span class="pl-s">R</span><span class="pl-ko">.</span>string<span class="pl-ko">.</span>class<span class="pl-ko">.</span>getFields()));
+<span class="pl-c"><span class="pl-pdc">//</span>Define the libs you want (only those which don't include the information, and are not autoDetected) </span>
+<span class="pl-c"><span class="pl-pdc">//</span>(OPTIONAL if all used libraries offer the information, or are autoDetected)</span>
+i<span class="pl-ko">.</span>putExtra(<span class="pl-s">Libs</span><span class="pl-c1"><span class="pl-ko">.</span>BUNDLE_LIBS</span>, <span class="pl-k">new</span> <span class="pl-s">String</span>[]{<span class="pl-s1"><span class="pl-pds">"</span>crouton<span class="pl-pds">"</span></span>, <span class="pl-s1"><span class="pl-pds">"</span>actionbarsherlock<span class="pl-pds">"</span></span>, <span class="pl-s1"><span class="pl-pds">"</span>showcaseview<span class="pl-pds">"</span></span>});
 
-<span class="c1">//Display the library version (OPTIONAL)</span>
-i<span class="o">.</span>putExtra(<span class="kt">Libs</span><span class="no"><span class="o">.</span>BUNDLE_VERSION</span>, <span class="kc">true</span>);
-<span class="c1">//Display the library license (OPTIONAL</span>
-i<span class="o">.</span>putExtra(<span class="kt">Libs</span><span class="no"><span class="o">.</span>BUNDLE_LICENSE</span>, <span class="kc">true</span>);
+<span class="pl-c"><span class="pl-pdc">//</span>Display the library version (OPTIONAL)</span>
+i<span class="pl-ko">.</span>putExtra(<span class="pl-s">Libs</span><span class="pl-c1"><span class="pl-ko">.</span>BUNDLE_VERSION</span>, <span class="pl-c1">true</span>);
+<span class="pl-c"><span class="pl-pdc">//</span>Display the library license (OPTIONAL</span>
+i<span class="pl-ko">.</span>putExtra(<span class="pl-s">Libs</span><span class="pl-c1"><span class="pl-ko">.</span>BUNDLE_LICENSE</span>, <span class="pl-c1">true</span>);
 
-<span class="c1">//Set a title (OPTIONAL)</span>
-i<span class="o">.</span>putExtra(<span class="kt">Libs</span><span class="no"><span class="o">.</span>BUNDLE_TITLE</span>, <span class="s2">"Open Source"</span>);
+<span class="pl-c"><span class="pl-pdc">//</span>Set a title (OPTIONAL)</span>
+i<span class="pl-ko">.</span>putExtra(<span class="pl-s">Libs</span><span class="pl-c1"><span class="pl-ko">.</span>BUNDLE_TITLE</span>, <span class="pl-s1"><span class="pl-pds">"</span>Open Source<span class="pl-pds">"</span></span>);
 
-<span class="c1">//Pass your theme (OPTIONAL)</span>
-i<span class="o">.</span>putExtra(<span class="kt">Libs</span><span class="no"><span class="o">.</span>BUNDLE_THEME</span>, <span class="kt">R</span><span class="o">.</span><span class="kt">style<span class="o">.</span>Theme_AppCompat</span>);
-<span class="c1">//Pass a custom accent color (OPTIONAL)</span>
+<span class="pl-c"><span class="pl-pdc">//</span>Pass your theme (OPTIONAL)</span>
+i<span class="pl-ko">.</span>putExtra(<span class="pl-s">Libs</span><span class="pl-c1"><span class="pl-ko">.</span>BUNDLE_THEME</span>, <span class="pl-s">R</span><span class="pl-ko">.</span><span class="pl-s">style<span class="pl-ko">.</span>Theme_AppCompat</span>);
+<span class="pl-c"><span class="pl-pdc">//</span>Pass a custom accent color (OPTIONAL)</span>
 
-<span class="c1">//start the activity</span>
+<span class="pl-c"><span class="pl-pdc">//</span>start the activity</span>
 startActivity(i);</pre></div>
 
 <h3>
@@ -150,11 +154,11 @@ startActivity(i);</pre></div>
 
 <p>The preferred method to get a Libs instance is by passing the string-field-array</p>
 
-<div class="highlight highlight-java"><pre><span class="kt">Libs</span> libs <span class="o">=</span> <span class="k">new</span> <span class="kt">Libs</span>(getActivity(), <span class="kt">R</span><span class="o">.</span>string<span class="o">.</span>class<span class="o">.</span>getFields());</pre></div>
+<div class="highlight highlight-java"><pre><span class="pl-s">Libs</span> libs <span class="pl-ko">=</span> <span class="pl-k">new</span> <span class="pl-s">Libs</span>(getActivity(), <span class="pl-s">R</span><span class="pl-ko">.</span>string<span class="pl-ko">.</span>class<span class="pl-ko">.</span>getFields());</pre></div>
 
 <p>Now you can use the instance to get the information</p>
 
-<div class="highlight highlight-java"><pre>libs<span class="o">.</span>getLibrary(<span class="s2">"ActionBarSherlock"</span>)</pre></div>
+<div class="highlight highlight-java"><pre>libs<span class="pl-ko">.</span>getLibrary(<span class="pl-s1"><span class="pl-pds">"</span>ActionBarSherlock<span class="pl-pds">"</span></span>)</pre></div>
 
 <p>done.</p>
 
@@ -165,17 +169,17 @@ startActivity(i);</pre></div>
 You can also use the AboutLibraries activity as "about this app" screen. You ask how?
 Yeah pretty simple just add the following .xml file (or just the strings (the key must be the same)) to your project.</p>
 
-<div class="highlight highlight-xml"><pre>&lt;<span class="nt">resources</span>&gt;
-    &lt;<span class="nt">string</span> <span class="na">name</span>=<span class="s2">"aboutLibraries_description_showIcon"</span>&gt;true&lt;/<span class="nt">string</span>&gt;
-    &lt;<span class="nt">string</span> <span class="na">name</span>=<span class="s2">"aboutLibraries_description_showVersion"</span>&gt;true&lt;/<span class="nt">string</span>&gt;
-    &lt;<span class="nt">string</span> <span class="na">name</span>=<span class="s2">"aboutLibraries_description_text"</span>&gt;Place your description here :D&lt;/<span class="nt">string</span>&gt;
-&lt;/<span class="nt">resources</span>&gt;</pre></div>
+<div class="highlight highlight-xml"><pre>&lt;<span class="pl-ent">resources</span>&gt;
+    &lt;<span class="pl-ent">string</span> <span class="pl-eoa">name</span>=<span class="pl-s1"><span class="pl-pds">"</span>aboutLibraries_description_showIcon<span class="pl-pds">"</span></span>&gt;true&lt;/<span class="pl-ent">string</span>&gt;
+    &lt;<span class="pl-ent">string</span> <span class="pl-eoa">name</span>=<span class="pl-s1"><span class="pl-pds">"</span>aboutLibraries_description_showVersion<span class="pl-pds">"</span></span>&gt;true&lt;/<span class="pl-ent">string</span>&gt;
+    &lt;<span class="pl-ent">string</span> <span class="pl-eoa">name</span>=<span class="pl-s1"><span class="pl-pds">"</span>aboutLibraries_description_text<span class="pl-pds">"</span></span>&gt;Place your description here :D&lt;/<span class="pl-ent">string</span>&gt;
+&lt;/<span class="pl-ent">resources</span>&gt;</pre></div>
 
 <p>or</p>
 
-<div class="highlight highlight-java"><pre>i<span class="o">.</span>putExtra(<span class="kt">Libs</span><span class="no"><span class="o">.</span>BUNDLE_APP_ABOUT_ICON</span>, <span class="kc">true</span>);
-i<span class="o">.</span>putExtra(<span class="kt">Libs</span><span class="no"><span class="o">.</span>BUNDLE_APP_ABOUT_VERSION</span>, <span class="kc">true</span>);
-i<span class="o">.</span>putExtra(<span class="kt">Libs</span><span class="no"><span class="o">.</span>BUNDLE_APP_ABOUT_DESCRIPTION</span>, <span class="s2">"Place your description here :D"</span>);
+<div class="highlight highlight-java"><pre>i<span class="pl-ko">.</span>putExtra(<span class="pl-s">Libs</span><span class="pl-c1"><span class="pl-ko">.</span>BUNDLE_APP_ABOUT_ICON</span>, <span class="pl-c1">true</span>);
+i<span class="pl-ko">.</span>putExtra(<span class="pl-s">Libs</span><span class="pl-c1"><span class="pl-ko">.</span>BUNDLE_APP_ABOUT_VERSION</span>, <span class="pl-c1">true</span>);
+i<span class="pl-ko">.</span>putExtra(<span class="pl-s">Libs</span><span class="pl-c1"><span class="pl-ko">.</span>BUNDLE_APP_ABOUT_DESCRIPTION</span>, <span class="pl-s1"><span class="pl-pds">"</span>Place your description here :D<span class="pl-pds">"</span></span>);
 </pre></div>
 
 <h2>
@@ -195,24 +199,24 @@ i<span class="o">.</span>putExtra(<span class="kt">Libs</span><span class="no"><
 <h3>
 <a id="sample-_stringsxml-actionbarsherlock" class="anchor" href="#sample-_stringsxml-actionbarsherlock" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sample *_strings.xml (ActionBarSherlock)</h3>
 
-<div class="highlight highlight-xml"><pre>&lt;?<span class="nt">xml</span><span class="na"> version</span>=<span class="s2">"1.0"</span><span class="na"> encoding</span>=<span class="s2">"utf-8"</span>?&gt;
-&lt;<span class="nt">resources</span>&gt;
-    <span class="cm">&lt;!-- If you include it in your own library use this pattern: define_* --&gt;</span>
-    <span class="cm">&lt;!-- If it should be included in the AboutLibraries lib use this pattern: define_int_* --&gt;</span>
-    &lt;<span class="nt">string</span> <span class="na">name</span>=<span class="s2">"define_ActionBarSherlock"</span>&gt;&lt;/<span class="nt">string</span>&gt;
-    &lt;<span class="nt">string</span> <span class="na">name</span>=<span class="s2">"library_ActionBarSherlock_author"</span>&gt;Jake Wharton&lt;/<span class="nt">string</span>&gt;
-    &lt;<span class="nt">string</span> <span class="na">name</span>=<span class="s2">"library_ActionBarSherlock_authorWebsite"</span>&gt;http://jakewharton.com/&lt;/<span class="nt">string</span>&gt;
-    &lt;<span class="nt">string</span> <span class="na">name</span>=<span class="s2">"library_ActionBarSherlock_libraryName"</span>&gt;ActionBarSherlock&lt;/<span class="nt">string</span>&gt;
-    &lt;<span class="nt">string</span> <span class="na">name</span>=<span class="s2">"library_ActionBarSherlock_libraryDescription"</span>&gt;ActionBarSherlock is an standalone library designed to facilitate the use of the action bar design pattern across all versions of Android through a single API.&lt;/<span class="nt">string</span>&gt;
-    &lt;<span class="nt">string</span> <span class="na">name</span>=<span class="s2">"library_ActionBarSherlock_libraryVersion"</span>&gt;4.3.1&lt;/<span class="nt">string</span>&gt;
-    &lt;<span class="nt">string</span> <span class="na">name</span>=<span class="s2">"library_ActionBarSherlock_libraryWebsite"</span>&gt;http://actionbarsherlock.com/&lt;/<span class="nt">string</span>&gt;
-    <span class="cm">&lt;!-- Possible values right now: apache_2_0, mit, bsd_2, bsd_3 --&gt;</span>
-    &lt;<span class="nt">string</span> <span class="na">name</span>=<span class="s2">"library_ActionBarSherlock_licenseId"</span>&gt;apache_2_0&lt;/<span class="nt">string</span>&gt;
-    <span class="cm">&lt;!-- you still can define the license within your library definition, but it is recommend to use the id --&gt;</span>
-    <span class="cm">&lt;!-- possible fields for a custom license: *_licenseVersion, *_licenseLink, *_licenseContent --&gt;</span>
-    &lt;<span class="nt">string</span> <span class="na">name</span>=<span class="s2">"library_ActionBarSherlock_isOpenSource"</span>&gt;true&lt;/<span class="nt">string</span>&gt;
-    &lt;<span class="nt">string</span> <span class="na">name</span>=<span class="s2">"library_ActionBarSherlock_repositoryLink"</span>&gt;https://github.com/JakeWharton/ActionBarSherlock&lt;/<span class="nt">string</span>&gt;
-&lt;/<span class="nt">resources</span>&gt;</pre></div>
+<div class="highlight highlight-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-eoa"> version</span>=<span class="pl-s1"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-eoa"> encoding</span>=<span class="pl-s1"><span class="pl-pds">"</span>utf-8<span class="pl-pds">"</span></span>?&gt;
+&lt;<span class="pl-ent">resources</span>&gt;
+    <span class="pl-c"><span class="pl-pdc">&lt;!--</span> If you include it in your own library use this pattern: define_* <span class="pl-pdc">--&gt;</span></span>
+    <span class="pl-c"><span class="pl-pdc">&lt;!--</span> If it should be included in the AboutLibraries lib use this pattern: define_int_* <span class="pl-pdc">--&gt;</span></span>
+    &lt;<span class="pl-ent">string</span> <span class="pl-eoa">name</span>=<span class="pl-s1"><span class="pl-pds">"</span>define_ActionBarSherlock<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">string</span>&gt;
+    &lt;<span class="pl-ent">string</span> <span class="pl-eoa">name</span>=<span class="pl-s1"><span class="pl-pds">"</span>library_ActionBarSherlock_author<span class="pl-pds">"</span></span>&gt;Jake Wharton&lt;/<span class="pl-ent">string</span>&gt;
+    &lt;<span class="pl-ent">string</span> <span class="pl-eoa">name</span>=<span class="pl-s1"><span class="pl-pds">"</span>library_ActionBarSherlock_authorWebsite<span class="pl-pds">"</span></span>&gt;http://jakewharton.com/&lt;/<span class="pl-ent">string</span>&gt;
+    &lt;<span class="pl-ent">string</span> <span class="pl-eoa">name</span>=<span class="pl-s1"><span class="pl-pds">"</span>library_ActionBarSherlock_libraryName<span class="pl-pds">"</span></span>&gt;ActionBarSherlock&lt;/<span class="pl-ent">string</span>&gt;
+    &lt;<span class="pl-ent">string</span> <span class="pl-eoa">name</span>=<span class="pl-s1"><span class="pl-pds">"</span>library_ActionBarSherlock_libraryDescription<span class="pl-pds">"</span></span>&gt;ActionBarSherlock is an standalone library designed to facilitate the use of the action bar design pattern across all versions of Android through a single API.&lt;/<span class="pl-ent">string</span>&gt;
+    &lt;<span class="pl-ent">string</span> <span class="pl-eoa">name</span>=<span class="pl-s1"><span class="pl-pds">"</span>library_ActionBarSherlock_libraryVersion<span class="pl-pds">"</span></span>&gt;4.3.1&lt;/<span class="pl-ent">string</span>&gt;
+    &lt;<span class="pl-ent">string</span> <span class="pl-eoa">name</span>=<span class="pl-s1"><span class="pl-pds">"</span>library_ActionBarSherlock_libraryWebsite<span class="pl-pds">"</span></span>&gt;http://actionbarsherlock.com/&lt;/<span class="pl-ent">string</span>&gt;
+    <span class="pl-c"><span class="pl-pdc">&lt;!--</span> Possible values right now: apache_2_0, mit, bsd_2, bsd_3 <span class="pl-pdc">--&gt;</span></span>
+    &lt;<span class="pl-ent">string</span> <span class="pl-eoa">name</span>=<span class="pl-s1"><span class="pl-pds">"</span>library_ActionBarSherlock_licenseId<span class="pl-pds">"</span></span>&gt;apache_2_0&lt;/<span class="pl-ent">string</span>&gt;
+    <span class="pl-c"><span class="pl-pdc">&lt;!--</span> you still can define the license within your library definition, but it is recommend to use the id <span class="pl-pdc">--&gt;</span></span>
+    <span class="pl-c"><span class="pl-pdc">&lt;!--</span> possible fields for a custom license: *_licenseVersion, *_licenseLink, *_licenseContent <span class="pl-pdc">--&gt;</span></span>
+    &lt;<span class="pl-ent">string</span> <span class="pl-eoa">name</span>=<span class="pl-s1"><span class="pl-pds">"</span>library_ActionBarSherlock_isOpenSource<span class="pl-pds">"</span></span>&gt;true&lt;/<span class="pl-ent">string</span>&gt;
+    &lt;<span class="pl-ent">string</span> <span class="pl-eoa">name</span>=<span class="pl-s1"><span class="pl-pds">"</span>library_ActionBarSherlock_repositoryLink<span class="pl-pds">"</span></span>&gt;https://github.com/JakeWharton/ActionBarSherlock&lt;/<span class="pl-ent">string</span>&gt;
+&lt;/<span class="pl-ent">resources</span>&gt;</pre></div>
 
 <h2>
 <a id="contribute" class="anchor" href="#contribute" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contribute</h2>
