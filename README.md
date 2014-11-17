@@ -39,12 +39,8 @@ Please let me know i you include the definition file in your library. Thanks.
 The AboutLibraries Library is pushed to [Maven Central], so you just need to add the following dependency to your `build.gradle`. It seems it is also required to add the support dependencies to the application. If it works without, you should be fine too :).
 
 ```javascript
-dependencies {
-	compile 'com.mikepenz.aboutlibraries:library:4.3.5@aar'
-	compile 'com.android.support:support-v4:21.0.0'
-	compile 'com.android.support:appcompat-v7:21.0.0'
-	compile 'com.android.support:cardview-v7:21.0.0'
-	compile 'com.android.support:recyclerview-v7:21.0.0'
+compile('com.mikepenz.aboutlibraries:library:4.3.5@aar') {
+	transitive = true
 }
 ```
 
