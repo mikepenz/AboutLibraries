@@ -44,14 +44,17 @@ public class LibsActivity extends ActionBarActivity {
         ActionBar ab = getSupportActionBar();
         if (ab != null) {
             // Set StatusBar Color by Code
-            Colors colors = bundle == null ? null : (Colors) bundle.getParcelable(Libs.BUNDLE_COLORS);
-            if (colors != null) {
-                ab.setBackgroundDrawable(new ColorDrawable(colors.appBarColor));
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    getWindow().setStatusBarColor(colors.statusBarColor);
+            if (bundle != null && bundle.containsKey(Libs.BUNDLE_COLORS)) {
+                Colors colors = bundle.getParcelable(Libs.BUNDLE_COLORS);
+                if (colors != null) {
+                    ab.setBackgroundDrawable(new ColorDrawable(colors.appBarColor));
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        getWindow().setStatusBarColor(colors.statusBarColor);
+                    }
+                } else {
+                    ab.setBackgroundDrawable(null);
                 }
-
-            } else ab.setBackgroundDrawable(null);
+            }
 
             // SetUp ActionBar
             ab.setDisplayHomeAsUpEnabled(true);
