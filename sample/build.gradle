@@ -20,13 +20,13 @@ def appendVersionNameVersionCode(variant, defaultConfig) {
 
 android {
     compileSdkVersion 21
-    buildToolsVersion '21.0.2'
+    buildToolsVersion '21.1.1'
     defaultConfig {
         applicationId 'com.mikepenz.aboutlibraries.sample'
         minSdkVersion 11
         targetSdkVersion 21
-        versionCode 436
-        versionName '4.3.6'
+        versionCode 437
+        versionName '4.3.7'
     }
 
     buildTypes {

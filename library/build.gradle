@@ -1,13 +1,13 @@
 apply plugin: 'com.android.library'
 android {
     compileSdkVersion 21
-    buildToolsVersion '21.0.2'
+    buildToolsVersion '21.1.1'
 
     defaultConfig {
         minSdkVersion 7
         targetSdkVersion 21
-        versionCode 436
-        versionName '4.3.6'
+        versionCode 437
+        versionName '4.3.7'
     }
 
     buildTypes {
@@ -26,8 +26,8 @@ android {
 apply from: 'gradle-mvn-push.gradle'
 
 dependencies {
-    compile 'com.android.support:support-v4:21.0.0'
-    compile 'com.android.support:appcompat-v7:21.0.0'
+    compile 'com.android.support:support-v4:21.0.2'
+    compile 'com.android.support:appcompat-v7:21.0.2'
     compile 'com.android.support:cardview-v7:21.0.0'
     compile 'com.android.support:recyclerview-v7:21.0.0'
 }
