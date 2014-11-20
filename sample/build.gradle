@@ -6,18 +6,6 @@ try {
 }
 
 
-def appendVersionNameVersionCode(variant, defaultConfig) {
-    if (variant.zipAlign) {
-        def file = variant.outputFile
-        def fileName = file.name.replace(".apk", "-v" + defaultConfig.versionName + "-c" + defaultConfig.versionCode + ".apk")
-        variant.outputFile = new File(file.parent, fileName)
-    }
-
-    def file = variant.packageApplication.outputFile
-    def fileName = file.name.replace(".apk", "-v" + defaultConfig.versionName + "-c" + defaultConfig.versionCode + ".apk")
-    variant.packageApplication.outputFile = new File(file.parent, fileName)
-}
-
 android {
     compileSdkVersion 21
     buildToolsVersion '21.1.1'
@@ -27,29 +15,33 @@ android {
         targetSdkVersion 21
         versionCode 437
         versionName '4.3.7'
+
+        applicationVariants.all { variant ->
+            variant.outputs.each { output ->
+                def file = output.outputFile
+                def fileName = file.name.replace(".apk", "-v" + versionName + "-c" + versionCode + ".apk")
+                output.outputFile = new File(file.parentFile, fileName)
+            }
+        }
     }
 
     buildTypes {
         debug {
-            applicationIdSuffix = ".debug"
-            versionNameSuffix = "-DEBUG"
+            applicationIdSuffix ".debug"
+            versionNameSuffix "-DEBUG"
             try {
                 signingConfig signingConfigs.debug
             } catch (ex) {
             }
-            runProguard false
+            minifyEnabled false
         }
         release {
             try {
                 signingConfig signingConfigs.release
             } catch (ex) {
             }
-            zipAlign true
-            runProguard false
-        }
-
-        applicationVariants.all { variant ->
-            appendVersionNameVersionCode(variant, defaultConfig)
+            zipAlignEnabled true
+            minifyEnabled false
         }
     }
     productFlavors {
