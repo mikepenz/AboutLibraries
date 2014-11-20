@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 
 import com.fima.cardsui.objects.CardStack;
 import com.fima.cardsui.views.CardUI;
@@ -26,6 +28,16 @@ public class CustomActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         libs = new Libs(this, Libs.toStringArray(R.string.class.getFields()));
+
+        /*
+        //CODE SNIPPET TO EXPORT ALL INTERNAL LIBS IN THE WIKI FORMAT
+        String export = "";
+        for (Library lib : libs.getInternLibraries()) {
+            export = export + "* " + lib.getLibraryName() + " - " + lib.getDefinedName() + " - " + lib.getRepositoryLink() + "\n";
+        }
+        ((EditText) findViewById(R.id.export)).setText(export);
+        */
+        ((EditText) findViewById(R.id.export)).setVisibility(View.GONE);
 
         // init CardView
         mCardView = (CardUI) findViewById(R.id.cardsview);

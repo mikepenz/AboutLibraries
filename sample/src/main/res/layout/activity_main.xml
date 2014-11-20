@@ -5,7 +5,10 @@
                 android:background="@color/theme_window_background"
                 tools:context=".MainActivity">
 
+    <EditText android:layout_width="match_parent" android:layout_height="48dp" android:id="@+id/export"/>
+
     <com.fima.cardsui.views.CardUI
+        android:layout_below="@id/export"
         android:id="@+id/cardsview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
