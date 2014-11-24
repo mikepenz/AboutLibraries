@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources translatable="false">
-<string name="define_license_cc30"></string>
-<string name="license_cc30_licenseName">Creative Commons 3.0 License</string>
-<string name="license_cc30_licenseWebsite">http://creativecommons.org/licenses/by/3.0/legalcode</string>
-<string name="license_cc30_licenseShortDescription">
-<![CDATA[THE WORK (AS DEFINED BELOW) IS PROVIDED UNDER THE TERMS OF THIS CREATIVE COMMONS PUBLIC LICENSE ("CCPL" OR "LICENSE"). THE WORK IS PROTECTED BY COPYRIGHT AND/OR OTHER APPLICABLE LAW. ANY USE OF THE WORK OTHER THAN AS AUTHORIZED UNDER THIS LICENSE OR COPYRIGHT LAW IS PROHIBITED.<br/><br/>
+    <string name="define_license_cc30"></string>
+    <string name="license_cc30_licenseName">Creative Commons 3.0 License</string>
+    <string name="license_cc30_licenseWebsite">http://creativecommons.org/licenses/by/3.0/legalcode</string>
+    <string name="license_cc30_licenseShortDescription">
+        <![CDATA[THE WORK (AS DEFINED BELOW) IS PROVIDED UNDER THE TERMS OF THIS CREATIVE COMMONS PUBLIC LICENSE (\"CCPL\" OR \"LICENSE\"). THE WORK IS PROTECTED BY COPYRIGHT AND/OR OTHER APPLICABLE LAW. ANY USE OF THE WORK OTHER THAN AS AUTHORIZED UNDER THIS LICENSE OR COPYRIGHT LAW IS PROHIBITED.<br/><br/>
 
 BY EXERCISING ANY RIGHTS TO THE WORK PROVIDED HERE, YOU ACCEPT AND AGREE TO BE BOUND BY THE TERMS OF THIS LICENSE. TO THE EXTENT THIS LICENSE MAY BE CONSIDERED TO BE A CONTRACT, THE LICENSOR GRANTS YOU THE RIGHTS CONTAINED HERE IN CONSIDERATION OF YOUR ACCEPTANCE OF SUCH TERMS AND CONDITIONS.
 ]]>
-</string>
-<string name="license_cc30_licenseDescription">
-<![CDATA[<p><strong>3. License Grant.</strong> Subject to the terms
+    </string>
+    <string name="license_cc30_licenseDescription">
+        <![CDATA[<p><strong>3. License Grant.</strong> Subject to the terms
         and conditions of this License, Licensor hereby grants You
         a worldwide, royalty-free, non-exclusive, perpetual (for
         the duration of the applicable copyright) license to
         exercise the rights in the Work as stated below:</p>
 
-        <ol type="a">
+        <ol type=\"a\">
           <li>to Reproduce the Work, to incorporate the Work into
           one or more Collections, and to Reproduce the Work as
           incorporated in the Collections;</li>
@@ -25,10 +25,10 @@ BY EXERCISING ANY RIGHTS TO THE WORK PROVIDED HERE, YOU ACCEPT AND AGREE TO BE B
           such Adaptation, including any translation in any medium,
           takes reasonable steps to clearly label, demarcate or
           otherwise identify that changes were made to the original
-          Work. For example, a translation could be marked "The
-          original work was translated from English to Spanish," or
-          a modification could indicate "The original work has been
-          modified.";</li>
+          Work. For example, a translation could be marked \"The
+          original work was translated from English to Spanish,\" or
+          a modification could indicate \"The original work has been
+          modified.\";</li>
 
           <li>to Distribute and Publicly Perform the Work including
           as incorporated in Collections; and,</li>
@@ -38,7 +38,7 @@ BY EXERCISING ANY RIGHTS TO THE WORK PROVIDED HERE, YOU ACCEPT AND AGREE TO BE B
           <li>
             <p>For the avoidance of doubt:</p>
 
-            <ol type="i">
+            <ol type=\"i\">
               <li><strong>Non-waivable Compulsory License
               Schemes</strong>. In those jurisdictions in which the
               right to collect royalties through any statutory or
@@ -77,7 +77,7 @@ BY EXERCISING ANY RIGHTS TO THE WORK PROVIDED HERE, YOU ACCEPT AND AGREE TO BE B
         Section 3 above is expressly made subject to and limited by
         the following restrictions:</p>
 
-        <ol type="a">
+        <ol type=\"a\">
           <li>You may Distribute or Publicly Perform the Work only
           under the terms of this License. You must include a copy
           of, or the Uniform Resource Identifier (URI) for, this
@@ -115,7 +115,7 @@ BY EXERCISING ANY RIGHTS TO THE WORK PROVIDED HERE, YOU ACCEPT AND AGREE TO BE B
           applicable) if supplied, and/or if the Original Author
           and/or Licensor designate another party or parties (e.g.,
           a sponsor institute, publishing entity, journal) for
-          attribution ("Attribution Parties") in Licensor's
+          attribution (\"Attribution Parties\") in Licensor\'s
           copyright notice, terms of service or by other reasonable
           means, the name of such party or parties; (ii) the title
           of the Work if supplied; (iii) to the extent reasonably
@@ -124,9 +124,9 @@ BY EXERCISING ANY RIGHTS TO THE WORK PROVIDED HERE, YOU ACCEPT AND AGREE TO BE B
           refer to the copyright notice or licensing information
           for the Work; and (iv) , consistent with Section 3(b), in
           the case of an Adaptation, a credit identifying the use
-          of the Work in the Adaptation (e.g., "French translation
-          of the Work by Original Author," or "Screenplay based on
-          original Work by Original Author"). The credit required
+          of the Work in the Adaptation (e.g., \"French translation
+          of the Work by Original Author,\" or \"Screenplay based on
+          original Work by Original Author\"). The credit required
           by this Section 4 (b) may be implemented in any
           reasonable manner; provided, however, that in the case of
           a Adaptation or Collection, at a minimum such credit will
@@ -151,13 +151,13 @@ BY EXERCISING ANY RIGHTS TO THE WORK PROVIDED HERE, YOU ACCEPT AND AGREE TO BE B
           either by itself or as part of any Adaptations or
           Collections, You must not distort, mutilate, modify or
           take other derogatory action in relation to the Work
-          which would be prejudicial to the Original Author's honor
+          which would be prejudicial to the Original Author\'s honor
           or reputation. Licensor agrees that in those
           jurisdictions (e.g. Japan), in which any exercise of the
           right granted in Section 3(b) of this License (the right
           to make Adaptations) would be deemed to be a distortion,
           mutilation, modification or other derogatory action
-          prejudicial to the Original Author's honor and
+          prejudicial to the Original Author\'s honor and
           reputation, the Licensor will waive or not assert, as
           appropriate, this Section, to the fullest extent
           permitted by the applicable national law, to enable You
@@ -190,7 +190,7 @@ BY EXERCISING ANY RIGHTS TO THE WORK PROVIDED HERE, YOU ACCEPT AND AGREE TO BE B
 
         <p><strong>7. Termination</strong></p>
 
-        <ol type="a">
+        <ol type=\"a\">
           <li>This License and the rights granted hereunder will
           terminate automatically upon any breach by You of the
           terms of this License. Individuals or entities who have
@@ -215,7 +215,7 @@ BY EXERCISING ANY RIGHTS TO THE WORK PROVIDED HERE, YOU ACCEPT AND AGREE TO BE B
 
         <p><strong>8. Miscellaneous</strong></p>
 
-        <ol type="a">
+        <ol type=\"a\">
           <li>Each time You Distribute or Publicly Perform the Work
           or a Collection, the Licensor offers to the recipient a
           license to the Work on the same terms and conditions as
@@ -267,7 +267,6 @@ BY EXERCISING ANY RIGHTS TO THE WORK PROVIDED HERE, YOU ACCEPT AND AGREE TO BE B
           to restrict the license of any rights under applicable
           law.</li>
         </ol>
-
 ]]>
-</string>
+    </string>
 </resources>
