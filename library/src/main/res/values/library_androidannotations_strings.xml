@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="define_androidannotations"></string>
+    <string name="define_int_androidannotations"></string>
     <string name="library_androidannotations_author">Pierre-Yves Ricau</string>
     <string name="library_androidannotations_authorWebsite">http://www.piwai.info/</string>
     <string name="library_androidannotations_libraryName">AndroidAnnotations</string>
