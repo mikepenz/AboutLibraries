@@ -179,7 +179,7 @@ public class Libs {
     /**
      * Get all autoDetected Libraries
      *
-     * @return an ArrayList<Library> with all found libs by their classpath
+     * @return an ArrayList Library with all found libs by their classpath
      */
     public ArrayList<Library> getAutoDetectedLibraries() {
         ArrayList<Library> libraries = new ArrayList<Library>();
@@ -219,7 +219,7 @@ public class Libs {
     /**
      * Get all intern available Libraries
      *
-     * @return an ArrayList<Library> with all available internLibraries
+     * @return an ArrayList Library with all available internLibraries
      */
     public ArrayList<Library> getInternLibraries() {
         return new ArrayList<Library>(internLibraries);
@@ -228,7 +228,7 @@ public class Libs {
     /**
      * Get all extern available Libraries
      *
-     * @return an ArrayList<Library> with all available externLibraries
+     * @return an ArrayList Library with all available externLibraries
      */
     public ArrayList<Library> getExternLibraries() {
         return new ArrayList<Library>(externLibraries);
@@ -237,7 +237,7 @@ public class Libs {
     /**
      * Get all available licenses
      *
-     * @return an ArrayLIst<License> with all available Licenses
+     * @return an ArrayLIst License  with all available Licenses
      */
     public ArrayList<License> getLicenses() {
         return new ArrayList<License>(licenses);
@@ -246,7 +246,7 @@ public class Libs {
     /**
      * Get all available Libraries
      *
-     * @return an ArrayList<Library> with all available Libraries
+     * @return an ArrayList Library with all available Libraries
      */
     public ArrayList<Library> getLibraries() {
         ArrayList<Library> libs = new ArrayList<Library>();
@@ -276,8 +276,8 @@ public class Libs {
      * Find a library by a searchTerm (Limit the results if there are more than one)
      *
      * @param searchTerm the term which is in the libs name (NOT case sensitiv) or the real name of the lib (this is the name used for github)
-     * @param limit      -1 for all results or > 0 for a limitted result
-     * @return an ArrayList<Library> with the found internLibraries
+     * @param limit      -1 for all results or  0 for a limitted result
+     * @return an ArrayList Library  with the found internLibraries
      */
     public ArrayList<Library> findLibrary(String searchTerm, int limit) {
         ArrayList<Library> localLibs = new ArrayList<Library>();

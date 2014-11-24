@@ -11,7 +11,6 @@ import java.util.List;
 
 /**
  * Created by mikepenz on 08.09.14.
- * <p/>
  * Original concept of detecting libraries with their classPath by Michael Carrano
  * More details can be found here: https://github.com/michaelcarrano/detective-droid
  */
