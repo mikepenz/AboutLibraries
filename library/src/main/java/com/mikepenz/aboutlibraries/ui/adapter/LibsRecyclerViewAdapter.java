@@ -131,6 +131,8 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                         }
                     }
                 });
+            } else {
+                holder.libraryCreator.setOnClickListener(null);
             }
 
             if (!TextUtils.isEmpty(library.getLibraryWebsite())) {
@@ -144,6 +146,8 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                         }
                     }
                 });
+            } else {
+                holder.libraryDescription.setOnClickListener(null);
             }
 
             if (library.getLicense() != null && !TextUtils.isEmpty((library.getLicense().getLicenseWebsite()))) {
@@ -163,6 +167,8 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                         }
                     }
                 });
+            } else {
+                holder.libraryBottomContainer.setOnClickListener(null);
             }
         }
     }
