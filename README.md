@@ -44,7 +44,7 @@ compile('com.mikepenz.aboutlibraries:library:4.4.0@aar') {
 }
 ```
 
-Further information can be found in the [wiki](https://github.com/mikepenz/AboutLibraries/wiki/HOWTO:-Include)
+Further information and how to use it if you can't update to the newest v21 support libs can be found in the [wiki](https://github.com/mikepenz/AboutLibraries/wiki/HOWTO:-Include)
 
 
 ##Usage
