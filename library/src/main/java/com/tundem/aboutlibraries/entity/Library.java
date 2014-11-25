@@ -134,6 +134,6 @@ public class Library implements Comparable<Library> {
 
     @Override
     public int compareTo(Library another) {
-        return (this.getLibraryName()).compareTo(another.getLibraryName());
+        return getLibraryName().compareToIgnoreCase(another.getLibraryName());
     }
 }
