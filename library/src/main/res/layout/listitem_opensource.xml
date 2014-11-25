@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="8dp"
@@ -33,7 +34,8 @@
                 android:layout_weight="5"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
-                android:maxLines="1"/>
+                android:maxLines="1"
+                tools:text="Library name"/>
 
             <TextView
                 android:id="@+id/libraryCreator"
@@ -45,7 +47,8 @@
                 android:layout_marginTop="2dp"
                 android:gravity="right"
                 android:maxLines="2"
-                android:textSize="@dimen/textSizeSmall_openSource"/>
+                android:textSize="@dimen/textSizeSmall_openSource"
+                tools:text="Creator"/>
         </LinearLayout>
 
         <View
@@ -62,7 +65,8 @@
             android:padding="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="20">
+            android:maxLines="20"
+            tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla in aliquet justo. Donec tincidunt, leo imperdiet pretium posuere, sapien leo auctor mi, ac scelerisque diam leo vel sapien. Morbi lobortis, sem sed molestie fermentum.">
         </TextView>
 
         <View
@@ -91,7 +95,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:maxLines="1"
-                android:textSize="@dimen/textSizeSmall_openSource"/>
+                android:textSize="@dimen/textSizeSmall_openSource"
+                tools:text="Version"/>
 
             <TextView
                 android:id="@+id/libraryLicense"
@@ -102,7 +107,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="right"
                 android:maxLines="1"
-                android:textSize="@dimen/textSizeSmall_openSource"/>
+                android:textSize="@dimen/textSizeSmall_openSource"
+                tools:text="License"/>
         </LinearLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>
