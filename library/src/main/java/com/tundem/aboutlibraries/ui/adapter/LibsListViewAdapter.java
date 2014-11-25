@@ -112,6 +112,8 @@ public class LibsListViewAdapter extends BaseAdapter {
                     }
                 }
             });
+        } else {
+            holder.libraryCreator.setOnClickListener(null);
         }
 
         if (!TextUtils.isEmpty(library.getLibraryWebsite())) {
@@ -125,6 +127,8 @@ public class LibsListViewAdapter extends BaseAdapter {
                     }
                 }
             });
+        } else {
+            holder.libraryDescription.setOnClickListener(null);
         }
 
         if (library.getLicense() != null && !TextUtils.isEmpty((library.getLicense().getLicenseWebsite()))) {
@@ -144,6 +148,8 @@ public class LibsListViewAdapter extends BaseAdapter {
                     }
                 }
             });
+        } else {
+            holder.libraryBottomContainer.setOnClickListener(null);
         }
 
         int padding = parent.getResources().getDimensionPixelSize(R.dimen.card_padding_openSource);
