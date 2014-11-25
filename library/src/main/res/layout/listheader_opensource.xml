@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="12dp"
     android:orientation="vertical">
+
     <ImageView
         android:id="@+id/aboutIcon"
         android:layout_width="@dimen/aboutImage_openSource"
         android:layout_height="@dimen/aboutImage_openSource"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        tools:src="@drawable/button_rect_normal"/>
+
     <TextView
         android:id="@+id/aboutVersion"
         android:textSize="@dimen/textSizeSmall_openSource"
@@ -17,7 +21,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:gravity="center"
-        android:textColor="@color/text_openSource"/>
+        android:textColor="@color/text_openSource"
+        tools:text="About version"/>
 
     <View
         android:id="@+id/aboutDivider"
@@ -35,5 +40,5 @@
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        />
+        tools:text="About description"/>
 </LinearLayout>
