@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_jackson"/>
+    <!-- Author section -->
+    <string name="library_jackson_author">FasterXML, LLC</string>
+    <string name="library_jackson_authorWebsite">http://fasterxml.com</string>
+    <!-- Library section -->
+    <string name="library_jackson_libraryName">Jackson</string>
+    <string name="library_jackson_libraryDescription">
+        Inspired by the quality and variety of XML tooling available for
+        the Java platform (StAX, JAXB, etc.), the Jackson is a multi-purpose
+        Java library for processing JSON data format. Jackson aims to be the
+        best possible combination of fast, correct, lightweight, and
+        ergonomic for developers.
+    </string>
+    <string name="library_jackson_libraryWebsite"/>
+    <string name="library_jackson_libraryVersion">2.4.2</string>
+    <!-- OpenSource section -->
+    <string name="library_jackson_isOpenSource">true</string>
+    <string name="library_jackson_repositoryLink">
+        http://wiki.fasterxml.com/JacksonHome
+    </string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_jackson_classPath">
+        com.fasterxml.jackson.core.JsonFactory
+    </string>
+    <!-- License section -->
+    <string name="library_jackson_licenseId">apache_2_0</string>
+    <!-- Custom variables section -->
+</resources>
