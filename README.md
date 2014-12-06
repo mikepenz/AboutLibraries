@@ -40,7 +40,7 @@ The AboutLibraries Library is pushed to [Maven Central], so you just need to add
 
 ```javascript
 dependencies {
-	compile 'com.tundem.aboutlibraries:library:3.1.0@aar'
+	compile 'com.tundem.aboutlibraries:library:3.1.1@aar'
 }
 ```
 
