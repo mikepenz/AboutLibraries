@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:gravity="center"
-        android:textColor="@color/text_openSource"
+        android:textColor="@color/about_libraries_text_openSource"
         tools:text="About version"/>
 
     <View
@@ -29,13 +29,13 @@
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:layout_marginTop="4dp"
-        android:background="@color/dividerDark_openSource"/>
+        android:background="@color/about_libraries_dividerDark_openSource"/>
 
     <TextView
         android:id="@+id/aboutDescription"
         android:textSize="@dimen/textSizeSmall_openSource"
         android:textStyle="normal"
-        android:textColor="@color/text_openSource"
+        android:textColor="@color/about_libraries_text_openSource"
         android:padding="8dp"
         android:gravity="center"
         android:layout_width="match_parent"

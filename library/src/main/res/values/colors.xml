@@ -6,11 +6,11 @@
     <color name="theme_accent">#ff4081</color>
     <color name="theme_window_background">#ECECEC</color>
 
-    <color name="card">#FAFAFA</color>
+    <color name="about_libraries_card">#FAFAFA</color>
 
-    <color name="title_openSource">#212121</color>
-    <color name="text_openSource">#727272</color>
+    <color name="about_libraries_title_openSource">#212121</color>
+    <color name="about_libraries_text_openSource">#727272</color>
 
-    <color name="dividerDark_openSource">#AAA</color>
-    <color name="dividerLight_openSource">#DADADA</color>
+    <color name="about_libraries_dividerDark_openSource">#AAA</color>
+    <color name="about_libraries_dividerLight_openSource">#DADADA</color>
 </resources>

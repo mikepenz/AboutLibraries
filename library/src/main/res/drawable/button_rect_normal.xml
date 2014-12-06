@@ -2,5 +2,5 @@
           android:exitFadeDuration="@android:integer/config_mediumAnimTime">
     <item android:drawable="@color/theme_accent" android:state_selected="true"/>
     <item android:drawable="@color/theme_accent" android:state_pressed="true"/>
-    <item android:drawable="@color/card"/>
+    <item android:drawable="@color/about_libraries_card"/>
 </selector>
