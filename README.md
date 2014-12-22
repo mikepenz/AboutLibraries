@@ -42,67 +42,37 @@ You can use this library in a few different ways. You can create your own activi
 ###Activity / Fragment
 ####Fragment
 ```java
-Bundle bundle = new Bundle();
-//Pass the fields of your application to the lib so it can find all external lib information
-bundle.putStringArray(Libs.BUNDLE_FIELDS, Libs.toStringArray(R.string.class.getFields()));
-//Define the libs you want (only those which don't include the information, and are not autoDetected) 
-//(OPTIONAL if all used libraries offer the information, or are autoDetected)
-bundle.putStringArray(Libs.BUNDLE_LIBS, new String[] {
-    "AndroidIconify", "ActiveAndroid", "FButton", "Crouton", "HoloGraphLibrary", 
-    "ShowcaseView", "NineOldAndroids", "AndroidViewpagerIndicator"
-});
-
-//Display the library version (OPTIONAL)
-bundle.putBoolean(Libs.BUNDLE_VERSION, true);
-//Display the library license (OPTIONAL
-bundle.putBoolean(Libs.BUNDLE_LICENSE, true);
-
-//Create a new Fragment (you can do this where ever you want
-Fragment fragment = new LibsFragment();
-//Set the arguments
-fragment.setArguments(bundle);
+LibsFragment fragment = new Libs.Builder()
+	//Pass the fields of your application to the lib so it can find all external lib information
+        .withFields(R.string.class.getFields())
+        //(OPTIONAL if all used libraries offer the information, or are autoDetected)
+        .withLibraries("AndroidIconify", "ActiveAndroid", "Crouton", "HoloGraphLibrary", "ShowcaseView", "NineOldAndroids")
+       	//Display the library version (OPTIONAL)
+        .withVersionShown(true)
+        //Display the library license (OPTIONAL)
+        .withLicenseShown(true)
+        //get the fragment
+        .fragment();
 ```
 ####Activity
 #####Code:
 ```java
-//Create an intent with context and the Activity class
-Intent i = new Intent(getApplicationContext(), LibsActivity.class);
-//Pass the fields of your application to the lib so it can find all external lib information
-i.putExtra(Libs.BUNDLE_FIELDS, Libs.toStringArray(R.string.class.getFields()));
-//Define the libs you want (only those which don't include the information, and are not autoDetected) 
-//(OPTIONAL if all used libraries offer the information, or are autoDetected)
-i.putExtra(Libs.BUNDLE_LIBS, new String[]{"crouton", "actionbarsherlock", "showcaseview"});
-
-//Display the library version (OPTIONAL)
-i.putExtra(Libs.BUNDLE_VERSION, true);
-//Display the library license (OPTIONAL
-i.putExtra(Libs.BUNDLE_LICENSE, true);
-
-//Set a title (OPTIONAL)
-i.putExtra(Libs.BUNDLE_TITLE, "Open Source");
-
-//Pass your theme (OPTIONAL)
-i.putExtra(Libs.BUNDLE_THEME, R.style.Theme_AppCompat);
-//Pass a custom accent color (OPTIONAL)
-
-//start the activity
-startActivity(i);
+new Libs.Builder()
+	//Pass the fields of your application to the lib so it can find all external lib information
+        .withFields(R.string.class.getFields())
+        //(OPTIONAL if all used libraries offer the information, or are autoDetected)
+        .withLibraries("crouton, actionbarsherlock", "showcaseview")
+        //Display the library version (OPTIONAL)
+        .withVersionShown(true)
+        //Display the library license (OPTIONAL)
+        .withLicenseShown(true)
+        //Set a title (OPTIONAL)
+        .withActivityTitle
+        //Pass your theme (OPTIONAL)
+        .withActivityTheme(R.style.AppTheme)
+        //start the activity
+        .start(this);
 ```
-
-###Custom
-Use the `Library` class and build your view on your own
-
-The preferred method to get a Libs instance is by passing the string-field-array
-```java
-Libs libs = new Libs(getActivity(), R.string.class.getFields());
-```
-
-Now you can use the instance to get the information
-```java
-libs.getLibrary("ActionBarSherlock")
-```
-done.
-
 
 ##Small extra
 For those who read the whole README here's one more thing.
