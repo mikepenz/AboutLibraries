@@ -6,7 +6,9 @@ Most modern apps feature an "Used Library"-section and for this some information
 
 #Get started
 - [Include in your project](#include-in-your-project)
-- [Some Screenshots](https://github.com/mikepenz/AboutLibraries/wiki/Screenshots)
+- [Usage](#usage)
+- [Contribute](#contribute)
+#More...
 - [Sample (Google Play Store)](https://play.google.com/store/apps/details?id=com.mikepenz.aboutlibraries.sample)
 - [Create new definition files](http://def-builder.mikepenz.com/)
 - [Get detailed instructions in the wiki](https://github.com/mikepenz/AboutLibraries/wiki)
