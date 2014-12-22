@@ -1,13 +1,18 @@
 package com.mikepenz.aboutlibraries;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.mikepenz.aboutlibraries.detector.Detect;
 import com.mikepenz.aboutlibraries.entity.Library;
 import com.mikepenz.aboutlibraries.entity.License;
+import com.mikepenz.aboutlibraries.ui.LibsActivity;
+import com.mikepenz.aboutlibraries.ui.LibsFragment;
+import com.mikepenz.aboutlibraries.util.Colors;
 import com.mikepenz.aboutlibraries.util.Util;
 
 import java.lang.reflect.Field;
@@ -18,6 +23,23 @@ import java.util.List;
 import java.util.Map;
 
 public class Libs {
+    public static enum LibraryFields {
+        AUTHOR_NAME,
+        AUTHOR_WEBSITE,
+        LIBRARY_NAME,
+        LIBRARY_DESCRIPTION,
+        LIBRARY_VERSION,
+        LIBRARY_WEBSITE,
+        LIBRARY_OPEN_SOURCE,
+        LIBRARY_REPOSITORY_LINK,
+        LIBRARY_CLASSPATH,
+        LICENSE_NAME,
+        LICENSE_SHORT_DESCRIPTION,
+        LICENSE_DESCRIPTION,
+        LICENSE_WEBSITE
+    }
+
+
     public static final String BUNDLE_FIELDS = "ABOUT_LIBRARIES_FIELDS";
     public static final String BUNDLE_LIBS = "ABOUT_LIBRARIES_LIBS";
     public static final String BUNDLE_EXCLUDE_LIBS = "ABOUT_LIBRARIES_EXCLUDE_LIBS";
@@ -503,44 +525,44 @@ public class Libs {
                 if (foundLibs != null && foundLibs.size() == 1) {
                     Library lib = foundLibs.get(0);
                     for (Map.Entry<String, String> modification : entry.getValue().entrySet()) {
-                        String key = modification.getKey().toLowerCase();
+                        String key = modification.getKey().toUpperCase();
                         String value = modification.getValue();
 
-                        if (key.equals("author")) {
+                        if (key.equals(LibraryFields.AUTHOR_NAME.name())) {
                             lib.setAuthor(value);
-                        } else if (key.equals("website")) {
+                        } else if (key.equals(LibraryFields.AUTHOR_WEBSITE.name())) {
                             lib.setAuthorWebsite(value);
-                        } else if (key.equals("name")) {
+                        } else if (key.equals(LibraryFields.LIBRARY_NAME.name())) {
                             lib.setLibraryName(value);
-                        } else if (key.equals("description")) {
+                        } else if (key.equals(LibraryFields.LIBRARY_DESCRIPTION.name())) {
                             lib.setLibraryDescription(value);
-                        } else if (key.equals("version")) {
+                        } else if (key.equals(LibraryFields.LIBRARY_VERSION.name())) {
                             lib.setLibraryVersion(value);
-                        } else if (key.equals("website")) {
+                        } else if (key.equals(LibraryFields.LIBRARY_WEBSITE.name())) {
                             lib.setLibraryWebsite(value);
-                        } else if (key.equals("openSource")) {
+                        } else if (key.equals(LibraryFields.LIBRARY_OPEN_SOURCE.name())) {
                             lib.setOpenSource(Boolean.parseBoolean(value));
-                        } else if (key.equals("repositoryLink")) {
+                        } else if (key.equals(LibraryFields.LIBRARY_REPOSITORY_LINK.name())) {
                             lib.setRepositoryLink(value);
-                        } else if (key.equals("classPath")) {
+                        } else if (key.equals(LibraryFields.LIBRARY_CLASSPATH.name())) {
                             //note this can be set but won't probably work for autodetect
                             lib.setClassPath(value);
-                        } else if (key.equals("licenseName")) {
+                        } else if (key.equals(LibraryFields.LICENSE_NAME.name())) {
                             if (lib.getLicense() == null) {
                                 lib.setLicense(new License());
                             }
                             lib.getLicense().setLicenseName(value);
-                        } else if (key.equals("licenseShortDescription")) {
+                        } else if (key.equals(LibraryFields.LICENSE_SHORT_DESCRIPTION.name())) {
                             if (lib.getLicense() == null) {
                                 lib.setLicense(new License());
                             }
                             lib.getLicense().setLicenseShortDescription(value);
-                        } else if (key.equals("licenseDescription")) {
+                        } else if (key.equals(LibraryFields.LICENSE_DESCRIPTION.name())) {
                             if (lib.getLicense() == null) {
                                 lib.setLicense(new License());
                             }
                             lib.getLicense().setLicenseDescription(value);
-                        } else if (key.equals("licenseWebsite")) {
+                        } else if (key.equals(LibraryFields.LICENSE_WEBSITE.name())) {
                             if (lib.getLicense() == null) {
                                 lib.setLicense(new License());
                             }
@@ -549,6 +571,365 @@ public class Libs {
                     }
                 }
             }
+        }
+    }
+
+
+    public static class Builder {
+        private String[] fields = null;
+        private String[] internalLibraries = null;
+        private String[] excludeLibraries = null;
+
+        private boolean autoDetect = true;
+        private boolean sort = true;
+        private boolean animate = true;
+
+        private boolean showLicense = false;
+        private boolean showLicenseDialog = true;
+        private boolean showVersion = false;
+
+        private Boolean aboutShowIcon = null;
+        private Boolean aboutShowVersion = null;
+        private String aboutDescription = null;
+
+        private int activityTheme = -1;
+        private String activityTitle = null;
+        private Colors activityColor = null;
+
+        private HashMap<String, HashMap<String, String>> libraryModification = null;
+
+        public Builder() {
+        }
+
+        /**
+         * Builder method to pass the R.string.class.getFields() array to the fragment/activity so we can also include all ressources which are within libraries or your app.
+         *
+         * @param fields R.string.class.getFields()
+         * @return this
+         */
+        public Builder withFields(Field[] fields) {
+            return withFields(Libs.toStringArray(fields));
+        }
+
+        /**
+         * Builder method to pass the Libs.toStringArray(R.string.class.getFields()) array to the fragment/activity so we can also include all ressources which are within libraries or your app.
+         *
+         * @param fields Libs.toStringArray(R.string.class.getFields())
+         * @return this
+         */
+        public Builder withFields(String... fields) {
+            this.fields = fields;
+            return this;
+        }
+
+        /**
+         * Builder method to pass manual libraries (libs which are not autoDetected)
+         *
+         * @param libraries the identifiers of the manual added libraries
+         * @return this
+         */
+        public Builder withLibraries(String... libraries) {
+            this.internalLibraries = libraries;
+            return this;
+        }
+
+        /**
+         * Builder method to exclude specific libraries
+         *
+         * @param excludeLibraries the identifiers of the libraries which should be excluded
+         * @return this
+         */
+        public Builder withExcludedLibraries(String... excludeLibraries) {
+            this.excludeLibraries = excludeLibraries;
+            return this;
+        }
+
+        /**
+         * Builder method to disable autoDetect (default: enabled)
+         *
+         * @param autoDetect enabled or disabled
+         * @return this
+         */
+        public Builder withAutoDetect(boolean autoDetect) {
+            this.autoDetect = autoDetect;
+            return this;
+        }
+
+        /**
+         * Builder method to disable sort (default: enabled)
+         *
+         * @param sort enabled or disabled
+         * @return this
+         */
+        public Builder withSortEnabled(boolean sort) {
+            this.sort = sort;
+            return this;
+        }
+
+        /**
+         * Builder method to disable animations (default: enabled)
+         *
+         * @param animate enabled or disabled
+         * @return this
+         */
+        public Builder withAnimations(boolean animate) {
+            this.animate = animate;
+            return this;
+        }
+
+        /**
+         * Builder method to enable the license display (default: disabled)
+         *
+         * @param showLicense enabled or disabled
+         * @return this
+         */
+        public Builder withLicenseShown(boolean showLicense) {
+            this.showLicense = showLicense;
+            return this;
+        }
+
+        /**
+         * Builder method to disable the license display as dialog (default: enabled)
+         *
+         * @param showLicenseDialog enabled or disabled
+         * @return this
+         */
+        public Builder withLicenseDialog(boolean showLicenseDialog) {
+            this.showLicenseDialog = showLicenseDialog;
+            return this;
+        }
+
+        /**
+         * Builder method to hide the version number (default: enabled)
+         *
+         * @param showVersion enabled or disabled
+         * @return this
+         */
+        public Builder withVersionShown(boolean showVersion) {
+            this.showVersion = showVersion;
+            return this;
+        }
+
+        /**
+         * Builder method to enable the display of the application icon as about this app view
+         *
+         * @param aboutShowIcon enabled or disabled
+         * @return this
+         */
+        public Builder withAboutIconShown(boolean aboutShowIcon) {
+            this.aboutShowIcon = aboutShowIcon;
+            return this;
+        }
+
+        /**
+         * Builder method to enable the display of the application version as about this app view
+         *
+         * @param aboutShowVersion enabled or disabled
+         * @return this
+         */
+        public Builder withAboutVersionShown(boolean aboutShowVersion) {
+            this.aboutShowVersion = aboutShowVersion;
+            return this;
+        }
+
+        /**
+         * Builder method to enable the display and set the text of the application description as about this app view
+         *
+         * @param aboutDescription the description of this application
+         * @return this
+         */
+        public Builder withAboutDescription(String aboutDescription) {
+            this.aboutDescription = aboutDescription;
+            return this;
+        }
+
+        /**
+         * Builder method to set the activity theme
+         *
+         * @param activityTheme as example R.theme.AppTheme (just for the activity)
+         * @return this
+         */
+        public Builder withActivityTheme(int activityTheme) {
+            this.activityTheme = activityTheme;
+            return this;
+        }
+
+        /**
+         * Builder method to set the ActivityTitle
+         *
+         * @param activityTitle the activity title (just for the activity)
+         * @return this
+         */
+        public Builder withActivityTitle(String activityTitle) {
+            this.activityTitle = activityTitle;
+            return this;
+        }
+
+        /**
+         * Builder method to set the ActivityColor
+         *
+         * @param activityColor the activity color (just for the activity)
+         * @return this
+         */
+        public Builder withActivityColor(Colors activityColor) {
+            this.activityColor = activityColor;
+            return this;
+        }
+
+        /**
+         * Builder method to modify specific libraries. NOTE: This will overwrite any modifications with the helper methods
+         *
+         * @param libraryModification an HashMap identified by libraryID containing an HashMap with the modifications identified by elementID.
+         * @return this
+         */
+        public Builder withLibraryModification(HashMap<String, HashMap<String, String>> libraryModification) {
+            this.libraryModification = libraryModification;
+            return this;
+        }
+
+        /**
+         * Builder helper method to set modifications for specific libraries
+         *
+         * @param library           the library to be modified
+         * @param modificationKey   the identifier for the specific modification
+         * @param modificationValue the value for the specific modification
+         * @return this
+         */
+        public Builder withLibraryModification(String library, LibraryFields modificationKey, String modificationValue) {
+            if (this.libraryModification == null) {
+                this.libraryModification = new HashMap<String, HashMap<String, String>>();
+            }
+
+            if (!libraryModification.containsKey(library)) {
+                libraryModification.put(library, new HashMap<String, String>());
+            }
+
+            libraryModification.get(library).put(modificationKey.name(), modificationValue);
+
+            return this;
+        }
+
+        /*
+         * START OF THE FINAL METHODS
+         */
+
+        private void preCheck() {
+            if (fields == null) {
+                Log.w("AboutLibraries", "Have you missed to call withFields(R.string.class.getFields())? - autoDetect won't work - https://github.com/mikepenz/AboutLibraries/wiki/HOWTO:-Fragment");
+            }
+        }
+
+        /**
+         * intent() method to build and create the intent with the set params
+         *
+         * @return the intent to start the activity
+         */
+        public Intent intent(Context ctx) {
+            preCheck();
+
+            Intent i = new Intent(ctx, LibsActivity.class);
+            i.putExtra(Libs.BUNDLE_FIELDS, this.fields);
+            i.putExtra(Libs.BUNDLE_LIBS, this.internalLibraries);
+            i.putExtra(Libs.BUNDLE_EXCLUDE_LIBS, this.excludeLibraries);
+
+            i.putExtra(Libs.BUNDLE_AUTODETECT, this.autoDetect);
+            i.putExtra(Libs.BUNDLE_SORT, this.sort);
+            i.putExtra(Libs.BUNDLE_ANIMATE, this.animate);
+
+            i.putExtra(Libs.BUNDLE_LICENSE, this.showLicense);
+            i.putExtra(Libs.BUNDLE_LICENSE_DIALOG, this.showLicenseDialog);
+            i.putExtra(Libs.BUNDLE_VERSION, this.showVersion);
+
+            if (this.libraryModification != null) {
+                i.putExtra(Libs.BUNDLE_LIBS_MODIFICATION, this.libraryModification);
+            }
+
+            if (this.aboutShowIcon != null) {
+                i.putExtra(Libs.BUNDLE_APP_ABOUT_ICON, this.aboutShowIcon);
+            }
+            if (this.aboutShowVersion != null) {
+                i.putExtra(Libs.BUNDLE_APP_ABOUT_VERSION, this.aboutShowVersion);
+            }
+            if (this.aboutDescription != null) {
+                i.putExtra(Libs.BUNDLE_APP_ABOUT_DESCRIPTION, this.aboutDescription);
+            }
+
+            i.putExtra(Libs.BUNDLE_THEME, this.activityTheme);
+            if (this.activityTitle != null) {
+                i.putExtra(Libs.BUNDLE_TITLE, this.activityTitle);
+            }
+            if (this.activityColor != null) {
+                i.putExtra(Libs.BUNDLE_COLORS, this.activityColor);
+            }
+
+            return i;
+        }
+
+        /**
+         * start() method to start the application
+         */
+        public void start(Context ctx) {
+            Intent i = intent(ctx);
+            ctx.startActivity(i);
+        }
+
+        /**
+         * activity() method to start the application
+         */
+        public void activity(Context ctx) {
+            start(ctx);
+        }
+
+        /**
+         * bundle() method to build and create the bundle with the set params
+         *
+         * @return the bundle to create the fragment
+         */
+        public Bundle bundle() {
+            preCheck();
+
+            Bundle bundle = new Bundle();
+            bundle.putStringArray(Libs.BUNDLE_FIELDS, this.fields);
+            bundle.putStringArray(Libs.BUNDLE_LIBS, this.internalLibraries);
+            bundle.putStringArray(Libs.BUNDLE_EXCLUDE_LIBS, this.excludeLibraries);
+
+            bundle.putBoolean(Libs.BUNDLE_AUTODETECT, this.autoDetect);
+            bundle.putBoolean(Libs.BUNDLE_SORT, this.sort);
+            bundle.putBoolean(Libs.BUNDLE_ANIMATE, this.animate);
+
+            bundle.putBoolean(Libs.BUNDLE_LICENSE, this.showLicense);
+            bundle.putBoolean(Libs.BUNDLE_LICENSE_DIALOG, this.showLicenseDialog);
+            bundle.putBoolean(Libs.BUNDLE_VERSION, this.showVersion);
+
+            if (this.libraryModification != null) {
+                bundle.putSerializable(Libs.BUNDLE_LIBS_MODIFICATION, this.libraryModification);
+            }
+
+            if (this.aboutShowIcon != null) {
+                bundle.putBoolean(Libs.BUNDLE_APP_ABOUT_ICON, this.aboutShowIcon);
+            }
+            if (this.aboutShowVersion != null) {
+                bundle.putBoolean(Libs.BUNDLE_APP_ABOUT_VERSION, this.aboutShowVersion);
+            }
+            if (this.aboutDescription != null) {
+                bundle.putString(Libs.BUNDLE_APP_ABOUT_DESCRIPTION, this.aboutDescription);
+            }
+
+            return bundle;
+        }
+
+        /**
+         * fragment() method to build and create the fragment with the set params
+         *
+         * @return the fragment to set in your application
+         */
+        public LibsFragment fragment() {
+            Bundle bundle = bundle();
+
+            LibsFragment fragment = new LibsFragment();
+            fragment.setArguments(bundle);
+
+            return fragment;
         }
     }
 }
