@@ -86,11 +86,11 @@ Yeah pretty simple just add the following .xml file (or just the strings - the k
     <string name="aboutLibraries_description_text">Place your description here :D</string>
 </resources>
 ```
-or
+or use the builder and add following:
 ```java
-i.putExtra(Libs.BUNDLE_APP_ABOUT_ICON, true);
-i.putExtra(Libs.BUNDLE_APP_ABOUT_VERSION, true);
-i.putExtra(Libs.BUNDLE_APP_ABOUT_DESCRIPTION, "Place your description here :D");
+	.withAboutIconShown(true)
+	.withAboutVersionShown(true)
+	.withAboutDescription("This is a small sample which can be set in the about my app description file.<br /><b>You can style this with html markup :D</b>")
 
 ```
 
