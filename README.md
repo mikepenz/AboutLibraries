@@ -107,6 +107,7 @@ You can contribute by creating a information file for a new library, and open a 
 * [Numbers](https://play.google.com/store/apps/details?id=com.tundem.numbersreloaded.free)
 * [MegaYatzy](https://play.google.com/store/apps/details?id=com.tundem.yatzyTJ)
 
+* [Sir Spellalot](https://play.google.com/store/apps/details?id=com.sirspellalot.app.android)
 
 
 #Developed By
