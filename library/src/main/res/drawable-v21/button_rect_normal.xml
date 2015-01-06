@@ -1,12 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
-        android:color="?android:colorAccent"
-    >
-
-    <item>
-        <shape android:shape="rectangle">
-            <solid android:color="@color/about_libraries_card"/>
-        </shape>
-    </item>
-</ripple>
+        android:color="?android:colorAccent"/>
