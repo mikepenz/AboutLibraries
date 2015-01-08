@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_int_androiduniversalimageloader"></string>
+	<!-- Author section -->
+	<string name="library_androiduniversalimageloader_author">Sergey Tarasevich</string>
+	<string name="library_androiduniversalimageloader_authorWebsite">http://nostra13android.blogspot.co.at/</string>
+	<!-- Library section -->
+	<string name="library_androiduniversalimageloader_libraryName">Android-Universal-Image-Loader</string>
+	<string name="library_androiduniversalimageloader_libraryDescription">UIL aims to provide a powerful, flexible and highly customizable instrument for image loading, caching and displaying. It provides a lot of configuration options and good control over the image loading and caching process.</string>
+	<string name="library_androiduniversalimageloader_libraryWebsite">https://github.com/nostra13/Android-Universal-Image-Loader</string>
+	<string name="library_androiduniversalimageloader_libraryVersion">1.9.3</string>
+	<!-- OpenSource section -->
+	<string name="library_androiduniversalimageloader_isOpenSource">true</string>
+	<string name="library_androiduniversalimageloader_repositoryLink">https://github.com/nostra13/Android-Universal-Image-Loader</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_androiduniversalimageloader_classPath">com.nostra13.universalimageloader.core.ImageLoader</string>
+	<!-- License section -->
+	<string name="library_androiduniversalimageloader_licenseId">apache_2_0</string>
+	<!-- Custom variables section -->
+</resources>
