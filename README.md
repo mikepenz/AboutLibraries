@@ -1,6 +1,18 @@
 #AboutLibraries  [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.mikepenz.aboutlibraries/library/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/com.mikepenz.aboutlibraries/library) [![Android Arsenal](http://img.shields.io/badge/Android%20Arsenal-AboutLibraries-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/102)
 
-AboutLibraries is a library to offer you all the information you need of your libraries!
+The *AboutLibraries* library allows you to easily create an *used open source libraries* fragment/activity within your app. As an extra feature you can also add an *about this app* section. 
+
+Here's a quick overview of functions it include:
+- *used open source libraries*
+	- name, description, creator, license, version, ...
+- *about this app* section (optional)
+- autodetect libraries
+- many included library details
+- automatic created fragment/activity
+- feature rich builder to simply create and start the fragment / activity
+- much much more... try the sample for a quick overview.
+
+#Motivation
 
 Most modern apps feature an "Used Library"-section and for this some information of those libs is required. As it gets annoying to copy those strings always to your app I've developed this small helper library to provide the required information.
 
