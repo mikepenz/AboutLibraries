@@ -1,11 +1,11 @@
 #AboutLibraries  [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.mikepenz.aboutlibraries/library/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/com.mikepenz.aboutlibraries/library) [![Android Arsenal](http://img.shields.io/badge/Android%20Arsenal-AboutLibraries-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/102)
 
-The *AboutLibraries* library allows you to easily create an *used open source libraries* fragment/activity within your app. As an extra feature you can also add an *about this app* section. 
+The **AboutLibraries** library allows you to easily create an **used open source libraries** fragment/activity within your app. As an extra feature you can also add an **about this app** section. 
 
 Here's a quick overview of functions it include:
-- *used open source libraries*
+- **used open source libraries**
 	- name, description, creator, license, version, ...
-- *about this app* section (optional)
+- **about this app** section (optional)
 - autodetect libraries
 - many included library details
 - automatic created fragment/activity
@@ -60,12 +60,6 @@ You can use this library in a few different ways. You can create your own activi
 LibsFragment fragment = new Libs.Builder()
 	//Pass the fields of your application to the lib so it can find all external lib information
         .withFields(R.string.class.getFields())
-        //(OPTIONAL if all used libraries offer the information, or are autoDetected)
-        .withLibraries("AndroidIconify", "ActiveAndroid", "Crouton", "HoloGraphLibrary", "ShowcaseView", "NineOldAndroids")
-       	//Display the library version (OPTIONAL)
-        .withVersionShown(true)
-        //Display the library license (OPTIONAL)
-        .withLicenseShown(true)
         //get the fragment
         .fragment();
 ```
@@ -75,16 +69,6 @@ LibsFragment fragment = new Libs.Builder()
 new Libs.Builder()
 	//Pass the fields of your application to the lib so it can find all external lib information
         .withFields(R.string.class.getFields())
-        //(OPTIONAL if all used libraries offer the information, or are autoDetected)
-        .withLibraries("crouton, actionbarsherlock", "showcaseview")
-        //Display the library version (OPTIONAL)
-        .withVersionShown(true)
-        //Display the library license (OPTIONAL)
-        .withLicenseShown(true)
-        //Set a title (OPTIONAL)
-        .withActivityTitle
-        //Pass your theme (OPTIONAL)
-        .withActivityTheme(R.style.AppTheme)
         //start the activity
         .start(this);
 ```
