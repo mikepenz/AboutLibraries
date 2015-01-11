@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="define_int_WilliamChart"></string>
+    <string name="library_WilliamChart_author">Diogo Bernardino</string>
+    <string name="library_WilliamChart_authorWebsite">http://diogobernardino.com</string>
+    <string name="library_WilliamChart_libraryName">WilliamChart</string>
+    <string name="library_WilliamChart_libraryDescription">Flexible charting library with nice motion capabilities.</string>
+    <string name="library_WilliamChart_libraryVersion">1.6.0</string>
+    <string name="library_WilliamChart_libraryWebsite">https://github.com/diogobernardino/WilliamChart</string>
+    <string name="library_WilliamChart_licenseId">apache_2_0</string>
+    <string name="library_WilliamChart_isOpenSource">true</string>
+    <string name="library_WilliamChart_repositoryLink">https://github.com/diogobernardino/WilliamChart</string>
+</resources>
