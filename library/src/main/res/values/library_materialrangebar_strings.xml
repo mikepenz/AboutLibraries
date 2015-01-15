@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_int_MaterialRangeBar"></string>
+	<!-- Author section -->
+	<string name="library_MaterialRangeBar_author">oli107</string>
+	<string name="library_MaterialRangeBar_authorWebsite">https://github.com/oli107</string>
+	<!-- Library section -->
+	<string name="library_MaterialRangeBar_libraryName">MaterialRangeBar</string>
+	<string name="library_MaterialRangeBar_libraryDescription">MaterialRangeBar is a fork of https://github.com/edmodo/range-bar that adds some basic material styling, as well as start and end values, values as floats and some other things.</string>
+	<string name="library_MaterialRangeBar_libraryWebsite">https://github.com/oli107/material-range-bar</string>
+	<string name="library_MaterialRangeBar_libraryVersion">0.1.0</string>
+	<!-- OpenSource section -->
+	<string name="library_MaterialRangeBar_isOpenSource">true</string>
+	<string name="library_MaterialRangeBar_repositoryLink">https://github.com/oli107/material-range-bar</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_MaterialRangeBar_classPath">com.appyvet.rangebar.RangeBar</string>
+	<!-- License section -->
+	<string name="library_MaterialRangeBar_licenseId">apache_2_0</string>
+	<!-- Custom variables section -->
+</resources>
