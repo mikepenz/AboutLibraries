@@ -92,10 +92,12 @@
 			this.fld = document.createElement( 'div' );
 			this.fld.className = 'nl-field nl-ti-text';
 			this.toggle = document.createElement( 'a' );
+			this.toggle.setAttribute( 'name', this.elOriginal.getAttribute('name') + "_text" );
 			this.toggle.innerHTML = this.elOriginal.getAttribute( 'placeholder' );
 			this.toggle.className = 'nl-field-toggle';
 			this.optionsList = document.createElement( 'ul' );
 			this.getinput = document.createElement( 'input' );
+			this.getinput.setAttribute( 'name', this.elOriginal.getAttribute('name') + "_dialog" );
 			this.getinput.setAttribute( 'type', 'text' );
 			this.getinput.setAttribute( 'placeholder', this.elOriginal.getAttribute( 'placeholder' ) );
 			this.getinputWrapper = document.createElement( 'li' );

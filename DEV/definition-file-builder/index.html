@@ -96,9 +96,16 @@
 <!-- /container -->
 <script src="js/nlform.js"></script>
 <script>
-			var nlform = new NLForm( document.getElementById( 'nl-form' ) );
+	var nlform = new NLForm( document.getElementById( 'nl-form' ) );
 
-
+            document.getElementsByName("libraryName_dialog")[0].addEventListener('input', function()
+            {
+                if(document.getElementsByName("libraryId_dialog")[0].value == "") {
+                    var libraryNameId = fixString(document.getElementsByName("libraryName_dialog")[0].value).toLowerCase().replace(/ /g, '');
+                    document.getElementsByName("libraryId_text")[0].innerHTML = libraryNameId;
+                    document.getElementsByName("libraryId")[0].value = libraryNameId;
+                }
+            });
 </script>
 </body>
 </html>
