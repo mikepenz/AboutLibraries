@@ -1,5 +1,5 @@
 function downloadIt() {
-	var libraryId = fixString(document.getElementsByName("libraryId")[0].value).toLowerCase().replace(/ /g, '');
+	var libraryId = fixString(document.getElementsByName("libraryId")[0].value).toLowerCase().replace(/ /g, '').replace(/-/g, '_');
 	var xmlFile = generateXmlFile();
 
 	if(xmlFile != "") {
@@ -19,7 +19,7 @@ function doSomeMagic() {
 }
 
 function generateXmlFile() {
-	var libraryId = fixString(document.getElementsByName("libraryId")[0].value).toLowerCase().replace(/ /g, '');
+	var libraryId = fixString(document.getElementsByName("libraryId")[0].value).toLowerCase().replace(/ /g, '').replace(/-/g, '_');
 
 	var e = document.getElementsByName("isInternal")[0];
 	var isInternal = e.options[e.selectedIndex].value;

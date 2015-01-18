@@ -101,7 +101,7 @@
             document.getElementsByName("libraryName_dialog")[0].addEventListener('input', function()
             {
                 if(document.getElementsByName("libraryId_dialog")[0].value == "") {
-                    var libraryNameId = fixString(document.getElementsByName("libraryName_dialog")[0].value).toLowerCase().replace(/ /g, '');
+                    var libraryNameId = fixString(document.getElementsByName("libraryName_dialog")[0].value).toLowerCase().replace(/ /g, '').replace(/-/g, '_');
                     document.getElementsByName("libraryId_text")[0].innerHTML = libraryNameId;
                     document.getElementsByName("libraryId")[0].value = libraryNameId;
                 }
