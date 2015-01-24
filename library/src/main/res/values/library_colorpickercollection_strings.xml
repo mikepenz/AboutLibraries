@@ -7,7 +7,7 @@
 	<string name="library_colorpickercollection_authorWebsite">http://gmariotti.blogspot.it/</string>
 	<!-- Library section -->
 	<string name="library_colorpickercollection_libraryName">ColorPickerCollection</string>
-	<string name="library_colorpickercollection_libraryDescription"><![CDATA[ This repository provides a simple collection of Color Picker.<br>
+	<string name="library_colorpickercollection_libraryDescription"><![CDATA[This repository provides a simple collection of Color Picker.<br>
 	&#8226; Color Picker from Stock Calendar<br>
 	&#8226; Color Picker from Dashclock]]></string>
 	<string name="library_colorpickercollection_libraryWebsite">https://github.com/gabrielemariotti/colorpickercollection</string>
