@@ -44,7 +44,7 @@ You can find anything you search for in the wiki. (If not open an issue)
 The AboutLibraries Library is pushed to [Maven Central](http://search.maven.org/#search|ga|1|g%3A%22com.mikepenz.aboutlibraries%22), so you just need to add the following dependency to your `build.gradle`. It seems it is also required to add the support dependencies to the application. If it works without, you should be fine too :).
 
 ```javascript
-compile('com.mikepenz.aboutlibraries:library:4.5.1@aar') {
+compile('com.mikepenz.aboutlibraries:library:4.5.2@aar') {
 	transitive = true
 }
 ```
