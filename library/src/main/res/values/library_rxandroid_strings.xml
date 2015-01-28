@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_int_rxandroid"></string>
+	<!-- Author section -->
+	<string name="library_rxandroid_author">ReactiveX</string>
+	<string name="library_rxandroid_authorWebsite">http://reactivex.io/</string>
+	<!-- Library section -->
+	<string name="library_rxandroid_libraryName">RxAndroid</string>
+	<string name="library_rxandroid_libraryDescription"><![CDATA[Android specific bindings for <b>RxJava</b>.<br /><br />This module adds a number of classes to RxJava that make writing reactive components in Android applications easy and hassle free.]]></string>
+	<string name="library_rxandroid_libraryWebsite">https://github.com/ReactiveX/RxAndroid</string>
+	<string name="library_rxandroid_libraryVersion">0.24.0</string>
+	<!-- OpenSource section -->
+	<string name="library_rxandroid_isOpenSource">true</string>
+	<string name="library_rxandroid_repositoryLink">https://github.com/ReactiveX/RxAndroid</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_rxandroid_classPath">rx.android. AndroidSubscriptions</string>
+	<!-- License section -->
+	<string name="library_rxandroid_licenseId">apache_2_0</string>
+	<!-- Custom variables section -->
+</resources>
