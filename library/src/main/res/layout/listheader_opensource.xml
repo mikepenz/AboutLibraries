@@ -15,6 +15,16 @@
         tools:src="@drawable/button_rect_normal"/>
 
     <TextView
+        android:id="@+id/aboutName"
+        android:textSize="@dimen/textSizeLarge_openSource"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:gravity="center"
+        android:textColor="@color/about_libraries_title_openSource"
+        tools:text="About AppName"/>
+
+    <TextView
         android:id="@+id/aboutVersion"
         android:textSize="@dimen/textSizeSmall_openSource"
         android:layout_width="match_parent"

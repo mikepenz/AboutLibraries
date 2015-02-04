@@ -45,6 +45,7 @@ public class LibsFragment extends Fragment {
     private boolean showLicenseDialog = true;
     private boolean showVersion = false;
 
+    private String aboutAppName = null;
     private Boolean aboutShowIcon = null;
     private Boolean aboutShowVersion = null;
     private Boolean aboutShowVersionName = null;
@@ -152,6 +153,12 @@ public class LibsFragment extends Fragment {
             }
         }
 
+        if (bundle != null && bundle.containsKey(Libs.BUNDLE_APP_ABOUT_NAME)) {
+            aboutAppName = bundle.getString(Libs.BUNDLE_APP_ABOUT_NAME);
+        } else {
+            aboutAppName = libs.getStringResourceByName("aboutLibraries_description_name");
+        }
+
         if (bundle != null && bundle.containsKey(Libs.BUNDLE_APP_ABOUT_DESCRIPTION)) {
             aboutDescription = bundle.getString(Libs.BUNDLE_APP_ABOUT_DESCRIPTION);
         } else {
@@ -231,7 +238,7 @@ public class LibsFragment extends Fragment {
             }
 
             //add this cool thing to the headerView of our listView
-            mAdapter.setHeader(aboutDescription, versionName, versionCode, aboutShowVersion, aboutShowVersionName, aboutShowVersionCode, icon, aboutShowIcon);
+            mAdapter.setHeader(aboutAppName, aboutDescription, versionName, versionCode, aboutShowVersion, aboutShowVersionName, aboutShowVersionCode, icon, aboutShowIcon);
         }
     }
 }

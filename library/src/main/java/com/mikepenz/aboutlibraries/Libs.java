@@ -58,6 +58,7 @@ public class Libs {
     public static final String BUNDLE_COLORS = "ABOUT_COLOR";
 
     public static final String BUNDLE_APP_ABOUT_ICON = "ABOUT_LIBRARIES_APP_ABOUT_ICON";
+    public static final String BUNDLE_APP_ABOUT_NAME = "ABOUT_LIBRARIES_APP_ABOUT_NAME";
     public static final String BUNDLE_APP_ABOUT_VERSION = "ABOUT_LIBRARIES_APP_ABOUT_VERSION";
     public static final String BUNDLE_APP_ABOUT_VERSION_NAME = "ABOUT_LIBRARIES_APP_ABOUT_VERSION_NAME";
     public static final String BUNDLE_APP_ABOUT_VERSION_CODE = "ABOUT_LIBRARIES_APP_ABOUT_VERSION_CODE";
@@ -591,6 +592,7 @@ public class Libs {
         private boolean showVersion = false;
 
         private Boolean aboutShowIcon = null;
+        private String aboutAppName = null;
         private Boolean aboutShowVersion = null;
         private String aboutDescription = null;
         private Boolean aboutShowVersionName = false;
@@ -753,10 +755,21 @@ public class Libs {
          * Builder method to enable the display of the application version code as about this app view
          *
          * @param aboutShowVersion
-         * @return
+         * @return this
          */
         public Builder withAboutVersionShownCode(boolean aboutShowVersion) {
             this.aboutShowVersionCode = aboutShowVersion;
+            return this;
+        }
+
+        /**
+         * Builder method to enable the display and set the text of the application name in the about this app view
+         *
+         * @param aboutAppName the name of this application
+         * @return this
+         */
+        public Builder withAboutAppName(String aboutAppName) {
+            this.aboutAppName = aboutAppName;
             return this;
         }
 
@@ -875,6 +888,9 @@ public class Libs {
             if (this.aboutShowIcon != null) {
                 i.putExtra(Libs.BUNDLE_APP_ABOUT_ICON, this.aboutShowIcon);
             }
+            if (this.aboutAppName != null) {
+                i.putExtra(Libs.BUNDLE_APP_ABOUT_NAME, this.aboutAppName);
+            }
             if (this.aboutShowVersion != null) {
                 i.putExtra(Libs.BUNDLE_APP_ABOUT_VERSION, this.aboutShowVersion);
             }
@@ -941,6 +957,9 @@ public class Libs {
 
             if (this.aboutShowIcon != null) {
                 bundle.putBoolean(Libs.BUNDLE_APP_ABOUT_ICON, this.aboutShowIcon);
+            }
+            if (this.aboutAppName != null) {
+                bundle.putString(Libs.BUNDLE_APP_ABOUT_NAME, this.aboutAppName);
             }
             if (this.aboutShowVersion != null) {
                 bundle.putBoolean(Libs.BUNDLE_APP_ABOUT_VERSION, this.aboutShowVersion);

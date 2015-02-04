@@ -34,6 +34,7 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     private boolean showVersion = false;
 
     private boolean header = false;
+    private String aboutAppName;
     private Boolean aboutShowVersion;
     private Boolean aboutShowVersionName;
     private Boolean aboutShowVersionCode;
@@ -72,6 +73,13 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 holder.aboutIcon.setImageDrawable(aboutIcon);
             } else {
                 holder.aboutIcon.setVisibility(View.GONE);
+            }
+
+            //Set the description or hide it
+            if (!TextUtils.isEmpty(aboutAppName)) {
+                holder.aboutAppName.setText(aboutAppName);
+            } else {
+                holder.aboutAppName.setVisibility(View.GONE);
             }
 
             //set the Version or hide it
@@ -215,9 +223,10 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         this.libs.addAll(libs);
     }
 
-    public void setHeader(String aboutDescription, String aboutVersionName, Integer aboutVersionCode, Boolean aboutShowVersion, Boolean aboutShowVersionName, Boolean aboutShowVersionCode, Drawable aboutIcon, boolean aboutShowIcon) {
+    public void setHeader(String aboutAppName, String aboutDescription, String aboutVersionName, Integer aboutVersionCode, Boolean aboutShowVersion, Boolean aboutShowVersionName, Boolean aboutShowVersionCode, Drawable aboutIcon, boolean aboutShowIcon) {
         this.header = true;
         this.libs.add(0, null);
+        this.aboutAppName = aboutAppName;
         this.aboutDescription = aboutDescription;
         this.aboutVersionName = aboutVersionName;
         this.aboutVersionCode = aboutVersionCode;
@@ -240,6 +249,7 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     public static class HeaderViewHolder extends RecyclerView.ViewHolder {
         ImageView aboutIcon;
+        TextView aboutAppName;
         TextView aboutVersion;
         View aboutDivider;
         TextView aboutAppDescription;
@@ -249,6 +259,7 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
             //get the about this app views
             aboutIcon = (ImageView) headerView.findViewById(R.id.aboutIcon);
+            aboutAppName = (TextView) headerView.findViewById(R.id.aboutName);
             aboutVersion = (TextView) headerView.findViewById(R.id.aboutVersion);
             aboutDivider = headerView.findViewById(R.id.aboutDivider);
             aboutAppDescription = (TextView) headerView.findViewById(R.id.aboutDescription);
