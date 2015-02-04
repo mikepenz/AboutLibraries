@@ -47,6 +47,8 @@ public class LibsFragment extends Fragment {
 
     private Boolean aboutShowIcon = null;
     private Boolean aboutShowVersion = null;
+    private Boolean aboutShowVersionName = null;
+    private Boolean aboutShowVersionCode = null;
     private String aboutDescription = null;
 
     private HashMap<String, HashMap<String, String>> libraryModification;
@@ -127,6 +129,29 @@ public class LibsFragment extends Fragment {
             }
         }
 
+        if (bundle != null && bundle.containsKey(Libs.BUNDLE_APP_ABOUT_VERSION_NAME)) {
+            aboutShowVersionName = bundle.getBoolean(Libs.BUNDLE_APP_ABOUT_VERSION_NAME);
+        } else {
+            String descriptionShowVersion = libs.getStringResourceByName("aboutLibraries_description_showVersionName");
+            if (!TextUtils.isEmpty(descriptionShowVersion)) {
+                try {
+                    aboutShowVersionName = Boolean.parseBoolean(descriptionShowVersion);
+                } catch (Exception ex) {
+                }
+            }
+        }
+        if (bundle != null && bundle.containsKey(Libs.BUNDLE_APP_ABOUT_VERSION_CODE)) {
+            aboutShowVersionCode = bundle.getBoolean(Libs.BUNDLE_APP_ABOUT_VERSION_CODE);
+        } else {
+            String descriptionShowVersion = libs.getStringResourceByName("aboutLibraries_description_showVersionCode");
+            if (!TextUtils.isEmpty(descriptionShowVersion)) {
+                try {
+                    aboutShowVersionCode = Boolean.parseBoolean(descriptionShowVersion);
+                } catch (Exception ex) {
+                }
+            }
+        }
+
         if (bundle != null && bundle.containsKey(Libs.BUNDLE_APP_ABOUT_DESCRIPTION)) {
             aboutDescription = bundle.getString(Libs.BUNDLE_APP_ABOUT_DESCRIPTION);
         } else {
@@ -177,7 +202,7 @@ public class LibsFragment extends Fragment {
     }
 
     private void generateAboutThisAppSection() {
-        if (aboutShowIcon != null && aboutShowVersion != null) {
+        if (aboutShowIcon != null && (aboutShowVersion != null || aboutShowVersionName != null || aboutShowVersionCode)) {
             //get the packageManager to load and read some values :D
             PackageManager pm = getActivity().getPackageManager();
             //get the packageName
@@ -206,7 +231,7 @@ public class LibsFragment extends Fragment {
             }
 
             //add this cool thing to the headerView of our listView
-            mAdapter.setHeader(aboutDescription, versionName, versionCode, aboutShowVersion, icon, aboutShowIcon);
+            mAdapter.setHeader(aboutDescription, versionName, versionCode, aboutShowVersion, aboutShowVersionName, aboutShowVersionCode, icon, aboutShowIcon);
         }
     }
 }

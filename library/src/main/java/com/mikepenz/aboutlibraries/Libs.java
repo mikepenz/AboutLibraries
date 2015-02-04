@@ -59,6 +59,8 @@ public class Libs {
 
     public static final String BUNDLE_APP_ABOUT_ICON = "ABOUT_LIBRARIES_APP_ABOUT_ICON";
     public static final String BUNDLE_APP_ABOUT_VERSION = "ABOUT_LIBRARIES_APP_ABOUT_VERSION";
+    public static final String BUNDLE_APP_ABOUT_VERSION_NAME = "ABOUT_LIBRARIES_APP_ABOUT_VERSION_NAME";
+    public static final String BUNDLE_APP_ABOUT_VERSION_CODE = "ABOUT_LIBRARIES_APP_ABOUT_VERSION_CODE";
     public static final String BUNDLE_APP_ABOUT_DESCRIPTION = "ABOUT_LIBRARIES_APP_ABOUT_DESCRIPTION";
 
     private static final String DEFINE_LICENSE = "define_license_";
@@ -399,7 +401,7 @@ public class Libs {
             lic.setLicenseDescription(getStringResourceByName("license_" + licenseName + "_licenseDescription"));
             return lic;
         } catch (Exception ex) {
-            Log.e("com.mikepenz.aboutlibraries", "Failed to generateLicense from file: " + ex.toString());
+            Log.e("aboutlibraries", "Failed to generateLicense from file: " + ex.toString());
             return null;
         }
     }
@@ -453,7 +455,7 @@ public class Libs {
 
             return lib;
         } catch (Exception ex) {
-            Log.e("com.mikepenz.aboutlibraries", "Failed to generateLibrary from file: " + ex.toString());
+            Log.e("aboutlibraries", "Failed to generateLibrary from file: " + ex.toString());
             return null;
         }
     }
@@ -591,6 +593,8 @@ public class Libs {
         private Boolean aboutShowIcon = null;
         private Boolean aboutShowVersion = null;
         private String aboutDescription = null;
+        private Boolean aboutShowVersionName = false;
+        private Boolean aboutShowVersionCode = false;
 
         private int activityTheme = -1;
         private String activityTitle = null;
@@ -722,13 +726,37 @@ public class Libs {
         }
 
         /**
-         * Builder method to enable the display of the application version as about this app view
+         * Builder method to enable the display of the application version name and code as about this app view
          *
          * @param aboutShowVersion enabled or disabled
          * @return this
          */
         public Builder withAboutVersionShown(boolean aboutShowVersion) {
             this.aboutShowVersion = aboutShowVersion;
+            this.aboutShowVersionName = aboutShowVersion;
+            this.aboutShowVersionCode = aboutShowVersion;
+            return this;
+        }
+
+        /**
+         * Builder method to enable the display of the application version name as about this app view
+         *
+         * @param aboutShowVersion
+         * @return
+         */
+        public Builder withAboutVersionShownName(boolean aboutShowVersion) {
+            this.aboutShowVersionName = aboutShowVersion;
+            return this;
+        }
+
+        /**
+         * Builder method to enable the display of the application version code as about this app view
+         *
+         * @param aboutShowVersion
+         * @return
+         */
+        public Builder withAboutVersionShownCode(boolean aboutShowVersion) {
+            this.aboutShowVersionCode = aboutShowVersion;
             return this;
         }
 
@@ -849,6 +877,12 @@ public class Libs {
             }
             if (this.aboutShowVersion != null) {
                 i.putExtra(Libs.BUNDLE_APP_ABOUT_VERSION, this.aboutShowVersion);
+            }
+            if (this.aboutShowVersionName != null) {
+                i.putExtra(Libs.BUNDLE_APP_ABOUT_VERSION_NAME, this.aboutShowVersionName);
+            }
+            if (this.aboutShowVersionCode != null) {
+                i.putExtra(Libs.BUNDLE_APP_ABOUT_VERSION_CODE, this.aboutShowVersionCode);
             }
             if (this.aboutDescription != null) {
                 i.putExtra(Libs.BUNDLE_APP_ABOUT_DESCRIPTION, this.aboutDescription);

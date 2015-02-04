@@ -33,7 +33,9 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     private boolean showVersion = false;
 
     private boolean header = false;
-    private boolean aboutShowVersion;
+    private Boolean aboutShowVersion;
+    private Boolean aboutShowVersionName;
+    private Boolean aboutShowVersionCode;
     private Integer aboutVersionCode;
     private String aboutVersionName;
     private String aboutDescription;
@@ -72,10 +74,16 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             }
 
             //set the Version or hide it
-            if (aboutShowVersion) {
+            if (aboutShowVersion != null && aboutShowVersion) {
                 holder.aboutVersion.setText(ctx.getString(R.string.version) + " " + aboutVersionName + " (" + aboutVersionCode + ")");
             } else {
-                holder.aboutVersion.setVisibility(View.GONE);
+                if (aboutShowVersionName != null && aboutShowVersionName) {
+                    holder.aboutVersion.setText(ctx.getString(R.string.version) + " " + aboutVersionName);
+                } else if (aboutShowVersionCode != null && aboutShowVersionCode) {
+                    holder.aboutVersion.setText(ctx.getString(R.string.version) + " " + aboutVersionCode);
+                } else {
+                    holder.aboutVersion.setVisibility(View.GONE);
+                }
             }
 
             //Set the description or hide it
@@ -205,13 +213,15 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         this.libs.addAll(libs);
     }
 
-    public void setHeader(String aboutDescription, String aboutVersionName, Integer aboutVersionCode, boolean aboutShowVersion, Drawable aboutIcon, boolean aboutShowIcon) {
+    public void setHeader(String aboutDescription, String aboutVersionName, Integer aboutVersionCode, Boolean aboutShowVersion, Boolean aboutShowVersionName, Boolean aboutShowVersionCode, Drawable aboutIcon, boolean aboutShowIcon) {
         this.header = true;
         this.libs.add(0, null);
         this.aboutDescription = aboutDescription;
         this.aboutVersionName = aboutVersionName;
         this.aboutVersionCode = aboutVersionCode;
         this.aboutShowVersion = aboutShowVersion;
+        this.aboutShowVersionName = aboutShowVersionName;
+        this.aboutShowVersionCode = aboutShowVersionCode;
         this.aboutIcon = aboutIcon;
         this.aboutShowIcon = aboutShowIcon;
         this.notifyItemInserted(0);
