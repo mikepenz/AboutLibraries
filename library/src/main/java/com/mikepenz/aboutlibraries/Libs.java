@@ -12,6 +12,7 @@ import com.mikepenz.aboutlibraries.entity.Library;
 import com.mikepenz.aboutlibraries.entity.License;
 import com.mikepenz.aboutlibraries.ui.LibsActivity;
 import com.mikepenz.aboutlibraries.ui.LibsFragment;
+import com.mikepenz.aboutlibraries.ui.adapter.LibsRecyclerViewAdapter;
 import com.mikepenz.aboutlibraries.util.Colors;
 import com.mikepenz.aboutlibraries.util.Util;
 
@@ -859,6 +860,33 @@ public class Libs {
                 Log.w("AboutLibraries", "Have you missed to call withFields(R.string.class.getFields())? - autoDetect won't work - https://github.com/mikepenz/AboutLibraries/wiki/HOWTO:-Fragment");
             }
         }
+
+        /**
+         * builder to build an adapter out of the given information ;D
+         *
+         * @param context the current context
+         * @return a LibsRecyclerViewAdapter with the libraries
+         */
+        public LibsRecyclerViewAdapter adapter(Context context) {
+            Libs libs;
+            if (fields == null) {
+                libs = new Libs(context);
+            } else {
+                libs = new Libs(context, fields);
+            }
+
+            //apply modifications
+            libs.modifyLibraries(libraryModification);
+
+            //fetch the libraries and sort if a comparator was set
+            ArrayList<Library> libraries = libs.prepareLibraries(internalLibraries, excludeLibraries, autoDetect, sort);
+
+            //prepare adapter
+            LibsRecyclerViewAdapter adapter = new LibsRecyclerViewAdapter(context, showLicense, showLicenseDialog, showVersion);
+            adapter.addLibs(libraries);
+            return adapter;
+        }
+
 
         /**
          * intent() method to build and create the intent with the set params
