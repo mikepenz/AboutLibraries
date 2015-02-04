@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -89,6 +90,7 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             //Set the description or hide it
             if (!TextUtils.isEmpty(aboutDescription)) {
                 holder.aboutAppDescription.setText(Html.fromHtml(aboutDescription));
+                holder.aboutAppDescription.setMovementMethod(LinkMovementMethod.getInstance());
             } else {
                 holder.aboutAppDescription.setVisibility(View.GONE);
             }
