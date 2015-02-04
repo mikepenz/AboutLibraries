@@ -945,6 +945,12 @@ public class Libs {
             if (this.aboutShowVersion != null) {
                 bundle.putBoolean(Libs.BUNDLE_APP_ABOUT_VERSION, this.aboutShowVersion);
             }
+            if (this.aboutShowVersionName != null) {
+                bundle.putBoolean(Libs.BUNDLE_APP_ABOUT_VERSION_NAME, this.aboutShowVersionName);
+            }
+            if (this.aboutShowVersionCode != null) {
+                bundle.putBoolean(Libs.BUNDLE_APP_ABOUT_VERSION_CODE, this.aboutShowVersionCode);
+            }
             if (this.aboutDescription != null) {
                 bundle.putString(Libs.BUNDLE_APP_ABOUT_DESCRIPTION, this.aboutDescription);
             }
