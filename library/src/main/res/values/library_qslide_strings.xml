@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_qslide"></string>
+    <!-- Author section -->
+    <string name="library_qslide_author">LG Developers</string>
+    <string name="library_qslide_authorWebsite">http://developer.lge.com/</string>
+    <!-- Library section -->
+    <string name="library_qslide_libraryName">QSlide</string>
+    <string name="library_qslide_libraryDescription">LG QSlide is the feature on LG smartphones to provide an application with multi-tasking using floating
+        window and quick execution using Notification bar.
+    </string>
+    <string name="library_qslide_libraryWebsite">
+        http://developer.lge.com/MOBILE_HELP/index.jsp?topic=%2Flge.mobilesdk.LGQSlide.api%2Fhtml%2FDeveloping%2FDeveloping%2FDeveloping+with+LG+QSlide+SDK.htm
+    </string>
+    <string name="library_qslide_libraryVersion"></string>
+    <!-- OpenSource section -->
+    <string name="library_qslide_isOpenSource">false</string>
+    <!-- License section -->
+    <string name="library_qslide_licenseId">apache_2_0</string>
+    <!-- Custom variables section -->
+</resources>
