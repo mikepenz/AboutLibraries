@@ -131,9 +131,13 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
                 if (!TextUtils.isEmpty(library.getLibraryVersion()) && showVersion) {
                     holder.libraryVersion.setText(library.getLibraryVersion());
+                } else {
+                    holder.libraryVersion.setText("");
                 }
                 if (library.getLicense() != null && !TextUtils.isEmpty(library.getLicense().getLicenseName()) && showLicense) {
                     holder.libraryLicense.setText(library.getLicense().getLicenseName());
+                } else {
+                    holder.libraryLicense.setText("");
                 }
             }
 
