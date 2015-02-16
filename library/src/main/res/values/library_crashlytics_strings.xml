@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="define_int_Crashlytics">year;owner</string>
+	<string name="library_Crashlytics_author">Twitter</string>
+	<string name="library_Crashlytics_authorWebsite">http://www.twitter.com/</string>
+	<string name="library_Crashlytics_classPath">com.crashlytics.sdk.android</string>
+	<string name="library_Crashlytics_libraryName">Crashlytics</string>
+	<string name="library_Crashlytics_libraryDescription">The Crashlytics Kit for Android provides simple APIs for reporting crashes.</string>
+	<string name="library_Crashlytics_libraryWebsite">https://www.fabric.io/</string>
+	<string name="library_Crashlytics_licenseId">apache_2_0</string>
+	<string name="library_Crashlytics_isOpenSource">false</string>
+	<string name="library_Crashlytics_repositoryLink"></string>
+	<!-- Custom variables section -->
+	<string name="library_Crashlytics_owner">Twitter</string>
+	<string name="library_Crashlytics_year">2015</string>
+</resources> 
