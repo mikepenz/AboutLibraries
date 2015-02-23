@@ -12,6 +12,7 @@ import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -35,6 +36,12 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     private boolean header = false;
     private String aboutAppName;
+    private String aboutSpecial1;
+    private String aboutSpecial1Description;
+    private String aboutSpecial2;
+    private String aboutSpecial2Description;
+    private String aboutSpecial3;
+    private String aboutSpecial3Description;
     private Boolean aboutShowVersion;
     private Boolean aboutShowVersionName;
     private Boolean aboutShowVersionCode;
@@ -81,6 +88,63 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             } else {
                 holder.aboutAppName.setVisibility(View.GONE);
             }
+
+            // Reset aboutSpecial fields
+            holder.aboutSpecialContainer.setVisibility(View.GONE);
+            holder.aboutSpecial1.setVisibility(View.GONE);
+            holder.aboutSpecial2.setVisibility(View.GONE);
+            holder.aboutSpecial3.setVisibility(View.GONE);
+
+            // set the values for the special fields
+            if (!TextUtils.isEmpty(aboutSpecial1) && !TextUtils.isEmpty(aboutSpecial1Description)) {
+                holder.aboutSpecial1.setText(aboutSpecial1);
+                holder.aboutSpecial1.setVisibility(View.VISIBLE);
+                holder.aboutSpecial1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        try {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
+                            builder.setMessage(Html.fromHtml(aboutSpecial1Description));
+                            builder.create().show();
+                        } catch (Exception ex) {
+                        }
+                    }
+                });
+                holder.aboutSpecialContainer.setVisibility(View.VISIBLE);
+            }
+            if (!TextUtils.isEmpty(aboutSpecial2) && !TextUtils.isEmpty(aboutSpecial2Description)) {
+                holder.aboutSpecial2.setText(aboutSpecial2);
+                holder.aboutSpecial2.setVisibility(View.VISIBLE);
+                holder.aboutSpecial2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        try {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
+                            builder.setMessage(Html.fromHtml(aboutSpecial2Description));
+                            builder.create().show();
+                        } catch (Exception ex) {
+                        }
+                    }
+                });
+                holder.aboutSpecialContainer.setVisibility(View.VISIBLE);
+            }
+            if (!TextUtils.isEmpty(aboutSpecial3) && !TextUtils.isEmpty(aboutSpecial3Description)) {
+                holder.aboutSpecial3.setText(aboutSpecial3);
+                holder.aboutSpecial3.setVisibility(View.VISIBLE);
+                holder.aboutSpecial3.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        try {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
+                            builder.setMessage(Html.fromHtml(aboutSpecial3Description));
+                            builder.create().show();
+                        } catch (Exception ex) {
+                        }
+                    }
+                });
+                holder.aboutSpecialContainer.setVisibility(View.VISIBLE);
+            }
+
 
             //set the Version or hide it
             if (aboutShowVersion != null && aboutShowVersion) {
@@ -227,11 +291,17 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         this.libs.addAll(libs);
     }
 
-    public void setHeader(String aboutAppName, String aboutDescription, String aboutVersionName, Integer aboutVersionCode, Boolean aboutShowVersion, Boolean aboutShowVersionName, Boolean aboutShowVersionCode, Drawable aboutIcon, boolean aboutShowIcon) {
+    public void setHeader(String aboutAppName, String aboutDescription, String aboutSpecial1, String aboutSpecial1Description, String aboutSpecial2, String aboutSpecial2Description, String aboutSpecial3, String aboutSpecial3Description, String aboutVersionName, Integer aboutVersionCode, Boolean aboutShowVersion, Boolean aboutShowVersionName, Boolean aboutShowVersionCode, Drawable aboutIcon, boolean aboutShowIcon) {
         this.header = true;
         this.libs.add(0, null);
         this.aboutAppName = aboutAppName;
         this.aboutDescription = aboutDescription;
+        this.aboutSpecial1 = aboutSpecial1;
+        this.aboutSpecial1Description = aboutSpecial1Description;
+        this.aboutSpecial2 = aboutSpecial2;
+        this.aboutSpecial2Description = aboutSpecial2Description;
+        this.aboutSpecial3 = aboutSpecial3;
+        this.aboutSpecial3Description = aboutSpecial3Description;
         this.aboutVersionName = aboutVersionName;
         this.aboutVersionCode = aboutVersionCode;
         this.aboutShowVersion = aboutShowVersion;
@@ -254,6 +324,10 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     public static class HeaderViewHolder extends RecyclerView.ViewHolder {
         ImageView aboutIcon;
         TextView aboutAppName;
+        View aboutSpecialContainer;
+        Button aboutSpecial1;
+        Button aboutSpecial2;
+        Button aboutSpecial3;
         TextView aboutVersion;
         View aboutDivider;
         TextView aboutAppDescription;
@@ -264,6 +338,10 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             //get the about this app views
             aboutIcon = (ImageView) headerView.findViewById(R.id.aboutIcon);
             aboutAppName = (TextView) headerView.findViewById(R.id.aboutName);
+            aboutSpecialContainer = headerView.findViewById(R.id.aboutSpecialContainer);
+            aboutSpecial1 = (Button) headerView.findViewById(R.id.aboutSpecial1);
+            aboutSpecial2 = (Button) headerView.findViewById(R.id.aboutSpecial2);
+            aboutSpecial3 = (Button) headerView.findViewById(R.id.aboutSpecial3);
             aboutVersion = (TextView) headerView.findViewById(R.id.aboutVersion);
             aboutDivider = headerView.findViewById(R.id.aboutDivider);
             aboutAppDescription = (TextView) headerView.findViewById(R.id.aboutDescription);

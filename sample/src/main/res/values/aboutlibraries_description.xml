@@ -6,4 +6,25 @@
     <string name="aboutLibraries_description_text">
         <![CDATA[This is a small sample which can be set in the about my app description file.<br /><b>You can style this with html markup :D</b>]]>
     </string>
+
+    <!-- Just remove those entries if you don't want to use a special button with a text within your about this app view :D -->
+    <string name="aboutLibraries_description_special1_name">EULA</string>
+    <string name="aboutLibraries_description_special1_text">
+        <![CDATA[This is a small sample which can be set in the about my app description file.<br /><br /><b>You can style this with html markup :D</b>]]>
+    </string>
+    <string name="aboutLibraries_description_special2_name">AGB</string>
+    <string name="aboutLibraries_description_special2_text">
+        <![CDATA[This is a small sample which can be set in the about my app description file.<br /><br /><b>You can style this with html markup :D</b>]]>
+    </string>
+    <string name="aboutLibraries_description_special3_name">Changelog</string>
+    <string name="aboutLibraries_description_special3_text">
+        <![CDATA[
+        <i>Version 1.1.0</i><br />
+        - Something nice ;)<br />
+        - Something awesome<br />
+        <br />
+        <i>Version 1.0.0</i><br />
+        - Something new ;)<br />
+        - Oo text :D]]>
+    </string>
 </resources>

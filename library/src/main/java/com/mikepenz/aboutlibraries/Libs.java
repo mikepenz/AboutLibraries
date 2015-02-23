@@ -65,6 +65,13 @@ public class Libs {
     public static final String BUNDLE_APP_ABOUT_VERSION_CODE = "ABOUT_LIBRARIES_APP_ABOUT_VERSION_CODE";
     public static final String BUNDLE_APP_ABOUT_DESCRIPTION = "ABOUT_LIBRARIES_APP_ABOUT_DESCRIPTION";
 
+    public static final String BUNDLE_APP_ABOUT_SPECIAL1 = "ABOUT_LIBRARIES_APP_ABOUT_SPECIAL1";
+    public static final String BUNDLE_APP_ABOUT_SPECIAL1_DESCRIPTION = "ABOUT_LIBRARIES_APP_ABOUT_SPECIAL1_DESCRIPTION";
+    public static final String BUNDLE_APP_ABOUT_SPECIAL2 = "ABOUT_LIBRARIES_APP_ABOUT_SPECIAL2";
+    public static final String BUNDLE_APP_ABOUT_SPECIAL2_DESCRIPTION = "ABOUT_LIBRARIES_APP_ABOUT_SPECIAL2_DESCRIPTION";
+    public static final String BUNDLE_APP_ABOUT_SPECIAL3 = "ABOUT_LIBRARIES_APP_ABOUT_SPECIAL3";
+    public static final String BUNDLE_APP_ABOUT_SPECIAL3_DESCRIPTION = "ABOUT_LIBRARIES_APP_ABOUT_SPECIAL3_DESCRIPTION";
+
     private static final String DEFINE_LICENSE = "define_license_";
     private static final String DEFINE_INT = "define_int_";
     private static final String DEFINE_EXT = "define_";
@@ -599,6 +606,13 @@ public class Libs {
         private Boolean aboutShowVersionName = false;
         private Boolean aboutShowVersionCode = false;
 
+        private String aboutAppSpecial1 = null;
+        private String aboutAppSpecial1Description = null;
+        private String aboutAppSpecial2 = null;
+        private String aboutAppSpecial2Description = null;
+        private String aboutAppSpecial3 = null;
+        private String aboutAppSpecial3Description = null;
+
         private int activityTheme = -1;
         private String activityTitle = null;
         private Colors activityColor = null;
@@ -786,6 +800,60 @@ public class Libs {
         }
 
         /**
+         * @param aboutAppSpecial1 the special button text
+         * @return this
+         */
+        public Builder withAboutSpecial1(String aboutAppSpecial1) {
+            this.aboutAppSpecial1 = aboutAppSpecial1;
+            return this;
+        }
+
+        /**
+         * @param aboutAppSpecial1Description the special dialog text
+         * @return this
+         */
+        public Builder withAboutSpecial1Description(String aboutAppSpecial1Description) {
+            this.aboutAppSpecial1Description = aboutAppSpecial1Description;
+            return this;
+        }
+
+        /**
+         * @param aboutAppSpecial2 the special button text
+         * @return this
+         */
+        public Builder withAboutSpecial2(String aboutAppSpecial2) {
+            this.aboutAppSpecial1 = aboutAppSpecial1;
+            return this;
+        }
+
+        /**
+         * @param aboutAppSpecial2Description the special dialog text
+         * @return this
+         */
+        public Builder withAboutSpecial2Description(String aboutAppSpecial2Description) {
+            this.aboutAppSpecial2Description = aboutAppSpecial2Description;
+            return this;
+        }
+
+        /**
+         * @param aboutAppSpecial3 the special button text
+         * @return this
+         */
+        public Builder withAboutSpecial3(String aboutAppSpecial3) {
+            this.aboutAppSpecial3 = aboutAppSpecial3;
+            return this;
+        }
+
+        /**
+         * @param aboutAppSpecial3Description the special dialog text
+         * @return this
+         */
+        public Builder withAboutSpecial3Description(String aboutAppSpecial3Description) {
+            this.aboutAppSpecial3Description = aboutAppSpecial3Description;
+            return this;
+        }
+
+        /**
          * Builder method to set the activity theme
          *
          * @param activityTheme as example R.theme.AppTheme (just for the activity)
@@ -931,6 +999,24 @@ public class Libs {
             if (this.aboutDescription != null) {
                 i.putExtra(Libs.BUNDLE_APP_ABOUT_DESCRIPTION, this.aboutDescription);
             }
+            if (this.aboutAppSpecial1 != null) {
+                i.putExtra(Libs.BUNDLE_APP_ABOUT_SPECIAL1, this.aboutAppSpecial1);
+            }
+            if (this.aboutAppSpecial1Description != null) {
+                i.putExtra(Libs.BUNDLE_APP_ABOUT_SPECIAL1_DESCRIPTION, this.aboutAppSpecial1Description);
+            }
+            if (this.aboutAppSpecial2 != null) {
+                i.putExtra(Libs.BUNDLE_APP_ABOUT_SPECIAL2, this.aboutAppSpecial2);
+            }
+            if (this.aboutAppSpecial2Description != null) {
+                i.putExtra(Libs.BUNDLE_APP_ABOUT_SPECIAL2_DESCRIPTION, this.aboutAppSpecial2Description);
+            }
+            if (this.aboutAppSpecial3 != null) {
+                i.putExtra(Libs.BUNDLE_APP_ABOUT_SPECIAL3, this.aboutAppSpecial3);
+            }
+            if (this.aboutAppSpecial3Description != null) {
+                i.putExtra(Libs.BUNDLE_APP_ABOUT_SPECIAL3_DESCRIPTION, this.aboutAppSpecial3Description);
+            }
 
             i.putExtra(Libs.BUNDLE_THEME, this.activityTheme);
             if (this.activityTitle != null) {
@@ -1000,6 +1086,24 @@ public class Libs {
             }
             if (this.aboutDescription != null) {
                 bundle.putString(Libs.BUNDLE_APP_ABOUT_DESCRIPTION, this.aboutDescription);
+            }
+            if (this.aboutAppSpecial1 != null) {
+                bundle.putString(Libs.BUNDLE_APP_ABOUT_SPECIAL1, this.aboutAppSpecial1);
+            }
+            if (this.aboutAppSpecial1Description != null) {
+                bundle.putString(Libs.BUNDLE_APP_ABOUT_SPECIAL1_DESCRIPTION, this.aboutAppSpecial1Description);
+            }
+            if (this.aboutAppSpecial2 != null) {
+                bundle.putString(Libs.BUNDLE_APP_ABOUT_SPECIAL2, this.aboutAppSpecial2);
+            }
+            if (this.aboutAppSpecial2Description != null) {
+                bundle.putString(Libs.BUNDLE_APP_ABOUT_SPECIAL2_DESCRIPTION, this.aboutAppSpecial2Description);
+            }
+            if (this.aboutAppSpecial3 != null) {
+                bundle.putString(Libs.BUNDLE_APP_ABOUT_SPECIAL3, this.aboutAppSpecial3);
+            }
+            if (this.aboutAppSpecial3Description != null) {
+                bundle.putString(Libs.BUNDLE_APP_ABOUT_SPECIAL3_DESCRIPTION, this.aboutAppSpecial3Description);
             }
 
             return bundle;

@@ -46,6 +46,12 @@ public class LibsFragment extends Fragment {
     private boolean showVersion = false;
 
     private String aboutAppName = null;
+    private String aboutSpecial1 = null;
+    private String aboutSpecial1Description = null;
+    private String aboutSpecial2 = null;
+    private String aboutSpecial2Description = null;
+    private String aboutSpecial3 = null;
+    private String aboutSpecial3Description = null;
     private Boolean aboutShowIcon = null;
     private Boolean aboutShowVersion = null;
     private Boolean aboutShowVersionName = null;
@@ -107,63 +113,20 @@ public class LibsFragment extends Fragment {
         }
 
         //The last step is to look if we would love to show some about text for this project
-        if (bundle != null && bundle.containsKey(Libs.BUNDLE_APP_ABOUT_ICON)) {
-            aboutShowIcon = bundle.getBoolean(Libs.BUNDLE_APP_ABOUT_ICON);
-        } else {
-            String descriptionShowIcon = libs.getStringResourceByName("aboutLibraries_description_showIcon");
-            if (!TextUtils.isEmpty(descriptionShowIcon)) {
-                try {
-                    aboutShowIcon = Boolean.parseBoolean(descriptionShowIcon);
-                } catch (Exception ex) {
-                }
-            }
-        }
-        if (bundle != null && bundle.containsKey(Libs.BUNDLE_APP_ABOUT_VERSION)) {
-            aboutShowVersion = bundle.getBoolean(Libs.BUNDLE_APP_ABOUT_VERSION);
-        } else {
-            String descriptionShowVersion = libs.getStringResourceByName("aboutLibraries_description_showVersion");
-            if (!TextUtils.isEmpty(descriptionShowVersion)) {
-                try {
-                    aboutShowVersion = Boolean.parseBoolean(descriptionShowVersion);
-                } catch (Exception ex) {
-                }
-            }
-        }
+        aboutShowIcon = extractBooleanBundleOrResource(libs, bundle, Libs.BUNDLE_APP_ABOUT_ICON, "aboutLibraries_description_showIcon");
+        aboutShowVersion = extractBooleanBundleOrResource(libs, bundle, Libs.BUNDLE_APP_ABOUT_VERSION, "aboutLibraries_description_showVersion");
+        aboutShowVersionName = extractBooleanBundleOrResource(libs, bundle, Libs.BUNDLE_APP_ABOUT_VERSION_NAME, "aboutLibraries_description_showVersionName");
+        aboutShowVersionCode = extractBooleanBundleOrResource(libs, bundle, Libs.BUNDLE_APP_ABOUT_VERSION_CODE, "aboutLibraries_description_showVersionCode");
 
-        if (bundle != null && bundle.containsKey(Libs.BUNDLE_APP_ABOUT_VERSION_NAME)) {
-            aboutShowVersionName = bundle.getBoolean(Libs.BUNDLE_APP_ABOUT_VERSION_NAME);
-        } else {
-            String descriptionShowVersion = libs.getStringResourceByName("aboutLibraries_description_showVersionName");
-            if (!TextUtils.isEmpty(descriptionShowVersion)) {
-                try {
-                    aboutShowVersionName = Boolean.parseBoolean(descriptionShowVersion);
-                } catch (Exception ex) {
-                }
-            }
-        }
-        if (bundle != null && bundle.containsKey(Libs.BUNDLE_APP_ABOUT_VERSION_CODE)) {
-            aboutShowVersionCode = bundle.getBoolean(Libs.BUNDLE_APP_ABOUT_VERSION_CODE);
-        } else {
-            String descriptionShowVersion = libs.getStringResourceByName("aboutLibraries_description_showVersionCode");
-            if (!TextUtils.isEmpty(descriptionShowVersion)) {
-                try {
-                    aboutShowVersionCode = Boolean.parseBoolean(descriptionShowVersion);
-                } catch (Exception ex) {
-                }
-            }
-        }
+        aboutAppName = extractStringBundleOrResource(libs, bundle, Libs.BUNDLE_APP_ABOUT_NAME, "aboutLibraries_description_name");
+        aboutDescription = extractStringBundleOrResource(libs, bundle, Libs.BUNDLE_APP_ABOUT_DESCRIPTION, "aboutLibraries_description_text");
 
-        if (bundle != null && bundle.containsKey(Libs.BUNDLE_APP_ABOUT_NAME)) {
-            aboutAppName = bundle.getString(Libs.BUNDLE_APP_ABOUT_NAME);
-        } else {
-            aboutAppName = libs.getStringResourceByName("aboutLibraries_description_name");
-        }
-
-        if (bundle != null && bundle.containsKey(Libs.BUNDLE_APP_ABOUT_DESCRIPTION)) {
-            aboutDescription = bundle.getString(Libs.BUNDLE_APP_ABOUT_DESCRIPTION);
-        } else {
-            aboutDescription = libs.getStringResourceByName("aboutLibraries_description_text");
-        }
+        aboutSpecial1 = extractStringBundleOrResource(libs, bundle, Libs.BUNDLE_APP_ABOUT_SPECIAL1, "aboutLibraries_description_special1_name");
+        aboutSpecial1Description = extractStringBundleOrResource(libs, bundle, Libs.BUNDLE_APP_ABOUT_SPECIAL1_DESCRIPTION, "aboutLibraries_description_special1_text");
+        aboutSpecial2 = extractStringBundleOrResource(libs, bundle, Libs.BUNDLE_APP_ABOUT_SPECIAL2, "aboutLibraries_description_special2_name");
+        aboutSpecial2Description = extractStringBundleOrResource(libs, bundle, Libs.BUNDLE_APP_ABOUT_SPECIAL2_DESCRIPTION, "aboutLibraries_description_special2_text");
+        aboutSpecial3 = extractStringBundleOrResource(libs, bundle, Libs.BUNDLE_APP_ABOUT_SPECIAL3, "aboutLibraries_description_special3_name");
+        aboutSpecial3Description = extractStringBundleOrResource(libs, bundle, Libs.BUNDLE_APP_ABOUT_SPECIAL3_DESCRIPTION, "aboutLibraries_description_special3_text");
 
         //apply modifications
         libs.modifyLibraries(libraryModification);
@@ -174,8 +137,8 @@ public class LibsFragment extends Fragment {
         if (comparator != null) {
             Collections.sort(libraries, comparator);
         }
-
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -238,7 +201,54 @@ public class LibsFragment extends Fragment {
             }
 
             //add this cool thing to the headerView of our listView
-            mAdapter.setHeader(aboutAppName, aboutDescription, versionName, versionCode, aboutShowVersion, aboutShowVersionName, aboutShowVersionCode, icon, aboutShowIcon);
+            mAdapter.setHeader(aboutAppName, aboutDescription, aboutSpecial1, aboutSpecial1Description, aboutSpecial2, aboutSpecial2Description, aboutSpecial3, aboutSpecial3Description, versionName, versionCode, aboutShowVersion, aboutShowVersionName, aboutShowVersionCode, icon, aboutShowIcon);
         }
+    }
+
+    /**
+     * Helper to extract a boolean from a bundle or resource
+     *
+     * @param libs
+     * @param bundle
+     * @param bundleKey
+     * @param resName
+     * @return
+     */
+    private Boolean extractBooleanBundleOrResource(Libs libs, Bundle bundle, String bundleKey, String resName) {
+        Boolean result = null;
+        if (bundle != null && bundle.containsKey(bundleKey)) {
+            result = bundle.getBoolean(bundleKey);
+        } else {
+            String descriptionShowVersion = libs.getStringResourceByName(resName);
+            if (!TextUtils.isEmpty(descriptionShowVersion)) {
+                try {
+                    result = Boolean.parseBoolean(descriptionShowVersion);
+                } catch (Exception ex) {
+                }
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Helper to extract a string from a bundle or resource
+     *
+     * @param libs
+     * @param bundle
+     * @param bundleKey
+     * @param resName
+     * @return
+     */
+    private String extractStringBundleOrResource(Libs libs, Bundle bundle, String bundleKey, String resName) {
+        String result = null;
+        if (bundle != null && bundle.containsKey(bundleKey)) {
+            result = bundle.getString(bundleKey);
+        } else {
+            String descriptionShowVersion = libs.getStringResourceByName(resName);
+            if (!TextUtils.isEmpty(descriptionShowVersion)) {
+                result = descriptionShowVersion;
+            }
+        }
+        return result;
     }
 }

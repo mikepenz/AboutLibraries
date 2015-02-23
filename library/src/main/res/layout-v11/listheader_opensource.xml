@@ -50,7 +50,7 @@
             android:gravity="center"
             android:textColor="@color/about_libraries_title_openSource"
             tools:text="Special 1"
-            android:background="@null"/>
+            android:background="?android:attr/selectableItemBackground"/>
         <Button
             android:id="@+id/aboutSpecial2"
             android:textSize="@dimen/textSizeSmall_openSource"
@@ -60,7 +60,7 @@
             android:gravity="center"
             android:textColor="@color/about_libraries_title_openSource"
             tools:text="Special 2"
-            android:background="@null"/>
+            android:background="?android:attr/selectableItemBackground"/>
         <Button
             android:id="@+id/aboutSpecial3"
             android:textSize="@dimen/textSizeSmall_openSource"
@@ -70,7 +70,7 @@
             android:gravity="center"
             android:textColor="@color/about_libraries_title_openSource"
             tools:text="Special 3"
-            android:background="@null"/>
+            android:background="?android:attr/selectableItemBackground"/>
     </LinearLayout>
 
     <View
