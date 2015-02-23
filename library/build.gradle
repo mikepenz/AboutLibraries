@@ -7,7 +7,7 @@ android {
         minSdkVersion 7
         targetSdkVersion 21
         versionCode 456
-        versionName '4.5.6-SNAPSHOT'
+        versionName '4.5.6'
     }
 
     buildTypes {
