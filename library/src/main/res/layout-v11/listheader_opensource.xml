@@ -48,7 +48,7 @@
             android:layout_weight="1"
             android:layout_height="32dp"
             android:gravity="center"
-            android:textColor="@color/about_libraries_title_openSource"
+            android:textColor="@color/about_libraries_special_button_openSource"
             tools:text="Special 1"
             android:background="?android:attr/selectableItemBackground"/>
         <Button
@@ -58,7 +58,7 @@
             android:layout_weight="1"
             android:layout_height="32dp"
             android:gravity="center"
-            android:textColor="@color/about_libraries_title_openSource"
+            android:textColor="@color/about_libraries_special_button_openSource"
             tools:text="Special 2"
             android:background="?android:attr/selectableItemBackground"/>
         <Button
@@ -68,7 +68,7 @@
             android:layout_weight="1"
             android:layout_height="32dp"
             android:gravity="center"
-            android:textColor="@color/about_libraries_title_openSource"
+            android:textColor="@color/about_libraries_special_button_openSource"
             tools:text="Special 3"
             android:background="?android:attr/selectableItemBackground"/>
     </LinearLayout>
