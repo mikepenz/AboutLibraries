@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <string name="define_libphonenumber"></string>
+    <string name="define_int_libphonenumber"></string>
     <!-- Author section -->
     <string name="library_libphonenumber_author">Google</string>
     <string name="library_libphonenumber_authorWebsite">http://google.com</string>
@@ -16,8 +16,6 @@
     <!-- OpenSource section -->
     <string name="library_libphonenumber_isOpenSource">true</string>
     <string name="library_libphonenumber_repositoryLink">https://github.com/googlei18n/libphonenumber</string>
-    <!-- ClassPath for autoDetect section -->
-    <string name="library_libphonenumber_classPath">com.google.i18n.phonenumbers.Phonenumber</string>
     <!-- License section -->
     <string name="library_libphonenumber_licenseId">apache_2_0</string>
     <!-- Custom variables section -->

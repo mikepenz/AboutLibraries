@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_GooglePlayServices">year;owner</string>
+    <string name="library_GooglePlayServices_author">AOSP</string>
+    <string name="library_GooglePlayServices_authorWebsite">https://source.android.com/</string>
+    <string name="library_GooglePlayServices_libraryName">Google Play Services</string>
+    <string name="library_GooglePlayServices_libraryDescription">With Google Play services, your app can take advantage of the latest, Google-powered features
+        such as Maps, Google+, and more, with automatic platform updates distributed as an APK through the Google Play store.
+    </string>
+    <string name="library_GooglePlayServices_libraryWebsite">https://developer.android.com/google/play-services/index.html</string>
+    <string name="library_GooglePlayServices_licenseId">apache_2_0</string>
+    <string name="library_GooglePlayServices_isOpenSource">false</string>
+    <string name="library_GooglePlayServices_repositoryLink"></string>
+    <!-- Custom variables section -->
+    <string name="library_GooglePlayServices_owner">AOSP</string>
+    <string name="library_GooglePlayServices_year">2015</string>
+</resources> 

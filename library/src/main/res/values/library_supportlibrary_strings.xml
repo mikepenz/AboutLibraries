@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_SupportLibrary">year;owner</string>
+    <string name="library_SupportLibrary_author">AOSP</string>
+    <string name="library_SupportLibrary_authorWebsite">https://source.android.com/</string>
+    <string name="library_SupportLibrary_libraryName">Support Library</string>
+    <string name="library_SupportLibrary_libraryDescription">This library includes support for application components, user interface features, accessibility,
+        data handling, network connectivity, and programming utilities.
+    </string>
+    <string name="library_SupportLibrary_libraryWebsite">https://developer.android.com/tools/support-library/features.html#v4</string>
+    <string name="library_SupportLibrary_licenseId">apache_2_0</string>
+    <string name="library_SupportLibrary_isOpenSource">false</string>
+    <string name="library_SupportLibrary_repositoryLink"></string>
+    <!-- Custom variables section -->
+    <string name="library_SupportLibrary_owner">AOSP</string>
+    <string name="library_SupportLibrary_year">2015</string>
+</resources> 
