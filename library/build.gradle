@@ -7,7 +7,7 @@ android {
         minSdkVersion 7
         targetSdkVersion 21
         versionCode 458
-        versionName '4.5.8-SNAPSHOT'
+        versionName '4.5.8'
     }
 
     buildTypes {
