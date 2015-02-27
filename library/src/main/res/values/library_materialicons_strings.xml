@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <string name="define_materialicons"></string>
+    <string name="define_int_materialicons"></string>
     <!-- Author section -->
     <string name="library_materialicons_author">Anton Malinskiy</string>
     <string name="library_materialicons_authorWebsite">http://malinskiy.com/</string>
