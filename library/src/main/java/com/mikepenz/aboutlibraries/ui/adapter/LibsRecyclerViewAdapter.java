@@ -32,15 +32,16 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     private List<Library> libs = new LinkedList<Library>();
 
     private boolean header = false;
-    private Libs.Builder builder = null;
+
+    private Libs.Builder libsBuilder = null;
     private Integer aboutVersionCode;
     private String aboutVersionName;
     private Drawable aboutIcon;
 
-    public LibsRecyclerViewAdapter(Context ctx, Libs.Builder builder) {
+    public LibsRecyclerViewAdapter(Context ctx, Libs.Builder libsBuilder) {
         this.ctx = ctx;
 
-        this.builder = builder;
+        this.libsBuilder = libsBuilder;
     }
 
     @Override
@@ -60,15 +61,15 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             HeaderViewHolder holder = (HeaderViewHolder) viewHolder;
 
             //Set the Icon or hide it
-            if (builder.aboutShowIcon && aboutIcon != null) {
+            if (libsBuilder.aboutShowIcon && aboutIcon != null) {
                 holder.aboutIcon.setImageDrawable(aboutIcon);
             } else {
                 holder.aboutIcon.setVisibility(View.GONE);
             }
 
             //Set the description or hide it
-            if (!TextUtils.isEmpty(builder.aboutAppName)) {
-                holder.aboutAppName.setText(builder.aboutAppName);
+            if (!TextUtils.isEmpty(libsBuilder.aboutAppName)) {
+                holder.aboutAppName.setText(libsBuilder.aboutAppName);
             } else {
                 holder.aboutAppName.setVisibility(View.GONE);
             }
@@ -80,15 +81,15 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             holder.aboutSpecial3.setVisibility(View.GONE);
 
             // set the values for the special fields
-            if (!TextUtils.isEmpty(builder.aboutAppSpecial1) && !TextUtils.isEmpty(builder.aboutAppSpecial1Description)) {
-                holder.aboutSpecial1.setText(builder.aboutAppSpecial1);
+            if (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial1) && !TextUtils.isEmpty(libsBuilder.aboutAppSpecial1Description)) {
+                holder.aboutSpecial1.setText(libsBuilder.aboutAppSpecial1);
                 holder.aboutSpecial1.setVisibility(View.VISIBLE);
                 holder.aboutSpecial1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         try {
                             AlertDialog.Builder alert = new AlertDialog.Builder(ctx);
-                            alert.setMessage(Html.fromHtml(builder.aboutAppSpecial1Description));
+                            alert.setMessage(Html.fromHtml(libsBuilder.aboutAppSpecial1Description));
                             alert.create().show();
                         } catch (Exception ex) {
                         }
@@ -96,15 +97,15 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 });
                 holder.aboutSpecialContainer.setVisibility(View.VISIBLE);
             }
-            if (!TextUtils.isEmpty(builder.aboutAppSpecial2) && !TextUtils.isEmpty(builder.aboutAppSpecial2Description)) {
-                holder.aboutSpecial2.setText(builder.aboutAppSpecial2);
+            if (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial2) && !TextUtils.isEmpty(libsBuilder.aboutAppSpecial2Description)) {
+                holder.aboutSpecial2.setText(libsBuilder.aboutAppSpecial2);
                 holder.aboutSpecial2.setVisibility(View.VISIBLE);
                 holder.aboutSpecial2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         try {
                             AlertDialog.Builder alert = new AlertDialog.Builder(ctx);
-                            alert.setMessage(Html.fromHtml(builder.aboutAppSpecial2Description));
+                            alert.setMessage(Html.fromHtml(libsBuilder.aboutAppSpecial2Description));
                             alert.create().show();
                         } catch (Exception ex) {
                         }
@@ -112,15 +113,15 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 });
                 holder.aboutSpecialContainer.setVisibility(View.VISIBLE);
             }
-            if (!TextUtils.isEmpty(builder.aboutAppSpecial3) && !TextUtils.isEmpty(builder.aboutAppSpecial3Description)) {
-                holder.aboutSpecial3.setText(builder.aboutAppSpecial3);
+            if (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial3) && !TextUtils.isEmpty(libsBuilder.aboutAppSpecial3Description)) {
+                holder.aboutSpecial3.setText(libsBuilder.aboutAppSpecial3);
                 holder.aboutSpecial3.setVisibility(View.VISIBLE);
                 holder.aboutSpecial3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         try {
                             AlertDialog.Builder alert = new AlertDialog.Builder(ctx);
-                            alert.setMessage(Html.fromHtml(builder.aboutAppSpecial3Description));
+                            alert.setMessage(Html.fromHtml(libsBuilder.aboutAppSpecial3Description));
                             alert.create().show();
                         } catch (Exception ex) {
                         }
@@ -131,12 +132,12 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
 
             //set the Version or hide it
-            if (builder.aboutShowVersion != null && builder.aboutShowVersion) {
+            if (libsBuilder.aboutShowVersion != null && libsBuilder.aboutShowVersion) {
                 holder.aboutVersion.setText(ctx.getString(R.string.version) + " " + aboutVersionName + " (" + aboutVersionCode + ")");
             } else {
-                if (builder.aboutShowVersionName != null && builder.aboutShowVersionName) {
+                if (libsBuilder.aboutShowVersionName != null && libsBuilder.aboutShowVersionName) {
                     holder.aboutVersion.setText(ctx.getString(R.string.version) + " " + aboutVersionName);
-                } else if (builder.aboutShowVersionCode != null && builder.aboutShowVersionCode) {
+                } else if (libsBuilder.aboutShowVersionCode != null && libsBuilder.aboutShowVersionCode) {
                     holder.aboutVersion.setText(ctx.getString(R.string.version) + " " + aboutVersionCode);
                 } else {
                     holder.aboutVersion.setVisibility(View.GONE);
@@ -144,15 +145,15 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             }
 
             //Set the description or hide it
-            if (!TextUtils.isEmpty(builder.aboutDescription)) {
-                holder.aboutAppDescription.setText(Html.fromHtml(builder.aboutDescription));
+            if (!TextUtils.isEmpty(libsBuilder.aboutDescription)) {
+                holder.aboutAppDescription.setText(Html.fromHtml(libsBuilder.aboutDescription));
                 holder.aboutAppDescription.setMovementMethod(MovementCheck.getInstance());
             } else {
                 holder.aboutAppDescription.setVisibility(View.GONE);
             }
 
             //if there is no description or no icon and version number hide the divider
-            if (!builder.aboutShowIcon && !builder.aboutShowVersion || TextUtils.isEmpty(builder.aboutDescription)) {
+            if (!libsBuilder.aboutShowIcon && !libsBuilder.aboutShowVersion || TextUtils.isEmpty(libsBuilder.aboutDescription)) {
                 holder.aboutDivider.setVisibility(View.GONE);
             }
         } else if (viewHolder instanceof ViewHolder) {
@@ -170,19 +171,19 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             }
 
             //Set License or Version Text
-            if (TextUtils.isEmpty(library.getLibraryVersion()) && library.getLicense() != null && TextUtils.isEmpty(library.getLicense().getLicenseName()) || (!builder.showVersion && !builder.showLicense)) {
+            if (TextUtils.isEmpty(library.getLibraryVersion()) && library.getLicense() != null && TextUtils.isEmpty(library.getLicense().getLicenseName()) || (!libsBuilder.showVersion && !libsBuilder.showLicense)) {
                 holder.libraryBottomDivider.setVisibility(View.GONE);
                 holder.libraryBottomContainer.setVisibility(View.GONE);
             } else {
                 holder.libraryBottomDivider.setVisibility(View.VISIBLE);
                 holder.libraryBottomContainer.setVisibility(View.VISIBLE);
 
-                if (!TextUtils.isEmpty(library.getLibraryVersion()) && builder.showVersion) {
+                if (!TextUtils.isEmpty(library.getLibraryVersion()) && libsBuilder.showVersion) {
                     holder.libraryVersion.setText(library.getLibraryVersion());
                 } else {
                     holder.libraryVersion.setText("");
                 }
-                if (library.getLicense() != null && !TextUtils.isEmpty(library.getLicense().getLicenseName()) && builder.showLicense) {
+                if (library.getLicense() != null && !TextUtils.isEmpty(library.getLicense().getLicenseName()) && libsBuilder.showLicense) {
                     holder.libraryLicense.setText(library.getLicense().getLicenseName());
                 } else {
                     holder.libraryLicense.setText("");
@@ -225,7 +226,7 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                     @Override
                     public void onClick(View view) {
                         try {
-                            if (builder.showLicenseDialog && !TextUtils.isEmpty(library.getLicense().getLicenseDescription())) {
+                            if (libsBuilder.showLicenseDialog && !TextUtils.isEmpty(library.getLicense().getLicenseDescription())) {
                                 AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
                                 builder.setMessage(Html.fromHtml(library.getLicense().getLicenseDescription()));
                                 builder.create().show();

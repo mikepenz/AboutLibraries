@@ -22,25 +22,6 @@ public class FragmentActivity extends ActionBarActivity {
 
         setContentView(R.layout.activity_opensource);
 
-        /*
-        Bundle bundle = new Bundle();
-        bundle.putStringArray(Libs.BUNDLE_FIELDS, Libs.toStringArray(R.string.class.getFields()));
-        bundle.putStringArray(Libs.BUNDLE_LIBS, new String[]{"crouton", "activeandroid", "actionbarsherlock", "showcaseview"});
-
-        bundle.putBoolean(Libs.BUNDLE_VERSION, true);
-        bundle.putBoolean(Libs.BUNDLE_LICENSE, true);
-
-        //NOTE: This is how you can modify a specific library definition during runtime
-        HashMap<String, HashMap<String, String>> libsModification = new HashMap<String, HashMap<String, String>>();
-        HashMap<String, String> modifyAboutLibraries = new HashMap<String, String>();
-        modifyAboutLibraries.put("name", "_AboutLibraries");
-        libsModification.put("aboutlibraries", modifyAboutLibraries);
-        bundle.putSerializable(Libs.BUNDLE_LIBS_MODIFICATION, libsModification);
-
-        LibsFragment fragment = new LibsFragment();
-        fragment.setArguments(bundle);
-        */
-
         LibsFragment fragment = new Libs.Builder()
                 .withFields(R.string.class.getFields())
                 .withLibraries("crouton", "activeandroid", "actionbarsherlock", "showcaseview")
@@ -87,26 +68,6 @@ public class FragmentActivity extends ActionBarActivity {
                     .withActivityTitle("Open Source")
                     .withActivityTheme(R.style.AppTheme)
                     .start(this);
-
-            /*
-            Intent i = new Intent(getApplicationContext(), LibsActivity.class);
-            i.putExtra(Libs.BUNDLE_FIELDS, Libs.toStringArray(R.string.class.getFields()));
-            i.putExtra(Libs.BUNDLE_LIBS, new String[]{"crouton", "actionbarsherlock", "showcaseview"});
-            i.putExtra(Libs.BUNDLE_AUTODETECT, true);
-
-            i.putExtra(Libs.BUNDLE_VERSION, true);
-            i.putExtra(Libs.BUNDLE_LICENSE, true);
-
-            i.putExtra(Libs.BUNDLE_TITLE, "Open Source");
-            i.putExtra(Libs.BUNDLE_THEME, R.style.AppTheme);
-
-            //INFO you can set the about app text with these extra data too
-            i.putExtra(Libs.BUNDLE_APP_ABOUT_ICON, true);
-            i.putExtra(Libs.BUNDLE_APP_ABOUT_VERSION, true);
-            i.putExtra(Libs.BUNDLE_APP_ABOUT_DESCRIPTION, "This is a small sample which can be set in the about my app description file.<br /><b>You can style this with html markup :D</b>");
-
-            startActivity(i);
-            */
         }
         return super.onOptionsItemSelected(item);
     }

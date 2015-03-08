@@ -60,7 +60,7 @@ public class LibsFragment extends Fragment {
         //read and get our arguments
         Bundle bundle = getArguments();
         if (bundle != null) {
-            builder = bundle.getParcelable("data");
+            builder = (Libs.Builder) bundle.getSerializable("data");
         }
 
         //init the Libs instance with fields if they were set

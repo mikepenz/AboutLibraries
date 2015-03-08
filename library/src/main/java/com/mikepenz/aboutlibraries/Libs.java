@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.os.Bundle;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -18,6 +16,7 @@ import com.mikepenz.aboutlibraries.ui.adapter.LibsRecyclerViewAdapter;
 import com.mikepenz.aboutlibraries.util.Colors;
 import com.mikepenz.aboutlibraries.util.Util;
 
+import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -42,37 +41,9 @@ public class Libs {
         LICENSE_WEBSITE
     }
 
-
-    public static final String BUNDLE_FIELDS = "ABOUT_LIBRARIES_FIELDS";
-    public static final String BUNDLE_LIBS = "ABOUT_LIBRARIES_LIBS";
-    public static final String BUNDLE_EXCLUDE_LIBS = "ABOUT_LIBRARIES_EXCLUDE_LIBS";
-    public static final String BUNDLE_AUTODETECT = "ABOUT_LIBRARIES_AUTODETECT";
-    public static final String BUNDLE_SORT = "ABOUT_LIBRARIES_SORT";
-    public static final String BUNDLE_ANIMATE = "ABOUT_LIBRARIES_ANIMATE";
-
-    public static final String BUNDLE_LICENSE = "ABOUT_LIBRARIES_LICENSE";
-    public static final String BUNDLE_LICENSE_DIALOG = "ABOUT_LIBRARIES_LICENSE_DIALOG";
-    public static final String BUNDLE_VERSION = "ABOUT_LIBRARIES_VERSION";
-
-    public static final String BUNDLE_LIBS_MODIFICATION = "ABOUT_LIBRARIES_LIBS_MODIFICATION";
-
     public static final String BUNDLE_THEME = "ABOUT_LIBRARIES_THEME";
     public static final String BUNDLE_TITLE = "ABOUT_LIBRARIES_TITLE";
     public static final String BUNDLE_COLORS = "ABOUT_COLOR";
-
-    public static final String BUNDLE_APP_ABOUT_ICON = "ABOUT_LIBRARIES_APP_ABOUT_ICON";
-    public static final String BUNDLE_APP_ABOUT_NAME = "ABOUT_LIBRARIES_APP_ABOUT_NAME";
-    public static final String BUNDLE_APP_ABOUT_VERSION = "ABOUT_LIBRARIES_APP_ABOUT_VERSION";
-    public static final String BUNDLE_APP_ABOUT_VERSION_NAME = "ABOUT_LIBRARIES_APP_ABOUT_VERSION_NAME";
-    public static final String BUNDLE_APP_ABOUT_VERSION_CODE = "ABOUT_LIBRARIES_APP_ABOUT_VERSION_CODE";
-    public static final String BUNDLE_APP_ABOUT_DESCRIPTION = "ABOUT_LIBRARIES_APP_ABOUT_DESCRIPTION";
-
-    public static final String BUNDLE_APP_ABOUT_SPECIAL1 = "ABOUT_LIBRARIES_APP_ABOUT_SPECIAL1";
-    public static final String BUNDLE_APP_ABOUT_SPECIAL1_DESCRIPTION = "ABOUT_LIBRARIES_APP_ABOUT_SPECIAL1_DESCRIPTION";
-    public static final String BUNDLE_APP_ABOUT_SPECIAL2 = "ABOUT_LIBRARIES_APP_ABOUT_SPECIAL2";
-    public static final String BUNDLE_APP_ABOUT_SPECIAL2_DESCRIPTION = "ABOUT_LIBRARIES_APP_ABOUT_SPECIAL2_DESCRIPTION";
-    public static final String BUNDLE_APP_ABOUT_SPECIAL3 = "ABOUT_LIBRARIES_APP_ABOUT_SPECIAL3";
-    public static final String BUNDLE_APP_ABOUT_SPECIAL3_DESCRIPTION = "ABOUT_LIBRARIES_APP_ABOUT_SPECIAL3_DESCRIPTION";
 
     private static final String DEFINE_LICENSE = "define_license_";
     private static final String DEFINE_INT = "define_int_";
@@ -588,7 +559,7 @@ public class Libs {
     }
 
 
-    public static class Builder implements Parcelable {
+    public static class Builder implements Serializable {
         public String[] fields = null;
         public String[] internalLibraries = null;
         public String[] excludeLibraries = null;
@@ -622,98 +593,6 @@ public class Libs {
         public HashMap<String, HashMap<String, String>> libraryModification = null;
 
         public Builder() {
-        }
-
-
-        @Override
-        public int describeContents() {
-            return 0;
-        }
-
-        @Override
-        public void writeToParcel(Parcel dest, int flags) {
-            dest.writeArray(fields);
-            dest.writeArray(internalLibraries);
-            dest.writeArray(excludeLibraries);
-
-            dest.writeValue(autoDetect);
-            dest.writeValue(sort);
-            dest.writeValue(animate);
-
-            dest.writeValue(showLicense);
-            dest.writeValue(showLicenseDialog);
-            dest.writeValue(showVersion);
-
-            dest.writeValue(aboutShowIcon);
-            dest.writeString(aboutAppName);
-            dest.writeValue(aboutShowVersion);
-            dest.writeString(aboutDescription);
-            dest.writeValue(aboutShowVersionName);
-            dest.writeValue(aboutShowVersionCode);
-
-            dest.writeString(aboutAppSpecial1);
-            dest.writeString(aboutAppSpecial1Description);
-            dest.writeString(aboutAppSpecial2);
-            dest.writeString(aboutAppSpecial2Description);
-            dest.writeString(aboutAppSpecial3);
-            dest.writeString(aboutAppSpecial3Description);
-
-            dest.writeInt(activityTheme);
-            dest.writeString(activityTitle);
-            dest.writeParcelable(activityColor, -1);
-
-            dest.writeMap(libraryModification);
-        }
-
-        // this is used to regenerate your object. All Parcelables must have a CREATOR that implements these two methods
-        public static final Parcelable.Creator<Builder> CREATOR = new Parcelable.Creator<Builder>() {
-            public Builder createFromParcel(Parcel in) {
-                return new Builder(in);
-            }
-
-            public Builder[] newArray(int size) {
-                return new Builder[size];
-            }
-        };
-
-        // example constructor that takes a Parcel and gives you an object populated with it's values
-        private Builder(Parcel in) {
-            if (in != null && in.dataSize() > 0) {
-                try {
-                    in.readStringArray(fields);
-                    in.readStringArray(internalLibraries);
-                    in.readStringArray(excludeLibraries);
-
-                    autoDetect = (Boolean) in.readValue(null);
-                    sort = (Boolean) in.readValue(null);
-                    animate = (Boolean) in.readValue(null);
-
-                    showLicense = (Boolean) in.readValue(null);
-                    showLicenseDialog = (Boolean) in.readValue(null);
-                    showVersion = (Boolean) in.readValue(null);
-
-                    aboutShowIcon = (Boolean) in.readValue(null);
-                    aboutAppName = in.readString();
-                    aboutShowVersion = (Boolean) in.readValue(null);
-                    aboutDescription = in.readString();
-                    aboutShowVersionName = (Boolean) in.readValue(null);
-                    aboutShowVersionCode = (Boolean) in.readValue(null);
-
-                    aboutAppSpecial1 = in.readString();
-                    aboutAppSpecial1Description = in.readString();
-                    aboutAppSpecial2 = in.readString();
-                    aboutAppSpecial2Description = in.readString();
-                    aboutAppSpecial3 = in.readString();
-                    aboutAppSpecial3Description = in.readString();
-
-                    activityTheme = in.readInt();
-                    activityTitle = in.readString();
-                    activityColor = in.readParcelable(null);
-
-                    libraryModification = in.readHashMap(null);
-                } catch (Exception ex) {
-                }
-            }
         }
 
         /**
@@ -1095,7 +974,7 @@ public class Libs {
          */
         public LibsFragment fragment() {
             Bundle bundle = new Bundle();
-            bundle.putParcelable("data", this);
+            bundle.putSerializable("data", this);
 
             LibsFragment fragment = new LibsFragment();
             fragment.setArguments(bundle);
