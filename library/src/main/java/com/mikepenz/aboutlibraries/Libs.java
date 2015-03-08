@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -586,40 +588,132 @@ public class Libs {
     }
 
 
-    public static class Builder {
-        private String[] fields = null;
-        private String[] internalLibraries = null;
-        private String[] excludeLibraries = null;
+    public static class Builder implements Parcelable {
+        public String[] fields = null;
+        public String[] internalLibraries = null;
+        public String[] excludeLibraries = null;
 
-        private boolean autoDetect = true;
-        private boolean sort = true;
-        private boolean animate = true;
+        public Boolean autoDetect = true;
+        public Boolean sort = true;
+        public Boolean animate = true;
 
-        private boolean showLicense = false;
-        private boolean showLicenseDialog = true;
-        private boolean showVersion = false;
+        public Boolean showLicense = false;
+        public Boolean showLicenseDialog = true;
+        public Boolean showVersion = false;
 
-        private Boolean aboutShowIcon = null;
-        private String aboutAppName = null;
-        private Boolean aboutShowVersion = null;
-        private String aboutDescription = null;
-        private Boolean aboutShowVersionName = false;
-        private Boolean aboutShowVersionCode = false;
+        public Boolean aboutShowIcon = null;
+        public String aboutAppName = null;
+        public Boolean aboutShowVersion = null;
+        public String aboutDescription = null;
+        public Boolean aboutShowVersionName = false;
+        public Boolean aboutShowVersionCode = false;
 
-        private String aboutAppSpecial1 = null;
-        private String aboutAppSpecial1Description = null;
-        private String aboutAppSpecial2 = null;
-        private String aboutAppSpecial2Description = null;
-        private String aboutAppSpecial3 = null;
-        private String aboutAppSpecial3Description = null;
+        public String aboutAppSpecial1 = null;
+        public String aboutAppSpecial1Description = null;
+        public String aboutAppSpecial2 = null;
+        public String aboutAppSpecial2Description = null;
+        public String aboutAppSpecial3 = null;
+        public String aboutAppSpecial3Description = null;
 
-        private int activityTheme = -1;
-        private String activityTitle = null;
-        private Colors activityColor = null;
+        public Integer activityTheme = -1;
+        public String activityTitle = null;
+        public Colors activityColor = null;
 
-        private HashMap<String, HashMap<String, String>> libraryModification = null;
+        public HashMap<String, HashMap<String, String>> libraryModification = null;
 
         public Builder() {
+        }
+
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeArray(fields);
+            dest.writeArray(internalLibraries);
+            dest.writeArray(excludeLibraries);
+
+            dest.writeValue(autoDetect);
+            dest.writeValue(sort);
+            dest.writeValue(animate);
+
+            dest.writeValue(showLicense);
+            dest.writeValue(showLicenseDialog);
+            dest.writeValue(showVersion);
+
+            dest.writeValue(aboutShowIcon);
+            dest.writeString(aboutAppName);
+            dest.writeValue(aboutShowVersion);
+            dest.writeString(aboutDescription);
+            dest.writeValue(aboutShowVersionName);
+            dest.writeValue(aboutShowVersionCode);
+
+            dest.writeString(aboutAppSpecial1);
+            dest.writeString(aboutAppSpecial1Description);
+            dest.writeString(aboutAppSpecial2);
+            dest.writeString(aboutAppSpecial2Description);
+            dest.writeString(aboutAppSpecial3);
+            dest.writeString(aboutAppSpecial3Description);
+
+            dest.writeInt(activityTheme);
+            dest.writeString(activityTitle);
+            dest.writeParcelable(activityColor, -1);
+
+            dest.writeMap(libraryModification);
+        }
+
+        // this is used to regenerate your object. All Parcelables must have a CREATOR that implements these two methods
+        public static final Parcelable.Creator<Builder> CREATOR = new Parcelable.Creator<Builder>() {
+            public Builder createFromParcel(Parcel in) {
+                return new Builder(in);
+            }
+
+            public Builder[] newArray(int size) {
+                return new Builder[size];
+            }
+        };
+
+        // example constructor that takes a Parcel and gives you an object populated with it's values
+        private Builder(Parcel in) {
+            if (in != null && in.dataSize() > 0) {
+                try {
+                    in.readStringArray(fields);
+                    in.readStringArray(internalLibraries);
+                    in.readStringArray(excludeLibraries);
+
+                    autoDetect = (Boolean) in.readValue(null);
+                    sort = (Boolean) in.readValue(null);
+                    animate = (Boolean) in.readValue(null);
+
+                    showLicense = (Boolean) in.readValue(null);
+                    showLicenseDialog = (Boolean) in.readValue(null);
+                    showVersion = (Boolean) in.readValue(null);
+
+                    aboutShowIcon = (Boolean) in.readValue(null);
+                    aboutAppName = in.readString();
+                    aboutShowVersion = (Boolean) in.readValue(null);
+                    aboutDescription = in.readString();
+                    aboutShowVersionName = (Boolean) in.readValue(null);
+                    aboutShowVersionCode = (Boolean) in.readValue(null);
+
+                    aboutAppSpecial1 = in.readString();
+                    aboutAppSpecial1Description = in.readString();
+                    aboutAppSpecial2 = in.readString();
+                    aboutAppSpecial2Description = in.readString();
+                    aboutAppSpecial3 = in.readString();
+                    aboutAppSpecial3Description = in.readString();
+
+                    activityTheme = in.readInt();
+                    activityTitle = in.readString();
+                    activityColor = in.readParcelable(null);
+
+                    libraryModification = in.readHashMap(null);
+                } catch (Exception ex) {
+                }
+            }
         }
 
         /**
@@ -628,6 +722,7 @@ public class Libs {
          * @param fields R.string.class.getFields()
          * @return this
          */
+
         public Builder withFields(Field[] fields) {
             return withFields(Libs.toStringArray(fields));
         }
@@ -822,7 +917,7 @@ public class Libs {
          * @return this
          */
         public Builder withAboutSpecial2(String aboutAppSpecial2) {
-            this.aboutAppSpecial1 = aboutAppSpecial1;
+            this.aboutAppSpecial2 = aboutAppSpecial2;
             return this;
         }
 
@@ -950,7 +1045,7 @@ public class Libs {
             ArrayList<Library> libraries = libs.prepareLibraries(internalLibraries, excludeLibraries, autoDetect, sort);
 
             //prepare adapter
-            LibsRecyclerViewAdapter adapter = new LibsRecyclerViewAdapter(context, showLicense, showLicenseDialog, showVersion);
+            LibsRecyclerViewAdapter adapter = new LibsRecyclerViewAdapter(context, this);
             adapter.addLibs(libraries);
             return adapter;
         }
@@ -965,59 +1060,7 @@ public class Libs {
             preCheck();
 
             Intent i = new Intent(ctx, LibsActivity.class);
-            i.putExtra(Libs.BUNDLE_FIELDS, this.fields);
-            i.putExtra(Libs.BUNDLE_LIBS, this.internalLibraries);
-            i.putExtra(Libs.BUNDLE_EXCLUDE_LIBS, this.excludeLibraries);
-
-            i.putExtra(Libs.BUNDLE_AUTODETECT, this.autoDetect);
-            i.putExtra(Libs.BUNDLE_SORT, this.sort);
-            i.putExtra(Libs.BUNDLE_ANIMATE, this.animate);
-
-            i.putExtra(Libs.BUNDLE_LICENSE, this.showLicense);
-            i.putExtra(Libs.BUNDLE_LICENSE_DIALOG, this.showLicenseDialog);
-            i.putExtra(Libs.BUNDLE_VERSION, this.showVersion);
-
-            if (this.libraryModification != null) {
-                i.putExtra(Libs.BUNDLE_LIBS_MODIFICATION, this.libraryModification);
-            }
-
-            if (this.aboutShowIcon != null) {
-                i.putExtra(Libs.BUNDLE_APP_ABOUT_ICON, this.aboutShowIcon);
-            }
-            if (this.aboutAppName != null) {
-                i.putExtra(Libs.BUNDLE_APP_ABOUT_NAME, this.aboutAppName);
-            }
-            if (this.aboutShowVersion != null) {
-                i.putExtra(Libs.BUNDLE_APP_ABOUT_VERSION, this.aboutShowVersion);
-            }
-            if (this.aboutShowVersionName != null) {
-                i.putExtra(Libs.BUNDLE_APP_ABOUT_VERSION_NAME, this.aboutShowVersionName);
-            }
-            if (this.aboutShowVersionCode != null) {
-                i.putExtra(Libs.BUNDLE_APP_ABOUT_VERSION_CODE, this.aboutShowVersionCode);
-            }
-            if (this.aboutDescription != null) {
-                i.putExtra(Libs.BUNDLE_APP_ABOUT_DESCRIPTION, this.aboutDescription);
-            }
-            if (this.aboutAppSpecial1 != null) {
-                i.putExtra(Libs.BUNDLE_APP_ABOUT_SPECIAL1, this.aboutAppSpecial1);
-            }
-            if (this.aboutAppSpecial1Description != null) {
-                i.putExtra(Libs.BUNDLE_APP_ABOUT_SPECIAL1_DESCRIPTION, this.aboutAppSpecial1Description);
-            }
-            if (this.aboutAppSpecial2 != null) {
-                i.putExtra(Libs.BUNDLE_APP_ABOUT_SPECIAL2, this.aboutAppSpecial2);
-            }
-            if (this.aboutAppSpecial2Description != null) {
-                i.putExtra(Libs.BUNDLE_APP_ABOUT_SPECIAL2_DESCRIPTION, this.aboutAppSpecial2Description);
-            }
-            if (this.aboutAppSpecial3 != null) {
-                i.putExtra(Libs.BUNDLE_APP_ABOUT_SPECIAL3, this.aboutAppSpecial3);
-            }
-            if (this.aboutAppSpecial3Description != null) {
-                i.putExtra(Libs.BUNDLE_APP_ABOUT_SPECIAL3_DESCRIPTION, this.aboutAppSpecial3Description);
-            }
-
+            i.putExtra("data", this);
             i.putExtra(Libs.BUNDLE_THEME, this.activityTheme);
             if (this.activityTitle != null) {
                 i.putExtra(Libs.BUNDLE_TITLE, this.activityTitle);
@@ -1044,70 +1087,6 @@ public class Libs {
             start(ctx);
         }
 
-        /**
-         * bundle() method to build and create the bundle with the set params
-         *
-         * @return the bundle to create the fragment
-         */
-        public Bundle bundle() {
-            preCheck();
-
-            Bundle bundle = new Bundle();
-            bundle.putStringArray(Libs.BUNDLE_FIELDS, this.fields);
-            bundle.putStringArray(Libs.BUNDLE_LIBS, this.internalLibraries);
-            bundle.putStringArray(Libs.BUNDLE_EXCLUDE_LIBS, this.excludeLibraries);
-
-            bundle.putBoolean(Libs.BUNDLE_AUTODETECT, this.autoDetect);
-            bundle.putBoolean(Libs.BUNDLE_SORT, this.sort);
-            bundle.putBoolean(Libs.BUNDLE_ANIMATE, this.animate);
-
-            bundle.putBoolean(Libs.BUNDLE_LICENSE, this.showLicense);
-            bundle.putBoolean(Libs.BUNDLE_LICENSE_DIALOG, this.showLicenseDialog);
-            bundle.putBoolean(Libs.BUNDLE_VERSION, this.showVersion);
-
-            if (this.libraryModification != null) {
-                bundle.putSerializable(Libs.BUNDLE_LIBS_MODIFICATION, this.libraryModification);
-            }
-
-            if (this.aboutShowIcon != null) {
-                bundle.putBoolean(Libs.BUNDLE_APP_ABOUT_ICON, this.aboutShowIcon);
-            }
-            if (this.aboutAppName != null) {
-                bundle.putString(Libs.BUNDLE_APP_ABOUT_NAME, this.aboutAppName);
-            }
-            if (this.aboutShowVersion != null) {
-                bundle.putBoolean(Libs.BUNDLE_APP_ABOUT_VERSION, this.aboutShowVersion);
-            }
-            if (this.aboutShowVersionName != null) {
-                bundle.putBoolean(Libs.BUNDLE_APP_ABOUT_VERSION_NAME, this.aboutShowVersionName);
-            }
-            if (this.aboutShowVersionCode != null) {
-                bundle.putBoolean(Libs.BUNDLE_APP_ABOUT_VERSION_CODE, this.aboutShowVersionCode);
-            }
-            if (this.aboutDescription != null) {
-                bundle.putString(Libs.BUNDLE_APP_ABOUT_DESCRIPTION, this.aboutDescription);
-            }
-            if (this.aboutAppSpecial1 != null) {
-                bundle.putString(Libs.BUNDLE_APP_ABOUT_SPECIAL1, this.aboutAppSpecial1);
-            }
-            if (this.aboutAppSpecial1Description != null) {
-                bundle.putString(Libs.BUNDLE_APP_ABOUT_SPECIAL1_DESCRIPTION, this.aboutAppSpecial1Description);
-            }
-            if (this.aboutAppSpecial2 != null) {
-                bundle.putString(Libs.BUNDLE_APP_ABOUT_SPECIAL2, this.aboutAppSpecial2);
-            }
-            if (this.aboutAppSpecial2Description != null) {
-                bundle.putString(Libs.BUNDLE_APP_ABOUT_SPECIAL2_DESCRIPTION, this.aboutAppSpecial2Description);
-            }
-            if (this.aboutAppSpecial3 != null) {
-                bundle.putString(Libs.BUNDLE_APP_ABOUT_SPECIAL3, this.aboutAppSpecial3);
-            }
-            if (this.aboutAppSpecial3Description != null) {
-                bundle.putString(Libs.BUNDLE_APP_ABOUT_SPECIAL3_DESCRIPTION, this.aboutAppSpecial3Description);
-            }
-
-            return bundle;
-        }
 
         /**
          * fragment() method to build and create the fragment with the set params
@@ -1115,7 +1094,8 @@ public class Libs {
          * @return the fragment to set in your application
          */
         public LibsFragment fragment() {
-            Bundle bundle = bundle();
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("data", this);
 
             LibsFragment fragment = new LibsFragment();
             fragment.setArguments(bundle);
