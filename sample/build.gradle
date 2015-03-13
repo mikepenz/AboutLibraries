@@ -12,9 +12,9 @@ android {
     defaultConfig {
         applicationId 'com.mikepenz.aboutlibraries.sample'
         minSdkVersion 11
-        versionCode 458
-        versionName '4.5.8'
         targetSdkVersion 22
+        versionCode 459
+        versionName '4.5.9'
 
         applicationVariants.all { variant ->
             variant.outputs.each { output ->

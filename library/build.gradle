@@ -7,7 +7,7 @@ android {
         minSdkVersion 7
         targetSdkVersion 22
         versionCode 459
-        versionName '4.5.9-SNAPSHOT'
+        versionName '4.5.9'
     }
 
     buildTypes {
