@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="define_sugarorm"></string>
+    <string name="define_int_sugarorm"></string>
     <!-- Author section -->
     <string name="library_sugarorm_author">Satya Narayan</string>
     <string name="library_sugarorm_authorWebsite">satya@satyanarayan.in</string>
