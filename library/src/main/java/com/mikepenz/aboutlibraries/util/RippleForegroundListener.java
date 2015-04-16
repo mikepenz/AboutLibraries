@@ -22,8 +22,10 @@ public class RippleForegroundListener implements View.OnTouchListener {
         float x = event.getX() + v.getLeft();
         float y = event.getY() + v.getTop();
 
-        // Simulate motion on the card view.
-        cardView.drawableHotspotChanged(x, y);
+        if (android.os.Build.VERSION.SDK_INT >= 21) {
+            // Simulate motion on the card view.
+            cardView.drawableHotspotChanged(x, y);
+        }
 
         // Simulate pressed state on the card view.
         switch (event.getActionMasked()) {
