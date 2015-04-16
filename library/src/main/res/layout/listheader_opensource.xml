@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="12dp"
+    android:padding="8dp"
     android:orientation="vertical">
 
     <ImageView
@@ -39,7 +39,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/aboutSpecialContainer"
         android:orientation="horizontal"
-        android:layout_margin="6dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
         android:gravity="center"
         style="?android:buttonBarStyle">
         <Button
@@ -49,9 +50,8 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textColor="@color/about_libraries_special_button_openSource"
-            tools:text="Special 1"
-            style="?android:buttonBarButtonStyle"/>
+            android:lines="1"
+            tools:text="Special 1"/>
         <Button
             android:id="@+id/aboutSpecial2"
             android:textSize="@dimen/textSizeSmall_openSource"
@@ -59,9 +59,8 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textColor="@color/about_libraries_special_button_openSource"
-            tools:text="Special 2"
-            style="?android:buttonBarButtonStyle"/>
+            android:lines="1"
+            tools:text="Special 2"/>
         <Button
             android:id="@+id/aboutSpecial3"
             android:textSize="@dimen/textSizeSmall_openSource"
@@ -69,9 +68,8 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textColor="@color/about_libraries_special_button_openSource"
-            tools:text="Special 3"
-            style="?android:buttonBarButtonStyle"/>
+            android:lines="1"
+            tools:text="Special 3"/>
     </LinearLayout>
 
     <View

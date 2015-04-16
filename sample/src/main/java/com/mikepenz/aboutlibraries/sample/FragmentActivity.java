@@ -31,7 +31,6 @@ public class FragmentActivity extends ActionBarActivity {
 
         new Drawer(this)
                 .withToolbar(toolbar)
-                .withTranslucentStatusBar(false)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName("Home"),
                         new PrimaryDrawerItem().withName(R.string.action_manifestactivity).withIdentifier(R.id.action_manifestactivity).withCheckable(false),
