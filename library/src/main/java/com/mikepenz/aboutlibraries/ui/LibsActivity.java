@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MenuItem;
+import android.view.Window;
 
 import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.aboutlibraries.R;
@@ -20,6 +22,8 @@ public class LibsActivity extends ActionBarActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
+
         //set the theme
         boolean customTheme = false;
         Bundle bundle = getIntent().getExtras();
@@ -31,7 +35,7 @@ public class LibsActivity extends ActionBarActivity {
             }
         }
         if (!customTheme) {
-            setTheme(R.style.Theme_AppCompat);
+            setTheme(R.style.Theme_AppCompat_NoActionBar);
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_opensource);
@@ -41,6 +45,13 @@ public class LibsActivity extends ActionBarActivity {
         }
         LibsFragment fragment = new LibsFragment();
         fragment.setArguments(bundle);
+
+
+        // Handle Toolbar
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        // Support ActionBar :D
         ActionBar ab = getSupportActionBar();
         if (ab != null) {
             // Set StatusBar Color by Code

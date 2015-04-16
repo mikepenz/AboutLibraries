@@ -5,7 +5,18 @@
                 android:background="@color/theme_window_background"
                 tools:context=".MainActivity">
 
-    <EditText android:layout_width="match_parent" android:layout_height="48dp" android:id="@+id/export"/>
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"/>
+
+    <EditText
+        android:layout_below="@id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:id="@+id/export"/>
 
     <com.fima.cardsui.views.CardUI
         android:layout_below="@id/export"
