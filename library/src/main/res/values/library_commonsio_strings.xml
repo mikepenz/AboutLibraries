@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_commonsio"></string>
+    <!-- Author section -->
+    <string name="library_commonsio_author">The Apache Software Foundation</string>
+    <string name="library_commonsio_authorWebsite">http://apache.org</string>
+    <!-- Library section -->
+    <string name="library_commonsio_libraryName">Apache Commons IO</string>
+    <string name="library_commonsio_libraryDescription">Commons IO is a library of utilities to assist with developing IO functionality.</string>
+    <string name="library_commonsio_libraryWebsite">http://commons.apache.org/proper/commons-io/</string>
+    <string name="library_commonsio_libraryVersion">2.4</string>
+    <!-- OpenSource section -->
+    <string name="library_commonsio_isOpenSource">true</string>
+    <string name="library_commonsio_repositoryLink">http://svn.apache.org/viewvc/commons/proper/io/trunk</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_commonsio_classPath">org.apache.commons.io</string>
+    <!-- License section -->
+    <string name="library_commonsio_licenseId">apache_2_0</string>
+    <!-- Custom variables section -->
+</resources>

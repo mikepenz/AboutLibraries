@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_Otto"></string>
+    <string name="library_Otto_author">Square</string>
+    <string name="library_Otto_authorWebsite">https://square.github.io</string>
+    <string name="library_Otto_libraryName">Otto</string>
+    <string name="library_Otto_libraryDescription">Otto is an enhanced event bus with emphasis on Android support.</string>
+    <string name="library_Otto_libraryVersion">1.3.6</string>
+    <string name="library_Otto_libraryWebsite">https://square.github.io/otto/</string>
+    <string name="library_Otto_licenseId">apache_2_0</string>
+    <string name="library_Otto_isOpenSource">true</string>
+    <string name="library_Otto_repositoryLink">https://github.com/square/otto</string>
+</resources>
