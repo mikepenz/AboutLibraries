@@ -40,37 +40,38 @@
         android:id="@+id/aboutSpecialContainer"
         android:orientation="horizontal"
         android:layout_margin="6dp"
-        android:gravity="center">
+        android:gravity="center"
+        style="?android:buttonBarStyle">
         <Button
             android:id="@+id/aboutSpecial1"
             android:textSize="@dimen/textSizeSmall_openSource"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="32dp"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:textColor="@color/about_libraries_special_button_openSource"
             tools:text="Special 1"
-            android:background="?selectableItemBackgroundBorderless"/>
+            style="?android:buttonBarButtonStyle"/>
         <Button
             android:id="@+id/aboutSpecial2"
             android:textSize="@dimen/textSizeSmall_openSource"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="32dp"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:textColor="@color/about_libraries_special_button_openSource"
             tools:text="Special 2"
-            android:background="?selectableItemBackgroundBorderless"/>
+            style="?android:buttonBarButtonStyle"/>
         <Button
             android:id="@+id/aboutSpecial3"
             android:textSize="@dimen/textSizeSmall_openSource"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="32dp"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:textColor="@color/about_libraries_special_button_openSource"
             tools:text="Special 3"
-            android:background="?selectableItemBackgroundBorderless"/>
+            style="?android:buttonBarButtonStyle"/>
     </LinearLayout>
 
     <View
