@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.TextUtils;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import com.mikepenz.aboutlibraries.R;
 import com.mikepenz.aboutlibraries.entity.Library;
 import com.mikepenz.aboutlibraries.util.MovementCheck;
+import com.mikepenz.aboutlibraries.util.RippleForegroundListener;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -176,6 +178,9 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
             final Library library = getItem(position);
 
+            RippleForegroundListener rippleForegroundListener = new RippleForegroundListener();
+            rippleForegroundListener.setCardView((CardView) holder.itemView);
+
             //Set texts
             holder.libraryName.setText(library.getLibraryName());
             holder.libraryCreator.setText(library.getAuthor());
@@ -205,8 +210,10 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 }
             }
 
+
             //Define onClickListener
             if (!TextUtils.isEmpty(library.getAuthorWebsite())) {
+                holder.libraryCreator.setOnTouchListener(rippleForegroundListener);
                 holder.libraryCreator.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -218,10 +225,12 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                     }
                 });
             } else {
+                holder.libraryCreator.setOnTouchListener(null);
                 holder.libraryCreator.setOnClickListener(null);
             }
 
             if (!TextUtils.isEmpty(library.getLibraryWebsite())) {
+                holder.libraryDescription.setOnTouchListener(rippleForegroundListener);
                 holder.libraryDescription.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -233,10 +242,12 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                     }
                 });
             } else {
+                holder.libraryDescription.setOnTouchListener(null);
                 holder.libraryDescription.setOnClickListener(null);
             }
 
             if (library.getLicense() != null && !TextUtils.isEmpty((library.getLicense().getLicenseWebsite()))) {
+                holder.libraryBottomContainer.setOnTouchListener(rippleForegroundListener);
                 holder.libraryBottomContainer.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -254,6 +265,7 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                     }
                 });
             } else {
+                holder.libraryBottomContainer.setOnTouchListener(null);
                 holder.libraryBottomContainer.setOnClickListener(null);
             }
         }

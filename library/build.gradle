@@ -1,10 +1,10 @@
 apply plugin: 'com.android.library'
 android {
     compileSdkVersion 22
-    buildToolsVersion '22'
+    buildToolsVersion '22.0.1'
 
     defaultConfig {
-        minSdkVersion 7
+        minSdkVersion 11
         targetSdkVersion 22
         versionCode 460
         versionName '4.6.0-SNAPSHOT'

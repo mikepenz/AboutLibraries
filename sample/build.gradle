@@ -55,4 +55,8 @@ android {
 dependencies {
     compile 'com.fima.cardsui:library:1.+@aar'
     compile project(':library')
+
+    compile('com.mikepenz.materialdrawer:library:2.7.9@aar') {
+        transitive = true
+    }
 }

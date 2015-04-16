@@ -10,6 +10,8 @@ import android.view.MenuItem;
 
 import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.aboutlibraries.ui.LibsFragment;
+import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 
 /**
  * Created by mikepenz on 04.06.14.
@@ -21,6 +23,14 @@ public class FragmentActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_opensource);
+
+        new Drawer(this)
+                .withTranslucentStatusBar(false)
+                .addDrawerItems(
+                        new PrimaryDrawerItem().withName(R.string.action_manifestactivity)
+                )
+                .build();
+
 
         /*
         Bundle bundle = new Bundle();
@@ -85,7 +95,7 @@ public class FragmentActivity extends ActionBarActivity {
                     .withLicenseShown(true)
                     .withVersionShown(true)
                     .withActivityTitle("Open Source")
-                    .withActivityTheme(R.style.AppTheme)
+                    .withActivityTheme(R.style.MaterialDrawerTheme_Light_ActionBar)
                     .start(this);
 
             /*
