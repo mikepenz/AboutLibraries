@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.aboutlibraries.R;
 import com.mikepenz.aboutlibraries.entity.Library;
 import com.mikepenz.aboutlibraries.util.MovementCheck;
@@ -32,33 +33,17 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     private List<Library> libs = new LinkedList<Library>();
 
-    private boolean showLicense = false;
-    private boolean showLicenseDialog = true;
-    private boolean showVersion = false;
-
     private boolean header = false;
-    private String aboutAppName;
-    private String aboutSpecial1;
-    private String aboutSpecial1Description;
-    private String aboutSpecial2;
-    private String aboutSpecial2Description;
-    private String aboutSpecial3;
-    private String aboutSpecial3Description;
-    private Boolean aboutShowVersion;
-    private Boolean aboutShowVersionName;
-    private Boolean aboutShowVersionCode;
+
+    private Libs.Builder libsBuilder = null;
     private Integer aboutVersionCode;
     private String aboutVersionName;
-    private String aboutDescription;
-    private boolean aboutShowIcon;
     private Drawable aboutIcon;
 
-    public LibsRecyclerViewAdapter(Context ctx, boolean showLicense, boolean showLicenseDialog, boolean showVersion) {
+    public LibsRecyclerViewAdapter(Context ctx, Libs.Builder libsBuilder) {
         this.ctx = ctx;
 
-        this.showLicense = showLicense;
-        this.showLicenseDialog = showLicenseDialog;
-        this.showVersion = showVersion;
+        this.libsBuilder = libsBuilder;
     }
 
     @Override
@@ -78,15 +63,15 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             HeaderViewHolder holder = (HeaderViewHolder) viewHolder;
 
             //Set the Icon or hide it
-            if (aboutShowIcon && aboutIcon != null) {
+            if (libsBuilder.aboutShowIcon && aboutIcon != null) {
                 holder.aboutIcon.setImageDrawable(aboutIcon);
             } else {
                 holder.aboutIcon.setVisibility(View.GONE);
             }
 
             //Set the description or hide it
-            if (!TextUtils.isEmpty(aboutAppName)) {
-                holder.aboutAppName.setText(aboutAppName);
+            if (!TextUtils.isEmpty(libsBuilder.aboutAppName)) {
+                holder.aboutAppName.setText(libsBuilder.aboutAppName);
             } else {
                 holder.aboutAppName.setVisibility(View.GONE);
             }
@@ -98,48 +83,48 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             holder.aboutSpecial3.setVisibility(View.GONE);
 
             // set the values for the special fields
-            if (!TextUtils.isEmpty(aboutSpecial1) && !TextUtils.isEmpty(aboutSpecial1Description)) {
-                holder.aboutSpecial1.setText(aboutSpecial1);
+            if (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial1) && !TextUtils.isEmpty(libsBuilder.aboutAppSpecial1Description)) {
+                holder.aboutSpecial1.setText(libsBuilder.aboutAppSpecial1);
                 holder.aboutSpecial1.setVisibility(View.VISIBLE);
                 holder.aboutSpecial1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         try {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
-                            builder.setMessage(Html.fromHtml(aboutSpecial1Description));
-                            builder.create().show();
+                            AlertDialog.Builder alert = new AlertDialog.Builder(ctx);
+                            alert.setMessage(Html.fromHtml(libsBuilder.aboutAppSpecial1Description));
+                            alert.create().show();
                         } catch (Exception ex) {
                         }
                     }
                 });
                 holder.aboutSpecialContainer.setVisibility(View.VISIBLE);
             }
-            if (!TextUtils.isEmpty(aboutSpecial2) && !TextUtils.isEmpty(aboutSpecial2Description)) {
-                holder.aboutSpecial2.setText(aboutSpecial2);
+            if (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial2) && !TextUtils.isEmpty(libsBuilder.aboutAppSpecial2Description)) {
+                holder.aboutSpecial2.setText(libsBuilder.aboutAppSpecial2);
                 holder.aboutSpecial2.setVisibility(View.VISIBLE);
                 holder.aboutSpecial2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         try {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
-                            builder.setMessage(Html.fromHtml(aboutSpecial2Description));
-                            builder.create().show();
+                            AlertDialog.Builder alert = new AlertDialog.Builder(ctx);
+                            alert.setMessage(Html.fromHtml(libsBuilder.aboutAppSpecial2Description));
+                            alert.create().show();
                         } catch (Exception ex) {
                         }
                     }
                 });
                 holder.aboutSpecialContainer.setVisibility(View.VISIBLE);
             }
-            if (!TextUtils.isEmpty(aboutSpecial3) && !TextUtils.isEmpty(aboutSpecial3Description)) {
-                holder.aboutSpecial3.setText(aboutSpecial3);
+            if (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial3) && !TextUtils.isEmpty(libsBuilder.aboutAppSpecial3Description)) {
+                holder.aboutSpecial3.setText(libsBuilder.aboutAppSpecial3);
                 holder.aboutSpecial3.setVisibility(View.VISIBLE);
                 holder.aboutSpecial3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         try {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
-                            builder.setMessage(Html.fromHtml(aboutSpecial3Description));
-                            builder.create().show();
+                            AlertDialog.Builder alert = new AlertDialog.Builder(ctx);
+                            alert.setMessage(Html.fromHtml(libsBuilder.aboutAppSpecial3Description));
+                            alert.create().show();
                         } catch (Exception ex) {
                         }
                     }
@@ -149,12 +134,12 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
 
             //set the Version or hide it
-            if (aboutShowVersion != null && aboutShowVersion) {
+            if (libsBuilder.aboutShowVersion != null && libsBuilder.aboutShowVersion) {
                 holder.aboutVersion.setText(ctx.getString(R.string.version) + " " + aboutVersionName + " (" + aboutVersionCode + ")");
             } else {
-                if (aboutShowVersionName != null && aboutShowVersionName) {
+                if (libsBuilder.aboutShowVersionName != null && libsBuilder.aboutShowVersionName) {
                     holder.aboutVersion.setText(ctx.getString(R.string.version) + " " + aboutVersionName);
-                } else if (aboutShowVersionCode != null && aboutShowVersionCode) {
+                } else if (libsBuilder.aboutShowVersionCode != null && libsBuilder.aboutShowVersionCode) {
                     holder.aboutVersion.setText(ctx.getString(R.string.version) + " " + aboutVersionCode);
                 } else {
                     holder.aboutVersion.setVisibility(View.GONE);
@@ -162,15 +147,15 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             }
 
             //Set the description or hide it
-            if (!TextUtils.isEmpty(aboutDescription)) {
-                holder.aboutAppDescription.setText(Html.fromHtml(aboutDescription));
+            if (!TextUtils.isEmpty(libsBuilder.aboutDescription)) {
+                holder.aboutAppDescription.setText(Html.fromHtml(libsBuilder.aboutDescription));
                 holder.aboutAppDescription.setMovementMethod(MovementCheck.getInstance());
             } else {
                 holder.aboutAppDescription.setVisibility(View.GONE);
             }
 
             //if there is no description or no icon and version number hide the divider
-            if (!aboutShowIcon && !aboutShowVersion || TextUtils.isEmpty(aboutDescription)) {
+            if (!libsBuilder.aboutShowIcon && !libsBuilder.aboutShowVersion || TextUtils.isEmpty(libsBuilder.aboutDescription)) {
                 holder.aboutDivider.setVisibility(View.GONE);
             }
         } else if (viewHolder instanceof ViewHolder) {
@@ -191,19 +176,19 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             }
 
             //Set License or Version Text
-            if (TextUtils.isEmpty(library.getLibraryVersion()) && library.getLicense() != null && TextUtils.isEmpty(library.getLicense().getLicenseName()) || (!showVersion && !showLicense)) {
+            if (TextUtils.isEmpty(library.getLibraryVersion()) && library.getLicense() != null && TextUtils.isEmpty(library.getLicense().getLicenseName()) || (!libsBuilder.showVersion && !libsBuilder.showLicense)) {
                 holder.libraryBottomDivider.setVisibility(View.GONE);
                 holder.libraryBottomContainer.setVisibility(View.GONE);
             } else {
                 holder.libraryBottomDivider.setVisibility(View.VISIBLE);
                 holder.libraryBottomContainer.setVisibility(View.VISIBLE);
 
-                if (!TextUtils.isEmpty(library.getLibraryVersion()) && showVersion) {
+                if (!TextUtils.isEmpty(library.getLibraryVersion()) && libsBuilder.showVersion) {
                     holder.libraryVersion.setText(library.getLibraryVersion());
                 } else {
                     holder.libraryVersion.setText("");
                 }
-                if (library.getLicense() != null && !TextUtils.isEmpty(library.getLicense().getLicenseName()) && showLicense) {
+                if (library.getLicense() != null && !TextUtils.isEmpty(library.getLicense().getLicenseName()) && libsBuilder.showLicense) {
                     holder.libraryLicense.setText(library.getLicense().getLicenseName());
                 } else {
                     holder.libraryLicense.setText("");
@@ -252,7 +237,7 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                     @Override
                     public void onClick(View view) {
                         try {
-                            if (showLicenseDialog && !TextUtils.isEmpty(library.getLicense().getLicenseDescription())) {
+                            if (libsBuilder.showLicenseDialog && !TextUtils.isEmpty(library.getLicense().getLicenseDescription())) {
                                 AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
                                 builder.setMessage(Html.fromHtml(library.getLicense().getLicenseDescription()));
                                 builder.create().show();
@@ -303,24 +288,12 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         this.libs.addAll(libs);
     }
 
-    public void setHeader(String aboutAppName, String aboutDescription, String aboutSpecial1, String aboutSpecial1Description, String aboutSpecial2, String aboutSpecial2Description, String aboutSpecial3, String aboutSpecial3Description, String aboutVersionName, Integer aboutVersionCode, Boolean aboutShowVersion, Boolean aboutShowVersionName, Boolean aboutShowVersionCode, Drawable aboutIcon, boolean aboutShowIcon) {
+    public void setHeader(String aboutVersionName, Integer aboutVersionCode, Drawable aboutIcon) {
         this.header = true;
         this.libs.add(0, null);
-        this.aboutAppName = aboutAppName;
-        this.aboutDescription = aboutDescription;
-        this.aboutSpecial1 = aboutSpecial1;
-        this.aboutSpecial1Description = aboutSpecial1Description;
-        this.aboutSpecial2 = aboutSpecial2;
-        this.aboutSpecial2Description = aboutSpecial2Description;
-        this.aboutSpecial3 = aboutSpecial3;
-        this.aboutSpecial3Description = aboutSpecial3Description;
         this.aboutVersionName = aboutVersionName;
         this.aboutVersionCode = aboutVersionCode;
-        this.aboutShowVersion = aboutShowVersion;
-        this.aboutShowVersionName = aboutShowVersionName;
-        this.aboutShowVersionCode = aboutShowVersionCode;
         this.aboutIcon = aboutIcon;
-        this.aboutShowIcon = aboutShowIcon;
         this.notifyItemInserted(0);
     }
 

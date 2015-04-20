@@ -26,7 +26,6 @@ import com.mikepenz.aboutlibraries.ui.adapter.LibsRecyclerViewAdapter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 
 /**
  * Created by mikepenz on 04.06.14.
@@ -35,30 +34,9 @@ public class LibsFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private LibsRecyclerViewAdapter mAdapter;
 
+    Libs.Builder builder = null;
+
     private ArrayList<Library> libraries;
-
-    private boolean autoDetect = true;
-    private boolean sort = true;
-    private boolean animate = true;
-
-    private boolean showLicense = false;
-    private boolean showLicenseDialog = true;
-    private boolean showVersion = false;
-
-    private String aboutAppName = null;
-    private String aboutSpecial1 = null;
-    private String aboutSpecial1Description = null;
-    private String aboutSpecial2 = null;
-    private String aboutSpecial2Description = null;
-    private String aboutSpecial3 = null;
-    private String aboutSpecial3Description = null;
-    private Boolean aboutShowIcon = null;
-    private Boolean aboutShowVersion = null;
-    private Boolean aboutShowVersionName = null;
-    private Boolean aboutShowVersionCode = null;
-    private String aboutDescription = null;
-
-    private HashMap<String, HashMap<String, String>> libraryModification;
 
     private Comparator<Library> comparator;
 
@@ -79,60 +57,40 @@ public class LibsFragment extends Fragment {
 
         Libs libs;
 
-        String[] fields = null;
-        String[] internalLibraries = null;
-        String[] excludeLibraries = null;
-
         //read and get our arguments
         Bundle bundle = getArguments();
         if (bundle != null) {
-            fields = bundle.getStringArray(Libs.BUNDLE_FIELDS);
-            internalLibraries = bundle.getStringArray(Libs.BUNDLE_LIBS);
-            excludeLibraries = bundle.getStringArray(Libs.BUNDLE_EXCLUDE_LIBS);
-
-            autoDetect = bundle.getBoolean(Libs.BUNDLE_AUTODETECT, true);
-            sort = bundle.getBoolean(Libs.BUNDLE_SORT, true);
-            animate = bundle.getBoolean(Libs.BUNDLE_ANIMATE, true);
-
-            showLicense = bundle.getBoolean(Libs.BUNDLE_LICENSE, false);
-            showLicenseDialog = bundle.getBoolean(Libs.BUNDLE_LICENSE_DIALOG, true);
-            showVersion = bundle.getBoolean(Libs.BUNDLE_VERSION, false);
-
-            try {
-                libraryModification = (HashMap<String, HashMap<String, String>>) bundle.getSerializable(Libs.BUNDLE_LIBS_MODIFICATION);
-            } catch (Exception ex) {
-
-            }
+            builder = (Libs.Builder) bundle.getSerializable("data");
         }
 
         //init the Libs instance with fields if they were set
-        if (fields == null) {
+        if (builder.fields == null) {
             libs = new Libs(getActivity());
         } else {
-            libs = new Libs(getActivity(), fields);
+            libs = new Libs(getActivity(), builder.fields);
         }
 
         //The last step is to look if we would love to show some about text for this project
-        aboutShowIcon = extractBooleanBundleOrResource(libs, bundle, Libs.BUNDLE_APP_ABOUT_ICON, "aboutLibraries_description_showIcon");
-        aboutShowVersion = extractBooleanBundleOrResource(libs, bundle, Libs.BUNDLE_APP_ABOUT_VERSION, "aboutLibraries_description_showVersion");
-        aboutShowVersionName = extractBooleanBundleOrResource(libs, bundle, Libs.BUNDLE_APP_ABOUT_VERSION_NAME, "aboutLibraries_description_showVersionName");
-        aboutShowVersionCode = extractBooleanBundleOrResource(libs, bundle, Libs.BUNDLE_APP_ABOUT_VERSION_CODE, "aboutLibraries_description_showVersionCode");
+        builder.aboutShowIcon = extractBooleanBundleOrResource(libs, builder.aboutShowIcon, "aboutLibraries_description_showIcon");
+        builder.aboutShowVersion = extractBooleanBundleOrResource(libs, builder.aboutShowVersion, "aboutLibraries_description_showVersion");
+        builder.aboutShowVersionName = extractBooleanBundleOrResource(libs, builder.aboutShowVersionName, "aboutLibraries_description_showVersionName");
+        builder.aboutShowVersionCode = extractBooleanBundleOrResource(libs, builder.aboutShowVersionCode, "aboutLibraries_description_showVersionCode");
 
-        aboutAppName = extractStringBundleOrResource(libs, bundle, Libs.BUNDLE_APP_ABOUT_NAME, "aboutLibraries_description_name");
-        aboutDescription = extractStringBundleOrResource(libs, bundle, Libs.BUNDLE_APP_ABOUT_DESCRIPTION, "aboutLibraries_description_text");
+        builder.aboutAppName = extractStringBundleOrResource(libs, builder.aboutAppName, "aboutLibraries_description_name");
+        builder.aboutDescription = extractStringBundleOrResource(libs, builder.aboutDescription, "aboutLibraries_description_text");
 
-        aboutSpecial1 = extractStringBundleOrResource(libs, bundle, Libs.BUNDLE_APP_ABOUT_SPECIAL1, "aboutLibraries_description_special1_name");
-        aboutSpecial1Description = extractStringBundleOrResource(libs, bundle, Libs.BUNDLE_APP_ABOUT_SPECIAL1_DESCRIPTION, "aboutLibraries_description_special1_text");
-        aboutSpecial2 = extractStringBundleOrResource(libs, bundle, Libs.BUNDLE_APP_ABOUT_SPECIAL2, "aboutLibraries_description_special2_name");
-        aboutSpecial2Description = extractStringBundleOrResource(libs, bundle, Libs.BUNDLE_APP_ABOUT_SPECIAL2_DESCRIPTION, "aboutLibraries_description_special2_text");
-        aboutSpecial3 = extractStringBundleOrResource(libs, bundle, Libs.BUNDLE_APP_ABOUT_SPECIAL3, "aboutLibraries_description_special3_name");
-        aboutSpecial3Description = extractStringBundleOrResource(libs, bundle, Libs.BUNDLE_APP_ABOUT_SPECIAL3_DESCRIPTION, "aboutLibraries_description_special3_text");
+        builder.aboutAppSpecial1 = extractStringBundleOrResource(libs, builder.aboutAppSpecial1, "aboutLibraries_description_special1_name");
+        builder.aboutAppSpecial1Description = extractStringBundleOrResource(libs, builder.aboutAppSpecial1Description, "aboutLibraries_description_special1_text");
+        builder.aboutAppSpecial2 = extractStringBundleOrResource(libs, builder.aboutAppSpecial2, "aboutLibraries_description_special2_name");
+        builder.aboutAppSpecial2Description = extractStringBundleOrResource(libs, builder.aboutAppSpecial2Description, "aboutLibraries_description_special2_text");
+        builder.aboutAppSpecial3 = extractStringBundleOrResource(libs, builder.aboutAppSpecial3, "aboutLibraries_description_special3_name");
+        builder.aboutAppSpecial3Description = extractStringBundleOrResource(libs, builder.aboutAppSpecial3Description, "aboutLibraries_description_special3_text");
 
         //apply modifications
-        libs.modifyLibraries(libraryModification);
+        libs.modifyLibraries(builder.libraryModification);
 
         //fetch the libraries and sort if a comparator was set
-        libraries = libs.prepareLibraries(internalLibraries, excludeLibraries, autoDetect, sort);
+        libraries = libs.prepareLibraries(builder.internalLibraries, builder.excludeLibraries, builder.autoDetect, builder.sort);
 
         if (comparator != null) {
             Collections.sort(libraries, comparator);
@@ -148,7 +106,7 @@ public class LibsFragment extends Fragment {
         mRecyclerView = (RecyclerView) view.findViewById(R.id.cardListView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(LibsFragment.this.getActivity()));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mAdapter = new LibsRecyclerViewAdapter(getActivity(), showLicense, showLicenseDialog, showVersion);
+        mAdapter = new LibsRecyclerViewAdapter(getActivity(), builder);
         mRecyclerView.setAdapter(mAdapter);
 
         generateAboutThisAppSection();
@@ -160,7 +118,7 @@ public class LibsFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         mAdapter.addLibs(libraries);
 
-        if (animate) {
+        if (builder.animate) {
             Animation fadeIn = AnimationUtils.loadAnimation(LibsFragment.this.getActivity(), android.R.anim.slide_in_left);
             fadeIn.setDuration(500);
             LayoutAnimationController layoutAnimationController = new LayoutAnimationController(fadeIn);
@@ -172,7 +130,7 @@ public class LibsFragment extends Fragment {
     }
 
     private void generateAboutThisAppSection() {
-        if (aboutShowIcon != null && (aboutShowVersion != null || aboutShowVersionName != null || aboutShowVersionCode)) {
+        if (builder.aboutShowIcon != null && (builder.aboutShowVersion != null || builder.aboutShowVersionName != null || builder.aboutShowVersionCode)) {
             //get the packageManager to load and read some values :D
             PackageManager pm = getActivity().getPackageManager();
             //get the packageName
@@ -188,7 +146,7 @@ public class LibsFragment extends Fragment {
 
             //Set the Icon or hide it
             Drawable icon = null;
-            if (aboutShowIcon && appInfo != null) {
+            if (builder.aboutShowIcon && appInfo != null) {
                 icon = appInfo.loadIcon(pm);
             }
 
@@ -201,7 +159,7 @@ public class LibsFragment extends Fragment {
             }
 
             //add this cool thing to the headerView of our listView
-            mAdapter.setHeader(aboutAppName, aboutDescription, aboutSpecial1, aboutSpecial1Description, aboutSpecial2, aboutSpecial2Description, aboutSpecial3, aboutSpecial3Description, versionName, versionCode, aboutShowVersion, aboutShowVersionName, aboutShowVersionCode, icon, aboutShowIcon);
+            mAdapter.setHeader(versionName, versionCode, icon);
         }
     }
 
@@ -209,15 +167,14 @@ public class LibsFragment extends Fragment {
      * Helper to extract a boolean from a bundle or resource
      *
      * @param libs
-     * @param bundle
-     * @param bundleKey
+     * @param value
      * @param resName
      * @return
      */
-    private Boolean extractBooleanBundleOrResource(Libs libs, Bundle bundle, String bundleKey, String resName) {
+    private Boolean extractBooleanBundleOrResource(Libs libs, Boolean value, String resName) {
         Boolean result = null;
-        if (bundle != null && bundle.containsKey(bundleKey)) {
-            result = bundle.getBoolean(bundleKey);
+        if (value != null) {
+            result = value;
         } else {
             String descriptionShowVersion = libs.getStringResourceByName(resName);
             if (!TextUtils.isEmpty(descriptionShowVersion)) {
@@ -234,15 +191,14 @@ public class LibsFragment extends Fragment {
      * Helper to extract a string from a bundle or resource
      *
      * @param libs
-     * @param bundle
-     * @param bundleKey
+     * @param value
      * @param resName
      * @return
      */
-    private String extractStringBundleOrResource(Libs libs, Bundle bundle, String bundleKey, String resName) {
+    private String extractStringBundleOrResource(Libs libs, String value, String resName) {
         String result = null;
-        if (bundle != null && bundle.containsKey(bundleKey)) {
-            result = bundle.getString(bundleKey);
+        if (value != null) {
+            result = value;
         } else {
             String descriptionShowVersion = libs.getStringResourceByName(resName);
             if (!TextUtils.isEmpty(descriptionShowVersion)) {

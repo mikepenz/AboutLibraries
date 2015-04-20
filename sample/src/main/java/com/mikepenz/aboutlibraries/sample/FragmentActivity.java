@@ -113,12 +113,13 @@ public class FragmentActivity extends ActionBarActivity {
         LibsFragment fragment = new Libs.Builder()
                 .withFields(R.string.class.getFields())
                 .withLibraries("crouton", "activeandroid", "actionbarsherlock", "showcaseview")
-                .withVersionShown(true)
-                .withLicenseShown(true)
+                .withVersionShown(false)
+                .withLicenseShown(false)
                 .withLibraryModification("aboutlibraries", Libs.LibraryFields.LIBRARY_NAME, "_AboutLibraries")
                 .fragment();
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+
     }
 }
