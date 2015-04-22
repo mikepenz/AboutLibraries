@@ -202,16 +202,20 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 holder.libraryCreator.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        try {
-                            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(library.getAuthorWebsite()));
-                            ctx.startActivity(browserIntent);
-                        } catch (Exception ex) {
-                        }
+                        openAuthorWebsite(library.getAuthorWebsite());
+                    }
+                });
+                holder.libraryCreator.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        openAuthorWebsite(library.getAuthorWebsite());
+                        return true;
                     }
                 });
             } else {
                 holder.libraryCreator.setOnTouchListener(null);
                 holder.libraryCreator.setOnClickListener(null);
+                holder.libraryCreator.setOnLongClickListener(null);
             }
 
             if (!TextUtils.isEmpty(library.getLibraryWebsite())) {
@@ -219,16 +223,20 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 holder.libraryDescription.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        try {
-                            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(library.getLibraryWebsite()));
-                            ctx.startActivity(browserIntent);
-                        } catch (Exception ex) {
-                        }
+                        openLibraryWebsite(library.getLibraryWebsite());
+                    }
+                });
+                holder.libraryDescription.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        openLibraryWebsite(library.getLibraryWebsite());
+                        return true;
                     }
                 });
             } else {
                 holder.libraryDescription.setOnTouchListener(null);
                 holder.libraryDescription.setOnClickListener(null);
+                holder.libraryDescription.setOnLongClickListener(null);
             }
 
             if (library.getLicense() != null && !TextUtils.isEmpty((library.getLicense().getLicenseWebsite()))) {
@@ -236,26 +244,54 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 holder.libraryBottomContainer.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        try {
-                            if (libsBuilder.showLicenseDialog && !TextUtils.isEmpty(library.getLicense().getLicenseDescription())) {
-                                AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
-                                builder.setMessage(Html.fromHtml(library.getLicense().getLicenseDescription()));
-                                builder.create().show();
-                            } else {
-                                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(library.getLicense().getLicenseWebsite()));
-                                ctx.startActivity(browserIntent);
-                            }
-                        } catch (Exception ex) {
-                        }
+                        openLicense(libsBuilder, library);
+                    }
+                });
+                holder.libraryBottomContainer.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        openLicense(libsBuilder, library);
+                        return true;
                     }
                 });
             } else {
                 holder.libraryBottomContainer.setOnTouchListener(null);
                 holder.libraryBottomContainer.setOnClickListener(null);
+                holder.libraryBottomContainer.setOnLongClickListener(null);
+
             }
         }
     }
 
+    private void openAuthorWebsite(String authorWebsite) {
+        try {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(authorWebsite));
+            ctx.startActivity(browserIntent);
+        } catch (Exception ex) {
+        }
+    }
+
+    private void openLibraryWebsite(String libraryWebsite) {
+        try {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(libraryWebsite));
+            ctx.startActivity(browserIntent);
+        } catch (Exception ex) {
+        }
+    }
+
+    private void openLicense(Libs.Builder libsBuilder, Library library) {
+        try {
+            if (libsBuilder.showLicenseDialog && !TextUtils.isEmpty(library.getLicense().getLicenseDescription())) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
+                builder.setMessage(Html.fromHtml(library.getLicense().getLicenseDescription()));
+                builder.create().show();
+            } else {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(library.getLicense().getLicenseWebsite()));
+                ctx.startActivity(browserIntent);
+            }
+        } catch (Exception ex) {
+        }
+    }
 
     @Override
     public int getItemViewType(int position) {
