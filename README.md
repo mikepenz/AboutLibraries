@@ -46,16 +46,23 @@ You can find anything you search for in the wiki. (If not open an issue)
 The AboutLibraries Library is pushed to [Maven Central](http://search.maven.org/#search|ga|1|g%3A%22com.mikepenz.aboutlibraries%22), so you just need to add the following dependency to your `build.gradle`. It seems it is also required to add the support dependencies to the application. If it works without, you should be fine too :).
 
 ```javascript
-compile('com.mikepenz.aboutlibraries:library:4.6.0@aar') {
+compile('com.mikepenz.aboutlibraries:library:4.6.5@aar') {
 	transitive = true
 }
 ```
 
 Further information and how to use it if you can't update to the newest v21 support libs can be found in the [wiki](https://github.com/mikepenz/AboutLibraries/wiki/HOWTO:-Include)
 
-
 ##Usage
 You can use this library in a few different ways. You can create your own activity, including a custom style and just use the information, or you can use the built-in Activity or Fragment and just pass the libs you would love to include.
+
+###Upgrade Notes
+#### < v4.6.5
+v4.6.5 now uses the latest com.android.support:appcompat version 22.1.0. Please update if you use an older version.
+
+#### < v4.6.0
+Starting with v4.6.0 the LibsActivity implements a Toolbar. You have to use a non actionBar theme, else you'll get a FC.
+
 ###Activity / Fragment
 ####Fragment
 ```java
