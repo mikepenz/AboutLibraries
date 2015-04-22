@@ -56,7 +56,7 @@ public class LibsActivity extends ActionBarActivity {
         if (ab != null) {
             // Set StatusBar Color by Code
             if (bundle != null && bundle.containsKey(Libs.BUNDLE_COLORS)) {
-                Colors colors = bundle.getParcelable(Libs.BUNDLE_COLORS);
+                Colors colors = (Colors) bundle.getSerializable(Libs.BUNDLE_COLORS);
                 if (colors != null) {
                     ab.setBackgroundDrawable(new ColorDrawable(colors.appBarColor));
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
