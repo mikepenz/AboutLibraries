@@ -100,7 +100,7 @@
 
 <p>The AboutLibraries Library is pushed to <a href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.mikepenz.aboutlibraries%22">Maven Central</a>, so you just need to add the following dependency to your <code>build.gradle</code>. It seems it is also required to add the support dependencies to the application. If it works without, you should be fine too :).</p>
 
-<div class="highlight highlight-javascript"><pre><span class="pl-c1">compile</span>(<span class="pl-s"><span class="pl-pds">'</span>com.mikepenz.aboutlibraries:library:4.6.0@aar<span class="pl-pds">'</span></span>) {
+<div class="highlight highlight-javascript"><pre><span class="pl-c1">compile</span>(<span class="pl-s"><span class="pl-pds">'</span>com.mikepenz.aboutlibraries:library:4.6.5@aar<span class="pl-pds">'</span></span>) {
     transitive <span class="pl-k">=</span> <span class="pl-c1">true</span>
 }</pre></div>
 
@@ -110,6 +110,19 @@
 <a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
 
 <p>You can use this library in a few different ways. You can create your own activity, including a custom style and just use the information, or you can use the built-in Activity or Fragment and just pass the libs you would love to include.</p>
+
+<h3>
+<a id="upgrade-notes" class="anchor" href="#upgrade-notes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Upgrade Notes</h3>
+
+<h4>
+<a id="-v465" class="anchor" href="#-v465" aria-hidden="true"><span class="octicon octicon-link"></span></a>&lt; v4.6.5</h4>
+
+<p>v4.6.5 now uses the latest com.android.support:appcompat version 22.1.0. Please update if you use an older version.</p>
+
+<h4>
+<a id="-v460" class="anchor" href="#-v460" aria-hidden="true"><span class="octicon octicon-link"></span></a>&lt; v4.6.0</h4>
+
+<p>Starting with v4.6.0 the LibsActivity implements a Toolbar. You have to use a non actionBar theme, else you'll get a FC.</p>
 
 <h3>
 <a id="activity--fragment" class="anchor" href="#activity--fragment" aria-hidden="true"><span class="octicon octicon-link"></span></a>Activity / Fragment</h3>
