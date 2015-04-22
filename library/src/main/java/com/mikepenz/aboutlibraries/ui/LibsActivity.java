@@ -5,7 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MenuItem;
@@ -18,7 +18,7 @@ import com.mikepenz.aboutlibraries.util.Colors;
 /**
  * Created by mikepenz on 04.06.14.
  */
-public class LibsActivity extends ActionBarActivity {
+public class LibsActivity extends AppCompatActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

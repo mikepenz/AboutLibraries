@@ -1,7 +1,7 @@
 package com.mikepenz.aboutlibraries.sample;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,7 +16,7 @@ import com.mikepenz.aboutlibraries.sample.cardsui.LibraryCard;
 import java.util.List;
 
 
-public class CustomActivity extends ActionBarActivity {
+public class CustomActivity extends AppCompatActivity {
 
     private CardUI mCardView;
     private Libs libs;
