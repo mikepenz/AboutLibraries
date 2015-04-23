@@ -14,7 +14,7 @@
     </string>
     <string name="aboutLibraries_description_special2_name">AGB</string>
     <string name="aboutLibraries_description_special2_text">
-        <![CDATA[This is a small sample which can be set in the about my app description file.<br /><br /><b>You can style this with html markup :D</b>]]>
+        <![CDATA[This is a small <i>sample</i> which can be set in the about my app description file.<br /><br /><b>You can style this with html markup :D</b>]]>
     </string>
     <string name="aboutLibraries_description_special3_name">Changelog</string>
     <string name="aboutLibraries_description_special3_text">
