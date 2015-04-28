@@ -50,8 +50,6 @@ public class LibsActivity extends AppCompatActivity {
             }
         }
 
-        setTheme(R.style.AboutLibrariesTheme);
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_opensource);
         String title = "";
