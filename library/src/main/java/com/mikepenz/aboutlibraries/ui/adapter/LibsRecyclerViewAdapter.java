@@ -146,7 +146,6 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
             //Set the description or hide it
             if (!TextUtils.isEmpty(libsBuilder.aboutDescription)) {
-                holder.aboutAppDescription.setTextColor(UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.about_libraries_text_openSource, R.color.about_libraries_text_openSource));
                 holder.aboutAppDescription.setText(Html.fromHtml(libsBuilder.aboutDescription));
                 holder.aboutAppDescription.setMovementMethod(MovementCheck.getInstance());
             } else {
@@ -262,6 +261,12 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         }
     }
 
+    /**
+     * helper method to open the author website
+     *
+     * @param ctx
+     * @param authorWebsite
+     */
     private void openAuthorWebsite(Context ctx, String authorWebsite) {
         try {
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(authorWebsite));
@@ -270,6 +275,12 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         }
     }
 
+    /**
+     * helper method to open the library website
+     *
+     * @param ctx
+     * @param libraryWebsite
+     */
     private void openLibraryWebsite(Context ctx, String libraryWebsite) {
         try {
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(libraryWebsite));
@@ -278,6 +289,13 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         }
     }
 
+    /**
+     * helper method to open the license dialog / or website
+     *
+     * @param ctx
+     * @param libsBuilder
+     * @param library
+     */
     private void openLicense(Context ctx, Libs.Builder libsBuilder, Library library) {
         try {
             if (libsBuilder.showLicenseDialog && !TextUtils.isEmpty(library.getLicense().getLicenseDescription())) {
@@ -358,16 +376,17 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             //get the about this app views
             aboutIcon = (ImageView) headerView.findViewById(R.id.aboutIcon);
             aboutAppName = (TextView) headerView.findViewById(R.id.aboutName);
-            aboutAppName.setText(UIUtils.getThemeColorFromAttrOrRes(headerView.getContext(), R.attr.about_libraries_title_openSource, R.color.about_libraries_title_openSource));
+            aboutAppName.setTextColor(UIUtils.getThemeColorFromAttrOrRes(headerView.getContext(), R.attr.about_libraries_title_openSource, R.color.about_libraries_title_openSource));
             aboutSpecialContainer = headerView.findViewById(R.id.aboutSpecialContainer);
             aboutSpecial1 = (Button) headerView.findViewById(R.id.aboutSpecial1);
             aboutSpecial2 = (Button) headerView.findViewById(R.id.aboutSpecial2);
             aboutSpecial3 = (Button) headerView.findViewById(R.id.aboutSpecial3);
             aboutVersion = (TextView) headerView.findViewById(R.id.aboutVersion);
-            aboutVersion.setText(UIUtils.getThemeColorFromAttrOrRes(headerView.getContext(), R.attr.about_libraries_text_openSource, R.color.about_libraries_text_openSource));
+            aboutVersion.setTextColor(UIUtils.getThemeColorFromAttrOrRes(headerView.getContext(), R.attr.about_libraries_text_openSource, R.color.about_libraries_text_openSource));
             aboutDivider = headerView.findViewById(R.id.aboutDivider);
             aboutDivider.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(headerView.getContext(), R.attr.about_libraries_dividerDark_openSource, R.color.about_libraries_dividerDark_openSource));
             aboutAppDescription = (TextView) headerView.findViewById(R.id.aboutDescription);
+            aboutAppDescription.setTextColor(UIUtils.getThemeColorFromAttrOrRes(headerView.getContext(), R.attr.about_libraries_text_openSource, R.color.about_libraries_text_openSource));
         }
     }
 

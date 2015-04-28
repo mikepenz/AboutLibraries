@@ -944,7 +944,7 @@ public class Libs {
             ArrayList<Library> libraries = libs.prepareLibraries(internalLibraries, excludeLibraries, autoDetect, sort);
 
             //prepare adapter
-            LibsRecyclerViewAdapter adapter = new LibsRecyclerViewAdapter(context, this);
+            LibsRecyclerViewAdapter adapter = new LibsRecyclerViewAdapter(this);
             adapter.addLibs(libraries);
             return adapter;
         }

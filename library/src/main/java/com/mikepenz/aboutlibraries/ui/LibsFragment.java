@@ -106,7 +106,7 @@ public class LibsFragment extends Fragment {
         mRecyclerView = (RecyclerView) view.findViewById(R.id.cardListView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(LibsFragment.this.getActivity()));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mAdapter = new LibsRecyclerViewAdapter(getActivity(), builder);
+        mAdapter = new LibsRecyclerViewAdapter(builder);
         mRecyclerView.setAdapter(mAdapter);
 
         generateAboutThisAppSection();
