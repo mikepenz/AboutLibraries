@@ -8,7 +8,6 @@
         android:clipToPadding="false"
         android:layout_height="match_parent"
         android:divider="@null"
-        android:listSelector="?about_libraries_window_background"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_horizontal_margin"

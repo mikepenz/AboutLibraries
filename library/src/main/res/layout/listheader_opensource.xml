@@ -21,7 +21,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="6dp"
         android:gravity="center"
-        android:textColor="?about_libraries_title_openSource"
         tools:text="About AppName"/>
 
     <TextView
@@ -31,7 +30,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:gravity="center"
-        android:textColor="?about_libraries_text_openSource"
         tools:text="About version"/>
 
     <LinearLayout
@@ -77,13 +75,12 @@
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:layout_marginTop="4dp"
-        android:background="?about_libraries_dividerDark_openSource"/>
+        />
 
     <TextView
         android:id="@+id/aboutDescription"
         android:textSize="@dimen/textSizeSmall_openSource"
         android:textStyle="normal"
-        android:textColor="?about_libraries_text_openSource"
         android:padding="8dp"
         android:gravity="center"
         android:layout_width="match_parent"

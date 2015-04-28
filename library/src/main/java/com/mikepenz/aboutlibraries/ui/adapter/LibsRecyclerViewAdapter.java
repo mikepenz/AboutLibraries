@@ -21,6 +21,7 @@ import com.mikepenz.aboutlibraries.R;
 import com.mikepenz.aboutlibraries.entity.Library;
 import com.mikepenz.aboutlibraries.util.MovementCheck;
 import com.mikepenz.aboutlibraries.util.RippleForegroundListener;
+import com.mikepenz.aboutlibraries.util.UIUtils;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -28,8 +29,6 @@ import java.util.List;
 public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_ITEM = 1;
-
-    private Context ctx;
 
     private List<Library> libs = new LinkedList<Library>();
 
@@ -40,9 +39,7 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     private String aboutVersionName;
     private Drawable aboutIcon;
 
-    public LibsRecyclerViewAdapter(Context ctx, Libs.Builder libsBuilder) {
-        this.ctx = ctx;
-
+    public LibsRecyclerViewAdapter(Libs.Builder libsBuilder) {
         this.libsBuilder = libsBuilder;
     }
 
@@ -59,6 +56,7 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder viewHolder, int position) {
+        final Context ctx = viewHolder.itemView.getContext();
         if (viewHolder instanceof HeaderViewHolder) {
             HeaderViewHolder holder = (HeaderViewHolder) viewHolder;
 
@@ -148,6 +146,7 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
             //Set the description or hide it
             if (!TextUtils.isEmpty(libsBuilder.aboutDescription)) {
+                holder.aboutAppDescription.setTextColor(UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.about_libraries_text_openSource, R.color.about_libraries_text_openSource));
                 holder.aboutAppDescription.setText(Html.fromHtml(libsBuilder.aboutDescription));
                 holder.aboutAppDescription.setMovementMethod(MovementCheck.getInstance());
             } else {
@@ -164,7 +163,7 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             final Library library = getItem(position);
 
             RippleForegroundListener rippleForegroundListener = new RippleForegroundListener();
-            rippleForegroundListener.setCardView((CardView) holder.itemView);
+            rippleForegroundListener.setCardView(holder.card);
 
             //Set texts
             holder.libraryName.setText(library.getLibraryName());
@@ -202,13 +201,13 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 holder.libraryCreator.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        openAuthorWebsite(library.getAuthorWebsite());
+                        openAuthorWebsite(ctx, library.getAuthorWebsite());
                     }
                 });
                 holder.libraryCreator.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
-                        openAuthorWebsite(library.getAuthorWebsite());
+                        openAuthorWebsite(ctx, library.getAuthorWebsite());
                         return true;
                     }
                 });
@@ -223,13 +222,13 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 holder.libraryDescription.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        openLibraryWebsite(library.getLibraryWebsite());
+                        openLibraryWebsite(ctx, library.getLibraryWebsite());
                     }
                 });
                 holder.libraryDescription.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
-                        openLibraryWebsite(library.getLibraryWebsite());
+                        openLibraryWebsite(ctx, library.getLibraryWebsite());
                         return true;
                     }
                 });
@@ -244,13 +243,13 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 holder.libraryBottomContainer.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        openLicense(libsBuilder, library);
+                        openLicense(ctx, libsBuilder, library);
                     }
                 });
                 holder.libraryBottomContainer.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
-                        openLicense(libsBuilder, library);
+                        openLicense(ctx, libsBuilder, library);
                         return true;
                     }
                 });
@@ -263,7 +262,7 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         }
     }
 
-    private void openAuthorWebsite(String authorWebsite) {
+    private void openAuthorWebsite(Context ctx, String authorWebsite) {
         try {
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(authorWebsite));
             ctx.startActivity(browserIntent);
@@ -271,7 +270,7 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         }
     }
 
-    private void openLibraryWebsite(String libraryWebsite) {
+    private void openLibraryWebsite(Context ctx, String libraryWebsite) {
         try {
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(libraryWebsite));
             ctx.startActivity(browserIntent);
@@ -279,7 +278,7 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         }
     }
 
-    private void openLicense(Libs.Builder libsBuilder, Library library) {
+    private void openLicense(Context ctx, Libs.Builder libsBuilder, Library library) {
         try {
             if (libsBuilder.showLicenseDialog && !TextUtils.isEmpty(library.getLicense().getLicenseDescription())) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
@@ -359,21 +358,25 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             //get the about this app views
             aboutIcon = (ImageView) headerView.findViewById(R.id.aboutIcon);
             aboutAppName = (TextView) headerView.findViewById(R.id.aboutName);
+            aboutAppName.setText(UIUtils.getThemeColorFromAttrOrRes(headerView.getContext(), R.attr.about_libraries_title_openSource, R.color.about_libraries_title_openSource));
             aboutSpecialContainer = headerView.findViewById(R.id.aboutSpecialContainer);
             aboutSpecial1 = (Button) headerView.findViewById(R.id.aboutSpecial1);
             aboutSpecial2 = (Button) headerView.findViewById(R.id.aboutSpecial2);
             aboutSpecial3 = (Button) headerView.findViewById(R.id.aboutSpecial3);
             aboutVersion = (TextView) headerView.findViewById(R.id.aboutVersion);
+            aboutVersion.setText(UIUtils.getThemeColorFromAttrOrRes(headerView.getContext(), R.attr.about_libraries_text_openSource, R.color.about_libraries_text_openSource));
             aboutDivider = headerView.findViewById(R.id.aboutDivider);
+            aboutDivider.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(headerView.getContext(), R.attr.about_libraries_dividerDark_openSource, R.color.about_libraries_dividerDark_openSource));
             aboutAppDescription = (TextView) headerView.findViewById(R.id.aboutDescription);
         }
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        View card;
+        CardView card;
 
         TextView libraryName;
         TextView libraryCreator;
+        View libraryDescriptionDivider;
         TextView libraryDescription;
 
         View libraryBottomDivider;
@@ -384,17 +387,27 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
         public ViewHolder(View itemView) {
             super(itemView);
-            card = itemView;
+            card = (CardView) itemView;
+            card.setCardBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(itemView.getContext(), R.attr.about_libraries_card, R.color.about_libraries_card));
 
             libraryName = (TextView) itemView.findViewById(R.id.libraryName);
+            libraryName.setTextColor(UIUtils.getThemeColorFromAttrOrRes(itemView.getContext(), R.attr.about_libraries_title_openSource, R.color.about_libraries_title_openSource));
             libraryCreator = (TextView) itemView.findViewById(R.id.libraryCreator);
+            libraryCreator.setTextColor(UIUtils.getThemeColorFromAttrOrRes(itemView.getContext(), R.attr.about_libraries_text_openSource, R.color.about_libraries_text_openSource));
+            libraryDescriptionDivider = itemView.findViewById(R.id.libraryDescriptionDivider);
+            libraryDescriptionDivider.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(itemView.getContext(), R.attr.about_libraries_dividerLight_openSource, R.color.about_libraries_dividerLight_openSource));
             libraryDescription = (TextView) itemView.findViewById(R.id.libraryDescription);
+            libraryDescription.setTextColor(UIUtils.getThemeColorFromAttrOrRes(itemView.getContext(), R.attr.about_libraries_text_openSource, R.color.about_libraries_text_openSource));
 
             libraryBottomDivider = itemView.findViewById(R.id.libraryBottomDivider);
+            libraryDescriptionDivider.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(itemView.getContext(), R.attr.about_libraries_dividerLight_openSource, R.color.about_libraries_dividerLight_openSource));
             libraryBottomContainer = itemView.findViewById(R.id.libraryBottomContainer);
 
             libraryVersion = (TextView) itemView.findViewById(R.id.libraryVersion);
+            libraryVersion.setTextColor(UIUtils.getThemeColorFromAttrOrRes(itemView.getContext(), R.attr.about_libraries_text_openSource, R.color.about_libraries_text_openSource));
             libraryLicense = (TextView) itemView.findViewById(R.id.libraryLicense);
+            libraryLicense.setTextColor(UIUtils.getThemeColorFromAttrOrRes(itemView.getContext(), R.attr.about_libraries_text_openSource, R.color.about_libraries_text_openSource));
+
         }
 
     }
