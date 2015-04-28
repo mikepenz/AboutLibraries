@@ -4,8 +4,8 @@
     <color name="colorPrimaryDark">#1976D2</color>
     <color name="colorAccent">#FF4081</color>
     <!-- for backwards compatiblity make a color chain :D -->
-    <color name="theme_default_primary">@color/Primary</color>
-    <color name="theme_default_primary_dark">@color/PrimaryDark</color>
+    <color name="theme_default_primary">@color/colorPrimary</color>
+    <color name="theme_default_primary_dark">@color/colorPrimaryDark</color>
     <color name="theme_accent">@color/colorAccent</color>
     <color name="about_libraries_primary">@color/theme_default_primary</color>
     <color name="about_libraries_primary_dark">@color/theme_default_primary_dark</color>
