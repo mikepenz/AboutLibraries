@@ -12,7 +12,7 @@
         Most modern apps feature an "Used Library"-Section and for this some information of those libs is required. As it gets annoying to copy those strings always to your app I have developed this small helper library to provide the required information.
         ]]>
     </string>
-    <string name="library_AboutLibraries_libraryVersion">4.6.7</string>
+    <string name="library_AboutLibraries_libraryVersion">4.7.0</string>
     <string name="library_AboutLibraries_libraryWebsite">https://github.com/mikepenz/AboutLibraries</string>
     <string name="library_AboutLibraries_licenseId">apache_2_0</string>
     <string name="library_AboutLibraries_isOpenSource">true</string>

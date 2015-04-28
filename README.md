@@ -57,6 +57,10 @@ Further information and how to use it if you can't update to the newest v21 supp
 You can use this library in a few different ways. You can create your own activity, including a custom style and just use the information, or you can use the built-in Activity or Fragment and just pass the libs you would love to include.
 
 ###Upgrade Notes
+#### < v4.7.0
+v4.7.0 now comes with themes and the colors are set by theme. If you pass a custom theme to the AboutActivity this theme must has the AboutLibraries theme as parent or include the themed attributes. See the `styles.xml` of the sample activity.
+This release also contains a new feature `withActivityStyle` which allows you to set the style of the Activity. Further details can be found in the release notes.
+
 #### < v4.6.5
 v4.6.5 now uses the latest com.android.support:appcompat version 22.1.0. Please update if you use an older version.
 
