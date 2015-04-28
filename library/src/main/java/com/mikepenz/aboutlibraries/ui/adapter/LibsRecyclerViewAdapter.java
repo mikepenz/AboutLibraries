@@ -217,18 +217,18 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 holder.libraryCreator.setOnLongClickListener(null);
             }
 
-            if (!TextUtils.isEmpty(library.getLibraryWebsite())) {
+            if (!TextUtils.isEmpty(library.getLibraryWebsite()) && !TextUtils.isEmpty(library.getRepositoryLink())) {
                 holder.libraryDescription.setOnTouchListener(rippleForegroundListener);
                 holder.libraryDescription.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        openLibraryWebsite(ctx, library.getLibraryWebsite());
+                        openLibraryWebsite(ctx, library.getLibraryWebsite() != null ? library.getLibraryWebsite() : library.getRepositoryLink());
                     }
                 });
                 holder.libraryDescription.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
-                        openLibraryWebsite(ctx, library.getLibraryWebsite());
+                        openLibraryWebsite(ctx, library.getLibraryWebsite() != null ? library.getLibraryWebsite() : library.getRepositoryLink());
                         return true;
                     }
                 });
