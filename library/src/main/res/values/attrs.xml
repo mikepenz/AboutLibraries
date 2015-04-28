@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <declare-styleable name="AboutLibraries">
+        <attr name="about_libraries_window_background" format="color|reference"/>
+        <attr name="about_libraries_card" format="color|reference"/>
+        <attr name="about_libraries_title_openSource" format="color|reference"/>
+        <attr name="about_libraries_text_openSource" format="color|reference"/>
+        <attr name="about_libraries_special_button_openSource" format="color|reference"/>
+        <attr name="about_libraries_dividerDark_openSource" format="color|reference"/>
+        <attr name="about_libraries_dividerLight_openSource" format="color|reference"/>
+    </declare-styleable>
     <declare-styleable name="DrawInsetsFrameLayout">
         <attr name="insetBackground" format="reference|color"/>
     </declare-styleable>

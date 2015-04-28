@@ -1,6 +1,9 @@
 package com.mikepenz.aboutlibraries.ui;
 
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -9,7 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MenuItem;
-import android.view.Window;
 
 import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.aboutlibraries.R;
@@ -22,10 +24,9 @@ public class LibsActivity extends AppCompatActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
-
         //set the theme
         boolean customTheme = false;
+        Libs.ActivityStyle activityStyle = Libs.ActivityStyle.DARK;
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             int themeId = bundle.getInt(Libs.BUNDLE_THEME, -1);
@@ -33,10 +34,24 @@ public class LibsActivity extends AppCompatActivity {
                 customTheme = true;
                 setTheme(themeId);
             }
+
+            String style = bundle.getString(Libs.BUNDLE_STYLE);
+            if (style != null) {
+                activityStyle = Libs.ActivityStyle.valueOf(style);
+            }
         }
         if (!customTheme) {
-            setTheme(R.style.Theme_AppCompat_NoActionBar);
+            if (activityStyle == Libs.ActivityStyle.DARK) {
+                setTheme(R.style.AboutLibrariesTheme);
+            } else if (activityStyle == Libs.ActivityStyle.LIGHT) {
+                setTheme(R.style.AboutLibrariesTheme_Light);
+            } else if (activityStyle == Libs.ActivityStyle.LIGHT_DARK_TOOLBAR) {
+                setTheme(R.style.AboutLibrariesTheme_Light_DarkToolbar);
+            }
         }
+
+        setTheme(R.style.AboutLibrariesTheme);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_opensource);
         String title = "";
@@ -49,7 +64,18 @@ public class LibsActivity extends AppCompatActivity {
 
         // Handle Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //if we have a darkToolbar set the text white
+        if (activityStyle == Libs.ActivityStyle.LIGHT_DARK_TOOLBAR) {
+            toolbar.setTitleTextColor(Color.WHITE);
+            toolbar.setSubtitleTextColor(Color.WHITE);
+        }
         setSupportActionBar(toolbar);
+        //if we use the DarkToolbar style we have to handle the back arrow on our own too
+        if (activityStyle == Libs.ActivityStyle.LIGHT_DARK_TOOLBAR && getSupportActionBar() != null) {
+            final Drawable upArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+            upArrow.setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP);
+            getSupportActionBar().setHomeAsUpIndicator(upArrow);
+        }
 
         // Support ActionBar :D
         ActionBar ab = getSupportActionBar();
@@ -75,7 +101,6 @@ public class LibsActivity extends AppCompatActivity {
                 ab.setDisplayShowTitleEnabled(true);
                 ab.setTitle(title);
             }
-            ab.setDisplayUseLogoEnabled(true);
         }
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();

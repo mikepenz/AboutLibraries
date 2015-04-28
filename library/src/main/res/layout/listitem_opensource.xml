@@ -8,7 +8,7 @@
     android:layout_marginTop="8dp"
     android:layout_marginBottom="8dp"
     android:clickable="true"
-    app:cardBackgroundColor="@color/about_libraries_card"
+    app:cardBackgroundColor="?about_libraries_card"
     android:foreground="?selectableItemBackground">
 
     <LinearLayout
@@ -26,7 +26,7 @@
 
             <TextView
                 android:id="@+id/libraryName"
-                android:textColor="@color/about_libraries_title_openSource"
+                android:textColor="?about_libraries_title_openSource"
                 android:textSize="@dimen/textSizeLarge_openSource"
                 android:textStyle="normal"
                 android:layout_width="0dp"
@@ -38,7 +38,7 @@
 
             <TextView
                 android:id="@+id/libraryCreator"
-                android:textColor="@color/about_libraries_text_openSource"
+                android:textColor="?about_libraries_text_openSource"
                 android:textStyle="normal"
                 android:layout_width="0dp"
                 android:layout_weight="2"
@@ -54,13 +54,13 @@
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:layout_marginTop="4dp"
-            android:background="@color/about_libraries_dividerLight_openSource"/>
+            android:background="?about_libraries_dividerLight_openSource"/>
 
         <TextView
             android:id="@+id/libraryDescription"
             android:textSize="@dimen/textSizeSmall_openSource"
             android:textStyle="normal"
-            android:textColor="@color/about_libraries_text_openSource"
+            android:textColor="?about_libraries_text_openSource"
             android:padding="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -73,7 +73,7 @@
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:layout_marginTop="4dp"
-            android:background="@color/about_libraries_dividerLight_openSource"/>
+            android:background="?about_libraries_dividerLight_openSource"/>
 
         <LinearLayout
             android:id="@+id/libraryBottomContainer"
@@ -87,7 +87,7 @@
 
             <TextView
                 android:id="@+id/libraryVersion"
-                android:textColor="@color/about_libraries_text_openSource"
+                android:textColor="?about_libraries_text_openSource"
                 android:textStyle="normal"
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -99,7 +99,7 @@
 
             <TextView
                 android:id="@+id/libraryLicense"
-                android:textColor="@color/about_libraries_text_openSource"
+                android:textColor="?about_libraries_text_openSource"
                 android:textStyle="normal"
                 android:layout_width="0dp"
                 android:layout_weight="1"

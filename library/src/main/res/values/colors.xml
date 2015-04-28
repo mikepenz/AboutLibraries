@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Theme colors -->
-    <color name="theme_default_primary">#536dfe</color>
-    <color name="theme_default_primary_dark">#3f51b5</color>
-    <color name="theme_accent">#ff4081</color>
-    <color name="theme_window_background">#ECECEC</color>
+    <color name="colorPrimary">#2196F3</color>
+    <color name="colorPrimaryDark">#1976D2</color>
+    <color name="colorAccent">#FF4081</color>
+    <!-- for backwards compatiblity make a color chain :D -->
+    <color name="theme_default_primary">@color/Primary</color>
+    <color name="theme_default_primary_dark">@color/PrimaryDark</color>
+    <color name="theme_accent">@color/colorAccent</color>
+    <color name="about_libraries_primary">@color/theme_default_primary</color>
+    <color name="about_libraries_primary_dark">@color/theme_default_primary_dark</color>
+    <color name="about_libraries_accent">@color/theme_accent</color>
 
     <!-- AboutLibraries DEFAULT colors -->
+    <color name="about_libraries_window_background">#ECECEC</color>
     <color name="about_libraries_card">#FAFAFA</color>
     <color name="about_libraries_title_openSource">#212121</color>
     <color name="about_libraries_text_openSource">#727272</color>
@@ -15,13 +21,11 @@
     <color name="about_libraries_dividerLight_openSource">#DADADA</color>
 
     <!-- AboutLibraries SAMPLE DARK colors -->
-    <!--
-    <color name="theme_window_background">#303030</color>
-    <color name="about_libraries_card">#666666</color>
-    <color name="about_libraries_title_openSource">#ffffffff</color>
-    <color name="about_libraries_text_openSource">#DEDEDE</color>
-    <color name="about_libraries_special_button_openSource">#ffffffff</color>
-    <color name="about_libraries_dividerDark_openSource">#303030</color>
-    <color name="about_libraries_dividerLight_openSource">#303030</color>
-    -->
+    <color name="about_libraries_window_background_dark">#303030</color>
+    <color name="about_libraries_card_dark">#666666</color>
+    <color name="about_libraries_title_openSource_dark">#ffffffff</color>
+    <color name="about_libraries_text_openSource_dark">#DEDEDE</color>
+    <color name="about_libraries_special_button_openSource_dark">#ffffffff</color>
+    <color name="about_libraries_dividerDark_openSource_dark">#303030</color>
+    <color name="about_libraries_dividerLight_openSource_dark">#303030</color>
 </resources>

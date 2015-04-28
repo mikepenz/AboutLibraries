@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- NORMAL -->
+    <style name="AboutLibrariesTheme" parent="Theme.AppCompat.NoActionBar">
+        <!-- Here we setting appcompat’s actionBarStyle -->
+        <item name="drawerArrowStyle">@style/AboutLibrariesTheme.DrawerArrowStyle</item>
+
+        <!-- ...and here we setting appcompat’s color theming attrs -->
+        <item name="colorPrimary">@color/about_libraries_primary</item>
+        <item name="colorPrimaryDark">@color/about_libraries_primary_dark</item>
+        <item name="colorAccent">@color/about_libraries_accent</item>
+
+        <!-- AboutLibraries specific values -->
+        <item name="about_libraries_window_background">@color/about_libraries_window_background_dark</item>
+        <item name="about_libraries_card">@color/about_libraries_card_dark</item>
+        <item name="about_libraries_title_openSource">@color/about_libraries_title_openSource_dark</item>
+        <item name="about_libraries_text_openSource">@color/about_libraries_text_openSource_dark</item>
+        <item name="about_libraries_special_button_openSource">@color/about_libraries_special_button_openSource_dark</item>
+        <item name="about_libraries_dividerDark_openSource">@color/about_libraries_dividerDark_openSource_dark</item>
+        <item name="about_libraries_dividerLight_openSource">@color/about_libraries_dividerLight_openSource_dark</item>
+    </style>
+
+    <!-- LIGHT -->
+    <style name="AboutLibrariesTheme.Light" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Here we setting appcompat’s actionBarStyle -->
+        <item name="drawerArrowStyle">@style/AboutLibrariesTheme.Light.DrawerArrowStyle</item>
+
+        <!-- ...and here we setting appcompat’s color theming attrs -->
+        <item name="colorPrimary">@color/about_libraries_primary</item>
+        <item name="colorPrimaryDark">@color/about_libraries_primary_dark</item>
+        <item name="colorAccent">@color/about_libraries_accent</item>
+
+        <!-- AboutLibraries specific values -->
+        <item name="about_libraries_window_background">@color/about_libraries_window_background</item>
+        <item name="about_libraries_card">@color/about_libraries_card</item>
+        <item name="about_libraries_title_openSource">@color/about_libraries_title_openSource</item>
+        <item name="about_libraries_text_openSource">@color/about_libraries_text_openSource</item>
+        <item name="about_libraries_special_button_openSource">@color/about_libraries_special_button_openSource</item>
+        <item name="about_libraries_dividerDark_openSource">@color/about_libraries_dividerDark_openSource</item>
+        <item name="about_libraries_dividerLight_openSource">@color/about_libraries_dividerLight_openSource</item>
+    </style>
+
+    <!-- LIGHT DARK ACTIONBAR -->
+    <style name="AboutLibrariesTheme.Light.DarkToolbar" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Here we setting appcompat’s actionBarStyle -->
+        <item name="drawerArrowStyle">@style/AboutLibrariesTheme.DrawerArrowStyle</item>
+
+        <!-- ...and here we setting appcompat’s color theming attrs -->
+        <item name="colorPrimary">@color/about_libraries_primary</item>
+        <item name="colorPrimaryDark">@color/about_libraries_primary_dark</item>
+        <item name="colorAccent">@color/about_libraries_accent</item>
+
+        <!-- AboutLibraries specific values -->
+        <item name="about_libraries_window_background">@color/about_libraries_window_background</item>
+        <item name="about_libraries_card">@color/about_libraries_card</item>
+        <item name="about_libraries_title_openSource">@color/about_libraries_title_openSource</item>
+        <item name="about_libraries_text_openSource">@color/about_libraries_text_openSource</item>
+        <item name="about_libraries_special_button_openSource">@color/about_libraries_special_button_openSource</item>
+        <item name="about_libraries_dividerDark_openSource">@color/about_libraries_dividerDark_openSource</item>
+        <item name="about_libraries_dividerLight_openSource">@color/about_libraries_dividerLight_openSource</item>
+    </style>
+
+
+    <!-- DrawerArrowStyles -->
+    <style name="AboutLibrariesTheme.DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">false</item>
+        <item name="color">@android:color/white</item>
+    </style>
+
+    <style name="AboutLibrariesTheme.Light.DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">false</item>
+        <item name="color">@android:color/black</item>
+    </style>
+</resources>

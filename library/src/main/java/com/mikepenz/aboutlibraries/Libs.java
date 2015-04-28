@@ -41,8 +41,15 @@ public class Libs {
         LICENSE_WEBSITE
     }
 
+    public static enum ActivityStyle {
+        LIGHT,
+        DARK,
+        LIGHT_DARK_TOOLBAR
+    }
+
     public static final String BUNDLE_THEME = "ABOUT_LIBRARIES_THEME";
     public static final String BUNDLE_TITLE = "ABOUT_LIBRARIES_TITLE";
+    public static final String BUNDLE_STYLE = "ABOUT_LIBRARIES_STYLE";
     public static final String BUNDLE_COLORS = "ABOUT_COLOR";
 
     private static final String DEFINE_LICENSE = "define_license_";
@@ -589,6 +596,7 @@ public class Libs {
         public Integer activityTheme = -1;
         public String activityTitle = null;
         public Colors activityColor = null;
+        public ActivityStyle activityStyle = null;
 
         public HashMap<String, HashMap<String, String>> libraryModification = null;
 
@@ -861,6 +869,17 @@ public class Libs {
         }
 
         /**
+         * Builder method to set the ActivityStyle
+         *
+         * @param libraryStyle LibraryStyles.LIGHT / DARK / LIGHT_DARK_TOOLBAR
+         * @return
+         */
+        public Builder withActivityStyle(ActivityStyle libraryStyle) {
+            this.activityStyle = libraryStyle;
+            return this;
+        }
+
+        /**
          * Builder method to modify specific libraries. NOTE: This will overwrite any modifications with the helper methods
          *
          * @param libraryModification an HashMap identified by libraryID containing an HashMap with the modifications identified by elementID.
@@ -947,6 +966,10 @@ public class Libs {
             }
             if (this.activityColor != null) {
                 i.putExtra(Libs.BUNDLE_COLORS, this.activityColor);
+            }
+
+            if (this.activityStyle != null) {
+                i.putExtra(Libs.BUNDLE_STYLE, this.activityStyle.name());
             }
 
             return i;

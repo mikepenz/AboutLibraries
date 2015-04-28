@@ -23,7 +23,7 @@ public class FragmentActivity extends ActionBarActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_opensource);
+        setContentView(R.layout.activity_fragment);
 
         // Handle Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -83,7 +83,7 @@ public class FragmentActivity extends ActionBarActivity {
                                     .withLicenseShown(true)
                                     .withVersionShown(true)
                                     .withActivityTitle("Open Source")
-                                    .withActivityTheme(R.style.MaterialDrawerTheme_Light)
+                                    .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
                                     .start(FragmentActivity.this);
                         }
                     }
