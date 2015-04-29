@@ -1,5 +1,6 @@
 package com.mikepenz.aboutlibraries.ui.adapter;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.aboutlibraries.R;
 import com.mikepenz.aboutlibraries.entity.Library;
 import com.mikepenz.aboutlibraries.util.MovementCheck;
@@ -33,6 +35,7 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     private boolean showLicense = false;
     private boolean showLicenseDialog = true;
     private boolean showVersion = false;
+    private int returnCode = Libs.INVALID_RESULT_CODE;
 
     private boolean header = false;
     private String aboutAppName;
@@ -210,10 +213,17 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 holder.libraryCreator.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        try {
-                            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(library.getAuthorWebsite()));
-                            ctx.startActivity(browserIntent);
-                        } catch (Exception ex) {
+                        if (validReturnCode() && ctx instanceof Activity) {
+                            Intent intent = new Intent();
+                            intent.setData(Uri.parse(library.getAuthorWebsite()));
+                            ((Activity) ctx).setResult(Activity.RESULT_OK, intent);
+                            ((Activity) ctx).finish();
+                        } else {
+                            try {
+                                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(library.getAuthorWebsite()));
+                                ctx.startActivity(browserIntent);
+                            } catch (Exception ex) {
+                            }
                         }
                     }
                 });
@@ -225,10 +235,17 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 holder.libraryDescription.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        try {
-                            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(library.getLibraryWebsite()));
-                            ctx.startActivity(browserIntent);
-                        } catch (Exception ex) {
+                        if (validReturnCode() && ctx instanceof Activity) {
+                            Intent intent = new Intent();
+                            intent.setData(Uri.parse(library.getLibraryWebsite()));
+                            ((Activity) ctx).setResult(Activity.RESULT_OK, intent);
+                            ((Activity) ctx).finish();
+                        } else {
+                            try {
+                                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(library.getLibraryWebsite()));
+                                ctx.startActivity(browserIntent);
+                            } catch (Exception ex) {
+                            }
                         }
                     }
                 });
@@ -245,6 +262,11 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                                 AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
                                 builder.setMessage(Html.fromHtml(library.getLicense().getLicenseDescription()));
                                 builder.create().show();
+                            } else if (validReturnCode() && ctx instanceof Activity) {
+                                Intent intent = new Intent();
+                                intent.setData(Uri.parse(library.getLicense().getLicenseWebsite()));
+                                ((Activity) ctx).setResult(Activity.RESULT_OK, intent);
+                                ((Activity) ctx).finish();
                             } else {
                                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(library.getLicense().getLicenseWebsite()));
                                 ctx.startActivity(browserIntent);
@@ -257,6 +279,10 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 holder.libraryBottomContainer.setOnClickListener(null);
             }
         }
+    }
+
+    private boolean validReturnCode() {
+        return returnCode != Libs.INVALID_RESULT_CODE;
     }
 
 
@@ -319,6 +345,10 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             }
         }
         this.header = false;
+    }
+
+    public void setReturnCode(int returnCode) {
+        this.returnCode = returnCode;
     }
 
     public static class HeaderViewHolder extends RecyclerView.ViewHolder {

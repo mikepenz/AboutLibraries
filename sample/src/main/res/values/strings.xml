@@ -12,4 +12,5 @@
     <string name="action_defined">(Cust) Defined Libraries</string>
 
     <string name="action_opensource">Open Source</string>
+    <string name="action_customactivity_return">Return activity</string>
 </resources>

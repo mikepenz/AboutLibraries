@@ -1,5 +1,6 @@
 package com.mikepenz.aboutlibraries;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -47,6 +48,9 @@ public class Libs {
     public static final String BUNDLE_AUTODETECT = "ABOUT_LIBRARIES_AUTODETECT";
     public static final String BUNDLE_SORT = "ABOUT_LIBRARIES_SORT";
     public static final String BUNDLE_ANIMATE = "ABOUT_LIBRARIES_ANIMATE";
+
+    public static final String BUNDLE_RESULT_CODE = "BUNDLE_RESULT_CODE";
+    public static final int INVALID_RESULT_CODE = -1;
 
     public static final String BUNDLE_LICENSE = "ABOUT_LIBRARIES_LICENSE";
     public static final String BUNDLE_LICENSE_DIALOG = "ABOUT_LIBRARIES_LICENSE_DIALOG";
@@ -955,6 +959,19 @@ public class Libs {
             return adapter;
         }
 
+        /**
+         * builder to build an adapter out of the given information ;D
+         * Get result at onActivityForResult()
+         *
+         * @param context the current context
+         * @return a LibsRecyclerViewAdapter with the libraries
+         */
+        public LibsRecyclerViewAdapter adapter(Context context, int returnCode) {
+            LibsRecyclerViewAdapter adapter = adapter(context);
+            adapter.setReturnCode(returnCode);
+            return adapter;
+        }
+
 
         /**
          * intent() method to build and create the intent with the set params
@@ -1027,6 +1044,26 @@ public class Libs {
             }
 
             return i;
+        }
+
+        /**
+         * intent() method to build and create the intent with the set params
+         *
+         * @return the intent to start the activity
+         */
+        public Intent intent(Context ctx, int result) {
+            Intent intent = intent(ctx);
+            Bundle bundle = intent.getExtras();
+            bundle.putInt(Libs.BUNDLE_RESULT_CODE, result);
+            return intent;
+        }
+
+        /**
+         * start() method to start the application and get result at onActivityForResult()
+         */
+        public void start(Activity act, int result) {
+            Intent i = intent(act, result);
+            act.startActivityForResult(i, result);
         }
 
         /**

@@ -10,6 +10,9 @@
     <item android:id="@+id/action_customactivity"
           android:title="@string/action_customactivity"
           app:showAsAction="never"/>
+    <item android:id="@+id/action_customactivity_return"
+          android:title="@string/action_customactivity_return"
+          app:showAsAction="never"/>
     <item android:id="@+id/action_opensource"
           android:title="@string/action_opensource"
           app:showAsAction="never"/>

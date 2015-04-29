@@ -37,6 +37,8 @@ public class LibsFragment extends Fragment {
 
     private ArrayList<Library> libraries;
 
+    private int returnCode = Libs.INVALID_RESULT_CODE;
+
     private boolean autoDetect = true;
     private boolean sort = true;
     private boolean animate = true;
@@ -98,6 +100,8 @@ public class LibsFragment extends Fragment {
             showLicenseDialog = bundle.getBoolean(Libs.BUNDLE_LICENSE_DIALOG, true);
             showVersion = bundle.getBoolean(Libs.BUNDLE_VERSION, false);
 
+            returnCode = bundle.getInt(Libs.BUNDLE_RESULT_CODE);
+
             try {
                 libraryModification = (HashMap<String, HashMap<String, String>>) bundle.getSerializable(Libs.BUNDLE_LIBS_MODIFICATION);
             } catch (Exception ex) {
@@ -149,6 +153,7 @@ public class LibsFragment extends Fragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(LibsFragment.this.getActivity()));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mAdapter = new LibsRecyclerViewAdapter(getActivity(), showLicense, showLicenseDialog, showVersion);
+        mAdapter.setReturnCode(returnCode);
         mRecyclerView.setAdapter(mAdapter);
 
         generateAboutThisAppSection();

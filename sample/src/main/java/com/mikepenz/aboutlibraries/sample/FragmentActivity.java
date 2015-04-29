@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.aboutlibraries.ui.LibsFragment;
@@ -15,6 +16,8 @@ import com.mikepenz.aboutlibraries.ui.LibsFragment;
  * Created by mikepenz on 04.06.14.
  */
 public class FragmentActivity extends ActionBarActivity {
+
+    private static final int RETURN_CODE = 12345;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,6 +80,13 @@ public class FragmentActivity extends ActionBarActivity {
         } else if (id == com.mikepenz.aboutlibraries.sample.R.id.action_customactivity) {
             Intent i = new Intent(getApplicationContext(), CustomActivity.class);
             startActivity(i);
+        }  else if (id == com.mikepenz.aboutlibraries.sample.R.id.action_customactivity_return) {
+            new Libs.Builder()
+                    .withFields(R.string.class.getFields())
+                    .withAutoDetect(true)
+                    .withActivityTitle("Return data")
+                    .withActivityTheme(R.style.AppTheme)
+                    .start(this, RETURN_CODE);
         } else if (id == com.mikepenz.aboutlibraries.sample.R.id.action_manifestactivity) {
             new Libs.Builder()
                     .withFields(R.string.class.getFields())
@@ -109,5 +119,16 @@ public class FragmentActivity extends ActionBarActivity {
             */
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == RETURN_CODE) {
+            if (data != null && data.getData() != null) {
+                Uri uri = data.getData();
+                Toast.makeText(this, uri.toString(), Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }
