@@ -91,7 +91,7 @@
 
 <p>The AboutLibraries Library is pushed to <a href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.mikepenz.aboutlibraries%22">Maven Central</a>, so you just need to add the following dependency to your <code>build.gradle</code>. It seems it is also required to add the support dependencies to the application. If it works without, you should be fine too :).</p>
 
-<div class="highlight highlight-javascript"><pre><span class="pl-c1">compile</span>(<span class="pl-s"><span class="pl-pds">'</span>com.mikepenz.aboutlibraries:library:4.6.5@aar<span class="pl-pds">'</span></span>) {
+<div class="highlight highlight-javascript"><pre><span class="pl-c1">compile</span>(<span class="pl-s"><span class="pl-pds">'</span>com.mikepenz.aboutlibraries:library:4.7.2@aar<span class="pl-pds">'</span></span>) {
     transitive <span class="pl-k">=</span> <span class="pl-c1">true</span>
 }</pre></div>
 
@@ -104,6 +104,12 @@
 
 <h3>
 <a id="upgrade-notes" class="anchor" href="#upgrade-notes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Upgrade Notes</h3>
+
+<h4>
+<a id="-v470" class="anchor" href="#-v470" aria-hidden="true"><span class="octicon octicon-link"></span></a>&lt; v4.7.0</h4>
+
+<p>v4.7.0 now comes with themes and the colors are set by theme. If you pass a custom theme to the AboutActivity this theme should have the AboutLibraries theme as parent or include the themed attributes. See the <code>styles.xml</code> of the sample activity.
+This release also contains a new feature <code>withActivityStyle</code> which allows you to set the style of the Activity. Further details can be found in the release notes.</p>
 
 <h4>
 <a id="-v465" class="anchor" href="#-v465" aria-hidden="true"><span class="octicon octicon-link"></span></a>&lt; v4.6.5</h4>
@@ -136,6 +142,8 @@
 <div class="highlight highlight-java"><pre><span class="pl-k">new</span> <span class="pl-smi">Libs</span>.<span class="pl-smi">Builder</span>()
     <span class="pl-c">//Pass the fields of your application to the lib so it can find all external lib information</span>
         .withFields(<span class="pl-smi">R</span><span class="pl-k">.</span>string<span class="pl-k">.</span>class<span class="pl-k">.</span>getFields())
+        <span class="pl-c">//provide a style (optional) (LIGHT, DARK, LIGHT_DARK_TOOLBAR)</span>
+        .withActivityStyle(<span class="pl-smi">Libs</span><span class="pl-k">.</span><span class="pl-smi">ActivityStyle</span><span class="pl-c1"><span class="pl-k">.</span>LIGHT_DARK_TOOLBAR</span>)
         <span class="pl-c">//start the activity</span>
         .start(<span class="pl-v">this</span>);</pre></div>
 
