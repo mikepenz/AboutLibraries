@@ -57,6 +57,9 @@ Further information and how to use it if you can't update to the newest v21 supp
 You can use this library in a few different ways. You can create your own activity, including a custom style and just use the information, or you can use the built-in Activity or Fragment and just pass the libs you would love to include.
 
 ###Upgrade Notes
+#### < v5.0.0
+The `Libs.Builder` is no more. It was changed to `LibsBuilder`. Just remove the "." and it is working again.
+
 #### < v4.7.0
 v4.7.0 now comes with themes and the colors are set by theme. If you pass a custom theme to the AboutActivity this theme should have the AboutLibraries theme as parent or include the themed attributes. See the `styles.xml` of the sample activity.
 This release also contains a new feature `withActivityStyle` which allows you to set the style of the Activity. Further details can be found in the release notes.
@@ -70,7 +73,7 @@ Starting with v4.6.0 the LibsActivity implements a Toolbar. You have to use a no
 ###Activity / Fragment
 ####Fragment
 ```java
-LibsFragment fragment = new Libs.Builder()
+LibsFragment fragment = new LibsBuilder()
 	//Pass the fields of your application to the lib so it can find all external lib information
         .withFields(R.string.class.getFields())
         //get the fragment
@@ -79,7 +82,7 @@ LibsFragment fragment = new Libs.Builder()
 ####Activity
 #####Code:
 ```java
-new Libs.Builder()
+new LibsBuilder()
 	//Pass the fields of your application to the lib so it can find all external lib information
         .withFields(R.string.class.getFields())
         //provide a style (optional) (LIGHT, DARK, LIGHT_DARK_TOOLBAR)
