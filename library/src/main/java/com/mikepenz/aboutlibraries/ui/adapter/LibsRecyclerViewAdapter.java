@@ -17,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mikepenz.aboutlibraries.Libs;
+import com.mikepenz.aboutlibraries.LibsBuilder;
+import com.mikepenz.aboutlibraries.LibsConfiguration;
 import com.mikepenz.aboutlibraries.R;
 import com.mikepenz.aboutlibraries.entity.Library;
 import com.mikepenz.aboutlibraries.util.MovementCheck;
@@ -34,12 +36,12 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     private boolean header = false;
 
-    private Libs.Builder libsBuilder = null;
+    private LibsBuilder libsBuilder = null;
     private Integer aboutVersionCode;
     private String aboutVersionName;
     private Drawable aboutIcon;
 
-    public LibsRecyclerViewAdapter(Libs.Builder libsBuilder) {
+    public LibsRecyclerViewAdapter(LibsBuilder libsBuilder) {
         this.libsBuilder = libsBuilder;
     }
 
@@ -63,6 +65,14 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             //Set the Icon or hide it
             if (libsBuilder.aboutShowIcon && aboutIcon != null) {
                 holder.aboutIcon.setImageDrawable(aboutIcon);
+                holder.aboutIcon.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (LibsConfiguration.getInstance().getListener() != null) {
+                            LibsConfiguration.getInstance().getListener().onIconClicked(v);
+                        }
+                    }
+                });
             } else {
                 holder.aboutIcon.setVisibility(View.GONE);
             }
@@ -87,11 +97,18 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 holder.aboutSpecial1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        try {
-                            AlertDialog.Builder alert = new AlertDialog.Builder(ctx);
-                            alert.setMessage(Html.fromHtml(libsBuilder.aboutAppSpecial1Description));
-                            alert.create().show();
-                        } catch (Exception ex) {
+                        boolean consumed = false;
+                        if (LibsConfiguration.getInstance().getListener() != null) {
+                            consumed = LibsConfiguration.getInstance().getListener().onExtraClicked(v, Libs.SpecialButton.SPECIAL1);
+                        }
+
+                        if (!consumed) {
+                            try {
+                                AlertDialog.Builder alert = new AlertDialog.Builder(ctx);
+                                alert.setMessage(Html.fromHtml(libsBuilder.aboutAppSpecial1Description));
+                                alert.create().show();
+                            } catch (Exception ex) {
+                            }
                         }
                     }
                 });
@@ -103,11 +120,18 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 holder.aboutSpecial2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        try {
-                            AlertDialog.Builder alert = new AlertDialog.Builder(ctx);
-                            alert.setMessage(Html.fromHtml(libsBuilder.aboutAppSpecial2Description));
-                            alert.create().show();
-                        } catch (Exception ex) {
+                        boolean consumed = false;
+                        if (LibsConfiguration.getInstance().getListener() != null) {
+                            consumed = LibsConfiguration.getInstance().getListener().onExtraClicked(v, Libs.SpecialButton.SPECIAL2);
+                        }
+
+                        if (!consumed) {
+                            try {
+                                AlertDialog.Builder alert = new AlertDialog.Builder(ctx);
+                                alert.setMessage(Html.fromHtml(libsBuilder.aboutAppSpecial2Description));
+                                alert.create().show();
+                            } catch (Exception ex) {
+                            }
                         }
                     }
                 });
@@ -119,11 +143,18 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 holder.aboutSpecial3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        try {
-                            AlertDialog.Builder alert = new AlertDialog.Builder(ctx);
-                            alert.setMessage(Html.fromHtml(libsBuilder.aboutAppSpecial3Description));
-                            alert.create().show();
-                        } catch (Exception ex) {
+                        boolean consumed = false;
+                        if (LibsConfiguration.getInstance().getListener() != null) {
+                            consumed = LibsConfiguration.getInstance().getListener().onExtraClicked(v, Libs.SpecialButton.SPECIAL3);
+                        }
+
+                        if (!consumed) {
+                            try {
+                                AlertDialog.Builder alert = new AlertDialog.Builder(ctx);
+                                alert.setMessage(Html.fromHtml(libsBuilder.aboutAppSpecial3Description));
+                                alert.create().show();
+                            } catch (Exception ex) {
+                            }
                         }
                     }
                 });
@@ -200,7 +231,14 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 holder.libraryCreator.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        openAuthorWebsite(ctx, library.getAuthorWebsite());
+                        boolean consumed = false;
+                        if (LibsConfiguration.getInstance().getListener() != null) {
+                            consumed = LibsConfiguration.getInstance().getListener().onLibraryAuthorClicked(view, library);
+                        }
+
+                        if (!consumed) {
+                            openAuthorWebsite(ctx, library.getAuthorWebsite());
+                        }
                     }
                 });
                 holder.libraryCreator.setOnLongClickListener(new View.OnLongClickListener() {
@@ -221,7 +259,14 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 holder.libraryDescription.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        openLibraryWebsite(ctx, library.getLibraryWebsite() != null ? library.getLibraryWebsite() : library.getRepositoryLink());
+                        boolean consumed = false;
+                        if (LibsConfiguration.getInstance().getListener() != null) {
+                            consumed = LibsConfiguration.getInstance().getListener().onLibraryContentClicked(v, library);
+                        }
+
+                        if (!consumed) {
+                            openLibraryWebsite(ctx, library.getLibraryWebsite() != null ? library.getLibraryWebsite() : library.getRepositoryLink());
+                        }
                     }
                 });
                 holder.libraryDescription.setOnLongClickListener(new View.OnLongClickListener() {
@@ -242,7 +287,14 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 holder.libraryBottomContainer.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        openLicense(ctx, libsBuilder, library);
+                        boolean consumed = false;
+                        if (LibsConfiguration.getInstance().getListener() != null) {
+                            consumed = LibsConfiguration.getInstance().getListener().onLibraryBottomClicked(view, library);
+                        }
+
+                        if (!consumed) {
+                            openLicense(ctx, libsBuilder, library);
+                        }
                     }
                 });
                 holder.libraryBottomContainer.setOnLongClickListener(new View.OnLongClickListener() {
@@ -296,7 +348,7 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
      * @param libsBuilder
      * @param library
      */
-    private void openLicense(Context ctx, Libs.Builder libsBuilder, Library library) {
+    private void openLicense(Context ctx, LibsBuilder libsBuilder, Library library) {
         try {
             if (libsBuilder.showLicenseDialog && !TextUtils.isEmpty(library.getLicense().getLicenseDescription())) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(ctx);

@@ -8,8 +8,12 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Toast;
 
 import com.mikepenz.aboutlibraries.Libs;
+import com.mikepenz.aboutlibraries.LibsBuilder;
+import com.mikepenz.aboutlibraries.LibsConfiguration;
+import com.mikepenz.aboutlibraries.entity.Library;
 import com.mikepenz.aboutlibraries.ui.LibsFragment;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
@@ -76,7 +80,7 @@ public class FragmentActivity extends ActionBarActivity {
                             Intent intent = new Intent(getApplicationContext(), CustomActivity.class);
                             startActivity(intent);
                         } else if (id == R.id.action_manifestactivity) {
-                            new Libs.Builder()
+                            new LibsBuilder()
                                     .withFields(R.string.class.getFields())
                                     .withLibraries("crouton, actionbarsherlock", "showcaseview")
                                     .withAutoDetect(true)
@@ -84,6 +88,32 @@ public class FragmentActivity extends ActionBarActivity {
                                     .withVersionShown(true)
                                     .withActivityTitle("Open Source")
                                     .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
+                                    .withListener(new LibsConfiguration.LibsListener() {
+                                        @Override
+                                        public void onIconClicked(View v) {
+                                            Toast.makeText(v.getContext(), "We are able to track this now ;)", Toast.LENGTH_LONG).show();
+                                        }
+
+                                        @Override
+                                        public boolean onLibraryAuthorClicked(View v, Library library) {
+                                            return false;
+                                        }
+
+                                        @Override
+                                        public boolean onLibraryContentClicked(View v, Library library) {
+                                            return false;
+                                        }
+
+                                        @Override
+                                        public boolean onLibraryBottomClicked(View v, Library library) {
+                                            return false;
+                                        }
+
+                                        @Override
+                                        public boolean onExtraClicked(View v, Libs.SpecialButton specialButton) {
+                                            return false;
+                                        }
+                                    })
                                     .start(FragmentActivity.this);
                         }
                     }
@@ -110,7 +140,7 @@ public class FragmentActivity extends ActionBarActivity {
         fragment.setArguments(bundle);
         */
 
-        LibsFragment fragment = new Libs.Builder()
+        LibsFragment fragment = new LibsBuilder()
                 .withFields(R.string.class.getFields())
                 .withLibraries("crouton", "activeandroid", "actionbarsherlock", "showcaseview")
                 .withVersionShown(false)

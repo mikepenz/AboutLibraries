@@ -2,7 +2,7 @@ package com.mikepenz.aboutlibraries.sample;
 
 import android.os.Bundle;
 
-import com.mikepenz.aboutlibraries.Libs;
+import com.mikepenz.aboutlibraries.LibsBuilder;
 import com.mikepenz.aboutlibraries.ui.LibsActivity;
 
 
@@ -16,7 +16,7 @@ public class ExtendActivity extends LibsActivity {
         setIntent(intent);
         */
 
-        setIntent(new Libs.Builder().withFields(R.string.class.getFields()).withLibraries("activeandroid", "caldroid").withActivityTheme(R.style.MaterialDrawerTheme).intent(this));
+        setIntent(new LibsBuilder().withFields(R.string.class.getFields()).withLibraries("activeandroid", "caldroid").withActivityTheme(R.style.MaterialDrawerTheme).intent(this));
 
 
         super.onCreate(savedInstanceState);

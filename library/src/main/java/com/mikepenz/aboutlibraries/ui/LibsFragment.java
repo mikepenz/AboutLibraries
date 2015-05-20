@@ -19,6 +19,7 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 
 import com.mikepenz.aboutlibraries.Libs;
+import com.mikepenz.aboutlibraries.LibsBuilder;
 import com.mikepenz.aboutlibraries.R;
 import com.mikepenz.aboutlibraries.entity.Library;
 import com.mikepenz.aboutlibraries.ui.adapter.LibsRecyclerViewAdapter;
@@ -34,7 +35,7 @@ public class LibsFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private LibsRecyclerViewAdapter mAdapter;
 
-    Libs.Builder builder = null;
+    LibsBuilder builder = null;
 
     private ArrayList<Library> libraries;
 
@@ -60,7 +61,7 @@ public class LibsFragment extends Fragment {
         //read and get our arguments
         Bundle bundle = getArguments();
         if (bundle != null) {
-            builder = (Libs.Builder) bundle.getSerializable("data");
+            builder = (LibsBuilder) bundle.getSerializable("data");
         }
 
         //init the Libs instance with fields if they were set
