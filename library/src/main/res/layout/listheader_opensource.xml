@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="8dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingBottom="8dp"
+    android:paddingTop="8dp">
 
     <ImageView
         android:id="@+id/aboutIcon"
@@ -16,57 +17,57 @@
 
     <TextView
         android:id="@+id/aboutName"
-        android:textSize="@dimen/textSizeLarge_openSource"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="6dp"
         android:gravity="center"
+        android:textSize="@dimen/textSizeLarge_openSource"
         tools:text="About AppName"/>
 
     <TextView
         android:id="@+id/aboutVersion"
-        android:textSize="@dimen/textSizeSmall_openSource"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:gravity="center"
+        android:textSize="@dimen/textSizeSmall_openSource"
         tools:text="About version"/>
 
     <LinearLayout
+        android:id="@+id/aboutSpecialContainer"
+        style="?android:buttonBarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/aboutSpecialContainer"
-        android:orientation="horizontal"
-        android:layout_marginTop="6dp"
         android:layout_marginBottom="6dp"
+        android:layout_marginTop="6dp"
         android:gravity="center"
-        style="?android:buttonBarStyle">
+        android:orientation="horizontal">
         <Button
             android:id="@+id/aboutSpecial1"
-            android:textSize="@dimen/textSizeSmall_openSource"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:gravity="center"
             android:lines="1"
+            android:textSize="@dimen/textSizeSmall_openSource"
             tools:text="Special 1"/>
         <Button
             android:id="@+id/aboutSpecial2"
-            android:textSize="@dimen/textSizeSmall_openSource"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:gravity="center"
             android:lines="1"
+            android:textSize="@dimen/textSizeSmall_openSource"
             tools:text="Special 2"/>
         <Button
             android:id="@+id/aboutSpecial3"
-            android:textSize="@dimen/textSizeSmall_openSource"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:gravity="center"
             android:lines="1"
+            android:textSize="@dimen/textSizeSmall_openSource"
             tools:text="Special 3"/>
     </LinearLayout>
 
@@ -79,12 +80,12 @@
 
     <TextView
         android:id="@+id/aboutDescription"
-        android:textSize="@dimen/textSizeSmall_openSource"
-        android:textStyle="normal"
-        android:padding="8dp"
-        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="true"
+        android:gravity="center"
+        android:padding="8dp"
+        android:textSize="@dimen/textSizeSmall_openSource"
+        android:textStyle="normal"
         tools:text="About description"/>
 </LinearLayout>
