@@ -15,3 +15,7 @@ allprojects {
         flatDir { dirs 'libs' }
     }
 }
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.4'
+}
