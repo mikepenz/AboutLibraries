@@ -20,7 +20,7 @@
 
     <section class="main-content">
       <h1>
-<a id="aboutlibraries---" class="anchor" href="#aboutlibraries---" aria-hidden="true"><span class="octicon octicon-link"></span></a>AboutLibraries  <a href="https://maven-badges.herokuapp.com/maven-central/com.mikepenz.aboutlibraries/library"><img src="https://maven-badges.herokuapp.com/maven-central/com.mikepenz.aboutlibraries/library/badge.svg?style=flat" alt="Maven Central"></a> <a href="http://android-arsenal.com/details/1/102"><img src="http://img.shields.io/badge/Android%20Arsenal-AboutLibraries-brightgreen.svg?style=flat" alt="Android Arsenal"></a>
+<a id="aboutlibraries---" class="anchor" href="#aboutlibraries---" aria-hidden="true"><span class="octicon octicon-link"></span></a>AboutLibraries  <a href="https://maven-badges.herokuapp.com/maven-central/com.mikepenz/aboutlibraries"><img src="https://maven-badges.herokuapp.com/maven-central/com.mikepenz/aboutlibraries/badge.svg?style=flat" alt="Maven Central"></a> <a href="http://android-arsenal.com/details/1/102"><img src="http://img.shields.io/badge/Android%20Arsenal-AboutLibraries-brightgreen.svg?style=flat" alt="Android Arsenal"></a>
 </h1>
 
 <p><a href="https://gitter.im/mikepenz/AboutLibraries?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge&amp;utm_content=badge"><img src="https://badges.gitter.im/Join%20Chat.svg" alt="Join the chat at https://gitter.im/mikepenz/AboutLibraries"></a></p>
@@ -89,9 +89,9 @@
 <h3>
 <a id="using-maven" class="anchor" href="#using-maven" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using Maven</h3>
 
-<p>The AboutLibraries Library is pushed to <a href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.mikepenz.aboutlibraries%22">Maven Central</a>, so you just need to add the following dependency to your <code>build.gradle</code>. It seems it is also required to add the support dependencies to the application. If it works without, you should be fine too :).</p>
+<p>The AboutLibraries Library is pushed to <a href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.mikepenz%22">Maven Central</a>, so you just need to add the following dependency to your <code>build.gradle</code>. It seems it is also required to add the support dependencies to the application. If it works without, you should be fine too :).</p>
 
-<div class="highlight highlight-javascript"><pre><span class="pl-c1">compile</span>(<span class="pl-s"><span class="pl-pds">'</span>com.mikepenz.aboutlibraries:library:4.7.2@aar<span class="pl-pds">'</span></span>) {
+<div class="highlight highlight-javascript"><pre><span class="pl-en">compile</span>('<span class="pl-smi">com</span>.mikepenz:aboutlibraries:5.0.0@aar') {
     transitive <span class="pl-k">=</span> <span class="pl-c1">true</span>
 }</pre></div>
 
@@ -104,6 +104,12 @@
 
 <h3>
 <a id="upgrade-notes" class="anchor" href="#upgrade-notes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Upgrade Notes</h3>
+
+<h4>
+<a id="-v500" class="anchor" href="#-v500" aria-hidden="true"><span class="octicon octicon-link"></span></a>&lt; v5.0.0</h4>
+
+<p>Changed maven group. You can get all updates via the new one <code>com.mikepenz:aboutlibraries:5.y.z@aar</code>
+The <code>Libs.Builder</code> is no more. It was changed to <code>LibsBuilder</code>. Just remove the "." and it is working again.</p>
 
 <h4>
 <a id="-v470" class="anchor" href="#-v470" aria-hidden="true"><span class="octicon octicon-link"></span></a>&lt; v4.7.0</h4>
@@ -127,7 +133,7 @@ This release also contains a new feature <code>withActivityStyle</code> which al
 <h4>
 <a id="fragment" class="anchor" href="#fragment" aria-hidden="true"><span class="octicon octicon-link"></span></a>Fragment</h4>
 
-<div class="highlight highlight-java"><pre><span class="pl-smi">LibsFragment</span> fragment <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Libs</span>.<span class="pl-smi">Builder</span>()
+<div class="highlight highlight-java"><pre><span class="pl-smi">LibsFragment</span> fragment <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">LibsBuilder</span>()
     <span class="pl-c">//Pass the fields of your application to the lib so it can find all external lib information</span>
         .withFields(<span class="pl-smi">R</span><span class="pl-k">.</span>string<span class="pl-k">.</span>class<span class="pl-k">.</span>getFields())
         <span class="pl-c">//get the fragment</span>
@@ -139,7 +145,7 @@ This release also contains a new feature <code>withActivityStyle</code> which al
 <h5>
 <a id="code" class="anchor" href="#code" aria-hidden="true"><span class="octicon octicon-link"></span></a>Code:</h5>
 
-<div class="highlight highlight-java"><pre><span class="pl-k">new</span> <span class="pl-smi">Libs</span>.<span class="pl-smi">Builder</span>()
+<div class="highlight highlight-java"><pre><span class="pl-k">new</span> <span class="pl-smi">LibsBuilder</span>()
     <span class="pl-c">//Pass the fields of your application to the lib so it can find all external lib information</span>
         .withFields(<span class="pl-smi">R</span><span class="pl-k">.</span>string<span class="pl-k">.</span>class<span class="pl-k">.</span>getFields())
         <span class="pl-c">//provide a style (optional) (LIGHT, DARK, LIGHT_DARK_TOOLBAR)</span>
@@ -183,6 +189,7 @@ Yeah pretty simple just add the following .xml file (or just the strings - the k
 <li><p><a href="https://play.google.com/store/apps/details?id=com.sirspellalot.app.android">Sir Spellalot</a></p></li>
 <li><a href="https://play.google.com/store/apps/details?id=com.tozelabs.tvshowtime">TVShow Time</a></li>
 <li><a href="https://play.google.com/store/apps/details?id=com.e13engineering.strength">Strength</a></li>
+<li><a href="https://play.google.com/store/apps/details?id=at.idev.spritpreise">Sprit Club</a></li>
 </ul>
 
 <h1>
