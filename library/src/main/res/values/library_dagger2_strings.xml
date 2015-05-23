@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_Dagger2">year;owner</string>
+    <string name="library_Dagger2_author">Google</string>
+    <string name="library_Dagger2_libraryName">Dagger 2</string>
+    <string name="library_Dagger2_libraryDescription">A fast dependency injector for Android and Java.</string>
+    <string name="library_Dagger2_libraryVersion">2.0.0</string>
+    <string name="library_Dagger2_libraryWebsite">https://google.github.io/dagger/</string>
+    <string name="library_Dagger2_licenseId">apache_2_2</string>
+    <string name="library_Dagger2_isOpenSource">true</string>
+    <string name="library_Dagger2_repositoryLink">https://github.com/google/dagger</string>
+    <string name="library_Dagger2_classPath">dagger.Component</string>
+    <!-- Custom variables section -->
+    <string name="library_Dagger2_owner">Google</string>
+    <string name="library_Dagger2_year">2015</string>
+</resources>
