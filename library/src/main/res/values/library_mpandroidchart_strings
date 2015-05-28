@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-	<string name="define_mpandroidchart"></string>
+	<string name="define_int_mpandroidchart"></string>
 	<!-- Author section -->
 	<string name="library_mpandroidchart_author">PhilJay</string>
 	<string name="library_mpandroidchart_authorWebsite">https://github.com/PhilJay/MPAndroidChart</string>
@@ -14,7 +14,7 @@
 	<string name="library_mpandroidchart_isOpenSource">true</string>
 	<string name="library_mpandroidchart_repositoryLink">https://github.com/PhilJay/MPAndroidChart</string>
 	<!-- ClassPath for autoDetect section -->
-	<string name="library_mpandroidchart_classPath"></string>
+	<string name="library_mpandroidchart_classPath">com.github.mikephil.charting.charts.LineChart</string>
 	<!-- License section -->
 	<string name="library_mpandroidchart_licenseId">apache_2_0</string>
 	<!-- Custom variables section -->
