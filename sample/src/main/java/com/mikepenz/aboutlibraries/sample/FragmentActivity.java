@@ -16,6 +16,7 @@ import com.mikepenz.aboutlibraries.LibsConfiguration;
 import com.mikepenz.aboutlibraries.entity.Library;
 import com.mikepenz.aboutlibraries.ui.LibsFragment;
 import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
@@ -33,7 +34,7 @@ public class FragmentActivity extends ActionBarActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        new Drawer(this)
+        new DrawerBuilder(this)
                 .withToolbar(toolbar)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName("Home"),
@@ -44,7 +45,7 @@ public class FragmentActivity extends ActionBarActivity {
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l, IDrawerItem drawerItem) {
+                    public boolean onItemClick(AdapterView<?> adapterView, View view, int i, long l, IDrawerItem drawerItem) {
                         // Handle action bar item clicks here. The action bar will
                         // automatically handle clicks on the Home/Up button, so long
                         // as you specify a parent activity in AndroidManifest.xml.
@@ -116,6 +117,8 @@ public class FragmentActivity extends ActionBarActivity {
                                     })
                                     .start(FragmentActivity.this);
                         }
+
+                        return false;
                     }
                 })
                 .build();
