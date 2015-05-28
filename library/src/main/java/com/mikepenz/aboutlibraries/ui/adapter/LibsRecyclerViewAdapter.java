@@ -254,7 +254,7 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 holder.libraryCreator.setOnLongClickListener(null);
             }
 
-            if (!TextUtils.isEmpty(library.getLibraryWebsite()) && !TextUtils.isEmpty(library.getRepositoryLink())) {
+            if (!TextUtils.isEmpty(library.getLibraryWebsite()) || !TextUtils.isEmpty(library.getRepositoryLink())) {
                 holder.libraryDescription.setOnTouchListener(rippleForegroundListener);
                 holder.libraryDescription.setOnClickListener(new View.OnClickListener() {
                     @Override
