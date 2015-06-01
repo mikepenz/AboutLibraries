@@ -14,7 +14,7 @@
 	<string name="library_androidflowlayout_isOpenSource">true</string>
 	<string name="library_androidflowlayout_repositoryLink">https://github.com/ApmeM/android-flowlayout</string>
 	<!-- ClassPath for autoDetect section -->
-	<string name="library_androidflowlayout_classPath">org.apmem.tools.layouts</string>
+	<string name="library_androidflowlayout_classPath">org.apmem.tools.layouts.FlowLayout</string>
 	<!-- License section -->
 	<string name="library_androidflowlayout_licenseId">apache_2_0</string>
 	<!-- Custom variables section -->
