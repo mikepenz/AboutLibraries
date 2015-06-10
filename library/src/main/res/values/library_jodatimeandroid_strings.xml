@@ -1,0 +1,19 @@
+<resources>
+	<string name="define_int_jodatimeandroid"></string>
+	<!-- Author section -->
+	<string name="library_jodatimeandroid_author">dlew</string>
+	<string name="library_jodatimeandroid_authorWebsite">http://danlew.net/</string>
+	<!-- Library section -->
+	<string name="library_jodatimeandroid_libraryName">joda-time-android</string>
+	<string name="library_jodatimeandroid_libraryDescription">Joda-Time library with Android specialization.</string>
+	<string name="library_jodatimeandroid_libraryWebsite">https://github.com/dlew/joda-time-android</string>
+	<string name="library_jodatimeandroid_libraryVersion">2.8.0</string>
+	<!-- OpenSource section -->
+	<string name="library_jodatimeandroid_isOpenSource">true</string>
+	<string name="library_jodatimeandroid_repositoryLink">https://github.com/dlew/joda-time-android</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_jodatimeandroid_classPath">net.danlew.android.joda.JodaTimeAndroid</string>
+	<!-- License section -->
+	<string name="library_jodatimeandroid_licenseId">apache_2_0</string>
+	<!-- Custom variables section -->
+</resources>
