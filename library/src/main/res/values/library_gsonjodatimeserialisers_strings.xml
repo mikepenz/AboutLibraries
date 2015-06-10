@@ -1,5 +1,5 @@
 <resources>
-	<string name="define_gsonjodatimeserialisers"></string>
+	<string name="define_int_gsonjodatimeserialisers"></string>
 	<!-- Author section -->
 	<string name="library_gsonjodatimeserialisers_author">gkopff</string>
 	<string name="library_gsonjodatimeserialisers_authorWebsite">https://github.com/gkopff</string>
