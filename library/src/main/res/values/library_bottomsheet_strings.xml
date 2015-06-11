@@ -1,0 +1,47 @@
+<resources>
+	<string name="define_int_bottomsheet"></string>
+	<!-- Author section -->
+	<string name="library_bottomsheet_author">emilsjolander</string>
+	<string name="library_bottomsheet_authorWebsite">http://emilsjolander.se/</string>
+	<!-- Library section -->
+	<string name="library_bottomsheet_libraryName">BottomSheet</string>
+	<string name="library_bottomsheet_libraryDescription">Android component which presents a dismissible view from the bottom of the screen.</string>
+	<string name="library_bottomsheet_libraryWebsite">https://github.com/Flipboard/bottomsheet</string>
+	<string name="library_bottomsheet_libraryVersion">1.1.0</string>
+	<!-- OpenSource section -->
+	<string name="library_bottomsheet_isOpenSource">true</string>
+	<string name="library_bottomsheet_repositoryLink">https://github.com/Flipboard/bottomsheet</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_bottomsheet_classPath">com.flipboard.bottomsheet.BottomSheetLayout</string>
+	<!-- License section -->
+	<string name="libray_bottomsheet_licenseVersion">Flipboard</string>
+	<string name="libray_bottomsheet_licenseLink">https://github.com/Flipboard/bottomsheet/blob/master/LICENSE</string>
+	<string name="libray_bottomsheet_licenseContent">Copyright (c) 2015, Flipboard
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice, this
+  list of conditions and the following disclaimer.
+
+* Redistributions in binary form must reproduce the above copyright notice, this
+  list of conditions and the following disclaimer in the documentation and/or
+  other materials provided with the distribution.
+
+* Neither the name of Flipboard nor the names of its
+  contributors may be used to endorse or promote products derived from
+  this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</string>
+	<!-- Custom variables section -->
+</resources>

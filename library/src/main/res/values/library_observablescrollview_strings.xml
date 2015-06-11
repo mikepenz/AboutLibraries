@@ -1,0 +1,19 @@
+<resources>
+	<string name="define_int_observablescrollview"></string>
+	<!-- Author section -->
+	<string name="library_observablescrollview_author">ksoichiro</string>
+	<string name="library_observablescrollview_authorWebsite">http://ksoichiro.blogspot.pt/</string>
+	<!-- Library section -->
+	<string name="library_observablescrollview_libraryName">Android-ObservableScrollView</string>
+	<string name="library_observablescrollview_libraryDescription">Android library to observe scroll events on scrollable views.</string>
+	<string name="library_observablescrollview_libraryWebsite">http://ksoichiro.github.io/Android-ObservableScrollView/</string>
+	<string name="library_observablescrollview_libraryVersion">1.5.2</string>
+	<!-- OpenSource section -->
+	<string name="library_observablescrollview_isOpenSource">true</string>
+	<string name="library_observablescrollview_repositoryLink">https://github.com/ksoichiro/Android-ObservableScrollView</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_observablescrollview_classPath">com.github.ksoichiro.android.observablescrollview.ObservableScrollView</string>
+	<!-- License section -->
+	<string name="library_observablescrollview_licenseId">apache_2_0</string>
+	<!-- Custom variables section -->
+</resources>
