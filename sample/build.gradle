@@ -56,7 +56,7 @@ dependencies {
     compile 'com.fima.cardsui:library:1.+@aar'
     compile project(':library')
 
-    compile('com.mikepenz:materialdrawer:3.0.4@aar') {
+    compile('com.mikepenz:materialdrawer:3.0.7@aar') {
         transitive = true
     }
 }
