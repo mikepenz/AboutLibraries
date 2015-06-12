@@ -192,8 +192,8 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
             final Library library = getItem(position);
 
-            RippleForegroundListener rippleForegroundListener = new RippleForegroundListener();
-            rippleForegroundListener.setCardView(holder.card);
+            RippleForegroundListener<CardView> rippleForegroundListener = new RippleForegroundListener<>();
+            rippleForegroundListener.setLayout(holder.card);
 
             //Set texts
             holder.libraryName.setText(library.getLibraryName());
