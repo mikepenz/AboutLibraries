@@ -1,6 +1,7 @@
 package com.mikepenz.aboutlibraries.util;
 
-import android.support.v7.widget.CardView;
+import android.annotation.SuppressLint;
+import android.os.Build;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -8,37 +9,58 @@ import android.view.View;
  * Created by mikepenz on 16.04.15.
  */
 public class RippleForegroundListener implements View.OnTouchListener {
-    CardView cardView;
+    private int rippleViewId = -1;
 
-    public RippleForegroundListener setCardView(CardView cardView) {
-        this.cardView = cardView;
-        return this;
+    /**
+     * @param rippleViewId the id of the view which contains the rippleDrawable
+     */
+    public RippleForegroundListener(int rippleViewId) {
+        this.rippleViewId = rippleViewId;
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        // Convert to card view coordinates. Assumes the host view is
-        // a direct child and the card view is not scrollable.
+        // Convert to view coordinates. Assumes the host view is
+        // a direct child and the view is not scrollable.
         float x = event.getX() + v.getLeft();
         float y = event.getY() + v.getTop();
 
-        if (android.os.Build.VERSION.SDK_INT >= 21) {
-            // Simulate motion on the card view.
-            cardView.drawableHotspotChanged(x, y);
+        final View rippleView = findRippleView(v);
+        //if we were not able to find the view to display the ripple on, continue.
+        if (rippleView == null) {
+            return false;
         }
 
-        // Simulate pressed state on the card view.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            // Simulate motion on the view.
+            rippleView.drawableHotspotChanged(x, y);
+        }
+
+        // Simulate pressed state on the view.
         switch (event.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
-                cardView.setPressed(true);
+                rippleView.setPressed(true);
                 break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
-                cardView.setPressed(false);
+                rippleView.setPressed(false);
                 break;
         }
 
         // Pass all events through to the host view.
         return false;
+    }
+
+    public View findRippleView(View view) {
+        if (view.getId() == rippleViewId) {
+            return view;
+        } else {
+            if (view.getParent() instanceof View) {
+                return findRippleView((View) view.getParent());
+            } else {
+                return null;
+            }
+        }
     }
 }

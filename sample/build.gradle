@@ -13,8 +13,8 @@ android {
         applicationId 'com.mikepenz.aboutlibraries.sample'
         minSdkVersion 11
         targetSdkVersion 22
-        versionCode 503
-        versionName '5.0.3'
+        versionCode 504
+        versionName '5.0.4'
 
         applicationVariants.all { variant ->
             variant.outputs.each { output ->
@@ -56,7 +56,7 @@ dependencies {
     compile 'com.fima.cardsui:library:1.+@aar'
     compile project(':library')
 
-    compile('com.mikepenz:materialdrawer:3.0.4@aar') {
+    compile('com.mikepenz:materialdrawer:3.0.7@aar') {
         transitive = true
     }
 }

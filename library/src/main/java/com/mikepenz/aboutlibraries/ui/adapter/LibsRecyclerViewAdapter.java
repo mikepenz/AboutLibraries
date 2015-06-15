@@ -32,6 +32,8 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_ITEM = 1;
 
+    private RippleForegroundListener rippleForegroundListener = new RippleForegroundListener(R.id.rippleForegroundListenerView);
+
     private List<Library> libs = new LinkedList<Library>();
 
     private boolean header = false;
@@ -191,9 +193,6 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             ViewHolder holder = (ViewHolder) viewHolder;
 
             final Library library = getItem(position);
-
-            RippleForegroundListener rippleForegroundListener = new RippleForegroundListener();
-            rippleForegroundListener.setCardView(holder.card);
 
             //Set texts
             holder.libraryName.setText(library.getLibraryName());
@@ -471,7 +470,7 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             libraryDescription.setTextColor(UIUtils.getThemeColorFromAttrOrRes(itemView.getContext(), R.attr.about_libraries_text_openSource, R.color.about_libraries_text_openSource));
 
             libraryBottomDivider = itemView.findViewById(R.id.libraryBottomDivider);
-            libraryDescriptionDivider.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(itemView.getContext(), R.attr.about_libraries_dividerLight_openSource, R.color.about_libraries_dividerLight_openSource));
+            libraryBottomDivider.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(itemView.getContext(), R.attr.about_libraries_dividerLight_openSource, R.color.about_libraries_dividerLight_openSource));
             libraryBottomContainer = itemView.findViewById(R.id.libraryBottomContainer);
 
             libraryVersion = (TextView) itemView.findViewById(R.id.libraryVersion);

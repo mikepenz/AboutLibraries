@@ -26,17 +26,30 @@ public class LibsConfiguration {
      * LOGIC FOR THE LISTENER
      */
     private LibsListener listener = null;
+    private LibsUIListener uiListener = null;
 
     public void setListener(LibsListener libsListener) {
         this.listener = libsListener;
+    }
+
+    public LibsListener getListener() {
+        return listener;
     }
 
     public void removeListener() {
         this.listener = null;
     }
 
-    public LibsListener getListener() {
-        return listener;
+    public LibsUIListener getUiListener() {
+        return uiListener;
+    }
+
+    public void setUiListener(LibsUIListener uiListener) {
+        this.uiListener = uiListener;
+    }
+
+    public void removeUiListener() {
+        this.uiListener = null;
     }
 
     /**
@@ -45,6 +58,13 @@ public class LibsConfiguration {
      */
     public void reset() {
         SINGLETON = null;
+    }
+
+
+    public interface LibsUIListener {
+        View preOnCreateView(View view);
+
+        View postOnCreateView(View view);
     }
 
     public interface LibsListener {
