@@ -1,107 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@id/rippleForegroundListenerView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="8dp"
     android:layout_marginBottom="8dp"
+    android:layout_marginTop="8dp"
     android:clickable="true"
     android:foreground="?selectableItemBackground">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="6dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="6dp">
+
         <LinearLayout
-            android:gravity="center_vertical"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp">
 
             <TextView
                 android:id="@+id/libraryName"
-                android:textSize="@dimen/textSizeLarge_openSource"
-                android:textStyle="normal"
                 android:layout_width="0dp"
-                android:layout_weight="5"
                 android:layout_height="wrap_content"
+                android:layout_weight="5"
                 android:ellipsize="end"
                 android:maxLines="1"
-                tools:text="Library name"/>
+                android:textSize="@dimen/textSizeLarge_openSource"
+                android:textStyle="normal"
+                tools:text="Library name" />
 
             <TextView
                 android:id="@+id/libraryCreator"
-                android:textStyle="normal"
                 android:layout_width="0dp"
-                android:layout_weight="2"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
+                android:layout_weight="2"
                 android:gravity="right"
                 android:maxLines="2"
                 android:textSize="@dimen/textSizeSmall_openSource"
-                tools:text="Creator"/>
+                android:textStyle="normal"
+                tools:text="Creator" />
         </LinearLayout>
 
         <View
             android:id="@+id/libraryDescriptionDivider"
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:layout_marginTop="4dp"/>
+            android:layout_marginTop="4dp" />
 
         <TextView
             android:id="@+id/libraryDescription"
-            android:textSize="@dimen/textSizeSmall_openSource"
-            android:textStyle="normal"
-            android:padding="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="20"
-            tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla in aliquet justo. Donec tincidunt, leo imperdiet pretium posuere, sapien leo auctor mi, ac scelerisque diam leo vel sapien. Morbi lobortis, sem sed molestie fermentum.">
-        </TextView>
+            android:padding="8dp"
+            android:textSize="@dimen/textSizeSmall_openSource"
+            android:textStyle="normal"
+            tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla in aliquet justo. Donec tincidunt, leo imperdiet pretium posuere, sapien leo auctor mi, ac scelerisque diam leo vel sapien. Morbi lobortis, sem sed molestie fermentum."></TextView>
 
         <View
             android:id="@+id/libraryBottomDivider"
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:layout_marginTop="4dp"
-            />
+            android:layout_marginTop="4dp" />
 
         <LinearLayout
             android:id="@+id/libraryBottomContainer"
-            android:gravity="center_vertical"
-            android:paddingLeft="8dp"
-            android:paddingTop="4dp"
-            android:paddingRight="8dp"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="4dp">
 
             <TextView
                 android:id="@+id/libraryVersion"
-                android:textStyle="normal"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:gravity="left"
                 android:maxLines="1"
                 android:textSize="@dimen/textSizeSmall_openSource"
-                tools:text="Version"/>
+                android:textStyle="normal"
+                tools:text="Version" />
 
             <TextView
                 android:id="@+id/libraryLicense"
-                android:textStyle="normal"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:gravity="right"
                 android:maxLines="1"
                 android:textSize="@dimen/textSizeSmall_openSource"
-                tools:text="License"/>
+                android:textStyle="normal"
+                tools:text="License" />
         </LinearLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>
