@@ -5,12 +5,19 @@ import android.os.Build;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.mikepenz.aboutlibraries.R;
-
 /**
  * Created by mikepenz on 16.04.15.
  */
 public class RippleForegroundListener implements View.OnTouchListener {
+    private int rippleViewId = -1;
+
+    /**
+     * @param rippleViewId the id of the view which contains the rippleDrawable
+     */
+    public RippleForegroundListener(int rippleViewId) {
+        this.rippleViewId = rippleViewId;
+    }
+
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouch(View v, MotionEvent event) {
@@ -46,7 +53,7 @@ public class RippleForegroundListener implements View.OnTouchListener {
     }
 
     public View findRippleView(View view) {
-        if (view.getId() == R.id.rippleForegroundListenerView) {
+        if (view.getId() == rippleViewId) {
             return view;
         } else {
             if (view.getParent() instanceof View) {

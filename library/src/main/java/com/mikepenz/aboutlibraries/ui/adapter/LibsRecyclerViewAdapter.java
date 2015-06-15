@@ -32,7 +32,7 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_ITEM = 1;
 
-    private RippleForegroundListener rippleForegroundListener = new RippleForegroundListener();
+    private RippleForegroundListener rippleForegroundListener = new RippleForegroundListener(R.id.rippleForegroundListenerView);
 
     private List<Library> libs = new LinkedList<Library>();
 
