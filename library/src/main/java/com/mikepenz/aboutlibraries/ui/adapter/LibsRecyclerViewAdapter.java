@@ -32,6 +32,8 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_ITEM = 1;
 
+    private RippleForegroundListener rippleForegroundListener = new RippleForegroundListener();
+
     private List<Library> libs = new LinkedList<Library>();
 
     private boolean header = false;
@@ -191,9 +193,6 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             ViewHolder holder = (ViewHolder) viewHolder;
 
             final Library library = getItem(position);
-
-            RippleForegroundListener<CardView> rippleForegroundListener = new RippleForegroundListener<>();
-            rippleForegroundListener.setLayout(holder.card);
 
             //Set texts
             holder.libraryName.setText(library.getLibraryName());

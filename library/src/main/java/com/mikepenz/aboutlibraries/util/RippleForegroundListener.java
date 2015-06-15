@@ -5,17 +5,12 @@ import android.os.Build;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.mikepenz.aboutlibraries.R;
+
 /**
  * Created by mikepenz on 16.04.15.
  */
-public class RippleForegroundListener<T extends View> implements View.OnTouchListener {
-    T view;
-
-    public RippleForegroundListener setLayout(T view) {
-        this.view = view;
-        return this;
-    }
-
+public class RippleForegroundListener implements View.OnTouchListener {
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouch(View v, MotionEvent event) {
@@ -24,23 +19,41 @@ public class RippleForegroundListener<T extends View> implements View.OnTouchLis
         float x = event.getX() + v.getLeft();
         float y = event.getY() + v.getTop();
 
+        final View rippleView = findRippleView(v);
+        //if we were not able to find the view to display the ripple on, continue.
+        if (rippleView == null) {
+            return false;
+        }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             // Simulate motion on the view.
-            view.drawableHotspotChanged(x, y);
+            rippleView.drawableHotspotChanged(x, y);
         }
 
         // Simulate pressed state on the view.
         switch (event.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
-                view.setPressed(true);
+                rippleView.setPressed(true);
                 break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
-                view.setPressed(false);
+                rippleView.setPressed(false);
                 break;
         }
 
         // Pass all events through to the host view.
         return false;
+    }
+
+    public View findRippleView(View view) {
+        if (view.getId() == R.id.rippleForegroundListenerView) {
+            return view;
+        } else {
+            if (view.getParent() instanceof View) {
+                return findRippleView((View) view.getParent());
+            } else {
+                return null;
+            }
+        }
     }
 }
