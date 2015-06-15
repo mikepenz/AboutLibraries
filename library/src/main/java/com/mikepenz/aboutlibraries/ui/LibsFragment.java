@@ -20,6 +20,7 @@ import android.view.animation.LayoutAnimationController;
 
 import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.aboutlibraries.LibsBuilder;
+import com.mikepenz.aboutlibraries.LibsConfiguration;
 import com.mikepenz.aboutlibraries.R;
 import com.mikepenz.aboutlibraries.entity.Library;
 import com.mikepenz.aboutlibraries.ui.adapter.LibsRecyclerViewAdapter;
@@ -103,6 +104,11 @@ public class LibsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_opensource, container, false);
 
+        //allows to modify the view before creating
+        if (LibsConfiguration.getInstance().getUiListener() != null) {
+            view = LibsConfiguration.getInstance().getUiListener().preOnCreateView(view);
+        }
+
         // init CardView
         mRecyclerView = (RecyclerView) view.findViewById(R.id.cardListView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(LibsFragment.this.getActivity()));
@@ -111,6 +117,11 @@ public class LibsFragment extends Fragment {
         mRecyclerView.setAdapter(mAdapter);
 
         generateAboutThisAppSection();
+
+        //allows to modify the view after creating
+        if (LibsConfiguration.getInstance().getUiListener() != null) {
+            view = LibsConfiguration.getInstance().getUiListener().postOnCreateView(view);
+        }
 
         return view;
     }
