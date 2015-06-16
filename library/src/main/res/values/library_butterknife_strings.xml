@@ -6,7 +6,7 @@
     <string name="library_Butterknife_libraryDescription">View "injection" library for Android which uses annotation processing to generate boilerplate code for
         you.
     </string>
-    <string name="library_Butterknife_libraryVersion">4.0.1</string>
+    <string name="library_Butterknife_libraryVersion">6.1.0</string>
     <string name="library_Butterknife_libraryWebsite">http://jakewharton.github.io/butterknife/</string>
     <string name="library_Butterknife_licenseId">apache_2_0</string>
     <string name="library_Butterknife_isOpenSource">true</string>
