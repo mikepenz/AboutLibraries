@@ -6,7 +6,7 @@
     <string name="library_Eventbus_libraryName">Eventbus</string>
     <string name="library_Eventbus_libraryDescription">EventBus is an Android optimized publish/subscribe event bus.
     </string>
-    <string name="library_Eventbus_libraryVersion">2.2.0</string>
+    <string name="library_Eventbus_libraryVersion">2.4.0</string>
     <string name="library_Eventbus_libraryWebsite">https://github.com/greenrobot/EventBus</string>
     <string name="library_Eventbus_licenseId">apache_2_0</string>
     <string name="library_Eventbus_isOpenSource">true</string>
