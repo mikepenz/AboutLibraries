@@ -53,7 +53,7 @@ public class LibsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_opensource);
         String title = "";
-        if (bundle != null) {
+        if (bundle != null && bundle.containsKey(Contributors.BUNDLE_TITLE)) {
             title = bundle.getString(Libs.BUNDLE_TITLE);
         }
         LibsFragment fragment = new LibsFragment();
