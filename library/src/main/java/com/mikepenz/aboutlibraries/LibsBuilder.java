@@ -14,6 +14,7 @@ import com.mikepenz.aboutlibraries.util.Colors;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 
 public class LibsBuilder implements Serializable {
@@ -23,6 +24,7 @@ public class LibsBuilder implements Serializable {
 
     public Boolean autoDetect = true;
     public Boolean sort = true;
+    public Comparator<Library> libraryComparator = null;
     public Boolean animate = true;
 
     public Boolean showLicense = false;
@@ -116,6 +118,19 @@ public class LibsBuilder implements Serializable {
      */
     public LibsBuilder withSortEnabled(boolean sort) {
         this.sort = sort;
+        return this;
+    }
+
+
+    /**
+     * Builder method to enable custom sorting of the libraries (default: null)
+     *
+     * @param libraryComparator comparator to customize the sorting of the libraries
+     * @return this
+     */
+    public LibsBuilder withLibraryComparator(Comparator<Library> libraryComparator) {
+        this.libraryComparator = libraryComparator;
+        this.sort = (libraryComparator != null);
         return this;
     }
 
@@ -463,6 +478,7 @@ public class LibsBuilder implements Serializable {
 
         LibsFragment fragment = new LibsFragment();
         fragment.setArguments(bundle);
+        fragment.setLibraryComparator(libraryComparator);
 
         return fragment;
     }
