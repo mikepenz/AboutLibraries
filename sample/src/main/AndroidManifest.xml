@@ -26,6 +26,11 @@
             android:name="com.mikepenz.aboutlibraries.sample.ExtendActivity"
             android:label="@string/app_name">
         </activity>
+        <activity
+            android:theme="@style/AboutLibrariesTheme"
+            android:name="com.mikepenz.aboutlibraries.sample.CustomSortActivity"
+            android:label="@string/app_name">
+        </activity>
     </application>
 
 </manifest>
