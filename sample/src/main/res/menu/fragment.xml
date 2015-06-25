@@ -7,6 +7,9 @@
     <item android:id="@+id/action_extendactivity"
           android:title="@string/action_extendactivity"
           app:showAsAction="never"/>
+    <item android:id="@+id/action_customsortactivity"
+          android:title="@string/action_customsortactivity"
+          app:showAsAction="never"/>
     <item android:id="@+id/action_customactivity"
           android:title="@string/action_customactivity"
           app:showAsAction="never"/>
