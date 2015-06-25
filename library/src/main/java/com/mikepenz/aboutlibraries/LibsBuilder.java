@@ -478,7 +478,6 @@ public class LibsBuilder implements Serializable {
 
         LibsFragment fragment = new LibsFragment();
         fragment.setArguments(bundle);
-        fragment.setLibraryComparator(libraryComparator);
 
         return fragment;
     }
