@@ -40,6 +40,7 @@ public class FragmentActivity extends ActionBarActivity {
                         new PrimaryDrawerItem().withName("Home"),
                         new PrimaryDrawerItem().withName(R.string.action_manifestactivity).withIdentifier(R.id.action_manifestactivity).withCheckable(false),
                         new PrimaryDrawerItem().withName(R.string.action_extendactivity).withIdentifier(R.id.action_extendactivity).withCheckable(false),
+                        new PrimaryDrawerItem().withName(R.string.action_customsortactivity).withIdentifier(R.id.action_customsortactivity).withCheckable(false),
                         new PrimaryDrawerItem().withName(R.string.action_customactivity).withIdentifier(R.id.action_customactivity).withCheckable(false),
                         new PrimaryDrawerItem().withName(R.string.action_opensource).withIdentifier(R.id.action_opensource).withCheckable(false)
                 )
@@ -76,6 +77,9 @@ public class FragmentActivity extends ActionBarActivity {
                             startActivity(browserIntent);
                         } else if (id == R.id.action_extendactivity) {
                             Intent intent = new Intent(getApplicationContext(), ExtendActivity.class);
+                            startActivity(intent);
+                        } else if (id == R.id.action_customsortactivity) {
+                            Intent intent = new Intent(getApplicationContext(), CustomSortActivity.class);
                             startActivity(intent);
                         } else if (id == R.id.action_customactivity) {
                             Intent intent = new Intent(getApplicationContext(), CustomActivity.class);
