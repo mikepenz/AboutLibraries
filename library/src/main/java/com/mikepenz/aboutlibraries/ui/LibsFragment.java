@@ -92,10 +92,13 @@ public class LibsFragment extends Fragment {
         libs.modifyLibraries(builder.libraryModification);
 
         //fetch the libraries and sort if a comparator was set
-        libraries = libs.prepareLibraries(builder.internalLibraries, builder.excludeLibraries, builder.autoDetect, builder.sort);
+        boolean doDefaultSort = (builder.sort && null == builder.libraryComparator && null == comparator);
+        libraries = libs.prepareLibraries(builder.internalLibraries, builder.excludeLibraries, builder.autoDetect, doDefaultSort);
 
         if (comparator != null) {
             Collections.sort(libraries, comparator);
+        } else if (builder.libraryComparator != null) {
+            Collections.sort(libraries, builder.libraryComparator);
         }
     }
 

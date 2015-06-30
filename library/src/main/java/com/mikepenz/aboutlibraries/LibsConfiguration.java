@@ -68,6 +68,11 @@ public class LibsConfiguration {
     }
 
     public interface LibsListener {
+        /**
+         * onClick listener if the icon of the AboutAppSection is clicked
+         *
+         * @param v
+         */
         void onIconClicked(View v);
 
         /**
@@ -108,5 +113,88 @@ public class LibsConfiguration {
          * @return true if consumed and no further action is required
          */
         boolean onExtraClicked(View v, Libs.SpecialButton specialButton);
+
+        /**
+         * onClick listener if the icon of the AboutAppSection is clicked
+         *
+         * @param v true if consumed and no further action is required
+         */
+        boolean onIconLongClicked(View v);
+
+        /**
+         * onClick listener if the Author of a Library is clicked
+         *
+         * @param v
+         * @param library
+         * @return true if consumed and no further action is required
+         */
+        boolean onLibraryAuthorLongClicked(View v, Library library);
+
+
+        /**
+         * onClick listener if the Content of a Library is clicked
+         *
+         * @param v
+         * @param library
+         * @return true if consumed and no further action is required
+         */
+        boolean onLibraryContentLongClicked(View v, Library library);
+
+
+        /**
+         * onClick listener if the Bottom of a Library is clicked
+         *
+         * @param v
+         * @param library
+         * @return true if consumed and no further action is required
+         */
+        boolean onLibraryBottomLongClicked(View v, Library library);
+    }
+
+    public abstract class LibsListenerImpl implements LibsListener {
+        @Override
+        public void onIconClicked(View v) {
+
+        }
+
+        @Override
+        public boolean onLibraryAuthorClicked(View v, Library library) {
+            return false;
+        }
+
+        @Override
+        public boolean onLibraryContentClicked(View v, Library library) {
+            return false;
+        }
+
+        @Override
+        public boolean onLibraryBottomClicked(View v, Library library) {
+            return false;
+        }
+
+        @Override
+        public boolean onExtraClicked(View v, Libs.SpecialButton specialButton) {
+            return false;
+        }
+
+        @Override
+        public boolean onIconLongClicked(View v) {
+            return true;
+        }
+
+        @Override
+        public boolean onLibraryAuthorLongClicked(View v, Library library) {
+            return true;
+        }
+
+        @Override
+        public boolean onLibraryContentLongClicked(View v, Library library) {
+            return true;
+        }
+
+        @Override
+        public boolean onLibraryBottomLongClicked(View v, Library library) {
+            return true;
+        }
     }
 }

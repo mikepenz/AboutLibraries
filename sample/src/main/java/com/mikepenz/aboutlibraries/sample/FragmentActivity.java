@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
@@ -23,7 +23,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 /**
  * Created by mikepenz on 04.06.14.
  */
-public class FragmentActivity extends ActionBarActivity {
+public class FragmentActivity extends AppCompatActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,6 +40,7 @@ public class FragmentActivity extends ActionBarActivity {
                         new PrimaryDrawerItem().withName("Home"),
                         new PrimaryDrawerItem().withName(R.string.action_manifestactivity).withIdentifier(R.id.action_manifestactivity).withCheckable(false),
                         new PrimaryDrawerItem().withName(R.string.action_extendactivity).withIdentifier(R.id.action_extendactivity).withCheckable(false),
+                        new PrimaryDrawerItem().withName(R.string.action_customsortactivity).withIdentifier(R.id.action_customsortactivity).withCheckable(false),
                         new PrimaryDrawerItem().withName(R.string.action_customactivity).withIdentifier(R.id.action_customactivity).withCheckable(false),
                         new PrimaryDrawerItem().withName(R.string.action_opensource).withIdentifier(R.id.action_opensource).withCheckable(false)
                 )
@@ -77,6 +78,9 @@ public class FragmentActivity extends ActionBarActivity {
                         } else if (id == R.id.action_extendactivity) {
                             Intent intent = new Intent(getApplicationContext(), ExtendActivity.class);
                             startActivity(intent);
+                        } else if (id == R.id.action_customsortactivity) {
+                            Intent intent = new Intent(getApplicationContext(), CustomSortActivity.class);
+                            startActivity(intent);
                         } else if (id == R.id.action_customactivity) {
                             Intent intent = new Intent(getApplicationContext(), CustomActivity.class);
                             startActivity(intent);
@@ -112,6 +116,26 @@ public class FragmentActivity extends ActionBarActivity {
 
                                         @Override
                                         public boolean onExtraClicked(View v, Libs.SpecialButton specialButton) {
+                                            return false;
+                                        }
+
+                                        @Override
+                                        public boolean onIconLongClicked(View v) {
+                                            return false;
+                                        }
+
+                                        @Override
+                                        public boolean onLibraryAuthorLongClicked(View v, Library library) {
+                                            return false;
+                                        }
+
+                                        @Override
+                                        public boolean onLibraryContentLongClicked(View v, Library library) {
+                                            return false;
+                                        }
+
+                                        @Override
+                                        public boolean onLibraryBottomLongClicked(View v, Library library) {
                                             return false;
                                         }
                                     })
