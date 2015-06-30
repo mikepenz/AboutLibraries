@@ -118,6 +118,26 @@ public class FragmentActivity extends AppCompatActivity {
                                         public boolean onExtraClicked(View v, Libs.SpecialButton specialButton) {
                                             return false;
                                         }
+
+                                        @Override
+                                        public boolean onIconLongClicked(View v) {
+                                            return false;
+                                        }
+
+                                        @Override
+                                        public boolean onLibraryAuthorLongClicked(View v, Library library) {
+                                            return false;
+                                        }
+
+                                        @Override
+                                        public boolean onLibraryContentLongClicked(View v, Library library) {
+                                            return false;
+                                        }
+
+                                        @Override
+                                        public boolean onLibraryBottomLongClicked(View v, Library library) {
+                                            return false;
+                                        }
                                     })
                                     .start(FragmentActivity.this);
                         }
