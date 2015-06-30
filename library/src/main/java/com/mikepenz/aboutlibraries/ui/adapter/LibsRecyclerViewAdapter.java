@@ -75,6 +75,14 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                         }
                     }
                 });
+
+                holder.aboutIcon.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        return LibsConfiguration.getInstance().getListener() != null && LibsConfiguration.getInstance().getListener().onIconLongClicked(v);
+
+                    }
+                });
             } else {
                 holder.aboutIcon.setVisibility(View.GONE);
             }
@@ -243,8 +251,16 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 holder.libraryCreator.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
-                        openAuthorWebsite(ctx, library.getAuthorWebsite());
-                        return true;
+                        boolean consumed = false;
+                        if (LibsConfiguration.getInstance().getListener() != null) {
+                            consumed = LibsConfiguration.getInstance().getListener().onLibraryAuthorLongClicked(v, library);
+                        }
+
+                        if (!consumed) {
+                            openAuthorWebsite(ctx, library.getAuthorWebsite());
+                            consumed = true;
+                        }
+                        return consumed;
                     }
                 });
             } else {
@@ -271,8 +287,16 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 holder.libraryDescription.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
-                        openLibraryWebsite(ctx, library.getLibraryWebsite() != null ? library.getLibraryWebsite() : library.getRepositoryLink());
-                        return true;
+                        boolean consumed = false;
+                        if (LibsConfiguration.getInstance().getListener() != null) {
+                            consumed = LibsConfiguration.getInstance().getListener().onLibraryContentLongClicked(v, library);
+                        }
+
+                        if (!consumed) {
+                            openLibraryWebsite(ctx, library.getLibraryWebsite() != null ? library.getLibraryWebsite() : library.getRepositoryLink());
+                            consumed = true;
+                        }
+                        return consumed;
                     }
                 });
             } else {
@@ -299,8 +323,16 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 holder.libraryBottomContainer.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
-                        openLicense(ctx, libsBuilder, library);
-                        return true;
+                        boolean consumed = false;
+                        if (LibsConfiguration.getInstance().getListener() != null) {
+                            consumed = LibsConfiguration.getInstance().getListener().onLibraryBottomLongClicked(v, library);
+                        }
+
+                        if (!consumed) {
+                            openLicense(ctx, libsBuilder, library);
+                            consumed = true;
+                        }
+                        return consumed;
                     }
                 });
             } else {
