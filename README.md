@@ -126,6 +126,7 @@ You can contribute by creating a information file for a new library, and open a 
 * [TVShow Time](https://play.google.com/store/apps/details?id=com.tozelabs.tvshowtime)
 * [Strength](https://play.google.com/store/apps/details?id=com.e13engineering.strength)
 * [Sprit Club](https://play.google.com/store/apps/details?id=at.idev.spritpreise)
+* [Hold'Em Poker Manager](https://play.google.com/store/apps/details?id=pt.massena.holdemtracker.free)
 
 
 #Developed By
