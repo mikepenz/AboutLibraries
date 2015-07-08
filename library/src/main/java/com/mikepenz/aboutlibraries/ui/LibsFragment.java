@@ -113,7 +113,11 @@ public class LibsFragment extends Fragment {
         }
 
         // init CardView
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.cardListView);
+        if (view.getId() == R.id.cardListView) {
+            mRecyclerView = (RecyclerView) view;
+        } else {
+            mRecyclerView = (RecyclerView) view.findViewById(R.id.cardListView);
+        }
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mAdapter = new LibsRecyclerViewAdapter(builder);
