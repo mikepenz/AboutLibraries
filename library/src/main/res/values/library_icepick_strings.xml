@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_Icepick"></string>
+    <string name="library_Icepick_author">Frankie Sardo</string>
+    <string name="library_Icepick_authorWebsite">https://github.com/frankiesardo</string>
+    <string name="library_Icepick_libraryName">Icepick</string>
+    <string name="library_Icepick_libraryDescription">Android Instance State made easy</string>
+    <string name="library_Icepick_libraryVersion">3.0.2</string>
+    <string name="library_Icepick_libraryWebsite">https://github.com/frankiesardo/icepick</string>
+    <string name="library_Icepick_licenseId">apache_2_0</string>
+    <string name="library_Icepick_isOpenSource">true</string>
+    <string name="library_Icepick_repositoryLink">https://github.com/frankiesardo/icepick</string>
+    <string name="library_Icepick_classPath">icepick.Icepick</string>
+</resources>
