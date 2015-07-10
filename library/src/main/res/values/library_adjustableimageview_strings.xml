@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_AdjustableImageView"></string>
+    <string name="library_AdjustableImageView_author">Sittiphol Phanvilai</string>
+    <string name="library_AdjustableImageView_authorWebsite">https://github.com/nuuneoi</string>
+    <string name="library_AdjustableImageView_libraryName">AdjustableImageView</string>
+    <string name="library_AdjustableImageView_libraryDescription">An adjustable ImageView for Android</string>
+    <string name="library_AdjustableImageView_libraryVersion">1.0.0</string>
+    <string name="library_AdjustableImageView_libraryWebsite">http://inthecheesefactory.com/blog/correct-imageview-adjustviewbounds-with-adjustable-imageview/en</string>
+    <string name="library_AdjustableImageView_licenseId">apache_2_0</string>
+    <string name="library_AdjustableImageView_isOpenSource">true</string>
+    <string name="library_AdjustableImageView_repositoryLink">https://github.com/nuuneoi/AdjustableImageView</string>
+    <string name="library_AdjustableImageView_classPath">com.inthecheesefactory.thecheeselibrary.widget.AdjustableImageView</string>
+</resources>
