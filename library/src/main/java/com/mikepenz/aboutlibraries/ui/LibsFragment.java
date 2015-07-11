@@ -113,8 +113,12 @@ public class LibsFragment extends Fragment {
         }
 
         // init CardView
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.cardListView);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(LibsFragment.this.getActivity()));
+        if (view.getId() == R.id.cardListView) {
+            mRecyclerView = (RecyclerView) view;
+        } else {
+            mRecyclerView = (RecyclerView) view.findViewById(R.id.cardListView);
+        }
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mAdapter = new LibsRecyclerViewAdapter(builder);
         mRecyclerView.setAdapter(mAdapter);
@@ -134,9 +138,16 @@ public class LibsFragment extends Fragment {
         mAdapter.addLibs(libraries);
 
         if (builder.animate) {
-            Animation fadeIn = AnimationUtils.loadAnimation(LibsFragment.this.getActivity(), android.R.anim.slide_in_left);
-            fadeIn.setDuration(500);
-            LayoutAnimationController layoutAnimationController = new LayoutAnimationController(fadeIn);
+            LayoutAnimationController layoutAnimationController;
+
+            if (LibsConfiguration.getInstance().getLayoutAnimationController() == null) {
+                Animation fadeIn = AnimationUtils.loadAnimation(LibsFragment.this.getActivity(), android.R.anim.slide_in_left);
+                fadeIn.setDuration(500);
+                layoutAnimationController = new LayoutAnimationController(fadeIn);
+            } else {
+                layoutAnimationController = LibsConfiguration.getInstance().getLayoutAnimationController();
+            }
+
             mRecyclerView.setLayoutAnimation(layoutAnimationController);
             mRecyclerView.startLayoutAnimation();
         }

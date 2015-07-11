@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_CircleImageView"></string>
+    <string name="library_CircleImageView_author">Henning Dodenhof</string>
+    <string name="library_CircleImageView_authorWebsite">https://github.com/hdodenhof</string>
+    <string name="library_CircleImageView_libraryName">CircleImageView</string>
+    <string name="library_CircleImageView_libraryDescription">A circular ImageView for Android</string>
+    <string name="library_CircleImageView_libraryVersion">1.3.0</string>
+    <string name="library_CircleImageView_libraryWebsite">https://github.com/hdodenhof/CircleImageView</string>
+    <string name="library_CircleImageView_licenseId">apache_2_0</string>
+    <string name="library_CircleImageView_isOpenSource">true</string>
+    <string name="library_CircleImageView_repositoryLink">https://github.com/hdodenhof/CircleImageView</string>
+    <string name="library_CircleImageView_classPath">de.hdodenhof.circleimageview.CircleImageView</string>
+</resources>

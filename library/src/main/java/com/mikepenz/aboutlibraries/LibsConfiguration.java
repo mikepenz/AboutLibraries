@@ -1,6 +1,7 @@
 package com.mikepenz.aboutlibraries;
 
 import android.view.View;
+import android.view.animation.LayoutAnimationController;
 
 import com.mikepenz.aboutlibraries.entity.Library;
 
@@ -26,7 +27,6 @@ public class LibsConfiguration {
      * LOGIC FOR THE LISTENER
      */
     private LibsListener listener = null;
-    private LibsUIListener uiListener = null;
 
     public void setListener(LibsListener libsListener) {
         this.listener = libsListener;
@@ -40,6 +40,9 @@ public class LibsConfiguration {
         this.listener = null;
     }
 
+
+    private LibsUIListener uiListener = null;
+
     public LibsUIListener getUiListener() {
         return uiListener;
     }
@@ -50,6 +53,17 @@ public class LibsConfiguration {
 
     public void removeUiListener() {
         this.uiListener = null;
+    }
+
+
+    private LayoutAnimationController layoutAnimationController = null;
+
+    public LayoutAnimationController getLayoutAnimationController() {
+        return layoutAnimationController;
+    }
+
+    public void setLayoutAnimationController(LayoutAnimationController layoutAnimationController) {
+        this.layoutAnimationController = layoutAnimationController;
     }
 
     /**
