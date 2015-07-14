@@ -10,5 +10,5 @@
     <string name="library_NanoTasks_licenseId">apache_2_0</string>
     <string name="library_NanoTasks_isOpenSource">true</string>
     <string name="library_NanoTasks_repositoryLink">https://github.com/fabiendevos/nanotasks</string>
-    <string name="library_NanoTasks_classPath">com.nanotasks.nanotasks</string>
+    <string name="library_NanoTasks_classPath">com.nanotasks.Nanotasks</string>
 </resources>
