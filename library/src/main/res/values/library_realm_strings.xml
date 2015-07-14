@@ -10,5 +10,5 @@
     <string name="library_Realm_licenseId">apache_2_0</string>
     <string name="library_Realm_isOpenSource">true</string>
     <string name="library_Realm_repositoryLink">https://github.com/realm/realm-java</string>
-    <string name="library_Realm_classPath">com.inthecheesefactory.thecheeselibrary.widget.AdjustableImageView</string>
+    <string name="library_Realm_classPath">io.realm</string>
 </resources>
