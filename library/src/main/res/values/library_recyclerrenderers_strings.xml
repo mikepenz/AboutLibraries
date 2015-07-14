@@ -10,5 +10,5 @@
     <string name="library_RecyclerRenderers_licenseId">apache_2_0</string>
     <string name="library_RecyclerRenderers_isOpenSource">true</string>
     <string name="library_RecyclerRenderers_repositoryLink">https://github.com/ppamorim/RecyclerRenderers</string>
-    <string name="library_RecyclerRenderers_classPath">com.github.ppamorim.recyclerrenderers</string>
+    <string name="library_RecyclerRenderers_classPath">com.github.ppamorim.RecyclerRenderers</string>
 </resources>
