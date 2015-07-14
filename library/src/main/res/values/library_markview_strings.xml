@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_MarkView"></string>
+    <string name="library_MarkView_author">xiprox</string>
+    <string name="library_MarkView_authorWebsite">https://github.com/xiprox</string>
+    <string name="library_MarkView_libraryName">MarkView</string>
+    <string name="library_MarkView_libraryDescription">An android custom view that displays a circle with a colored arc given a mark.</string>
+    <string name="library_MarkView_libraryVersion">1.1.0</string>
+    <string name="library_MarkView_libraryWebsite">https://github.com/xiprox/MarkView</string>
+    <string name="library_MarkView_licenseId">apache_2_0</string>
+    <string name="library_MarkView_isOpenSource">true</string>
+    <string name="library_MarkView_repositoryLink">https://github.com/xiprox/MarkView</string>
+    <string name="library_MarkView_classPath">tr.xip.MarkView</string>
+</resources>

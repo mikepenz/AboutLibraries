@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_Realm"></string>
+    <string name="library_Realm_author">Realm</string>
+    <string name="library_Realm_authorWebsite">https://github.com/realm</string>
+    <string name="library_Realm_libraryName">Realm</string>
+    <string name="library_Realm_libraryDescription">Realm is a mobile database: a replacement for SQLite &amp; ORMs</string>
+    <string name="library_Realm_libraryVersion">0.81.1</string>
+    <string name="library_Realm_libraryWebsite">https://realm.io/</string>
+    <string name="library_Realm_licenseId">apache_2_0</string>
+    <string name="library_Realm_isOpenSource">true</string>
+    <string name="library_Realm_repositoryLink">https://github.com/realm/realm-java</string>
+    <string name="library_Realm_classPath">io.realm.Realm</string>
+</resources>
