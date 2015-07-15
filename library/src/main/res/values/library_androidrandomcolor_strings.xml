@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_AndroidRandomColor"></string>
+    <string name="library_AndroidRandomColor_author">Bruce Lee</string>
+    <string name="library_AndroidRandomColor_authorWebsite">https://github.com/lzyzsd</string>
+    <string name="library_AndroidRandomColor_libraryName">AndroidRandomColor</string>
+    <string name="library_AndroidRandomColor_libraryDescription">Android Random Color Generator Library</string>
+    <string name="library_AndroidRandomColor_libraryVersion">1.0.0</string>
+    <string name="library_AndroidRandomColor_libraryWebsite">https://github.com/lzyzsd/AndroidRandomColor</string>
+    <string name="library_AndroidRandomColor_licenseId">mit</string>
+    <string name="library_AndroidRandomColor_isOpenSource">true</string>
+    <string name="library_AndroidRandomColor_repositoryLink">https://github.com/lzyzsd/AndroidRandomColor</string>
+    <string name="library_AndroidRandomColor_classPath">com.github.lzyzsd.randomcolor.RandomColor</string>
+</resources>

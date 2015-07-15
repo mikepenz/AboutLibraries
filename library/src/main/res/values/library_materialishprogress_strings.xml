@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_MaterialishProgress"></string>
+    <string name="library_MaterialishProgress_author">pnikosis</string>
+    <string name="library_MaterialishProgress_authorWebsite">https://github.com/pnikosis</string>
+    <string name="library_MaterialishProgress_libraryName">Material-ish Progress</string>
+    <string name="library_MaterialishProgress_libraryDescription">A material style progress wheel compatible with 2.3.</string>
+    <string name="library_MaterialishProgress_libraryVersion">1.5</string>
+    <string name="library_MaterialishProgress_libraryWebsite">https://github.com/pnikosis/materialish-progress</string>
+    <string name="library_MaterialishProgress_licenseId">apache_2_0</string>
+    <string name="library_MaterialishProgress_isOpenSource">true</string>
+    <string name="library_MaterialishProgress_repositoryLink">https://github.com/pnikosis/materialish-progress</string>
+    <string name="library_MaterialishProgress_classPath">com.pnikosis.MaterialishProgress</string>
+</resources>
