@@ -27,7 +27,7 @@ public class CustomActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        libs = new Libs(this, Libs.toStringArray(R.string.class.getFields()));
+        libs = new Libs(this);
 
         /*
         //CODE SNIPPET TO EXPORT ALL INTERNAL LIBS IN THE WIKI FORMAT

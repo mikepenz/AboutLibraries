@@ -93,7 +93,7 @@ public class LibsFragment extends Fragment {
 
         //fetch the libraries and sort if a comparator was set
         boolean doDefaultSort = (builder.sort && null == builder.libraryComparator && null == comparator);
-        libraries = libs.prepareLibraries(builder.internalLibraries, builder.excludeLibraries, builder.autoDetect, doDefaultSort);
+        libraries = libs.prepareLibraries(getActivity(), builder.internalLibraries, builder.excludeLibraries, builder.autoDetect, doDefaultSort);
 
         if (comparator != null) {
             Collections.sort(libraries, comparator);
@@ -202,7 +202,7 @@ public class LibsFragment extends Fragment {
         if (value != null) {
             result = value;
         } else {
-            String descriptionShowVersion = libs.getStringResourceByName(resName);
+            String descriptionShowVersion = libs.getStringResourceByName(getActivity(), resName);
             if (!TextUtils.isEmpty(descriptionShowVersion)) {
                 try {
                     result = Boolean.parseBoolean(descriptionShowVersion);
@@ -226,7 +226,7 @@ public class LibsFragment extends Fragment {
         if (value != null) {
             result = value;
         } else {
-            String descriptionShowVersion = libs.getStringResourceByName(resName);
+            String descriptionShowVersion = libs.getStringResourceByName(getActivity(), resName);
             if (!TextUtils.isEmpty(descriptionShowVersion)) {
                 result = descriptionShowVersion;
             }

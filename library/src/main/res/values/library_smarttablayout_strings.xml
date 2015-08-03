@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_int_smarttablayout"></string>
+	<!-- Author section -->
+	<string name="library_smarttablayout_author">ogaclejapan</string>
+	<string name="library_smarttablayout_authorWebsite">https://github.com/ogaclejapan/SmartTabLayout</string>
+	<!-- Library section -->
+	<string name="library_smarttablayout_libraryName">SmartTabLayout</string>
+	<string name="library_smarttablayout_libraryDescription">A custom ViewPager title strip which gives continuous feedback to the user when scrolling</string>
+	<string name="library_smarttablayout_libraryWebsite">https://github.com/ogaclejapan/SmartTabLayout</string>
+	<string name="library_smarttablayout_libraryVersion">1.2.3</string>
+	<!-- OpenSource section -->
+	<string name="library_smarttablayout_isOpenSource">true</string>
+	<string name="library_smarttablayout_repositoryLink">https://github.com/ogaclejapan/SmartTabLayout</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_smarttablayout_classPath">com.ogaclejapan.smarttablayout.SmartTabLayout</string>
+	<!-- License section -->
+	<string name="library_smarttablayout_licenseId">apache_2_0</string>
+	<!-- Custom variables section -->
+</resources>

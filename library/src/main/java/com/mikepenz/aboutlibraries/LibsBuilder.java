@@ -412,12 +412,11 @@ public class LibsBuilder implements Serializable {
             libs = new Libs(context, fields);
         }
 
-
         //apply modifications
         libs.modifyLibraries(libraryModification);
 
         //fetch the libraries and sort if a comparator was set
-        ArrayList<Library> libraries = libs.prepareLibraries(internalLibraries, excludeLibraries, autoDetect, sort);
+        ArrayList<Library> libraries = libs.prepareLibraries(context, internalLibraries, excludeLibraries, autoDetect, sort);
 
         //prepare adapter
         LibsRecyclerViewAdapter adapter = new LibsRecyclerViewAdapter(this);

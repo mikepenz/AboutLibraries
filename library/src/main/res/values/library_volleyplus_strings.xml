@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_int_volleyplus"></string>
+	<!-- Author section -->
+	<string name="library_volleyplus_author">Hari Krishna Dulipudi</string>
+	<string name="library_volleyplus_authorWebsite">https://github.com/DWorkS/VolleyPlus</string>
+	<!-- Library section -->
+	<string name="library_volleyplus_libraryName">Volley Plus</string>
+	<string name="library_volleyplus_libraryDescription">VolleyPlus library Project improvements to Volley along with full image caching</string>
+	<string name="library_volleyplus_libraryWebsite">https://github.com/DWorkS/VolleyPlus</string>
+	<string name="library_volleyplus_libraryVersion">1.0.0</string>
+	<!-- OpenSource section -->
+	<string name="library_volleyplus_isOpenSource">true</string>
+	<string name="library_volleyplus_repositoryLink">https://github.com/DWorkS/VolleyPlus</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_volleyplus_classPath">com.android.volley.RequestQueue</string>
+	<!-- License section -->
+	<string name="library_volleyplus_licenseId">apache_2_0</string>
+	<!-- Custom variables section -->
+</resources>

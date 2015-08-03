@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_int_android_gif_drawable"></string>
+	<!-- Author section -->
+	<string name="library_android_gif_drawable_author">Koral</string>
+	<string name="library_android_gif_drawable_authorWebsite">https://github.com/koral--/android-gif-drawable/</string>
+	<!-- Library section -->
+	<string name="library_android_gif_drawable_libraryName">Android Gif Drawable</string>
+	<string name="library_android_gif_drawable_libraryDescription">Views and Drawable for displaying animated GIFs on Android</string>
+	<string name="library_android_gif_drawable_libraryWebsite">https://github.com/koral--/android-gif-drawable/</string>
+	<string name="library_android_gif_drawable_libraryVersion">1.1.0</string>
+	<!-- OpenSource section -->
+	<string name="library_android_gif_drawable_isOpenSource">true</string>
+	<string name="library_android_gif_drawable_repositoryLink">https://github.com/koral--/android-gif-drawable/</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_android_gif_drawable_classPath">pl.droidsonroids.gif.GifImageView</string>
+	<!-- License section -->
+	<string name="library_android_gif_drawable_licenseId">mit</string>
+	<!-- Custom variables section -->
+</resources>

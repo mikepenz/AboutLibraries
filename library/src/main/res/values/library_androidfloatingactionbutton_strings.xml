@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_int_android_floating_action_button"></string>
+	<!-- Author section -->
+	<string name="library_android_floating_action_button_author">Jerzy Chalupski</string>
+	<string name="library_android_floating_action_button_authorWebsite">https://github.com/futuresimple/android-floating-action-button</string>
+	<!-- Library section -->
+	<string name="library_android_floating_action_button_libraryName">Android Floating Action Button</string>
+	<string name="library_android_floating_action_button_libraryDescription">Yet another library for drawing Material Design promoted actions</string>
+	<string name="library_android_floating_action_button_libraryWebsite">https://github.com/futuresimple/android-floating-action-button</string>
+	<string name="library_android_floating_action_button_libraryVersion">1.10</string>
+	<!-- OpenSource section -->
+	<string name="library_android_floating_action_button_isOpenSource">true</string>
+	<string name="library_android_floating_action_button_repositoryLink">https://github.com/futuresimple/android-floating-action-button</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_android_floating_action_button_classPath">com.getbase.floatingactionbutton.FloatingActionsMenu</string>
+	<!-- License section -->
+	<string name="library_android_floating_action_button_licenseId">apache_2_0</string>
+	<!-- Custom variables section -->
+</resources>

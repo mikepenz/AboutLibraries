@@ -86,7 +86,6 @@ public class FragmentActivity extends AppCompatActivity {
                             startActivity(intent);
                         } else if (id == R.id.action_manifestactivity) {
                             new LibsBuilder()
-                                    .withFields(R.string.class.getFields())
                                     .withLibraries("crouton, actionbarsherlock", "showcaseview")
                                     .withAutoDetect(true)
                                     .withLicenseShown(true)
@@ -168,7 +167,6 @@ public class FragmentActivity extends AppCompatActivity {
         */
 
         LibsFragment fragment = new LibsBuilder()
-                .withFields(R.string.class.getFields())
                 .withLibraries("crouton", "activeandroid", "actionbarsherlock", "showcaseview")
                 .withVersionShown(false)
                 .withLicenseShown(false)

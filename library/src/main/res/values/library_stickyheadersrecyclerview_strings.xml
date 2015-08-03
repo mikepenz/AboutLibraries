@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_int_sticky_headers_recyclerview"></string>
+	<!-- Author section -->
+	<string name="library_sticky_headers_recyclerview_author">Jacob Tabak</string>
+	<string name="library_sticky_headers_recyclerview_authorWebsite">https://github.com/timehop/sticky-headers-recyclerview</string>
+	<!-- Library section -->
+	<string name="library_sticky_headers_recyclerview_libraryName">Sticky Headers Recyclerview</string>
+	<string name="library_sticky_headers_recyclerview_libraryDescription">This decorator allows you to easily create section headers for RecyclerViews using a LinearLayoutManager in either vertical or horizontal orientation</string>
+	<string name="library_sticky_headers_recyclerview_libraryWebsite">https://github.com/timehop/sticky-headers-recyclerview</string>
+	<string name="library_sticky_headers_recyclerview_libraryVersion">0.4.1</string>
+	<!-- OpenSource section -->
+	<string name="library_sticky_headers_recyclerview_isOpenSource">true</string>
+	<string name="library_sticky_headers_recyclerview_repositoryLink">https://github.com/timehop/sticky-headers-recyclerview</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_sticky_headers_recyclerview_classPath">com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersAdapter</string>
+	<!-- License section -->
+	<string name="library_sticky_headers_recyclerview_licenseId">apache_2_0</string>
+	<!-- Custom variables section -->
+</resources>
