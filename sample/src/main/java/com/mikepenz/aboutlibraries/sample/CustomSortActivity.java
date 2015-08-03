@@ -1,6 +1,7 @@
 package com.mikepenz.aboutlibraries.sample;
 
 import android.os.Bundle;
+
 import com.mikepenz.aboutlibraries.LibsBuilder;
 import com.mikepenz.aboutlibraries.entity.Library;
 import com.mikepenz.aboutlibraries.ui.LibsActivity;
@@ -14,10 +15,9 @@ public class CustomSortActivity extends LibsActivity {
     public void onCreate(Bundle savedInstanceState) {
 
         LibsBuilder builder = new LibsBuilder()
-            .withFields(R.string.class.getFields())
-            .withLibraries("crouton, actionbarsherlock", "showcaseview")
-            .withActivityTheme(R.style.MaterialDrawerTheme)
-            .withLibraryComparator(new LibraryComparator());
+                .withLibraries("crouton, actionbarsherlock", "showcaseview")
+                .withActivityTheme(R.style.MaterialDrawerTheme)
+                .withLibraryComparator(new LibraryComparator());
 
         setIntent(builder.intent(this));
         super.onCreate(savedInstanceState);

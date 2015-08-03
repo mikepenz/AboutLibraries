@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Toast;
@@ -30,24 +29,6 @@ public class FragmentActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment);
-
-        long start = System.currentTimeMillis();
-        try {
-            for (Class c : Class.forName(getPackageName().replace(".debug", "") + ".R").getClasses()) {
-                if (c.getName().endsWith("string")) {
-                    String[] fields = Libs.toStringArray(c.getFields());
-
-                    for (String s : fields) {
-                        Log.i("test", s);
-                    }
-                }
-            }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        Log.e("TEST", getClass().getPackage().getName());
-        Log.e("TEST", (System.currentTimeMillis() - start) + "");
-
 
         // Handle Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -105,7 +86,6 @@ public class FragmentActivity extends AppCompatActivity {
                             startActivity(intent);
                         } else if (id == R.id.action_manifestactivity) {
                             new LibsBuilder()
-                                    .withFields(R.string.class.getFields())
                                     .withLibraries("crouton, actionbarsherlock", "showcaseview")
                                     .withAutoDetect(true)
                                     .withLicenseShown(true)
