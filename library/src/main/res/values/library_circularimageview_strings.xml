@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_CircularImageView"></string>
+    <string name="library_CircularImageView_author">Pkmmte Xeleon</string>
+    <string name="library_CircularImageView_authorWebsite">https://www.pkmmte.com</string>
+    <string name="library_CircularImageView_libraryName">CircularImageView</string>
+    <string name="library_CircularImageView_libraryDescription">Custom view for circular images in Android while maintaining the best draw performance</string>
+    <string name="library_CircularImageView_libraryVersion">1.1</string>
+    <string name="library_CircularImageView_libraryWebsite">https://github.com/Pkmmte/CircularImageView</string>
+    <string name="library_CircularImageView_licenseId">mit</string>
+    <string name="library_CircularImageView_isOpenSource">true</string>
+    <string name="library_CircularImageView_repositoryLink">https://github.com/Pkmmte/CircularImageView</string>
+    <string name="library_CircularImageView_classPath">com.pkmmte.view.CircularImageView</string>
+</resources>
