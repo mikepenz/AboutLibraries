@@ -14,7 +14,7 @@
 	<string name="library_android_maps_utils_isOpenSource">true</string>
 	<string name="library_android_maps_utils_repositoryLink">https://github.com/googlemaps/android-maps-utils</string>
 	<!-- ClassPath for autoDetect section -->
-	<string name="library_android_maps_utils_classPath">com.google.maps.android</string>
+	<string name="library_android_maps_utils_classPath">com.google.maps.android.MarkerManager</string>
 	<!-- License section -->
 	<string name="library_android_maps_utils_licenseId">apache_2_0</string>
 	<!-- Custom variables section -->

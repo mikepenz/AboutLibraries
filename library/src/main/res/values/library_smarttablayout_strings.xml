@@ -14,7 +14,7 @@
 	<string name="library_smarttablayout_isOpenSource">true</string>
 	<string name="library_smarttablayout_repositoryLink">https://github.com/ogaclejapan/SmartTabLayout</string>
 	<!-- ClassPath for autoDetect section -->
-	<string name="library_smarttablayout_classPath">com.ogaclejapan.smarttablayout</string>
+	<string name="library_smarttablayout_classPath">com.ogaclejapan.smarttablayout.SmartTabLayout</string>
 	<!-- License section -->
 	<string name="library_smarttablayout_licenseId">apache_2_0</string>
 	<!-- Custom variables section -->

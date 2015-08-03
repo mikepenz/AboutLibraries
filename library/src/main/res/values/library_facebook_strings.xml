@@ -3,7 +3,7 @@
 	<string name="define_int_Facebook">year;owner</string>
 	<string name="library_Facebook_author">Facebook</string>
 	<string name="library_Facebook_authorWebsite">http://www.facebook.com/</string>
-	<string name="library_Facebook_classPath">com.facebook.android</string>
+	<string name="library_Facebook_classPath">com.facebook.FacebookSdk</string>
 	<string name="library_Facebook_libraryName">Facebook</string>
 	<string name="library_Facebook_libraryDescription">Integrate Android apps with Facebook Platform.</string>
 	<string name="library_Facebook_libraryWebsite">https://developers.facebook.com/docs/android</string>

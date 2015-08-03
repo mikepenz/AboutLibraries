@@ -14,7 +14,7 @@
 	<string name="library_discreteseekbar_isOpenSource">true</string>
 	<string name="library_discreteseekbar_repositoryLink">https://github.com/AnderWeb/discreteSeekBar</string>
 	<!-- ClassPath for autoDetect section -->
-	<string name="library_discreteseekbar_classPath">org.adw.library.widgets.discreteseekbar</string>
+	<string name="library_discreteseekbar_classPath">org.adw.library.widgets.discreteseekbar.DiscreteSeekBar</string>
 	<!-- License section -->
 	<string name="library_discreteseekbar_licenseId">apache_2_0</string>
 	<!-- Custom variables section -->

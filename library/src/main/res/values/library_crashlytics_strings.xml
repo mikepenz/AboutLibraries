@@ -3,7 +3,7 @@
 	<string name="define_int_Crashlytics">year;owner</string>
 	<string name="library_Crashlytics_author">Twitter</string>
 	<string name="library_Crashlytics_authorWebsite">http://www.twitter.com/</string>
-	<string name="library_Crashlytics_classPath">com.crashlytics.sdk.android</string>
+	<string name="library_Crashlytics_classPath">com.crashlytics.android.Crashlytics</string>
 	<string name="library_Crashlytics_libraryName">Crashlytics</string>
 	<string name="library_Crashlytics_libraryDescription">The Crashlytics Kit for Android provides simple APIs for reporting crashes.</string>
 	<string name="library_Crashlytics_libraryWebsite">https://www.fabric.io/</string>

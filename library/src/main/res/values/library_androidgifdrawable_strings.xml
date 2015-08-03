@@ -14,7 +14,7 @@
 	<string name="library_android_gif_drawable_isOpenSource">true</string>
 	<string name="library_android_gif_drawable_repositoryLink">https://github.com/koral--/android-gif-drawable/</string>
 	<!-- ClassPath for autoDetect section -->
-	<string name="library_android_gif_drawable_classPath">pl.droidsonroids.gif</string>
+	<string name="library_android_gif_drawable_classPath">pl.droidsonroids.gif.GifImageView</string>
 	<!-- License section -->
 	<string name="library_android_gif_drawable_licenseId">mit</string>
 	<!-- Custom variables section -->

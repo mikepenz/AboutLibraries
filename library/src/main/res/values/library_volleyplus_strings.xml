@@ -14,7 +14,7 @@
 	<string name="library_volleyplus_isOpenSource">true</string>
 	<string name="library_volleyplus_repositoryLink">https://github.com/DWorkS/VolleyPlus</string>
 	<!-- ClassPath for autoDetect section -->
-	<string name="library_volleyplus_classPath">com.android.volley</string>
+	<string name="library_volleyplus_classPath">com.android.volley.RequestQueue</string>
 	<!-- License section -->
 	<string name="library_volleyplus_licenseId">apache_2_0</string>
 	<!-- Custom variables section -->

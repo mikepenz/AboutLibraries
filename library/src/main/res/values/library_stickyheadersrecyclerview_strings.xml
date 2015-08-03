@@ -14,7 +14,7 @@
 	<string name="library_sticky_headers_recyclerview_isOpenSource">true</string>
 	<string name="library_sticky_headers_recyclerview_repositoryLink">https://github.com/timehop/sticky-headers-recyclerview</string>
 	<!-- ClassPath for autoDetect section -->
-	<string name="library_sticky_headers_recyclerview_classPath">com.timehop.stickyheadersrecyclerview</string>
+	<string name="library_sticky_headers_recyclerview_classPath">com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersAdapter</string>
 	<!-- License section -->
 	<string name="library_sticky_headers_recyclerview_licenseId">apache_2_0</string>
 	<!-- Custom variables section -->

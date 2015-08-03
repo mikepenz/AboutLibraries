@@ -14,7 +14,7 @@
 	<string name="library_parallaxscroll_isOpenSource">true</string>
 	<string name="library_parallaxscroll_repositoryLink">https://github.com/nirhart/ParallaxScroll</string>
 	<!-- ClassPath for autoDetect section -->
-	<string name="library_parallaxscroll_classPath">com.nirhart.parallaxscroll</string>
+	<string name="library_parallaxscroll_classPath">com.nirhart.parallaxscroll.views.ParallaxScrollView</string>
 	<!-- License section -->
 	<string name="library_parallaxscroll_licenseId">mit</string>
 	<!-- Custom variables section -->
