@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_int_discreteseekbar"></string>
+	<!-- Author section -->
+	<string name="library_discreteseekbar_author">Gustavo Claramunt</string>
+	<string name="library_discreteseekbar_authorWebsite">https://github.com/AnderWeb/discreteSeekBar</string>
+	<!-- Library section -->
+	<string name="library_discreteseekbar_libraryName">DiscreteSeekBar</string>
+	<string name="library_discreteseekbar_libraryDescription">DiscreteSeekbar is my poor attempt to develop an android implementation of the Discrete Slider component from the Google Material Design Guidelines</string>
+	<string name="library_discreteseekbar_libraryWebsite">https://github.com/AnderWeb/discreteSeekBar</string>
+	<string name="library_discreteseekbar_libraryVersion">1.0</string>
+	<!-- OpenSource section -->
+	<string name="library_discreteseekbar_isOpenSource">true</string>
+	<string name="library_discreteseekbar_repositoryLink">https://github.com/AnderWeb/discreteSeekBar</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_discreteseekbar_classPath">org.adw.library.widgets.discreteseekbar.DiscreteSeekBar</string>
+	<!-- License section -->
+	<string name="library_discreteseekbar_licenseId">apache_2_0</string>
+	<!-- Custom variables section -->
+</resources>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_int_cardlibrary"></string>
+	<!-- Author section -->
+	<string name="library_cardlibrary_author">Gabriele Mariotti</string>
+	<string name="library_cardlibrary_authorWebsite">https://github.com/gabrielemariotti/cardslib</string>
+	<!-- Library section -->
+	<string name="library_cardlibrary_libraryName">Card Library</string>
+	<string name="library_cardlibrary_libraryDescription">Card Library provides an easy way to display a UI Card using the Official Google CardView in your Android app</string>
+	<string name="library_cardlibrary_libraryWebsite">https://github.com/gabrielemariotti/cardslib</string>
+	<string name="library_cardlibrary_libraryVersion">2.1</string>
+	<!-- OpenSource section -->
+	<string name="library_cardlibrary_isOpenSource">true</string>
+	<string name="library_cardlibrary_repositoryLink">https://github.com/gabrielemariotti/cardslib</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_cardlibrary_classPath">it.gmariotti.cardslib.library.internal.Card</string>
+	<!-- License section -->
+	<string name="library_cardlibrary_licenseId">apache_2_0</string>
+	<!-- Custom variables section -->
+</resources>
