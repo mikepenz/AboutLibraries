@@ -10,6 +10,12 @@ import com.mikepenz.aboutlibraries.Libs;
  */
 public class GenericsUtil {
 
+    /**
+     * a helper to get the string fields from the R class
+     *
+     * @param ctx
+     * @return
+     */
     public static String[] getFields(Context ctx) {
         Class rStringClass = resolveRClass(ctx.getPackageName());
         if (rStringClass != null) {
@@ -24,14 +30,14 @@ public class GenericsUtil {
      * @param packageName
      * @return
      */
-    protected static Class resolveRClass(String packageName) {
+    private static Class resolveRClass(String packageName) {
         do {
             try {
                 return Class.forName(packageName + ".R$string");
             } catch (ClassNotFoundException e) {
                 packageName = packageName.contains(".") ? packageName.substring(0, packageName.lastIndexOf('.')) : "";
             }
-        } while(!TextUtils.isEmpty(packageName));
+        } while (!TextUtils.isEmpty(packageName));
 
         return null;
     }
