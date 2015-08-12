@@ -14,7 +14,7 @@
 	<string name="library_recyclerviewanimators_isOpenSource">true</string>
 	<string name="library_recyclerviewanimators_repositoryLink">https://github.com/wasabeef/recyclerview-animators</string>
 	<!-- ClassPath for autoDetect section -->
-	<string name="library_recyclerviewanimators_classPath">jp.wasabeef.recyclerview.animators. BaseItemAnimator</string>
+	<string name="library_recyclerviewanimators_classPath">jp.wasabeef.recyclerview.animators.BaseItemAnimator</string>
 	<!-- License section -->
 	<string name="library_recyclerviewanimators_licenseId">apache_2_0</string>
 	<!-- Custom variables section -->
