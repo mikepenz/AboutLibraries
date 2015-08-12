@@ -14,7 +14,7 @@
 	<string name="library_hellocharts_isOpenSource">true</string>
 	<string name="library_hellocharts_repositoryLink">https://github.com/lecho/hellocharts-android</string>
 	<!-- ClassPath for autoDetect section -->
-	<string name="library_hellocharts_classPath">lecho.lib.hellocharts</string>
+	<string name="library_hellocharts_classPath">lecho.lib.hellocharts.view.Chart</string>
 	<!-- License section -->
 	<string name="library_hellocharts_licenseId">apache_2_0</string>
 	<!-- Custom variables section -->
