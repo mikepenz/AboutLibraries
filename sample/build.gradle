@@ -7,14 +7,14 @@ try {
 
 
 android {
-    compileSdkVersion 22
-    buildToolsVersion '22.0.1'
+    compileSdkVersion 23
+    buildToolsVersion '23'
     defaultConfig {
         applicationId 'com.mikepenz.aboutlibraries.sample'
         minSdkVersion 11
-        targetSdkVersion 22
-        versionCode 511
-        versionName '5.1.1'
+        targetSdkVersion 23
+        versionCode 520
+        versionName '5.2.0'
 
         applicationVariants.all { variant ->
             variant.outputs.each { output ->

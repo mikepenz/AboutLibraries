@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_int_androidin_appbillingv3"></string>
+	<!-- Author section -->
+	<string name="library_androidin_appbillingv3_author">Sergey A. Glukhov</string>
+	<string name="library_androidin_appbillingv3_authorWebsite"> https://github.com/serggl</string>
+	<!-- Library section -->
+	<string name="library_androidin_appbillingv3_libraryName">Android In-App Billing v3</string>
+	<string name="library_androidin_appbillingv3_libraryDescription">This is a simple, straight-forward implementation of the Android v3 In-app billing API.  It supports: In-App Product Purchases (both non-consumable and consumable) and Subscriptions.</string>
+	<string name="library_androidin_appbillingv3_libraryWebsite"></string>
+	<string name="library_androidin_appbillingv3_libraryVersion">1.0.26</string>
+	<!-- OpenSource section -->
+	<string name="library_androidin_appbillingv3_isOpenSource">true</string>
+	<string name="library_androidin_appbillingv3_repositoryLink">https://github.com/anjlab/android-inapp-billing-v3</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_androidin_appbillingv3_classPath">com.anjlab.android.iab.v3.BillingBase</string>
+	<!-- License section -->
+	<string name="library_androidin_appbillingv3_licenseId">apache_2_0</string>
+	<!-- Custom variables section -->
+</resources>
