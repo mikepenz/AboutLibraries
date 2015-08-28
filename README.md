@@ -113,6 +113,7 @@ You can contribute by creating a information file for a new library, and open a 
 * [Strength](https://play.google.com/store/apps/details?id=com.e13engineering.strength)
 * [Sprit Club](https://play.google.com/store/apps/details?id=at.idev.spritpreise)
 * [Hold'Em Poker Manager](https://play.google.com/store/apps/details?id=pt.massena.holdemtracker.free)
+* [PixCell8](https://play.google.com/store/apps/details?id=com.pixcell8.prod)
 
 
 #Developed By
