@@ -213,7 +213,7 @@ public class Libs {
             }
         }
 
-        if (libraries.size() > 0) {
+        if (libraries.size() == 0) {
             String delimiter = "";
             String autoDetectedLibrariesPref = "";
             for (Library lib : Detect.detect(ctx, getLibraries())) {
