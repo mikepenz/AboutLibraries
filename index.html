@@ -91,7 +91,7 @@
 
 <p>The AboutLibraries Library is pushed to <a href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.mikepenz%22">Maven Central</a>, so you just need to add the following dependency to your <code>build.gradle</code>. It seems it is also required to add the support dependencies to the application. If it works without, you should be fine too :).</p>
 
-<div class="highlight highlight-javascript"><pre><span class="pl-en">compile</span>(<span class="pl-s"><span class="pl-pds">'</span>com.mikepenz:aboutlibraries:5.2.0@aar<span class="pl-pds">'</span></span>) {
+<div class="highlight highlight-javascript"><pre><span class="pl-en">compile</span>(<span class="pl-s"><span class="pl-pds">'</span>com.mikepenz:aboutlibraries:5.2.1@aar<span class="pl-pds">'</span></span>) {
     transitive <span class="pl-k">=</span> <span class="pl-c1">true</span>
 }</pre></div>
 
@@ -154,6 +154,17 @@ Yeah pretty simple just add the following .xml file (or just the strings - the k
 </pre></div>
 
 <h2>
+<a id="proguard" class="anchor" href="#proguard" aria-hidden="true"><span class="octicon octicon-link"></span></a>ProGuard</h2>
+
+<p>Exclude <code>R</code> from ProGuard to enable the library auto detection</p>
+
+<pre lang="proguard"><code>-keep class .R
+-keep class .R$* {
+    &lt;fields&gt;;
+}
+</code></pre>
+
+<h2>
 <a id="contribute" class="anchor" href="#contribute" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contribute</h2>
 
 <p>You can contribute by creating a information file for a new library, and open a pull-request at the creators Git repository. If he doesn't include the information file in his repo, or if the library isn't maintained anymore you can create a pull-request here. Find more information in the wiki <a href="https://github.com/mikepenz/AboutLibraries/wiki/HOWTODEV:-Include-into-AboutLibraries">Create a definition file</a></p>
@@ -171,6 +182,7 @@ Yeah pretty simple just add the following .xml file (or just the strings - the k
 <li><a href="https://play.google.com/store/apps/details?id=com.e13engineering.strength">Strength</a></li>
 <li><a href="https://play.google.com/store/apps/details?id=at.idev.spritpreise">Sprit Club</a></li>
 <li><a href="https://play.google.com/store/apps/details?id=pt.massena.holdemtracker.free">Hold'Em Poker Manager</a></li>
+<li><a href="https://play.google.com/store/apps/details?id=com.pixcell8.prod">PixCell8</a></li>
 </ul>
 
 <h1>
