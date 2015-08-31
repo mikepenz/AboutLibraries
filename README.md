@@ -98,6 +98,14 @@ or use the builder and add following:
 
 ```
 
+##ProGuard
+Exclude `R` from ProGuard to enable the library auto detection
+```proguard
+-keep class .R
+-keep class .R$* {
+    <fields>;
+}
+
 ##Contribute
 You can contribute by creating a information file for a new library, and open a pull-request at the creators Git repository. If he doesn't include the information file in his repo, or if the library isn't maintained anymore you can create a pull-request here. Find more information in the wiki [Create a definition file](https://github.com/mikepenz/AboutLibraries/wiki/HOWTODEV:-Include-into-AboutLibraries)
 
