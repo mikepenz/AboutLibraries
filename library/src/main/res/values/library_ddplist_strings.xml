@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_ddplist">year;owner</string>
+    <string name="library_ddplist_author">Daniel Dreibrodt</string>
+    <string name="library_ddplist_libraryName">dd-plist</string>
+    <string name="library_ddplist_libraryDescription">
+        <![CDATA[
+        This library enables your Java application to handle property lists of various formats.
+        <br><br>
+        Property lists are files used to store user settings and serialized objects. They originate from the NeXSTEP programming environment and are now a basic part of the Cocoa framework (OS X and iOS) as well as the GNUstep framework.
+        ]]>
+    </string>
+    <string name="library_ddplist_libraryVersion">1.3</string>
+    <string name="library_ddplist_libraryWebsite">https://groups.google.com/forum/#!forum/plist-discuss</string>
+    <string name="library_ddplist_licenseId">mit</string>
+    <string name="library_ddplist_isOpenSource">true</string>
+    <string name="library_ddplist_repositoryLink">https://github.com/3breadt/dd-plist</string>
+    <string name="library_ddplist_classPath">com.dd.plist.NSNumber</string>
+    <!-- Custom variables section -->
+    <string name="library_ddplist_owner">Daniel Dreibrodt</string>
+    <string name="library_ddplist_year">2015</string>
+</resources> 
+
