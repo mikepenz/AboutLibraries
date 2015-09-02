@@ -116,13 +116,13 @@ You can contribute by creating a information file for a new library, and open a 
 
 * [Numbers](https://play.google.com/store/apps/details?id=com.tundem.numbersreloaded.free)
 * [MegaYatzy](https://play.google.com/store/apps/details?id=com.tundem.yatzyTJ)
-
 * [Sir Spellalot](https://play.google.com/store/apps/details?id=com.sirspellalot.app.android)
 * [TVShow Time](https://play.google.com/store/apps/details?id=com.tozelabs.tvshowtime)
 * [Strength](https://play.google.com/store/apps/details?id=com.e13engineering.strength)
 * [Sprit Club](https://play.google.com/store/apps/details?id=at.idev.spritpreise)
 * [Hold'Em Poker Manager](https://play.google.com/store/apps/details?id=pt.massena.holdemtracker.free)
 * [PixCell8](https://play.google.com/store/apps/details?id=com.pixcell8.prod)
+* [ML Manager](https://play.google.com/store/apps/details?id=com.javiersantos.mlmanager)
 
 
 #Developed By
