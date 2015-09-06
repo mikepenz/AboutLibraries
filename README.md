@@ -46,7 +46,7 @@ You can find anything you search for in the wiki. (If not open an issue)
 The AboutLibraries Library is pushed to [Maven Central](http://search.maven.org/#search|ga|1|g%3A%22com.mikepenz%22), so you just need to add the following dependency to your `build.gradle`. It seems it is also required to add the support dependencies to the application. If it works without, you should be fine too :).
 
 ```javascript
-compile('com.mikepenz:aboutlibraries:5.2.1@aar') {
+compile('com.mikepenz:aboutlibraries:5.2.2@aar') {
 	transitive = true
 }
 ```
@@ -98,6 +98,15 @@ or use the builder and add following:
 
 ```
 
+##ProGuard
+Exclude `R` from ProGuard to enable the library auto detection
+```proguard
+-keep class .R
+-keep class .R$* {
+    <fields>;
+}
+```
+
 ##Contribute
 You can contribute by creating a information file for a new library, and open a pull-request at the creators Git repository. If he doesn't include the information file in his repo, or if the library isn't maintained anymore you can create a pull-request here. Find more information in the wiki [Create a definition file](https://github.com/mikepenz/AboutLibraries/wiki/HOWTODEV:-Include-into-AboutLibraries)
 
@@ -105,15 +114,16 @@ You can contribute by creating a information file for a new library, and open a 
 ##Already in use in following apps
 (feel free to send me new projects)
 
+* [wallsplash](https://play.google.com/store/apps/details?id=com.mikepenz.unsplash)
 * [Numbers](https://play.google.com/store/apps/details?id=com.tundem.numbersreloaded.free)
 * [MegaYatzy](https://play.google.com/store/apps/details?id=com.tundem.yatzyTJ)
-
 * [Sir Spellalot](https://play.google.com/store/apps/details?id=com.sirspellalot.app.android)
 * [TVShow Time](https://play.google.com/store/apps/details?id=com.tozelabs.tvshowtime)
 * [Strength](https://play.google.com/store/apps/details?id=com.e13engineering.strength)
 * [Sprit Club](https://play.google.com/store/apps/details?id=at.idev.spritpreise)
 * [Hold'Em Poker Manager](https://play.google.com/store/apps/details?id=pt.massena.holdemtracker.free)
 * [PixCell8](https://play.google.com/store/apps/details?id=com.pixcell8.prod)
+* [ML Manager](https://play.google.com/store/apps/details?id=com.javiersantos.mlmanager)
 
 
 #Developed By

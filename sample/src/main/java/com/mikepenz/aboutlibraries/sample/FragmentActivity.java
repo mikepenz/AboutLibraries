@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.mikepenz.aboutlibraries.Libs;
@@ -38,15 +37,15 @@ public class FragmentActivity extends AppCompatActivity {
                 .withToolbar(toolbar)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName("Home"),
-                        new PrimaryDrawerItem().withName(R.string.action_manifestactivity).withIdentifier(R.id.action_manifestactivity).withCheckable(false),
-                        new PrimaryDrawerItem().withName(R.string.action_extendactivity).withIdentifier(R.id.action_extendactivity).withCheckable(false),
-                        new PrimaryDrawerItem().withName(R.string.action_customsortactivity).withIdentifier(R.id.action_customsortactivity).withCheckable(false),
-                        new PrimaryDrawerItem().withName(R.string.action_customactivity).withIdentifier(R.id.action_customactivity).withCheckable(false),
-                        new PrimaryDrawerItem().withName(R.string.action_opensource).withIdentifier(R.id.action_opensource).withCheckable(false)
+                        new PrimaryDrawerItem().withName(R.string.action_manifestactivity).withIdentifier(R.id.action_manifestactivity).withSelectable(false),
+                        new PrimaryDrawerItem().withName(R.string.action_extendactivity).withIdentifier(R.id.action_extendactivity).withSelectable(false),
+                        new PrimaryDrawerItem().withName(R.string.action_customsortactivity).withIdentifier(R.id.action_customsortactivity).withSelectable(false),
+                        new PrimaryDrawerItem().withName(R.string.action_customactivity).withIdentifier(R.id.action_customactivity).withSelectable(false),
+                        new PrimaryDrawerItem().withName(R.string.action_opensource).withIdentifier(R.id.action_opensource).withSelectable(false)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
-                    public boolean onItemClick(AdapterView<?> adapterView, View view, int i, long l, IDrawerItem drawerItem) {
+                    public boolean onItemClick(View view, int i, IDrawerItem drawerItem) {
                         // Handle action bar item clicks here. The action bar will
                         // automatically handle clicks on the Home/Up button, so long
                         // as you specify a parent activity in AndroidManifest.xml.
