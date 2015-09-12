@@ -14,7 +14,7 @@
 	<string name="library_Jsoup_isOpenSource">true</string>
 	<string name="library_Jsoup_repositoryLink">https://github.com/jhy/jsoup</string>
 	<!-- ClassPath for autoDetect section -->
-	<string name="library_Jsoup_classPath">org.jsoup</string>
+	<string name="library_Jsoup_classPath">org.jsoup.Jsoup</string>
 	<!-- License section -->
 	<string name="library_Jsoup_licenseId">apache_2_0</string>
 	<!-- Custom variables section -->
