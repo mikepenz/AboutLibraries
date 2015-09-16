@@ -124,6 +124,7 @@ You can contribute by creating a information file for a new library, and open a 
 * [Hold'Em Poker Manager](https://play.google.com/store/apps/details?id=pt.massena.holdemtracker.free)
 * [PixCell8](https://play.google.com/store/apps/details?id=com.pixcell8.prod)
 * [ML Manager](https://play.google.com/store/apps/details?id=com.javiersantos.mlmanager)
+* [TurnMe Panorama](https://play.google.com/store/apps/details?id=com.bezine.panosphere)
 
 
 #Developed By
