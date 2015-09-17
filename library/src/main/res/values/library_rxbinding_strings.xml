@@ -3,7 +3,7 @@
     <string name="define_int_RxBinding">year;owner</string>
     <string name="library_RxBinding_author">Jake Wharton</string>
     <string name="library_RxBinding_libraryName">RxBinding</string>
-    <string name="library_RxBinding_libraryDescription">RxJava binding APIs for Android's UI widgets.</string>
+    <string name="library_RxBinding_libraryDescription">RxJava binding APIs for Android\'s UI widgets.</string>
     <string name="library_RxBinding_libraryVersion">0.2.0</string>
     <string name="library_RxBinding_libraryWebsite">https://github.com/JakeWharton/RxBinding</string>
     <string name="library_RxBinding_licenseId">apache_2_0</string>
