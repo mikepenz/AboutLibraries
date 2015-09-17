@@ -102,7 +102,7 @@ or use the builder and add following:
 Exclude `R` from ProGuard to enable the library auto detection
 ```proguard
 -keep class .R
--keep class .R$* {
+-keep class **.R$* {
     <fields>;
 }
 ```
