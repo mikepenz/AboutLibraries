@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_int_bridge"/>
+	<!-- Author section -->
+	<string name="library_bridge_author">Aidan Follestad</string>
+	<string name="library_bridge_authorWebsite">http://aidanfollestad.com/</string>
+	<!-- Library section -->
+	<string name="library_bridge_libraryName">Bridge</string>
+	<string name="library_bridge_libraryDescription">Bridge is a simple but powerful HTTP networking library for Android. It features a Fluent chainable API, powered by Java/Android\'s URLConnection classes for maximum compatibility and speed.</string>
+	<string name="library_bridge_libraryWebsite">https://github.com/afollestad/bridge</string>
+	<string name="library_bridge_libraryVersion">1.6.2</string>
+	<!-- OpenSource section -->
+	<string name="library_bridge_isOpenSource">true</string>
+	<string name="library_bridge_repositoryLink">https://github.com/afollestad/bridge</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_bridge_classPath">com.afollestad.bridge.Bridge</string>
+	<!-- License section -->
+	<string name="library_bridge_licenseId">apache_2_0</string>
+	<!-- Custom variables section -->
+</resources>

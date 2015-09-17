@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_RxBinding">year;owner</string>
+    <string name="library_RxBinding_author">Jake Wharton</string>
+    <string name="library_RxBinding_libraryName">RxBinding</string>
+    <string name="library_RxBinding_libraryDescription">RxJava binding APIs for Android\'s UI widgets.</string>
+    <string name="library_RxBinding_libraryVersion">0.2.0</string>
+    <string name="library_RxBinding_libraryWebsite">https://github.com/JakeWharton/RxBinding</string>
+    <string name="library_RxBinding_licenseId">apache_2_0</string>
+    <string name="library_RxBinding_isOpenSource">true</string>
+    <string name="library_RxBinding_repositoryLink">https://github.com/JakeWharton/RxBinding</string>
+    <string name="library_RxBinding_classPath">com.jakewharton.rxbinding.widget.RxTextView</string>
+    <!-- Custom variables section -->
+    <string name="library_RxBinding_owner">Jake Wharton</string>
+    <string name="library_RxBinding_year">2015</string>
+</resources>

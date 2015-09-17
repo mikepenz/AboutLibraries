@@ -60,9 +60,9 @@ function generateXmlFile() {
 		result = result + '\t' + '&lt;string name="library_' + libraryId + '_classPath">' + classPath + '&lt;/string>' + '\n';
 		result = result + '\t' + '&lt;!-- License section -->' + '\n';
 		if(licenseId == '') {
-			result = result + '\t' + '&lt;string name="libray_' + libraryId + '_licenseVersion">LICENSE-NAME&lt;/string>' + '\n';
-			result = result + '\t' + '&lt;string name="libray_' + libraryId + '_licenseLink">LICENSE-LINK&lt;/string>' + '\n';
-			result = result + '\t' + '&lt;string name="libray_' + libraryId + '_licenseContent">LICENSE-TEXT&lt;/string>' + '\n';
+			result = result + '\t' + '&lt;string name="library_' + libraryId + '_licenseVersion">LICENSE-NAME&lt;/string>' + '\n';
+			result = result + '\t' + '&lt;string name="library_' + libraryId + '_licenseLink">LICENSE-LINK&lt;/string>' + '\n';
+			result = result + '\t' + '&lt;string name="library_' + libraryId + '_licenseContent">LICENSE-TEXT&lt;/string>' + '\n';
 		} else {
 			result = result + '\t' + '&lt;string name="library_' + libraryId + '_licenseId">' + licenseId + '&lt;/string>' + '\n';
 		}
