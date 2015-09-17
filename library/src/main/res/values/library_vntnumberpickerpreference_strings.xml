@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_vntnumberpickerpreference">year;owner</string>
+    <string name="library_vntnumberpickerpreference_author">Niklas Baudy</string>
+    <string name="library_vntnumberpickerpreference_libraryName">VNTNumberPickerPreference</string>
+    <string name="library_vntnumberpickerpreference_libraryDescription">This is an easy to use custom preference, which opens a dialog with a number picker. The value gets automatically saved and you can set the default-, min- and maxValue conveniently in the XML.</string>
+    <string name="library_vntnumberpickerpreference_libraryVersion">0.1.5</string>
+    <string name="library_vntnumberpickerpreference_libraryWebsite">https://github.com/vanniktech/VNTNumberPickerPreference</string>
+    <string name="library_vntnumberpickerpreference_licenseId">apache_2_0</string>
+    <string name="library_vntnumberpickerpreference_isOpenSource">true</string>
+    <string name="library_vntnumberpickerpreference_repositoryLink">https://github.com/vanniktech/VNTNumberPickerPreference</string>
+    <string name="library_vntnumberpickerpreference_classPath">com.vanniktech.vntnumberpickerpreference.VNTNumberPickerPreference</string>
+    <!-- Custom variables section -->
+    <string name="library_vntnumberpickerpreference_owner">Niklas Baudy</string>
+    <string name="library_vntnumberpickerpreference_year">2015</string>
+</resources>
