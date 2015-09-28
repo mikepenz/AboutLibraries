@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_swipemenulistview"></string>
+    <!-- Author section -->
+    <string name="library_swipemenulistview_author">鲍永章</string>
+    <string name="library_swipemenulistview_authorWebsite">http://baoyz.com/</string>
+    <!-- Library section -->
+    <string name="library_swipemenulistview_libraryName">SwipeMenuListView</string>
+    <string name="library_swipemenulistview_libraryDescription">A swipe menu for ListView</string>
+    <string name="library_swipemenulistview_libraryWebsite">https://github.com/baoyongzhang/SwipeMenuListView</string>
+    <string name="library_swipemenulistview_libraryVersion">1.3.0</string>
+    <!-- OpenSource section -->
+    <string name="library_swipemenulistview_isOpenSource">true</string>
+    <string name="library_swipemenulistview_repositoryLink">https://github.com/baoyongzhang/SwipeMenuListView</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_swipemenulistview_classPath">com.baoyz.swipemenulistview</string>
+    <!-- License section -->
+    <string name="library_swipemenulistview_licenseId">mit</string>
+</resources>
