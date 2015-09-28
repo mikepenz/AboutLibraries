@@ -91,7 +91,7 @@
 
 <p>The AboutLibraries Library is pushed to <a href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.mikepenz%22">Maven Central</a>, so you just need to add the following dependency to your <code>build.gradle</code>. It seems it is also required to add the support dependencies to the application. If it works without, you should be fine too :).</p>
 
-<div class="highlight highlight-javascript"><pre><span class="pl-en">compile</span>(<span class="pl-s"><span class="pl-pds">'</span>com.mikepenz:aboutlibraries:5.2.2@aar<span class="pl-pds">'</span></span>) {
+<div class="highlight highlight-source-js"><pre><span class="pl-en">compile</span>(<span class="pl-s"><span class="pl-pds">'</span>com.mikepenz:aboutlibraries:5.2.4@aar<span class="pl-pds">'</span></span>) {
     transitive <span class="pl-k">=</span> <span class="pl-c1">true</span>
 }</pre></div>
 
@@ -117,7 +117,7 @@ The <code>Libs.Builder</code> is no more. It was changed to <code>LibsBuilder</c
 <h4>
 <a id="fragment" class="anchor" href="#fragment" aria-hidden="true"><span class="octicon octicon-link"></span></a>Fragment</h4>
 
-<div class="highlight highlight-java"><pre><span class="pl-smi">LibsFragment</span> fragment <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">LibsBuilder</span>()
+<div class="highlight highlight-source-java"><pre><span class="pl-smi">LibsFragment</span> fragment <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">LibsBuilder</span>()
         <span class="pl-c">//get the fragment</span>
         .fragment();</pre></div>
 
@@ -127,7 +127,7 @@ The <code>Libs.Builder</code> is no more. It was changed to <code>LibsBuilder</c
 <h5>
 <a id="code" class="anchor" href="#code" aria-hidden="true"><span class="octicon octicon-link"></span></a>Code:</h5>
 
-<div class="highlight highlight-java"><pre><span class="pl-k">new</span> <span class="pl-smi">LibsBuilder</span>()
+<div class="highlight highlight-source-java"><pre><span class="pl-k">new</span> <span class="pl-smi">LibsBuilder</span>()
         <span class="pl-c">//provide a style (optional) (LIGHT, DARK, LIGHT_DARK_TOOLBAR)</span>
         .withActivityStyle(<span class="pl-smi">Libs</span><span class="pl-k">.</span><span class="pl-smi">ActivityStyle</span><span class="pl-c1"><span class="pl-k">.</span>LIGHT_DARK_TOOLBAR</span>)
         <span class="pl-c">//start the activity</span>
@@ -140,7 +140,7 @@ The <code>Libs.Builder</code> is no more. It was changed to <code>LibsBuilder</c
 You can also use the AboutLibraries activity as an "about this app" screen. You ask how?
 Yeah pretty simple just add the following .xml file (or just the strings - the key must be the same) to your project.</p>
 
-<div class="highlight highlight-xml"><pre>&lt;<span class="pl-ent">resources</span>&gt;
+<div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">resources</span>&gt;
     &lt;<span class="pl-ent">string</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>aboutLibraries_description_showIcon<span class="pl-pds">"</span></span>&gt;true&lt;/<span class="pl-ent">string</span>&gt;
     &lt;<span class="pl-ent">string</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>aboutLibraries_description_showVersion<span class="pl-pds">"</span></span>&gt;true&lt;/<span class="pl-ent">string</span>&gt;
     &lt;<span class="pl-ent">string</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>aboutLibraries_description_text<span class="pl-pds">"</span></span>&gt;Place your description here :D&lt;/<span class="pl-ent">string</span>&gt;
@@ -148,7 +148,7 @@ Yeah pretty simple just add the following .xml file (or just the strings - the k
 
 <p>or use the builder and add following:</p>
 
-<div class="highlight highlight-java"><pre>    .withAboutIconShown(<span class="pl-c1">true</span>)
+<div class="highlight highlight-source-java"><pre>    .withAboutIconShown(<span class="pl-c1">true</span>)
     .withAboutVersionShown(<span class="pl-c1">true</span>)
     .withAboutDescription(<span class="pl-s"><span class="pl-pds">"</span>This is a small sample which can be set in the about my app description file.&lt;br /&gt;&lt;b&gt;You can style this with html markup :D&lt;/b&gt;<span class="pl-pds">"</span></span>)
 </pre></div>
@@ -159,7 +159,7 @@ Yeah pretty simple just add the following .xml file (or just the strings - the k
 <p>Exclude <code>R</code> from ProGuard to enable the library auto detection</p>
 
 <pre lang="proguard"><code>-keep class .R
--keep class .R$* {
+-keep class **.R$* {
     &lt;fields&gt;;
 }
 </code></pre>
@@ -185,6 +185,7 @@ Yeah pretty simple just add the following .xml file (or just the strings - the k
 <li><a href="https://play.google.com/store/apps/details?id=pt.massena.holdemtracker.free">Hold'Em Poker Manager</a></li>
 <li><a href="https://play.google.com/store/apps/details?id=com.pixcell8.prod">PixCell8</a></li>
 <li><a href="https://play.google.com/store/apps/details?id=com.javiersantos.mlmanager">ML Manager</a></li>
+<li><a href="https://play.google.com/store/apps/details?id=com.bezine.panosphere">TurnMe Panorama</a></li>
 </ul>
 
 <h1>
