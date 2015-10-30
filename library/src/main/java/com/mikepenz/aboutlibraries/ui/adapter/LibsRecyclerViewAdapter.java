@@ -65,7 +65,7 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             HeaderViewHolder holder = (HeaderViewHolder) viewHolder;
 
             //Set the Icon or hide it
-            if (libsBuilder.aboutShowIcon && aboutIcon != null) {
+            if (libsBuilder.aboutShowIcon != null && libsBuilder.aboutShowIcon && aboutIcon != null) {
                 holder.aboutIcon.setImageDrawable(aboutIcon);
                 holder.aboutIcon.setOnClickListener(new View.OnClickListener() {
                     @Override
