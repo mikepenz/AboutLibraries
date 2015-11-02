@@ -18,6 +18,9 @@ Here's a quick overview of functions it include:
 
 Most modern apps feature an "Used Library"-section and for this some information of those libs is required. As it gets annoying to copy those strings always to your app I've developed this small helper library to provide the required information.
 
+#Migration
+- [MIGRATION GUIDE](https://github.com/mikepenz/AboutLibraries/blob/develop/MIGRATION.md)
+
 #Get started
 - [Include in your project](#include-in-your-project)
 - [Usage](#usage)
