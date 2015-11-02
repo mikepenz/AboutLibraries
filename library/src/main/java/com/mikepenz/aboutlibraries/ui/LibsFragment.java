@@ -44,6 +44,8 @@ public class LibsFragment extends Fragment {
 
     private Comparator<Library> comparator;
 
+    private AsyncTask mLibTask;
+
     /**
      * Default Constructor
      * Gets an libs instance and gets all external libs
@@ -229,7 +231,16 @@ public class LibsFragment extends Fragment {
         //load the data
         if (getContext() != null) {
             //fill the fragment with the content
-            new LibraryTask(getContext()).execute();
+            mLibTask = new LibraryTask(getContext()).execute();
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (mLibTask != null) {
+            mLibTask.cancel(true);
+            mLibTask = null;
         }
     }
 
