@@ -4,6 +4,7 @@ import android.view.View;
 import android.view.animation.LayoutAnimationController;
 
 import com.mikepenz.aboutlibraries.entity.Library;
+import com.mikepenz.aboutlibraries.ui.adapter.LibsRecyclerViewAdapter;
 
 /**
  * Created by mikepenz on 20.05.15.
@@ -26,44 +27,59 @@ public class LibsConfiguration {
     /**
      * LOGIC FOR THE LISTENER
      */
-    private LibsListener listener = null;
+    private LibsListener mListener = null;
 
     public void setListener(LibsListener libsListener) {
-        this.listener = libsListener;
+        this.mListener = libsListener;
     }
 
     public LibsListener getListener() {
-        return listener;
+        return mListener;
     }
 
     public void removeListener() {
-        this.listener = null;
+        this.mListener = null;
     }
 
 
-    private LibsUIListener uiListener = null;
+    private LibsUIListener mUiListener = null;
 
     public LibsUIListener getUiListener() {
-        return uiListener;
+        return mUiListener;
     }
 
     public void setUiListener(LibsUIListener uiListener) {
-        this.uiListener = uiListener;
+        this.mUiListener = uiListener;
     }
 
     public void removeUiListener() {
-        this.uiListener = null;
+        this.mUiListener = null;
     }
 
 
-    private LayoutAnimationController layoutAnimationController = null;
+    private LibsRecyclerViewListener mRecyclerViewListener = null;
+
+    public LibsRecyclerViewListener getLibsRecyclerViewListener() {
+        return mRecyclerViewListener;
+    }
+
+    public void setLibsRecyclerViewListener(LibsRecyclerViewListener recyclerViewListener) {
+        this.mRecyclerViewListener = recyclerViewListener;
+    }
+
+    public void removeLibsRecyclerViewListener() {
+        this.mRecyclerViewListener = null;
+    }
+
+
+    private LayoutAnimationController mLayoutAnimationController = null;
 
     public LayoutAnimationController getLayoutAnimationController() {
-        return layoutAnimationController;
+        return mLayoutAnimationController;
     }
 
     public void setLayoutAnimationController(LayoutAnimationController layoutAnimationController) {
-        this.layoutAnimationController = layoutAnimationController;
+        this.mLayoutAnimationController = layoutAnimationController;
     }
 
     /**
@@ -76,9 +92,37 @@ public class LibsConfiguration {
 
 
     public interface LibsUIListener {
+        /**
+         * PreOnCreateView method called before the view was created
+         *
+         * @param view
+         * @return
+         */
         View preOnCreateView(View view);
 
+        /**
+         * PostOnCreateView method called after the view was created
+         *
+         * @param view
+         * @return
+         */
         View postOnCreateView(View view);
+    }
+
+    public interface LibsRecyclerViewListener {
+        /**
+         * OnBindHeaderViewHolder called after the headerView was filled inside the recyclerViews onBindViewHolder method
+         *
+         * @param headerViewHolder
+         */
+        void OnBindViewHolder(LibsRecyclerViewAdapter.HeaderViewHolder headerViewHolder);
+
+        /**
+         * OnBindViewHolder called after the item view was filled inside the recyclerViews onBindViewHolder method
+         *
+         * @param headerViewHolder
+         */
+        void OnBindViewHolder(LibsRecyclerViewAdapter.ViewHolder headerViewHolder);
     }
 
     public interface LibsListener {
@@ -163,6 +207,16 @@ public class LibsConfiguration {
          * @return true if consumed and no further action is required
          */
         boolean onLibraryBottomLongClicked(View v, Library library);
+    }
+
+    public abstract class LibsRecyclerViewListenerImpl implements LibsRecyclerViewListener {
+        @Override
+        public void OnBindViewHolder(LibsRecyclerViewAdapter.HeaderViewHolder headerViewHolder) {
+        }
+
+        @Override
+        public void OnBindViewHolder(LibsRecyclerViewAdapter.ViewHolder headerViewHolder) {
+        }
     }
 
     public abstract class LibsListenerImpl implements LibsListener {

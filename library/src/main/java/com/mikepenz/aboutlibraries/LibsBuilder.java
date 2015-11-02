@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.animation.LayoutAnimationController;
 
 import com.mikepenz.aboutlibraries.entity.Library;
 import com.mikepenz.aboutlibraries.ui.LibsActivity;
@@ -378,7 +379,7 @@ public class LibsBuilder implements Serializable {
     }
 
     /**
-     * Builder method to set the listener for the AboutLibraries actions
+     * Builder method to set the LibsListener for the AboutLibraries actions
      *
      * @param libsListener the listener to be notified
      * @return
@@ -388,9 +389,44 @@ public class LibsBuilder implements Serializable {
         return this;
     }
 
-        /*
-         * START OF THE FINAL METHODS
-         */
+    /**
+     * Builder method to set the LibsRecyclerViewListener for the AboutLibraries recyclerView elements
+     *
+     * @param recyclerViewListener
+     * @return
+     */
+    public LibsBuilder withLibsRecyclerViewListener(LibsConfiguration.LibsRecyclerViewListener recyclerViewListener) {
+        LibsConfiguration.getInstance().setLibsRecyclerViewListener(recyclerViewListener);
+        return this;
+    }
+
+
+    /**
+     * Builder method to set the LibsUIListener for the AboutLibraries view to hook into the view creation
+     *
+     * @param uiListener
+     * @return
+     */
+    public LibsBuilder withUiListener(LibsConfiguration.LibsUIListener uiListener) {
+        LibsConfiguration.getInstance().setUiListener(uiListener);
+        return this;
+    }
+
+    /**
+     * Builder method to set the LayoutAnimationController for the RecyclerView
+     *
+     * @param layoutAnimationController
+     * @return
+     */
+    public LibsBuilder withLayoutAnimationController(LayoutAnimationController layoutAnimationController) {
+        LibsConfiguration.getInstance().setLayoutAnimationController(layoutAnimationController);
+        return this;
+    }
+
+    /*
+     * START OF THE FINAL METHODS
+     */
+
 
     private void preCheck() {
         if (fields == null) {

@@ -197,6 +197,11 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             if (!libsBuilder.aboutShowIcon && !libsBuilder.aboutShowVersion || TextUtils.isEmpty(libsBuilder.aboutDescription)) {
                 holder.aboutDivider.setVisibility(View.GONE);
             }
+
+            //notify the libsRecyclerViewListener to allow modifications
+            if (LibsConfiguration.getInstance().getLibsRecyclerViewListener() != null) {
+                LibsConfiguration.getInstance().getLibsRecyclerViewListener().OnBindViewHolder(holder);
+            }
         } else if (viewHolder instanceof ViewHolder) {
             ViewHolder holder = (ViewHolder) viewHolder;
 
@@ -340,6 +345,11 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 holder.libraryBottomContainer.setOnClickListener(null);
                 holder.libraryBottomContainer.setOnLongClickListener(null);
 
+            }
+
+            //notify the libsRecyclerViewListener to allow modifications
+            if (LibsConfiguration.getInstance().getLibsRecyclerViewListener() != null) {
+                LibsConfiguration.getInstance().getLibsRecyclerViewListener().OnBindViewHolder(holder);
             }
         }
     }
