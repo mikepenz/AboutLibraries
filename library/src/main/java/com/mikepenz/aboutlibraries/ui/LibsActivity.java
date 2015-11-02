@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -56,7 +57,7 @@ public class LibsActivity extends AppCompatActivity {
         if (bundle != null && bundle.containsKey(Libs.BUNDLE_TITLE)) {
             title = bundle.getString(Libs.BUNDLE_TITLE);
         }
-        LibsFragment fragment = new LibsFragment();
+        LibsSupportFragment fragment = new LibsSupportFragment();
         fragment.setArguments(bundle);
 
 
@@ -70,8 +71,8 @@ public class LibsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         //if we use the DarkToolbar style we have to handle the back arrow on our own too
         if (activityStyle == Libs.ActivityStyle.LIGHT_DARK_TOOLBAR && getSupportActionBar() != null) {
-            final Drawable upArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
-            upArrow.setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP);
+            final Drawable upArrow = ContextCompat.getDrawable(this, R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+            upArrow.setColorFilter(ContextCompat.getColor(this, android.R.color.white), PorterDuff.Mode.SRC_ATOP);
             getSupportActionBar().setHomeAsUpIndicator(upArrow);
         }
 

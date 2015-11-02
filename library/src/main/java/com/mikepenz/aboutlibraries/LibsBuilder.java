@@ -8,7 +8,7 @@ import android.view.animation.LayoutAnimationController;
 
 import com.mikepenz.aboutlibraries.entity.Library;
 import com.mikepenz.aboutlibraries.ui.LibsActivity;
-import com.mikepenz.aboutlibraries.ui.LibsFragment;
+import com.mikepenz.aboutlibraries.ui.LibsSupportFragment;
 import com.mikepenz.aboutlibraries.ui.adapter.LibsRecyclerViewAdapter;
 import com.mikepenz.aboutlibraries.util.Colors;
 
@@ -507,11 +507,11 @@ public class LibsBuilder implements Serializable {
      *
      * @return the fragment to set in your application
      */
-    public LibsFragment fragment() {
+    public LibsSupportFragment fragment() {
         Bundle bundle = new Bundle();
         bundle.putSerializable("data", this);
 
-        LibsFragment fragment = new LibsFragment();
+        LibsSupportFragment fragment = new LibsSupportFragment();
         fragment.setArguments(bundle);
 
         return fragment;
