@@ -18,6 +18,9 @@ Here's a quick overview of functions it include:
 
 Most modern apps feature an "Used Library"-section and for this some information of those libs is required. As it gets annoying to copy those strings always to your app I've developed this small helper library to provide the required information.
 
+#Migration
+- [MIGRATION GUIDE](https://github.com/mikepenz/AboutLibraries/blob/develop/MIGRATION.md)
+
 #Get started
 - [Include in your project](#include-in-your-project)
 - [Usage](#usage)
@@ -46,7 +49,7 @@ You can find anything you search for in the wiki. (If not open an issue)
 The AboutLibraries Library is pushed to [Maven Central](http://search.maven.org/#search|ga|1|g%3A%22com.mikepenz%22), so you just need to add the following dependency to your `build.gradle`. It seems it is also required to add the support dependencies to the application. If it works without, you should be fine too :).
 
 ```javascript
-compile('com.mikepenz:aboutlibraries:5.2.7@aar') {
+compile('com.mikepenz:aboutlibraries:5.3.0@aar') {
 	transitive = true
 }
 ```
