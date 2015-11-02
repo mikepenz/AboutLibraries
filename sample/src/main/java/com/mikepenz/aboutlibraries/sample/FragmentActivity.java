@@ -13,7 +13,7 @@ import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.aboutlibraries.LibsBuilder;
 import com.mikepenz.aboutlibraries.LibsConfiguration;
 import com.mikepenz.aboutlibraries.entity.Library;
-import com.mikepenz.aboutlibraries.ui.LibsFragment;
+import com.mikepenz.aboutlibraries.ui.LibsSupportFragment;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
@@ -165,12 +165,12 @@ public class FragmentActivity extends AppCompatActivity {
         fragment.setArguments(bundle);
         */
 
-        LibsFragment fragment = new LibsBuilder()
+        LibsSupportFragment fragment = new LibsBuilder()
                 .withLibraries("crouton", "activeandroid", "actionbarsherlock", "showcaseview")
                 .withVersionShown(false)
                 .withLicenseShown(false)
                 .withLibraryModification("aboutlibraries", Libs.LibraryFields.LIBRARY_NAME, "_AboutLibraries")
-                .fragment();
+                .supportFragment();
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();

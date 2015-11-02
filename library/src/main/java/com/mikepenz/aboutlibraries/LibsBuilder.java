@@ -1,13 +1,16 @@
 package com.mikepenz.aboutlibraries;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.animation.LayoutAnimationController;
 
 import com.mikepenz.aboutlibraries.entity.Library;
 import com.mikepenz.aboutlibraries.ui.LibsActivity;
+import com.mikepenz.aboutlibraries.ui.LibsFragment;
 import com.mikepenz.aboutlibraries.ui.LibsSupportFragment;
 import com.mikepenz.aboutlibraries.ui.adapter.LibsRecyclerViewAdapter;
 import com.mikepenz.aboutlibraries.util.Colors;
@@ -507,7 +510,22 @@ public class LibsBuilder implements Serializable {
      *
      * @return the fragment to set in your application
      */
-    public LibsSupportFragment fragment() {
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public LibsFragment fragment() {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("data", this);
+
+        LibsFragment fragment = new LibsFragment();
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
+    /**
+     * supportFragment() method to build and create the fragment with the set params
+     *
+     * @return the fragment to set in your application
+     */
+    public LibsSupportFragment supportFragment() {
         Bundle bundle = new Bundle();
         bundle.putSerializable("data", this);
 
