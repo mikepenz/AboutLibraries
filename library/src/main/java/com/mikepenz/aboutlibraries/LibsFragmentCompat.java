@@ -80,8 +80,8 @@ public class LibsFragmentCompat {
         @Override
         protected String doInBackground(String... strings) {
             //init the Libs instance with fields if they were set
-            Libs libs = null;
-            if (builder == null || builder.fields == null) {
+            Libs libs;
+            if (builder.fields == null) {
                 libs = new Libs(ctx);
             } else {
                 libs = new Libs(ctx, builder.fields);
@@ -216,7 +216,7 @@ public class LibsFragmentCompat {
 
     public void onViewCreated(View view, Bundle savedInstanceState) {
         //load the data
-        if (view.getContext() != null) {
+        if (view.getContext() != null && builder != null) {
             //fill the fragment with the content
             mLibTask = new LibraryTask(view.getContext()).execute();
         }
