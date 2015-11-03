@@ -1,6 +1,12 @@
 ###Upgrade Notes
 
-#### v5.2.6 -> 5.3.0
+
+#### v5.3.0 -> v5.3.1
+* renamed `withAnimations()` to `withSlideInAnimation()` and change the default to `false`
+* now use the `DefaultItemAnimator` to animate the displaying of the elements 
+* you can now define a different `ItemAnimator` via `LibsConfiguration.getInstance().setItemAnimator()`
+
+#### v5.2.6 -> v5.3.0
 * change `.fragment()` to `.supportFragment()` and `LibsFragment` to `LibsSupportFragment`
 
 **INFO**
