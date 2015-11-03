@@ -421,7 +421,9 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         return libs.get(pos);
     }
 
+    @Override
     public long getItemId(int pos) {
+        //you should not do this if you are not sure if the position of the items is also their identifier
         return pos;
     }
 
