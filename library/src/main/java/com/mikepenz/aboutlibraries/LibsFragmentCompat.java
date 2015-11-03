@@ -34,11 +34,8 @@ public class LibsFragmentCompat {
     private LibsRecyclerViewAdapter mAdapter;
 
     private LibsBuilder builder = null;
-
     private static ArrayList<Library> libraries;
-
     private Comparator<Library> comparator;
-
     private AsyncTask mLibTask;
 
     /**
@@ -50,15 +47,6 @@ public class LibsFragmentCompat {
 
     public void setLibraryComparator(final Comparator<Library> comparator) {
         this.comparator = comparator;
-    }
-
-    public void onAttach(Context context, Bundle bundle) {
-        if (bundle != null) {
-            builder = (LibsBuilder) bundle.getSerializable("data");
-        } else {
-            Log.e("AboutLibraries", "The AboutLibraries fragment can't be build without the bundle containing the LibsBuilder");
-            return;
-        }
     }
 
     private class LibraryTask extends AsyncTask<String, String, String> {
@@ -183,11 +171,15 @@ public class LibsFragmentCompat {
             //forget the context
             ctx = null;
         }
-
-
     }
 
-    public View onCreateView(Context context, LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(Context context, LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState, Bundle arguments) {
+        if (arguments != null) {
+            builder = (LibsBuilder) arguments.getSerializable("data");
+        } else {
+            Log.e("AboutLibraries", "The AboutLibraries fragment can't be build without the bundle containing the LibsBuilder");
+        }
+
         View view = inflater.inflate(R.layout.fragment_opensource, container, false);
 
         //allows to modify the view before creating
@@ -203,8 +195,11 @@ public class LibsFragmentCompat {
         }
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mAdapter = new LibsRecyclerViewAdapter(builder);
-        mRecyclerView.setAdapter(mAdapter);
+
+        if (builder != null) {
+            mAdapter = new LibsRecyclerViewAdapter(builder);
+            mRecyclerView.setAdapter(mAdapter);
+        }
 
         //allows to modify the view after creating
         if (LibsConfiguration.getInstance().getUiListener() != null) {
