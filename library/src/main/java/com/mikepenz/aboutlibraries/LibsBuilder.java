@@ -29,7 +29,7 @@ public class LibsBuilder implements Serializable {
     public Boolean autoDetect = true;
     public Boolean sort = true;
     public Comparator<Library> libraryComparator = null;
-    public Boolean animate = true;
+    public Boolean slideInAnimation = false;
 
     public Boolean showLicense = false;
     public Boolean showLicenseDialog = true;
@@ -139,13 +139,13 @@ public class LibsBuilder implements Serializable {
     }
 
     /**
-     * Builder method to disable animations (default: enabled)
+     * Builder method to enable the slide in animation (default: false)
      *
-     * @param animate enabled or disabled
+     * @param slideInAnimation enabled or disabled
      * @return this
      */
-    public LibsBuilder withAnimations(boolean animate) {
-        this.animate = animate;
+    public LibsBuilder withSlideInAnimation(boolean slideInAnimation) {
+        this.slideInAnimation = slideInAnimation;
         return this;
     }
 

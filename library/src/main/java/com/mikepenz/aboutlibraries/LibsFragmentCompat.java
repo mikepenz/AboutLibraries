@@ -151,7 +151,7 @@ public class LibsFragmentCompat {
             mAdapter.addLibs(libraries);
 
             //animate filling the list
-            if (builder.animate) {
+            if (builder.slideInAnimation) {
                 LayoutAnimationController layoutAnimationController;
 
                 if (LibsConfiguration.getInstance().getLayoutAnimationController() == null) {
