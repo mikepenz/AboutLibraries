@@ -1,6 +1,5 @@
 package com.mikepenz.aboutlibraries.ui;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -21,16 +20,10 @@ public class LibsSupportFragment extends Fragment {
         libsFragmentCompat = new LibsFragmentCompat();
     }
 
-    @Override
-    public void onAttach(Context context) {
-        libsFragmentCompat.onAttach(context, getArguments());
-        super.onAttach(context);
-    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return libsFragmentCompat.onCreateView(container.getContext(), inflater, container, savedInstanceState);
+        return libsFragmentCompat.onCreateView(container.getContext(), inflater, container, savedInstanceState, getArguments());
     }
 
     @Override

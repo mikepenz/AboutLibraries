@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -34,11 +33,8 @@ public class LibsFragmentCompat {
     private LibsRecyclerViewAdapter mAdapter;
 
     private LibsBuilder builder = null;
-
     private static ArrayList<Library> libraries;
-
     private Comparator<Library> comparator;
-
     private AsyncTask mLibTask;
 
     /**
@@ -52,12 +48,55 @@ public class LibsFragmentCompat {
         this.comparator = comparator;
     }
 
-    public void onAttach(Context context, Bundle bundle) {
-        if (bundle != null) {
-            builder = (LibsBuilder) bundle.getSerializable("data");
+    public View onCreateView(Context context, LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState, Bundle arguments) {
+        if (arguments != null) {
+            builder = (LibsBuilder) arguments.getSerializable("data");
         } else {
             Log.e("AboutLibraries", "The AboutLibraries fragment can't be build without the bundle containing the LibsBuilder");
-            return;
+        }
+
+        View view = inflater.inflate(R.layout.fragment_opensource, container, false);
+
+        //allows to modify the view before creating
+        if (LibsConfiguration.getInstance().getUiListener() != null) {
+            view = LibsConfiguration.getInstance().getUiListener().preOnCreateView(view);
+        }
+
+        // init CardView
+        if (view.getId() == R.id.cardListView) {
+            mRecyclerView = (RecyclerView) view;
+        } else {
+            mRecyclerView = (RecyclerView) view.findViewById(R.id.cardListView);
+        }
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+        mRecyclerView.setItemAnimator(LibsConfiguration.getInstance().getItemAnimator());
+
+        if (builder != null) {
+            mAdapter = new LibsRecyclerViewAdapter(builder);
+            mAdapter.setHasStableIds(true);
+            mRecyclerView.setAdapter(mAdapter);
+        }
+
+        //allows to modify the view after creating
+        if (LibsConfiguration.getInstance().getUiListener() != null) {
+            view = LibsConfiguration.getInstance().getUiListener().postOnCreateView(view);
+        }
+
+        return view;
+    }
+
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        //load the data (only possible if we were able to get the Arguments
+        if (view.getContext() != null && builder != null) {
+            //fill the fragment with the content
+            mLibTask = new LibraryTask(view.getContext()).execute();
+        }
+    }
+
+    public void onDestroyView() {
+        if (mLibTask != null) {
+            mLibTask.cancel(true);
+            mLibTask = null;
         }
     }
 
@@ -80,8 +119,8 @@ public class LibsFragmentCompat {
         @Override
         protected String doInBackground(String... strings) {
             //init the Libs instance with fields if they were set
-            Libs libs = null;
-            if (builder == null || builder.fields == null) {
+            Libs libs;
+            if (builder.fields == null) {
                 libs = new Libs(ctx);
             } else {
                 libs = new Libs(ctx, builder.fields);
@@ -163,7 +202,7 @@ public class LibsFragmentCompat {
             mAdapter.addLibs(libraries);
 
             //animate filling the list
-            if (builder.animate) {
+            if (builder.slideInAnimation) {
                 LayoutAnimationController layoutAnimationController;
 
                 if (LibsConfiguration.getInstance().getLayoutAnimationController() == null) {
@@ -182,50 +221,6 @@ public class LibsFragmentCompat {
 
             //forget the context
             ctx = null;
-        }
-
-
-    }
-
-    public View onCreateView(Context context, LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_opensource, container, false);
-
-        //allows to modify the view before creating
-        if (LibsConfiguration.getInstance().getUiListener() != null) {
-            view = LibsConfiguration.getInstance().getUiListener().preOnCreateView(view);
-        }
-
-        // init CardView
-        if (view.getId() == R.id.cardListView) {
-            mRecyclerView = (RecyclerView) view;
-        } else {
-            mRecyclerView = (RecyclerView) view.findViewById(R.id.cardListView);
-        }
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mAdapter = new LibsRecyclerViewAdapter(builder);
-        mRecyclerView.setAdapter(mAdapter);
-
-        //allows to modify the view after creating
-        if (LibsConfiguration.getInstance().getUiListener() != null) {
-            view = LibsConfiguration.getInstance().getUiListener().postOnCreateView(view);
-        }
-
-        return view;
-    }
-
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        //load the data
-        if (view.getContext() != null) {
-            //fill the fragment with the content
-            mLibTask = new LibraryTask(view.getContext()).execute();
-        }
-    }
-
-    public void onDestroyView() {
-        if (mLibTask != null) {
-            mLibTask.cancel(true);
-            mLibTask = null;
         }
     }
 
