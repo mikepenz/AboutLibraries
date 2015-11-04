@@ -433,7 +433,11 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     }
 
     public void addLibs(List<Library> libs) {
-        this.libs.addAll(libs);
+        if (libs != null && libs.size() > 0) {
+            int size = this.libs.size() - 1;
+            this.libs.addAll(libs);
+            this.notifyItemRangeInserted(size, size + libs.size());
+        }
     }
 
     public void setHeader(String aboutVersionName, Integer aboutVersionCode, Drawable aboutIcon) {
