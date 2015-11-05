@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -69,7 +70,12 @@ public class LibsFragmentCompat {
             mRecyclerView = (RecyclerView) view.findViewById(R.id.cardListView);
         }
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-        mRecyclerView.setItemAnimator(LibsConfiguration.getInstance().getItemAnimator());
+
+        if (LibsConfiguration.getInstance().getItemAnimator() != null) {
+            mRecyclerView.setItemAnimator(LibsConfiguration.getInstance().getItemAnimator());
+        } else {
+            mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        }
 
         if (builder != null) {
             mAdapter = new LibsRecyclerViewAdapter(builder);
