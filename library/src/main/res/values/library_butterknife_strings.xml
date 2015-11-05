@@ -2,11 +2,9 @@
 <resources>
     <string name="define_int_Butterknife">year;owner</string>
     <string name="library_Butterknife_author">Jake Wharton</string>
-    <string name="library_Butterknife_libraryName">Butterknife</string>
-    <string name="library_Butterknife_libraryDescription">View "injection" library for Android which uses annotation processing to generate boilerplate code for
-        you.
-    </string>
-    <string name="library_Butterknife_libraryVersion">6.1.0</string>
+    <string name="library_Butterknife_libraryName">Butter Knife</string>
+    <string name="library_Butterknife_libraryDescription">Field and method binding for Android views which uses annotation processing to generate boilerplate code for you.</string>
+    <string name="library_Butterknife_libraryVersion">7.0.1</string>
     <string name="library_Butterknife_libraryWebsite">http://jakewharton.github.io/butterknife/</string>
     <string name="library_Butterknife_licenseId">apache_2_0</string>
     <string name="library_Butterknife_isOpenSource">true</string>
@@ -14,6 +12,6 @@
     <string name="library_Butterknife_classPath">butterknife.ButterKnife</string>
     <!-- Custom variables section -->
     <string name="library_Butterknife_owner">Jake Wharton</string>
-    <string name="library_Butterknife_year">2014</string>
+    <string name="library_Butterknife_year">2013</string>
 </resources> 
 
