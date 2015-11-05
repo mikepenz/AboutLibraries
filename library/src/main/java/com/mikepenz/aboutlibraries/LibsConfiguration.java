@@ -1,6 +1,5 @@
 package com.mikepenz.aboutlibraries;
 
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.animation.LayoutAnimationController;
@@ -84,7 +83,7 @@ public class LibsConfiguration {
         this.mLayoutAnimationController = layoutAnimationController;
     }
 
-    private RecyclerView.ItemAnimator mItemAnimator = new DefaultItemAnimator();
+    private RecyclerView.ItemAnimator mItemAnimator;
 
     public RecyclerView.ItemAnimator getItemAnimator() {
         return mItemAnimator;

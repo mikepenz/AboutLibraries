@@ -91,52 +91,7 @@ public class FragmentActivity extends AppCompatActivity {
                                     .withVersionShown(true)
                                     .withActivityTitle("Open Source")
                                     .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
-                                    .withListener(new LibsConfiguration.LibsListener() {
-                                        @Override
-                                        public void onIconClicked(View v) {
-                                            Toast.makeText(v.getContext(), "We are able to track this now ;)", Toast.LENGTH_LONG).show();
-                                        }
-
-                                        @Override
-                                        public boolean onLibraryAuthorClicked(View v, Library library) {
-                                            return false;
-                                        }
-
-                                        @Override
-                                        public boolean onLibraryContentClicked(View v, Library library) {
-                                            return false;
-                                        }
-
-                                        @Override
-                                        public boolean onLibraryBottomClicked(View v, Library library) {
-                                            return false;
-                                        }
-
-                                        @Override
-                                        public boolean onExtraClicked(View v, Libs.SpecialButton specialButton) {
-                                            return false;
-                                        }
-
-                                        @Override
-                                        public boolean onIconLongClicked(View v) {
-                                            return false;
-                                        }
-
-                                        @Override
-                                        public boolean onLibraryAuthorLongClicked(View v, Library library) {
-                                            return false;
-                                        }
-
-                                        @Override
-                                        public boolean onLibraryContentLongClicked(View v, Library library) {
-                                            return false;
-                                        }
-
-                                        @Override
-                                        public boolean onLibraryBottomLongClicked(View v, Library library) {
-                                            return false;
-                                        }
-                                    })
+                                    .withListener(libsListener)
                                     .start(FragmentActivity.this);
                         }
 
@@ -176,4 +131,51 @@ public class FragmentActivity extends AppCompatActivity {
         fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
 
     }
+
+    LibsConfiguration.LibsListener libsListener = new LibsConfiguration.LibsListener() {
+        @Override
+        public void onIconClicked(View v) {
+            Toast.makeText(v.getContext(), "We are able to track this now ;)", Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        public boolean onLibraryAuthorClicked(View v, Library library) {
+            return false;
+        }
+
+        @Override
+        public boolean onLibraryContentClicked(View v, Library library) {
+            return false;
+        }
+
+        @Override
+        public boolean onLibraryBottomClicked(View v, Library library) {
+            return false;
+        }
+
+        @Override
+        public boolean onExtraClicked(View v, Libs.SpecialButton specialButton) {
+            return false;
+        }
+
+        @Override
+        public boolean onIconLongClicked(View v) {
+            return false;
+        }
+
+        @Override
+        public boolean onLibraryAuthorLongClicked(View v, Library library) {
+            return false;
+        }
+
+        @Override
+        public boolean onLibraryContentLongClicked(View v, Library library) {
+            return false;
+        }
+
+        @Override
+        public boolean onLibraryBottomLongClicked(View v, Library library) {
+            return false;
+        }
+    };
 }
