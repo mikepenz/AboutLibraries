@@ -13,8 +13,8 @@ android {
         applicationId 'com.mikepenz.aboutlibraries.sample'
         minSdkVersion 11
         targetSdkVersion 23
-        versionCode 532
-        versionName '5.3.2'
+        versionCode 533
+        versionName '5.3.3'
 
         applicationVariants.all { variant ->
             variant.outputs.each { output ->
