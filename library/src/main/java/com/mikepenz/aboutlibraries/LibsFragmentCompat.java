@@ -95,8 +95,13 @@ public class LibsFragmentCompat {
         //load the data (only possible if we were able to get the Arguments
         if (view.getContext() != null && builder != null) {
             //fill the fragment with the content
-            mLibTask = new LibraryTask(view.getContext()).execute();
+            mLibTask = new LibraryTask(view.getContext());
+            executeLibTask(mLibTask);
         }
+    }
+
+    private void executeLibTask(LibraryTask libraryTask) {
+        if(libraryTask != null) libraryTask.execute();
     }
 
     public void onDestroyView() {
