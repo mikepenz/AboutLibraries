@@ -100,8 +100,10 @@ public class LibsFragmentCompat {
         }
     }
 
-    private void executeLibTask(AsyncTask libraryTask) {
-        if (libraryTask != null) libraryTask.execute();
+    public void executeLibTask(AsyncTask libraryTask) {
+        if (libraryTask != null) {
+            libraryTask.execute();
+        }
     }
 
     public void onDestroyView() {
