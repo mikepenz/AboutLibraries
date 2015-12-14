@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_QuickReturn"></string>
+    <string name="library_QuickReturn_author">Etienne Lawlor</string>
+    <string name="library_QuickReturn_authorWebsite">https://medium.com/@etiennelawlor</string>
+    <string name="library_QuickReturn_libraryName">QuickReturn</string>
+    <string name="library_QuickReturn_libraryDescription">QuickReturn is a library which showcases the QuickReturn UI Pattern. The QuickReturn UI Pattern reveals or hides a header or footer as content is scrolled up or down.</string>
+    <string name="library_QuickReturn_libraryVersion">0.0.3</string>
+    <string name="library_QuickReturn_libraryWebsite">https://github.com/lawloretienne/QuickReturn</string>
+    <string name="library_QuickReturn_licenseId">apache_2_0</string>
+    <string name="library_QuickReturn_isOpenSource">true</string>
+    <string name="library_QuickReturn_repositoryLink">https://github.com/lawloretienne/QuickReturn</string>
+</resources>
