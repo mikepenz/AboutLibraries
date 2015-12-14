@@ -9,10 +9,10 @@
     <string name="library_floatingsearchview_libraryName">Floating Search View</string>
     <string name="library_floatingsearchview_libraryDescription">A search view that implements a floating search bar also known as persistent search</string>
     <string name="library_floatingsearchview_libraryWebsite">https://github.com/arimorty/floatingsearchview/blob/master/README.md</string>
-    <string name="library_floatingsearchview_libraryVersion"></string>
+    <string name="library_floatingsearchview_libraryVersion">1.1.2</string>
     <!-- OpenSource section -->
     <string name="library_floatingsearchview_isOpenSource">true</string>
-    <string name="library_floatingsearchview_repositoryLink"></string>
+    <string name="library_floatingsearchview_repositoryLink">https://github.com/arimorty/floatingsearchview</string>
     <!-- ClassPath for autoDetect section -->
     <string name="library_floatingsearchview_classPath">com.arlib.floatingsearchview.FloatingSearchView</string>
     <!-- License section -->
