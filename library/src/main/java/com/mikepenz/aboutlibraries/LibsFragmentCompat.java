@@ -143,7 +143,10 @@ public class LibsFragmentCompat {
 
         @Override
         protected void onPreExecute() {
-            if(builder.libTaskCallback != null) builder.libTaskCallback.onLibTaskStarted();
+            //started loading
+            if (LibsConfiguration.getInstance().getLibTaskCallback() != null) {
+                LibsConfiguration.getInstance().getLibTaskCallback().onLibTaskStarted();
+            }
         }
 
         @Override
@@ -249,9 +252,13 @@ public class LibsFragmentCompat {
 
             super.onPostExecute(s);
 
+            //finished loading
+            if (LibsConfiguration.getInstance().getLibTaskCallback() != null) {
+                LibsConfiguration.getInstance().getLibTaskCallback().onLibTaskFinished();
+            }
+
             //forget the context
             ctx = null;
-            if(builder.libTaskCallback != null) builder.libTaskCallback.onLibTaskFinished();
         }
     }
 

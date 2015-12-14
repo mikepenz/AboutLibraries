@@ -55,7 +55,6 @@ public class LibsBuilder implements Serializable {
     public Libs.ActivityStyle activityStyle = null;
 
     public LibTaskExecutor libTaskExecutor = LibTaskExecutor.DEFAULT_EXECUTOR;
-    public LibTaskCallback libTaskCallback = null;
 
     public HashMap<String, HashMap<String, String>> libraryModification = null;
 
@@ -436,8 +435,8 @@ public class LibsBuilder implements Serializable {
      * @return
      */
     public LibsBuilder withLibTaskExecutor(LibTaskExecutor libTaskExecutor) {
-        if(libTaskExecutor!= null) {
-            this.libTaskExecutor= libTaskExecutor;
+        if (libTaskExecutor != null) {
+            this.libTaskExecutor = libTaskExecutor;
         }
         return this;
     }
@@ -451,9 +450,7 @@ public class LibsBuilder implements Serializable {
      * @return
      */
     public LibsBuilder withLibTaskCallback(LibTaskCallback libTaskCallback) {
-        if(libTaskCallback != null) {
-            this.libTaskCallback = libTaskCallback;
-        }
+        LibsConfiguration.getInstance().setLibTaskCallback(libTaskCallback);
         return this;
     }
 
