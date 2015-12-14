@@ -6,6 +6,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -36,7 +37,7 @@ public class LibsFragmentCompat {
     private LibsBuilder builder = null;
     private static ArrayList<Library> libraries;
     private Comparator<Library> comparator;
-    private AsyncTask mLibTask;
+    private LibraryTask mLibTask;
 
     /**
      * Default Constructor
@@ -100,11 +101,27 @@ public class LibsFragmentCompat {
         }
     }
 
-    public void executeLibTask(AsyncTask libraryTask) {
+    protected void executeLibTask(LibraryTask libraryTask) {
         if (libraryTask != null) {
-            libraryTask.execute();
+            if (Build.VERSION.SDK_INT >= 11) {
+                switch (builder.libTaskExecutor) {
+                    case THREAD_POOL_EXECUTOR:
+                        libraryTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                        break;
+                    case SERIAL_EXECUTOR:
+                        libraryTask.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
+                        break;
+                    case DEFAULT_EXECUTOR:
+                    default:
+                        libraryTask.execute();
+                        break;
+                }
+            } else {
+                libraryTask.execute();
+            }
         }
     }
+
 
     public void onDestroyView() {
         if (mLibTask != null) {
@@ -113,7 +130,7 @@ public class LibsFragmentCompat {
         }
     }
 
-    private class LibraryTask extends AsyncTask<String, String, String> {
+    public class LibraryTask extends AsyncTask<String, String, String> {
         Context ctx;
 
         String versionName;
@@ -126,7 +143,7 @@ public class LibsFragmentCompat {
 
         @Override
         protected void onPreExecute() {
-            super.onPreExecute();
+            if(builder.libTaskCallback != null) builder.libTaskCallback.onLibTaskStarted();
         }
 
         @Override
@@ -234,6 +251,7 @@ public class LibsFragmentCompat {
 
             //forget the context
             ctx = null;
+            if(builder.libTaskCallback != null) builder.libTaskCallback.onLibTaskFinished();
         }
     }
 

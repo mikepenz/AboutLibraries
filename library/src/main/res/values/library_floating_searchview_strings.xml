@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_FloatingSearchView"></string>
+    <string name="library_FloatingSearchView_author">Arlib</string>
+    <string name="library_FloatingSearchView_authorWebsite">https://github.com/arimorty</string>
+    <string name="library_FloatingSearchView_libraryName">Floating Search View</string>
+    <string name="library_FloatingSearchView_libraryDescription">An implementation of a floating search box with search suggestions.</string>
+    <string name="library_FloatingSearchView_libraryVersion">1.1.2</string>
+    <string name="library_FloatingSearchView_libraryWebsite">https://github.com/arimorty/floatingsearchview</string>
+    <string name="library_FloatingSearchView_licenseId">apache_2_0</string>
+    <string name="library_FloatingSearchView_isOpenSource">true</string>
+    <string name="library_FloatingSearchView_repositoryLink">https://github.com/arimorty/floatingsearchview</string>
+</resources>
