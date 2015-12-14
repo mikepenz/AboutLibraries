@@ -101,6 +101,7 @@ public class LibsFragmentCompat {
         }
     }
 
+<<<<<<< HEAD
     protected void executeLibTask(LibraryTask libraryTask) {
         if(libraryTask != null) {
             if(Build.VERSION.SDK_INT >= 11) {
@@ -120,6 +121,11 @@ public class LibsFragmentCompat {
                 libraryTask.execute();
             }
 
+=======
+    public void executeLibTask(AsyncTask libraryTask) {
+        if (libraryTask != null) {
+            libraryTask.execute();
+>>>>>>> c341dad142f13e0c99f7a9100e94307333b99497
         }
     }
 
