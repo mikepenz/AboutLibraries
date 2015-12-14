@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.mikepenz.aboutlibraries.LibTaskCallback;
 import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.aboutlibraries.LibsBuilder;
 import com.mikepenz.aboutlibraries.LibsConfiguration;
@@ -50,26 +52,6 @@ public class FragmentActivity extends AppCompatActivity {
                         // automatically handle clicks on the Home/Up button, so long
                         // as you specify a parent activity in AndroidManifest.xml.
 
-                        /*
-                        Intent i = new Intent(getApplicationContext(), LibsActivity.class);
-                        i.putExtra(Libs.BUNDLE_FIELDS, Libs.toStringArray(R.string.class.getFields()));
-                        i.putExtra(Libs.BUNDLE_LIBS, new String[]{"crouton", "actionbarsherlock", "showcaseview"});
-                        i.putExtra(Libs.BUNDLE_AUTODETECT, true);
-
-                        i.putExtra(Libs.BUNDLE_VERSION, true);
-                        i.putExtra(Libs.BUNDLE_LICENSE, true);
-
-                        i.putExtra(Libs.BUNDLE_TITLE, "Open Source");
-                        i.putExtra(Libs.BUNDLE_THEME, R.style.AppTheme);
-
-                        //INFO you can set the about app text with these extra data too
-                        i.putExtra(Libs.BUNDLE_APP_ABOUT_ICON, true);
-                        i.putExtra(Libs.BUNDLE_APP_ABOUT_VERSION, true);
-                        i.putExtra(Libs.BUNDLE_APP_ABOUT_DESCRIPTION, "This is a small sample which can be set in the about my app description file.<br /><b>You can style this with html markup :D</b>");
-
-                        startActivity(i);
-                        */
-
                         int id = drawerItem.getIdentifier();
                         if (id == R.id.action_opensource) {
                             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/mikepenz/AboutLibraries"));
@@ -92,6 +74,8 @@ public class FragmentActivity extends AppCompatActivity {
                                     .withActivityTitle("Open Source")
                                     .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
                                     .withListener(libsListener)
+                                    .withLibTaskCallback(libTaskCallback)
+                                    .withUiListener(libsUIListener)
                                     .start(FragmentActivity.this);
                         }
 
@@ -102,22 +86,12 @@ public class FragmentActivity extends AppCompatActivity {
 
 
         /*
-        Bundle bundle = new Bundle();
-        bundle.putStringArray(Libs.BUNDLE_FIELDS, Libs.toStringArray(R.string.class.getFields()));
-        bundle.putStringArray(Libs.BUNDLE_LIBS, new String[]{"crouton", "activeandroid", "actionbarsherlock", "showcaseview"});
-
-        bundle.putBoolean(Libs.BUNDLE_VERSION, true);
-        bundle.putBoolean(Libs.BUNDLE_LICENSE, true);
-
         //NOTE: This is how you can modify a specific library definition during runtime
         HashMap<String, HashMap<String, String>> libsModification = new HashMap<String, HashMap<String, String>>();
         HashMap<String, String> modifyAboutLibraries = new HashMap<String, String>();
         modifyAboutLibraries.put("name", "_AboutLibraries");
         libsModification.put("aboutlibraries", modifyAboutLibraries);
-        bundle.putSerializable(Libs.BUNDLE_LIBS_MODIFICATION, libsModification);
-
-        LibsFragment fragment = new LibsFragment();
-        fragment.setArguments(bundle);
+        .withLibraryModification(libsModification);
         */
 
         LibsSupportFragment fragment = new LibsBuilder()
@@ -131,6 +105,30 @@ public class FragmentActivity extends AppCompatActivity {
         fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
 
     }
+
+    LibTaskCallback libTaskCallback = new LibTaskCallback() {
+        @Override
+        public void onLibTaskStarted() {
+            Log.e("AboutLibraries", "started");
+        }
+
+        @Override
+        public void onLibTaskFinished() {
+            Log.e("AboutLibraries", "finished");
+        }
+    };
+
+    LibsConfiguration.LibsUIListener libsUIListener = new LibsConfiguration.LibsUIListener() {
+        @Override
+        public View preOnCreateView(View view) {
+            return view;
+        }
+
+        @Override
+        public View postOnCreateView(View view) {
+            return view;
+        }
+    };
 
     LibsConfiguration.LibsListener libsListener = new LibsConfiguration.LibsListener() {
         @Override

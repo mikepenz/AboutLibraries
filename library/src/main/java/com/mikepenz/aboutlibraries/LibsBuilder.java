@@ -54,6 +54,8 @@ public class LibsBuilder implements Serializable {
     public Colors activityColor = null;
     public Libs.ActivityStyle activityStyle = null;
 
+    public LibTaskExecutor libTaskExecutor = LibTaskExecutor.DEFAULT_EXECUTOR;
+
     public HashMap<String, HashMap<String, String>> libraryModification = null;
 
     public LibsBuilder() {
@@ -423,6 +425,32 @@ public class LibsBuilder implements Serializable {
      */
     public LibsBuilder withLayoutAnimationController(LayoutAnimationController layoutAnimationController) {
         LibsConfiguration.getInstance().setLayoutAnimationController(layoutAnimationController);
+        return this;
+    }
+
+    /**
+     * Builder method to define a custom Thread Executor for asynchronous operations
+     *
+     * @param libTaskExecutor
+     * @return
+     */
+    public LibsBuilder withLibTaskExecutor(LibTaskExecutor libTaskExecutor) {
+        if (libTaskExecutor != null) {
+            this.libTaskExecutor = libTaskExecutor;
+        }
+        return this;
+    }
+
+    /**
+     * Builder method to define a custom callback which is invoked every time the LibraryTask gets executed.
+     * This interface is called on a LibraryTask's start and end. Make sure the class which implements the
+     * LibTaskCallback is Serializable.
+     *
+     * @param libTaskCallback
+     * @return
+     */
+    public LibsBuilder withLibTaskCallback(LibTaskCallback libTaskCallback) {
+        LibsConfiguration.getInstance().setLibTaskCallback(libTaskCallback);
         return this;
     }
 

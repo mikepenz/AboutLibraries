@@ -42,7 +42,6 @@ public class LibsConfiguration {
         this.mListener = null;
     }
 
-
     private LibsUIListener mUiListener = null;
 
     public LibsUIListener getUiListener() {
@@ -93,6 +92,15 @@ public class LibsConfiguration {
         this.mItemAnimator = itemAnimator;
     }
 
+    private LibTaskCallback mLibTaskCallback;
+
+    public LibTaskCallback getLibTaskCallback() {
+        return mLibTaskCallback;
+    }
+
+    public void setLibTaskCallback(LibTaskCallback mLibTaskCallback) {
+        this.mLibTaskCallback = mLibTaskCallback;
+    }
 
     /**
      * helper to reset a current configuration
