@@ -101,10 +101,9 @@ public class LibsFragmentCompat {
         }
     }
 
-<<<<<<< HEAD
     protected void executeLibTask(LibraryTask libraryTask) {
-        if(libraryTask != null) {
-            if(Build.VERSION.SDK_INT >= 11) {
+        if (libraryTask != null) {
+            if (Build.VERSION.SDK_INT >= 11) {
                 switch (builder.libTaskExecutor) {
                     case THREAD_POOL_EXECUTOR:
                         libraryTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -120,14 +119,9 @@ public class LibsFragmentCompat {
             } else {
                 libraryTask.execute();
             }
-
-=======
-    public void executeLibTask(AsyncTask libraryTask) {
-        if (libraryTask != null) {
-            libraryTask.execute();
->>>>>>> c341dad142f13e0c99f7a9100e94307333b99497
         }
     }
+
 
     public void onDestroyView() {
         if (mLibTask != null) {
