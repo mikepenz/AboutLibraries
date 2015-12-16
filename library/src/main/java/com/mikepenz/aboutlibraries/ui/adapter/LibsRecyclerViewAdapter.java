@@ -101,7 +101,7 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             holder.aboutSpecial3.setVisibility(View.GONE);
 
             // set the values for the special fields
-            if (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial1) && !TextUtils.isEmpty(libsBuilder.aboutAppSpecial1Description)) {
+            if (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial1) && (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial1Description) || LibsConfiguration.getInstance().getListener() != null)) {
                 holder.aboutSpecial1.setText(libsBuilder.aboutAppSpecial1);
                 holder.aboutSpecial1.setVisibility(View.VISIBLE);
                 holder.aboutSpecial1.setOnClickListener(new View.OnClickListener() {
@@ -112,7 +112,7 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                             consumed = LibsConfiguration.getInstance().getListener().onExtraClicked(v, Libs.SpecialButton.SPECIAL1);
                         }
 
-                        if (!consumed) {
+                        if (!consumed && !TextUtils.isEmpty(libsBuilder.aboutAppSpecial1Description)) {
                             try {
                                 AlertDialog.Builder alert = new AlertDialog.Builder(ctx);
                                 alert.setMessage(Html.fromHtml(libsBuilder.aboutAppSpecial1Description));
@@ -124,7 +124,7 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 });
                 holder.aboutSpecialContainer.setVisibility(View.VISIBLE);
             }
-            if (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial2) && !TextUtils.isEmpty(libsBuilder.aboutAppSpecial2Description)) {
+            if (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial2) && (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial2Description) || LibsConfiguration.getInstance().getListener() != null)) {
                 holder.aboutSpecial2.setText(libsBuilder.aboutAppSpecial2);
                 holder.aboutSpecial2.setVisibility(View.VISIBLE);
                 holder.aboutSpecial2.setOnClickListener(new View.OnClickListener() {
@@ -135,7 +135,7 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                             consumed = LibsConfiguration.getInstance().getListener().onExtraClicked(v, Libs.SpecialButton.SPECIAL2);
                         }
 
-                        if (!consumed) {
+                        if (!consumed && !TextUtils.isEmpty(libsBuilder.aboutAppSpecial2Description)) {
                             try {
                                 AlertDialog.Builder alert = new AlertDialog.Builder(ctx);
                                 alert.setMessage(Html.fromHtml(libsBuilder.aboutAppSpecial2Description));
@@ -147,7 +147,7 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 });
                 holder.aboutSpecialContainer.setVisibility(View.VISIBLE);
             }
-            if (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial3) && !TextUtils.isEmpty(libsBuilder.aboutAppSpecial3Description)) {
+            if (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial3) && (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial3Description) || LibsConfiguration.getInstance().getListener() != null)) {
                 holder.aboutSpecial3.setText(libsBuilder.aboutAppSpecial3);
                 holder.aboutSpecial3.setVisibility(View.VISIBLE);
                 holder.aboutSpecial3.setOnClickListener(new View.OnClickListener() {
@@ -158,7 +158,7 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                             consumed = LibsConfiguration.getInstance().getListener().onExtraClicked(v, Libs.SpecialButton.SPECIAL3);
                         }
 
-                        if (!consumed) {
+                        if (!consumed && !TextUtils.isEmpty(libsBuilder.aboutAppSpecial3Description)) {
                             try {
                                 AlertDialog.Builder alert = new AlertDialog.Builder(ctx);
                                 alert.setMessage(Html.fromHtml(libsBuilder.aboutAppSpecial3Description));
