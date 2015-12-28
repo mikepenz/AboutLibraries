@@ -24,6 +24,7 @@ import com.mikepenz.aboutlibraries.entity.Library;
 import com.mikepenz.aboutlibraries.util.MovementCheck;
 import com.mikepenz.aboutlibraries.util.RippleForegroundListener;
 import com.mikepenz.aboutlibraries.util.UIUtils;
+import com.mikepenz.iconics.Iconics;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -103,6 +104,7 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             // set the values for the special fields
             if (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial1) && (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial1Description) || LibsConfiguration.getInstance().getListener() != null)) {
                 holder.aboutSpecial1.setText(libsBuilder.aboutAppSpecial1);
+                new Iconics.IconicsBuilder().ctx(ctx).on(holder.aboutSpecial1).build();
                 holder.aboutSpecial1.setVisibility(View.VISIBLE);
                 holder.aboutSpecial1.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -126,6 +128,7 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             }
             if (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial2) && (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial2Description) || LibsConfiguration.getInstance().getListener() != null)) {
                 holder.aboutSpecial2.setText(libsBuilder.aboutAppSpecial2);
+                new Iconics.IconicsBuilder().ctx(ctx).on(holder.aboutSpecial2).build();
                 holder.aboutSpecial2.setVisibility(View.VISIBLE);
                 holder.aboutSpecial2.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -149,6 +152,7 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             }
             if (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial3) && (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial3Description) || LibsConfiguration.getInstance().getListener() != null)) {
                 holder.aboutSpecial3.setText(libsBuilder.aboutAppSpecial3);
+                new Iconics.IconicsBuilder().ctx(ctx).on(holder.aboutSpecial3).build();
                 holder.aboutSpecial3.setVisibility(View.VISIBLE);
                 holder.aboutSpecial3.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -188,6 +192,7 @@ public class LibsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             //Set the description or hide it
             if (!TextUtils.isEmpty(libsBuilder.aboutDescription)) {
                 holder.aboutAppDescription.setText(Html.fromHtml(libsBuilder.aboutDescription));
+                new Iconics.IconicsBuilder().ctx(ctx).on(holder.aboutAppDescription).build();
                 holder.aboutAppDescription.setMovementMethod(MovementCheck.getInstance());
             } else {
                 holder.aboutAppDescription.setVisibility(View.GONE);
