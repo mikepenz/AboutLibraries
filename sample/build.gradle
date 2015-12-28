@@ -59,4 +59,5 @@ dependencies {
     compile('com.mikepenz:materialdrawer:4.6.1@aar') {
         transitive = true
     }
+    compile 'com.mikepenz:material-design-iconic-typeface:2.2.0.1@aar'
 }

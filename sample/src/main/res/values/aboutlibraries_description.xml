@@ -4,7 +4,7 @@
     <string name="aboutLibraries_description_showIcon">true</string>
     <string name="aboutLibraries_description_showVersion">true</string>
     <string name="aboutLibraries_description_text">
-        <![CDATA[This is a small sample which can be set in the about my app description file.<br /><b>You can style this with html markup :D</b>]]>
+        <![CDATA[{gmi-favorite} This is a small sample which can be set in the about my app description file.<br /><b>You can style this with html markup :D</b>]]>
     </string>
 
     <!-- Just remove those entries if you don't want to use a special button with a text within your about this app view :D -->
