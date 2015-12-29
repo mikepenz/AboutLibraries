@@ -6,8 +6,8 @@ android {
     defaultConfig {
         minSdkVersion 10
         targetSdkVersion 23
-        versionCode 535
-        versionName '5.3.5'
+        versionCode 536
+        versionName '5.3.6'
     }
 
     buildTypes {
@@ -29,5 +29,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:cardview-v7:23.1.1'
     compile 'com.android.support:recyclerview-v7:23.1.1'
-    compile 'com.mikepenz:iconics-core:2.5.2@aar'
+    compile 'com.mikepenz:iconics-core:2.5.3@aar'
 }
