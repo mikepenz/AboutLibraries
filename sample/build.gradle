@@ -7,14 +7,14 @@ try {
 
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion '23.0.2'
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
     defaultConfig {
-        applicationId 'com.mikepenz.aboutlibraries.sample'
         minSdkVersion 11
         targetSdkVersion 23
-        versionCode 536
-        versionName '5.3.6'
+        versionCode 537
+        versionName '5.3.7'
 
         applicationVariants.all { variant ->
             variant.outputs.each { output ->
@@ -56,7 +56,7 @@ dependencies {
     compile 'com.fima.cardsui:library:1.+@aar'
     compile project(':library')
 
-    compile('com.mikepenz:materialdrawer:4.6.1@aar') {
+    compile('com.mikepenz:materialdrawer:4.6.3@aar') {
         transitive = true
     }
     compile 'com.mikepenz:material-design-iconic-typeface:2.2.0.1@aar'

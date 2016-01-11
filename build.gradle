@@ -7,7 +7,14 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.0.0-alpha3'
+        classpath 'com.novoda:bintray-release:0.3.4'
     }
+}
+
+ext {
+    compileSdkVersion = 23
+    buildToolsVersion = "23.0.2"
+    supportLibVersion = "23.1.1"
 }
 
 allprojects {
