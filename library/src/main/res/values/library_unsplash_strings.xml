@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_Unsplash">year;owner</string>
+    <string name="library_Unsplash_author">Crew</string>
+    <string name="library_Unsplash_libraryName">Unsplash - Photos</string>
+    <string name="library_Unsplash_libraryDescription">Free (do whatever you want) high-resolution photos.</string>
+    <string name="library_Unsplash_libraryVersion"></string>
+    <string name="library_Unsplash_libraryWebsite">https://unsplash.com</string>
+    <string name="library_Unsplash_licenseId">CC0_10</string>
+    <string name="library_Unsplash_isOpenSource">true</string>
+    <string name="library_Unsplash_repositoryLink">https://unsplash.com</string>
+    <string name="library_Unsplash_classPath"></string>
+    <!-- Custom variables section -->
+    <string name="library_Unsplash_owner">Crew</string>
+    <string name="library_Unsplash_year">2016</string>
+</resources>
