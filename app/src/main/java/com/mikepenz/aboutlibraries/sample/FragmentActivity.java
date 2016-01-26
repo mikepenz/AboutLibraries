@@ -52,7 +52,7 @@ public class FragmentActivity extends AppCompatActivity {
                         // automatically handle clicks on the Home/Up button, so long
                         // as you specify a parent activity in AndroidManifest.xml.
 
-                        int id = drawerItem.getIdentifier();
+                        long id = drawerItem.getIdentifier();
                         if (id == R.id.action_opensource) {
                             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/mikepenz/AboutLibraries"));
                             startActivity(browserIntent);

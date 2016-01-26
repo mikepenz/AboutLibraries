@@ -58,8 +58,9 @@ dependencies {
 
     //used to generate the drawer on the left
     //https://github.com/mikepenz/MaterialDrawer
-    compile('com.mikepenz:materialdrawer:4.6.3@aar') {
+    compile('com.mikepenz:materialdrawer:5.0.0.fastAdapter.b15-SNAPSHOT@aar') {
         transitive = true
+        exclude module: "fastadapter"
     }
 
     //used to display the icons in the drawer
