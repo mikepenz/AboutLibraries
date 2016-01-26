@@ -5,7 +5,8 @@ import android.view.View;
 import android.view.animation.LayoutAnimationController;
 
 import com.mikepenz.aboutlibraries.entity.Library;
-import com.mikepenz.aboutlibraries.ui.adapter.LibsRecyclerViewAdapter;
+import com.mikepenz.aboutlibraries.ui.item.HeaderItem;
+import com.mikepenz.aboutlibraries.ui.item.LibraryItem;
 
 /**
  * Created by mikepenz on 20.05.15.
@@ -135,14 +136,14 @@ public class LibsConfiguration {
          *
          * @param headerViewHolder
          */
-        void OnBindViewHolder(LibsRecyclerViewAdapter.HeaderViewHolder headerViewHolder);
+        void onBindViewHolder(HeaderItem.ViewHolder headerViewHolder);
 
         /**
-         * OnBindViewHolder called after the item view was filled inside the recyclerViews onBindViewHolder method
+         * onBindViewHolder called after the item view was filled inside the recyclerViews onBindViewHolder method
          *
-         * @param headerViewHolder
+         * @param viewHolder
          */
-        void OnBindViewHolder(LibsRecyclerViewAdapter.ViewHolder headerViewHolder);
+        void onBindViewHolder(LibraryItem.ViewHolder viewHolder);
     }
 
     public interface LibsListener {
@@ -231,11 +232,11 @@ public class LibsConfiguration {
 
     public abstract class LibsRecyclerViewListenerImpl implements LibsRecyclerViewListener {
         @Override
-        public void OnBindViewHolder(LibsRecyclerViewAdapter.HeaderViewHolder headerViewHolder) {
+        public void onBindViewHolder(HeaderItem.ViewHolder headerViewHolder) {
         }
 
         @Override
-        public void OnBindViewHolder(LibsRecyclerViewAdapter.ViewHolder headerViewHolder) {
+        public void onBindViewHolder(LibraryItem.ViewHolder holder) {
         }
     }
 

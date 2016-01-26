@@ -2,11 +2,10 @@
 
 buildscript {
     repositories {
-        mavenCentral()
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.0.0-alpha3'
+        classpath 'com.android.tools.build:gradle:2.0.0-alpha7'
         classpath 'com.novoda:bintray-release:0.3.4'
     }
 }
@@ -19,7 +18,8 @@ ext {
 
 allprojects {
     repositories {
-        mavenCentral()
+        jcenter()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         flatDir { dirs 'libs' }
     }
 }

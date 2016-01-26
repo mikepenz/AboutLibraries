@@ -12,14 +12,16 @@ import com.mikepenz.aboutlibraries.entity.Library;
 import com.mikepenz.aboutlibraries.ui.LibsActivity;
 import com.mikepenz.aboutlibraries.ui.LibsFragment;
 import com.mikepenz.aboutlibraries.ui.LibsSupportFragment;
-import com.mikepenz.aboutlibraries.ui.adapter.LibsRecyclerViewAdapter;
+import com.mikepenz.aboutlibraries.ui.item.LibraryItem;
 import com.mikepenz.aboutlibraries.util.Colors;
+import com.mikepenz.fastadapter.adapters.FastItemAdapter;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 
 public class LibsBuilder implements Serializable {
     public String[] fields = null;
@@ -29,7 +31,6 @@ public class LibsBuilder implements Serializable {
     public Boolean autoDetect = true;
     public Boolean sort = true;
     public Comparator<Library> libraryComparator = null;
-    public Boolean slideInAnimation = false;
 
     public Boolean showLicense = false;
     public Boolean showLicenseDialog = true;
@@ -137,17 +138,6 @@ public class LibsBuilder implements Serializable {
     public LibsBuilder withLibraryComparator(Comparator<Library> libraryComparator) {
         this.libraryComparator = libraryComparator;
         this.sort = (libraryComparator != null);
-        return this;
-    }
-
-    /**
-     * Builder method to enable the slide in animation (default: false)
-     *
-     * @param slideInAnimation enabled or disabled
-     * @return this
-     */
-    public LibsBuilder withSlideInAnimation(boolean slideInAnimation) {
-        this.slideInAnimation = slideInAnimation;
         return this;
     }
 
@@ -471,7 +461,7 @@ public class LibsBuilder implements Serializable {
      * @param context the current context
      * @return a LibsRecyclerViewAdapter with the libraries
      */
-    public LibsRecyclerViewAdapter adapter(Context context) {
+    public FastItemAdapter adapter(Context context) {
         Libs libs;
         if (fields == null) {
             libs = new Libs(context);
@@ -486,8 +476,13 @@ public class LibsBuilder implements Serializable {
         ArrayList<Library> libraries = libs.prepareLibraries(context, internalLibraries, excludeLibraries, autoDetect, sort);
 
         //prepare adapter
-        LibsRecyclerViewAdapter adapter = new LibsRecyclerViewAdapter(this);
-        adapter.addLibs(libraries);
+        FastItemAdapter adapter = new FastItemAdapter();
+        List<LibraryItem> libraryItems = new ArrayList<>();
+        for (Library library : libraries) {
+            libraryItems.add(new LibraryItem().withLibrary(library).withLibsBuilder(this));
+        }
+
+        adapter.add(libraryItems);
         return adapter;
     }
 

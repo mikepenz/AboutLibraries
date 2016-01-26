@@ -16,23 +16,23 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.LayoutAnimationController;
 
 import com.mikepenz.aboutlibraries.entity.Library;
-import com.mikepenz.aboutlibraries.ui.adapter.LibsRecyclerViewAdapter;
+import com.mikepenz.aboutlibraries.ui.item.HeaderItem;
+import com.mikepenz.aboutlibraries.ui.item.LibraryItem;
+import com.mikepenz.fastadapter.adapters.FastItemAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 /**
  * Created by mikepenz on 02.11.15.
  */
 public class LibsFragmentCompat {
     private RecyclerView mRecyclerView;
-    private LibsRecyclerViewAdapter mAdapter;
+    private FastItemAdapter mAdapter;
 
     private LibsBuilder builder = null;
     private static ArrayList<Library> libraries;
@@ -79,8 +79,7 @@ public class LibsFragmentCompat {
         }
 
         if (builder != null) {
-            mAdapter = new LibsRecyclerViewAdapter(builder);
-            mAdapter.setHasStableIds(true);
+            mAdapter = new FastItemAdapter();
             mRecyclerView.setAdapter(mAdapter);
         }
 
@@ -228,27 +227,15 @@ public class LibsFragmentCompat {
             //Add the header
             if (builder.aboutShowIcon != null && (builder.aboutShowVersion != null || builder.aboutShowVersionName != null || builder.aboutShowVersionCode)) {
                 //add this cool thing to the headerView of our listView
-                mAdapter.setHeader(versionName, versionCode, icon);
+                mAdapter.add(new HeaderItem().withLibsBuilder(builder).withAboutVersionName(versionName).withAboutVersionCode(versionCode).withAboutIcon(icon));
             }
 
             //add the libs
-            mAdapter.addLibs(libraries);
-
-            //animate filling the list
-            if (builder.slideInAnimation) {
-                LayoutAnimationController layoutAnimationController;
-
-                if (LibsConfiguration.getInstance().getLayoutAnimationController() == null) {
-                    Animation fadeIn = AnimationUtils.loadAnimation(ctx, android.R.anim.slide_in_left);
-                    fadeIn.setDuration(500);
-                    layoutAnimationController = new LayoutAnimationController(fadeIn);
-                } else {
-                    layoutAnimationController = LibsConfiguration.getInstance().getLayoutAnimationController();
-                }
-
-                mRecyclerView.setLayoutAnimation(layoutAnimationController);
-                mRecyclerView.startLayoutAnimation();
+            List<LibraryItem> libraryItems = new ArrayList<>();
+            for (Library library : libraries) {
+                libraryItems.add(new LibraryItem().withLibrary(library).withLibsBuilder(builder));
             }
+            mAdapter.add(libraryItems);
 
             super.onPostExecute(s);
 
@@ -261,6 +248,8 @@ public class LibsFragmentCompat {
             ctx = null;
         }
     }
+
+    //
 
     /**
      * Helper to extract a boolean from a bundle or resource
