@@ -58,7 +58,7 @@ dependencies {
 
     //used to generate the drawer on the left
     //https://github.com/mikepenz/MaterialDrawer
-    compile('com.mikepenz:materialdrawer:5.0.0.fastAdapter.b15-SNAPSHOT@aar') {
+    compile('com.mikepenz:materialdrawer:5.0.0.b24-SNAPSHOT@aar') {
         transitive = true
         exclude module: "fastadapter"
     }
