@@ -13,8 +13,8 @@ android {
     defaultConfig {
         minSdkVersion 11
         targetSdkVersion 23
-        versionCode 558
-        versionName '5.5.8'
+        versionCode 559
+        versionName '5.5.9'
 
         applicationVariants.all { variant ->
             variant.outputs.each { output ->
@@ -64,7 +64,7 @@ dependencies {
 
     //used to generate the drawer on the left
     //https://github.com/mikepenz/MaterialDrawer
-    compile('com.mikepenz:materialdrawer:5.1.2@aar') {
+    compile('com.mikepenz:materialdrawer:5.1.4.1-SNAPSHOT@aar') {
         transitive = true
         exclude module: "fastadapter"
     }
