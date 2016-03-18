@@ -17,8 +17,6 @@ public class ExtendActivity extends LibsActivity {
         */
 
         setIntent(new LibsBuilder().withLibraries("activeandroid", "caldroid").withActivityTheme(R.style.MaterialDrawerTheme).intent(this));
-
-
         super.onCreate(savedInstanceState);
     }
 }

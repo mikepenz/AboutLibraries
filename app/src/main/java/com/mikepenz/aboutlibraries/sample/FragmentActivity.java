@@ -45,7 +45,6 @@ public class FragmentActivity extends AppCompatActivity {
                         new PrimaryDrawerItem().withName(R.string.action_manifestactivity).withIdentifier(R.id.action_manifestactivity).withSelectable(false),
                         new PrimaryDrawerItem().withName(R.string.action_extendactivity).withIdentifier(R.id.action_extendactivity).withSelectable(false),
                         new PrimaryDrawerItem().withName(R.string.action_customsortactivity).withIdentifier(R.id.action_customsortactivity).withSelectable(false),
-                        new PrimaryDrawerItem().withName(R.string.action_customactivity).withIdentifier(R.id.action_customactivity).withSelectable(false),
                         new PrimaryDrawerItem().withName(R.string.action_opensource).withIdentifier(R.id.action_opensource).withSelectable(false)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
@@ -64,9 +63,6 @@ public class FragmentActivity extends AppCompatActivity {
                             startActivity(intent);
                         } else if (id == R.id.action_customsortactivity) {
                             Intent intent = new Intent(getApplicationContext(), CustomSortActivity.class);
-                            startActivity(intent);
-                        } else if (id == R.id.action_customactivity) {
-                            Intent intent = new Intent(getApplicationContext(), CustomActivity.class);
                             startActivity(intent);
                         } else if (id == R.id.action_manifestactivity) {
                             new LibsBuilder()

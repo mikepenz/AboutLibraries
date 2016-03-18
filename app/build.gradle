@@ -11,7 +11,7 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion 11
+        minSdkVersion 10
         targetSdkVersion 23
         versionCode 559
         versionName '5.5.9'
@@ -53,7 +53,6 @@ android {
 }
 
 dependencies {
-    compile 'com.fima.cardsui:library:1.+@aar'
     compile project(':library')
 
     // used to base on some backwards compatible themes
