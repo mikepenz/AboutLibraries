@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class Detect {
     public static List<Library> detect(Context mCtx, List<Library> libraries) {
-        ArrayList<Library> foundLibraries = new ArrayList<Library>();
+        ArrayList<Library> foundLibraries = new ArrayList<>();
         // Loop through known libraries
         for (Library library : libraries) {
             if (!TextUtils.isEmpty(library.getClassPath())) {

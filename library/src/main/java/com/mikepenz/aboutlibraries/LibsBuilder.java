@@ -1,16 +1,13 @@
 package com.mikepenz.aboutlibraries;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.animation.LayoutAnimationController;
 
 import com.mikepenz.aboutlibraries.entity.Library;
 import com.mikepenz.aboutlibraries.ui.LibsActivity;
-import com.mikepenz.aboutlibraries.ui.LibsFragment;
 import com.mikepenz.aboutlibraries.ui.LibsSupportFragment;
 import com.mikepenz.aboutlibraries.ui.item.LibraryItem;
 import com.mikepenz.aboutlibraries.util.Colors;
@@ -361,7 +358,7 @@ public class LibsBuilder implements Serializable {
      */
     public LibsBuilder withLibraryModification(String library, Libs.LibraryFields modificationKey, String modificationValue) {
         if (this.libraryModification == null) {
-            this.libraryModification = new HashMap<String, HashMap<String, String>>();
+            this.libraryModification = new HashMap<>();
         }
 
         if (!libraryModification.containsKey(library)) {
@@ -525,22 +522,6 @@ public class LibsBuilder implements Serializable {
      */
     public void activity(Context ctx) {
         start(ctx);
-    }
-
-
-    /**
-     * fragment() method to build and create the fragment with the set params
-     *
-     * @return the fragment to set in your application
-     */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public LibsFragment fragment() {
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("data", this);
-
-        LibsFragment fragment = new LibsFragment();
-        fragment.setArguments(bundle);
-        return fragment;
     }
 
     /**

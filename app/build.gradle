@@ -11,10 +11,10 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion 11
+        minSdkVersion 10
         targetSdkVersion 23
-        versionCode 559
-        versionName '5.5.9'
+        versionCode 560
+        versionName '5.6.0'
 
         applicationVariants.all { variant ->
             variant.outputs.each { output ->
@@ -53,7 +53,6 @@ android {
 }
 
 dependencies {
-    compile 'com.fima.cardsui:library:1.+@aar'
     compile project(':library')
 
     // used to base on some backwards compatible themes
@@ -64,7 +63,7 @@ dependencies {
 
     //used to generate the drawer on the left
     //https://github.com/mikepenz/MaterialDrawer
-    compile('com.mikepenz:materialdrawer:5.1.4.1-SNAPSHOT@aar') {
+    compile('com.mikepenz:materialdrawer:5.1.5@aar') {
         transitive = true
         exclude module: "fastadapter"
     }

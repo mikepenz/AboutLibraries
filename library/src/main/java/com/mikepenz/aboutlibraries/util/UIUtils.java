@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
@@ -57,7 +58,7 @@ public class UIUtils {
     public static int getThemeColorFromAttrOrRes(Context ctx, int attr, int res) {
         int color = getThemeColor(ctx, attr);
         if (color == 0) {
-            color = ctx.getResources().getColor(res);
+            color = ContextCompat.getColor(ctx, res);
         }
         return color;
     }
@@ -95,16 +96,7 @@ public class UIUtils {
      * @return
      */
     public static Drawable getCompatDrawable(Context c, int drawableRes) {
-        Drawable d = null;
-        try {
-            if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-                d = c.getResources().getDrawable(drawableRes);
-            } else {
-                d = c.getResources().getDrawable(drawableRes, c.getTheme());
-            }
-        } catch (Exception ex) {
-        }
-        return d;
+        return ContextCompat.getDrawable(c, drawableRes);
     }
 
     /**
