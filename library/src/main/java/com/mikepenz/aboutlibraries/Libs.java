@@ -56,9 +56,9 @@ public class Libs {
     private static final String DEFINE_INT = "define_int_";
     private static final String DEFINE_EXT = "define_";
 
-    private ArrayList<Library> internLibraries = new ArrayList<Library>();
-    private ArrayList<Library> externLibraries = new ArrayList<Library>();
-    private ArrayList<License> licenses = new ArrayList<License>();
+    private ArrayList<Library> internLibraries = new ArrayList<>();
+    private ArrayList<Library> externLibraries = new ArrayList<>();
+    private ArrayList<License> licenses = new ArrayList<>();
 
     public Libs(Context context) {
         String[] fields = GenericsUtil.getFields(context);
@@ -75,18 +75,18 @@ public class Libs {
      * @param fields
      */
     private void init(Context ctx, String[] fields) {
-        ArrayList<String> foundLicenseIdentifiers = new ArrayList<String>();
-        ArrayList<String> foundInternalLibraryIdentifiers = new ArrayList<String>();
-        ArrayList<String> foundExternalLibraryIdentifiers = new ArrayList<String>();
+        ArrayList<String> foundLicenseIdentifiers = new ArrayList<>();
+        ArrayList<String> foundInternalLibraryIdentifiers = new ArrayList<>();
+        ArrayList<String> foundExternalLibraryIdentifiers = new ArrayList<>();
 
         if (fields != null) {
-            for (int i = 0; i < fields.length; i++) {
-                if (fields[i].startsWith(DEFINE_LICENSE)) {
-                    foundLicenseIdentifiers.add(fields[i].replace(DEFINE_LICENSE, ""));
-                } else if (fields[i].startsWith(DEFINE_INT)) {
-                    foundInternalLibraryIdentifiers.add(fields[i].replace(DEFINE_INT, ""));
-                } else if (fields[i].startsWith(DEFINE_EXT)) {
-                    foundExternalLibraryIdentifiers.add(fields[i].replace(DEFINE_EXT, ""));
+            for (String field : fields) {
+                if (field.startsWith(DEFINE_LICENSE)) {
+                    foundLicenseIdentifiers.add(field.replace(DEFINE_LICENSE, ""));
+                } else if (field.startsWith(DEFINE_INT)) {
+                    foundInternalLibraryIdentifiers.add(field.replace(DEFINE_INT, ""));
+                } else if (field.startsWith(DEFINE_EXT)) {
+                    foundExternalLibraryIdentifiers.add(field.replace(DEFINE_EXT, ""));
                 }
             }
         }
@@ -167,11 +167,11 @@ public class Libs {
             }
         }
 
-        ArrayList<Library> resultLibraries = new ArrayList<Library>(libraries.values());
+        ArrayList<Library> resultLibraries = new ArrayList<>(libraries.values());
 
         //remove libraries which should be excluded
         if (excludeLibraries != null) {
-            List<Library> libsToRemove = new ArrayList<Library>();
+            List<Library> libsToRemove = new ArrayList<>();
             for (String excludeLibrary : excludeLibraries) {
                 for (Library library : resultLibraries) {
                     if (library.getDefinedName().equals(excludeLibrary)) {
@@ -197,7 +197,7 @@ public class Libs {
      * @return an ArrayList Library with all found libs by their classpath
      */
     public ArrayList<Library> getAutoDetectedLibraries(Context ctx) {
-        ArrayList<Library> libraries = new ArrayList<Library>();
+        ArrayList<Library> libraries = new ArrayList<>();
 
         PackageInfo pi = Util.getPackageInfo(ctx);
         if (pi != null) {
@@ -237,7 +237,7 @@ public class Libs {
      * @return an ArrayList Library with all available internLibraries
      */
     public ArrayList<Library> getInternLibraries() {
-        return new ArrayList<Library>(internLibraries);
+        return new ArrayList<>(internLibraries);
     }
 
     /**
@@ -246,7 +246,7 @@ public class Libs {
      * @return an ArrayList Library  with all available externLibraries
      */
     public ArrayList<Library> getExternLibraries() {
-        return new ArrayList<Library>(externLibraries);
+        return new ArrayList<>(externLibraries);
     }
 
     /**
@@ -264,7 +264,7 @@ public class Libs {
      * @return an ArrayList Library with all available Libraries
      */
     public ArrayList<Library> getLibraries() {
-        ArrayList<Library> libs = new ArrayList<Library>();
+        ArrayList<Library> libs = new ArrayList<>();
         libs.addAll(getInternLibraries());
         libs.addAll(getExternLibraries());
         return libs;
@@ -326,7 +326,7 @@ public class Libs {
      * @return
      */
     private ArrayList<Library> find(ArrayList<Library> libraries, String searchTerm, boolean idOnly, int limit) {
-        ArrayList<Library> localLibs = new ArrayList<Library>();
+        ArrayList<Library> localLibs = new ArrayList<>();
 
         int count = 0;
         for (Library library : libraries) {

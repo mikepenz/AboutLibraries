@@ -361,7 +361,7 @@ public class LibsBuilder implements Serializable {
      */
     public LibsBuilder withLibraryModification(String library, Libs.LibraryFields modificationKey, String modificationValue) {
         if (this.libraryModification == null) {
-            this.libraryModification = new HashMap<String, HashMap<String, String>>();
+            this.libraryModification = new HashMap<>();
         }
 
         if (!libraryModification.containsKey(library)) {
