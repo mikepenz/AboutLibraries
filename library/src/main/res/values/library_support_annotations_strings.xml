@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_support_annotations"></string>
+    <!-- Author section -->
+    <string name="library_support_annotations_author">AOSP</string>
+    <string name="library_support_annotations_authorWebsite">https://source.android.com/</string>
+    <!-- Library section -->
+    <string name="library_support_annotations_libraryName">Support Annotations</string>
+    <string name="library_support_annotations_libraryDescription">The Annotation package provides APIs to support adding annotation metadata to your apps.</string>
+    <string name="library_support_annotations_libraryWebsite"></string>
+    <string name="library_support_annotations_libraryVersion">23.2.1</string>
+    <!-- OpenSource section -->
+    <string name="library_support_annotations_isOpenSource">true</string>
+    <string name="library_support_annotations_repositoryLink"></string>
+    <!-- License section -->
+    <string name="library_support_annotations_licenseId">apache_2_0</string>
+    <!-- Custom variables section -->
+</resources>
