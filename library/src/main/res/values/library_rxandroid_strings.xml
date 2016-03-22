@@ -9,7 +9,7 @@
 	<string name="library_rxandroid_libraryName">RxAndroid</string>
 	<string name="library_rxandroid_libraryDescription"><![CDATA[Android specific bindings for <b>RxJava</b>.<br /><br />This module adds the minimum classes to RxJava that make writing reactive components in Android applications easy and hassle-free. More specifically, it provides a Scheduler that schedules on the main UI thread or any given Handler.]]></string>
 	<string name="library_rxandroid_libraryWebsite">https://github.com/ReactiveX/RxAndroid</string>
-	<string name="library_rxandroid_libraryVersion">1.0.1</string>
+	<string name="library_rxandroid_libraryVersion">1.1.0</string>
 	<!-- OpenSource section -->
 	<string name="library_rxandroid_isOpenSource">true</string>
 	<string name="library_rxandroid_repositoryLink">https://github.com/ReactiveX/RxAndroid</string>
