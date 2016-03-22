@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-	<string name="define_int_appcompat_v7"></string>
-	<!-- Author section -->
-	<string name="library_appcompat_v7_author">AOSP</string>
-	<string name="library_appcompat_v7_authorWebsite">https://source.android.com/</string>
-	<!-- Library section -->
-	<string name="library_appcompat_v7_libraryName">appcompat-v7</string>
-	<string name="library_appcompat_v7_libraryDescription">This library adds support for the Action Bar user interface design pattern.</string>
-	<string name="library_appcompat_v7_libraryWebsite"></string>
-	<string name="library_appcompat_v7_libraryVersion">23.2.1</string>
-	<!-- OpenSource section -->
-	<string name="library_appcompat_v7_isOpenSource">true</string>
-	<string name="library_appcompat_v7_repositoryLink"></string>
-	<!-- ClassPath for autoDetect section -->
-	<string name="library_appcompat_v7_classPath">android.support.v7.appcompat</string>
-	<!-- License section -->
-	<string name="library_appcompat_v7_licenseId">apache_2_0</string>
-	<!-- Custom variables section -->
+    <string name="define_int_appcompat_v7"></string>
+    <!-- Author section -->
+    <string name="library_appcompat_v7_author">AOSP</string>
+    <string name="library_appcompat_v7_authorWebsite">https://source.android.com/</string>
+    <!-- Library section -->
+    <string name="library_appcompat_v7_libraryName">Support AppCompat v7</string>
+    <string name="library_appcompat_v7_libraryDescription">This library adds support for the Action Bar user interface design pattern.</string>
+    <string name="library_appcompat_v7_libraryWebsite"></string>
+    <string name="library_appcompat_v7_libraryVersion">23.2.1</string>
+    <!-- OpenSource section -->
+    <string name="library_appcompat_v7_isOpenSource">true</string>
+    <string name="library_appcompat_v7_repositoryLink"></string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_appcompat_v7_classPath">android.support.v7.appcompat.BuildConfig</string>
+    <!-- License section -->
+    <string name="library_appcompat_v7_licenseId">apache_2_0</string>
+    <!-- Custom variables section -->
 </resources>

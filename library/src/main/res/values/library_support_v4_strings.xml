@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-	<string name="define_int_support_v4"></string>
-	<!-- Author section -->
-	<string name="library_support_v4_author">AOSP</string>
-	<string name="library_support_v4_authorWebsite">https://source.android.com/</string>
-	<!-- Library section -->
-	<string name="library_support_v4_libraryName">support-v4</string>
-	<string name="library_support_v4_libraryDescription">This library is designed to be used with Android 1.6 (API level 4) and higher. It includes the largest set of APIs compared to the other libraries, including support for application components, user interface features, accessibility, data handling, network connectivity, and programming utilities.</string>
-	<string name="library_support_v4_libraryWebsite">https://developer.android.com/tools/support-library/features.html#v4</string>
-	<string name="library_support_v4_libraryVersion">23.2.1</string>
-	<!-- OpenSource section -->
-	<string name="library_support_v4_isOpenSource">true</string>
-	<string name="library_support_v4_repositoryLink"></string>
-	<!-- ClassPath for autoDetect section -->
-	<string name="library_support_v4_classPath">android.support.v4</string>
-	<!-- License section -->
-	<string name="library_support_v4_licenseId">apache_2_0</string>
-	<!-- Custom variables section -->
+    <string name="define_int_support_v4"></string>
+    <!-- Author section -->
+    <string name="library_support_v4_author">AOSP</string>
+    <string name="library_support_v4_authorWebsite">https://source.android.com/</string>
+    <!-- Library section -->
+    <string name="library_support_v4_libraryName">Support v4</string>
+    <string name="library_support_v4_libraryDescription">This library is designed to be used with Android 1.6 (API level 4) and higher. It includes the largest set of APIs compared to the other libraries, including support for application components, user interface features, accessibility, data handling, network connectivity, and programming utilities.</string>
+    <string name="library_support_v4_libraryWebsite">https://developer.android.com/tools/support-library/features.html#v4</string>
+    <string name="library_support_v4_libraryVersion">23.2.1</string>
+    <!-- OpenSource section -->
+    <string name="library_support_v4_isOpenSource">true</string>
+    <string name="library_support_v4_repositoryLink"></string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_support_v4_classPath">android.support.v4.BuildConfig</string>
+    <!-- License section -->
+    <string name="library_support_v4_licenseId">apache_2_0</string>
+    <!-- Custom variables section -->
 </resources>

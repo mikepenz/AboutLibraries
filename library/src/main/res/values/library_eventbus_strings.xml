@@ -11,7 +11,7 @@
     <string name="library_Eventbus_licenseId">apache_2_0</string>
     <string name="library_Eventbus_isOpenSource">true</string>
     <string name="library_Eventbus_repositoryLink">https://github.com/greenrobot/EventBus</string>
-    <string name="library_Eventbus_classPath">org.greenrobot.eventbus</string>
+    <string name="library_Eventbus_classPath">org.greenrobot.eventbus.EventBus</string>
     <!-- Custom variables section -->
     <string name="library_Eventbus_owner">greenrobot</string>
     <string name="library_Eventbus_year">2014</string>
