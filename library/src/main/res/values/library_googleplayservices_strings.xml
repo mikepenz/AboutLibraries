@@ -8,6 +8,7 @@
         such as Maps, Google+, and more, with automatic platform updates distributed as an APK through the Google Play store.
     </string>
     <string name="library_GooglePlayServices_libraryWebsite">https://developer.android.com/google/play-services/index.html</string>
+    <string name="library_GooglePlayServices_libraryVersion">8.4.0</string>
     <string name="library_GooglePlayServices_licenseId">apache_2_0</string>
     <string name="library_GooglePlayServices_isOpenSource">false</string>
     <string name="library_GooglePlayServices_repositoryLink"></string>
