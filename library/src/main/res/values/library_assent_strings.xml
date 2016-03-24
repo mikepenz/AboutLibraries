@@ -7,7 +7,7 @@
 	<string name="library_assent_authorWebsite">http://aidanfollestad.com/</string>
 	<!-- Library section -->
 	<string name="library_assent_libraryName">Assent</string>
-	<string name="library_assent_libraryDescription">Assent is designed to make Marshmallow's runtime permissions easier to use. Have the flexibility of request permissions and receiving results through callback interfaces.</string>
+	<string name="library_assent_libraryDescription">Assent is designed to make Marshmallow\'s runtime permissions easier to use. Have the flexibility of request permissions and receiving results through callback interfaces.</string>
 	<string name="library_assent_libraryWebsite">https://github.com/afollestad/assent</string>
 	<string name="library_assent_libraryVersion">0.2.0</string>
 	<!-- OpenSource section -->
