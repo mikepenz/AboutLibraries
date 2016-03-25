@@ -16,6 +16,7 @@ import com.mikepenz.aboutlibraries.LibsBuilder;
 import com.mikepenz.aboutlibraries.LibsConfiguration;
 import com.mikepenz.aboutlibraries.entity.Library;
 import com.mikepenz.aboutlibraries.ui.LibsSupportFragment;
+import com.mikepenz.fastadapter.adapters.FastItemAdapter;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
@@ -112,7 +113,7 @@ public class FragmentActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onLibTaskFinished() {
+        public void onLibTaskFinished(FastItemAdapter fastItemAdapter) {
             Log.e("AboutLibraries", "finished");
         }
     };

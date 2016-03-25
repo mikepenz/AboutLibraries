@@ -241,7 +241,7 @@ public class LibsFragmentCompat {
 
             //finished loading
             if (LibsConfiguration.getInstance().getLibTaskCallback() != null) {
-                LibsConfiguration.getInstance().getLibTaskCallback().onLibTaskFinished();
+                LibsConfiguration.getInstance().getLibTaskCallback().onLibTaskFinished(mAdapter);
             }
 
             //forget the context
