@@ -1,5 +1,7 @@
 ###Upgrade Notes
 
+#### v5.6.1 -> v5.6.2
+* Change `void onLibTaskFinished()` to `void onLibTaskFinished(FastItemAdapter fastItemAdapter)`
 
 #### v5.3.0 -> v5.3.1
 * renamed `withAnimations()` to `withSlideInAnimation()` and change the default to `false`
