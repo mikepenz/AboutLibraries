@@ -34,6 +34,7 @@ public class LibsBuilder implements Serializable {
     public Boolean showVersion = false;
 
     public Boolean aboutShowIcon = null;
+    public String aboutVersionString = null;
     public String aboutAppName = null;
     public Boolean aboutShowVersion = null;
     public String aboutDescription = null;
@@ -214,6 +215,17 @@ public class LibsBuilder implements Serializable {
      */
     public LibsBuilder withAboutVersionShownCode(boolean aboutShowVersion) {
         this.aboutShowVersionCode = aboutShowVersion;
+        return this;
+    }
+
+    /**
+     * Builder method to enable the display and set the text of the application version in the about this app view
+     *
+     * @param aboutVersionString
+     * @return this
+     */
+    public LibsBuilder withAboutVersionString(String aboutVersionString) {
+        this.aboutVersionString = aboutVersionString;
         return this;
     }
 

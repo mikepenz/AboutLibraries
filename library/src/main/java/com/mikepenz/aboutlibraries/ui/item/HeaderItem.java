@@ -206,15 +206,19 @@ public class HeaderItem extends AbstractItem<HeaderItem, HeaderItem.ViewHolder> 
 
 
         //set the Version or hide it
-        if (libsBuilder.aboutShowVersion != null && libsBuilder.aboutShowVersion) {
-            holder.aboutVersion.setText(ctx.getString(R.string.version) + " " + aboutVersionName + " (" + aboutVersionCode + ")");
-        } else {
-            if (libsBuilder.aboutShowVersionName != null && libsBuilder.aboutShowVersionName) {
-                holder.aboutVersion.setText(ctx.getString(R.string.version) + " " + aboutVersionName);
-            } else if (libsBuilder.aboutShowVersionCode != null && libsBuilder.aboutShowVersionCode) {
-                holder.aboutVersion.setText(ctx.getString(R.string.version) + " " + aboutVersionCode);
+        if (libsBuilder.aboutVersionString != null)
+            holder.aboutVersion.setText(libsBuilder.aboutVersionString);
+        else {
+            if (libsBuilder.aboutShowVersion != null && libsBuilder.aboutShowVersion) {
+                holder.aboutVersion.setText(ctx.getString(R.string.version) + " " + aboutVersionName + " (" + aboutVersionCode + ")");
             } else {
-                holder.aboutVersion.setVisibility(View.GONE);
+                if (libsBuilder.aboutShowVersionName != null && libsBuilder.aboutShowVersionName) {
+                    holder.aboutVersion.setText(ctx.getString(R.string.version) + " " + aboutVersionName);
+                } else if (libsBuilder.aboutShowVersionCode != null && libsBuilder.aboutShowVersionCode) {
+                    holder.aboutVersion.setText(ctx.getString(R.string.version) + " " + aboutVersionCode);
+                } else {
+                    holder.aboutVersion.setVisibility(View.GONE);
+                }
             }
         }
 
