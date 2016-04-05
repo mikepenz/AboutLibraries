@@ -104,6 +104,18 @@ public class FragmentActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
 
+        DetectorAsyncTask dat = new DetectorAsyncTask(this, getPackageManager(), new DetectorAsyncTask.Callbacks() {
+            @Override
+            public void onTaskFinished() {
+
+            }
+
+            @Override
+            public void onProgressUpdate(int max, int percent, CharSequence app) {
+
+            }
+        });
+        dat.execute();
     }
 
     LibTaskCallback libTaskCallback = new LibTaskCallback() {

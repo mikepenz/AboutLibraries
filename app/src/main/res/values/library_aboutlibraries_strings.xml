@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="define_AboutLibraries">year;owner</string>
+    <string name="library_AboutLibraries_author">Mike Penz</string>
+    <string name="library_AboutLibraries_authorWebsite">http://mikepenz.com/</string>
+    <string name="library_AboutLibraries_libraryName">AboutLibraries</string>
+    <string name="library_AboutLibraries_libraryDescription">
+        <![CDATA[
+        <b>AboutLibraries</b> is a library to offer you all the information you need of your libraries!
+        <br /><br />
+        Most modern apps feature an "Used Library"-Section and for this some information of those libs is required. As it gets annoying to copy those strings always to your app I have developed this small helper library to provide the required information.
+        ]]>
+    </string>
+    <string name="library_AboutLibraries_libraryVersion">5.6.3</string>
+    <string name="library_AboutLibraries_libraryWebsite">https://github.com/mikepenz/AboutLibraries</string>
+    <string name="library_AboutLibraries_licenseId">apache_2_0</string>
+    <string name="library_AboutLibraries_isOpenSource">true</string>
+    <string name="library_AboutLibraries_repositoryLink">https://github.com/mikepenz/AboutLibraries</string>
+    <!-- Custom variables section -->
+    <string name="library_AboutLibraries_owner">Mike Penz</string>
+    <string name="library_AboutLibraries_year">2016</string>
+    <string name="library_AboutLibraries_classPath">com.mikepenz.aboutlibraries.Libs</string>
+</resources>
