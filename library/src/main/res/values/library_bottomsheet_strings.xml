@@ -1,13 +1,13 @@
 <resources>
 	<string name="define_int_bottomsheet"></string>
 	<!-- Author section -->
-	<string name="library_bottomsheet_author">emilsjolander</string>
-	<string name="library_bottomsheet_authorWebsite">http://emilsjolander.se/</string>
+	<string name="library_bottomsheet_author">Flipboard</string>
+	<string name="library_bottomsheet_authorWebsite">https://flipboard.com/</string>
 	<!-- Library section -->
 	<string name="library_bottomsheet_libraryName">BottomSheet</string>
 	<string name="library_bottomsheet_libraryDescription">Android component which presents a dismissible view from the bottom of the screen.</string>
 	<string name="library_bottomsheet_libraryWebsite">https://github.com/Flipboard/bottomsheet</string>
-	<string name="library_bottomsheet_libraryVersion">1.1.0</string>
+	<string name="library_bottomsheet_libraryVersion">1.5.0</string>
 	<!-- OpenSource section -->
 	<string name="library_bottomsheet_isOpenSource">true</string>
 	<string name="library_bottomsheet_repositoryLink">https://github.com/Flipboard/bottomsheet</string>
