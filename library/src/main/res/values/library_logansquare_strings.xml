@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="define_int_LoganSquare">year;owner</string>
-    <string name="library_AboutLibraries_author">BlueLine Labs, Inc.</string>
+    <string name="library_LoganSquare_author">BlueLine Labs, Inc.</string>
     <string name="library_LoganSquare_authorWebsite">http://bluelinelabs.com/</string>
     <string name="library_LoganSquare_libraryName">LoganSquare</string>
     <string name="library_LoganSquare_libraryDescription">Screaming fast JSON parsing and serialization library for Android.</string>
