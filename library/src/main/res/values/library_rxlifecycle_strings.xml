@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_rxlifecycle"></string>
+    <!-- Author section -->
+    <string name="library_rxlifecycle_author">Trello</string>
+    <string name="library_rxlifecycle_authorWebsite">http://trello.com/</string>
+    <!-- Library section -->
+    <string name="library_rxlifecycle_libraryName">RxLifecycle</string>
+    <string name="library_rxlifecycle_libraryDescription">The utilities provided here allow for automatic completion of sequences based on Activity or Fragment lifecycle events. </string>
+    <string name="library_rxlifecycle_libraryWebsite"></string>
+    <string name="library_rxlifecycle_libraryVersion">0.6.1</string>
+    <!-- OpenSource section -->
+    <string name="library_rxlifecycle_isOpenSource">true</string>
+    <string name="library_rxlifecycle_repositoryLink">https://github.com/trello/RxLifecycle</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_rxlifecycle_classPath">com.trello.rxlifecycle</string>
+    <!-- License section -->
+    <string name="library_rxlifecycle_licenseId">apache_2_0</string>
+    <!-- Custom variables section -->
+</resources>
