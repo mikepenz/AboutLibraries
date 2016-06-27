@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <string name="define_mixpanelandroid"></string>
+    <string name="define_int_mixpanelandroid"></string>
     <!-- Author section -->
     <string name="library_mixpanelandroid_author">Mixpanel</string>
     <string name="library_mixpanelandroid_authorWebsite">http://mixpanel.com/</string>

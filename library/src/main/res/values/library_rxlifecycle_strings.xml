@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <string name="define_rxlifecycle"></string>
+    <string name="define_int_rxlifecycle"></string>
     <!-- Author section -->
     <string name="library_rxlifecycle_author">Trello</string>
     <string name="library_rxlifecycle_authorWebsite">http://trello.com/</string>
