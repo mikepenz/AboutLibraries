@@ -14,7 +14,7 @@
 	<string name="library_rxandroid_isOpenSource">true</string>
 	<string name="library_rxandroid_repositoryLink">https://github.com/ReactiveX/RxAndroid</string>
 	<!-- ClassPath for autoDetect section -->
-	<string name="library_rxandroid_classPath">rx.android</string>
+	<string name="library_rxandroid_classPath">rx.android.schedulers.AndroidSchedulers</string>
 	<!-- License section -->
 	<string name="library_rxandroid_licenseId">apache_2_0</string>
 	<!-- Custom variables section -->

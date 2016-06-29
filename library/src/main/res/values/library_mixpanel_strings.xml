@@ -14,7 +14,7 @@
     <string name="library_mixpanelandroid_isOpenSource">true</string>
     <string name="library_mixpanelandroid_repositoryLink">https://github.com/mixpanel/mixpanel-android</string>
     <!-- ClassPath for autoDetect section -->
-    <string name="library_mixpanelandroid_classPath">com.mixpanel.android</string>
+    <string name="library_mixpanelandroid_classPath">com.mixpanel.android.mpmetrics.MixpanelAPI</string>
     <!-- License section -->
     <string name="library_mixpanelandroid_licenseId">apache_2_0</string>
     <!-- Custom variables section -->

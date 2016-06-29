@@ -14,7 +14,7 @@
 	<string name="library_rxjava_isOpenSource">true</string>
 	<string name="library_rxjava_repositoryLink">https://github.com/ReactiveX/RxJava</string>
 	<!-- ClassPath for autoDetect section -->
-	<string name="library_rxjava_classPath">rx</string>
+	<string name="library_rxjava_classPath">rx.Observable</string>
 	<!-- License section -->
 	<string name="library_rxjava_licenseId">apache_2_0</string>
 	<!-- Custom variables section -->

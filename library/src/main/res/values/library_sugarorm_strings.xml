@@ -13,7 +13,7 @@
     <string name="library_sugarorm_isOpenSource">true</string>
     <string name="library_sugarorm_repositoryLink">https://github.com/satyan/sugar</string>
     <!-- ClassPath for autoDetect section -->
-    <string name="library_sugarorm_classPath">com.orm</string>
+    <string name="library_sugarorm_classPath">com.orm.SugarContext</string>
     <!-- License section -->
     <string name="libray_sugarorm_licenseContent">
 Copyright © 2012 by Satya Narayan
