@@ -5,19 +5,32 @@ jdk:
 
 android:
   components:
-    - platform-tools
+    # Uncomment the lines below if you want to
+    # use the latest revision of Android SDK Tools
+    # - platform-tools
     - tools
-    - build-tools-23.0.3
-    - android-23
-    - extra-android-support
-    - extra-google-google_play_services
-    - extra-android-m2repository
+
+    # The BuildTools version used by your project
+    - build-tools-24.0.0
+
+    # The SDK version used to compile your project
+    - android-24
+
+    # Additional components
     - extra-google-m2repository
+    - extra-android-m2repository
   licenses:
     - '.+'
 
+jdk:
+  - oraclejdk8
+
 script:
     - ./gradlew clean assemble --stacktrace
+
+branches:
+  except:
+    - gh-pages
 
 notifications:
   email: false
@@ -26,5 +39,5 @@ sudo: false
 
 cache:
   directories:
-    - $HOME/.gradle
+    - $HOME/.m2
 
