@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <string name="define_int_materialdialogs"></string>
+    <string name="define_int_materialdialogs">year;owner</string>
     <!-- Author section -->
     <string name="library_materialdialogs_author">Aidan Follestad</string>
     <string name="library_materialdialogs_authorWebsite">http://aidanfollestad.com/</string>
@@ -19,4 +19,7 @@
     <string name="library_materialdialogs_classPath">com.afollestad.materialdialogs.MaterialDialog</string>
     <!-- License section -->
     <string name="library_materialdialogs_licenseId">mit</string>
+     <!-- Custom variables section -->
+    <string name="library_materialdialogs_owner">Aidan Follestad</string>
+    <string name="library_materialdialogs_year">2016</string>
 </resources>
