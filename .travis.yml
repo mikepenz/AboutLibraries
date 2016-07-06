@@ -22,9 +22,6 @@ android:
   licenses:
     - '.+'
 
-jdk:
-  - oraclejdk8
-
 script:
     - ./gradlew clean assemble --stacktrace
 
