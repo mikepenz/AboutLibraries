@@ -13,7 +13,7 @@
 	<string name="library_android_platlogo_isOpenSource">true</string>
 	<string name="library_android_platlogo_repositoryLink">https://github.com/PlayWithAndroid/Android-PlatLogo</string>
 	<!-- ClassPath for autoDetect section -->
-	<string name="library_android_platlogo_classPath">net.playwithandroid.platlogo</string>
+	<string name="library_android_platlogo_classPath">net.playwithandroid.platlogo.view.PlatLogoView</string>
 	<!-- License section -->
 	<string name="library_android_platlogo_licenseId">mit</string>
 	<!-- Custom variables section -->
