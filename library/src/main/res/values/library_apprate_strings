@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-	<string name="define_int_apprate"></string>
+	<string name="define_int_apprate">year;owner</string>
 	<!-- Author section -->
 	<string name="library_apprate_author">Harsh Shandilya</string>
 	<string name="library_apprate_authorWebsite">https://msfjarvis.me</string>
@@ -18,4 +18,6 @@
 	<!-- License section -->
 	<string name="library_apprate_licenseId">mit</string>
 	<!-- Custom variables section -->
+	<string name="library_apprate_owner">Harsh Shandilya</string>
+	<string name="library_apprate_year">2016</string>
 </resources>
