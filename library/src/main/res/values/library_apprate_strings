@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_int_apprate"></string>
+	<!-- Author section -->
+	<string name="library_apprate_author">Harsh Shandilya</string>
+	<string name="library_apprate_authorWebsite">https://msfjarvis.me</string>
+	<!-- Library section -->
+	<string name="library_apprate_libraryName">AppRate</string>
+	<string name="library_apprate_libraryDescription">AppRate lets you add a customisable Play Store rating dialog to your Android app</string>
+	<string name="library_apprate_libraryWebsite"></string>
+	<string name="library_apprate_libraryVersion">1.0</string>
+	<!-- OpenSource section -->
+	<string name="library_apprate_isOpenSource">true</string>
+	<string name="library_apprate_repositoryLink"></string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_apprate_classPath">me.msfjarvis.apprate</string>
+	<!-- License section -->
+	<string name="library_apprate_licenseId">mit</string>
+	<!-- Custom variables section -->
+</resources>
