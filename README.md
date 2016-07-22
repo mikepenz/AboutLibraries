@@ -130,6 +130,7 @@ You can contribute by creating a information file for a new library, and open a 
 * [TurnMe Panorama](https://play.google.com/store/apps/details?id=com.bezine.panosphere)
 * [Navig'Tours](https://play.google.com/store/apps/details?id=com.codetroopers.transport.tours)
 * [AS Sales Management](https://play.google.com/store/apps/details?id=com.armsoft.mtrade)
+* [News](https://play.google.com/store/apps/details?id=com.moblino.countrynews)
 
 
 #Developed By
