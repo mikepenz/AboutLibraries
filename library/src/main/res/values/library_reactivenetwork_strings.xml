@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-	<string name="define_reactivenetwork"></string>
+	<string name="define_int_reactivenetwork"></string>
 	<!-- Author section -->
 	<string name="library_reactivenetwork_author">Piotr Wittchen</string>
 	<string name="library_reactivenetwork_authorWebsite">http://wittchen.biz.pl</string>

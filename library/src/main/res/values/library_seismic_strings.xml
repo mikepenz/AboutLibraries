@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-	<string name="define_seismic"></string>
+	<string name="define_int_seismic"></string>
 	<!-- Author section -->
 	<string name="library_seismic_author">Square</string>
 	<string name="library_seismic_authorWebsite">https://github.com/square</string>
