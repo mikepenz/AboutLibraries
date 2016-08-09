@@ -7,7 +7,7 @@
     <string name="library_RealmSearchView_authorWebsite">https://github.com/thorbenprimke</string>
     <!-- Library section -->
     <string name="library_RealmSearchView_libraryName">Realm SearchView</string>
-    <string name="library_RealmSearchView_libraryDescription">A simple and powerful EditText and RecyclerView UI component. It's build on top of RealmRecyclerView and RealmBasedRecyclerViewAdapter.</string>
+    <string name="library_RealmSearchView_libraryDescription">A simple and powerful EditText and RecyclerView UI component. It\'s build on top of RealmRecyclerView and RealmBasedRecyclerViewAdapter.</string>
     <string name="library_RealmSearchView_libraryWebsite"></string>
     <string name="library_RealmSearchView_libraryVersion">0.9.6</string>
     <!-- OpenSource section -->
