@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-	<string name="define_int_systembartint"/>
+	<string name="define_int_systembartint">year;owner</string>
 	<!-- Author section -->
 	<string name="library_systembartint_author">Jeff Gilfelt</string>
 	<string name="library_systembartint_authorWebsite">http://jeffgilfelt.com/</string>

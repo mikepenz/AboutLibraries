@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-	<string name="define_int_customactivityoncrash"></string>
+	<string name="define_int_customactivityoncrash">year;owner</string>
 	<!-- Author section -->
 	<string name="library_customactivityoncrash_author">Eduard Ereza Martínez</string>
 	<string name="library_customactivityoncrash_authorWebsite">http://www.eduardereza.com/</string>
