@@ -18,4 +18,6 @@
 	<!-- License section -->
 	<string name="library_android_upload_service_licenseId">apache_2_0</string>
 	<!-- Custom variables section -->
+	<string name="library_android_upload_service_owner">Aleksandar Gotev</string>
+	<string name="library_android_upload_service_year">2013-2016</string>
 </resources>

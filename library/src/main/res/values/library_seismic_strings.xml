@@ -18,4 +18,6 @@
 	<!-- License section -->
 	<string name="library_seismic_licenseId">apache_2_0</string>
 	<!-- Custom variables section -->
+	<string name="library_seismic_owner">Square, Inc.</string>
+	<string name="library_seismic_year">2012</string>
 </resources>

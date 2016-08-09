@@ -17,4 +17,6 @@
     <!-- License section -->
     <string name="library_calligraphy_licenseId">apache_2_0</string>
     <!-- Custom variables section -->
+    <string name="library_calligraphy_owner">Christopher Jenkins</string>
+    <string name="library_calligraphy_year">2013</string>
 </resources>

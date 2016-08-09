@@ -18,4 +18,6 @@
 	<!-- License section -->
 	<string name="library_reactivenetwork_licenseId">apache_2_0</string>
 	<!-- Custom variables section -->
+	<string name="library_reactivenetwork_owner">Piotr Wittchen</string>
+	<string name="library_reactivenetwork_year">2016</string>
 </resources>
