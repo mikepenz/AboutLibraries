@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_customactivityoncrash"></string>
+	<!-- Author section -->
+	<string name="library_customactivityoncrash_author">Eduard Ereza Martínez</string>
+	<string name="library_customactivityoncrash_authorWebsite">http://www.eduardereza.com/</string>
+	<!-- Library section -->
+	<string name="library_customactivityoncrash_libraryName">Custom Activity On Crash</string>
+	<string name="library_customactivityoncrash_libraryDescription">This library allows launching a custom activity when the app crashes, instead of showing the hated "Unfortunately, X has stopped" dialog.</string>
+	<string name="library_customactivityoncrash_libraryWebsite"></string>
+	<string name="library_customactivityoncrash_libraryVersion">1.5.0</string>
+	<!-- OpenSource section -->
+	<string name="library_customactivityoncrash_isOpenSource">true</string>
+	<string name="library_customactivityoncrash_repositoryLink">https://github.com/Ereza/CustomActivityOnCrash</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_customactivityoncrash_classPath">cat.ereza.customactivityoncrash.CustomActivityOnCrash</string>
+	<!-- License section -->
+	<string name="library_customactivityoncrash_licenseId">apache_2_0</string>
+	<!-- Custom variables section -->
+</resources>
