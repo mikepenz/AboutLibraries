@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <string name="define_int_calligraphy"></string>
+    <string name="define_int_calligraphy">year;owner</string>
     <!-- Author section -->
     <string name="library_calligraphy_author">Christopher Jenkins</string>
     <string name="library_calligraphy_authorWebsite">https://github.com/chrisjenx/Calligraphy</string>
