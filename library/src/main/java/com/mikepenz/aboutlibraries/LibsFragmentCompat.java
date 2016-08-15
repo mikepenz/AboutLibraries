@@ -31,7 +31,6 @@ import java.util.List;
  * Created by mikepenz on 02.11.15.
  */
 public class LibsFragmentCompat {
-    private RecyclerView mRecyclerView;
     private FastItemAdapter mAdapter;
 
     private LibsBuilder builder = null;
@@ -65,6 +64,7 @@ public class LibsFragmentCompat {
         }
 
         // init CardView
+        RecyclerView mRecyclerView;
         if (view.getId() == R.id.cardListView) {
             mRecyclerView = (RecyclerView) view;
         } else {
@@ -125,6 +125,7 @@ public class LibsFragmentCompat {
     public void onDestroyView() {
         if (mLibTask != null) {
             mLibTask.cancel(true);
+            mLibTask.setCtx(null);
             mLibTask = null;
         }
     }
@@ -137,6 +138,10 @@ public class LibsFragmentCompat {
         Drawable icon = null;
 
         public LibraryTask(Context ctx) {
+            this.ctx = ctx;
+        }
+
+        public void setCtx(Context ctx) {
             this.ctx = ctx;
         }
 
