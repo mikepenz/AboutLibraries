@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_int_context_menu.android"></string>
+	<!-- Author section -->
+	<string name="library_context_menu.android_author">Yalantis</string>
+	<string name="library_context_menu.android_authorWebsite">https://yalantis.com</string>
+	<!-- Library section -->
+	<string name="library_context_menu.android_libraryName">Context-Menu.Android</string>
+	<string name="library_context_menu.android_libraryDescription">You can easily add awesome animated context menu to your app.</string>
+	<string name="library_context_menu.android_libraryWebsite">https://github.com/Yalantis/Context-Menu.Android</string>
+	<string name="library_context_menu.android_libraryVersion">1.0.7</string>
+	<!-- OpenSource section -->
+	<string name="library_context_menu.android_isOpenSource">true</string>
+	<string name="library_context_menu.android_repositoryLink">https://github.com/Yalantis/Context-Menu.Android</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_context_menu.android_classPath">com.yalantis.contextmenu.lib</string>
+	<!-- License section -->
+	<string name="library_context_menu.android_licenseId">apache_2_0</string>
+	<!-- Custom variables section -->
+</resources>
