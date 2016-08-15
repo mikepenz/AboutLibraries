@@ -14,7 +14,7 @@
 	<string name="library_context_menu.android_isOpenSource">true</string>
 	<string name="library_context_menu.android_repositoryLink">https://github.com/Yalantis/Context-Menu.Android</string>
 	<!-- ClassPath for autoDetect section -->
-	<string name="library_context_menu.android_classPath">com.yalantis.contextmenu.lib</string>
+	<string name="library_context_menu.android_classPath">com.yalantis.contextmenu.lib.ContextMenuDialogFragment</string>
 	<!-- License section -->
 	<string name="library_context_menu.android_licenseId">apache_2_0</string>
 	<!-- Custom variables section -->
