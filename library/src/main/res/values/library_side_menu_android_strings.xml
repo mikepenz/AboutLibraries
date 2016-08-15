@@ -14,7 +14,7 @@
 	<string name="library_side_menu.android_isOpenSource">true</string>
 	<string name="library_side_menu.android_repositoryLink">https://github.com/Yalantis/Side-Menu.Android</string>
 	<!-- ClassPath for autoDetect section -->
-	<string name="library_side_menu.android_classPath">yalantis.com.sidemenu</string>
+	<string name="library_side_menu.android_classPath">yalantis.com.sidemenu.model.SlideMenuItem</string>
 	<!-- License section -->
 	<string name="library_side_menu.android_licenseId">apache_2_0</string>
 	<!-- Custom variables section -->
