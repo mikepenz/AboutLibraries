@@ -9,13 +9,13 @@
 	<string name="library_Jsoup_libraryName">Jsoup</string>
 	<string name="library_Jsoup_libraryDescription">jsoup is a Java library for working with real-world HTML. It provides a very convenient API for extracting and manipulating data, using the best of DOM, CSS, and jquery-like methods.</string>
 	<string name="library_Jsoup_libraryWebsite">http://jsoup.org/</string>
-	<string name="library_Jsoup_libraryVersion">1.8.1</string>
+	<string name="library_Jsoup_libraryVersion">1.9.2</string>
 	<!-- OpenSource section -->
 	<string name="library_Jsoup_isOpenSource">true</string>
 	<string name="library_Jsoup_repositoryLink">https://github.com/jhy/jsoup</string>
 	<!-- ClassPath for autoDetect section -->
 	<string name="library_Jsoup_classPath">org.jsoup.Jsoup</string>
 	<!-- License section -->
-	<string name="library_Jsoup_licenseId">apache_2_0</string>
+	<string name="library_Jsoup_licenseId">mit</string>
 	<!-- Custom variables section -->
 </resources>
