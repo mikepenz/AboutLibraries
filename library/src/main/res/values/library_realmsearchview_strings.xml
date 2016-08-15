@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_RealmSearchView"></string>
+    <!-- Author section -->
+    <string name="library_RealmSearchView_author">Thorben Primke</string>
+    <string name="library_RealmSearchView_authorWebsite">https://github.com/thorbenprimke</string>
+    <!-- Library section -->
+    <string name="library_RealmSearchView_libraryName">Realm SearchView</string>
+    <string name="library_RealmSearchView_libraryDescription">A simple and powerful EditText and RecyclerView UI component. It\'s build on top of RealmRecyclerView and RealmBasedRecyclerViewAdapter.</string>
+    <string name="library_RealmSearchView_libraryWebsite"></string>
+    <string name="library_RealmSearchView_libraryVersion">0.9.6</string>
+    <!-- OpenSource section -->
+    <string name="library_RealmSearchView_isOpenSource">true</string>
+    <string name="library_RealmSearchView_repositoryLink">https://github.com/thorbenprimke/realm-searchview</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_RealmSearchView_classPath">co.moonmonkeylabs.realmsearchview.RealmSearchView</string>
+    <!-- License section -->
+    <string name="library_RealmSearchView_licenseId">apache_2_0</string>
+    <!-- Custom variables section -->
+</resources>

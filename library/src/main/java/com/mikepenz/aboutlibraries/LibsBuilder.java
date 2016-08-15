@@ -495,16 +495,24 @@ public class LibsBuilder implements Serializable {
         return adapter;
     }
 
-
     /**
      * intent() method to build and create the intent with the set params
      *
      * @return the intent to start the activity
      */
     public Intent intent(Context ctx) {
+        return intent(ctx, LibsActivity.class);
+    }
+
+    /**
+     * intent() method to build and create the intent with the set params
+     *
+     * @return the intent to start the activity
+     */
+    public Intent intent(Context ctx, Class clazz) {
         preCheck();
 
-        Intent i = new Intent(ctx, LibsActivity.class);
+        Intent i = new Intent(ctx, clazz);
         i.putExtra("data", this);
         i.putExtra(Libs.BUNDLE_THEME, this.activityTheme);
         if (this.activityTitle != null) {
