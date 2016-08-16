@@ -95,7 +95,7 @@ public class LibsFragmentCompat {
         //load the data (only possible if we were able to get the Arguments
         if (view.getContext() != null && builder != null) {
             //fill the fragment with the content
-            mLibTask = new LibraryTask(view.getContext());
+            mLibTask = new LibraryTask(view.getContext().getApplicationContext());
             executeLibTask(mLibTask);
         }
     }

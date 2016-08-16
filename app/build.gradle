@@ -13,8 +13,8 @@ android {
     defaultConfig {
         minSdkVersion 10
         targetSdkVersion 24
-        versionCode 572
-        versionName '5.7.2'
+        versionCode 573
+        versionName '5.7.3'
 
         applicationVariants.all { variant ->
             variant.outputs.each { output ->
