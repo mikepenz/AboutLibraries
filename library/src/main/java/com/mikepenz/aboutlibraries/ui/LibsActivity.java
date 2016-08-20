@@ -51,8 +51,8 @@ public class LibsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_opensource);
         String title = "";
-        if (bundle != null) {
-            title = bundle.getString(Libs.BUNDLE_TITLE, "");
+        if (bundle != null && bundle.containsKey(Libs.BUNDLE_TITLE)) {
+            title = bundle.getString(Libs.BUNDLE_TITLE);
         }
         LibsSupportFragment fragment = new LibsSupportFragment();
         fragment.setArguments(bundle);
@@ -85,10 +85,15 @@ public class LibsActivity extends AppCompatActivity {
 
             // SetUp ActionBar
             ab.setDisplayHomeAsUpEnabled(true);
-            ab.setDisplayShowTitleEnabled(!TextUtils.isEmpty(title));
-            ab.setTitle(title);
+            if (TextUtils.isEmpty(title)) {
+                ab.setDisplayShowTitleEnabled(false);
+            } else {
+                ab.setDisplayShowTitleEnabled(true);
+                ab.setTitle(title);
+            }
         }
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment).commit();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
     }
 
     @Override
