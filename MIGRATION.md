@@ -1,4 +1,6 @@
 ###Upgrade Notes
+#### v5.8.0
+* **Dropping support for API < 14. New MinSdkVersion is 14**
 
 #### v5.6.1 -> v5.6.2
 * Change `void onLibTaskFinished()` to `void onLibTaskFinished(FastItemAdapter fastItemAdapter)`
