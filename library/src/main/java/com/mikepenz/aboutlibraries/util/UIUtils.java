@@ -5,40 +5,16 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
-
-import com.mikepenz.aboutlibraries.R;
 
 /**
  * Created by mikepenz on 15.03.14.
  */
 @SuppressLint("InlinedApi")
 public class UIUtils {
-
-    /**
-     * helper to get the system default selectable background
-     *
-     * @param ctx
-     * @return
-     */
-    public static int getSelectableBackground(Context ctx) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            // If we're running on Honeycomb or newer, then we can use the Theme's
-            // selectableItemBackground to ensure that the View has a pressed state
-            TypedValue outValue = new TypedValue();
-            ctx.getTheme().resolveAttribute(R.attr.selectableItemBackground, outValue, true);
-            return outValue.resourceId;
-        } else {
-            TypedValue outValue = new TypedValue();
-            ctx.getTheme().resolveAttribute(android.R.attr.itemBackground, outValue, true);
-            return outValue.resourceId;
-        }
-    }
-
     public static int getThemeColor(Context ctx, int attr) {
         TypedValue tv = new TypedValue();
         if (ctx.getTheme().resolveAttribute(attr, tv, true)) {
@@ -85,18 +61,7 @@ public class UIUtils {
      * @param drawableRes
      */
     public static void setBackground(View v, int drawableRes) {
-        setBackground(v, getCompatDrawable(v.getContext(), drawableRes));
-    }
-
-    /**
-     * helper method to get the drawable by its resource. specific to the correct android version
-     *
-     * @param c
-     * @param drawableRes
-     * @return
-     */
-    public static Drawable getCompatDrawable(Context c, int drawableRes) {
-        return ContextCompat.getDrawable(c, drawableRes);
+        setBackground(v, ContextCompat.getDrawable(v.getContext(), drawableRes));
     }
 
     /**
