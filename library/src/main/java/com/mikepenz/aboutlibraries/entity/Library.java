@@ -20,7 +20,6 @@ public class Library implements Comparable<Library> {
     private String classPath = "";
 
     public Library() {
-
     }
 
     public Library(String author, String libraryName, String libraryDescription) {
