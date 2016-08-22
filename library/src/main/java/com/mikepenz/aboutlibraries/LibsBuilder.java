@@ -58,7 +58,7 @@ public class LibsBuilder implements Serializable {
 
     public HashMap<String, HashMap<String, String>> libraryModification = null;
 
-    public Class ownLibsActivityClass = null;
+    public Class ownLibsActivityClass = LibsActivity.class;
 
     public LibsBuilder() {
     }
@@ -69,7 +69,7 @@ public class LibsBuilder implements Serializable {
      * @param clazz Class
      * @return this
      */
-    public LibsBuilder withOwnLibsActivityClass(Class clazz) {
+    public LibsBuilder withOwnLibsActivityClass(@NonNull Class clazz) {
         this.ownLibsActivityClass = clazz;
         return this;
     }
@@ -516,7 +516,7 @@ public class LibsBuilder implements Serializable {
      * @return the intent to start the activity
      */
     public Intent intent(Context ctx) {
-        return intent(ctx, ownLibsActivityClass==null ? LibsActivity.class : ownLibsActivityClass);
+        return intent(ctx, ownLibsActivityClass);
     }
 
     /**
