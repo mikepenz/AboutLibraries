@@ -11,6 +11,7 @@ import com.mikepenz.aboutlibraries.ui.item.LibraryItem;
 /**
  * Created by mikepenz on 20.05.15.
  */
+@SuppressWarnings("unused")
 public class LibsConfiguration {
 
     private static LibsConfiguration SINGLETON = null;

@@ -20,6 +20,8 @@ import com.mikepenz.aboutlibraries.util.UIUtils;
 import com.mikepenz.fastadapter.items.AbstractItem;
 import com.mikepenz.fastadapter.utils.ViewHolderFactory;
 
+import java.util.List;
+
 
 /**
  * Created by mikepenz on 28.12.15.
@@ -75,8 +77,8 @@ public class LibraryItem extends AbstractItem<LibraryItem, LibraryItem.ViewHolde
      * @param holder the viewHolder of this item
      */
     @Override
-    public void bindView(final ViewHolder holder) {
-        super.bindView(holder);
+    public void bindView(final ViewHolder holder, List payloads) {
+        super.bindView(holder, payloads);
 
         //ctx
         final Context ctx = holder.itemView.getContext();
@@ -230,8 +232,8 @@ public class LibraryItem extends AbstractItem<LibraryItem, LibraryItem.ViewHolde
     /**
      * helper method to open the author website
      *
-     * @param ctx
-     * @param authorWebsite
+     * @param ctx           Context for startActivity
+     * @param authorWebsite Url to lib-website
      */
     private void openAuthorWebsite(Context ctx, String authorWebsite) {
         try {
@@ -244,8 +246,8 @@ public class LibraryItem extends AbstractItem<LibraryItem, LibraryItem.ViewHolde
     /**
      * helper method to open the library website
      *
-     * @param ctx
-     * @param libraryWebsite
+     * @param ctx            Context for startActivity
+     * @param libraryWebsite Url to lib-website
      */
     private void openLibraryWebsite(Context ctx, String libraryWebsite) {
         try {
@@ -258,7 +260,7 @@ public class LibraryItem extends AbstractItem<LibraryItem, LibraryItem.ViewHolde
     /**
      * helper method to open the license dialog / or website
      *
-     * @param ctx
+     * @param ctx         Context for startActivity
      * @param libsBuilder
      * @param library
      */

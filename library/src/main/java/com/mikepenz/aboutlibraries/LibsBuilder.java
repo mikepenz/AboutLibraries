@@ -3,6 +3,7 @@ package com.mikepenz.aboutlibraries;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.animation.LayoutAnimationController;
 
@@ -20,6 +21,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
+@SuppressWarnings("unused")
 public class LibsBuilder implements Serializable {
     public String[] fields = null;
     public String[] internalLibraries = null;
@@ -57,7 +59,20 @@ public class LibsBuilder implements Serializable {
 
     public HashMap<String, HashMap<String, String>> libraryModification = null;
 
+    public Class ownLibsActivityClass = LibsActivity.class;
+
     public LibsBuilder() {
+    }
+
+    /**
+     * Builder method to pass the an own LibsActivity.
+     *
+     * @param clazz Class
+     * @return this
+     */
+    public LibsBuilder withOwnLibsActivityClass(@NonNull Class clazz) {
+        this.ownLibsActivityClass = clazz;
+        return this;
     }
 
     /**
@@ -199,8 +214,8 @@ public class LibsBuilder implements Serializable {
     /**
      * Builder method to enable the display of the application version name as about this app view
      *
-     * @param aboutShowVersion
-     * @return
+     * @param aboutShowVersion enabled or disabled
+     * @return this
      */
     public LibsBuilder withAboutVersionShownName(boolean aboutShowVersion) {
         this.aboutShowVersionName = aboutShowVersion;
@@ -210,7 +225,7 @@ public class LibsBuilder implements Serializable {
     /**
      * Builder method to enable the display of the application version code as about this app view
      *
-     * @param aboutShowVersion
+     * @param aboutShowVersion enabled or disabled
      * @return this
      */
     public LibsBuilder withAboutVersionShownCode(boolean aboutShowVersion) {
@@ -221,7 +236,7 @@ public class LibsBuilder implements Serializable {
     /**
      * Builder method to enable the display and set the text of the application version in the about this app view
      *
-     * @param aboutVersionString
+     * @param aboutVersionString enabled or disabled
      * @return this
      */
     public LibsBuilder withAboutVersionString(String aboutVersionString) {
@@ -342,7 +357,7 @@ public class LibsBuilder implements Serializable {
      * Builder method to set the ActivityStyle
      *
      * @param libraryStyle LibraryStyles.LIGHT / DARK / LIGHT_DARK_TOOLBAR
-     * @return
+     * @return this
      */
     public LibsBuilder withActivityStyle(Libs.ActivityStyle libraryStyle) {
         this.activityStyle = libraryStyle;
@@ -386,7 +401,7 @@ public class LibsBuilder implements Serializable {
      * Builder method to set the LibsListener for the AboutLibraries actions
      *
      * @param libsListener the listener to be notified
-     * @return
+     * @return this
      */
     public LibsBuilder withListener(LibsConfiguration.LibsListener libsListener) {
         LibsConfiguration.getInstance().setListener(libsListener);
@@ -397,7 +412,7 @@ public class LibsBuilder implements Serializable {
      * Builder method to set the LibsRecyclerViewListener for the AboutLibraries recyclerView elements
      *
      * @param recyclerViewListener
-     * @return
+     * @return this
      */
     public LibsBuilder withLibsRecyclerViewListener(LibsConfiguration.LibsRecyclerViewListener recyclerViewListener) {
         LibsConfiguration.getInstance().setLibsRecyclerViewListener(recyclerViewListener);
@@ -409,7 +424,7 @@ public class LibsBuilder implements Serializable {
      * Builder method to set the LibsUIListener for the AboutLibraries view to hook into the view creation
      *
      * @param uiListener
-     * @return
+     * @return this
      */
     public LibsBuilder withUiListener(LibsConfiguration.LibsUIListener uiListener) {
         LibsConfiguration.getInstance().setUiListener(uiListener);
@@ -420,7 +435,7 @@ public class LibsBuilder implements Serializable {
      * Builder method to set the LayoutAnimationController for the RecyclerView
      *
      * @param layoutAnimationController
-     * @return
+     * @return this
      */
     public LibsBuilder withLayoutAnimationController(LayoutAnimationController layoutAnimationController) {
         LibsConfiguration.getInstance().setLayoutAnimationController(layoutAnimationController);
@@ -431,7 +446,7 @@ public class LibsBuilder implements Serializable {
      * Builder method to define a custom Thread Executor for asynchronous operations
      *
      * @param libTaskExecutor
-     * @return
+     * @return this
      */
     public LibsBuilder withLibTaskExecutor(LibTaskExecutor libTaskExecutor) {
         if (libTaskExecutor != null) {
@@ -446,7 +461,7 @@ public class LibsBuilder implements Serializable {
      * LibTaskCallback is Serializable.
      *
      * @param libTaskCallback
-     * @return
+     * @return this
      */
     public LibsBuilder withLibTaskCallback(LibTaskCallback libTaskCallback) {
         LibsConfiguration.getInstance().setLibTaskCallback(libTaskCallback);
@@ -491,6 +506,7 @@ public class LibsBuilder implements Serializable {
             libraryItems.add(new LibraryItem().withLibrary(library).withLibsBuilder(this));
         }
 
+        //noinspection unchecked
         adapter.add(libraryItems);
         return adapter;
     }
@@ -501,7 +517,7 @@ public class LibsBuilder implements Serializable {
      * @return the intent to start the activity
      */
     public Intent intent(Context ctx) {
-        return intent(ctx, LibsActivity.class);
+        return intent(ctx, ownLibsActivityClass);
     }
 
     /**
@@ -515,9 +531,11 @@ public class LibsBuilder implements Serializable {
         Intent i = new Intent(ctx, clazz);
         i.putExtra("data", this);
         i.putExtra(Libs.BUNDLE_THEME, this.activityTheme);
+
         if (this.activityTitle != null) {
             i.putExtra(Libs.BUNDLE_TITLE, this.activityTitle);
         }
+
         if (this.activityColor != null) {
             i.putExtra(Libs.BUNDLE_COLORS, this.activityColor);
         }
