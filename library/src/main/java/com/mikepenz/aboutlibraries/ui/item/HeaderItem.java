@@ -22,6 +22,8 @@ import com.mikepenz.fastadapter.items.AbstractItem;
 import com.mikepenz.fastadapter.utils.ViewHolderFactory;
 import com.mikepenz.iconics.Iconics;
 
+import java.util.List;
+
 
 /**
  * Created by mikepenz on 28.12.15.
@@ -88,8 +90,8 @@ public class HeaderItem extends AbstractItem<HeaderItem, HeaderItem.ViewHolder> 
      * @param holder the viewHolder of this item
      */
     @Override
-    public void bindView(final ViewHolder holder) {
-        super.bindView(holder);
+    public void bindView(final ViewHolder holder, List payloads) {
+        super.bindView(holder, payloads);
 
         //ctx
         final Context ctx = holder.itemView.getContext();

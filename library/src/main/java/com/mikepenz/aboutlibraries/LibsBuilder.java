@@ -3,6 +3,7 @@ package com.mikepenz.aboutlibraries;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.animation.LayoutAnimationController;
 
