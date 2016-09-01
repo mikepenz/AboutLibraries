@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_android_textview_linkbuilder"></string>
+    <!-- Author section -->
+    <string name="library_android_textview_linkbuilder_author">Luke Klinker</string>
+    <string name="library_android_textview_linkbuilder_authorWebsite">http://luke.klinker.xyz/</string>
+    <!-- Library section -->
+    <string name="library_android_textview_linkbuilder_libraryName">Android-TextView-LinkBuilder</string>
+    <string name="library_android_textview_linkbuilder_libraryDescription">Insanely easy way to create clickable links within a TextView.</string>
+    <string name="library_android_textview_linkbuilder_libraryWebsite">https://github.com/klinker24/Android-TextView-LinkBuilder</string>
+    <string name="library_android_textview_linkbuilder_libraryVersion">1.3.2</string>
+    <!-- OpenSource section -->
+    <string name="library_android_textview_linkbuilder_isOpenSource">true</string>
+    <string name="library_android_textview_linkbuilder_repositoryLink">https://github.com/klinker24/Android-TextView-LinkBuilder</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_android_textview_linkbuilder_classPath">com.klinker.android.link_builder.LinkBuilder</string>
+    <!-- License section -->
+    <string name="library_android_textview_linkbuilder_licenseId">mit</string>
+    <!-- Custom variables section -->
+</resources>
