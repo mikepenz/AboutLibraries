@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <string name="define_kotterknife"></string>
+    <string name="define_int_kotterknife"></string>
     <!-- Author section -->
     <string name="library_kotterknife_author">Jake Wharton</string>
     <string name="library_kotterknife_authorWebsite">http://jakewharton.com/</string>

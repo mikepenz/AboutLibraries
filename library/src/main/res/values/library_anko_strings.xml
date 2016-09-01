@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <string name="define_anko"></string>
+    <string name="define_int_anko"></string>
     <!-- Author section -->
     <string name="library_anko_author">JetBrains</string>
     <string name="library_anko_authorWebsite">https://www.jetbrains.com/</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <string name="define_android_textview_linkbuilder"></string>
+    <string name="define_int_android_textview_linkbuilder"></string>
     <!-- Author section -->
     <string name="library_android_textview_linkbuilder_author">Luke Klinker</string>
     <string name="library_android_textview_linkbuilder_authorWebsite">http://luke.klinker.xyz/</string>
