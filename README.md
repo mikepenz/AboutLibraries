@@ -131,6 +131,7 @@ You can contribute by creating a information file for a new library, and open a 
 * [Navig'Tours](https://play.google.com/store/apps/details?id=com.codetroopers.transport.tours)
 * [AS Sales Management](https://play.google.com/store/apps/details?id=com.armsoft.mtrade)
 * [News](https://play.google.com/store/apps/details?id=com.moblino.countrynews)
+* [Makota Money Manager](https://play.google.com/store/apps/details?id=be.jatra.makota)
 
 
 #Developed By
