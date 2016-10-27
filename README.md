@@ -49,7 +49,7 @@ You can find anything you search for in the wiki. (If not open an issue)
 The AboutLibraries Library is pushed to [Maven Central](http://search.maven.org/#search|ga|1|g%3A%22com.mikepenz%22), so you just need to add the following dependency to your `build.gradle`. It seems it is also required to add the support dependencies to the application. If it works without, you should be fine too :).
 
 ```javascript
-compile('com.mikepenz:aboutlibraries:5.8.1@aar') {
+compile('com.mikepenz:aboutlibraries:5.8.5@aar') {
 	transitive = true
 }
 ```
@@ -131,6 +131,8 @@ You can contribute by creating a information file for a new library, and open a 
 * [Navig'Tours](https://play.google.com/store/apps/details?id=com.codetroopers.transport.tours)
 * [AS Sales Management](https://play.google.com/store/apps/details?id=com.armsoft.mtrade)
 * [News](https://play.google.com/store/apps/details?id=com.moblino.countrynews)
+* [Makota Money Manager](https://play.google.com/store/apps/details?id=be.jatra.makota)
+* [Companion for Band](https://play.google.com/store/apps/details?id=com.pimp.companionforband)
 
 
 #Developed By
