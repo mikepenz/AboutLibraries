@@ -134,7 +134,7 @@ You can contribute by creating a information file for a new library, and open a 
 * [Makota Money Manager](https://play.google.com/store/apps/details?id=be.jatra.makota)
 * [Companion for Band](https://play.google.com/store/apps/details?id=com.pimp.companionforband)
 * [Ask Janee - Answer Questions](https://play.google.com/store/apps/details?id=com.askjanee.app.android)
-
+* [Temadagar](https://play.google.com/store/apps/details?id=com.alvarlagerlof.temadagarapp)
 
 #Developed By
 
