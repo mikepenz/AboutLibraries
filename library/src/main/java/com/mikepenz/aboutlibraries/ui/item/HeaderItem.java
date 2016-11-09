@@ -286,17 +286,17 @@ public class HeaderItem extends AbstractItem<HeaderItem, HeaderItem.ViewHolder> 
             //get the about this app views
             aboutIcon = (ImageView) headerView.findViewById(R.id.aboutIcon);
             aboutAppName = (TextView) headerView.findViewById(R.id.aboutName);
-            aboutAppName.setTextColor(UIUtils.getThemeColorFromAttrOrRes(headerView.getContext(), R.attr.about_libraries_title_openSource, R.color.about_libraries_title_openSource));
+            aboutAppName.setTextColor(UIUtils.getThemeColorFromAttrOrRes(headerView.getContext(), R.attr.about_libraries_title_description, R.color.about_libraries_title_description));
             aboutSpecialContainer = headerView.findViewById(R.id.aboutSpecialContainer);
             aboutSpecial1 = (Button) headerView.findViewById(R.id.aboutSpecial1);
             aboutSpecial2 = (Button) headerView.findViewById(R.id.aboutSpecial2);
             aboutSpecial3 = (Button) headerView.findViewById(R.id.aboutSpecial3);
             aboutVersion = (TextView) headerView.findViewById(R.id.aboutVersion);
-            aboutVersion.setTextColor(UIUtils.getThemeColorFromAttrOrRes(headerView.getContext(), R.attr.about_libraries_text_openSource, R.color.about_libraries_text_openSource));
+            aboutVersion.setTextColor(UIUtils.getThemeColorFromAttrOrRes(headerView.getContext(), R.attr.about_libraries_text_description, R.color.about_libraries_text_description));
             aboutDivider = headerView.findViewById(R.id.aboutDivider);
-            aboutDivider.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(headerView.getContext(), R.attr.about_libraries_dividerDark_openSource, R.color.about_libraries_dividerDark_openSource));
+            aboutDivider.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(headerView.getContext(), R.attr.about_libraries_dividerDark_description, R.color.about_libraries_dividerDark_description));
             aboutAppDescription = (TextView) headerView.findViewById(R.id.aboutDescription);
-            aboutAppDescription.setTextColor(UIUtils.getThemeColorFromAttrOrRes(headerView.getContext(), R.attr.about_libraries_text_openSource, R.color.about_libraries_text_openSource));
+            aboutAppDescription.setTextColor(UIUtils.getThemeColorFromAttrOrRes(headerView.getContext(), R.attr.about_libraries_text_description, R.color.about_libraries_text_description));
         }
     }
 }

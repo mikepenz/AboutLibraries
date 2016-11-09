@@ -28,4 +28,9 @@
     <color name="about_libraries_special_button_openSource_dark">#ffffffff</color>
     <color name="about_libraries_dividerDark_openSource_dark">#303030</color>
     <color name="about_libraries_dividerLight_openSource_dark">#303030</color>
+
+    <!-- Reuse colors for backwards compatibility -->
+    <color name="about_libraries_title_description">@color/about_libraries_title_openSource</color>
+    <color name="about_libraries_text_description">@color/about_libraries_text_openSource</color>
+    <color name="about_libraries_dividerDark_description">@color/about_libraries_dividerDark_openSource</color>
 </resources>
