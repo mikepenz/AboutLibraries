@@ -294,7 +294,7 @@ public class HeaderItem extends AbstractItem<HeaderItem, HeaderItem.ViewHolder> 
             aboutVersion = (TextView) headerView.findViewById(R.id.aboutVersion);
             aboutVersion.setTextColor(UIUtils.getThemeColorFromAttrOrRes(headerView.getContext(), R.attr.about_libraries_text_description, R.color.about_libraries_text_description));
             aboutDivider = headerView.findViewById(R.id.aboutDivider);
-            aboutDivider.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(headerView.getContext(), R.attr.about_libraries_dividerDark_description, R.color.about_libraries_dividerDark_description));
+            aboutDivider.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(headerView.getContext(), R.attr.about_libraries_divider_description, R.color.about_libraries_divider_description));
             aboutAppDescription = (TextView) headerView.findViewById(R.id.aboutDescription);
             aboutAppDescription.setTextColor(UIUtils.getThemeColorFromAttrOrRes(headerView.getContext(), R.attr.about_libraries_text_description, R.color.about_libraries_text_description));
         }
