@@ -52,6 +52,9 @@ The AboutLibraries Library is pushed to [Maven Central](http://search.maven.org/
 compile('com.mikepenz:aboutlibraries:5.8.5@aar') {
 	transitive = true
 }
+
+//FastAdapter v2.1.0-SNAPSHOT compatiblity
+com.mikepenz:aboutlibraries:5.9.0-SNAPSHOT
 ```
 
 Further information and how to use it if you can't update to the newest v21 support libs can be found in the [wiki](https://github.com/mikepenz/AboutLibraries/wiki/HOWTO:-Include)
