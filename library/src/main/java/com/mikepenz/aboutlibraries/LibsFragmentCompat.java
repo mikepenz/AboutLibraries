@@ -20,7 +20,8 @@ import android.view.ViewGroup;
 import com.mikepenz.aboutlibraries.entity.Library;
 import com.mikepenz.aboutlibraries.ui.item.HeaderItem;
 import com.mikepenz.aboutlibraries.ui.item.LibraryItem;
-import com.mikepenz.fastadapter.adapters.FastItemAdapter;
+import com.mikepenz.fastadapter.FastAdapter;
+import com.mikepenz.fastadapter.adapters.ItemAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,7 +32,8 @@ import java.util.List;
  * Created by mikepenz on 02.11.15.
  */
 public class LibsFragmentCompat {
-    private FastItemAdapter mAdapter;
+    private FastAdapter mAdapter;
+    private ItemAdapter mItemAdapter;
 
     private LibsBuilder builder = null;
     private static ArrayList<Library> libraries;
@@ -79,8 +81,9 @@ public class LibsFragmentCompat {
         }
 
         if (builder != null) {
-            mAdapter = new FastItemAdapter();
-            mRecyclerView.setAdapter(mAdapter);
+            mAdapter = new FastAdapter();
+            mItemAdapter = new ItemAdapter();
+            mRecyclerView.setAdapter(mItemAdapter.wrap(mAdapter));
         }
 
         //allows to modify the view after creating
@@ -232,7 +235,7 @@ public class LibsFragmentCompat {
             //Add the header
             if (builder.aboutShowIcon != null && (builder.aboutShowVersion != null || builder.aboutShowVersionName != null || builder.aboutShowVersionCode)) {
                 //add this cool thing to the headerView of our listView
-                mAdapter.add(new HeaderItem().withLibsBuilder(builder).withAboutVersionName(versionName).withAboutVersionCode(versionCode).withAboutIcon(icon));
+                mItemAdapter.add(new HeaderItem().withLibsBuilder(builder).withAboutVersionName(versionName).withAboutVersionCode(versionCode).withAboutIcon(icon));
             }
 
             //add the libs
@@ -240,13 +243,13 @@ public class LibsFragmentCompat {
             for (Library library : libraries) {
                 libraryItems.add(new LibraryItem().withLibrary(library).withLibsBuilder(builder));
             }
-            mAdapter.add(libraryItems);
+            mItemAdapter.add(libraryItems);
 
             super.onPostExecute(s);
 
             //finished loading
             if (LibsConfiguration.getInstance().getLibTaskCallback() != null) {
-                LibsConfiguration.getInstance().getLibTaskCallback().onLibTaskFinished(mAdapter);
+                LibsConfiguration.getInstance().getLibTaskCallback().onLibTaskFinished(mItemAdapter);
             }
 
             //forget the context
