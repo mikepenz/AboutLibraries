@@ -1,6 +1,6 @@
 package com.mikepenz.aboutlibraries;
 
-import com.mikepenz.fastadapter.adapters.FastItemAdapter;
+import com.mikepenz.fastadapter.adapters.ItemAdapter;
 
 import java.io.Serializable;
 
@@ -12,5 +12,5 @@ import java.io.Serializable;
 public interface LibTaskCallback extends Serializable {
     void onLibTaskStarted();
 
-    void onLibTaskFinished(FastItemAdapter fastItemAdapter);
+    void onLibTaskFinished(ItemAdapter itemAdapter);
 }

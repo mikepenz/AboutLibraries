@@ -77,7 +77,7 @@ public class LibraryItem extends AbstractItem<LibraryItem, LibraryItem.ViewHolde
      * @param holder the viewHolder of this item
      */
     @Override
-    public void bindView(final ViewHolder holder, List payloads) {
+    public void bindView(final ViewHolder holder, List<Object> payloads) {
         super.bindView(holder, payloads);
 
         //ctx

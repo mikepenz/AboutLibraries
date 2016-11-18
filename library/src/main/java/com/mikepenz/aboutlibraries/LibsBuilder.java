@@ -12,7 +12,9 @@ import com.mikepenz.aboutlibraries.ui.LibsActivity;
 import com.mikepenz.aboutlibraries.ui.LibsSupportFragment;
 import com.mikepenz.aboutlibraries.ui.item.LibraryItem;
 import com.mikepenz.aboutlibraries.util.Colors;
-import com.mikepenz.fastadapter.adapters.FastItemAdapter;
+import com.mikepenz.fastadapter.AbstractAdapter;
+import com.mikepenz.fastadapter.FastAdapter;
+import com.mikepenz.fastadapter.adapters.ItemAdapter;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
@@ -485,7 +487,7 @@ public class LibsBuilder implements Serializable {
      * @param context the current context
      * @return a LibsRecyclerViewAdapter with the libraries
      */
-    public FastItemAdapter adapter(Context context) {
+    public AbstractAdapter adapter(Context context) {
         Libs libs;
         if (fields == null) {
             libs = new Libs(context);
@@ -500,15 +502,15 @@ public class LibsBuilder implements Serializable {
         ArrayList<Library> libraries = libs.prepareLibraries(context, internalLibraries, excludeLibraries, autoDetect, sort);
 
         //prepare adapter
-        FastItemAdapter adapter = new FastItemAdapter();
+        ItemAdapter itemAdapter = new ItemAdapter();
         List<LibraryItem> libraryItems = new ArrayList<>();
         for (Library library : libraries) {
             libraryItems.add(new LibraryItem().withLibrary(library).withLibsBuilder(this));
         }
 
         //noinspection unchecked
-        adapter.add(libraryItems);
-        return adapter;
+        itemAdapter.add(libraryItems);
+        return itemAdapter.wrap(new FastAdapter());
     }
 
     /**
