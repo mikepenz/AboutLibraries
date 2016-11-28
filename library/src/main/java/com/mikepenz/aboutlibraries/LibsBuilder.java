@@ -509,8 +509,10 @@ public class LibsBuilder implements Serializable {
         }
 
         //noinspection unchecked
+        itemAdapter.wrap(new FastAdapter());
         itemAdapter.add(libraryItems);
-        return itemAdapter.wrap(new FastAdapter());
+
+        return itemAdapter;
     }
 
     /**
