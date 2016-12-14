@@ -137,6 +137,7 @@ You can contribute by creating a information file for a new library, and open a 
 * [Temadagar](https://play.google.com/store/apps/details?id=com.alvarlagerlof.temadagarapp)
 * [KPS Connect](https://play.google.com/store/apps/details?id=me.msfjarvis.kpsconnect)
 * [Budget Manager](https://play.google.com/store/apps/details?id=com.jakubmateusiak.budgetmanager)
+* [Calendula](https://play.google.com/store/apps/details?id=es.usc.citius.servando.calendula)
 
 #Developed By
 
