@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_int_commonslang3"></string>
+	<!-- Author section -->
+	<string name="library_commonslang3_author">The Apache Software Foundation</string>
+	<string name="library_commonslang3_authorWebsite">https://apache.org</string>
+	<!-- Library section -->
+	<string name="library_commonslang3_libraryName">Commons Lang 3</string>
+	<string name="library_commonslang3_libraryDescription">The standard Java libraries fail to provide enough methods for manipulation of its core classes. Apache Commons Lang provides these extra methods</string>
+	<string name="library_commonslang3_libraryWebsite">https://commons.apache.org/proper/commons-lang/</string>
+	<string name="library_commonslang3_libraryVersion">3.5</string>
+	<!-- OpenSource section -->
+	<string name="library_commonslang3_isOpenSource">true</string>
+	<string name="library_commonslang3_repositoryLink">https://github.com/apache/commons-lang</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_commonslang3_classPath">org.apache.commons.lang3</string>
+	<!-- License section -->
+	<string name="library_commonslang3_licenseId">apache_2_0</string>
+	<!-- Custom variables section -->
+</resources>
