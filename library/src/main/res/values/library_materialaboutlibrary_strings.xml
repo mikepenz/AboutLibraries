@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_materialaboutlibrary">year;owner</string>
+    <!-- Author section -->
+    <string name="library_materialaboutlibrary_author">Daniel Stone</string>
+    <string name="library_materialaboutlibrary_authorWebsite">http://www.daniel-stone.uk/</string>
+    <!-- Library section -->
+    <string name="library_materialaboutlibrary_libraryName">material-about-library</string>
+    <string name="library_materialaboutlibrary_libraryDescription">Makes it easy to create a beautiful about screen for your app.</string>
+    <string name="library_materialaboutlibrary_libraryWebsite">https://github.com/daniel-stoneuk/material-about-library</string>
+    <string name="library_materialaboutlibrary_libraryVersion">1.4.2</string>
+    <!-- OpenSource section -->
+    <string name="library_materialaboutlibrary_isOpenSource">true</string>
+    <string name="library_materialaboutlibrary_repositoryLink">https://github.com/daniel-stoneuk/material-about-library</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_materialaboutlibrary_classPath">com.danielstone.materialaboutlibrary</string>
+    <!-- License section -->
+    <string name="library_materialaboutlibrary_licenseId">mit</string>
+     <!-- Custom variables section -->
+    <string name="library_materialaboutlibrary_owner">Daniel Stone</string>
+    <string name="library_materialaboutlibrary_year">2016</string>
+</resources>
