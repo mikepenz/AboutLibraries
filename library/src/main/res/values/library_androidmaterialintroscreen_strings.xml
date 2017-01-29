@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_androidmaterialintroscreen"></string>
+	<!-- Author section -->
+	<string name="library_androidmaterialintroscreen_author">Tango Agency</string>
+	<string name="library_androidmaterialintroscreen_authorWebsite">https://github.com/TangoAgency/material-intro-screen</string>
+	<!-- Library section -->
+	<string name="library_androidmaterialintroscreen_libraryName">Android Material Intro Screen</string>
+	<string name="library_androidmaterialintroscreen_libraryDescription">Material intro screen is inspired by Material Intro and developed with love from scratch.</string>
+	<string name="library_androidmaterialintroscreen_libraryWebsite">https://github.com/TangoAgency/material-intro-screen</string>
+	<string name="library_androidmaterialintroscreen_libraryVersion">0.0.5</string>
+	<!-- OpenSource section -->
+	<string name="library_androidmaterialintroscreen_isOpenSource">true</string>
+	<string name="library_androidmaterialintroscreen_repositoryLink">https://github.com/TangoAgency/material-intro-screen</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_androidmaterialintroscreen_classPath">agency.tango.materialintro</string>
+	<!-- License section -->
+	<string name="library_androidmaterialintroscreen_licenseId">mit</string>
+	<!-- Custom variables section -->
+</resources>
