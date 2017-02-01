@@ -7,7 +7,7 @@
 	<string name="library_avatar_view_authorWebsite">https://github.com/TangoAgency/avatar-view</string>
 	<!-- Library section -->
 	<string name="library_avatar_view_libraryName">Avatar ImageView</string>
-	<string name="library_avatar_view_libraryDescription">Avatar ImageView with user's name first letter Drawable placeholder.</string>
+	<string name="library_avatar_view_libraryDescription">Avatar ImageView with user\'s name first letter Drawable placeholder.</string>
 	<string name="library_avatar_view_libraryWebsite">https://github.com/TangoAgency/avatar-view</string>
 	<string name="library_avatar_view_libraryVersion">0.0.2</string>
 	<!-- OpenSource section -->
