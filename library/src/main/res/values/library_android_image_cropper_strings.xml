@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-	<string name="define_avatar_view"></string>
+	<string name="define_int_avatar_view"></string>
 	<!-- Author section -->
 	<string name="library_avatar_view_author">ArthurHub</string>
 	<string name="library_avatar_view_authorWebsite">https://theartofdev.com/</string>
