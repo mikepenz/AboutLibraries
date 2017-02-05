@@ -14,7 +14,7 @@
 	<string name="library_httpclient_android_isOpenSource">true</string>
 	<string name="library_httpclient_android_repositoryLink">https://mvnrepository.com/artifact/cz.msebera.android/httpclient/4.4.1.1</string>
 	<!-- ClassPath for autoDetect section -->
-	<string name="library_httpclient_android_classPath">cz.msebera.android.httpclient</string>
+	<string name="library_httpclient_android_classPath">cz.msebera.android:httpclient</string>
 	<!-- License section -->
 	<string name="library_httpclient_android_licenseId">apache_2_0</string>
 	<!-- Custom variables section -->
