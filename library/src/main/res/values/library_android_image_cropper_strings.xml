@@ -14,7 +14,7 @@
 	<string name="library_android_image_cropper_isOpenSource">true</string>
 	<string name="library_android_image_cropper_repositoryLink">https://github.com/ArthurHub/Android-Image-Cropper</string>
 	<!-- ClassPath for autoDetect section -->
-	<string name="library_android_image_cropper_classPath">com.theartofdev.edmodo:android-image-cropper</string>
+	<string name="library_android_image_cropper_classPath">com.theartofdev.edmodo.cropper.CropImageView</string>
 	<!-- License section -->
 	<string name="library_android_image_cropper_licenseId">apache_2_0</string>
 	<!-- Custom variables section -->
