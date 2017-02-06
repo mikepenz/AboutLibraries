@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_int_android_image_cropper"></string>
+	<!-- Author section -->
+	<string name="library_android_image_cropper_author">ArthurHub</string>
+	<string name="library_android_image_cropper_authorWebsite">https://theartofdev.com/</string>
+	<!-- Library section -->
+	<string name="library_android_image_cropper_libraryName">Android Image Cropper</string>
+	<string name="library_android_image_cropper_libraryDescription">Image Cropping Library for Android, optimized for Camera / Gallery.</string>
+	<string name="library_android_image_cropper_libraryWebsite">https://github.com/ArthurHub/Android-Image-Cropper</string>
+	<string name="library_android_image_cropper_libraryVersion">2.3.1</string>
+	<!-- OpenSource section -->
+	<string name="library_android_image_cropper_isOpenSource">true</string>
+	<string name="library_android_image_cropper_repositoryLink">https://github.com/ArthurHub/Android-Image-Cropper</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_android_image_cropper_classPath">com.theartofdev.edmodo.cropper.CropImageView</string>
+	<!-- License section -->
+	<string name="library_android_image_cropper_licenseId">apache_2_0</string>
+	<!-- Custom variables section -->
+</resources>
