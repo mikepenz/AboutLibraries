@@ -118,6 +118,7 @@ You can contribute by creating a information file for a new library, and open a 
 (feel free to send me new projects)
 
 * [wallsplash](https://play.google.com/store/apps/details?id=com.mikepenz.unsplash)
+* [Recipedia](https://play.google.com/store/apps/details?id=com.md.recipedia)
 * [Numbers](https://play.google.com/store/apps/details?id=com.tundem.numbersreloaded.free)
 * [MegaYatzy](https://play.google.com/store/apps/details?id=com.tundem.yatzyTJ)
 * [Sir Spellalot](https://play.google.com/store/apps/details?id=com.sirspellalot.app.android)
