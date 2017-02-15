@@ -5,15 +5,15 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.2'
+        classpath 'com.android.tools.build:gradle:2.3.0-beta3'
         classpath 'com.novoda:bintray-release:0.3.4'
     }
 }
 
 ext {
     compileSdkVersion = 25
-    buildToolsVersion = "25.0.0"
-    supportLibVersion = "25.0.1"
+    buildToolsVersion = "25.0.2"
+    supportLibVersion = "25.1.1"
 }
 
 allprojects {
