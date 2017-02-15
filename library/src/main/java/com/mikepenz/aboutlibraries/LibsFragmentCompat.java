@@ -36,7 +36,7 @@ public class LibsFragmentCompat {
     private ItemAdapter mItemAdapter;
 
     private LibsBuilder builder = null;
-    private static ArrayList<Library> libraries;
+    private ArrayList<Library> libraries;
     private Comparator<Library> comparator;
     private LibraryTask mLibTask;
 
@@ -182,21 +182,18 @@ public class LibsFragmentCompat {
             builder.aboutAppSpecial3 = extractStringBundleOrResource(ctx, libs, builder.aboutAppSpecial3, "aboutLibraries_description_special3_name");
             builder.aboutAppSpecial3Description = extractStringBundleOrResource(ctx, libs, builder.aboutAppSpecial3Description, "aboutLibraries_description_special3_text");
 
-            //only if the libs were not loaded before
-            if (libraries == null) {
-                //apply modifications
-                libs.modifyLibraries(builder.libraryModification);
+            //apply modifications
+            libs.modifyLibraries(builder.libraryModification);
 
-                //fetch the libraries and sort if a comparator was set
-                boolean doDefaultSort = (builder.sort && null == builder.libraryComparator && null == comparator);
+            //fetch the libraries and sort if a comparator was set
+            boolean doDefaultSort = (builder.sort && null == builder.libraryComparator && null == comparator);
 
-                libraries = libs.prepareLibraries(ctx, builder.internalLibraries, builder.excludeLibraries, builder.autoDetect, doDefaultSort);
+            libraries = libs.prepareLibraries(ctx, builder.internalLibraries, builder.excludeLibraries, builder.autoDetect, doDefaultSort);
 
-                if (comparator != null) {
-                    Collections.sort(libraries, comparator);
-                } else if (builder.libraryComparator != null) {
-                    Collections.sort(libraries, builder.libraryComparator);
-                }
+            if (comparator != null) {
+                Collections.sort(libraries, comparator);
+            } else if (builder.libraryComparator != null) {
+                Collections.sort(libraries, builder.libraryComparator);
             }
 
             //load the data for the header
