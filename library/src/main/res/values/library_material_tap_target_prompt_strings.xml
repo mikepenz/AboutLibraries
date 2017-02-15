@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_material_tap_target_prompt"/>
+    <!-- Author section -->
+    <string name="library_material_tap_target_prompt_author">Sam Wall</string>
+    <string name="library_material_tap_target_prompt_authorWebsite">https://github.com/sjwall/</string>
+    <!-- Library section -->
+    <string name="library_material_tap_target_prompt_libraryName">MaterialTapTargetPrompt</string>
+    <string name="library_material_tap_target_prompt_libraryDescription">Material Design tap target for Android.</string>
+    <string name="library_material_tap_target_prompt_libraryWebsite">https://github.com/sjwall/MaterialTapTargetPrompt</string>
+    <string name="library_material_tap_target_prompt_libraryVersion">1.9</string>
+    <!-- OpenSource section -->
+    <string name="library_material_tap_target_prompt_isOpenSource">true</string>
+    <string name="library_material_tap_target_prompt_repositoryLink">https://github.com/sjwall/MaterialTapTargetPrompt</string>
+    <string name="library_material_tap_target_prompt_classPath">uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt</string>
+    <!-- License section -->
+    <string name="library_material_tap_target_prompt_licenseId">apache_2_0</string>
+    <!-- Custom variables section -->
+</resources>
