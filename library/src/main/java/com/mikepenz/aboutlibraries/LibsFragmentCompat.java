@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import com.mikepenz.aboutlibraries.entity.Library;
 import com.mikepenz.aboutlibraries.ui.item.HeaderItem;
 import com.mikepenz.aboutlibraries.ui.item.LibraryItem;
+import com.mikepenz.aboutlibraries.ui.item.LoaderItem;
 import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.adapters.ItemAdapter;
 
@@ -84,6 +85,8 @@ public class LibsFragmentCompat {
             mAdapter = new FastAdapter();
             mItemAdapter = new ItemAdapter();
             mRecyclerView.setAdapter(mItemAdapter.wrap(mAdapter));
+
+            mItemAdapter.add(new LoaderItem());
         }
 
         //allows to modify the view after creating
@@ -229,6 +232,9 @@ public class LibsFragmentCompat {
 
         @Override
         protected void onPostExecute(String s) {
+            //remove loader
+            mItemAdapter.clear();
+
             //Add the header
             if (builder.aboutShowIcon != null && (builder.aboutShowVersion != null || builder.aboutShowVersionName != null || builder.aboutShowVersionCode)) {
                 //add this cool thing to the headerView of our listView
