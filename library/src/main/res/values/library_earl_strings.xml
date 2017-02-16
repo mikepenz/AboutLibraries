@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-	<string name="define_earl"></string>
+	<string name="define_int_earl"></string>
 	<!-- Author section -->
 	<string name="library_earl_author">einmalfel</string>
 	<string name="library_earl_authorWebsite">https://github.com/einmalfel/Earl</string>

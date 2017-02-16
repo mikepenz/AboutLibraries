@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-	<string name="define_acra"></string>
+	<string name="define_int_acra"></string>
 	<!-- Author section -->
 	<string name="library_acra_author">Kevin Gaudin</string>
 	<string name="library_acra_authorWebsite">https://github.com/ACRA/acra</string>

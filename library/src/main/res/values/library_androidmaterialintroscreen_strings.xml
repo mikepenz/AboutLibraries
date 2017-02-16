@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-	<string name="define_androidmaterialintroscreen"></string>
+	<string name="define_int_androidmaterialintroscreen"></string>
 	<!-- Author section -->
 	<string name="library_androidmaterialintroscreen_author">Tango Agency</string>
 	<string name="library_androidmaterialintroscreen_authorWebsite">https://github.com/TangoAgency/material-intro-screen</string>
