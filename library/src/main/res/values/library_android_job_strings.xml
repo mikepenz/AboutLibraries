@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-	<string name="define_android_job"></string>
+	<string name="define_int_android_job"></string>
 	<!-- Author section -->
 	<string name="library_android_job_author">Evernote Corporation</string>
 	<string name="library_android_job_authorWebsite">https://github.com/evernote/android-job</string>
