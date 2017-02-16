@@ -41,5 +41,5 @@ dependencies {
     // used to fill the RecyclerView with the items
     // and provides single and multi selection, expandable items
     // https://github.com/mikepenz/FastAdapter
-    compile 'com.mikepenz:fastadapter:2.1.5@aar'
+    compile 'com.mikepenz:fastadapter:2.1.7@aar'
 }
