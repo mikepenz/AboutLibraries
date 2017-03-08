@@ -140,6 +140,12 @@ You can contribute by creating a information file for a new library, and open a 
 * [Calendula](https://play.google.com/store/apps/details?id=es.usc.citius.servando.calendula)
 * [Drinking Games](https://play.google.com/store/apps/details?id=com.drinkinggames.android)
 * [Recipedia](https://play.google.com/store/apps/details?id=com.md.recipedia)
+* [Ordkamp FREE](https://play.google.com/store/apps/details?id=com.betapet.mobile.dk.free)
+* [Ordkamp](https://play.google.com/store/apps/details?id=com.betapet.mobile.dk.full)
+* [Ordspill GRATIS](https://play.google.com/store/apps/details?id=com.ap.ordspill.free)
+* [Ordspill](https://play.google.com/store/apps/details?id=com.ap.ordspill.full)
+* [Betapet FREE](https://play.google.com/store/apps/details?id=com.betapet.mobile.se.free)
+* [Betapet](https://play.google.com/store/apps/details?id=com.betapet.mobile.se.full)
 
 #Developed By
 
