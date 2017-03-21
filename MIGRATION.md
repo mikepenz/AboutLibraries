@@ -1,4 +1,4 @@
-###Upgrade Notes
+### Upgrade Notes
 #### v5.9.0
 **IMPORTANT IF YOU USE THE FASTADAPTER OR MATERIALDRAWER**
 * You have to update your FastAdapter dependency to v2.1.0 with this release
