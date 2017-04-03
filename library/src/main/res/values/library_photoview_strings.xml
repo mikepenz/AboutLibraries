@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-	<string name="define_photoview"></string>
+	<string name="define_int_photoview"></string>
 	<!-- Author section -->
 	<string name="library_photoview_author">Chris Banes</string>
 	<string name="library_photoview_authorWebsite">http://chris.banes.me/</string>
