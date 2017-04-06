@@ -60,9 +60,7 @@ Further information and how to use it if you can't update to the newest support 
 You can use this library in a few different ways. You can create your own activity, including a custom style and just use the information, or you can use the built-in Activity or Fragment and just pass the libs you would love to include.
 
 ### Upgrade Notes
-#### < v5.0.0
-Changed maven group. You can get all updates via the new one `com.mikepenz:aboutlibraries:5.y.z@aar`
-The `Libs.Builder` is no more. It was changed to `LibsBuilder`. Just remove the "." and it is working again.
+> If you upgrade from < 5.9.5 follow the [MIGRATION GUIDE](https://github.com/mikepenz/AboutLibraries/blob/develop/MIGRATION.md)
 
 ### Activity / Fragment
 #### Fragment
