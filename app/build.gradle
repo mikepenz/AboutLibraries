@@ -63,7 +63,7 @@ dependencies {
 
     //used to generate the drawer on the left
     //https://github.com/mikepenz/MaterialDrawer
-    compile('com.mikepenz:materialdrawer:5.8.3@aar') {
+    compile('com.mikepenz:materialdrawer:5.9.0aar') {
         transitive = true
         exclude module: "fastadapter"
         exclude module: "iconics-core"
