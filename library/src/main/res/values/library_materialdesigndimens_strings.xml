@@ -13,8 +13,6 @@
 	<!-- OpenSource section -->
 	<string name="library_materialdesigndimens_isOpenSource">true</string>
 	<string name="library_materialdesigndimens_repositoryLink">https://github.com/DmitryMalkovich/material-design-dimens</string>
-	<!-- ClassPath for autoDetect section -->
-	<string name="library_materialdesigndimens_classPath">com.dmitrymalkovich.android.material-design-dimens</string>
 	<!-- License section -->
 	<string name="library_materialdesigndimens_licenseId">apache_2_0</string>
 	<!-- Custom variables section -->

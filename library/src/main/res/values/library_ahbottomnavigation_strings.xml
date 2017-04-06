@@ -14,7 +14,7 @@
 	<string name="library_ahbottomnavigation_isOpenSource">true</string>
 	<string name="library_ahbottomnavigation_repositoryLink">https://github.com/aurelhubert/ahbottomnavigation</string>
 	<!-- ClassPath for autoDetect section -->
-	<string name="library_ahbottomnavigation_classPath">com.aurelhubert.ahbottomnavigation:AHBottomNavigation</string>
+	<string name="library_ahbottomnavigation_classPath">com.aurelhubert.ahbottomnavigation.AHBottomNavigation</string>
 	<!-- License section -->
 	<string name="library_ahbottomnavigation_licenseId">apache_2_0</string>
 	<!-- Custom variables section -->
