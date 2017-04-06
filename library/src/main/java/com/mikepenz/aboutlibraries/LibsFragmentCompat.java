@@ -86,7 +86,9 @@ public class LibsFragmentCompat {
             mItemAdapter = new ItemAdapter();
             mRecyclerView.setAdapter(mItemAdapter.wrap(mAdapter));
 
-            mItemAdapter.add(new LoaderItem());
+            if (builder.showLoadingProgress) {
+                mItemAdapter.add(new LoaderItem());
+            }
         }
 
         //allows to modify the view after creating
@@ -108,21 +110,17 @@ public class LibsFragmentCompat {
 
     protected void executeLibTask(LibraryTask libraryTask) {
         if (libraryTask != null) {
-            if (Build.VERSION.SDK_INT >= 11) {
-                switch (builder.libTaskExecutor) {
-                    case THREAD_POOL_EXECUTOR:
-                        libraryTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-                        break;
-                    case SERIAL_EXECUTOR:
-                        libraryTask.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
-                        break;
-                    case DEFAULT_EXECUTOR:
-                    default:
-                        libraryTask.execute();
-                        break;
-                }
-            } else {
-                libraryTask.execute();
+            switch (builder.libTaskExecutor) {
+                case THREAD_POOL_EXECUTOR:
+                    libraryTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                    break;
+                case SERIAL_EXECUTOR:
+                    libraryTask.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
+                    break;
+                case DEFAULT_EXECUTOR:
+                default:
+                    libraryTask.execute();
+                    break;
             }
         }
     }

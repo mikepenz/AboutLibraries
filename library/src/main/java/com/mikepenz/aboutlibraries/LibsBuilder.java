@@ -37,6 +37,7 @@ public class LibsBuilder implements Serializable {
     public Boolean showLicense = false;
     public Boolean showLicenseDialog = true;
     public Boolean showVersion = false;
+    public boolean showLoadingProgress = true;
 
     public Boolean aboutShowIcon = null;
     public String aboutVersionString = null;
@@ -468,6 +469,17 @@ public class LibsBuilder implements Serializable {
      */
     public LibsBuilder withLibTaskCallback(LibTaskCallback libTaskCallback) {
         LibsConfiguration.getInstance().setLibTaskCallback(libTaskCallback);
+        return this;
+    }
+
+    /**
+     * Builder method to allow you to disable the automatically shown loading progressBar while the libraries are loading
+     *
+     * @param showLoadingProgress
+     * @return this
+     */
+    public LibsBuilder withShowLoadingProgress(boolean showLoadingProgress) {
+        this.showLoadingProgress = showLoadingProgress;
         return this;
     }
 
