@@ -1,4 +1,4 @@
-#AboutLibraries [![Status](https://travis-ci.org/mikepenz/AboutLibraries.svg?branch=master)](https://travis-ci.org/mikepenz/AboutLibraries) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.mikepenz/aboutlibraries/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/com.mikepenz/aboutlibraries) [![Android Arsenal](http://img.shields.io/badge/Android%20Arsenal-AboutLibraries-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/102)
+# AboutLibraries [![Status](https://travis-ci.org/mikepenz/AboutLibraries.svg?branch=master)](https://travis-ci.org/mikepenz/AboutLibraries) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.mikepenz/aboutlibraries/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/com.mikepenz/aboutlibraries) [![Android Arsenal](http://img.shields.io/badge/Android%20Arsenal-AboutLibraries-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/102)
 
 [![Join the chat at https://gitter.im/mikepenz/AboutLibraries](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/mikepenz/AboutLibraries?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
@@ -14,65 +14,63 @@ Here's a quick overview of functions it include:
 - feature rich builder to simply create and start the fragment / activity
 - much much more... try the sample for a quick overview.
 
-#Motivation
+# Motivation
 
 Most modern apps feature an "Used Library"-section and for this some information of those libs is required. As it gets annoying to copy those strings always to your app I've developed this small helper library to provide the required information.
 
-#Migration
+# Migration
 - [MIGRATION GUIDE](https://github.com/mikepenz/AboutLibraries/blob/develop/MIGRATION.md)
 
-#Get started
+# Get started
 - [Include in your project](#include-in-your-project)
 - [Usage](#usage)
 - [Contribute](#contribute)
 
-#More...
+# More...
 - [Sample (Google Play Store)](https://play.google.com/store/apps/details?id=com.mikepenz.aboutlibraries.sample)
 - [Create new definition files](http://def-builder.mikepenz.com/)
 - [Get detailed instructions in the wiki](https://github.com/mikepenz/AboutLibraries/wiki)
 - [Compatible/included libs](https://github.com/mikepenz/AboutLibraries/wiki/Compatible-Libs)
 
 
-#Screenshots
+# Screenshots
 ![Image](https://raw.githubusercontent.com/mikepenz/AboutLibraries/master/DEV/screenshots/screenshot1_small.png)
 ![Image](https://raw.githubusercontent.com/mikepenz/AboutLibraries/master/DEV/screenshots/screenshot2_small.png)
 
 
-#Wiki
+# Wiki
 You can find anything you search for in the wiki. (If not open an issue)
 
 [Bring me to the wiki](https://github.com/mikepenz/AboutLibraries/wiki)
 
 
-##Include in your project
-###Using Maven
+## Include in your project
+### Using Maven
 The AboutLibraries Library is pushed to [Maven Central](http://search.maven.org/#search|ga|1|g%3A%22com.mikepenz%22), so you just need to add the following dependency to your `build.gradle`. It seems it is also required to add the support dependencies to the application. If it works without, you should be fine too :).
 
 ```javascript
-compile('com.mikepenz:aboutlibraries:5.9.4@aar') {
+compile('com.mikepenz:aboutlibraries:5.9.5@aar') {
 	transitive = true
 }
 ```
 
-Further information and how to use it if you can't update to the newest v21 support libs can be found in the [wiki](https://github.com/mikepenz/AboutLibraries/wiki/HOWTO:-Include)
+Further information and how to use it if you can't update to the newest support libs can be found in the [wiki](https://github.com/mikepenz/AboutLibraries/wiki/HOWTO:-Include)
 
-##Usage
+## Usage
 You can use this library in a few different ways. You can create your own activity, including a custom style and just use the information, or you can use the built-in Activity or Fragment and just pass the libs you would love to include.
 
-###Upgrade Notes
-#### < v5.0.0
-Changed maven group. You can get all updates via the new one `com.mikepenz:aboutlibraries:5.y.z@aar`
-The `Libs.Builder` is no more. It was changed to `LibsBuilder`. Just remove the "." and it is working again.
+### Upgrade Notes
+> If you upgrade from < 5.9.5 follow the [MIGRATION GUIDE](https://github.com/mikepenz/AboutLibraries/blob/develop/MIGRATION.md)
 
-###Activity / Fragment
-####Fragment
+### Activity / Fragment
+#### Fragment
 ```java
 LibsFragment fragment = new LibsBuilder()
         //get the fragment
         .fragment();
 ```
-####Activity
-#####Code:
+#### Activity
+##### Code:
 ```java
 new LibsBuilder()
         //provide a style (optional) (LIGHT, DARK, LIGHT_DARK_TOOLBAR)
@@ -81,7 +79,7 @@ new LibsBuilder()
         .start(this);
 ```
 
-##Small extra
+## Small extra
 For those who read the whole README here's one more thing.
 You can also use the AboutLibraries activity as an "about this app" screen. You ask how?
 Yeah pretty simple just add the following .xml file (or just the strings - the key must be the same) to your project.
@@ -101,7 +99,7 @@ or use the builder and add following:
 
 ```
 
-##ProGuard
+## ProGuard
 Exclude `R` from ProGuard to enable the library auto detection
 ```proguard
 -keep class .R
@@ -110,11 +108,11 @@ Exclude `R` from ProGuard to enable the library auto detection
 }
 ```
 
-##Contribute
+## Contribute
 You can contribute by creating a information file for a new library, and open a pull-request at the creators Git repository. If he doesn't include the information file in his repo, or if the library isn't maintained anymore you can create a pull-request here. Find more information in the wiki [Create a definition file](https://github.com/mikepenz/AboutLibraries/wiki/HOWTODEV:-Include-into-AboutLibraries)
 
 
-##Already in use in following apps
+## Already in use in following apps
 (feel free to send me new projects)
 
 * [wallsplash](https://play.google.com/store/apps/details?id=com.mikepenz.unsplash)
@@ -140,14 +138,21 @@ You can contribute by creating a information file for a new library, and open a 
 * [Calendula](https://play.google.com/store/apps/details?id=es.usc.citius.servando.calendula)
 * [Drinking Games](https://play.google.com/store/apps/details?id=com.drinkinggames.android)
 * [Recipedia](https://play.google.com/store/apps/details?id=com.md.recipedia)
+* [Ordkamp FREE](https://play.google.com/store/apps/details?id=com.betapet.mobile.dk.free)
+* [Ordkamp](https://play.google.com/store/apps/details?id=com.betapet.mobile.dk.full)
+* [Ordspill GRATIS](https://play.google.com/store/apps/details?id=com.ap.ordspill.free)
+* [Ordspill](https://play.google.com/store/apps/details?id=com.ap.ordspill.full)
+* [Betapet FREE](https://play.google.com/store/apps/details?id=com.betapet.mobile.se.free)
+* [Betapet](https://play.google.com/store/apps/details?id=com.betapet.mobile.se.full)
+* [Contact Lenses Time](https://play.google.com/store/apps/details?id=com.brando.lenti)
 
-#Developed By
+# Developed By
 
 * Mike Penz 
  * [mikepenz.com](http://mikepenz.com) - <mikepenz@gmail.com>
  * [paypal.me/mikepenz](http://paypal.me/mikepenz)
 
-#License
+# License
 
     Copyright 2016 Mike Penz
 
