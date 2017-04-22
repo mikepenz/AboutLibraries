@@ -145,6 +145,7 @@ You can contribute by creating a information file for a new library, and open a 
 * [Betapet FREE](https://play.google.com/store/apps/details?id=com.betapet.mobile.se.free)
 * [Betapet](https://play.google.com/store/apps/details?id=com.betapet.mobile.se.full)
 * [Contact Lenses Time](https://play.google.com/store/apps/details?id=com.brando.lenti)
+* [HTTP Shortcuts](https://github.com/Waboodoo/HTTP-Shortcuts)
 
 # Developed By
 
