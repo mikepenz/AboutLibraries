@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_vntfontlistpreference">year;owner</string>
+    <string name="library_vntfontlistpreference_author">Niklas Baudy</string>
+    <string name="library_vntfontlistpreference_libraryName">VNTFontListPreference</string>
+    <string name="library_vntfontlistpreference_libraryDescription">This is an easy to use custom preference, which opens a dialog with a list of available fonts. The selected font gets automatically saved and you are able to set the font directory as well as the defaultValue.</string>
+    <string name="library_vntfontlistpreference_libraryVersion">0.1.3</string>
+    <string name="library_vntfontlistpreference_libraryWebsite">https://github.com/vanniktech/VNTFontListPreference</string>
+    <string name="library_vntfontlistpreference_licenseId">apache_2_0</string>
+    <string name="library_vntfontlistpreference_isOpenSource">true</string>
+    <string name="library_vntfontlistpreference_repositoryLink">https://github.com/vanniktech/VNTFontListPreference</string>
+    <string name="library_vntfontlistpreference_classPath">com.vanniktech.vntfontlistpreference.VNTFontListPreference</string>
+    <!-- Custom variables section -->
+    <string name="library_vntfontlistpreference_owner">Niklas Baudy</string>
+    <string name="library_vntfontlistpreference_year">2015</string>
+</resources>
