@@ -28,8 +28,6 @@ import java.util.List;
  * Created by mikepenz on 28.12.15.
  */
 public class HeaderItem extends AbstractItem<HeaderItem, HeaderItem.ViewHolder> {
-    private RippleForegroundListener rippleForegroundListener = new RippleForegroundListener(R.id.rippleForegroundListenerView);
-
     private Integer aboutVersionCode;
     private String aboutVersionName;
     private Drawable aboutIcon;
