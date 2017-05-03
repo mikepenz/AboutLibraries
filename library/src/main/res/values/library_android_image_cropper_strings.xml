@@ -9,7 +9,7 @@
 	<string name="library_android_image_cropper_libraryName">Android Image Cropper</string>
 	<string name="library_android_image_cropper_libraryDescription">Image Cropping Library for Android, optimized for Camera / Gallery.</string>
 	<string name="library_android_image_cropper_libraryWebsite">https://github.com/ArthurHub/Android-Image-Cropper</string>
-	<string name="library_android_image_cropper_libraryVersion">2.3.1</string>
+	<string name="library_android_image_cropper_libraryVersion">2.4.3</string>
 	<!-- OpenSource section -->
 	<string name="library_android_image_cropper_isOpenSource">true</string>
 	<string name="library_android_image_cropper_repositoryLink">https://github.com/ArthurHub/Android-Image-Cropper</string>
