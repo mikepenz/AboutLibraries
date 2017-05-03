@@ -183,7 +183,7 @@ public class LibraryItem extends AbstractItem<LibraryItem, LibraryItem.ViewHolde
             holder.libraryDescription.setOnLongClickListener(null);
         }
 
-        if (library.getLicense() != null && !TextUtils.isEmpty((library.getLicense().getLicenseWebsite()))) {
+        if (library.getLicense() != null && (!TextUtils.isEmpty(library.getLicense().getLicenseWebsite()) || libsBuilder.showLicenseDialog)) {
             holder.libraryBottomContainer.setOnTouchListener(rippleForegroundListener);
             holder.libraryBottomContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
