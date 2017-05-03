@@ -9,16 +9,16 @@
     <string name="library_glide_libraryName">Glide</string>
     <string name="library_glide_libraryDescription">Glide is a fast and efficient open source media management and image loading framework for Android that wraps media decoding, memory and disk caching, and resource pooling into a simple and easy to use interface.</string>
     <string name="library_glide_libraryWebsite">https://github.com/bumptech/glide</string>
-    <string name="library_glide_libraryVersion">3.6.1</string>
+    <string name="library_glide_libraryVersion">3.7.0</string>
     <!-- OpenSource section -->
     <string name="library_glide_isOpenSource">true</string>
     <string name="library_glide_repositoryLink">https://github.com/bumptech/glide</string>
     <!-- ClassPath for autoDetect section -->
     <string name="library_glide_classPath">com.bumptech.glide.Glide</string>
     <!-- License section -->
-    <string name="libray_glide_licenseVersion">Glide License</string>
-    <string name="libray_glide_licenseLink">https://github.com/bumptech/glide/blob/master/LICENSE</string>
-	<string name="libray_glide_licenseContent">License for everything not in third_party and not otherwise marked:
+    <string name="library_glide_licenseVersion">Glide License</string>
+    <string name="library_glide_licenseLink">https://github.com/bumptech/glide/blob/master/LICENSE</string>
+	<string name="library_glide_licenseContent">License for everything not in third_party and not otherwise marked:
 
 Copyright 2014 Google, Inc. All rights reserved.
 
