@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-	<string name="define_int_rxandroid"></string>
+	<string name="define_int_rxandroid">year;owner</string>
 	<!-- Author section -->
 	<string name="library_rxandroid_author">ReactiveX</string>
 	<string name="library_rxandroid_authorWebsite">http://reactivex.io/</string>
@@ -18,4 +18,6 @@
 	<!-- License section -->
 	<string name="library_rxandroid_licenseId">apache_2_0</string>
 	<!-- Custom variables section -->
+    <string name="library_rxandroid_owner">The RxAndroid Authors</string>
+    <string name="library_rxandroid_year">2015</string>
 </resources>
