@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-	<string name="define_int_rxjava"></string>
+	<string name="define_int_rxjava">year;owner</string>
 	<!-- Author section -->
 	<string name="library_rxjava_author">ReactiveX</string>
 	<string name="library_rxjava_authorWebsite">http://reactivex.io/</string>
@@ -18,4 +18,6 @@
 	<!-- License section -->
 	<string name="library_rxjava_licenseId">apache_2_0</string>
 	<!-- Custom variables section -->
+    <string name="library_rxjava_owner">RxJava Contributors</string>
+    <string name="library_rxjava_year">2016-present</string>
 </resources>

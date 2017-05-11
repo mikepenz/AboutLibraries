@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <string name="define_int_support_v4"></string>
+    <string name="define_int_support_v4">year;owner</string>
     <!-- Author section -->
     <string name="library_support_v4_author">AOSP</string>
     <string name="library_support_v4_authorWebsite">https://source.android.com/</string>
@@ -18,4 +18,6 @@
     <!-- License section -->
     <string name="library_support_v4_licenseId">apache_2_0</string>
     <!-- Custom variables section -->
+    <string name="library_support_v4_owner">The Android Open Source Project</string>
+    <string name="library_support_v4_year">2011</string>
 </resources>
