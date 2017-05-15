@@ -12,7 +12,9 @@
     <string name="library_GooglePlayServices_licenseId">apache_2_0</string>
     <string name="library_GooglePlayServices_isOpenSource">false</string>
     <string name="library_GooglePlayServices_repositoryLink"></string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_GooglePlayServices_classPath">com.google.android.gms.common.GooglePlayServicesUtil</string>
     <!-- Custom variables section -->
     <string name="library_GooglePlayServices_owner">AOSP</string>
     <string name="library_GooglePlayServices_year">2015</string>
-</resources> 
+</resources>

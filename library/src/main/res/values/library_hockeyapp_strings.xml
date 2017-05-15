@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_hockeyapp">year;owner</string>
+    <!-- Author section -->
+    <string name="library_hockeyapp_author">Microsoft Corporation</string>
+    <string name="library_hockeyapp_authorWebsite">https://www.microsoft.com</string>
+    <!-- Library section -->
+    <string name="library_hockeyapp_libraryName">HockeySDK</string>
+    <string name="library_hockeyapp_libraryDescription">Service for mobile crash analytics and app distribution</string>
+    <string name="library_hockeyapp_libraryWebsite">https://hockeyapp.net</string>
+    <string name="library_hockeyapp_libraryVersion">4.0.0</string>
+    <!-- OpenSource section -->
+    <string name="library_hockeyapp_isOpenSource">true</string>
+    <string name="library_hockeyapp_repositoryLink"></string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_hockeyapp_classPath">net.hockeyapp.android.BuildConfig</string>
+    <!-- License section -->
+    <string name="library_hockeyapp_licenseId">mit</string>
+    <!-- Custom variables section -->
+    <string name="library_hockeyapp_year">2013</string>
+    <string name="library_hockeyapp_owner">Microsoft Corporation</string>
+</resources>

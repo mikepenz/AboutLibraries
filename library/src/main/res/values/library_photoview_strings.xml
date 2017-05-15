@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-	<string name="define_int_photoview"></string>
+	<string name="define_int_photoview">year;owner</string>
 	<!-- Author section -->
 	<string name="library_photoview_author">Chris Banes</string>
 	<string name="library_photoview_authorWebsite">http://chris.banes.me/</string>
@@ -14,8 +14,10 @@
 	<string name="library_photoview_isOpenSource">true</string>
 	<string name="library_photoview_repositoryLink">https://github.com/chrisbanes/PhotoView</string>
 	<!-- ClassPath for autoDetect section -->
-	<string name="library_photoview_classPath">com.github.chrisbanes.PhotoView</string>
+	<string name="library_photoview_classPath">uk.co.senab.photoview.BuildConfig</string>
 	<!-- License section -->
 	<string name="library_photoview_licenseId">apache_2_0</string>
 	<!-- Custom variables section -->
+    <string name="library_photoview_year">2017</string>
+    <string name="library_photoview_owner">Chris Banes</string>
 </resources>
