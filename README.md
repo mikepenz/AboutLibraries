@@ -78,6 +78,11 @@ new LibsBuilder()
         //start the activity
         .start(this);
 ```
+#####AndroidManifest:
+```xml
+<activity android:name="com.mikepenz.aboutlibraries.ui.LibsActivity"/>
+```
+
 
 ## Small extra
 For those who read the whole README here's one more thing.
