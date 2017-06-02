@@ -67,8 +67,8 @@ public class FragmentActivity extends AppCompatActivity {
                             startActivity(intent);
                         } else if (id == R.id.action_manifestactivity) {
                             new LibsBuilder()
-                                    .withLibraries("crouton, actionbarsherlock", "showcaseview")
-                                    .withAutoDetect(true)
+                                    .withLibraries("crouton", "actionbarsherlock", "showcaseview", "android_job")
+                                    .withAutoDetect(false)
                                     .withLicenseShown(true)
                                     .withVersionShown(true)
                                     .withActivityTitle("Open Source")
