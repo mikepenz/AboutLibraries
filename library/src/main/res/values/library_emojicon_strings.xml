@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_emojicon" />
+	<!-- Author section -->
+	<string name="library_emojicon_author">Hieu Rocker</string>
+	<string name="library_emojicon_authorWebsite">https://github.com/rockerhieu</string>
+	<!-- Library section -->
+	<string name="library_emojicon_libraryName">emojicon</string>
+	<string name="library_emojicon_libraryDescription">A library to show emoji in TextView, EditText (like WhatsApp) for Android</string>
+	<string name="library_emojicon_libraryWebsite" />
+	<string name="library_emojicon_libraryVersion">1.4.2</string>
+	<!-- OpenSource section -->
+	<string name="library_emojicon_isOpenSource">true</string>
+	<string name="library_emojicon_repositoryLink">https://github.com/yigit/android-priority-jobqueue</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_emojicon_classPath">io.github.rockerhieu:emojicon</string>
+	<!-- License section -->
+	<string name="library_emojicon_licenseId">apache_2_0</string>
+	<!-- Custom variables section -->
+</resources>

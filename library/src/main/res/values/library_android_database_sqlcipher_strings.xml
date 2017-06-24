@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_android_database_sqlcipher" />
+	<!-- Author section -->
+	<string name="library_android_database_sqlcipher_author">SQLCipher</string>
+	<string name="library_android_database_sqlcipher_authorWebsite"> http://sqlcipher.net</string>
+	<!-- Library section -->
+	<string name="library_android_database_sqlcipher_libraryName">android-database-sqlcipher</string>
+	<string name="library_android_database_sqlcipher_libraryDescription">Android SQLite API based on SQLCipher</string>
+	<string name="library_android_database_sqlcipher_libraryWebsite" />
+	<string name="library_android_database_sqlcipher_libraryVersion">1.4.2</string>
+	<!-- OpenSource section -->
+	<string name="library_android_database_sqlcipher_isOpenSource">true</string>
+	<string name="library_android_database_sqlcipher_repositoryLink">https://github.com/sqlcipher/android-database-sqlcipher</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_android_database_sqlcipher_classPath">net.zetetic:android-database-sqlcipher</string>
+	<!-- License section -->
+	<string name="library_android_database_sqlcipher_licenseId">bsd_3</string>
+	<!-- Custom variables section -->
+</resources>

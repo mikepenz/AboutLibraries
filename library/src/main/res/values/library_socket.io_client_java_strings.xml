@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    	<string name="define_int_socket.io_client_java" />
+	<!-- Author section -->
+	<string name="library_socket.io_client_java_author">socketio</string>
+	<string name="library_socket.io_client_java_authorWebsite">https://socket.io</string>
+	<!-- Library section -->
+	<string name="library_socket.io_client_java_libraryName">socket.io-client-java</string>
+	<string name="library_socket.io_client_java_libraryDescription">Full-featured Socket.IO Client Library for Java, which is compatible with Socket.IO v1.0 and later.</string>
+	<string name="library_socket.io_client_java_libraryWebsite" />
+	<string name="library_socket.io_client_java_libraryVersion">0.8.3</string>
+	<!-- OpenSource section -->
+	<string name="library_socket.io_client_java_isOpenSource">true</string>
+	<string name="library_socket.io_client_java_repositoryLink">https://github.com/socketio/socket.io-client-java</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_socket.io_client_java_classPath">io.socket:socket.io-client</string>
+	<!-- License section -->
+	<string name="library_socket.io_client_java_licenseId">mit</string>
+	<!-- Custom variables section -->
+</resources>
