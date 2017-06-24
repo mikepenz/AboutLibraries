@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_android_priority_jobqueue" />
+	<!-- Author section -->
+	<string name="library_android_priority_jobqueue_author">Yigit Boyar</string>
+	<string name="library_android_priority_jobqueue_authorWebsite">https://github.com/yigit</string>
+	<!-- Library section -->
+	<string name="library_android_priority_jobqueue_libraryName">android-priority-jobqueue</string>
+	<string name="library_android_priority_jobqueue_libraryDescription">A Job Queue specifically written for Android to easily schedule jobs (tasks) that run in the background, improving UX and application stability.</string>
+	<string name="library_android_priority_jobqueue_libraryWebsite" />
+	<string name="library_android_priority_jobqueue_libraryVersion">2.0.1</string>
+	<!-- OpenSource section -->
+	<string name="library_android_priority_jobqueue_isOpenSource">true</string>
+	<string name="library_android_priority_jobqueue_repositoryLink">https://github.com/yigit/android-priority-jobqueue</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_android_priority_jobqueue_classPath">com.birbit:android-priority-jobqueue</string>
+	<!-- License section -->
+	<string name="library_android_priority_jobqueue_licenseId">mit</string>
+	<!-- Custom variables section -->
+</resources>
