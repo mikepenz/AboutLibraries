@@ -16,7 +16,7 @@ Here's a quick overview of functions it include:
 
 # Motivation
 
-Most modern apps feature an "Used Library"-section and for this some information of those libs is required. As it gets annoying to copy those strings always to your app I've developed this small helper library to provide the required information.
+Most modern apps feature a "Used Library"-section, which requires information about those respective libs. As it gets annoying to always copy those strings to your app, I've developed this small helper library to provide the required information.
 
 # Migration
 - [MIGRATION GUIDE](https://github.com/mikepenz/AboutLibraries/blob/develop/MIGRATION.md)
@@ -155,7 +155,7 @@ You can contribute by creating a information file for a new library, and open a 
 
 # License
 
-    Copyright 2016 Mike Penz
+    Copyright 2017 Mike Penz
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
