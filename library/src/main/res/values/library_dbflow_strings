@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_int_dbflow"></string>
+	<!-- Author section -->
+	<string name="library_dbflow_author">Raizlabs</string>
+	<string name="library_dbflow_authorWebsite">https://www.raizlabs.com/</string>
+	<!-- Library section -->
+	<string name="library_dbflow_libraryName">DbFlow</string>
+	<string name="library_dbflow_libraryDescription">A robust, powerful, and very simple ORM android database library with annotation processing.</string>
+	<string name="library_dbflow_libraryWebsite">https://github.com/Raizlabs/DBFlow</string>
+	<string name="library_dbflow_libraryVersion">4.0.4</string>
+	<!-- OpenSource section -->
+	<string name="library_dbflow_isOpenSource">true</string>
+	<string name="library_dbflow_repositoryLink">https://github.com/Raizlabs/DBFlow</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_dbflow_classPath">com.raizlabs.android.dbflow</string>
+	<!-- License section -->
+	<string name="library_dbflow_licenseId">mit</string>
+	<!-- Custom variables section -->
+</resources>
