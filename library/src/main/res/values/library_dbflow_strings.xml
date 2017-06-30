@@ -7,7 +7,14 @@
 	<string name="library_dbflow_authorWebsite">https://www.raizlabs.com/</string>
 	<!-- Library section -->
 	<string name="library_dbflow_libraryName">DbFlow</string>
-	<string name="library_dbflow_libraryDescription">A robust, powerful, and very simple ORM android database library with annotation processing.</string>
+    	<string name="library_dbflow_libraryDescription">
+		<![CDATA[
+		A robust, powerful, and very simple ORM android database library with <b>annotation processing</b>.
+		<br/><br/>
+		The library is built on speed, performance, and approachability. It not only eliminates most boiler-plate code for dealing with databases, but also provides a powerful and simple API to manage interactions.
+		Let DBFlow make SQL code <i>flow</i> like a steady stream so you can focus on writing amazing apps.
+		]]>
+    	</string>
 	<string name="library_dbflow_libraryWebsite">https://github.com/Raizlabs/DBFlow</string>
 	<string name="library_dbflow_libraryVersion">4.0.4</string>
 	<!-- OpenSource section -->
