@@ -100,13 +100,22 @@ or use the builder and add following:
 ```
 
 ## ProGuard
-Exclude `R` from ProGuard to enable the library auto detection
+Exclude `R` from ProGuard to enable the **libraries auto detection**
 ```proguard
 -keep class .R
 -keep class **.R$* {
     <fields>;
 }
 ```
+
+In case you want to minimize your resources as much as possible use the following rules (Thanks to @rubengees and @AllanWang as discussed here: https://github.com/mikepenz/AboutLibraries/issues/331)
+```proguard
+-keepclasseswithmembers class **.R$* {
+    public static final int define_*;
+}
+```
+These rules **will** require you to add the libraries manually. (see more in the above linked issue)
+
 
 ## Contribute
 You can contribute by creating a information file for a new library, and open a pull-request at the creators Git repository. If he doesn't include the information file in his repo, or if the library isn't maintained anymore you can create a pull-request here. Find more information in the wiki [Create a definition file](https://github.com/mikepenz/AboutLibraries/wiki/HOWTODEV:-Include-into-AboutLibraries)
