@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_int_flexboxlayout"></string>
+	<!-- Author section -->
+	<string name="library_flexboxlayout_author">Google</string>
+	<string name="library_flexboxlayout_authorWebsite">https://google.com/</string>
+	<!-- Library section -->
+	<string name="library_flexboxlayout_libraryName">FlexboxLayout</string>
+	<string name="library_flexboxlayout_libraryDescription">FlexboxLayout is a library project which brings the similar capabilities of CSS Flexible Box Layout Module to Android.</string>
+	<string name="library_flexboxlayout_libraryWebsite">https://github.com/google/flexbox-layout</string>
+	<string name="library_flexboxlayout_libraryVersion">0.3.0</string>
+	<!-- OpenSource section -->
+	<string name="library_flexboxlayout_isOpenSource">true</string>
+	<string name="library_flexboxlayout_repositoryLink">https://github.com/google/flexbox-layout</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_flexboxlayout_classPath">com.google.android.flexbox.FlexboxLayout</string>
+	<!-- License section -->
+	<string name="library_flexboxlayout_licenseId">apache_2_0</string>
+	<!-- Custom variables section -->
+</resources>
