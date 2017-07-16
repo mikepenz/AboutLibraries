@@ -6,7 +6,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -82,9 +81,9 @@ public class LibsFragmentCompat {
         }
 
         if (builder != null) {
-            mAdapter = new FastAdapter();
             mItemAdapter = new ItemAdapter();
-            mRecyclerView.setAdapter(mItemAdapter.wrap(mAdapter));
+            mAdapter = FastAdapter.with(mItemAdapter);
+            mRecyclerView.setAdapter(mAdapter);
 
             if (builder.showLoadingProgress) {
                 mItemAdapter.add(new LoaderItem());
