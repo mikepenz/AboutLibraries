@@ -1,0 +1,9 @@
+title: AboutLibraries
+description: AboutLibraries is a library to offer some information of libraries.
+show_downloads: true
+theme: jekyll-theme-minimal
+
+gems:
+  - jekyll-mentions
+  - jekyll-readme-index
+Contact GitHub API Training Shop Blog About

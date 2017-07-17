@@ -16,7 +16,7 @@ Here's a quick overview of functions it include:
 
 # Motivation
 
-Most modern apps feature an "Used Library"-section and for this some information of those libs is required. As it gets annoying to copy those strings always to your app I've developed this small helper library to provide the required information.
+Most modern apps feature a "Used Library"-section, which requires information about those respective libs. As it gets annoying to always copy those strings to your app, I've developed this small helper library to provide the required information.
 
 # Migration
 - [MIGRATION GUIDE](https://github.com/mikepenz/AboutLibraries/blob/develop/MIGRATION.md)
@@ -49,7 +49,7 @@ You can find anything you search for in the wiki. (If not open an issue)
 The AboutLibraries Library is pushed to [Maven Central](http://search.maven.org/#search|ga|1|g%3A%22com.mikepenz%22), so you just need to add the following dependency to your `build.gradle`. It seems it is also required to add the support dependencies to the application. If it works without, you should be fine too :).
 
 ```javascript
-compile('com.mikepenz:aboutlibraries:5.9.6@aar') {
+compile('com.mikepenz:aboutlibraries:5.9.7@aar') {
 	transitive = true
 }
 ```
@@ -100,13 +100,22 @@ or use the builder and add following:
 ```
 
 ## ProGuard
-Exclude `R` from ProGuard to enable the library auto detection
+Exclude `R` from ProGuard to enable the **libraries auto detection**
 ```proguard
 -keep class .R
 -keep class **.R$* {
     <fields>;
 }
 ```
+
+In case you want to minimize your resources as much as possible use the following rules (Thanks to @rubengees and @AllanWang as discussed here: https://github.com/mikepenz/AboutLibraries/issues/331)
+```proguard
+-keepclasseswithmembers class **.R$* {
+    public static final int define_*;
+}
+```
+These rules **will** require you to add the libraries manually. (see more in the above linked issue)
+
 
 ## Contribute
 You can contribute by creating a information file for a new library, and open a pull-request at the creators Git repository. If he doesn't include the information file in his repo, or if the library isn't maintained anymore you can create a pull-request here. Find more information in the wiki [Create a definition file](https://github.com/mikepenz/AboutLibraries/wiki/HOWTODEV:-Include-into-AboutLibraries)
@@ -146,6 +155,8 @@ You can contribute by creating a information file for a new library, and open a 
 * [Betapet](https://play.google.com/store/apps/details?id=com.betapet.mobile.se.full)
 * [Contact Lenses Time](https://play.google.com/store/apps/details?id=com.brando.lenti)
 * [HTTP Shortcuts](https://github.com/Waboodoo/HTTP-Shortcuts)
+* [KAU (library)](https://allanwang.github.io/KAU/about/)
+* [Frost for Facebook](https://play.google.com/store/apps/details?id=com.pitchedapps.frost)
 
 # Developed By
 
@@ -155,7 +166,7 @@ You can contribute by creating a information file for a new library, and open a 
 
 # License
 
-    Copyright 2016 Mike Penz
+    Copyright 2017 Mike Penz
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
