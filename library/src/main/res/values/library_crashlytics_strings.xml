@@ -6,6 +6,7 @@
 	<string name="library_Crashlytics_classPath">com.crashlytics.android.Crashlytics</string>
 	<string name="library_Crashlytics_libraryName">Crashlytics</string>
 	<string name="library_Crashlytics_libraryDescription">The Crashlytics Kit for Android provides simple APIs for reporting crashes.</string>
+	<string name="library_Crashlytics_libraryVersion">2.6.8</string>
 	<string name="library_Crashlytics_libraryWebsite">https://www.fabric.io/</string>
 	<string name="library_Crashlytics_licenseId">apache_2_0</string>
 	<string name="library_Crashlytics_isOpenSource">false</string>
