@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="define_int_ThirtyInch">year;owner</string>
+	<string name="library_ThirtyInch_author">grandcentrix</string>
+	<string name="library_ThirtyInch_authorWebsite">https://www.grandcentrix.net/</string>
+	<string name="library_ThirtyInch_classPath">net.grandcentrix.thirtyinch.TiPresenter</string>
+	<string name="library_ThirtyInch_libraryName">ThirtyInch</string>
+	<string name="library_ThirtyInch_libraryDescription">A MVP library for Android favoring a stateful Presenter.</string>
+	<string name="library_ThirtyInch_libraryVersion">0.8.0</string>
+	<string name="library_ThirtyInch_libraryWebsite">https://github.com/grandcentrix/ThirtyInch</string>
+	<string name="library_ThirtyInch_licenseId">apache_2_0</string>
+	<string name="library_ThirtyInch_isOpenSource">true</string>
+	<string name="library_ThirtyInch_repositoryLink">https://github.com/grandcentrix/ThirtyInch</string>
+	<!-- Custom variables section -->
+	<string name="library_ThirtyInch_owner">grandcentrix</string>
+	<string name="library_ThirtyInch_year">2016</string>
+</resources> 
