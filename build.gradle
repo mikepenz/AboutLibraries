@@ -2,10 +2,11 @@
 
 buildscript {
     repositories {
+        google()
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.2'
+        classpath 'com.android.tools.build:gradle:3.0.0-alpha6'
         classpath 'com.novoda:bintray-release:0.5.0'
     }
 }
@@ -13,11 +14,12 @@ buildscript {
 ext {
     compileSdkVersion = 25
     buildToolsVersion = "25.0.2"
-    supportLibVersion = "25.3.1"
+    supportLibVersion = "25.4.0"
 }
 
 allprojects {
     repositories {
+        google()
         jcenter()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         flatDir { dirs 'libs' }

@@ -1,4 +1,9 @@
 ### Upgrade Notes
+#### v5.9.7
+**IMPORTANT IF YOU USE THE Android-Iconics**
+* You have to update your Android-Iconics dependency to v2.9.0 with this release
+* See the MIGRATION information of the Android-Iconics https://github.com/mikepenz/Android-Iconics/blob/develop/MIGRATION.md#290
+
 #### v5.9.5
 **IMPORTANT IF YOU USE THE FASTADAPTER OR MATERIALDRAWER**
 * You have to update your FastAdapter dependency to v2.5.0 with this release
