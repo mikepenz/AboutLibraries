@@ -16,7 +16,7 @@
 		]]>
     	</string>
 	<string name="library_dbflow_libraryWebsite">https://github.com/Raizlabs/DBFlow</string>
-	<string name="library_dbflow_libraryVersion">4.0.4</string>
+	<string name="library_dbflow_libraryVersion">4.0.5</string>
 	<!-- OpenSource section -->
 	<string name="library_dbflow_isOpenSource">true</string>
 	<string name="library_dbflow_repositoryLink">https://github.com/Raizlabs/DBFlow</string>
