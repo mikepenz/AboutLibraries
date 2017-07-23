@@ -9,7 +9,7 @@
 	<string name="library_androidin_appbillingv3_libraryName">Android In-App Billing v3</string>
 	<string name="library_androidin_appbillingv3_libraryDescription">This is a simple, straight-forward implementation of the Android v3 In-app billing API.  It supports: In-App Product Purchases (both non-consumable and consumable) and Subscriptions.</string>
 	<string name="library_androidin_appbillingv3_libraryWebsite"></string>
-	<string name="library_androidin_appbillingv3_libraryVersion">1.0.26</string>
+	<string name="library_androidin_appbillingv3_libraryVersion">1.0.42</string>
 	<!-- OpenSource section -->
 	<string name="library_androidin_appbillingv3_isOpenSource">true</string>
 	<string name="library_androidin_appbillingv3_repositoryLink">https://github.com/anjlab/android-inapp-billing-v3</string>
