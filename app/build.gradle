@@ -45,27 +45,25 @@ android {
 }
 
 dependencies {
-    compile project(':library')
+    implementation project(':library')
 
     // used to base on some backwards compatible themes
     // contains util classes to support various android versions, and clean up code
     // comes with the awesome "Holder"-Pattern
     // https://github.com/mikepenz/Materialize
-    compile 'com.mikepenz:materialize:1.0.3@aar'
+    implementation 'com.mikepenz:materialize:1.0.3@aar'
 
     //used to generate the drawer on the left
     //https://github.com/mikepenz/MaterialDrawer
-    compile('com.mikepenz:materialdrawer:5.9.5@aar') {
+    implementation('com.mikepenz:materialdrawer:5.9.5@aar') {
         transitive = true
-        exclude module: "fastadapter"
-        exclude module: "iconics-core"
     }
 
     //used to provide different itemAnimators for the RecyclerView
     //https://github.com/mikepenz/ItemAnimators
-    compile 'com.mikepenz:itemanimators:1.0.0@aar'
+    implementation 'com.mikepenz:itemanimators:1.0.0@aar'
 
     //used to display the icons in the drawer
     //https://github.com/mikepenz/Android-Iconics
-    compile 'com.mikepenz:material-design-iconic-typeface:2.2.0.3@aar'
+    implementation 'com.mikepenz:material-design-iconic-typeface:2.2.0.3@aar'
 }
