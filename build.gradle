@@ -12,9 +12,9 @@ buildscript {
 }
 
 ext {
-    compileSdkVersion = 25
-    buildToolsVersion = "25.0.2"
-    supportLibVersion = "25.4.0"
+    compileSdkVersion = 26
+    buildToolsVersion = "26.0.1"
+    supportLibVersion = "26.0.0"
 }
 
 allprojects {
