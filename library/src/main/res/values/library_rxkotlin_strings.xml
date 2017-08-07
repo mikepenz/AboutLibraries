@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_int_rxkotlin">year;owner</string>
+	<!-- Author section -->
+	<string name="library_rxkotlin_author">ReactiveX</string>
+	<string name="library_rxkotlin_authorWebsite">http://reactivex.io/</string>
+	<!-- Library section -->
+	<string name="library_rxkotlin_libraryName">RxKotlin</string>
+	<string name="library_rxkotlin_libraryDescription"><![CDATA[<b>RxKotlin</b> is a lightweight library that adds convenient extension functions to RxJava.]]></string>
+	<string name="library_rxkotlin_libraryWebsite">https://github.com/ReactiveX/RxKotlin</string>
+	<string name="library_rxkotlin_libraryVersion">2.1.0</string>
+	<!-- OpenSource section -->
+	<string name="library_rxkotlin_isOpenSource">true</string>
+	<string name="library_rxkotlin_repositoryLink">https://github.com/ReactiveX/RxKotlin</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_rxkotlin_classPath">io.reactivex.kotlin</string>
+	<!-- License section -->
+	<string name="library_rxkotlin_licenseId">apache_2_0</string>
+	<!-- Custom variables section -->
+    <string name="library_rxkotlin_owner">RxKotlin Contributors</string>
+    <string name="library_rxkotlin_year">2016-present</string>
+</resources>
