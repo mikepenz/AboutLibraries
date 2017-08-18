@@ -231,7 +231,7 @@ public class LibsConfiguration {
         boolean onLibraryBottomLongClicked(View v, Library library);
     }
 
-    public abstract class LibsRecyclerViewListenerImpl implements LibsRecyclerViewListener {
+    public static abstract class LibsRecyclerViewListenerImpl implements LibsRecyclerViewListener {
         @Override
         public void onBindViewHolder(HeaderItem.ViewHolder headerViewHolder) {
         }
@@ -241,7 +241,7 @@ public class LibsConfiguration {
         }
     }
 
-    public abstract class LibsListenerImpl implements LibsListener {
+    public static abstract class LibsListenerImpl implements LibsListener {
         @Override
         public void onIconClicked(View v) {
 
