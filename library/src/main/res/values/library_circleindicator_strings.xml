@@ -17,6 +17,6 @@
     <!-- License section -->
     <string name="library_circleindicator_licenseId">apache_2_0</string>
     <!-- Custom variables section -->
-    <string name="library_expandablerecyclerview_owner">relex</string>
-    <string name="library_expandablerecyclerview_year">2014</string>
+    <string name="library_circleindicator_owner">relex</string>
+    <string name="library_circleindicator_year">2014</string>
 </resources>
