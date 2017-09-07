@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-	<string name="define_int_mpandroidchart"></string>
+	<string name="define_int_mpandroidchart">year;owner</string>
 	<!-- Author section -->
 	<string name="library_mpandroidchart_author">PhilJay</string>
 	<string name="library_mpandroidchart_authorWebsite">https://github.com/PhilJay/MPAndroidChart</string>
@@ -18,4 +18,6 @@
 	<!-- License section -->
 	<string name="library_mpandroidchart_licenseId">apache_2_0</string>
 	<!-- Custom variables section -->
+    	<string name="library_mpandroidchart_owner">Philipp Jahoda</string>
+    	<string name="library_mpandroidchart_year">2016</string>
 </resources>
