@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="define_int_circleindicator"></string>
+    <string name="define_int_circleindicator">year;owner</string>
     <!-- Author section -->
     <string name="library_circleindicator_author">ongakuer</string>
     <string name="library_circleindicator_authorWebsite">http://relex.me/</string>
@@ -16,4 +16,7 @@
     <string name="library_circleindicator_classPath">me.relex.circleindicator.CircleIndicator</string>
     <!-- License section -->
     <string name="library_circleindicator_licenseId">apache_2_0</string>
+    <!-- Custom variables section -->
+    <string name="library_circleindicator_owner">relex</string>
+    <string name="library_circleindicator_year">2014</string>
 </resources>
