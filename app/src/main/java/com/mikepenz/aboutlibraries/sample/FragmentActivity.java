@@ -1,7 +1,6 @@
 package com.mikepenz.aboutlibraries.sample;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity;
 import com.mikepenz.aboutlibraries.LibTaskCallback;
 import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.aboutlibraries.LibsBuilder;
@@ -57,8 +57,11 @@ public class FragmentActivity extends AppCompatActivity {
 
                         long id = drawerItem.getIdentifier();
                         if (id == R.id.action_opensource) {
+                            startActivity(new Intent(FragmentActivity.this, OssLicensesMenuActivity.class));
+                            /*
                             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/mikepenz/AboutLibraries"));
                             startActivity(browserIntent);
+                            */
                         } else if (id == R.id.action_extendactivity) {
                             Intent intent = new Intent(getApplicationContext(), ExtendActivity.class);
                             startActivity(intent);

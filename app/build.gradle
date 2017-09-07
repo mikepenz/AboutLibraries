@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.oss.licenses.plugin'
 //wrap with try and catch so the build is working even if the signing stuff is missing
 try {
     apply from: '../../../signing.gradle'
@@ -46,6 +47,8 @@ android {
 
 dependencies {
     implementation project(':library')
+
+    implementation 'com.google.android.gms:play-services-oss-licenses:11.2.2'
 
     // used to base on some backwards compatible themes
     // contains util classes to support various android versions, and clean up code
