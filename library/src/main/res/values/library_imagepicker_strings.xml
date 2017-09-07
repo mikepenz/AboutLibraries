@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_int_imagepicker"></string>
+	<!-- Author section -->
+	<string name="library_imagepicker_author">Nguyen Hoang Lam</string>
+	<string name="library_imagepicker_authorWebsite">https://about.me/hoanglamvn90</string>
+	<!-- Library section -->
+	<string name="library_imagepicker_libraryName">ImagePicker</string>
+	<string name="library_imagepicker_libraryDescription">A simple library that allows you to select images from the device library or directly from the camera</string>
+	<string name="library_imagepicker_libraryWebsite">https://github.com/nguyenhoanglam/ImagePicker</string>
+	<string name="library_imagepicker_libraryVersion"></string>
+	<!-- OpenSource section -->
+	<string name="library_imagepicker_isOpenSource">true</string>
+	<string name="library_imagepicker_repositoryLink">https://github.com/nguyenhoanglam/ImagePicker</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_imagepicker_classPath">com.nguyenhoanglam.imagepicker.ui.imagepicker.ImagePicker</string>
+	<!-- License section -->
+	<string name="library_imagepicker_licenseId">apache_2_0</string>
+	<!-- Custom variables section -->
+</resources>
