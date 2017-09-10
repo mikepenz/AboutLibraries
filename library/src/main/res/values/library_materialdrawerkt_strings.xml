@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_materialdrawerkt">year;owner</string>
+    <string name="library_materialdrawerkt_author">zsmb13</string>
+    <string name="library_materialdrawerkt_authorWebsite">https://github.com/zsmb13</string>
+    <string name="library_materialdrawerkt_libraryName">MaterialDrawerKt</string>
+    <string name="library_materialdrawerkt_libraryDescription">A Kotlin DSL wrapper around the mikepenz/MaterialDrawer library.</string>
+    <string name="library_materialdrawerkt_libraryVersion">1.1.1</string>
+    <string name="library_materialdrawerkt_libraryWebsite">https://github.com/zsmb13/MaterialDrawerKt</string>
+    <string name="library_materialdrawerkt_licenseId">apache_2_0</string>
+    <string name="library_materialdrawerkt_isOpenSource">true</string>
+    <string name="library_materialdrawerkt_repositoryLink">https://github.com/zsmb13/MaterialDrawerKt</string>
+    <string name="library_materialdrawerkt_classPath">co.zsmb.materialdrawerkt.builders.DrawerBuilderKt</string>
+    <string name="library_materialdrawerkt_owner">Márton Braun</string>
+    <string name="library_materialdrawerkt_year">2017</string>
+</resources>
