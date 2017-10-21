@@ -157,6 +157,7 @@ You can contribute by creating a information file for a new library, and open a 
 * [HTTP Shortcuts](https://github.com/Waboodoo/HTTP-Shortcuts)
 * [KAU (library)](https://allanwang.github.io/KAU/about/)
 * [Frost for Facebook](https://play.google.com/store/apps/details?id=com.pitchedapps.frost)
+* [OneMeme: Meme Maker](https://play.google.com/store/apps/details?id=com.mememaker.android&hl)
 
 # Developed By
 
