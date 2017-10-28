@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 597
         versionName '5.9.7'
     }
