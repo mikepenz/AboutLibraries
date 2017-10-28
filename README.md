@@ -49,7 +49,7 @@ You can find anything you search for in the wiki. (If not open an issue)
 The AboutLibraries Library is pushed to [Maven Central](http://search.maven.org/#search|ga|1|g%3A%22com.mikepenz%22), so you just need to add the following dependency to your `build.gradle`. It seems it is also required to add the support dependencies to the application. If it works without, you should be fine too :).
 
 ```javascript
-compile('com.mikepenz:aboutlibraries:5.9.7@aar') {
+compile('com.mikepenz:aboutlibraries:5.9.8@aar') {
 	transitive = true
 }
 ```
@@ -128,7 +128,7 @@ You can contribute by creating a information file for a new library, and open a 
 * [Numbers](https://play.google.com/store/apps/details?id=com.tundem.numbersreloaded.free)
 * [MegaYatzy](https://play.google.com/store/apps/details?id=com.tundem.yatzyTJ)
 * [Sir Spellalot](https://play.google.com/store/apps/details?id=com.sirspellalot.app.android)
-* [TVShow Time](https://play.google.com/store/apps/details?id=com.tozelabs.tvshowtime)
+* [TV Time](https://play.google.com/store/apps/details?id=com.tozelabs.tvshowtime)
 * [Strength](https://play.google.com/store/apps/details?id=com.e13engineering.strength)
 * [Sprit Club](https://play.google.com/store/apps/details?id=at.idev.spritpreise)
 * [Hold'Em Poker Manager](https://play.google.com/store/apps/details?id=pt.massena.holdemtracker.free)
@@ -157,6 +157,7 @@ You can contribute by creating a information file for a new library, and open a 
 * [HTTP Shortcuts](https://github.com/Waboodoo/HTTP-Shortcuts)
 * [KAU (library)](https://allanwang.github.io/KAU/about/)
 * [Frost for Facebook](https://play.google.com/store/apps/details?id=com.pitchedapps.frost)
+* [OneMeme: Meme Maker](https://play.google.com/store/apps/details?id=com.mememaker.android&hl)
 
 # Developed By
 
