@@ -49,9 +49,14 @@ You can find anything you search for in the wiki. (If not open an issue)
 The AboutLibraries Library is pushed to [Maven Central](http://search.maven.org/#search|ga|1|g%3A%22com.mikepenz%22), so you just need to add the following dependency to your `build.gradle`. It seems it is also required to add the support dependencies to the application. If it works without, you should be fine too :).
 
 ```javascript
-compile('com.mikepenz:aboutlibraries:5.9.8@aar') {
+implementation('com.mikepenz:aboutlibraries:6.0.0@aar') {
 	transitive = true
 }
+
+//required support lib modules
+implementation "com.android.support:appcompat-v7:${versions.supportLib}"
+implementation "com.android.support:recyclerview-v7:${versions.supportLib}"
+implementation "com.android.support:support-annotations:${versions.supportLib}"
 ```
 
 Further information and how to use it if you can't update to the newest support libs can be found in the [wiki](https://github.com/mikepenz/AboutLibraries/wiki/HOWTO:-Include)
