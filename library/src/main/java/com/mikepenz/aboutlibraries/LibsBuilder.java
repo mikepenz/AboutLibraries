@@ -13,7 +13,6 @@ import com.mikepenz.aboutlibraries.ui.LibsFragment;
 import com.mikepenz.aboutlibraries.ui.LibsSupportFragment;
 import com.mikepenz.aboutlibraries.ui.item.LibraryItem;
 import com.mikepenz.aboutlibraries.util.Colors;
-import com.mikepenz.fastadapter.AbstractAdapter;
 import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.adapters.ItemAdapter;
 
@@ -500,7 +499,7 @@ public class LibsBuilder implements Serializable {
      * @param context the current context
      * @return a LibsRecyclerViewAdapter with the libraries
      */
-    public AbstractAdapter adapter(Context context) {
+    public FastAdapter adapter(Context context) {
         Libs libs;
         if (fields == null) {
             libs = new Libs(context);
@@ -521,11 +520,11 @@ public class LibsBuilder implements Serializable {
             libraryItems.add(new LibraryItem().withLibrary(library).withLibsBuilder(this));
         }
 
+        FastAdapter fastAdapter = FastAdapter.with(itemAdapter);
         //noinspection unchecked
-        itemAdapter.wrap(new FastAdapter());
         itemAdapter.add(libraryItems);
 
-        return itemAdapter;
+        return fastAdapter;
     }
 
     /**
