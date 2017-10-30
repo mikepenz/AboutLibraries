@@ -62,7 +62,6 @@ dependencies {
     //https://github.com/mikepenz/MaterialDrawer
     implementation('com.mikepenz:materialdrawer:6.0.0@aar') {
         transitive = true
-        exclude module: "iconics-core"
     }
 
     //used to provide different itemAnimators for the RecyclerView
@@ -81,6 +80,7 @@ dependencies {
 }
 
 configurations.all {
+    resolutionStrategy.force "com.mikepenz:iconics-core:2.9.5"
     resolutionStrategy.force "com.android.support:support-v4:${rootProject.ext.supportLibVersion}"
     resolutionStrategy.force "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
     resolutionStrategy.force "com.android.support:cardview-v7:${rootProject.ext.supportLibVersion}"
