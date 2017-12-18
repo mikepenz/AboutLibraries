@@ -12,4 +12,5 @@
     <string name="library_androidannotations_licenseId">apache_2_0</string>
     <string name="library_androidannotations_isOpenSource">true</string>
     <string name="library_androidannotations_repositoryLink">https://github.com/excilys/androidannotations.git</string>
+    <string name="library_androidannotations_classPath">org.androidannotations.annotations</string>
 </resources>
