@@ -14,7 +14,7 @@
 	<string name="library_amulyakharetextdrawable_isOpenSource">true</string>
 	<string name="library_amulyakharetextdrawable_repositoryLink">https://github.com/amulyakhare/TextDrawable</string>
 	<!-- ClassPath for autoDetect section -->
-	<string name="library_amulyakharetextdrawable_classPath">com.amulyakhare.textdrawable</string>
+	<string name="library_amulyakharetextdrawable_classPath">com.amulyakhare.textdrawable.TextDrawable</string>
 	<!-- License section -->
 	<string name="library_amulyakharetextdrawable_licenseId">mit</string>
 	<!-- Custom variables section -->
