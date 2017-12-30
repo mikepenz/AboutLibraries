@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_int_amulyakharetextdrawable"></string>
+	<!-- Author section -->
+	<string name="library_amulyakharetextdrawable_author">Amulya Khare</string>
+	<string name="library_amulyakharetextdrawable_authorWebsite">http://www.wix.com/amulyakhare/portfolio</string>
+	<!-- Library section -->
+	<string name="library_amulyakharetextdrawable_libraryName">TextDrawable</string>
+	<string name="library_amulyakharetextdrawable_libraryDescription">This light-weight library provides images with letter/text like the Gmail app. It extends the Drawable class thus can be used with existing/custom/network ImageView classes. Also included is a fluent interface for creating drawables and a customizable ColorGenerator.</string>
+	<string name="library_amulyakharetextdrawable_libraryWebsite">https://github.com/amulyakhare/TextDrawable</string>
+	<string name="library_amulyakharetextdrawable_libraryVersion">1.0.1</string>
+	<!-- OpenSource section -->
+	<string name="library_amulyakharetextdrawable_isOpenSource">true</string>
+	<string name="library_amulyakharetextdrawable_repositoryLink">https://github.com/amulyakhare/TextDrawable</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_amulyakharetextdrawable_classPath">com.amulyakhare.textdrawable</string>
+	<!-- License section -->
+	<string name="library_amulyakharetextdrawable_licenseId">mit</string>
+	<!-- Custom variables section -->
+</resources>
