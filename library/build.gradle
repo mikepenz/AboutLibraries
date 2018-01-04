@@ -10,6 +10,8 @@ android {
         targetSdkVersion 27
         versionCode 6010
         versionName '6.0.1'
+        
+        resValue "string", "ext_support_lib_version", "${rootProject.ext.supportLibVersion}"
     }
 
     buildTypes {
