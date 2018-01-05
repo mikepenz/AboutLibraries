@@ -9,7 +9,7 @@
     <string name="library_design_libraryName">Support Design</string>
     <string name="library_design_libraryDescription">The Design package provides APIs to support adding material design components and patterns to your apps.  The Design Support library adds support for various material design components and patterns for app developers to build upon, such as navigation drawers, floating action buttons (FAB), snackbars, and tabs.</string>
     <string name="library_design_libraryWebsite">https://developer.android.com/reference/android/support/design/widget/package-summary.html</string>
-    <string name="library_design_libraryVersion">23.2.1</string>
+    <string name="library_design_libraryVersion">@string/ext_support_lib_version</string>
     <!-- OpenSource section -->
     <string name="library_design_isOpenSource">true</string>
     <string name="library_design_repositoryLink"></string>
@@ -21,3 +21,4 @@
     <string name="library_design_owner">The Android Open Source Project</string>
     <string name="library_design_year">2011</string>
 </resources>
+
