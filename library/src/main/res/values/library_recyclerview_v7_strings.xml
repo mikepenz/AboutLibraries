@@ -9,7 +9,7 @@
     <string name="library_recyclerview_v7_libraryName">Support RecyclerView v7</string>
     <string name="library_recyclerview_v7_libraryDescription">The recyclerview library adds the RecyclerView class. This class provides support for the RecyclerView widget, a view for efficiently displaying large data sets by providing a limited window of data items.</string>
     <string name="library_recyclerview_v7_libraryWebsite">https://developer.android.com/reference/android/support/v7/widget/RecyclerView.html</string>
-    <string name="library_recyclerview_v7_libraryVersion">23.2.1</string>
+    <string name="library_recyclerview_v7_libraryVersion">@string/ext_support_lib_version</string>
     <!-- OpenSource section -->
     <string name="library_recyclerview_v7_isOpenSource">true</string>
     <string name="library_recyclerview_v7_repositoryLink"></string>
