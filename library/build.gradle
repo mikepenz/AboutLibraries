@@ -8,8 +8,11 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 27
-        versionCode 6010
-        versionName '6.0.1'
+        versionCode 6020
+        versionName '6.0.2'
+
+        resValue "string", "aboutlibrary_lib_version", "${versionName}"
+        resValue "string", "ext_support_lib_version", "${rootProject.ext.supportLibVersion}"
     }
 
     buildTypes {
@@ -41,5 +44,5 @@ dependencies {
     // used to fill the RecyclerView with the items
     // and provides single and multi selection, expandable items
     // https://github.com/mikepenz/FastAdapter
-    compile 'com.mikepenz:fastadapter:3.0.4@aar'
+    compile 'com.mikepenz:fastadapter:3.0.5@aar'
 }

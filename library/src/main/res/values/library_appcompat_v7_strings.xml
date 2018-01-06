@@ -9,7 +9,7 @@
     <string name="library_appcompat_v7_libraryName">Support AppCompat v7</string>
     <string name="library_appcompat_v7_libraryDescription">This library adds support for the Action Bar user interface design pattern.</string>
     <string name="library_appcompat_v7_libraryWebsite">https://developer.android.com/topic/libraries/support-library/packages.html</string>
-    <string name="library_appcompat_v7_libraryVersion">23.2.1</string>
+    <string name="library_appcompat_v7_libraryVersion">@string/ext_support_lib_version</string>
     <!-- OpenSource section -->
     <string name="library_appcompat_v7_isOpenSource">true</string>
     <string name="library_appcompat_v7_repositoryLink"></string>

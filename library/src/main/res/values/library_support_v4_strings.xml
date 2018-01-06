@@ -9,7 +9,7 @@
     <string name="library_support_v4_libraryName">Support v4</string>
     <string name="library_support_v4_libraryDescription">This library is designed to be used with Android 1.6 (API level 4) and higher. It includes the largest set of APIs compared to the other libraries, including support for application components, user interface features, accessibility, data handling, network connectivity, and programming utilities.</string>
     <string name="library_support_v4_libraryWebsite">https://developer.android.com/tools/support-library/features.html#v4</string>
-    <string name="library_support_v4_libraryVersion">23.2.1</string>
+    <string name="library_support_v4_libraryVersion">@string/ext_support_lib_version</string>
     <!-- OpenSource section -->
     <string name="library_support_v4_isOpenSource">true</string>
     <string name="library_support_v4_repositoryLink"></string>

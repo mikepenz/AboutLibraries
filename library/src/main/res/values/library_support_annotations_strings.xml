@@ -9,7 +9,7 @@
     <string name="library_support_annotations_libraryName">Support Annotations</string>
     <string name="library_support_annotations_libraryDescription">The Annotation package provides APIs to support adding annotation metadata to your apps.</string>
     <string name="library_support_annotations_libraryWebsite">https://developer.android.com/reference/android/support/annotation/package-summary.html</string>
-    <string name="library_support_annotations_libraryVersion">23.2.1</string>
+    <string name="library_support_annotations_libraryVersion">@string/ext_support_lib_version</string>
     <!-- OpenSource section -->
     <string name="library_support_annotations_isOpenSource">true</string>
     <string name="library_support_annotations_repositoryLink"></string>
