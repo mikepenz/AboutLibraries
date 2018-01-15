@@ -6,6 +6,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -142,9 +143,11 @@ public class HeaderItem extends AbstractItem<HeaderItem, HeaderItem.ViewHolder> 
 
                     if (!consumed && !TextUtils.isEmpty(libsBuilder.aboutAppSpecial1Description)) {
                         try {
-                            AlertDialog.Builder alert = new AlertDialog.Builder(ctx);
-                            alert.setMessage(Html.fromHtml(libsBuilder.aboutAppSpecial1Description));
-                            alert.create().show();
+                            AlertDialog alert = new AlertDialog.Builder(ctx)
+                                .setMessage(Html.fromHtml(libsBuilder.aboutAppSpecial1Description))
+                                .create();
+                            alert.show();
+                            ((TextView)alert.findViewById(android.R.id.message)).setMovementMethod(LinkMovementMethod.getInstance());
                         } catch (Exception ex) {
                         }
                     }
@@ -166,9 +169,11 @@ public class HeaderItem extends AbstractItem<HeaderItem, HeaderItem.ViewHolder> 
 
                     if (!consumed && !TextUtils.isEmpty(libsBuilder.aboutAppSpecial2Description)) {
                         try {
-                            AlertDialog.Builder alert = new AlertDialog.Builder(ctx);
-                            alert.setMessage(Html.fromHtml(libsBuilder.aboutAppSpecial2Description));
-                            alert.create().show();
+                            AlertDialog alert = new AlertDialog.Builder(ctx)
+                                .setMessage(Html.fromHtml(libsBuilder.aboutAppSpecial2Description))
+                                .create();
+                            alert.show();
+                            ((TextView)alert.findViewById(android.R.id.message)).setMovementMethod(LinkMovementMethod.getInstance());
                         } catch (Exception ex) {
                         }
                     }
@@ -190,9 +195,11 @@ public class HeaderItem extends AbstractItem<HeaderItem, HeaderItem.ViewHolder> 
 
                     if (!consumed && !TextUtils.isEmpty(libsBuilder.aboutAppSpecial3Description)) {
                         try {
-                            AlertDialog.Builder alert = new AlertDialog.Builder(ctx);
-                            alert.setMessage(Html.fromHtml(libsBuilder.aboutAppSpecial3Description));
-                            alert.create().show();
+                            AlertDialog alert = new AlertDialog.Builder(ctx)
+                                .setMessage(Html.fromHtml(libsBuilder.aboutAppSpecial3Description))
+                                .create();
+                            alert.show();
+                            ((TextView)alert.findViewById(android.R.id.message)).setMovementMethod(LinkMovementMethod.getInstance());
                         } catch (Exception ex) {
                         }
                     }
