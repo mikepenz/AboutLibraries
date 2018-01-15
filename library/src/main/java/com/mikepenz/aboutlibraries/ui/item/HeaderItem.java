@@ -147,7 +147,10 @@ public class HeaderItem extends AbstractItem<HeaderItem, HeaderItem.ViewHolder> 
                                 .setMessage(Html.fromHtml(libsBuilder.aboutAppSpecial1Description))
                                 .create();
                             alert.show();
-                            ((TextView)alert.findViewById(android.R.id.message)).setMovementMethod(LinkMovementMethod.getInstance());
+                            TextView alertText = (TextView) alert.findViewById(android.R.id.message);
+                            if (alertText != null) {
+                                alertText.setMovementMethod(LinkMovementMethod.getInstance());
+                            }
                         } catch (Exception ex) {
                         }
                     }
@@ -173,7 +176,10 @@ public class HeaderItem extends AbstractItem<HeaderItem, HeaderItem.ViewHolder> 
                                 .setMessage(Html.fromHtml(libsBuilder.aboutAppSpecial2Description))
                                 .create();
                             alert.show();
-                            ((TextView)alert.findViewById(android.R.id.message)).setMovementMethod(LinkMovementMethod.getInstance());
+                            TextView alertText = (TextView) alert.findViewById(android.R.id.message);
+                            if (alertText != null) {
+                                alertText.setMovementMethod(LinkMovementMethod.getInstance());
+                            }
                         } catch (Exception ex) {
                         }
                     }
@@ -199,7 +205,10 @@ public class HeaderItem extends AbstractItem<HeaderItem, HeaderItem.ViewHolder> 
                                 .setMessage(Html.fromHtml(libsBuilder.aboutAppSpecial3Description))
                                 .create();
                             alert.show();
-                            ((TextView)alert.findViewById(android.R.id.message)).setMovementMethod(LinkMovementMethod.getInstance());
+                            TextView alertText = (TextView) alert.findViewById(android.R.id.message);
+                            if (alertText != null) {
+                                alertText.setMovementMethod(LinkMovementMethod.getInstance());
+                            }
                         } catch (Exception ex) {
                         }
                     }
