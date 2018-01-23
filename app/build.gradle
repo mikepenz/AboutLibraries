@@ -73,7 +73,7 @@ dependencies {
     // used to provide out of the box icon font support. simplifies development,
     // and provides scalable icons. the core is very very light
     // https://github.com/mikepenz/Android-Iconics
-    implementation 'com.mikepenz:iconics-core:3.0.0@aar'
+    implementation 'com.mikepenz:iconics-core:3.0.1@aar'
 
     //used to display the icons in the drawer
     //https://github.com/mikepenz/Android-Iconics
@@ -82,7 +82,7 @@ dependencies {
 }
 
 configurations.all {
-    resolutionStrategy.force "com.mikepenz:iconics-core:3.0.0"
+    resolutionStrategy.force "com.mikepenz:iconics-core:3.0.1"
     resolutionStrategy.force "com.android.support:support-v4:${rootProject.ext.supportLibVersion}"
     resolutionStrategy.force "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
     resolutionStrategy.force "com.android.support:cardview-v7:${rootProject.ext.supportLibVersion}"
