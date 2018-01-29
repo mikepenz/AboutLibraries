@@ -14,7 +14,7 @@
 	<string name="library_systembartint_isOpenSource">true</string>
 	<string name="library_systembartint_repositoryLink">https://github.com/jgilfelt/SystemBarTint</string>
 	<!-- ClassPath for autoDetect section -->
-	<string name="library_systembartint_classPath">com.readystatesoftware.systembartint</string>
+	<string name="library_systembartint_classPath">com.readystatesoftware.systembartint.SystemBarTintManager</string>
 	<!-- License section -->
 	<string name="library_systembartint_licenseId">apache_2_0</string>
 	<!-- Custom variables section -->
