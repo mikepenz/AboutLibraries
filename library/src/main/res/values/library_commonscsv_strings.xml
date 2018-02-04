@@ -13,7 +13,7 @@
     <string name="library_commonscsv_isOpenSource">true</string>
     <string name="library_commonscsv_repositoryLink">https://github.com/apache/commons-csv</string>
     <!-- ClassPath for autoDetect section -->
-    <string name="library_commonscsv_classPath">org.apache.commons.csv</string>
+    <string name="library_commonscsv_classPath">org.apache.commons.csv.CSVParser</string>
     <!-- License section -->
     <string name="library_commonscsv_licenseId">apache_2_0</string>
     <!-- Custom variables section -->
