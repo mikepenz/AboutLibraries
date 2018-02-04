@@ -188,7 +188,7 @@ public class LibsFragmentCompat {
             //fetch the libraries and sort if a comparator was set
             boolean doDefaultSort = (builder.sort && null == builder.libraryComparator && null == comparator);
 
-            libraries = libs.prepareLibraries(ctx, builder.internalLibraries, builder.excludeLibraries, builder.autoDetect, doDefaultSort);
+            libraries = libs.prepareLibraries(ctx, builder.internalLibraries, builder.excludeLibraries, builder.autoDetect, builder.checkCachedDetection, doDefaultSort);
 
             if (comparator != null) {
                 Collections.sort(libraries, comparator);
