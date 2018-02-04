@@ -8,8 +8,8 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 27
-        versionCode 6020
-        versionName '6.0.2'
+        versionCode 6030
+        versionName '6.0.3'
 
         resValue "string", "aboutlibrary_lib_version", "${versionName}"
         resValue "string", "ext_support_lib_version", "${rootProject.ext.supportLibVersion}"
