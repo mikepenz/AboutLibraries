@@ -95,9 +95,8 @@ public class FragmentActivity extends AppCompatActivity {
         */
 
         LibsSupportFragment fragment = new LibsBuilder()
-                .withLibraries("crouton", "activeandroid", "actionbarsherlock", "showcaseview")
                 .withVersionShown(false)
-                .withLicenseShown(false)
+                .withLicenseShown(true)
                 .withLibraryModification("aboutlibraries", Libs.LibraryFields.LIBRARY_NAME, "_AboutLibraries")
                 .supportFragment();
 
