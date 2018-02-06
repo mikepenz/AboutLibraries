@@ -30,6 +30,7 @@ public class LibsBuilder implements Serializable {
     public String[] excludeLibraries = null;
 
     public Boolean autoDetect = true;
+    public Boolean checkCachedDetection = true;
     public Boolean sort = true;
     public Comparator<Library> libraryComparator = null;
 
@@ -130,6 +131,17 @@ public class LibsBuilder implements Serializable {
      */
     public LibsBuilder withAutoDetect(boolean autoDetect) {
         this.autoDetect = autoDetect;
+        return this;
+    }
+
+    /**
+     * Builder method to disable checking the cached autodetected libraries (per version) (default: enabled)
+     *
+     * @param checkCachedDetection enabled or disabled
+     * @return this
+     */
+    public LibsBuilder withCheckCachedDetection(boolean checkCachedDetection) {
+        this.checkCachedDetection = checkCachedDetection;
         return this;
     }
 
@@ -511,7 +523,7 @@ public class LibsBuilder implements Serializable {
         libs.modifyLibraries(libraryModification);
 
         //fetch the libraries and sort if a comparator was set
-        ArrayList<Library> libraries = libs.prepareLibraries(context, internalLibraries, excludeLibraries, autoDetect, sort);
+        ArrayList<Library> libraries = libs.prepareLibraries(context, internalLibraries, excludeLibraries, autoDetect, checkCachedDetection, sort);
 
         //prepare adapter
         ItemAdapter itemAdapter = new ItemAdapter();

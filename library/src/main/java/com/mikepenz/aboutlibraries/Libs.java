@@ -137,17 +137,18 @@ public class Libs {
     /**
      * This will summarize all libraries and elimate duplicates
      *
-     * @param internalLibraries the String[] with the internalLibraries (if set manual)
-     * @param excludeLibraries  the String[] with the libs to be excluded
-     * @param autoDetect        defines if the libraries should be resolved by their classpath (if possible)
-     * @param sort              defines if the array should be sorted
+     * @param internalLibraries    the String[] with the internalLibraries (if set manual)
+     * @param excludeLibraries     the String[] with the libs to be excluded
+     * @param autoDetect           defines if the libraries should be resolved by their classpath (if possible)
+     * @param checkCachedDetection defines if we should check the cached autodetected libraries (per version) (default: enabled)
+     * @param sort                 defines if the array should be sorted
      * @return the summarized list of included Libraries
      */
-    public ArrayList<Library> prepareLibraries(Context ctx, String[] internalLibraries, String[] excludeLibraries, boolean autoDetect, boolean sort) {
+    public ArrayList<Library> prepareLibraries(Context ctx, String[] internalLibraries, String[] excludeLibraries, boolean autoDetect, boolean checkCachedDetection, boolean sort) {
         HashMap<String, Library> libraries = new HashMap<String, Library>();
 
         if (autoDetect) {
-            for (Library lib : getAutoDetectedLibraries(ctx)) {
+            for (Library lib : getAutoDetectedLibraries(ctx, checkCachedDetection)) {
                 libraries.put(lib.getDefinedName(), lib);
             }
         }
@@ -194,20 +195,24 @@ public class Libs {
     /**
      * Get all autoDetected Libraries
      *
+     * @param ctx                  the current context
+     * @param checkCachedDetection defines if we should check the cached autodetected libraries (per version) (default: enabled)
      * @return an ArrayList Library with all found libs by their classpath
      */
-    public ArrayList<Library> getAutoDetectedLibraries(Context ctx) {
+    public ArrayList<Library> getAutoDetectedLibraries(Context ctx, boolean checkCachedDetection) {
         ArrayList<Library> libraries = new ArrayList<>();
-
         PackageInfo pi = Util.getPackageInfo(ctx);
-        if (pi != null) {
-            String[] autoDetectedLibraries = ctx.getSharedPreferences("aboutLibraries_" + pi.versionCode, Context.MODE_PRIVATE).getString("autoDetectedLibraries", "").split(";");
 
-            if (autoDetectedLibraries.length > 0) {
-                for (String autoDetectedLibrary : autoDetectedLibraries) {
-                    Library lib = getLibrary(autoDetectedLibrary);
-                    if (lib != null) {
-                        libraries.add(lib);
+        if (checkCachedDetection) {
+            if (pi != null) {
+                String[] autoDetectedLibraries = ctx.getSharedPreferences("aboutLibraries_" + pi.versionCode, Context.MODE_PRIVATE).getString("autoDetectedLibraries", "").split(";");
+
+                if (autoDetectedLibraries.length > 0) {
+                    for (String autoDetectedLibrary : autoDetectedLibraries) {
+                        Library lib = getLibrary(autoDetectedLibrary);
+                        if (lib != null) {
+                            libraries.add(lib);
+                        }
                     }
                 }
             }
