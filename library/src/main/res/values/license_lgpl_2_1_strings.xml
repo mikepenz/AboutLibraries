@@ -298,7 +298,7 @@
         link a ”work that uses the Library” with the Library to produce a
         work containing portions of the Library, and distribute that work
         under terms of your choice, provided that the terms permit
-        modification of the work for the customer's own use and reverse
+        modification of the work for the customer\'s own use and reverse
         engineering for debugging such modifications.<br /><br />
 
           You must give prominent notice with each copy of the work that the
@@ -323,7 +323,7 @@
 
             b) Use a suitable shared library mechanism for linking with the
             Library.  A suitable mechanism is one that (1) uses at run time a
-            copy of the library already present on the user's computer system,
+            copy of the library already present on the user\'s computer system,
             rather than copying library functions into the executable, and (2)
             will operate properly with a modified version of the library, if
             the user installs one, as long as the modified version is
@@ -393,7 +393,7 @@
         Library), the recipient automatically receives a license from the
         original licensor to copy, distribute, link with or modify the Library
         subject to these terms and conditions.  You may not impose any further
-        restrictions on the recipients' exercise of the rights granted herein.
+        restrictions on the recipients\' exercise of the rights granted herein.
         You are not responsible for enforcing compliance by third parties with
         this License.<br />
         <br />
@@ -482,51 +482,6 @@
         DAMAGES.<br /><br />
 
                         END OF TERMS AND CONDITIONS<br />
-        <br />
-                   How to Apply These Terms to Your New Libraries<br /><br />
-
-          If you develop a new library, and you want it to be of the greatest
-        possible use to the public, we recommend making it free software that
-        everyone can redistribute and change.  You can do so by permitting
-        redistribution under these terms (or, alternatively, under the terms of the
-        ordinary General Public License).<br /><br />
-
-          To apply these terms, attach the following notices to the library.  It is
-        safest to attach them to the start of each source file to most effectively
-        convey the exclusion of warranty; and each file should have at least the
-        ”copyright” line and a pointer to where the full notice is found.<br /><br />
-
-            <<<one line to give the library\'s name and a brief idea of what it does.>>><br />
-            Copyright &#169; <<<year>>> <<<name of author>>><br /><br />
-
-            This library is free software; you can redistribute it and/or
-            modify it under the terms of the GNU Lesser General Public
-            License as published by the Free Software Foundation; either
-            version 2.1 of the License, or (at your option) any later version.<br /><br />
-
-            This library is distributed in the hope that it will be useful,
-            but WITHOUT ANY WARRANTY; without even the implied warranty of
-            MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-            Lesser General Public License for more details.<br /><br />
-
-            You should have received a copy of the GNU Lesser General Public
-            License along with this library; if not, write to the Free Software
-            Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
-
-        Also add information on how to contact you by electronic and paper mail.<br /><br />
-
-        You should also get your employer (if you work as a programmer) or your
-        school, if any, to sign a ”copyright disclaimer” for the library, if
-        necessary.  Here is a sample; alter the names:<br /><br />
-
-          Yoyodyne, Inc., hereby disclaims all copyright interest in the
-          library `Frob' (a library for tweaking knobs) written by James Random Hacker.<br /><br />
-
-          <<<signature of Ty Coon>>>, 1 April 1990<br />
-          Ty Coon, President of Vice<br /><br />
-
-        That's all there is to it!
-
     ]]></string>
 
 </resources>
