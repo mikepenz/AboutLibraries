@@ -62,7 +62,7 @@ dependencies {
 
     //used to generate the drawer on the left
     //https://github.com/mikepenz/MaterialDrawer
-    implementation('com.mikepenz:materialdrawer:6.0.4@aar') {
+    implementation('com.mikepenz:materialdrawer:6.0.6@aar') {
         transitive = true
     }
 
