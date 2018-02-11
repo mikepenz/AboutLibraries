@@ -1,6 +1,7 @@
 package com.mikepenz.aboutlibraries;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.text.TextUtils;
 import android.util.Log;
@@ -202,10 +203,13 @@ public class Libs {
     public ArrayList<Library> getAutoDetectedLibraries(Context ctx, boolean checkCachedDetection) {
         ArrayList<Library> libraries = new ArrayList<>();
         PackageInfo pi = Util.getPackageInfo(ctx);
+        SharedPreferences sharedPreferences = ctx.getSharedPreferences("aboutLibraries", Context.MODE_PRIVATE);
+        int lastCacheVersion = sharedPreferences.getInt("versionCode", -1);
+        boolean isCacheUpToDate = pi != null && lastCacheVersion == pi.versionCode;
 
         if (checkCachedDetection) {
-            if (pi != null) {
-                String[] autoDetectedLibraries = ctx.getSharedPreferences("aboutLibraries_" + pi.versionCode, Context.MODE_PRIVATE).getString("autoDetectedLibraries", "").split(";");
+            if (pi != null && isCacheUpToDate) {
+                String[] autoDetectedLibraries = sharedPreferences.getString("autoDetectedLibraries", "").split(";");
 
                 if (autoDetectedLibraries.length > 0) {
                     for (String autoDetectedLibrary : autoDetectedLibraries) {
@@ -228,8 +232,11 @@ public class Libs {
                 delimiter = ";";
             }
 
-            if (pi != null) {
-                ctx.getSharedPreferences("aboutLibraries_" + pi.versionCode, Context.MODE_PRIVATE).edit().putString("autoDetectedLibraries", autoDetectedLibrariesPref).commit();
+            if (pi != null && !isCacheUpToDate) {
+                sharedPreferences.edit()
+                        .putInt("versionCode", pi.versionCode)
+                        .putString("autoDetectedLibraries", autoDetectedLibrariesPref)
+                        .commit();
             }
         }
 
