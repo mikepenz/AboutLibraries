@@ -3,6 +3,7 @@ package com.mikepenz.aboutlibraries;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -14,9 +15,13 @@ import com.mikepenz.aboutlibraries.util.Util;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 
 public class Libs {
@@ -56,6 +61,8 @@ public class Libs {
     private static final String DEFINE_LICENSE = "define_license_";
     private static final String DEFINE_INT = "define_int_";
     private static final String DEFINE_EXT = "define_";
+
+    private static final String DELIMITER = ";";
 
     private ArrayList<Library> internLibraries = new ArrayList<>();
     private ArrayList<Library> externLibraries = new ArrayList<>();
@@ -200,44 +207,41 @@ public class Libs {
      * @param checkCachedDetection defines if we should check the cached autodetected libraries (per version) (default: enabled)
      * @return an ArrayList Library with all found libs by their classpath
      */
-    public ArrayList<Library> getAutoDetectedLibraries(Context ctx, boolean checkCachedDetection) {
-        ArrayList<Library> libraries = new ArrayList<>();
+    public List<Library> getAutoDetectedLibraries(Context ctx, boolean checkCachedDetection) {
+        List<Library> libraries;
         PackageInfo pi = Util.getPackageInfo(ctx);
         SharedPreferences sharedPreferences = ctx.getSharedPreferences("aboutLibraries", Context.MODE_PRIVATE);
         int lastCacheVersion = sharedPreferences.getInt("versionCode", -1);
         boolean isCacheUpToDate = pi != null && lastCacheVersion == pi.versionCode;
 
-        if (checkCachedDetection) {
+        if (checkCachedDetection) {//Retrieve from cache if up to date
             if (pi != null && isCacheUpToDate) {
-                String[] autoDetectedLibraries = sharedPreferences.getString("autoDetectedLibraries", "").split(";");
+                String[] autoDetectedLibraries = sharedPreferences.getString("autoDetectedLibraries", "").split(DELIMITER);
 
                 if (autoDetectedLibraries.length > 0) {
+                    libraries = new ArrayList<>(autoDetectedLibraries.length);
                     for (String autoDetectedLibrary : autoDetectedLibraries) {
                         Library lib = getLibrary(autoDetectedLibrary);
-                        if (lib != null) {
-                            libraries.add(lib);
-                        }
+                        if (lib != null) libraries.add(lib);
                     }
+                    return libraries;
                 }
             }
         }
 
-        if (libraries.size() == 0) {
-            String delimiter = "";
-            String autoDetectedLibrariesPref = "";
-            for (Library lib : Detect.detect(ctx, getLibraries())) {
-                libraries.add(lib);
+        libraries = Detect.detect(ctx, getLibraries());
 
-                autoDetectedLibrariesPref = autoDetectedLibrariesPref + delimiter + lib.getDefinedName();
-                delimiter = ";";
+        if (pi != null && !isCacheUpToDate) {//Update cache
+            StringBuilder autoDetectedLibrariesPref = new StringBuilder();
+
+            for (Library lib : libraries) {
+                autoDetectedLibrariesPref.append(DELIMITER).append(lib.getDefinedName());
             }
 
-            if (pi != null && !isCacheUpToDate) {
-                sharedPreferences.edit()
-                        .putInt("versionCode", pi.versionCode)
-                        .putString("autoDetectedLibraries", autoDetectedLibrariesPref)
-                        .apply();
-            }
+            sharedPreferences.edit()
+                    .putInt("versionCode", pi.versionCode)
+                    .putString("autoDetectedLibraries", autoDetectedLibrariesPref.toString())
+                    .apply();
         }
 
         return libraries;
