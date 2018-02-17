@@ -236,7 +236,7 @@ public class Libs {
                 sharedPreferences.edit()
                         .putInt("versionCode", pi.versionCode)
                         .putString("autoDetectedLibraries", autoDetectedLibrariesPref)
-                        .commit();
+                        .apply();
             }
         }
 
