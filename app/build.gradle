@@ -13,8 +13,8 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 27
-        versionCode 6050
-        versionName '6.0.5'
+        versionCode 6060
+        versionName '6.0.6'
 
         setProperty("archivesBaseName", "AboutLibraries-v$versionName-c$versionCode")
     }
