@@ -153,44 +153,50 @@ public class Libs {
      * @return the summarized list of included Libraries
      */
     public ArrayList<Library> prepareLibraries(Context ctx, String[] internalLibraries, String[] excludeLibraries, boolean autoDetect, boolean checkCachedDetection, boolean sort) {
-        HashMap<String, Library> libraries = new HashMap<String, Library>();
+        boolean isExcluding = excludeLibraries != null;
+        HashMap<String, Library> libraries = isExcluding? new HashMap<String, Library>():null;
+        ArrayList<Library> resultLibraries = new ArrayList<>();
 
         if (autoDetect) {
-            for (Library lib : getAutoDetectedLibraries(ctx, checkCachedDetection)) {
-                libraries.put(lib.getDefinedName(), lib);
+            List<Library> autoDetected = getAutoDetectedLibraries(ctx, checkCachedDetection);
+            resultLibraries.addAll(autoDetected);
+
+            if(isExcluding) {
+                for (Library lib : autoDetected) {
+                    libraries.put(lib.getDefinedName(), lib);
+                }
             }
         }
 
         //Add all external libraries
-        for (Library lib : getExternLibraries()) {
-            libraries.put(lib.getDefinedName(), lib);
+        List<Library> extern = getExternLibraries();
+        resultLibraries.addAll(extern);
+
+        if(isExcluding) {
+            for (Library lib : extern) {
+                libraries.put(lib.getDefinedName(), lib);
+            }
         }
 
         //Now add all libs which do not contains the info file, but are in the AboutLibraries lib
         if (internalLibraries != null) {
             for (String internalLibrary : internalLibraries) {
                 Library lib = getLibrary(internalLibrary);
-                if (lib != null) {
+
+                if(isExcluding && lib != null) {
+                    resultLibraries.add(lib);
                     libraries.put(lib.getDefinedName(), lib);
                 }
             }
         }
 
-        ArrayList<Library> resultLibraries = new ArrayList<>(libraries.values());
-
         //remove libraries which should be excluded
-        if (excludeLibraries != null) {
-            List<Library> libsToRemove = new ArrayList<>();
+        if (isExcluding) {
             for (String excludeLibrary : excludeLibraries) {
-                for (Library library : resultLibraries) {
-                    if (library.getDefinedName().equals(excludeLibrary)) {
-                        libsToRemove.add(library);
-                        break;
-                    }
+                Library lib = libraries.get(excludeLibrary);
+                if (lib != null) {
+                    resultLibraries.remove(lib);
                 }
-            }
-            for (Library libToRemove : libsToRemove) {
-                resultLibraries.remove(libToRemove);
             }
         }
 
