@@ -83,48 +83,41 @@ public class Libs {
      * @param fields
      */
     private void init(Context ctx, String[] fields) {
-        ArrayList<String> foundLicenseIdentifiers = new ArrayList<>();
-        ArrayList<String> foundInternalLibraryIdentifiers = new ArrayList<>();
-        ArrayList<String> foundExternalLibraryIdentifiers = new ArrayList<>();
-
         if (fields != null) {
             for (String field : fields) {
-                if (field.startsWith(DEFINE_LICENSE)) {
-                    foundLicenseIdentifiers.add(field.replace(DEFINE_LICENSE, ""));
-                } else if (field.startsWith(DEFINE_INT)) {
-                    foundInternalLibraryIdentifiers.add(field.replace(DEFINE_INT, ""));
-                } else if (field.startsWith(DEFINE_EXT)) {
-                    foundExternalLibraryIdentifiers.add(field.replace(DEFINE_EXT, ""));
+                if (field.startsWith(DEFINE_LICENSE)) {//add licenses
+                    addLicense(ctx, field.replace(DEFINE_LICENSE, ""));
+                } else if (field.startsWith(DEFINE_INT)) {//add internal libs
+                    addInternalLibrary(ctx, field.replace(DEFINE_INT, ""));
+                } else if (field.startsWith(DEFINE_EXT)) {//add external libs
+                    addExternalLibrary(ctx, field.replace(DEFINE_EXT, ""));
                 }
-            }
-        }
-
-        //add licenses
-        for (String licenseIdentifier : foundLicenseIdentifiers) {
-            License license = genLicense(ctx, licenseIdentifier);
-            if (license != null) {
-                licenses.add(license);
-            }
-        }
-        //add internal libs
-        for (String internalIdentifier : foundInternalLibraryIdentifiers) {
-            Library library = genLibrary(ctx, internalIdentifier);
-            if (library != null) {
-                library.setInternal(true);
-                internLibraries.add(library);
-            }
-        }
-
-        //add external libs
-        for (String externalIdentifier : foundExternalLibraryIdentifiers) {
-            Library library = genLibrary(ctx, externalIdentifier);
-            if (library != null) {
-                library.setInternal(false);
-                externLibraries.add(library);
             }
         }
     }
 
+    private void addLicense(Context ctx, String licenseIdentifier) {
+        License license = genLicense(ctx, licenseIdentifier);
+        if (license != null) {
+            licenses.add(license);
+        }
+    }
+
+    private void addInternalLibrary(Context ctx, String internalIdentifier) {
+        Library library = genLibrary(ctx, internalIdentifier);
+        if (library != null) {
+            library.setInternal(true);
+            internLibraries.add(library);
+        }
+    }
+
+    private void addExternalLibrary(Context ctx, String externalIdentifier) {
+        Library library = genLibrary(ctx, externalIdentifier);
+        if (library != null) {
+            library.setInternal(false);
+            externLibraries.add(library);
+        }
+    }
 
     /**
      * A helper method to get a String[] out of a fieldArray
