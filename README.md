@@ -57,6 +57,8 @@ implementation('com.mikepenz:aboutlibraries:6.0.6@aar') {
 implementation "com.android.support:appcompat-v7:${versions.supportLib}"
 implementation "com.android.support:recyclerview-v7:${versions.supportLib}"
 implementation "com.android.support:support-annotations:${versions.supportLib}"
+implementation "com.android.support:cardview-v7:${versions.supportLib}"
+
 ```
 
 Further information and how to use it if you can't update to the newest support libs can be found in the [wiki](https://github.com/mikepenz/AboutLibraries/wiki/HOWTO:-Include)
