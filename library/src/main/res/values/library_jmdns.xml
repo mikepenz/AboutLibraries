@@ -14,7 +14,7 @@
 	<string name="library_jmdns_isOpenSource">true</string>
 	<string name="library_jmdns_repositoryLink"></string>
 	<!-- ClassPath for autoDetect section -->
-	<string name="library_jmdns_classPath"></string>
+	<string name="library_jmdns_classPath">javax.jmdns.JmDNS</string>
 	<!-- License section -->
 	<string name="library_jmdns_licenseId">apache_2_0</string>
 	<!-- Custom variables section -->
