@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_int_material_about_library"></string>
+	<!-- Author section -->
+	<string name="library_material_about_library_author">Daniel Stone</string>
+	<string name="library_material_about_library_authorWebsite">http://daniel-stone.uk</string>
+	<!-- Library section -->
+	<string name="library_material_about_library_libraryName">material-about-library</string>
+	<string name="library_material_about_library_libraryDescription">Makes it easy to create a beautiful about screen for your app. Generates an Activity or Fragment.</string>
+	<string name="library_material_about_library_libraryWebsite">https://github.com/daniel-stoneuk/material-about-library</string>
+	<string name="library_material_about_library_libraryVersion">2.*</string>
+	<!-- OpenSource section -->
+	<string name="library_material_about_library_isOpenSource">true</string>
+	<string name="library_material_about_library_repositoryLink">https://github.com/daniel-stoneuk/material-about-library</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_material_about_library_classPath">com.danielstone.materialaboutlibrary</string>
+	<!-- License section -->
+	<string name="library_material_about_library_licenseId">apache_2_0</string>
+	<!-- Custom variables section -->
+</resources>
