@@ -3,6 +3,7 @@ package com.mikepenz.aboutlibraries;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -14,9 +15,13 @@ import com.mikepenz.aboutlibraries.util.Util;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 
 public class Libs {
@@ -57,6 +62,8 @@ public class Libs {
     private static final String DEFINE_INT = "define_int_";
     private static final String DEFINE_EXT = "define_";
 
+    private static final String DELIMITER = ";";
+
     private ArrayList<Library> internLibraries = new ArrayList<>();
     private ArrayList<Library> externLibraries = new ArrayList<>();
     private ArrayList<License> licenses = new ArrayList<>();
@@ -76,48 +83,41 @@ public class Libs {
      * @param fields
      */
     private void init(Context ctx, String[] fields) {
-        ArrayList<String> foundLicenseIdentifiers = new ArrayList<>();
-        ArrayList<String> foundInternalLibraryIdentifiers = new ArrayList<>();
-        ArrayList<String> foundExternalLibraryIdentifiers = new ArrayList<>();
-
         if (fields != null) {
             for (String field : fields) {
-                if (field.startsWith(DEFINE_LICENSE)) {
-                    foundLicenseIdentifiers.add(field.replace(DEFINE_LICENSE, ""));
-                } else if (field.startsWith(DEFINE_INT)) {
-                    foundInternalLibraryIdentifiers.add(field.replace(DEFINE_INT, ""));
-                } else if (field.startsWith(DEFINE_EXT)) {
-                    foundExternalLibraryIdentifiers.add(field.replace(DEFINE_EXT, ""));
+                if (field.startsWith(DEFINE_LICENSE)) {//add licenses
+                    addLicense(ctx, field.replace(DEFINE_LICENSE, ""));
+                } else if (field.startsWith(DEFINE_INT)) {//add internal libs
+                    addInternalLibrary(ctx, field.replace(DEFINE_INT, ""));
+                } else if (field.startsWith(DEFINE_EXT)) {//add external libs
+                    addExternalLibrary(ctx, field.replace(DEFINE_EXT, ""));
                 }
-            }
-        }
-
-        //add licenses
-        for (String licenseIdentifier : foundLicenseIdentifiers) {
-            License license = genLicense(ctx, licenseIdentifier);
-            if (license != null) {
-                licenses.add(license);
-            }
-        }
-        //add internal libs
-        for (String internalIdentifier : foundInternalLibraryIdentifiers) {
-            Library library = genLibrary(ctx, internalIdentifier);
-            if (library != null) {
-                library.setInternal(true);
-                internLibraries.add(library);
-            }
-        }
-
-        //add external libs
-        for (String externalIdentifier : foundExternalLibraryIdentifiers) {
-            Library library = genLibrary(ctx, externalIdentifier);
-            if (library != null) {
-                library.setInternal(false);
-                externLibraries.add(library);
             }
         }
     }
 
+    private void addLicense(Context ctx, String licenseIdentifier) {
+        License license = genLicense(ctx, licenseIdentifier);
+        if (license != null) {
+            licenses.add(license);
+        }
+    }
+
+    private void addInternalLibrary(Context ctx, String internalIdentifier) {
+        Library library = genLibrary(ctx, internalIdentifier);
+        if (library != null) {
+            library.setInternal(true);
+            internLibraries.add(library);
+        }
+    }
+
+    private void addExternalLibrary(Context ctx, String externalIdentifier) {
+        Library library = genLibrary(ctx, externalIdentifier);
+        if (library != null) {
+            library.setInternal(false);
+            externLibraries.add(library);
+        }
+    }
 
     /**
      * A helper method to get a String[] out of a fieldArray
@@ -146,44 +146,50 @@ public class Libs {
      * @return the summarized list of included Libraries
      */
     public ArrayList<Library> prepareLibraries(Context ctx, String[] internalLibraries, String[] excludeLibraries, boolean autoDetect, boolean checkCachedDetection, boolean sort) {
-        HashMap<String, Library> libraries = new HashMap<String, Library>();
+        boolean isExcluding = excludeLibraries != null;
+        HashMap<String, Library> libraries = isExcluding? new HashMap<String, Library>():null;
+        ArrayList<Library> resultLibraries = new ArrayList<>();
 
         if (autoDetect) {
-            for (Library lib : getAutoDetectedLibraries(ctx, checkCachedDetection)) {
-                libraries.put(lib.getDefinedName(), lib);
+            List<Library> autoDetected = getAutoDetectedLibraries(ctx, checkCachedDetection);
+            resultLibraries.addAll(autoDetected);
+
+            if(isExcluding) {
+                for (Library lib : autoDetected) {
+                    libraries.put(lib.getDefinedName(), lib);
+                }
             }
         }
 
         //Add all external libraries
-        for (Library lib : getExternLibraries()) {
-            libraries.put(lib.getDefinedName(), lib);
+        List<Library> extern = getExternLibraries();
+        resultLibraries.addAll(extern);
+
+        if(isExcluding) {
+            for (Library lib : extern) {
+                libraries.put(lib.getDefinedName(), lib);
+            }
         }
 
         //Now add all libs which do not contains the info file, but are in the AboutLibraries lib
         if (internalLibraries != null) {
             for (String internalLibrary : internalLibraries) {
                 Library lib = getLibrary(internalLibrary);
-                if (lib != null) {
+
+                if(isExcluding && lib != null) {
+                    resultLibraries.add(lib);
                     libraries.put(lib.getDefinedName(), lib);
                 }
             }
         }
 
-        ArrayList<Library> resultLibraries = new ArrayList<>(libraries.values());
-
         //remove libraries which should be excluded
-        if (excludeLibraries != null) {
-            List<Library> libsToRemove = new ArrayList<>();
+        if (isExcluding) {
             for (String excludeLibrary : excludeLibraries) {
-                for (Library library : resultLibraries) {
-                    if (library.getDefinedName().equals(excludeLibrary)) {
-                        libsToRemove.add(library);
-                        break;
-                    }
+                Library lib = libraries.get(excludeLibrary);
+                if (lib != null) {
+                    resultLibraries.remove(lib);
                 }
-            }
-            for (Library libToRemove : libsToRemove) {
-                resultLibraries.remove(libToRemove);
             }
         }
 
@@ -200,44 +206,41 @@ public class Libs {
      * @param checkCachedDetection defines if we should check the cached autodetected libraries (per version) (default: enabled)
      * @return an ArrayList Library with all found libs by their classpath
      */
-    public ArrayList<Library> getAutoDetectedLibraries(Context ctx, boolean checkCachedDetection) {
-        ArrayList<Library> libraries = new ArrayList<>();
+    public List<Library> getAutoDetectedLibraries(Context ctx, boolean checkCachedDetection) {
+        List<Library> libraries;
         PackageInfo pi = Util.getPackageInfo(ctx);
         SharedPreferences sharedPreferences = ctx.getSharedPreferences("aboutLibraries", Context.MODE_PRIVATE);
         int lastCacheVersion = sharedPreferences.getInt("versionCode", -1);
         boolean isCacheUpToDate = pi != null && lastCacheVersion == pi.versionCode;
 
-        if (checkCachedDetection) {
+        if (checkCachedDetection) {//Retrieve from cache if up to date
             if (pi != null && isCacheUpToDate) {
-                String[] autoDetectedLibraries = sharedPreferences.getString("autoDetectedLibraries", "").split(";");
+                String[] autoDetectedLibraries = sharedPreferences.getString("autoDetectedLibraries", "").split(DELIMITER);
 
                 if (autoDetectedLibraries.length > 0) {
+                    libraries = new ArrayList<>(autoDetectedLibraries.length);
                     for (String autoDetectedLibrary : autoDetectedLibraries) {
                         Library lib = getLibrary(autoDetectedLibrary);
-                        if (lib != null) {
-                            libraries.add(lib);
-                        }
+                        if (lib != null) libraries.add(lib);
                     }
+                    return libraries;
                 }
             }
         }
 
-        if (libraries.size() == 0) {
-            String delimiter = "";
-            String autoDetectedLibrariesPref = "";
-            for (Library lib : Detect.detect(ctx, getLibraries())) {
-                libraries.add(lib);
+        libraries = Detect.detect(ctx, getLibraries());
 
-                autoDetectedLibrariesPref = autoDetectedLibrariesPref + delimiter + lib.getDefinedName();
-                delimiter = ";";
+        if (pi != null && !isCacheUpToDate) {//Update cache
+            StringBuilder autoDetectedLibrariesPref = new StringBuilder();
+
+            for (Library lib : libraries) {
+                autoDetectedLibrariesPref.append(DELIMITER).append(lib.getDefinedName());
             }
 
-            if (pi != null && !isCacheUpToDate) {
-                sharedPreferences.edit()
-                        .putInt("versionCode", pi.versionCode)
-                        .putString("autoDetectedLibraries", autoDetectedLibrariesPref)
-                        .apply();
-            }
+            sharedPreferences.edit()
+                    .putInt("versionCode", pi.versionCode)
+                    .putString("autoDetectedLibraries", autoDetectedLibrariesPref.toString())
+                    .apply();
         }
 
         return libraries;
