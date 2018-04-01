@@ -8,8 +8,8 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 27
-        versionCode 6060
-        versionName '6.0.6'
+        versionCode 6070
+        versionName '6.0.7'
 
         resValue "string", "aboutlibrary_lib_version", "${versionName}"
         resValue "string", "ext_support_lib_version", "${rootProject.ext.supportLibVersion}"
@@ -39,10 +39,10 @@ dependencies {
     // used to provide out of the box icon font support. simplifies development,
     // and provides scalable icons. the core is very very light
     // https://github.com/mikepenz/Android-Iconics
-    compile 'com.mikepenz:iconics-core:3.0.2@aar'
+    implementation 'com.mikepenz:iconics-core:3.0.3'
 
     // used to fill the RecyclerView with the items
     // and provides single and multi selection, expandable items
     // https://github.com/mikepenz/FastAdapter
-    compile 'com.mikepenz:fastadapter:3.2.4@aar'
+    implementation 'com.mikepenz:fastadapter:3.2.4'
 }
