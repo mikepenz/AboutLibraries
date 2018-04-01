@@ -14,7 +14,7 @@
     <string name="library_materialaboutlibrary_isOpenSource">true</string>
     <string name="library_materialaboutlibrary_repositoryLink">https://github.com/daniel-stoneuk/material-about-library</string>
     <!-- ClassPath for autoDetect section -->
-    <string name="library_materialaboutlibrary_classPath">com.danielstone.materialaboutlibrary</string>
+    <string name="library_materialaboutlibrary_classPath">com.danielstone.materialaboutlibrary.MaterialAboutActivity</string>
     <!-- License section -->
     <string name="library_materialaboutlibrary_licenseId">mit</string>
      <!-- Custom variables section -->
