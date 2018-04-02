@@ -3,7 +3,6 @@ package com.mikepenz.aboutlibraries;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -15,13 +14,9 @@ import com.mikepenz.aboutlibraries.util.Util;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Map;
 
 public class Libs {
@@ -83,39 +78,46 @@ public class Libs {
      * @param fields
      */
     private void init(Context ctx, String[] fields) {
+        ArrayList<String> foundLicenseIdentifiers = new ArrayList<>();
+        ArrayList<String> foundInternalLibraryIdentifiers = new ArrayList<>();
+        ArrayList<String> foundExternalLibraryIdentifiers = new ArrayList<>();
+
         if (fields != null) {
             for (String field : fields) {
-                if (field.startsWith(DEFINE_LICENSE)) {//add licenses
-                    addLicense(ctx, field.replace(DEFINE_LICENSE, ""));
-                } else if (field.startsWith(DEFINE_INT)) {//add internal libs
-                    addInternalLibrary(ctx, field.replace(DEFINE_INT, ""));
-                } else if (field.startsWith(DEFINE_EXT)) {//add external libs
-                    addExternalLibrary(ctx, field.replace(DEFINE_EXT, ""));
+                if (field.startsWith(DEFINE_LICENSE)) {
+                    foundLicenseIdentifiers.add(field.replace(DEFINE_LICENSE, ""));
+                } else if (field.startsWith(DEFINE_INT)) {
+                    foundInternalLibraryIdentifiers.add(field.replace(DEFINE_INT, ""));
+                } else if (field.startsWith(DEFINE_EXT)) {
+                    foundExternalLibraryIdentifiers.add(field.replace(DEFINE_EXT, ""));
                 }
             }
         }
-    }
 
-    private void addLicense(Context ctx, String licenseIdentifier) {
-        License license = genLicense(ctx, licenseIdentifier);
-        if (license != null) {
-            licenses.add(license);
+        // add licenses
+        // this has to happen first as the licenses need to be initialized before the libraries are read in
+        for (String licenseIdentifier : foundLicenseIdentifiers) {
+            License license = genLicense(ctx, licenseIdentifier);
+            if (license != null) {
+                licenses.add(license);
+            }
         }
-    }
-
-    private void addInternalLibrary(Context ctx, String internalIdentifier) {
-        Library library = genLibrary(ctx, internalIdentifier);
-        if (library != null) {
-            library.setInternal(true);
-            internLibraries.add(library);
+        //add internal libs
+        for (String internalIdentifier : foundInternalLibraryIdentifiers) {
+            Library library = genLibrary(ctx, internalIdentifier);
+            if (library != null) {
+                library.setInternal(true);
+                internLibraries.add(library);
+            }
         }
-    }
 
-    private void addExternalLibrary(Context ctx, String externalIdentifier) {
-        Library library = genLibrary(ctx, externalIdentifier);
-        if (library != null) {
-            library.setInternal(false);
-            externLibraries.add(library);
+        //add external libs
+        for (String externalIdentifier : foundExternalLibraryIdentifiers) {
+            Library library = genLibrary(ctx, externalIdentifier);
+            if (library != null) {
+                library.setInternal(false);
+                externLibraries.add(library);
+            }
         }
     }
 
