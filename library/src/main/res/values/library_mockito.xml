@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_mockito"></string>
+    <!-- Author section -->
+    <string name="library_mockito_author">Mockito</string>
+    <string name="library_mockito_authorWebsite">http://site.mockito.org/</string>
+    <!-- Library section -->
+    <string name="library_mockito_libraryName">Mockito</string>
+    <string name="library_mockito_libraryDescription">Most popular Mocking framework for unit tests written in Java</string>
+    <string name="library_mockito_libraryWebsite">http://site.mockito.org/</string>
+    <string name="library_mockito_libraryVersion">2.18.5</string>
+    <!-- OpenSource section -->
+    <string name="library_mockito_isOpenSource">true</string>
+    <string name="library_mockito_repositoryLink">https://github.com/mockito/mockito</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_mockito_classPath">org.mockito</string>
+    <!-- License section -->
+    <string name="library_mockito_licenseId">mit</string>
+    <!-- Custom variables section -->
+</resources>
