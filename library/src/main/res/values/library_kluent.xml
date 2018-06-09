@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_kluent"></string>
+    <!-- Author section -->
+    <string name="library_kluent_author">Markus Amshove</string>
+    <string name="library_kluent_authorWebsite">https://github.com/MarkusAmshove</string>
+    <!-- Library section -->
+    <string name="library_kluent_libraryName">Kluent</string>
+    <string name="library_kluent_libraryDescription">Fluent Assertion-Library for Kotlin.</string>
+    <string name="library_kluent_libraryWebsite">https://markusamshove.github.io/Kluent/</string>
+    <string name="library_kluent_libraryVersion">1.3.8</string>
+    <!-- OpenSource section -->
+    <string name="library_kluent_isOpenSource">true</string>
+    <string name="library_kluent_repositoryLink">https://github.com/MarkusAmshove/Kluent</string>
+    <!-- ClassPath for autoDetect section -->
+    <!-- Likely to be changed -->
+    <string name="library_kluent_classPath">org.amshove.kluent</string>
+    <!-- License section -->
+    <string name="library_kluent_licenseId">apache_2_0</string>
+    <!-- Custom variables section -->
+</resources>
