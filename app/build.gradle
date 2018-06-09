@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionCode 6080
         versionName '6.0.8'
 
@@ -71,7 +71,7 @@ dependencies {
     // used to provide out of the box icon font support. simplifies development,
     // and provides scalable icons. the core is very very light
     // https://github.com/mikepenz/Android-Iconics
-    implementation 'com.mikepenz:iconics-core:3.0.3'
+    implementation 'com.mikepenz:iconics-core:3.0.4'
 
     //used to display the icons in the drawer
     //https://github.com/mikepenz/Android-Iconics
@@ -80,8 +80,8 @@ dependencies {
 }
 
 configurations.all {
-    resolutionStrategy.force "com.mikepenz:fastadapter:3.2.5"
-    resolutionStrategy.force "com.mikepenz:iconics-core:3.0.3"
+    resolutionStrategy.force "com.mikepenz:fastadapter:3.2.7"
+    resolutionStrategy.force "com.mikepenz:iconics-core:3.0.4"
     resolutionStrategy.force "com.android.support:support-v4:${rootProject.ext.supportLibVersion}"
     resolutionStrategy.force "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
     resolutionStrategy.force "com.android.support:cardview-v7:${rootProject.ext.supportLibVersion}"
