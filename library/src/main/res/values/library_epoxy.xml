@@ -10,5 +10,5 @@
     <string name="library_epoxy_licenseId">apache_2_0</string>
     <string name="library_epoxy_isOpenSource">true</string>
     <string name="library_epoxy_repositoryLink">https://github.com/airbnb/epoxy</string>
-    <string name="library_epoxy_classPath">com.airbnb.android:epoxy</string>
+    <string name="library_epoxy_classPath">com.airbnb.epoxy.EpoxyAttribute</string>
 </resources>

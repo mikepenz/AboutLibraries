@@ -14,7 +14,7 @@
 	<string name="library_mosby_isOpenSource">true</string>
 	<string name="library_mosby_repositoryLink">https://github.com/sockeqwe/mosby</string>
 	<!-- ClassPath for autoDetect section -->
-	<string name="library_mosby_classPath">com.hannesdorfmann.mosby3</string>
+	<string name="library_mosby_classPath">com.hannesdorfmann.mosby3.ActivityMviDelegate</string>
 	<!-- License section -->
 	<string name="library_mosby_licenseId">apache_2_0</string>
 </resources>

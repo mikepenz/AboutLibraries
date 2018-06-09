@@ -15,7 +15,7 @@
     <string name="library_kluent_repositoryLink">https://github.com/MarkusAmshove/Kluent</string>
     <!-- ClassPath for autoDetect section -->
     <!-- Likely to be changed -->
-    <string name="library_kluent_classPath">org.amshove.kluent</string>
+    <string name="library_kluent_classPath">org.amshove.kluent.Basic</string>
     <!-- License section -->
     <string name="library_kluent_licenseId">apache_2_0</string>
     <!-- Custom variables section -->

@@ -14,7 +14,7 @@
     <string name="library_fakeit_isOpenSource">true</string>
     <string name="library_fakeit_repositoryLink">https://github.com/moove-it/fakeit</string>
     <!-- ClassPath for autoDetect section -->
-    <string name="library_fakeit_classPath">com.github.moove-it</string>
+    <string name="library_fakeit_classPath">com.mooveit.library.Fakeit</string>
     <!-- License section -->
     <string name="library_fakeit_licenseId">apache_2_0</string>
     <!-- Custom variables section -->

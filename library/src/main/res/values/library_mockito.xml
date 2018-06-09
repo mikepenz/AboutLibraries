@@ -14,7 +14,7 @@
     <string name="library_mockito_isOpenSource">true</string>
     <string name="library_mockito_repositoryLink">https://github.com/mockito/mockito</string>
     <!-- ClassPath for autoDetect section -->
-    <string name="library_mockito_classPath">org.mockito</string>
+    <string name="library_mockito_classPath">org.mockito.Answers</string>
     <!-- License section -->
     <string name="library_mockito_licenseId">mit</string>
     <!-- Custom variables section -->

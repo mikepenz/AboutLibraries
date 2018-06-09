@@ -14,8 +14,8 @@
 	<string name="library_robolectric_isOpenSource">true</string>
 	<string name="library_robolectric_repositoryLink">https://github.com/robolectric/robolectric</string>
 	<!-- ClassPath for autoDetect section -->
-	<string name="library_robolectric_classPath">org.robolectric</string>
+	<string name="library_robolectric_classPath">org.robolectric.AndroidMetadata</string>
 	<!-- License section -->
-	<string name="library_robolectric_licenseId"></string>
+	<string name="library_robolectric_licenseId">mit</string>
 	<!-- Custom variables section -->
 </resources>
