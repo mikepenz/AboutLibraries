@@ -1,8 +1,8 @@
 package com.mikepenz.aboutlibraries.ui.item;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ProgressBar;
 
 import com.mikepenz.aboutlibraries.R;
 import com.mikepenz.fastadapter.items.AbstractItem;
@@ -50,6 +50,13 @@ public class LoaderItem extends AbstractItem<LoaderItem, LoaderItem.ViewHolder> 
         super.bindView(holder, payloads);
     }
 
+    /**
+     * This method returns the ViewHolder for our item, using the provided View.
+     *
+     * @param v
+     * @return the ViewHolder for this Item
+     */
+    @NonNull
     @Override
     public ViewHolder getViewHolder(View v) {
         return new ViewHolder(v);
@@ -58,15 +65,10 @@ public class LoaderItem extends AbstractItem<LoaderItem, LoaderItem.ViewHolder> 
     /**
      * our ViewHolder
      */
+    static class ViewHolder extends RecyclerView.ViewHolder {
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        ProgressBar progressBar;
-
-        public ViewHolder(View headerView) {
+        ViewHolder(View headerView) {
             super(headerView);
-
-            //get the about this app views
-            progressBar = (ProgressBar) headerView.findViewById(R.id.progressBar);
         }
     }
 }
