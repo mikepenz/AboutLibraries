@@ -580,6 +580,7 @@ public class LibsBuilder implements Serializable {
      */
     public void start(Context ctx) {
         Intent i = intent(ctx);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         ctx.startActivity(i);
     }
 

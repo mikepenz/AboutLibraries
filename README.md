@@ -49,7 +49,7 @@ You can find anything you search for in the wiki. (If not open an issue)
 The AboutLibraries Library is pushed to [Maven Central](http://search.maven.org/#search|ga|1|g%3A%22com.mikepenz%22), so you just need to add the following dependency to your `build.gradle`. It seems it is also required to add the support dependencies to the application. If it works without, you should be fine too :).
 
 ```javascript
-implementation "com.mikepenz:aboutlibraries:6.0.8"
+implementation "com.mikepenz:aboutlibraries:6.0.9"
 
 //required support lib modules
 implementation "com.android.support:appcompat-v7:${versions.supportLib}"
@@ -163,6 +163,7 @@ You can contribute by creating a information file for a new library, and open a 
 * [KAU (library)](https://allanwang.github.io/KAU/about/)
 * [Frost for Facebook](https://play.google.com/store/apps/details?id=com.pitchedapps.frost)
 * [OneMeme: Meme Maker](https://play.google.com/store/apps/details?id=com.mememaker.android&hl)
+* [andOTP](https://play.google.com/store/apps/details?id=org.shadowice.flocke.andotp)
 
 # Developed By
 

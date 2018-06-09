@@ -1,18 +1,17 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.novoda.bintray-release'
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdkVersion setup.compileSdk
+    buildToolsVersion setup.buildTools
 
     defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 27
-        versionCode 6080
-        versionName '6.0.8'
+        minSdkVersion setup.minSdk
+        targetSdkVersion setup.targetSdk
+        versionCode release.versionCode
+        versionName release.versionName
 
         resValue "string", "aboutlibrary_lib_version", "${versionName}"
-        resValue "string", "ext_support_lib_version", "${rootProject.ext.supportLibVersion}"
+        resValue "string", "ext_support_lib_version", "${versions.supportLib}"
     }
 
     buildTypes {
@@ -28,21 +27,21 @@ android {
         abortOnError false
     }
 }
-apply from: 'gradle-mvn-push.gradle'
-apply from: 'gradle-jcenter-push.gradle'
 
 dependencies {
-    implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
-    implementation "com.android.support:cardview-v7:${rootProject.ext.supportLibVersion}"
-    implementation "com.android.support:recyclerview-v7:${rootProject.ext.supportLibVersion}"
+    implementation "com.android.support:appcompat-v7:${versions.supportLib}"
+    implementation "com.android.support:cardview-v7:${versions.supportLib}"
+    implementation "com.android.support:recyclerview-v7:${versions.supportLib}"
 
     // used to provide out of the box icon font support. simplifies development,
     // and provides scalable icons. the core is very very light
     // https://github.com/mikepenz/Android-Iconics
-    implementation 'com.mikepenz:iconics-core:3.0.3'
+    implementation 'com.mikepenz:iconics-core:3.0.4'
 
     // used to fill the RecyclerView with the items
     // and provides single and multi selection, expandable items
     // https://github.com/mikepenz/FastAdapter
-    implementation 'com.mikepenz:fastadapter:3.2.5'
+    implementation 'com.mikepenz:fastadapter:3.2.7'
 }
+
+apply from: '../gradle-release.gradle'

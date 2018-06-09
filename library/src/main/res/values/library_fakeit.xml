@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_fakeit"></string>
+    <!-- Author section -->
+    <string name="library_fakeit_author">Moove-it</string>
+    <string name="library_fakeit_authorWebsite">https://moove-it.com/</string>
+    <!-- Library section -->
+    <string name="library_fakeit_libraryName">Fakeit</string>
+    <string name="library_fakeit_libraryDescription">It generates realistic fake data — like names, emails, dates, countries — for a variety of scenarios, including automated testing and database population.</string>
+    <string name="library_fakeit_libraryWebsite">https://github.com/moove-it/fakeit</string>
+    <string name="library_fakeit_libraryVersion">0.7</string>
+    <!-- OpenSource section -->
+    <string name="library_fakeit_isOpenSource">true</string>
+    <string name="library_fakeit_repositoryLink">https://github.com/moove-it/fakeit</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_fakeit_classPath">com.mooveit.library.Fakeit</string>
+    <!-- License section -->
+    <string name="library_fakeit_licenseId">apache_2_0</string>
+    <!-- Custom variables section -->
+</resources>
