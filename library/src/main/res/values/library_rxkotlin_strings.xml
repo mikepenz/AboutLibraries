@@ -14,7 +14,7 @@
 	<string name="library_rxkotlin_isOpenSource">true</string>
 	<string name="library_rxkotlin_repositoryLink">https://github.com/ReactiveX/RxKotlin</string>
 	<!-- ClassPath for autoDetect section -->
-	<string name="library_rxkotlin_classPath">io.reactivex.kotlin</string>
+	<string name="library_rxkotlin_classPath">io.reactivex.rxkotlin</string>
 	<!-- License section -->
 	<string name="library_rxkotlin_licenseId">apache_2_0</string>
 	<!-- Custom variables section -->
