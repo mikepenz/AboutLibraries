@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_JScience"></string>
+    <!-- Author section -->
+    <string name="library_JScience_author">Javolution</string>
+    <string name="library_JScience_authorWebsite">http://javolution.org/</string>
+    <!-- Library section -->
+    <string name="library_JScience_libraryName">Jscience</string>
+    <string name="library_JScience_libraryDescription">Tools & Libraries for the Advancement of Sciences.</string>
+    <string name="library_JScience_libraryVersion">4.3.1</string>
+    <string name="library_JScience_libraryWebsite">http://jscience.org/</string>
+    <!-- License section -->
+    <string name="library_JScience_licenseId">mit</string>
+    <!-- OpenSource section -->
+    <string name="library_JScience_isOpenSource">true</string>
+    <string name="library_JScience_repositoryLink">https://github.com/javolution/jscience</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_JScience_classPath">org.jscience</string>
+</resources>
