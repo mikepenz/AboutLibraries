@@ -15,5 +15,5 @@
     <string name="library_JScience_isOpenSource">true</string>
     <string name="library_JScience_repositoryLink">https://github.com/javolution/jscience</string>
     <!-- ClassPath for autoDetect section -->
-    <string name="library_JScience_classPath">org.jscience</string>
+    <string name="library_JScience_classPath">org.jscience.mathematics.number.Real</string>
 </resources>
