@@ -597,6 +597,10 @@ public class LibsBuilder implements Serializable {
      * @return the fragment to set in your application
      */
     public LibsSupportFragment supportFragment() {
+        if (libraryComparator != null) {
+            throw new IllegalArgumentException("Can not use a 'libraryComparator' with the support fragment");
+        }
+
         Bundle bundle = new Bundle();
         bundle.putSerializable("data", this);
 
@@ -612,6 +616,10 @@ public class LibsBuilder implements Serializable {
      * @return the fragment to set in your application
      */
     public LibsFragment fragment() {
+        if (libraryComparator != null) {
+            throw new IllegalArgumentException("Can not use a 'libraryComparator' with the fragment");
+        }
+
         Bundle bundle = new Bundle();
         bundle.putSerializable("data", this);
 
