@@ -4,6 +4,7 @@
     android:id="@id/rippleForegroundListenerView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:focusable="true"
     android:layout_marginBottom="8dp"
     android:layout_marginTop="8dp"
     android:clickable="true"
