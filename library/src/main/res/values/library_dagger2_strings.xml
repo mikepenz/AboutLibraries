@@ -4,7 +4,7 @@
     <string name="library_Dagger2_author">Google</string>
     <string name="library_Dagger2_libraryName">Dagger 2</string>
     <string name="library_Dagger2_libraryDescription">A fast dependency injector for Android and Java.</string>
-    <string name="library_Dagger2_libraryVersion">2.10</string>
+    <string name="library_Dagger2_libraryVersion">2.16</string>
     <string name="library_Dagger2_libraryWebsite">https://google.github.io/dagger/</string>
     <string name="library_Dagger2_licenseId">apache_2_0</string>
     <string name="library_Dagger2_isOpenSource">true</string>
