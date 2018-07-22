@@ -149,7 +149,7 @@ public class Libs {
      */
     public ArrayList<Library> prepareLibraries(Context ctx, String[] internalLibraries, String[] excludeLibraries, boolean autoDetect, boolean checkCachedDetection, boolean sort) {
         boolean isExcluding = excludeLibraries != null;
-        HashMap<String, Library> libraries = isExcluding? new HashMap<String, Library>():null;
+        HashMap<String, Library> libraries = new HashMap<>();
         ArrayList<Library> resultLibraries = new ArrayList<>();
 
         if (autoDetect) {
@@ -177,8 +177,7 @@ public class Libs {
         if (internalLibraries != null) {
             for (String internalLibrary : internalLibraries) {
                 Library lib = getLibrary(internalLibrary);
-
-                if(isExcluding && lib != null) {
+                if(lib != null) {
                     resultLibraries.add(lib);
                     libraries.put(lib.getDefinedName(), lib);
                 }
