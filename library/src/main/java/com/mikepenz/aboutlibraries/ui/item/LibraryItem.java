@@ -3,9 +3,6 @@ package com.mikepenz.aboutlibraries.ui.item;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import androidx.appcompat.app.AlertDialog;
-import android.support.v7.widget.CardView;
-import androidx.recyclerview.widget.RecyclerView;
 import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
@@ -20,6 +17,10 @@ import com.mikepenz.aboutlibraries.util.UIUtils;
 import com.mikepenz.fastadapter.items.AbstractItem;
 
 import java.util.List;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
 
 
 /**

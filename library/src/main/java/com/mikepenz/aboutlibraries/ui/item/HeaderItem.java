@@ -2,8 +2,6 @@ package com.mikepenz.aboutlibraries.ui.item;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.recyclerview.widget.RecyclerView;
 import android.text.Html;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
@@ -17,12 +15,14 @@ import com.mikepenz.aboutlibraries.LibsBuilder;
 import com.mikepenz.aboutlibraries.LibsConfiguration;
 import com.mikepenz.aboutlibraries.R;
 import com.mikepenz.aboutlibraries.util.MovementCheck;
-import com.mikepenz.aboutlibraries.util.RippleForegroundListener;
 import com.mikepenz.aboutlibraries.util.UIUtils;
 import com.mikepenz.fastadapter.items.AbstractItem;
 import com.mikepenz.iconics.Iconics;
 
 import java.util.List;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.recyclerview.widget.RecyclerView;
 
 
 /**
@@ -144,8 +144,8 @@ public class HeaderItem extends AbstractItem<HeaderItem, HeaderItem.ViewHolder> 
                     if (!consumed && !TextUtils.isEmpty(libsBuilder.aboutAppSpecial1Description)) {
                         try {
                             AlertDialog alert = new AlertDialog.Builder(ctx)
-                                .setMessage(Html.fromHtml(libsBuilder.aboutAppSpecial1Description))
-                                .create();
+                                    .setMessage(Html.fromHtml(libsBuilder.aboutAppSpecial1Description))
+                                    .create();
                             alert.show();
                             TextView alertText = (TextView) alert.findViewById(android.R.id.message);
                             if (alertText != null) {
@@ -173,8 +173,8 @@ public class HeaderItem extends AbstractItem<HeaderItem, HeaderItem.ViewHolder> 
                     if (!consumed && !TextUtils.isEmpty(libsBuilder.aboutAppSpecial2Description)) {
                         try {
                             AlertDialog alert = new AlertDialog.Builder(ctx)
-                                .setMessage(Html.fromHtml(libsBuilder.aboutAppSpecial2Description))
-                                .create();
+                                    .setMessage(Html.fromHtml(libsBuilder.aboutAppSpecial2Description))
+                                    .create();
                             alert.show();
                             TextView alertText = (TextView) alert.findViewById(android.R.id.message);
                             if (alertText != null) {
@@ -202,8 +202,8 @@ public class HeaderItem extends AbstractItem<HeaderItem, HeaderItem.ViewHolder> 
                     if (!consumed && !TextUtils.isEmpty(libsBuilder.aboutAppSpecial3Description)) {
                         try {
                             AlertDialog alert = new AlertDialog.Builder(ctx)
-                                .setMessage(Html.fromHtml(libsBuilder.aboutAppSpecial3Description))
-                                .create();
+                                    .setMessage(Html.fromHtml(libsBuilder.aboutAppSpecial3Description))
+                                    .create();
                             alert.show();
                             TextView alertText = (TextView) alert.findViewById(android.R.id.message);
                             if (alertText != null) {
