@@ -55,8 +55,9 @@ implementation "com.mikepenz:aboutlibraries:6.2.0-rc01"
 implementation "androidx.appcompat:appcompat:${androidX}"
 implementation "androidx.cardview:cardview:${androidX}"
 implementation "androidx.recyclerview:recyclerview:${androidX}"
-
 ```
+
+To use appcompat please use a version smaller than 6.2.0. (See the releases on GitHub)
 
 Further information and how to use it if you can't update to the newest support libs can be found in the [wiki](https://github.com/mikepenz/AboutLibraries/wiki/HOWTO:-Include)
 
