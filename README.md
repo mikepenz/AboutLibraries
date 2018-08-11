@@ -52,10 +52,9 @@ The AboutLibraries Library is pushed to [Maven Central](http://search.maven.org/
 implementation "com.mikepenz:aboutlibraries:6.1.1"
 
 //required support lib modules
-implementation "com.android.support:appcompat-v7:${versions.supportLib}"
-implementation "com.android.support:recyclerview-v7:${versions.supportLib}"
-implementation "com.android.support:support-annotations:${versions.supportLib}"
-implementation "com.android.support:cardview-v7:${versions.supportLib}"
+implementation "androidx.appcompat:appcompat:${androidX}"
+implementation "androidx.cardview:cardview:${androidX}"
+implementation "androidx.recyclerview:recyclerview:${androidX}"
 
 ```
 
