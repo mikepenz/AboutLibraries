@@ -49,15 +49,15 @@ You can find anything you search for in the wiki. (If not open an issue)
 The AboutLibraries Library is pushed to [Maven Central](http://search.maven.org/#search|ga|1|g%3A%22com.mikepenz%22), so you just need to add the following dependency to your `build.gradle`. It seems it is also required to add the support dependencies to the application. If it works without, you should be fine too :).
 
 ```javascript
-implementation "com.mikepenz:aboutlibraries:6.1.1"
+implementation "com.mikepenz:aboutlibraries:6.2.0-rc01"
 
 //required support lib modules
-implementation "com.android.support:appcompat-v7:${versions.supportLib}"
-implementation "com.android.support:recyclerview-v7:${versions.supportLib}"
-implementation "com.android.support:support-annotations:${versions.supportLib}"
-implementation "com.android.support:cardview-v7:${versions.supportLib}"
-
+implementation "androidx.appcompat:appcompat:${androidX}"
+implementation "androidx.cardview:cardview:${androidX}"
+implementation "androidx.recyclerview:recyclerview:${androidX}"
 ```
+
+To use appcompat please use a version smaller than 6.2.0. (See the releases on GitHub)
 
 Further information and how to use it if you can't update to the newest support libs can be found in the [wiki](https://github.com/mikepenz/AboutLibraries/wiki/HOWTO:-Include)
 

@@ -1,13 +1,14 @@
 package com.mikepenz.aboutlibraries.ui.item;
 
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.mikepenz.aboutlibraries.R;
 import com.mikepenz.fastadapter.items.AbstractItem;
 
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 
 /**
