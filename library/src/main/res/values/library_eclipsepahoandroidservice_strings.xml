@@ -14,7 +14,7 @@
 	<string name="library_eclipsepahoandroidservice_isOpenSource">true</string>
 	<string name="library_eclipsepahoandroidservice_repositoryLink">https://github.com/eclipse/paho.mqtt.android</string>
 	<!-- ClassPath for autoDetect section -->
-	<string name="library_eclipsepahoandroidservice_classPath">org.eclipse.paho</string>
+	<string name="library_eclipsepahoandroidservice_classPath">org.eclipse.paho.android.service.Status</string>
 	<!-- License section -->
 	<string name="library_eclipsepahoandroidservice_licenseId">bsd_3</string>
 	<!-- Custom variables section -->
