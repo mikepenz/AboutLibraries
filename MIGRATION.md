@@ -1,4 +1,9 @@
 ### Upgrade Notes
+
+#### v6.2.x
+* Upgraded the library to use `androidX` dependencies. This means your project will need to depend on `androidX` dependencies too. If you still use appcompat please consider using a version older than v3.3.x. 
+* Further details about migrating to androidX and a overview can be found on the official docs. https://developer.android.com/topic/libraries/support-library/refactor
+
 #### v6.0.0
 **IMPORTANT IF YOU USE THE FASTADAPTER OR MATERIALDRAWER**
 * You have to update your FastAdapter dependency to v3.0.0 with this release
