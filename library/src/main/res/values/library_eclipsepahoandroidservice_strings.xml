@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_int_eclipsepahoandroidservice"></string>
+	<!-- Author section -->
+	<string name="library_eclipsepahoandroidservice_author">Eclipse</string>
+	<string name="library_eclipsepahoandroidservice_authorWebsite">https://www.eclipse.org/paho/clients/android/</string>
+	<!-- Library section -->
+	<string name="library_eclipsepahoandroidservice_libraryName">Eclipse Paho Android Service</string>
+	<string name="library_eclipsepahoandroidservice_libraryDescription">The Paho Android Service is an MQTT client library written in Java for developing applications on Android.</string>
+	<string name="library_eclipsepahoandroidservice_libraryWebsite">https://www.eclipse.org/paho/</string>
+	<string name="library_eclipsepahoandroidservice_libraryVersion">1.1.1</string>
+	<!-- OpenSource section -->
+	<string name="library_eclipsepahoandroidservice_isOpenSource">true</string>
+	<string name="library_eclipsepahoandroidservice_repositoryLink">https://github.com/eclipse/paho.mqtt.android</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_eclipsepahoandroidservice_classPath">org.eclipse.paho.android.service.Status</string>
+	<!-- License section -->
+	<string name="library_eclipsepahoandroidservice_licenseId">bsd_3</string>
+	<!-- Custom variables section -->
+</resources>
