@@ -14,7 +14,7 @@
 	<string name="library_photoview_isOpenSource">true</string>
 	<string name="library_photoview_repositoryLink">https://github.com/chrisbanes/PhotoView</string>
 	<!-- ClassPath for autoDetect section -->
-	<string name="library_photoview_classPath">com.github.chrisbanes.PhotoView</string>
+	<string name="library_photoview_classPath">com.github.chrisbanes.photoview.PhotoView</string>
 	<!-- License section -->
 	<string name="library_photoview_licenseId">apache_2_0</string>
 	<!-- Custom variables section -->
