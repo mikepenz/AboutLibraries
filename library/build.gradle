@@ -36,12 +36,12 @@ dependencies {
     // used to provide out of the box icon font support. simplifies development,
     // and provides scalable icons. the core is very very light
     // https://github.com/mikepenz/Android-Iconics
-    implementation 'com.mikepenz:iconics-core:3.1.0-rc01'
+    implementation 'com.mikepenz:iconics-core:3.1.0'
 
     // used to fill the RecyclerView with the items
     // and provides single and multi selection, expandable items
     // https://github.com/mikepenz/FastAdapter
-    implementation 'com.mikepenz:fastadapter:3.3.0-rc01'
+    implementation 'com.mikepenz:fastadapter:3.3.0'
 }
 
 apply from: '../gradle-release.gradle'
