@@ -167,12 +167,10 @@ public class Libs {
         List<Library> extern = getExternLibraries();
         resultLibraries.addAll(extern);
 
-        if(isExcluding) {
-            for (Library lib : extern) {
-                libraries.put(lib.getDefinedName(), lib);
-            }
+        for (Library lib : extern) {
+            libraries.put(lib.getDefinedName(), lib);
         }
-
+        
         //Now add all libs which do not contains the info file, but are in the AboutLibraries lib
         if (internalLibraries != null) {
             for (String internalLibrary : internalLibraries) {
