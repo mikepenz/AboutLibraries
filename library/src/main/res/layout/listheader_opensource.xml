@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:focusable="true"
     android:orientation="vertical"
-    android:paddingBottom="8dp"
-    android:paddingTop="8dp">
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp">
 
     <ImageView
         android:id="@+id/aboutIcon"
         android:layout_width="@dimen/aboutImage_openSource"
         android:layout_height="@dimen/aboutImage_openSource"
         android:layout_gravity="center"
-        tools:src="@drawable/button_rect_normal"/>
+        tools:src="@drawable/button_rect_normal" />
 
     <TextView
         android:id="@+id/aboutName"
@@ -23,7 +22,7 @@
         android:layout_margin="6dp"
         android:gravity="center"
         android:textSize="@dimen/textSizeLarge_openSource"
-        tools:text="About AppName"/>
+        tools:text="About AppName" />
 
     <TextView
         android:id="@+id/aboutVersion"
@@ -32,17 +31,18 @@
         android:layout_margin="4dp"
         android:gravity="center"
         android:textSize="@dimen/textSizeSmall_openSource"
-        tools:text="About version"/>
+        tools:text="About version" />
 
     <LinearLayout
         android:id="@+id/aboutSpecialContainer"
         style="?android:buttonBarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="6dp"
         android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
         android:gravity="center"
         android:orientation="horizontal">
+
         <Button
             android:id="@+id/aboutSpecial1"
             android:layout_width="0dp"
@@ -51,7 +51,8 @@
             android:gravity="center"
             android:lines="1"
             android:textSize="@dimen/textSizeSmall_openSource"
-            tools:text="Special 1"/>
+            tools:text="Special 1" />
+
         <Button
             android:id="@+id/aboutSpecial2"
             android:layout_width="0dp"
@@ -60,7 +61,8 @@
             android:gravity="center"
             android:lines="1"
             android:textSize="@dimen/textSizeSmall_openSource"
-            tools:text="Special 2"/>
+            tools:text="Special 2" />
+
         <Button
             android:id="@+id/aboutSpecial3"
             android:layout_width="0dp"
@@ -69,15 +71,14 @@
             android:gravity="center"
             android:lines="1"
             android:textSize="@dimen/textSizeSmall_openSource"
-            tools:text="Special 3"/>
+            tools:text="Special 3" />
     </LinearLayout>
 
     <View
         android:id="@+id/aboutDivider"
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:layout_marginTop="4dp"
-        />
+        android:layout_marginTop="4dp" />
 
     <TextView
         android:id="@+id/aboutDescription"
@@ -88,5 +89,5 @@
         android:padding="8dp"
         android:textSize="@dimen/textSizeSmall_openSource"
         android:textStyle="normal"
-        tools:text="About description"/>
+        tools:text="About description" />
 </LinearLayout>
