@@ -43,18 +43,22 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/aboutSpecial1"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="6dp"
+            android:layout_marginRight="6dp"
             android:layout_weight="1"
             android:gravity="center"
             android:lines="1"
             android:textSize="@dimen/textSizeSmall_openSource"
             tools:text="Special 1" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/aboutSpecial2"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -63,10 +67,13 @@
             android:textSize="@dimen/textSizeSmall_openSource"
             tools:text="Special 2" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/aboutSpecial3"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginLeft="6dp"
             android:layout_weight="1"
             android:gravity="center"
             android:lines="1"

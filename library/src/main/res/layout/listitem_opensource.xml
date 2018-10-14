@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@id/rippleForegroundListenerView"
     android:layout_width="match_parent"
@@ -9,76 +10,95 @@
     android:clickable="true"
     android:focusable="true">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="6dp">
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/libraryName"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp">
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:ellipsize="end"
+            android:gravity="start"
+            android:maxLines="1"
+            android:textSize="@dimen/textSizeLarge_openSource"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toTopOf="@+id/libraryDescriptionDivider"
+            app:layout_constraintEnd_toStartOf="@id/libraryCreator"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Library name" />
 
-            <TextView
-                android:id="@+id/libraryName"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="5"
-                android:ellipsize="end"
-                android:gravity="start"
-                android:maxLines="1"
-                android:textSize="@dimen/textSizeLarge_openSource"
-                android:textStyle="normal"
-                tools:text="Library name" />
-
-            <TextView
-                android:id="@+id/libraryCreator"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:layout_weight="2"
-                android:gravity="end"
-                android:maxLines="2"
-                android:textSize="@dimen/textSizeSmall_openSource"
-                android:textStyle="normal"
-                tools:text="Creator" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/libraryCreator"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:gravity="end"
+            android:maxLines="2"
+            android:textSize="@dimen/textSizeSmall_openSource"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toTopOf="@+id/libraryDescriptionDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="7"
+            app:layout_constraintStart_toEndOf="@id/libraryName"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Creator" />
 
         <View
             android:id="@+id/libraryDescriptionDivider"
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:layout_marginTop="4dp" />
+            android:layout_marginTop="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/libraryName" />
 
         <TextView
             android:id="@+id/libraryDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             android:maxLines="20"
             android:padding="8dp"
             android:textSize="@dimen/textSizeSmall_openSource"
             android:textStyle="normal"
-            tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla in aliquet justo. Donec tincidunt, leo imperdiet pretium posuere, sapien leo auctor mi, ac scelerisque diam leo vel sapien. Morbi lobortis, sem sed molestie fermentum."></TextView>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/libraryDescriptionDivider"
+            tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla in aliquet justo. Donec tincidunt, leo imperdiet pretium posuere, sapien leo auctor mi, ac scelerisque diam leo vel sapien. Morbi lobortis, sem sed molestie fermentum." />
 
         <View
             android:id="@+id/libraryBottomDivider"
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:layout_marginTop="4dp" />
+            android:layout_marginTop="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/libraryDescription" />
 
         <LinearLayout
             android:id="@+id/libraryBottomContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="8dp"
             android:orientation="horizontal"
-            android:paddingLeft="8dp"
-            android:paddingTop="4dp"
-            android:paddingRight="8dp">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/libraryBottomDivider">
 
             <TextView
                 android:id="@+id/libraryVersion"
@@ -102,5 +122,6 @@
                 android:textStyle="normal"
                 tools:text="License" />
         </LinearLayout>
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </com.google.android.material.card.MaterialCardView>

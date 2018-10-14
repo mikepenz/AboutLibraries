@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="AboutLibrariesSampleTheme" parent="MaterialDrawerTheme.Light.DarkToolbar.TranslucentStatus">
         <!-- AboutLibraries specific values -->
-        <item name="about_libraries_window_background">@color/about_libraries_window_background</item>
+        <item name="about_libraries_window_background">@color/about_libraries_window_background
+        </item>
         <item name="about_libraries_card">@color/about_libraries_card</item>
         <item name="about_libraries_title_openSource">@color/about_libraries_title_openSource</item>
         <item name="about_libraries_text_openSource">@color/about_libraries_text_openSource</item>
-        <item name="about_libraries_special_button_openSource">@color/about_libraries_special_button_openSource</item>
-        <item name="about_libraries_dividerDark_openSource">@color/about_libraries_dividerDark_openSource</item>
-        <item name="about_libraries_dividerLight_openSource">@color/about_libraries_dividerLight_openSource</item>
+        <item name="about_libraries_special_button_openSource">
+            @color/about_libraries_special_button_openSource
+        </item>
+        <item name="about_libraries_dividerDark_openSource">
+            @color/about_libraries_dividerDark_openSource
+        </item>
+        <item name="about_libraries_dividerLight_openSource">
+            @color/about_libraries_dividerLight_openSource
+        </item>
     </style>
 </resources>
