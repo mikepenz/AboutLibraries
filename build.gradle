@@ -13,8 +13,9 @@ buildscript {
         ]
 
         versions = [
-                androidX: '1.0.0',
-                kotlin  : "1.2.71"
+                androidX        : '1.0.0',
+                kotlin          : "1.2.71",
+                constraintLayout: '1.1.3'
         ]
     }
 

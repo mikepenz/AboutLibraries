@@ -232,7 +232,6 @@ class LibraryItem(private val library: Library, private val libsBuilder: LibsBui
 
         internal var libraryBottomDivider: View = itemView.findViewById(R.id.libraryBottomDivider)
         internal var libraryBottomContainer: View = itemView.findViewById(R.id.libraryBottomContainer)
-
         internal var libraryVersion: TextView = itemView.findViewById(R.id.libraryVersion) as TextView
         internal var libraryLicense: TextView = itemView.findViewById(R.id.libraryLicense) as TextView
 

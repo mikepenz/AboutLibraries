@@ -241,6 +241,12 @@ class HeaderItem(var libsBuilder: LibsBuilder) : AbstractItem<HeaderItem, Header
             aboutVersion.setTextColor(headerView.context.getThemeColorFromAttrOrRes(R.attr.about_libraries_text_description, R.color.about_libraries_text_description))
             aboutDivider.setBackgroundColor(headerView.context.getThemeColorFromAttrOrRes(R.attr.about_libraries_divider_description, R.color.about_libraries_divider_description))
             aboutAppDescription.setTextColor(headerView.context.getThemeColorFromAttrOrRes(R.attr.about_libraries_text_description, R.color.about_libraries_text_description))
+
+            aboutSpecial1.setTextColor(headerView.context.getThemeColorFromAttrOrRes(R.attr.about_libraries_special_button_openSource, R.color.about_libraries_special_button_openSource))
+            aboutSpecial2.setTextColor(headerView.context.getThemeColorFromAttrOrRes(R.attr.about_libraries_special_button_openSource, R.color.about_libraries_special_button_openSource))
+            aboutSpecial3.setTextColor(headerView.context.getThemeColorFromAttrOrRes(R.attr.about_libraries_special_button_openSource, R.color.about_libraries_special_button_openSource))
+
+            aboutDivider.setBackgroundColor(headerView.context.getThemeColorFromAttrOrRes(R.attr.about_libraries_dividerLight_openSource, R.color.about_libraries_dividerLight_openSource))
         }
     }
 }
