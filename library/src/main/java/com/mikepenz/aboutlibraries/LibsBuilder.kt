@@ -491,7 +491,7 @@ class LibsBuilder : Serializable {
 
 
     private fun preCheck() {
-        if (fields == null) {
+        if (fields.isEmpty()) {
             Log.w("AboutLibraries", "Have you missed to call withFields(R.string.class.getFields())? - autoDetect won't work - https://github.com/mikepenz/AboutLibraries/wiki/HOWTO:-Fragment")
         }
     }
@@ -503,11 +503,10 @@ class LibsBuilder : Serializable {
      * @return a LibsRecyclerViewAdapter with the libraries
      */
     fun adapter(context: Context): FastAdapter<*> {
-        val libs: Libs
-        if (fields == null) {
-            libs = Libs(context)
+        val libs: Libs = if (fields.isEmpty()) {
+            Libs(context)
         } else {
-            libs = Libs(context, fields)
+            Libs(context, fields)
         }
 
         //apply modifications

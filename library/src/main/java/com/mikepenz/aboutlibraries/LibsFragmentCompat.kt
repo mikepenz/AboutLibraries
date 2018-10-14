@@ -6,7 +6,6 @@ import android.content.pm.PackageInfo
 import android.graphics.drawable.Drawable
 import android.os.AsyncTask
 import android.os.Bundle
-import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +17,8 @@ import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.ui.item.HeaderItem
 import com.mikepenz.aboutlibraries.ui.item.LibraryItem
 import com.mikepenz.aboutlibraries.ui.item.LoaderItem
+import com.mikepenz.aboutlibraries.util.extractBooleanBundleOrResource
+import com.mikepenz.aboutlibraries.util.extractStringBundleOrResource
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.IItem
 import com.mikepenz.fastadapter.adapters.ItemAdapter
@@ -134,20 +135,20 @@ class LibsFragmentCompat {
             }
 
             //fill the builder with the information
-            builder.aboutShowIcon = ctx.extractBooleanBundleOrResource(libs, builder.aboutShowIcon, "aboutLibraries_description_showIcon") ?: false
-            builder.aboutShowVersion = ctx.extractBooleanBundleOrResource(libs, builder.aboutShowVersion, "aboutLibraries_description_showVersion") ?: false
-            builder.aboutShowVersionName = ctx.extractBooleanBundleOrResource(libs, builder.aboutShowVersionName, "aboutLibraries_description_showVersionName") ?: false
-            builder.aboutShowVersionCode = ctx.extractBooleanBundleOrResource(libs, builder.aboutShowVersionCode, "aboutLibraries_description_showVersionCode") ?: false
+            builder.aboutShowIcon = ctx.extractBooleanBundleOrResource(builder.aboutShowIcon, "aboutLibraries_description_showIcon") ?: false
+            builder.aboutShowVersion = ctx.extractBooleanBundleOrResource(builder.aboutShowVersion, "aboutLibraries_description_showVersion") ?: false
+            builder.aboutShowVersionName = ctx.extractBooleanBundleOrResource(builder.aboutShowVersionName, "aboutLibraries_description_showVersionName") ?: false
+            builder.aboutShowVersionCode = ctx.extractBooleanBundleOrResource(builder.aboutShowVersionCode, "aboutLibraries_description_showVersionCode") ?: false
 
-            builder.aboutAppName = ctx.extractStringBundleOrResource(libs, builder.aboutAppName, "aboutLibraries_description_name") ?: ""
-            builder.aboutDescription = ctx.extractStringBundleOrResource(libs, builder.aboutDescription, "aboutLibraries_description_text") ?: ""
+            builder.aboutAppName = ctx.extractStringBundleOrResource(builder.aboutAppName, "aboutLibraries_description_name") ?: ""
+            builder.aboutDescription = ctx.extractStringBundleOrResource(builder.aboutDescription, "aboutLibraries_description_text") ?: ""
 
-            builder.aboutAppSpecial1 = ctx.extractStringBundleOrResource(libs, builder.aboutAppSpecial1, "aboutLibraries_description_special1_name")
-            builder.aboutAppSpecial1Description = ctx.extractStringBundleOrResource(libs, builder.aboutAppSpecial1Description, "aboutLibraries_description_special1_text")
-            builder.aboutAppSpecial2 = ctx.extractStringBundleOrResource(libs, builder.aboutAppSpecial2, "aboutLibraries_description_special2_name")
-            builder.aboutAppSpecial2Description = ctx.extractStringBundleOrResource(libs, builder.aboutAppSpecial2Description, "aboutLibraries_description_special2_text")
-            builder.aboutAppSpecial3 = ctx.extractStringBundleOrResource(libs, builder.aboutAppSpecial3, "aboutLibraries_description_special3_name")
-            builder.aboutAppSpecial3Description = ctx.extractStringBundleOrResource(libs, builder.aboutAppSpecial3Description, "aboutLibraries_description_special3_text")
+            builder.aboutAppSpecial1 = ctx.extractStringBundleOrResource(builder.aboutAppSpecial1, "aboutLibraries_description_special1_name")
+            builder.aboutAppSpecial1Description = ctx.extractStringBundleOrResource(builder.aboutAppSpecial1Description, "aboutLibraries_description_special1_text")
+            builder.aboutAppSpecial2 = ctx.extractStringBundleOrResource(builder.aboutAppSpecial2, "aboutLibraries_description_special2_name")
+            builder.aboutAppSpecial2Description = ctx.extractStringBundleOrResource(builder.aboutAppSpecial2Description, "aboutLibraries_description_special2_text")
+            builder.aboutAppSpecial3 = ctx.extractStringBundleOrResource(builder.aboutAppSpecial3, "aboutLibraries_description_special3_name")
+            builder.aboutAppSpecial3Description = ctx.extractStringBundleOrResource(builder.aboutAppSpecial3Description, "aboutLibraries_description_special3_text")
 
             //apply modifications
             libs.modifyLibraries(builder.libraryModification)
@@ -215,53 +216,5 @@ class LibsFragmentCompat {
             //finished loading
             LibsConfiguration.instance.libTaskCallback?.onLibTaskFinished(mItemAdapter)
         }
-    }
-
-    //
-
-    /**
-     * Helper to extract a boolean from a bundle or resource
-     *
-     * @param libs
-     * @param value
-     * @param resName
-     * @return
-     */
-    private fun Context.extractBooleanBundleOrResource(libs: Libs, value: Boolean?, resName: String): Boolean? {
-        var result: Boolean? = null
-        if (value != null) {
-            result = value
-        } else {
-            val descriptionShowVersion = libs.getStringResourceByName(this, resName)
-            if (!TextUtils.isEmpty(descriptionShowVersion)) {
-                try {
-                    result = java.lang.Boolean.parseBoolean(descriptionShowVersion)
-                } catch (ex: Exception) {
-                }
-
-            }
-        }
-        return result
-    }
-
-    /**
-     * Helper to extract a string from a bundle or resource
-     *
-     * @param libs
-     * @param value
-     * @param resName
-     * @return
-     */
-    private fun Context.extractStringBundleOrResource(libs: Libs, value: String?, resName: String): String? {
-        var result: String? = null
-        if (value != null) {
-            result = value
-        } else {
-            val descriptionShowVersion = libs.getStringResourceByName(this, resName)
-            if (!TextUtils.isEmpty(descriptionShowVersion)) {
-                result = descriptionShowVersion
-            }
-        }
-        return result
     }
 }
