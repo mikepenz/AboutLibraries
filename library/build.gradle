@@ -1,4 +1,6 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion setup.compileSdk
@@ -47,6 +49,9 @@ dependencies {
     // and provides single and multi selection, expandable items
     // https://github.com/mikepenz/FastAdapter
     implementation 'com.mikepenz:fastadapter:3.3.1'
+
+    // kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
 }
 
 apply from: '../gradle-release.gradle'

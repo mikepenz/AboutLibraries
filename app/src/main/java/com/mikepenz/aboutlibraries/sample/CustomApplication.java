@@ -14,7 +14,7 @@ public class CustomApplication extends Application {
     @Override
     public void onCreate() {
         //define an itemAnimator for our AboutLibs
-        LibsConfiguration.getInstance().setItemAnimator(new SlideDownAlphaAnimator());
+        LibsConfiguration.Companion.getInstance().setItemAnimator(new SlideDownAlphaAnimator());
         //register our font
         Iconics.registerFont(new MaterialDesignIconic());
         super.onCreate();
