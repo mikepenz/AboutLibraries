@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- NORMAL -->
-    <style name="AboutLibrariesTheme" parent="Theme.AppCompat.NoActionBar">
+    <style name="AboutLibrariesTheme" parent="Theme.MaterialComponents.NoActionBar">
         <!-- Here we setting appcompat’s actionBarStyle -->
         <item name="drawerArrowStyle">@style/AboutLibrariesTheme.DrawerArrowStyle</item>
 
@@ -31,7 +31,7 @@
     </style>
 
     <!-- LIGHT -->
-    <style name="AboutLibrariesTheme.Light" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AboutLibrariesTheme.Light" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Here we setting appcompat’s actionBarStyle -->
         <item name="drawerArrowStyle">@style/AboutLibrariesTheme.Light.DrawerArrowStyle</item>
 
@@ -58,7 +58,7 @@
     </style>
 
     <!-- LIGHT DARK ACTIONBAR -->
-    <style name="AboutLibrariesTheme.Light.DarkToolbar" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AboutLibrariesTheme.Light.DarkToolbar" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Here we setting appcompat’s actionBarStyle -->
         <item name="drawerArrowStyle">@style/AboutLibrariesTheme.DrawerArrowStyle</item>
 
