@@ -8,13 +8,12 @@ import android.text.TextUtils
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.card.MaterialCardView
 import com.mikepenz.aboutlibraries.LibsBuilder
 import com.mikepenz.aboutlibraries.LibsConfiguration
 import com.mikepenz.aboutlibraries.R
 import com.mikepenz.aboutlibraries.entity.Library
-import com.mikepenz.aboutlibraries.util.RippleForegroundListener
 import com.mikepenz.aboutlibraries.util.getThemeColorFromAttrOrRes
 import com.mikepenz.fastadapter.items.AbstractItem
 
@@ -23,8 +22,6 @@ import com.mikepenz.fastadapter.items.AbstractItem
  * Created by mikepenz on 28.12.15.
  */
 class LibraryItem(private val library: Library, private val libsBuilder: LibsBuilder) : AbstractItem<LibraryItem, LibraryItem.ViewHolder>() {
-    private val rippleForegroundListener = RippleForegroundListener(R.id.rippleForegroundListenerView)
-
     /**
      * defines the type defining this item. must be unique. preferably an id
      *
@@ -90,7 +87,6 @@ class LibraryItem(private val library: Library, private val libsBuilder: LibsBui
 
         //Define onClickListener
         if (!TextUtils.isEmpty(library.authorWebsite)) {
-            holder.libraryCreator.setOnTouchListener(rippleForegroundListener)
             holder.libraryCreator.setOnClickListener { view ->
                 val consumed = LibsConfiguration.instance.listener?.onLibraryAuthorClicked(view, library)
                         ?: false
@@ -115,7 +111,6 @@ class LibraryItem(private val library: Library, private val libsBuilder: LibsBui
         }
 
         if (!TextUtils.isEmpty(library.libraryWebsite) || !TextUtils.isEmpty(library.repositoryLink)) {
-            holder.libraryDescription.setOnTouchListener(rippleForegroundListener)
             holder.libraryDescription.setOnClickListener { v ->
                 val consumed = LibsConfiguration.instance.listener?.onLibraryContentClicked(v, library)
                         ?: false
@@ -140,7 +135,6 @@ class LibraryItem(private val library: Library, private val libsBuilder: LibsBui
         }
 
         if (library.license != null && (library.license?.licenseWebsite?.isNotEmpty() == true || libsBuilder.showLicenseDialog)) {
-            holder.libraryBottomContainer.setOnTouchListener(rippleForegroundListener)
             holder.libraryBottomContainer.setOnClickListener { view ->
                 val consumed = LibsConfiguration.instance.listener?.onLibraryBottomClicked(view, library)
                         ?: false
@@ -229,7 +223,7 @@ class LibraryItem(private val library: Library, private val libsBuilder: LibsBui
      */
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        internal var card: CardView = itemView as CardView
+        internal var card: MaterialCardView = itemView as MaterialCardView
 
         internal var libraryName: TextView = itemView.findViewById(R.id.libraryName) as TextView
         internal var libraryCreator: TextView = itemView.findViewById(R.id.libraryCreator) as TextView
