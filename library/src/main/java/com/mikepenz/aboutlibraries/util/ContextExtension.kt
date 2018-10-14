@@ -3,6 +3,7 @@ package com.mikepenz.aboutlibraries.util
 import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
+import android.text.TextUtils
 
 
 fun Context.getPackageInfo(): PackageInfo? {
@@ -33,4 +34,60 @@ fun Context.getApplicationInfo(): ApplicationInfo? {
     }
 
     return appInfo
+}
+
+fun Context.getStringResourceByName(aString: String): String {
+    val resId = resources.getIdentifier(aString, "string", packageName)
+    return if (resId == 0) {
+        ""
+    } else {
+        getString(resId)
+    }
+}
+
+
+/**
+ * Helper to extract a boolean from a bundle or resource
+ *
+ * @param libs
+ * @param value
+ * @param resName
+ * @return
+ */
+fun Context.extractBooleanBundleOrResource(value: Boolean?, resName: String): Boolean? {
+    var result: Boolean? = null
+    if (value != null) {
+        result = value
+    } else {
+        val descriptionShowVersion = getStringResourceByName(resName)
+        if (!TextUtils.isEmpty(descriptionShowVersion)) {
+            try {
+                result = java.lang.Boolean.parseBoolean(descriptionShowVersion)
+            } catch (ex: Exception) {
+            }
+
+        }
+    }
+    return result
+}
+
+/**
+ * Helper to extract a string from a bundle or resource
+ *
+ * @param libs
+ * @param value
+ * @param resName
+ * @return
+ */
+fun Context.extractStringBundleOrResource(value: String?, resName: String): String? {
+    var result: String? = null
+    if (value != null) {
+        result = value
+    } else {
+        val descriptionShowVersion = getStringResourceByName(resName)
+        if (!TextUtils.isEmpty(descriptionShowVersion)) {
+            result = descriptionShowVersion
+        }
+    }
+    return result
 }

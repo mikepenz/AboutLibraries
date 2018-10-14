@@ -13,8 +13,6 @@ import com.mikepenz.aboutlibraries.ui.item.LibraryItem
  * Created by mikepenz on 20.05.15.
  */
 class LibsConfiguration private constructor() {
-
-
     /**
      * LOGIC FOR THE LISTENER
      */
@@ -22,9 +20,7 @@ class LibsConfiguration private constructor() {
 
     var uiListener: LibsUIListener? = null
 
-
     var libsRecyclerViewListener: LibsRecyclerViewListener? = null
-
 
     var layoutAnimationController: LayoutAnimationController? = null
 
@@ -206,7 +202,9 @@ class LibsConfiguration private constructor() {
         }
     }
 
-    private object Holder { val INSTANCE = LibsConfiguration() }
+    private object Holder {
+        val INSTANCE = LibsConfiguration()
+    }
 
     companion object {
         val instance: LibsConfiguration by lazy { Holder.INSTANCE }

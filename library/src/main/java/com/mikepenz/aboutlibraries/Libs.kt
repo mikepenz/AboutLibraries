@@ -10,6 +10,7 @@ import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.entity.License
 import com.mikepenz.aboutlibraries.util.getFields
 import com.mikepenz.aboutlibraries.util.getPackageInfo
+import com.mikepenz.aboutlibraries.util.getStringResourceByName
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -80,12 +81,10 @@ public class Libs {
 
         if (fields != null) {
             for (field in fields) {
-                if (field.startsWith(DEFINE_LICENSE)) {
-                    foundLicenseIdentifiers.add(field.replace(DEFINE_LICENSE, ""))
-                } else if (field.startsWith(DEFINE_INT)) {
-                    foundInternalLibraryIdentifiers.add(field.replace(DEFINE_INT, ""))
-                } else if (field.startsWith(DEFINE_EXT)) {
-                    foundExternalLibraryIdentifiers.add(field.replace(DEFINE_EXT, ""))
+                when {
+                    field.startsWith(DEFINE_LICENSE) -> foundLicenseIdentifiers.add(field.replace(DEFINE_LICENSE, ""))
+                    field.startsWith(DEFINE_INT) -> foundInternalLibraryIdentifiers.add(field.replace(DEFINE_INT, ""))
+                    field.startsWith(DEFINE_EXT) -> foundExternalLibraryIdentifiers.add(field.replace(DEFINE_EXT, ""))
                 }
             }
         }
@@ -154,7 +153,7 @@ public class Libs {
         }
 
         //Now add all libs which do not contains the info file, but are in the AboutLibraries lib
-        if (internalLibraries != null) {
+        if (internalLibraries.isNotEmpty()) {
             for (internalLibrary in internalLibraries) {
                 val lib = getLibrary(internalLibrary)
                 if (lib != null) {
@@ -175,7 +174,7 @@ public class Libs {
         }
 
         if (sort) {
-            Collections.sort(resultLibraries)
+            resultLibraries.sort()
         }
         return resultLibraries
     }
@@ -315,7 +314,7 @@ public class Libs {
             if (idOnly) {
                 if (library.definedName.toLowerCase().contains(searchTerm.toLowerCase())) {
                     localLibs.add(library)
-                    count = count + 1
+                    count += 1
 
                     if (limit != -1 && limit < count) {
                         break
@@ -324,7 +323,7 @@ public class Libs {
             } else {
                 if (library.libraryName.toLowerCase().contains(searchTerm.toLowerCase()) || library.definedName.toLowerCase().contains(searchTerm.toLowerCase())) {
                     localLibs.add(library)
-                    count = count + 1
+                    count += 1
 
                     if (limit != -1 && limit < count) {
                         break
@@ -357,16 +356,14 @@ public class Libs {
      * @return
      */
     private fun genLicense(ctx: Context, licenseName: String): License? {
-        var licenseName = licenseName
-        licenseName = licenseName.replace("-", "_")
-
+        val license = licenseName.replace("-", "_")
         return try {
             License(
-                    licenseName,
-                    getStringResourceByName(ctx, "license_" + licenseName + "_licenseName"),
-                    getStringResourceByName(ctx, "license_" + licenseName + "_licenseWebsite"),
-                    getStringResourceByName(ctx, "license_" + licenseName + "_licenseShortDescription"),
-                    getStringResourceByName(ctx, "license_" + licenseName + "_licenseDescription")
+                    license,
+                    ctx.getStringResourceByName("license_" + license + "_licenseName"),
+                    ctx.getStringResourceByName("license_" + license + "_licenseWebsite"),
+                    ctx.getStringResourceByName("license_" + license + "_licenseShortDescription"),
+                    ctx.getStringResourceByName("license_" + license + "_licenseDescription")
             )
         } catch (ex: Exception) {
             Log.e("aboutlibraries", "Failed to generateLicense from file: " + ex.toString())
@@ -380,28 +377,27 @@ public class Libs {
      * @return
      */
     private fun genLibrary(ctx: Context, libraryName: String): Library? {
-        var libraryName = libraryName
-        libraryName = libraryName.replace("-", "_")
+        var name = libraryName.replace("-", "_")
 
         try {
-            val lib = Library(definedName = libraryName, libraryName = getStringResourceByName(ctx, "library_" + libraryName + "_libraryName"))
+            val lib = Library(definedName = name, libraryName = ctx.getStringResourceByName("library_" + name + "_libraryName"))
 
             //Get custom vars to insert into defined areas
-            val customVariables = getCustomVariables(ctx, libraryName)
+            val customVariables = getCustomVariables(ctx, name)
 
-            lib.author = getStringResourceByName(ctx, "library_" + libraryName + "_author")
-            lib.authorWebsite = getStringResourceByName(ctx, "library_" + libraryName + "_authorWebsite")
-            lib.libraryDescription = insertVariables(getStringResourceByName(ctx, "library_" + libraryName + "_libraryDescription"), customVariables)
-            lib.libraryVersion = getStringResourceByName(ctx, "library_" + libraryName + "_libraryVersion")
-            lib.libraryWebsite = getStringResourceByName(ctx, "library_" + libraryName + "_libraryWebsite")
+            lib.author = ctx.getStringResourceByName("library_" + name + "_author")
+            lib.authorWebsite = ctx.getStringResourceByName("library_" + name + "_authorWebsite")
+            lib.libraryDescription = insertVariables(ctx.getStringResourceByName("library_" + name + "_libraryDescription"), customVariables)
+            lib.libraryVersion = ctx.getStringResourceByName("library_" + name + "_libraryVersion")
+            lib.libraryWebsite = ctx.getStringResourceByName("library_" + name + "_libraryWebsite")
 
-            val licenseId = getStringResourceByName(ctx, "library_" + libraryName + "_licenseId")
+            val licenseId = ctx.getStringResourceByName("library_" + name + "_licenseId")
             if (TextUtils.isEmpty(licenseId)) {
                 val license = License("",
-                        getStringResourceByName(ctx, "library_" + libraryName + "_licenseVersion"),
-                        getStringResourceByName(ctx, "library_" + libraryName + "_licenseLink"),
-                        insertVariables(getStringResourceByName(ctx, "library_" + libraryName + "_licenseContent"), customVariables),
-                        insertVariables(getStringResourceByName(ctx, "library_" + libraryName + "_licenseContent"), customVariables)
+                        ctx.getStringResourceByName("library_" + name + "_licenseVersion"),
+                        ctx.getStringResourceByName("library_" + name + "_licenseLink"),
+                        insertVariables(ctx.getStringResourceByName("library_" + name + "_licenseContent"), customVariables),
+                        insertVariables(ctx.getStringResourceByName("library_" + name + "_licenseContent"), customVariables)
                 )
                 lib.license = license
             } else {
@@ -414,10 +410,10 @@ public class Libs {
                 }
             }
 
-            lib.isOpenSource = java.lang.Boolean.valueOf(getStringResourceByName(ctx, "library_" + libraryName + "_isOpenSource"))
-            lib.repositoryLink = getStringResourceByName(ctx, "library_" + libraryName + "_repositoryLink")
+            lib.isOpenSource = java.lang.Boolean.valueOf(ctx.getStringResourceByName("library_" + name + "_isOpenSource"))
+            lib.repositoryLink = ctx.getStringResourceByName("library_" + name + "_repositoryLink")
 
-            lib.classPath = getStringResourceByName(ctx, "library_" + libraryName + "_classPath")
+            lib.classPath = ctx.getStringResourceByName("library_" + name + "_classPath")
 
             return if (TextUtils.isEmpty(lib.libraryName) && TextUtils.isEmpty(lib.libraryDescription)) {
                 null
@@ -437,16 +433,16 @@ public class Libs {
     fun getCustomVariables(ctx: Context, libraryName: String): HashMap<String, String> {
         val customVariables = HashMap<String, String>()
 
-        var customVariablesString = getStringResourceByName(ctx, DEFINE_EXT + libraryName)
+        var customVariablesString = ctx.getStringResourceByName(DEFINE_EXT + libraryName)
         if (TextUtils.isEmpty(customVariablesString)) {
-            customVariablesString = getStringResourceByName(ctx, DEFINE_INT + libraryName)
+            customVariablesString = ctx.getStringResourceByName(DEFINE_INT + libraryName)
         }
 
         if (!TextUtils.isEmpty(customVariablesString)) {
             val customVariableArray = customVariablesString.split(";".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
             if (customVariableArray.isNotEmpty()) {
                 for (customVariableKey in customVariableArray) {
-                    val customVariableContent = getStringResourceByName(ctx, "library_" + libraryName + "_" + customVariableKey)
+                    val customVariableContent = ctx.getStringResourceByName("library_" + libraryName + "_" + customVariableKey)
                     if (!TextUtils.isEmpty(customVariableContent)) {
                         customVariables[customVariableKey] = customVariableContent
                     }
@@ -457,8 +453,8 @@ public class Libs {
         return customVariables
     }
 
-    fun insertVariables(insertInto: String, variables: HashMap<String, String>): String {
-        var insertInto = insertInto
+    fun insertVariables(insertIntoVar: String, variables: HashMap<String, String>): String {
+        var insertInto = insertIntoVar
         for ((key, value) in variables) {
             if (!TextUtils.isEmpty(value)) {
                 insertInto = insertInto.replace("<<<" + key.toUpperCase() + ">>>", value)
@@ -472,18 +468,6 @@ public class Libs {
         return insertInto
     }
 
-    fun getStringResourceByName(ctx: Context, aString: String): String {
-        val packageName = ctx.packageName
-
-        val resId = ctx.resources.getIdentifier(aString, "string", packageName)
-        return if (resId == 0) {
-            ""
-        } else {
-            ctx.getString(resId)
-        }
-    }
-
-
     /**
      * @param modifications
      */
@@ -495,7 +479,7 @@ public class Libs {
                     foundLibs = findInInternalLibrary(key1, true, 1)
                 }
 
-                if (foundLibs != null && foundLibs.size == 1) {
+                if (foundLibs.size == 1) {
                     val lib = foundLibs[0]
                     for ((key2, value) in value1) {
                         val key = key2.toUpperCase()
@@ -548,15 +532,15 @@ public class Libs {
 
     companion object {
 
-        val BUNDLE_THEME = "ABOUT_LIBRARIES_THEME"
-        val BUNDLE_TITLE = "ABOUT_LIBRARIES_TITLE"
-        val BUNDLE_STYLE = "ABOUT_LIBRARIES_STYLE"
-        val BUNDLE_COLORS = "ABOUT_COLOR"
+        const val BUNDLE_THEME = "ABOUT_LIBRARIES_THEME"
+        const val BUNDLE_TITLE = "ABOUT_LIBRARIES_TITLE"
+        const val BUNDLE_STYLE = "ABOUT_LIBRARIES_STYLE"
+        const val BUNDLE_COLORS = "ABOUT_COLOR"
 
-        private val DEFINE_LICENSE = "define_license_"
-        private val DEFINE_INT = "define_int_"
-        internal val DEFINE_EXT = "define_"
+        private const val DEFINE_LICENSE = "define_license_"
+        private const val DEFINE_INT = "define_int_"
+        internal const val DEFINE_EXT = "define_"
 
-        private val DELIMITER = ";"
+        private const val DELIMITER = ";"
     }
 }
