@@ -7,7 +7,7 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 
-fun Context.getThemeColor(attr: Int): Int {
+internal fun Context.getThemeColor(attr: Int): Int {
     val tv = TypedValue()
     return if (this.theme.resolveAttribute(attr, tv, true)) {
         if (tv.resourceId != 0) {
@@ -28,7 +28,7 @@ fun Context.getThemeColor(attr: Int): Int {
  * @param res
  * @return
  */
-fun Context.getThemeColorFromAttrOrRes(attr: Int, res: Int): Int {
+internal fun Context.getThemeColorFromAttrOrRes(attr: Int, res: Int): Int {
     var color = getThemeColor(attr)
     if (color == 0) {
         color = ContextCompat.getColor(this, res)
@@ -42,7 +42,7 @@ fun Context.getThemeColorFromAttrOrRes(attr: Int, res: Int): Int {
  * @param v
  * @param drawableRes
  */
-fun View.setBackground(drawableRes: Int) {
+internal fun View.setBackground(drawableRes: Int) {
     ViewCompat.setBackground(this, ContextCompat.getDrawable(this.context, drawableRes))
 }
 
@@ -53,7 +53,7 @@ fun View.setBackground(drawableRes: Int) {
  * @param attr    is the attribute dimension we want to know the size from
  * @return the size in pixels of an attribute dimension
  */
-fun Context.getThemeAttributeDimensionSize(attr: Int): Int {
+internal fun Context.getThemeAttributeDimensionSize(attr: Int): Int {
     var a: TypedArray? = null
     try {
         a = theme.obtainStyledAttributes(intArrayOf(attr))
@@ -70,7 +70,7 @@ fun Context.getThemeAttributeDimensionSize(attr: Int): Int {
  * @param context Context to get resources and device specific display metrics
  * @return A float value to represent px equivalent to dp depending on device density
  */
-fun Context.convertDpToPixel(dp: Float): Float {
+internal fun Context.convertDpToPixel(dp: Float): Float {
     val metrics = resources.displayMetrics
     return dp * (metrics.densityDpi / 160f)
 }
@@ -82,7 +82,7 @@ fun Context.convertDpToPixel(dp: Float): Float {
  * @param context Context to get resources and device specific display metrics
  * @return A float value to represent dp equivalent to px value
  */
-fun Context.convertPixelsToDp(px: Float): Float {
+internal fun Context.convertPixelsToDp(px: Float): Float {
     val metrics = resources.displayMetrics
     return px / (metrics.densityDpi / 160f)
 }

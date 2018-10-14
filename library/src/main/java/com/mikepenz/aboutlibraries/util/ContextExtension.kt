@@ -6,7 +6,7 @@ import android.content.pm.PackageInfo
 import android.text.TextUtils
 
 
-fun Context.getPackageInfo(): PackageInfo? {
+internal fun Context.getPackageInfo(): PackageInfo? {
     //get the packageManager to load and read some values :D
     val pm = this.packageManager
     //get the packageName
@@ -21,7 +21,7 @@ fun Context.getPackageInfo(): PackageInfo? {
     return packageInfo
 }
 
-fun Context.getApplicationInfo(): ApplicationInfo? {
+internal fun Context.getApplicationInfo(): ApplicationInfo? {
     //get the packageManager to load and read some values :D
     val pm = this.packageManager
     //get the packageName
@@ -36,7 +36,7 @@ fun Context.getApplicationInfo(): ApplicationInfo? {
     return appInfo
 }
 
-fun Context.getStringResourceByName(aString: String): String {
+internal fun Context.getStringResourceByName(aString: String): String {
     val resId = resources.getIdentifier(aString, "string", packageName)
     return if (resId == 0) {
         ""
@@ -54,7 +54,7 @@ fun Context.getStringResourceByName(aString: String): String {
  * @param resName
  * @return
  */
-fun Context.extractBooleanBundleOrResource(value: Boolean?, resName: String): Boolean? {
+internal fun Context.extractBooleanBundleOrResource(value: Boolean?, resName: String): Boolean? {
     var result: Boolean? = null
     if (value != null) {
         result = value
@@ -79,7 +79,7 @@ fun Context.extractBooleanBundleOrResource(value: Boolean?, resName: String): Bo
  * @param resName
  * @return
  */
-fun Context.extractStringBundleOrResource(value: String?, resName: String): String? {
+internal fun Context.extractStringBundleOrResource(value: String?, resName: String): String? {
     var result: String? = null
     if (value != null) {
         result = value
