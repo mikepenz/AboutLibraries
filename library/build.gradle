@@ -39,6 +39,7 @@ dependencies {
     implementation "androidx.appcompat:appcompat:${versions.androidX}"
     implementation "androidx.cardview:cardview:${versions.androidX}"
     implementation "androidx.recyclerview:recyclerview:${versions.androidX}"
+    implementation "com.google.android.material:material:${versions.androidX}"
 
     // used to provide out of the box icon font support. simplifies development,
     // and provides scalable icons. the core is very very light
