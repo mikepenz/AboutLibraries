@@ -11,7 +11,7 @@ import java.lang.reflect.Field
  * @param fields R.strings.class.getFields()
  * @return a String[] with the string ids we need
  */
-fun Array<Field>.toStringArray(): Array<String> {
+internal fun Array<Field>.toStringArray(): Array<String> {
     val fieldArray = ArrayList<String>()
     for (field in this) {
         if (field.name.contains(Libs.DEFINE_EXT)) {
@@ -27,7 +27,7 @@ fun Array<Field>.toStringArray(): Array<String> {
  * @param ctx
  * @return
  */
-fun Context.getFields(): Array<String> {
+internal fun Context.getFields(): Array<String> {
     val rStringClass = resolveRClass(this.packageName)
     return rStringClass?.fields?.toStringArray() ?: emptyArray()
 }
@@ -38,7 +38,7 @@ fun Context.getFields(): Array<String> {
  * @param packageName
  * @return
  */
-private fun resolveRClass(packageName: String): Class<*>? {
+internal fun resolveRClass(packageName: String): Class<*>? {
     var packageName = packageName
     do {
         try {
