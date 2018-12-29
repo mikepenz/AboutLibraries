@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_rapiddecoder"></string>
+    <!-- Author section -->
+    <string name="library_rapiddecoder_author">suckgamony</string>
+    <string name="library_rapiddecoder_authorWebsite">https://github.com/suckgamony</string>
+    <!-- Library section -->
+    <string name="library_rapiddecoder_libraryName">RapidDecoder</string>
+    <string name="library_rapiddecoder_libraryDescription">Simplified bitmap decoding and scaling for Android.</string>
+    <string name="library_rapiddecoder_libraryWebsite">https://github.com/suckgamony/RapidDecoder</string>
+    <string name="library_rapiddecoder_libraryVersion">0.3.0</string>
+    <!-- OpenSource section -->
+    <string name="library_rapiddecoder_isOpenSource">true</string>
+    <string name="library_rapiddecoder_repositoryLink">https://github.com/suckgamony/RapidDecoder</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_rapiddecoder_classPath">rapid.decoder.BitmapDecoder</string>
+    <!-- License section -->
+    <string name="library_rapiddecoder_licenseId">apache_2_0</string>
+    <!-- Custom variables section -->
+</resources>
