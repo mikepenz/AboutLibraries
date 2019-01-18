@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_materialnumberpicker"></string>
+	<!-- Author section -->
+	<string name="library_materialnumberpicker_author">Kasual Business</string>
+	<string name="library_materialnumberpicker_authorWebsite">http://www.kasual.biz/</string>
+	<!-- Library section -->
+	<string name="library_materialnumberpicker_libraryName">MaterialNumberPicker</string>
+	<string name="library_materialnumberpicker_libraryDescription">This library intends to give you more flexibility than the Holo NumberPicker that only comes with two themes for customization.</string>
+	<string name="library_materialnumberpicker_libraryWebsite">http://www.kasual.biz/</string>
+	<string name="library_materialnumberpicker_libraryVersion">1.2.1</string>
+	<!-- OpenSource section -->
+	<string name="library_materialnumberpicker_isOpenSource">true</string>
+	<string name="library_materialnumberpicker_repositoryLink">https://github.com/KasualBusiness/MaterialNumberPicker</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_materialnumberpicker_classPath">com.github.Kunzisoft:Android-SwitchDateTimePicker.MaterialNumberPicker</string>
+	<!-- License section -->
+	<string name="library_materialnumberpicker_licenseId">apache_2_0</string>
+	<!-- Custom variables section -->
+</resources>
