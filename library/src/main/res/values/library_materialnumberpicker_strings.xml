@@ -14,7 +14,7 @@
 	<string name="library_materialnumberpicker_isOpenSource">true</string>
 	<string name="library_materialnumberpicker_repositoryLink">https://github.com/KasualBusiness/MaterialNumberPicker</string>
 	<!-- ClassPath for autoDetect section -->
-	<string name="library_materialnumberpicker_classPath">com.github.Kunzisoft:Android-SwitchDateTimePicker.MaterialNumberPicker</string>
+	<string name="library_materialnumberpicker_classPath">biz.kasual.materialnumberpicker.MaterialNumberPicker</string>
 	<!-- License section -->
 	<string name="library_materialnumberpicker_licenseId">apache_2_0</string>
 	<!-- Custom variables section -->

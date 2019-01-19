@@ -14,7 +14,7 @@
 	<string name="library_switchdatetimepicker_isOpenSource">true</string>
 	<string name="library_switchdatetimepicker_repositoryLink">https://github.com/Kunzisoft/Android-SwitchDateTimePicker</string>
 	<!-- ClassPath for autoDetect section -->
-	<string name="library_switchdatetimepicker_classPath">com.github.Kunzisoft:Android-SwitchDateTimePicker.SwitchDateTimeDialogFragment</string>
+	<string name="library_switchdatetimepicker_classPath">com.kunzisoft.switchdatetime.SwitchDateTimeDialogFragment</string>
 	<!-- License section -->
 	<string name="library_switchdatetimepicker_licenseId">apache_2_0</string>
 	<!-- Custom variables section -->
