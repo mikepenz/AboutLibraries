@@ -41,7 +41,7 @@ dependencies {
     // used to fill the RecyclerView with the items
     // and provides single and multi selection, expandable items
     // https://github.com/mikepenz/FastAdapter
-    implementation 'com.mikepenz:fastadapter:3.3.0'
+    implementation 'com.mikepenz:fastadapter:3.3.1'
 }
 
 apply from: '../gradle-release.gradle'
