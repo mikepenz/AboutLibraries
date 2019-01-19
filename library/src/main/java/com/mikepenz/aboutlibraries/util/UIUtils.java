@@ -18,7 +18,7 @@ public class UIUtils {
     public static int getThemeColor(Context ctx, int attr) {
         TypedValue tv = new TypedValue();
         if (ctx.getTheme().resolveAttribute(attr, tv, true)) {
-            return tv.data;
+            return tv.resourceId != 0 ? ContextCompat.getColor(ctx, tv.resourceId) : tv.data;
         }
         return 0;
     }
