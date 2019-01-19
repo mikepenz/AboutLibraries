@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_lottie"></string>
+    <!-- Author section -->
+    <string name="library_lottie_author">Airbnb</string>
+    <string name="library_lottie_authorWebsite">http://airbnb.com/</string>
+    <!-- Library section -->
+    <string name="library_lottie_libraryName">Lottie</string>
+    <string name="library_lottie_libraryDescription">Lottie is an animation library that renders Adobe After Effects animations natively in realtime.</string>
+    <string name="library_lottie_libraryWebsite">https://airbnb.io/lottie/</string>
+    <string name="library_lottie_libraryVersion">2.7.0</string>
+    <!-- OpenSource section -->
+    <string name="library_lottie_isOpenSource">true</string>
+    <string name="library_lottie_repositoryLink">https://github.com/airbnb/lottie-android</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_lottie_classPath">com.airbnb.lottie.LottieAnimationView.java</string>
+    <!-- License section -->
+    <string name="library_lottie_licenseId">apache_2_0</string>
+    <!-- Custom variables section -->
+</resources>
