@@ -14,7 +14,7 @@
     <string name="library_lottie_isOpenSource">true</string>
     <string name="library_lottie_repositoryLink">https://github.com/airbnb/lottie-android</string>
     <!-- ClassPath for autoDetect section -->
-    <string name="library_lottie_classPath">com.airbnb.lottie.LottieAnimationView.java</string>
+    <string name="library_lottie_classPath">com.airbnb.lottie.LottieAnimationView</string>
     <!-- License section -->
     <string name="library_lottie_licenseId">apache_2_0</string>
     <!-- Custom variables section -->
