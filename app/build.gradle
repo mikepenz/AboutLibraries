@@ -62,7 +62,7 @@ dependencies {
 
     //used to generate the drawer on the left
     //https://github.com/mikepenz/MaterialDrawer
-    implementation 'com.mikepenz:materialdrawer:6.1.0-rc01'
+    implementation 'com.mikepenz:materialdrawer:6.1.0'
 
     //used to provide different itemAnimators for the RecyclerView
     //https://github.com/mikepenz/ItemAnimators
