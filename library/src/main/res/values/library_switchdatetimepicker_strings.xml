@@ -1,7 +1,7 @@
 '<?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-	<string name="define_switchdatetimepicker"></string>
+	<string name="define_int_switchdatetimepicker"></string>
 	<!-- Author section -->
 	<string name="library_switchdatetimepicker_author">Kunzisoft</string>
 	<string name="library_switchdatetimepicker_authorWebsite"> https://www.kunzisoft.com/</string>

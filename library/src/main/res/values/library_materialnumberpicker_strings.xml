@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-	<string name="define_materialnumberpicker"></string>
+	<string name="define_int_materialnumberpicker"></string>
 	<!-- Author section -->
 	<string name="library_materialnumberpicker_author">Kasual Business</string>
 	<string name="library_materialnumberpicker_authorWebsite">http://www.kasual.biz/</string>
