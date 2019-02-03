@@ -516,13 +516,13 @@ class LibsBuilder : Serializable {
         val libraries = libs.prepareLibraries(context, internalLibraries, excludeLibraries, autoDetect, checkCachedDetection, sort)
 
         //prepare adapter
-        val itemAdapter = ItemAdapter<IItem<*, *>>()
-        val libraryItems = ArrayList<IItem<*, *>>()
+        val itemAdapter = ItemAdapter<IItem<*>>()
+        val libraryItems = ArrayList<IItem<*>>()
         for (library in libraries) {
             libraryItems.add(LibraryItem(library, this))
         }
 
-        val fastAdapter = FastAdapter.with<IItem<*, *>, ItemAdapter<*>>(itemAdapter)
+        val fastAdapter = FastAdapter.with(itemAdapter)
 
         itemAdapter.add(libraryItems)
 

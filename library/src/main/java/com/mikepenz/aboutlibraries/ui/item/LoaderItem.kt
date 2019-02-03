@@ -9,29 +9,27 @@ import com.mikepenz.fastadapter.items.AbstractItem
 /**
  * Created by mikepenz on 28.12.15.
  */
-class LoaderItem : AbstractItem<LoaderItem, LoaderItem.ViewHolder>() {
+class LoaderItem : AbstractItem<LoaderItem.ViewHolder>() {
 
-    override fun isSelectable(): Boolean {
-        return false
-    }
+    override var isSelectable: Boolean
+        get() = false
+        set(value) {}
 
     /**
      * defines the type defining this item. must be unique. preferably an id
      *
      * @return the type
      */
-    override fun getType(): Int {
-        return R.id.loader_item_id
-    }
+    override val type: Int
+        get() = R.id.loader_item_id
 
     /**
      * defines the layout which will be used for this item in the list
      *
      * @return the layout for this item
      */
-    override fun getLayoutRes(): Int {
-        return R.layout.listloader_opensource
-    }
+    override val layoutRes: Int
+        get() = R.layout.listloader_opensource
 
     /**
      * This method returns the ViewHolder for our item, using the provided View.
