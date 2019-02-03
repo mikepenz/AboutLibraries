@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_threeten"></string>
+    <!-- Author section -->
+    <string name="library_threeten_author">ThreeTen</string>
+    <string name="library_threeten_authorWebsite">https://github.com/ThreeTen</string>
+    <!-- Library section -->
+    <string name="library_threeten_libraryName">ThreeTen</string>
+    <string name="library_threeten_libraryDescription">JSR-310 provides a new date and time library for Java SE 8. This project is the backport to Java SE 6 and 7.</string>
+    <string name="library_threeten_libraryWebsite">https://www.threeten.org/threetenbp/</string>
+    <string name="library_threeten_libraryVersion">1.3.8</string>
+    <!-- OpenSource section -->
+    <string name="library_threeten_isOpenSource">true</string>
+    <string name="library_threeten_repositoryLink">https://github.com/ThreeTen/threetenbp</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_threeten_classPath">org.threeten.bp.LocalDateTime</string>
+    <!-- License section -->
+    <string name="library_threeten_licenseVersion">ThreeTen License</string>
+    <string name="library_threeten_licenseLink">https://github.com/ThreeTen/threetenbp/blob/master/LICENSE.txt</string>
+    <string name="library_threeten_licenseContent"><![CDATA[
+         Copyright © 2007-present, Stephen Colebourne & Michael Nascimento Santos
+         <br /><br />
+         All rights reserved.
+         <br /><br />
+         Redistribution and use in source and binary forms, with or without
+         modification, are permitted provided that the following conditions are met:
+         <br /><br />
+           * Redistributions of source code must retain the above copyright notice,
+             this list of conditions and the following disclaimer.
+         <br /><br />
+           * Redistributions in binary form must reproduce the above copyright notice,
+             this list of conditions and the following disclaimer in the documentation
+             and/or other materials provided with the distribution.
+         <br /><br />
+           * Neither the name of JSR-310 nor the names of its contributors
+             may be used to endorse or promote products derived from this software
+             without specific prior written permission.
+         <br /><br />
+         THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+         "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+         LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+         A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+         CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+         EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+         PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+         PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+         LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+         NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+         SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+    ]]></string>
+    <!-- Custom variables section -->
+</resources>

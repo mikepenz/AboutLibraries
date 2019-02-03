@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_aspectratioimageview"></string>
+    <!-- Author section -->
+    <string name="library_aspectratioimageview_author">Fatih Santalu</string>
+    <string name="library_aspectratioimageview_authorWebsite">https://github.com/santalu</string>
+    <!-- Library section -->
+    <string name="library_aspectratioimageview_libraryName">Aspect Ratio ImageView</string>
+    <string name="library_aspectratioimageview_libraryDescription">A simple imageview which scales the width or height aspect with the given ratio.</string>
+    <string name="library_aspectratioimageview_libraryWebsite">https://github.com/santalu/aspect-ratio-imageview</string>
+    <string name="library_aspectratioimageview_libraryVersion">1.0.8</string>
+    <!-- OpenSource section -->
+    <string name="library_aspectratioimageview_isOpenSource">true</string>
+    <string name="library_aspectratioimageview_repositoryLink">https://github.com/santalu/aspect-ratio-imageview</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_aspectratioimageview_classPath">com.santalu.aspectratioimageview.AspectRatioImageView </string>
+    <!-- License section -->
+    <string name="library_aspectratioimageview_licenseId">apache_2_0</string>
+    <!-- Custom variables section -->
+</resources>

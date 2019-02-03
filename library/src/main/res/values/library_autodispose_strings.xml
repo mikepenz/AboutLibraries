@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_autodispose"></string>
+    <!-- Author section -->
+    <string name="library_autodispose_author">Uber Open Source</string>
+    <string name="library_autodispose_authorWebsite">https://github.com/uber</string>
+    <!-- Library section -->
+    <string name="library_autodispose_libraryName">AutoDispose</string>
+    <string name="library_autodispose_libraryDescription">
+        <![CDATA[
+        <b>AutoDispose</b> is an RxJava 2 tool for automatically binding the execution of RxJava 2 streams to a provided scope via disposal/cancellation.
+        ]]>
+    </string>
+    <string name="library_autodispose_libraryWebsite">https://uber.github.io/AutoDispose/</string>
+    <string name="library_autodispose_libraryVersion">1.1.0</string>
+    <!-- OpenSource section -->
+    <string name="library_autodispose_isOpenSource">true</string>
+    <string name="library_autodispose_repositoryLink">https://github.com/uber/AutoDispose</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_autodispose_classPath">com.uber.autodispose.AutoDispose</string>
+    <!-- License section -->
+    <string name="library_autodispose_licenseId">apache_2_0</string>
+    <!-- Custom variables section -->
+</resources>
