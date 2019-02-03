@@ -9,9 +9,9 @@
     <string name="library_materialpreference_libraryName">Material Preference</string>
     <string name="library_materialpreference_libraryDescription">
 		Material theme for preference widgets.
-
+        <br />
 		Backporting dat material look and functionality.
-
+        <br />
 		Available from API 14. Connecting preference-v7 to appcompat-v7.
 	</string>
     <string name="library_materialpreference_libraryWebsite">https://github.com/consp1racy/android-support-preference</string>

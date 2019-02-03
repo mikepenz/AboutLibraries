@@ -14,7 +14,7 @@
     <string name="library_threetenandroidbackport_isOpenSource">true</string>
     <string name="library_threetenandroidbackport_repositoryLink">https://github.com/JakeWharton/ThreeTenABP</string>
     <!-- ClassPath for autoDetect section -->
-    <string name="library_threetenandroidbackport_classPath">com.jakewharton.threetenabp.AndroidThreeTen </string>
+    <string name="library_threetenandroidbackport_classPath">com.jakewharton.threetenabp.AndroidThreeTen</string>
     <!-- License section -->
     <string name="library_threetenandroidbackport_licenseId">apache_2_0</string>
     <!-- Custom variables section -->
