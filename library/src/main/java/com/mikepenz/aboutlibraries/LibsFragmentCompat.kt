@@ -34,8 +34,8 @@ import kotlin.collections.ArrayList
  * Gets an libs instance and gets all external libs
  */
 class LibsFragmentCompat {
-    private lateinit var mAdapter: FastAdapter<IItem<*, *>>
-    private lateinit var mItemAdapter: ItemAdapter<IItem<*, *>>
+    private lateinit var mAdapter: FastAdapter<IItem<*>>
+    private lateinit var mItemAdapter: ItemAdapter<IItem<*>>
 
     private lateinit var builder: LibsBuilder
     private var libraries: ArrayList<Library> = ArrayList()
@@ -75,7 +75,7 @@ class LibsFragmentCompat {
         }
 
         mItemAdapter = ItemAdapter()
-        mAdapter = FastAdapter.with<IItem<*, *>, ItemAdapter<IItem<*, *>>>(mItemAdapter)
+        mAdapter = FastAdapter.with<IItem<*>, ItemAdapter<IItem<*>>>(mItemAdapter)
         mRecyclerView.adapter = mAdapter
 
         if (builder.showLoadingProgress) {
@@ -205,7 +205,7 @@ class LibsFragmentCompat {
             }
 
             //add the libs
-            val libraryItems = ArrayList<IItem<*, *>>()
+            val libraryItems = ArrayList<IItem<*>>()
             for (library in libraries) {
                 libraryItems.add(LibraryItem(library, builder))
             }

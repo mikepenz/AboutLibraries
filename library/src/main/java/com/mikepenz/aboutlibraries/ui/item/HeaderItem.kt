@@ -23,7 +23,7 @@ import com.mikepenz.iconics.Iconics
 /**
  * Created by mikepenz on 28.12.15.
  */
-class HeaderItem(var libsBuilder: LibsBuilder) : AbstractItem<HeaderItem, HeaderItem.ViewHolder>() {
+class HeaderItem(var libsBuilder: LibsBuilder) : AbstractItem<HeaderItem.ViewHolder>() {
     private var aboutVersionCode: Int? = null
     private var aboutVersionName: String? = null
     private var aboutIcon: Drawable? = null
@@ -48,34 +48,32 @@ class HeaderItem(var libsBuilder: LibsBuilder) : AbstractItem<HeaderItem, Header
         return this
     }
 
-    override fun isSelectable(): Boolean {
-        return false
-    }
+    override var isSelectable: Boolean
+        get() = false
+        set(value) {}
 
     /**
      * defines the type defining this item. must be unique. preferably an id
      *
      * @return the type
      */
-    override fun getType(): Int {
-        return R.id.header_item_id
-    }
+    override val type: Int
+        get() = R.id.header_item_id
 
     /**
      * defines the layout which will be used for this item in the list
      *
      * @return the layout for this item
      */
-    override fun getLayoutRes(): Int {
-        return R.layout.listheader_opensource
-    }
+    override val layoutRes: Int
+        get() = R.layout.listheader_opensource
 
     /**
      * binds the data of this item onto the viewHolder
      *
      * @param holder the viewHolder of this item
      */
-    override fun bindView(holder: ViewHolder, payloads: List<Any>?) {
+    override fun bindView(holder: ViewHolder, payloads: MutableList<Any>) {
         super.bindView(holder, payloads)
 
         //ctx

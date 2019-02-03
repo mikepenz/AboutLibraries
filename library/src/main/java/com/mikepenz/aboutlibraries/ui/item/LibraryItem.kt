@@ -21,35 +21,33 @@ import com.mikepenz.fastadapter.items.AbstractItem
 /**
  * Created by mikepenz on 28.12.15.
  */
-class LibraryItem(private val library: Library, private val libsBuilder: LibsBuilder) : AbstractItem<LibraryItem, LibraryItem.ViewHolder>() {
+class LibraryItem(private val library: Library, private val libsBuilder: LibsBuilder) : AbstractItem<LibraryItem.ViewHolder>() {
     /**
      * defines the type defining this item. must be unique. preferably an id
      *
      * @return the type
      */
-    override fun getType(): Int {
-        return R.id.library_item_id
-    }
+    override val type: Int
+        get() = R.id.library_item_id
 
     /**
      * defines the layout which will be used for this item in the list
      *
      * @return the layout for this item
      */
-    override fun getLayoutRes(): Int {
-        return R.layout.listitem_opensource
-    }
+    override val layoutRes: Int
+        get() = R.layout.listitem_opensource
 
-    override fun isSelectable(): Boolean {
-        return false
-    }
+    override var isSelectable: Boolean
+        get() = false
+        set(value) {}
 
     /**
      * binds the data of this item onto the viewHolder
      *
      * @param holder the viewHolder of this item
      */
-    override fun bindView(holder: ViewHolder, payloads: List<Any>?) {
+    override fun bindView(holder: ViewHolder, payloads: MutableList<Any>) {
         super.bindView(holder, payloads)
 
         //ctx
