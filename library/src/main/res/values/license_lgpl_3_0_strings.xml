@@ -2,7 +2,7 @@
 <resources translatable="false">
 
     <string name="define_license_lgpl_3_0"></string>
-    <string name="license_lgpl_3_0_licenseName">GNU LESSER GENERAL PUBLIC LICENSE 3.0</string>
+    <string name="license_lgpl_3_0_licenseName">GNU LGPL 3.0</string>
     <string name="license_lgpl_3_0_licenseWebsite">http://www.gnu.org/licenses/lgpl-3.0.en.html</string>
     <string name="license_lgpl_3_0_licenseShortDescription">
         <![CDATA[
