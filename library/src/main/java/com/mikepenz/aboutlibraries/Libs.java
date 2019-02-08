@@ -156,7 +156,7 @@ public class Libs {
             List<Library> autoDetected = getAutoDetectedLibraries(ctx, checkCachedDetection);
             resultLibraries.addAll(autoDetected);
 
-            if(isExcluding) {
+            if (isExcluding) {
                 for (Library lib : autoDetected) {
                     libraries.put(lib.getDefinedName(), lib);
                 }
@@ -167,7 +167,7 @@ public class Libs {
         List<Library> extern = getExternLibraries();
         resultLibraries.addAll(extern);
 
-        if(isExcluding) {
+        if (isExcluding) {
             for (Library lib : extern) {
                 libraries.put(lib.getDefinedName(), lib);
             }
@@ -177,7 +177,7 @@ public class Libs {
         if (internalLibraries != null) {
             for (String internalLibrary : internalLibraries) {
                 Library lib = getLibrary(internalLibrary);
-                if(lib != null) {
+                if (lib != null) {
                     resultLibraries.add(lib);
                     libraries.put(lib.getDefinedName(), lib);
                 }
@@ -400,6 +400,11 @@ public class Libs {
             lic.setLicenseWebsite(getStringResourceByName(ctx, "license_" + licenseName + "_licenseWebsite"));
             lic.setLicenseShortDescription(getStringResourceByName(ctx, "license_" + licenseName + "_licenseShortDescription"));
             lic.setLicenseDescription(getStringResourceByName(ctx, "license_" + licenseName + "_licenseDescription"));
+
+            String descrPart2 = getStringResourceByName(ctx, "license_" + licenseName + "_licenseDescription_2");
+            if (!TextUtils.isEmpty(descrPart2)) {
+                lic.setLicenseDescription(lic.getLicenseDescription() + descrPart2);
+            }
             return lic;
         } catch (Exception ex) {
             Log.e("aboutlibraries", "Failed to generateLicense from file: " + ex.toString());
