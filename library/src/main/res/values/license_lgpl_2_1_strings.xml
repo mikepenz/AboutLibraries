@@ -23,8 +23,8 @@
         Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.</p>
         ]]>
     </string>
-    <string name="license_lgpl_2_1_licenseDescription">
-        <![CDATA[
+    <string name="license_lgpl_2_1_licenseDescription"><![CDATA[
+
         <h3>GNU LESSER GENERAL PUBLIC LICENSE</h3>
         <p>Version 2.1, February 1999</p>
 
@@ -43,11 +43,11 @@
           The licenses for most software are designed to take away your
         freedom to share and change it.  By contrast, the GNU General Public
         Licenses are intended to guarantee your freedom to share and change
-        free software--to make sure the software is free for all its users.
+        free software—to make sure the software is free for all its users.
         </p>
         <p>
           This license, the Lesser General Public License, applies to some
-        specially designated software packages--typically libraries--of the
+        specially designated software packages—typically libraries—of the
         Free Software Foundation and other authors who decide to use it.  You
         can use it too, but we suggest you first think carefully about whether
         this license or the ordinary General Public License is the better
@@ -571,6 +571,6 @@
         </p>
 
         <h3>END OF TERMS AND CONDITIONS</h3>
-        ]]>
-    </string>
+
+    ]]></string>
 </resources>
