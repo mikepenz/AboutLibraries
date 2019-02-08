@@ -56,7 +56,7 @@ android {
 dependencies {
     implementation project(':library')
 
-    implementation "com.google.android.material:material:${versions.androidX}"
+    implementation "com.google.android.material:material:${versions.material}"
     implementation "androidx.appcompat:appcompat:${versions.androidX}"
     implementation "androidx.recyclerview:recyclerview:${versions.androidX}"
     implementation "androidx.cardview:cardview:${versions.androidX}"

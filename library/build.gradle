@@ -39,7 +39,7 @@ dependencies {
     implementation "androidx.appcompat:appcompat:${versions.androidX}"
     implementation "androidx.cardview:cardview:${versions.androidX}"
     implementation "androidx.recyclerview:recyclerview:${versions.androidX}"
-    implementation "com.google.android.material:material:${versions.androidX}"
+    implementation "com.google.android.material:material:${versions.material}"
 
     // add the constraintLayout used to create the items and headers
     implementation "androidx.constraintlayout:constraintlayout:${versions.constraintLayout}"
