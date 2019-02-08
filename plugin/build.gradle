@@ -1,0 +1,27 @@
+plugins {
+    id 'java-gradle-plugin'
+}
+apply plugin: 'groovy'
+apply plugin: 'java'
+
+dependencies {
+    implementation gradleApi()
+    implementation localGroovy()
+    implementation 'com.android.tools.build:gradle:3.3.1'
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:2.23.4'
+}
+
+group = 'com.google.android.gms'
+version = '0.9.4'
+
+repositories {
+    google()
+    jcenter()
+}
+
+// generate zip file for android maven release tool
+task packageFiles(type: Zip, dependsOn: 'uploadArchives') {
+    def groupDir = rootProject.group.replaceAll('\\.', '/')
+    from("../repo/$groupDir/$rootProject.name/$rootProject.version/")
+}
