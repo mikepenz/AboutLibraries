@@ -23,8 +23,7 @@
         Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.</p>
         ]]>
     </string>
-    <string name="license_gpl_2_0_licenseDescription">
-        <![CDATA[
+    <string name="license_gpl_2_0_licenseDescription"><![CDATA[
        <h3>GNU GENERAL PUBLIC LICENSE</h3>
 
         <p>Version 2, June 1991</p>
@@ -43,7 +42,7 @@
           The licenses for most software are designed to take away your
         freedom to share and change it.  By contrast, the GNU General Public
         License is intended to guarantee your freedom to share and change free
-        software--to make sure the software is free for all its users.  This
+        software—to make sure the software is free for all its users.  This
         General Public License applies to most of the Free Software
         Foundation\'s software and to any other program whose authors commit to
         using it.  (Some other Free Software Foundation software is covered by
@@ -216,11 +215,7 @@
         under Section 2) in object code or executable form under the terms of
         Sections 1 and 2 above provided that you also do one of the following:
         </p>
-
-                <!-- we use this doubled UL to get the sub-sections indented, -->
-                <!-- while making the bullets as unobvious as possible. -->
-
-                <dl>
+        <dl>
           <dt></dt>
             <dd>
               <strong>a)</strong>
@@ -303,7 +298,9 @@
         You are not responsible for enforcing compliance by third parties to
         this License.
         </p>
+    ]]></string>
 
+    <string name="license_gpl_2_0_licenseDescription_2"><![CDATA[
         <p>
         <strong>7.</strong>
          If, as a consequence of a court judgment or allegation of patent
@@ -414,7 +411,6 @@
         </p>
 
         <h3>END OF TERMS AND CONDITIONS</h3>
-        ]]>
-    </string>
+    ]]></string>
 
 </resources>
