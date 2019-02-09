@@ -26,6 +26,9 @@ import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
 
+import java.util.jar.JarEntry
+import java.util.jar.JarFile
+
 /**
  * This task does the following:
  * First it finds all dependencies that meet all the requirements below:
@@ -38,6 +41,7 @@ import org.gradle.api.tasks.TaskAction
 class DependencyTask extends DefaultTask {
     protected Set<String> artifactSet = []
     protected Set<ArtifactInfo> artifactInfos = []
+    protected Map<String, String> definitionMap = []
 
     @Input
     public ConfigurationContainer configurations
@@ -85,9 +89,31 @@ class DependencyTask extends DefaultTask {
         }
     }
 
-    protected void updateDependencyArtifacts() {
+    protected void availableDefinitionFiles() {
+        URL url = LicensesPlugin.class.getResource("/definitions")
+        if (url != null) {
+            String dirname = "definitions/"
+            String path = url.getPath()
+            String jarPath = path.substring(5, path.indexOf("!"))
 
-        throw new RuntimeException(LicensesPlugin.class.getResource( '/definitions/library_actionbarpulltorefresh_strings.xml' ).text)
+            JarFile jar = new JarFile(URLDecoder.decode(jarPath, "UTF-8"))
+            Enumeration<JarEntry> entries = jar.entries()
+            while (entries.hasMoreElements()) {
+                JarEntry entry = entries.nextElement()
+                String name = entry.getName()
+
+                if (name.startsWith(dirname) && !dirname.equals(name)) {
+                    String content = LicensesPlugin.class.getResource("/" + name).text
+                    String classPath = content.substring(content.indexOf("_classPath") + 12)
+                    classPath = classPath.substring(0, classPath.indexOf("<"))
+                    definitionMap.put(classPath, name)
+                }
+            }
+        }
+    }
+
+    protected void updateDependencyArtifacts() {
+        availableDefinitionFiles()
 
         for (Configuration configuration : configurations) {
             configuration.dependencies.findAll { dependency ->
@@ -113,6 +139,28 @@ class DependencyTask extends DefaultTask {
     private void initOutput() {
         if (!outputDir.exists()) {
             outputDir.mkdirs()
+        }
+    }
+
+    private static void copyFileUsingStream(File source, File dest) {
+        InputStream is = null;
+        OutputStream os = null;
+        try {
+            is = new FileInputStream(source);
+            os = new FileOutputStream(dest);
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = is.read(buffer)) > 0) {
+                os.write(buffer, 0, length);
+            }
+        } catch (Exception ex) {
+            System.out.println("Unable to copy file:" + ex.getMessage());
+        } finally {
+            try {
+                is.close();
+                os.close();
+            } catch (Exception ex) {
+            }
         }
     }
 }
