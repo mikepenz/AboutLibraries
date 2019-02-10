@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="define_fastadapter">year;owner</string>
+    <string name="library_fastadapter_author">Mike Penz</string>
+    <string name="library_fastadapter_authorWebsite">http://mikepenz.com/</string>
+    <string name="library_fastadapter_libraryName">FastAdapter</string>
+    <string name="library_fastadapter_libraryDescription">
+        <![CDATA[
+        <b>FastAdapter</b>, the bullet proof, fast and easy to use adapter library, which minimizes developing time to a fraction...
+        ]]>
+    </string>
+    <string name="library_fastadapter_libraryVersion">@string/fastadapter_lib_version</string>
+    <string name="library_fastadapter_libraryWebsite">https://github.com/mikepenz/FastAdapter</string>
+    <string name="library_fastadapter_licenseId">apache_2_0</string>
+    <string name="library_fastadapter_isOpenSource">true</string>
+    <string name="library_fastadapter_repositoryLink">https://github.com/mikepenz/FastAdapter</string>
+    <string name="library_fastadapter_artifactId">com.mikepenz:fastadapter</string>
+    <!-- Custom variables section -->
+    <string name="library_fastadapter_owner">Mike Penz</string>
+    <string name="library_fastadapter_year">2018</string>
+</resources>

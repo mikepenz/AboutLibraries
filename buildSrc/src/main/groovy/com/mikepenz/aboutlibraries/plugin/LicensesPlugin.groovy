@@ -22,26 +22,21 @@ import org.gradle.api.Project
 
 class LicensesPlugin implements Plugin<Project> {
     void apply(Project project) {
-        def getDependencies = project.tasks.create("getDependencies", com.mikepenz.aboutlibraries.plugin.DependencyTask)
-        def dependencyOutput = new File(project.buildDir, "generated/dependencies")
-        def generatedJson = new File(dependencyOutput, "dependencies.json")
+        final def getDependencies = project.tasks.create("getDependencies", DependencyTask)
+        final def dependencyOutput = new File(project.buildDir, "generated/dependencies")
+        final def generatedJson = new File(dependencyOutput, "dependencies.json")
+        getDependencies.project = project
         getDependencies.configurations = project.getConfigurations()
         getDependencies.outputDir = dependencyOutput
         getDependencies.outputFile = generatedJson
 
-        def resourceOutput = new File(dependencyOutput, "/res")
-        def outputDir = new File(resourceOutput, "/raw")
-
-
-        project.android.applicationVariants.all { BaseVariant variant ->
-            variant.preBuild.dependsOn(getDependencies)
+        project.android.applicationVariants.all { final BaseVariant variant ->
+            variant.preBuildProvider.get().dependsOn(getDependencies)
         }
 
         def cleanupTask = project.tasks.create("licensesCleanUp", LicensesCleanUpTask)
         cleanupTask.dependencyFile = generatedJson
         cleanupTask.dependencyDir = dependencyOutput
-        cleanupTask.licensesDir = outputDir
-
         project.tasks.findByName("clean").dependsOn(cleanupTask)
     }
 }

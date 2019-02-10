@@ -31,9 +31,6 @@ class LicensesCleanUpTask extends DefaultTask {
     @Input
     public File dependencyDir
 
-    @Input
-    public File licensesDir
-
     @TaskAction
     void action() {
         if (dependencyFile.exists()) {
@@ -42,10 +39,6 @@ class LicensesCleanUpTask extends DefaultTask {
 
         if (dependencyDir.isDirectory() && dependencyDir.list().length == 0) {
             dependencyDir.delete()
-        }
-
-        if (licensesDir.isDirectory() && licensesDir.list().length == 0) {
-            licensesDir.delete()
         }
     }
 }
