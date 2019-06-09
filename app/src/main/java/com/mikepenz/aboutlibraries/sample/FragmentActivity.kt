@@ -14,8 +14,10 @@ import com.mikepenz.aboutlibraries.LibsBuilder
 import com.mikepenz.aboutlibraries.LibsConfiguration
 import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.fastadapter.adapters.ItemAdapter
+import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.DrawerBuilder
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 
 /**
  * Created by mikepenz on 04.06.14.
@@ -100,37 +102,40 @@ class FragmentActivity : AppCompatActivity() {
                         PrimaryDrawerItem().withName(R.string.action_customsortactivity).withIdentifier(R.id.action_customsortactivity.toLong()).withSelectable(false),
                         PrimaryDrawerItem().withName(R.string.action_opensource).withIdentifier(R.id.action_opensource.toLong()).withSelectable(false)
                 )
-                .withOnDrawerItemClickListener { _, _, drawerItem ->
-                    // Handle action bar item clicks here. The action bar will
-                    // automatically handle clicks on the Home/Up button, so long
-                    // as you specify a parent activity in AndroidManifest.xml.
+                .withOnDrawerItemClickListener(object : Drawer.OnDrawerItemClickListener {
+                    override fun onItemClick(view: View?, position: Int, drawerItem: IDrawerItem<*>): Boolean {
+                        // Handle action bar item clicks here. The action bar will
+                        // automatically handle clicks on the Home/Up button, so long
+                        // as you specify a parent activity in AndroidManifest.xml.
+                        when (drawerItem.identifier) {
+                            R.id.action_opensource.toLong() -> {
+                                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/mikepenz/AboutLibraries"))
+                                startActivity(browserIntent)
+                            }
+                            R.id.action_extendactivity.toLong() -> {
+                                val intent = Intent(applicationContext, ExtendActivity::class.java)
+                                startActivity(intent)
+                            }
+                            R.id.action_customsortactivity.toLong() -> {
+                                val intent = Intent(applicationContext, CustomSortActivity::class.java)
+                                startActivity(intent)
+                            }
+                            R.id.action_manifestactivity.toLong() -> LibsBuilder()
+                                    .withLibraries("crouton", "actionbarsherlock", "showcaseview", "glide")
+                                    .withAutoDetect(false)
+                                    .withLicenseShown(true)
+                                    .withVersionShown(true)
+                                    .withActivityTitle("Open Source")
+                                    .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
+                                    .withListener(libsListener)
+                                    .withLibTaskCallback(libTaskCallback)
+                                    .withUiListener(libsUIListener)
+                                    .start(this@FragmentActivity)
+                        }
 
-                    val id = drawerItem.identifier
-                    if (id == R.id.action_opensource.toLong()) {
-                        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/mikepenz/AboutLibraries"))
-                        startActivity(browserIntent)
-                    } else if (id == R.id.action_extendactivity.toLong()) {
-                        val intent = Intent(applicationContext, ExtendActivity::class.java)
-                        startActivity(intent)
-                    } else if (id == R.id.action_customsortactivity.toLong()) {
-                        val intent = Intent(applicationContext, CustomSortActivity::class.java)
-                        startActivity(intent)
-                    } else if (id == R.id.action_manifestactivity.toLong()) {
-                        LibsBuilder()
-                                .withLibraries("crouton", "actionbarsherlock", "showcaseview", "glide")
-                                .withAutoDetect(false)
-                                .withLicenseShown(true)
-                                .withVersionShown(true)
-                                .withActivityTitle("Open Source")
-                                .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
-                                .withListener(libsListener)
-                                .withLibTaskCallback(libTaskCallback)
-                                .withUiListener(libsUIListener)
-                                .start(this@FragmentActivity)
+                        return false
                     }
-
-                    false
-                }
+                })
                 .build()
 
 
