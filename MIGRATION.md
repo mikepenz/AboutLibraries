@@ -1,5 +1,8 @@
 ### Upgrade Notes
 
+#### v7.x.y
+* Upgraded the library to be in `kotlin` dependencies. This means the *FastAdapter* was also updated to its the kotlin version.
+
 #### v6.2.x
 * Upgraded the library to use `androidX` dependencies. This means your project will need to depend on `androidX` dependencies too. If you still use appcompat please consider using a version older than v6.2.x. 
 * Further details about migrating to androidX and a overview can be found on the official docs. https://developer.android.com/topic/libraries/support-library/refactor

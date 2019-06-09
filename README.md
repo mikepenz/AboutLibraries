@@ -49,14 +49,16 @@ You can find anything you search for in the wiki. (If not open an issue)
 The AboutLibraries Library is pushed to [Maven Central](http://search.maven.org/#search|ga|1|g%3A%22com.mikepenz%22), so you just need to add the following dependency to your `build.gradle`. It seems it is also required to add the support dependencies to the application. If it works without, you should be fine too :).
 
 ```javascript
-implementation "com.mikepenz:aboutlibraries:6.2.3"
+implementation "com.mikepenz:aboutlibraries:7.0.0-rc1"
 
 //required support lib modules
-implementation "androidx.appcompat:appcompat:${androidX}"
-implementation "androidx.cardview:cardview:${androidX}"
-implementation "androidx.recyclerview:recyclerview:${androidX}"
+implementation "androidx.appcompat:appcompat:${versions.appcompat}"
+implementation "androidx.cardview:cardview:${versions.cardview}"
+implementation "androidx.recyclerview:recyclerview:${versions.recyclerview}"
+implementation "com.google.android.material:material:${versions.material}"
 ```
 
+To use java version please use a version smaller than 7.0.0 (See the release on GitHub)
 To use appcompat please use a version smaller than 6.2.0. (See the releases on GitHub)
 
 Further information and how to use it if you can't update to the newest support libs can be found in the [wiki](https://github.com/mikepenz/AboutLibraries/wiki/HOWTO:-Include)
@@ -69,19 +71,19 @@ You can use this library in a few different ways. You can create your own activi
 
 ### Activity / Fragment
 #### Fragment
-```java
-LibsFragment fragment = new LibsBuilder()
-        //get the fragment
-        .fragment();
+```kotlin
+val fragment = LibsBuilder()
+                .withLibraryModification("aboutlibraries", Libs.LibraryFields.LIBRARY_NAME, "_AboutLibraries")
+                .supportFragment()
 ```
 #### Activity
 ##### Code:
-```java
-new LibsBuilder()
+```kotlin
+LibsBuilder()
         //provide a style (optional) (LIGHT, DARK, LIGHT_DARK_TOOLBAR)
         .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
         //start the activity
-        .start(this);
+    .start(this)
 ```
 
 ## Small extra
@@ -97,11 +99,10 @@ Yeah pretty simple just add the following .xml file (or just the strings - the k
 </resources>
 ```
 or use the builder and add following:
-```java
+```kotlin
 	.withAboutIconShown(true)
 	.withAboutVersionShown(true)
 	.withAboutDescription("This is a small sample which can be set in the about my app description file.<br /><b>You can style this with html markup :D</b>")
-
 ```
 
 ## ProGuard
@@ -173,7 +174,7 @@ You can contribute by creating a information file for a new library, and open a 
 
 # License
 
-    Copyright 2018 Mike Penz
+    Copyright 2019 Mike Penz
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
