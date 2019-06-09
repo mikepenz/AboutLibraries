@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_int_dav4jvm"/>
+	<!-- Author section -->
+	<string name="library_dav4jvm_author">Ricki Hirner</string>
+	<string name="library_dav4jvm_authorWebsite">https://www.bitfire.at/</string>
+	<!-- Library section -->
+	<string name="library_dav4jvm_libraryName">dav4jvm</string>
+	<string name="library_dav4jvm_libraryDescription">WebDAV (including CalDAV, CardDAV) library for the Java virtual machine (Java/Kotlin)</string>
+	<string name="library_dav4jvm_libraryWebsite">https://gitlab.com/bitfireAT/dav4jvm</string>
+	<!-- OpenSource section -->
+	<string name="library_dav4jvm_isOpenSource">true</string>
+	<string name="library_dav4jvm_repositoryLink">https://gitlab.com/bitfireAT/dav4jvm</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_dav4jvm_classPath">at.bitfire.dav4jvm</string>
+	<!-- License section -->
+	<string name="library_dav4jvm_licenseId">mpl_2_0</string>
+	<!-- Custom variables section -->
+</resources>
