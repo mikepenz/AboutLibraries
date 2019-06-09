@@ -13,7 +13,7 @@
 	<string name="library_colorpicker_isOpenSource">true</string>
 	<string name="library_colorpicker_repositoryLink">https://github.com/jaredrummler/ColorPicker</string>
 	<!-- ClassPath for autoDetect section -->
-	<string name="library_colorpicker_classPath">com.jaredrummler.android.colorpicker</string>
+	<string name="library_colorpicker_classPath">com.jaredrummler.android.colorpicker.ColorPickerView</string>
 	<!-- License section -->
 	<string name="library_colorpicker_licenseId">mit</string>
 	<!-- Custom variables section -->

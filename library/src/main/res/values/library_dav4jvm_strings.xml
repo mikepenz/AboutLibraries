@@ -13,7 +13,7 @@
 	<string name="library_dav4jvm_isOpenSource">true</string>
 	<string name="library_dav4jvm_repositoryLink">https://gitlab.com/bitfireAT/dav4jvm</string>
 	<!-- ClassPath for autoDetect section -->
-	<string name="library_dav4jvm_classPath">at.bitfire.dav4jvm</string>
+	<string name="library_dav4jvm_classPath">at.bitfire.dav4jvm.DavCalendar</string>
 	<!-- License section -->
 	<string name="library_dav4jvm_licenseId">mpl_2_0</string>
 	<!-- Custom variables section -->
