@@ -1,5 +1,10 @@
 ### Upgrade Notes
 
+#### v7.x.y
+* Upgraded the library to be in `kotlin` dependencies.
+* Update `FastAdapter` to v4 - If you use this library too, please check out the [migration guide](https://github.com/mikepenz/FastAdapter/blob/develop/MIGRATION.md)
+* Update `Android-Iconics` to v4 - If you use this library too, please check out the [migration guide](https://github.com/mikepenz/Android-Iconics/blob/develop/MIGRATION.md)
+
 #### v6.2.x
 * Upgraded the library to use `androidX` dependencies. This means your project will need to depend on `androidX` dependencies too. If you still use appcompat please consider using a version older than v6.2.x. 
 * Further details about migrating to androidX and a overview can be found on the official docs. https://developer.android.com/topic/libraries/support-library/refactor
