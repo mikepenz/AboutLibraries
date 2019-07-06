@@ -34,8 +34,8 @@ Most modern apps feature a "Used Library"-section, which requires information ab
 
 
 # Screenshots
-![Image](https://raw.githubusercontent.com/mikepenz/AboutLibraries/master/DEV/screenshots/screenshot1_small.jpg)
-![Image](https://raw.githubusercontent.com/mikepenz/AboutLibraries/master/DEV/screenshots/screenshot2_small.jpg)
+![Image](https://raw.githubusercontent.com/mikepenz/AboutLibraries/master/DEV/screenshots/screenshot1_small.png)
+![Image](https://raw.githubusercontent.com/mikepenz/AboutLibraries/master/DEV/screenshots/screenshot2_small.png)
 
 
 # Wiki
@@ -49,13 +49,13 @@ You can find anything you search for in the wiki. (If not open an issue)
 The AboutLibraries Library is pushed to [Maven Central](http://search.maven.org/#search|ga|1|g%3A%22com.mikepenz%22), so you just need to add the following dependency to your `build.gradle`. It seems it is also required to add the support dependencies to the application. If it works without, you should be fine too :).
 
 ```javascript
-implementation "com.mikepenz:aboutlibraries:7.0.0"
+implementation "com.mikepenz:aboutlibraries:7.0.1"
 
 //required support lib modules
-implementation "androidx.appcompat:appcompat:${versions.appcompat}"
-implementation "androidx.cardview:cardview:${versions.cardview}"
-implementation "androidx.recyclerview:recyclerview:${versions.recyclerview}"
-implementation "com.google.android.material:material:${versions.material}"
+implementation "androidx.appcompat:appcompat:${versions.appcompat | 1.x.y}"
+implementation "androidx.cardview:cardview:${versions.cardview | 1.x.y}"
+implementation "androidx.recyclerview:recyclerview:${versions.recyclerview | 1.x.y}"
+implementation "com.google.android.material:material:${versions.material | 1.x.y}"
 ```
 
 To use java version please use a version smaller than 7.0.0 (See the release on GitHub)

@@ -1,5 +1,8 @@
 ### Upgrade Notes
 
+#### v7.0.1
+* in case your project has custom licenses, check out the new feature to allow the license description be included as raw file. This helps to solve the potential STRING_TOO_LARGE issue.
+
 #### v7.x.y
 * Upgraded the library to be in `kotlin` dependencies.
 * Update `FastAdapter` to v4 - If you use this library too, please check out the [migration guide](https://github.com/mikepenz/FastAdapter/blob/develop/MIGRATION.md)
