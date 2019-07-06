@@ -10,6 +10,7 @@ import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.entity.License
 import com.mikepenz.aboutlibraries.util.getFields
 import com.mikepenz.aboutlibraries.util.getPackageInfo
+import com.mikepenz.aboutlibraries.util.getRawResourceId
 import com.mikepenz.aboutlibraries.util.getStringResourceByName
 import java.util.*
 import kotlin.collections.ArrayList
@@ -358,12 +359,17 @@ public class Libs {
     private fun genLicense(ctx: Context, licenseName: String): License? {
         val license = licenseName.replace("-", "_")
         return try {
+            var licenseDescription = ctx.getStringResourceByName("license_" + license + "_licenseDescription")
+            if (licenseDescription.startsWith("raw:")) {
+                licenseDescription = ctx.resources.openRawResource(ctx.getRawResourceId(licenseDescription.removePrefix("raw:"))).bufferedReader().use { it.readText() }
+            }
+
             License(
                     license,
                     ctx.getStringResourceByName("license_" + license + "_licenseName"),
                     ctx.getStringResourceByName("license_" + license + "_licenseWebsite"),
                     ctx.getStringResourceByName("license_" + license + "_licenseShortDescription"),
-                    ctx.getStringResourceByName("license_" + license + "_licenseDescription") + ctx.getStringResourceByName("license_" + license + "_licenseDescription_2")
+                    licenseDescription
             )
         } catch (ex: Exception) {
             Log.e("aboutlibraries", "Failed to generateLicense from file: " + ex.toString())

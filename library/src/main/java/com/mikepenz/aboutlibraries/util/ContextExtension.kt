@@ -36,6 +36,11 @@ internal fun Context.getApplicationInfo(): ApplicationInfo? {
     return appInfo
 }
 
+
+internal fun Context.getRawResourceId(aString: String): Int {
+    return resources.getIdentifier(aString, "raw", packageName)
+}
+
 internal fun Context.getStringResourceByName(aString: String): String {
     val resId = resources.getIdentifier(aString, "string", packageName)
     return if (resId == 0) {
