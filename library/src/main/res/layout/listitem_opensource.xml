@@ -52,7 +52,7 @@
 
         <View
             android:id="@+id/libraryDescriptionDivider"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="1px"
             android:layout_marginTop="4dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -61,7 +61,7 @@
 
         <TextView
             android:id="@+id/libraryDescription"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
@@ -76,7 +76,7 @@
 
         <View
             android:id="@+id/libraryBottomDivider"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="1px"
             android:layout_marginTop="4dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -85,7 +85,7 @@
 
         <LinearLayout
             android:id="@+id/libraryBottomContainer"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="8dp"
