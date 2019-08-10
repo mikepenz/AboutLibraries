@@ -11,7 +11,7 @@ import com.mikepenz.aboutlibraries.LibsFragmentCompat
 /**
  * Created by mikepenz on 04.06.14.
  */
-class LibsSupportFragment : Fragment() {
+open class LibsSupportFragment : Fragment() {
 
     private val libsFragmentCompat: LibsFragmentCompat = LibsFragmentCompat()
 

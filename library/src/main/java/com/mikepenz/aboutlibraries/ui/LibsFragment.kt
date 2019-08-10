@@ -14,7 +14,7 @@ import com.mikepenz.aboutlibraries.LibsFragmentCompat
  * Created by mikepenz on 04.06.14.
  */
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-class LibsFragment : Fragment() {
+open class LibsFragment : Fragment() {
 
     private val libsFragmentCompat: LibsFragmentCompat = LibsFragmentCompat()
 
