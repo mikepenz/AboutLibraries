@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-	<string name="define_androidfillableloaders"></string>
+	<string name="define_int_androidfillableloaders"></string>
 	<!-- Author section -->
 	<string name="library_androidfillableloaders_author">Jorge Castillo Pérez</string>
 	<string name="library_androidfillableloaders_authorWebsite">https://github.com/JorgeCastilloPrz/AndroidFillableLoaders</string>
@@ -14,7 +14,7 @@
 	<string name="library_androidfillableloaders_isOpenSource">true</string>
 	<string name="library_androidfillableloaders_repositoryLink">https://github.com/JorgeCastilloPrz/AndroidFillableLoaders</string>
 	<!-- ClassPath for autoDetect section -->
-	<string name="library_androidfillableloaders_classPath">com.github.jorgecastilloprz:fillableloaders</string>
+	<string name="library_androidfillableloaders_classPath">com.github.jorgecastillo.FillableLoader</string>
 	<!-- License section -->
 	<string name="library_androidfillableloaders_licenseId">apache_2_0</string>
 	<!-- Custom variables section -->
