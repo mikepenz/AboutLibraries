@@ -127,7 +127,7 @@ public class Libs {
      * @param sort                 defines if the array should be sorted
      * @return the summarized list of included Libraries
      */
-    fun prepareLibraries(ctx: Context, internalLibraries: Array<out String>, excludeLibraries: Array<out String>, autoDetect: Boolean, checkCachedDetection: Boolean, sort: Boolean): ArrayList<Library> {
+    fun prepareLibraries(ctx: Context, internalLibraries: Array<out String> = emptyArray(), excludeLibraries: Array<out String> = emptyArray(), autoDetect: Boolean = true, checkCachedDetection: Boolean = true, sort: Boolean = true): ArrayList<Library> {
         val isExcluding = excludeLibraries.isNotEmpty()
         val libraries = HashMap<String, Library>()
         val resultLibraries = ArrayList<Library>()
