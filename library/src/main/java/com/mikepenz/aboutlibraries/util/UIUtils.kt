@@ -1,7 +1,6 @@
 package com.mikepenz.aboutlibraries.util
 
 import android.content.Context
-import android.content.res.TypedArray
 import android.util.TypedValue
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -28,13 +27,8 @@ internal fun Context.getThemeColor(attr: Int): Int {
  * @param res
  * @return
  */
-internal fun Context.getThemeColorFromAttrOrRes(attr: Int, res: Int): Int {
-    var color = getThemeColor(attr)
-    if (color == 0) {
-        color = ContextCompat.getColor(this, res)
-    }
-    return color
-}
+internal fun Context.getThemeColorFromAttrOrRes(attr: Int, res: Int): Int =
+        getThemeColor(attr).takeIf { it != 0 } ?: ContextCompat.getColor(this, res)
 
 /**
  * helper method to set the background depending on the android version
@@ -53,13 +47,11 @@ internal fun View.setBackground(drawableRes: Int) {
  * @param attr    is the attribute dimension we want to know the size from
  * @return the size in pixels of an attribute dimension
  */
-internal fun Context.getThemeAttributeDimensionSize(attr: Int): Int {
-    var a: TypedArray? = null
+internal fun Context.getThemeAttributeDimensionSize(attr: Int): Int = with(theme.obtainStyledAttributes(intArrayOf(attr))) {
     try {
-        a = theme.obtainStyledAttributes(intArrayOf(attr))
-        return a!!.getDimensionPixelSize(0, 0)
+        getDimensionPixelSize(0, 0)
     } finally {
-        a?.recycle()
+        recycle()
     }
 }
 
