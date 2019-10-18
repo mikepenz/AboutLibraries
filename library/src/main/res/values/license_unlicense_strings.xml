@@ -7,5 +7,5 @@
         <![CDATA[This is free and unencumbered software released into the public domain.
 ]]>
     </string>
-    <string name="license_pd_licenseDescription">raw:license_unlicense</string>
+    <string name="license_unlicense_licenseDescription">raw:license_unlicense</string>
 </resources>
