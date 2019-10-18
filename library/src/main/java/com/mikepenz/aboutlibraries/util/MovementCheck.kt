@@ -14,12 +14,9 @@ class MovementCheck : LinkMovementMethod() {
         } catch (ex: Exception) {
             true
         }
-
     }
 
-    private object Holder { val INSTANCE = MovementCheck() }
-
     companion object {
-        val instance: MovementCheck by lazy { Holder.INSTANCE }
+        val instance: MovementCheck by lazy { MovementCheck() }
     }
 }

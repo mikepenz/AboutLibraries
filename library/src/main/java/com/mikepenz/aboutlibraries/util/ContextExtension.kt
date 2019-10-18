@@ -6,34 +6,16 @@ import android.content.pm.PackageInfo
 import android.text.TextUtils
 
 
-internal fun Context.getPackageInfo(): PackageInfo? {
-    //get the packageManager to load and read some values :D
-    val pm = this.packageManager
-    //get the packageName
-    val packageName = this.packageName
-    //Try to load the applicationInfo
-    var packageInfo: PackageInfo? = null
-    try {
-        packageInfo = pm.getPackageInfo(packageName, 0)
-    } catch (ex: Exception) {
-    }
-
-    return packageInfo
+internal fun Context.getPackageInfo(): PackageInfo? = try {
+    packageManager.getPackageInfo(packageName, 0)
+} catch (ex: Exception) {
+    null
 }
 
-internal fun Context.getApplicationInfo(): ApplicationInfo? {
-    //get the packageManager to load and read some values :D
-    val pm = this.packageManager
-    //get the packageName
-    val packageName = this.packageName
-    //Try to load the applicationInfo
-    var appInfo: ApplicationInfo? = null
-    try {
-        appInfo = pm.getApplicationInfo(packageName, 0)
-    } catch (ex: Exception) {
-    }
-
-    return appInfo
+internal fun Context.getApplicationInfo(): ApplicationInfo? = try {
+    packageManager.getApplicationInfo(packageName, 0)
+} catch (ex: Exception) {
+    null
 }
 
 
@@ -84,15 +66,5 @@ internal fun Context.extractBooleanBundleOrResource(value: Boolean?, resName: St
  * @param resName
  * @return
  */
-internal fun Context.extractStringBundleOrResource(value: String?, resName: String): String? {
-    var result: String? = null
-    if (value != null) {
-        result = value
-    } else {
-        val descriptionShowVersion = getStringResourceByName(resName)
-        if (!TextUtils.isEmpty(descriptionShowVersion)) {
-            result = descriptionShowVersion
-        }
-    }
-    return result
-}
+internal fun Context.extractStringBundleOrResource(value: String?, resName: String): String? =
+        value ?: getStringResourceByName(resName).takeIf { it.isNotEmpty() }

@@ -64,7 +64,7 @@ class LibsBuilder : Serializable {
     var ownLibsActivityClass: Class<*> = LibsActivity::class.java
 
     /**
-     * Builder method to pass the an own LibsActivity.
+     * Builder method to pass a custom LibsActivity.
      *
      * @param clazz Class
      * @return this

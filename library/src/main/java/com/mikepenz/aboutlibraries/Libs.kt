@@ -8,14 +8,11 @@ import android.util.Log
 import com.mikepenz.aboutlibraries.detector.Detect
 import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.entity.License
-import com.mikepenz.aboutlibraries.util.getFields
-import com.mikepenz.aboutlibraries.util.getPackageInfo
-import com.mikepenz.aboutlibraries.util.getRawResourceId
-import com.mikepenz.aboutlibraries.util.getStringResourceByName
+import com.mikepenz.aboutlibraries.util.*
 import java.util.*
 import kotlin.collections.ArrayList
 
-public class Libs {
+public class Libs(context: Context, fields: Array<String> = context.getFields()) {
 
     private val internLibraries = ArrayList<Library>()
     private val externLibraries = ArrayList<Library>()
@@ -62,45 +59,33 @@ public class Libs {
         SPECIAL3
     }
 
-    constructor(context: Context) {
-        init(context, context.getFields())
-    }
-
-    constructor(context: Context, fields: Array<String>?) {
-        init(context, fields)
-    }
-
     /**
      * init method
-     *
-     * @param fields
      */
-    private fun init(ctx: Context, fields: Array<String>?) {
+    init {
         val foundLicenseIdentifiers = ArrayList<String>()
         val foundInternalLibraryIdentifiers = ArrayList<String>()
         val foundExternalLibraryIdentifiers = ArrayList<String>()
 
-        if (fields != null) {
-            for (field in fields) {
-                when {
-                    field.startsWith(DEFINE_LICENSE) -> foundLicenseIdentifiers.add(field.replace(DEFINE_LICENSE, ""))
-                    field.startsWith(DEFINE_INT) -> foundInternalLibraryIdentifiers.add(field.replace(DEFINE_INT, ""))
-                    field.startsWith(DEFINE_EXT) -> foundExternalLibraryIdentifiers.add(field.replace(DEFINE_EXT, ""))
-                }
+        for (field in fields) {
+            when {
+                field.startsWith(DEFINE_LICENSE) -> foundLicenseIdentifiers.add(field.replace(DEFINE_LICENSE, ""))
+                field.startsWith(DEFINE_INT) -> foundInternalLibraryIdentifiers.add(field.replace(DEFINE_INT, ""))
+                field.startsWith(DEFINE_EXT) -> foundExternalLibraryIdentifiers.add(field.replace(DEFINE_EXT, ""))
             }
         }
 
         // add licenses
         // this has to happen first as the licenses need to be initialized before the libraries are read in
         for (licenseIdentifier in foundLicenseIdentifiers) {
-            val license = genLicense(ctx, licenseIdentifier)
+            val license = genLicense(context, licenseIdentifier)
             if (license != null) {
                 licenses.add(license)
             }
         }
         //add internal libs
         for (internalIdentifier in foundInternalLibraryIdentifiers) {
-            val library = genLibrary(ctx, internalIdentifier)
+            val library = genLibrary(context, internalIdentifier)
             if (library != null) {
                 library.isInternal = true
                 internLibraries.add(library)
@@ -109,7 +94,7 @@ public class Libs {
 
         //add external libs
         for (externalIdentifier in foundExternalLibraryIdentifiers) {
-            val library = genLibrary(ctx, externalIdentifier)
+            val library = genLibrary(context, externalIdentifier)
             if (library != null) {
                 library.isInternal = false
                 externLibraries.add(library)
@@ -127,7 +112,7 @@ public class Libs {
      * @param sort                 defines if the array should be sorted
      * @return the summarized list of included Libraries
      */
-    fun prepareLibraries(ctx: Context, internalLibraries: Array<out String>, excludeLibraries: Array<out String>, autoDetect: Boolean, checkCachedDetection: Boolean, sort: Boolean): ArrayList<Library> {
+    fun prepareLibraries(ctx: Context, internalLibraries: Array<out String> = emptyArray(), excludeLibraries: Array<out String> = emptyArray(), autoDetect: Boolean = true, checkCachedDetection: Boolean = true, sort: Boolean = true): ArrayList<Library> {
         val isExcluding = excludeLibraries.isNotEmpty()
         val libraries = HashMap<String, Library>()
         val resultLibraries = ArrayList<Library>()
@@ -548,5 +533,7 @@ public class Libs {
         internal const val DEFINE_EXT = "define_"
 
         private const val DELIMITER = ";"
+
+        fun classFields(rClass: Class<*>): Array<String> = rClass.fields.toStringArray()
     }
 }

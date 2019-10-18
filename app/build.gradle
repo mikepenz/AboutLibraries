@@ -92,7 +92,7 @@ dependencies {
     implementation "com.mikepenz:material-design-iconic-typeface:2.2.0.6-kotlin@aar"
 
     // kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.kotlin}"
 
 }
 

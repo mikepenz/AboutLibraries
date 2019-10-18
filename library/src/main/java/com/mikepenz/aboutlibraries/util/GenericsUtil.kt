@@ -11,15 +11,8 @@ import java.lang.reflect.Field
  * @param fields R.strings.class.getFields()
  * @return a String[] with the string ids we need
  */
-internal fun Array<Field>.toStringArray(): Array<String> {
-    val fieldArray = ArrayList<String>()
-    for (field in this) {
-        if (field.name.contains(Libs.DEFINE_EXT)) {
-            fieldArray.add(field.name)
-        }
-    }
-    return fieldArray.toTypedArray()
-}
+internal fun Array<Field>.toStringArray(): Array<String> =
+        map { it.name }.filter { it.contains(Libs.DEFINE_EXT) }.toTypedArray()
 
 /**
  * a helper to get the string fields from the R class
@@ -27,10 +20,8 @@ internal fun Array<Field>.toStringArray(): Array<String> {
  * @param ctx
  * @return
  */
-internal fun Context.getFields(): Array<String> {
-    val rStringClass = resolveRClass(this.packageName)
-    return rStringClass?.fields?.toStringArray() ?: emptyArray()
-}
+internal fun Context.getFields(): Array<String> =
+        resolveRClass(packageName)?.fields?.toStringArray() ?: emptyArray()
 
 /**
  * a helper class to resolve the correct R Class for the package
