@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_license_unlicense" />
+    <string name="license_unlicense_licenseName">Unlicense</string>
+    <string name="license_unlicense_licenseWebsite">http://unlicense.org/</string>
+    <string name="license_unlicense_licenseShortDescription">
+        <![CDATA[This is free and unencumbered software released into the public domain.
+]]>
+    </string>
+    <string name="license_pd_licenseDescription">raw:license_unlicense</string>
+</resources>
