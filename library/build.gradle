@@ -58,7 +58,7 @@ dependencies {
     implementation "com.mikepenz:fastadapter:${versions.fastadapter}"
 
     // kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.kotlin}"
 }
 
 apply from: '../gradle-release.gradle'
