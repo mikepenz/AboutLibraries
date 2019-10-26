@@ -2,7 +2,6 @@ package com.mikepenz.aboutlibraries.detector
 
 import android.content.Context
 import android.content.pm.PackageManager
-import android.text.TextUtils
 import com.mikepenz.aboutlibraries.entity.Library
 import java.util.*
 
@@ -17,10 +16,9 @@ object Detect {
         val foundLibraries = ArrayList<Library>()
         // Loop through known libraries
         for (library in libraries) {
-            if (!TextUtils.isEmpty(library.classPath)) {
+            if (library.classPath.isNotEmpty()) {
                 try {
-                    val ctx = mCtx.createPackageContext(mCtx.packageName,
-                            Context.CONTEXT_INCLUDE_CODE or Context.CONTEXT_IGNORE_SECURITY)
+                    val ctx = mCtx.createPackageContext(mCtx.packageName, Context.CONTEXT_INCLUDE_CODE or Context.CONTEXT_IGNORE_SECURITY)
                     Class.forName(library.classPath, false, ctx.classLoader) // throws an exception if the class does not exist
 
                     // Detected a library!!!

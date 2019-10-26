@@ -47,7 +47,7 @@ internal fun Context.extractBooleanBundleOrResource(value: Boolean?, resName: St
         result = value
     } else {
         val descriptionShowVersion = getStringResourceByName(resName)
-        if (!TextUtils.isEmpty(descriptionShowVersion)) {
+        if (descriptionShowVersion.isNotEmpty()) {
             try {
                 result = java.lang.Boolean.parseBoolean(descriptionShowVersion)
             } catch (ex: Exception) {

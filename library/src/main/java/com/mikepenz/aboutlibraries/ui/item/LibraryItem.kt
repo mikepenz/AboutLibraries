@@ -70,7 +70,7 @@ class LibraryItem(private val library: Library, private val libsBuilder: LibsBui
             holder.libraryBottomDivider.visibility = View.VISIBLE
             holder.libraryBottomContainer.visibility = View.VISIBLE
 
-            if (!TextUtils.isEmpty(library.libraryVersion) && libsBuilder.showVersion) {
+            if (library.libraryVersion.isNotEmpty() && libsBuilder.showVersion) {
                 holder.libraryVersion.text = library.libraryVersion
             } else {
                 holder.libraryVersion.text = ""
@@ -84,7 +84,7 @@ class LibraryItem(private val library: Library, private val libsBuilder: LibsBui
 
 
         //Define onClickListener
-        if (!TextUtils.isEmpty(library.authorWebsite)) {
+        if (library.authorWebsite.isNotEmpty()) {
             holder.libraryCreator.setOnClickListener { view ->
                 val consumed = LibsConfiguration.instance.listener?.onLibraryAuthorClicked(view, library)
                         ?: false
@@ -108,7 +108,7 @@ class LibraryItem(private val library: Library, private val libsBuilder: LibsBui
             holder.libraryCreator.setOnLongClickListener(null)
         }
 
-        if (!TextUtils.isEmpty(library.libraryWebsite) || !TextUtils.isEmpty(library.repositoryLink)) {
+        if (library.libraryWebsite.isNotEmpty() || library.repositoryLink.isNotEmpty()) {
             holder.libraryDescription.setOnClickListener { v ->
                 val consumed = LibsConfiguration.instance.listener?.onLibraryContentClicked(v, library)
                         ?: false

@@ -38,7 +38,7 @@ internal fun resolveRClass(packageName: String): Class<*>? {
             packageName = if (packageName.contains(".")) packageName.substring(0, packageName.lastIndexOf('.')) else ""
         }
 
-    } while (!TextUtils.isEmpty(packageName))
+    } while (packageName.isNotEmpty())
 
     return null
 }
