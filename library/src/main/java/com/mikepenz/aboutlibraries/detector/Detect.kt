@@ -17,7 +17,7 @@ object Detect {
         val foundLibraries = ArrayList<Library>()
         // Loop through known libraries
         for (library in libraries) {
-            if (!TextUtils.isEmpty(library.classPath)) {
+            if (library.classPath.isNotEmpty()) {
                 try {
                     val ctx = mCtx.createPackageContext(mCtx.packageName,
                             Context.CONTEXT_INCLUDE_CODE or Context.CONTEXT_IGNORE_SECURITY)

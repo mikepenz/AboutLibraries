@@ -82,7 +82,7 @@ open class LibsActivity : AppCompatActivity() {
 
             // SetUp ActionBar
             ab.setDisplayHomeAsUpEnabled(true)
-            ab.setDisplayShowTitleEnabled(!TextUtils.isEmpty(title))
+            ab.setDisplayShowTitleEnabled(title.isNotEmpty())
             ab.title = title
         }
         supportFragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit()

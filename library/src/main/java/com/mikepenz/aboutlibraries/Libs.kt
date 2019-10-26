@@ -429,12 +429,12 @@ public class Libs(context: Context, fields: Array<String> = context.getFields())
             customVariablesString = ctx.getStringResourceByName(DEFINE_INT + libraryName)
         }
 
-        if (!TextUtils.isEmpty(customVariablesString)) {
+        if (customVariablesString.isNotEmpty()) {
             val customVariableArray = customVariablesString.split(";".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
             if (customVariableArray.isNotEmpty()) {
                 for (customVariableKey in customVariableArray) {
                     val customVariableContent = ctx.getStringResourceByName("library_" + libraryName + "_" + customVariableKey)
-                    if (!TextUtils.isEmpty(customVariableContent)) {
+                    if (customVariableContent.isNotEmpty()) {
                         customVariables[customVariableKey] = customVariableContent
                     }
                 }
@@ -447,7 +447,7 @@ public class Libs(context: Context, fields: Array<String> = context.getFields())
     fun insertVariables(insertIntoVar: String, variables: HashMap<String, String>): String {
         var insertInto = insertIntoVar
         for ((key, value) in variables) {
-            if (!TextUtils.isEmpty(value)) {
+            if (value.isNotEmpty()) {
                 insertInto = insertInto.replace("<<<" + key.toUpperCase() + ">>>", value)
             }
         }
