@@ -3,7 +3,6 @@
 package com.mikepenz.aboutlibraries
 
 import android.content.Context
-import android.text.TextUtils
 import android.util.Log
 import com.mikepenz.aboutlibraries.detector.Detect
 import com.mikepenz.aboutlibraries.entity.Library
@@ -245,9 +244,9 @@ public class Libs(context: Context, fields: Array<String> = context.getFields())
      */
     fun getLibrary(libraryName: String): Library? {
         for (library in libraries) {
-            if (library.libraryName.toLowerCase() == libraryName.toLowerCase()) {
+            if (library.libraryName.equals(libraryName, true)) {
                 return library
-            } else if (library.definedName.toLowerCase() == libraryName.toLowerCase()) {
+            } else if (library.definedName.equals(libraryName, true)) {
                 return library
             }
         }
@@ -298,7 +297,7 @@ public class Libs(context: Context, fields: Array<String> = context.getFields())
         var count = 0
         for (library in libraries) {
             if (idOnly) {
-                if (library.definedName.toLowerCase().contains(searchTerm.toLowerCase())) {
+                if (library.definedName.contains(searchTerm, true)) {
                     localLibs.add(library)
                     count += 1
 
@@ -307,7 +306,7 @@ public class Libs(context: Context, fields: Array<String> = context.getFields())
                     }
                 }
             } else {
-                if (library.libraryName.toLowerCase().contains(searchTerm.toLowerCase()) || library.definedName.toLowerCase().contains(searchTerm.toLowerCase())) {
+                if (library.libraryName.contains(searchTerm, true) || library.definedName.contains(searchTerm, true)) {
                     localLibs.add(library)
                     count += 1
 
@@ -328,9 +327,9 @@ public class Libs(context: Context, fields: Array<String> = context.getFields())
      */
     fun getLicense(licenseName: String): License? {
         for (license in getLicenses()) {
-            if (license.licenseName.toLowerCase() == licenseName.toLowerCase()) {
+            if (license.licenseName.equals(licenseName, true)) {
                 return license
-            } else if (license.definedName.toLowerCase() == licenseName.toLowerCase()) {
+            } else if (license.definedName.equals(licenseName, true)) {
                 return license
             }
         }
@@ -383,7 +382,7 @@ public class Libs(context: Context, fields: Array<String> = context.getFields())
             lib.libraryWebsite = ctx.getStringResourceByName("library_" + name + "_libraryWebsite")
 
             val licenseId = ctx.getStringResourceByName("library_" + name + "_licenseId")
-            if (TextUtils.isEmpty(licenseId)) {
+            if (licenseId.isBlank()) {
                 val license = License("",
                         ctx.getStringResourceByName("library_" + name + "_licenseVersion"),
                         ctx.getStringResourceByName("library_" + name + "_licenseLink"),
@@ -406,12 +405,12 @@ public class Libs(context: Context, fields: Array<String> = context.getFields())
 
             lib.classPath = ctx.getStringResourceByName("library_" + name + "_classPath")
 
-            return if (TextUtils.isEmpty(lib.libraryName) && TextUtils.isEmpty(lib.libraryDescription)) {
+            return if (lib.libraryName.isBlank() && lib.libraryDescription.isBlank()) {
                 null
             } else lib
 
         } catch (ex: Exception) {
-            Log.e("aboutlibraries", "Failed to generateLibrary from file: " + ex.toString())
+            Log.e("aboutlibraries", "Failed to generateLibrary from file: $ex")
             return null
         }
 
@@ -425,7 +424,7 @@ public class Libs(context: Context, fields: Array<String> = context.getFields())
         val customVariables = HashMap<String, String>()
 
         var customVariablesString = ctx.getStringResourceByName(DEFINE_EXT + libraryName)
-        if (TextUtils.isEmpty(customVariablesString)) {
+        if (customVariablesString.isBlank()) {
             customVariablesString = ctx.getStringResourceByName(DEFINE_INT + libraryName)
         }
 
@@ -448,7 +447,7 @@ public class Libs(context: Context, fields: Array<String> = context.getFields())
         var insertInto = insertIntoVar
         for ((key, value) in variables) {
             if (value.isNotEmpty()) {
-                insertInto = insertInto.replace("<<<" + key.toUpperCase() + ">>>", value)
+                insertInto = insertInto.replace("<<<" + key.toUpperCase(Locale.US) + ">>>", value)
             }
         }
 
@@ -473,47 +472,59 @@ public class Libs(context: Context, fields: Array<String> = context.getFields())
                 if (foundLibs.size == 1) {
                     val lib = foundLibs[0]
                     for ((key2, value) in value1) {
-                        val key = key2.toUpperCase()
-
-                        if (key == LibraryFields.AUTHOR_NAME.name) {
-                            lib.author = value
-                        } else if (key == LibraryFields.AUTHOR_WEBSITE.name) {
-                            lib.authorWebsite = value
-                        } else if (key == LibraryFields.LIBRARY_NAME.name) {
-                            lib.libraryName = value
-                        } else if (key == LibraryFields.LIBRARY_DESCRIPTION.name) {
-                            lib.libraryDescription = value
-                        } else if (key == LibraryFields.LIBRARY_VERSION.name) {
-                            lib.libraryVersion = value
-                        } else if (key == LibraryFields.LIBRARY_WEBSITE.name) {
-                            lib.libraryWebsite = value
-                        } else if (key == LibraryFields.LIBRARY_OPEN_SOURCE.name) {
-                            lib.isOpenSource = java.lang.Boolean.parseBoolean(value)
-                        } else if (key == LibraryFields.LIBRARY_REPOSITORY_LINK.name) {
-                            lib.repositoryLink = value
-                        } else if (key == LibraryFields.LIBRARY_CLASSPATH.name) {
-                            //note this can be set but won't probably work for autodetect
-                            lib.classPath = value
-                        } else if (key == LibraryFields.LICENSE_NAME.name) {
-                            if (lib.license == null) {
-                                lib.license = License("", "", "", "", "")
+                        when (key2.toUpperCase(Locale.US)) {
+                            LibraryFields.AUTHOR_NAME.name -> {
+                                lib.author = value
                             }
-                            lib.license?.licenseName = value
-                        } else if (key == LibraryFields.LICENSE_SHORT_DESCRIPTION.name) {
-                            if (lib.license == null) {
-                                lib.license = License("", "", "", "", "")
+                            LibraryFields.AUTHOR_WEBSITE.name -> {
+                                lib.authorWebsite = value
                             }
-                            lib.license?.licenseShortDescription = value
-                        } else if (key == LibraryFields.LICENSE_DESCRIPTION.name) {
-                            if (lib.license == null) {
-                                lib.license = License("", "", "", "", "")
+                            LibraryFields.LIBRARY_NAME.name -> {
+                                lib.libraryName = value
                             }
-                            lib.license?.licenseDescription = value
-                        } else if (key == LibraryFields.LICENSE_WEBSITE.name) {
-                            if (lib.license == null) {
-                                lib.license = License("", "", "", "", "")
+                            LibraryFields.LIBRARY_DESCRIPTION.name -> {
+                                lib.libraryDescription = value
                             }
-                            lib.license?.licenseWebsite = value
+                            LibraryFields.LIBRARY_VERSION.name -> {
+                                lib.libraryVersion = value
+                            }
+                            LibraryFields.LIBRARY_WEBSITE.name -> {
+                                lib.libraryWebsite = value
+                            }
+                            LibraryFields.LIBRARY_OPEN_SOURCE.name -> {
+                                lib.isOpenSource = java.lang.Boolean.parseBoolean(value)
+                            }
+                            LibraryFields.LIBRARY_REPOSITORY_LINK.name -> {
+                                lib.repositoryLink = value
+                            }
+                            LibraryFields.LIBRARY_CLASSPATH.name -> {
+                                //note this can be set but won't probably work for autodetect
+                                lib.classPath = value
+                            }
+                            LibraryFields.LICENSE_NAME.name -> {
+                                if (lib.license == null) {
+                                    lib.license = License("", "", "", "", "")
+                                }
+                                lib.license?.licenseName = value
+                            }
+                            LibraryFields.LICENSE_SHORT_DESCRIPTION.name -> {
+                                if (lib.license == null) {
+                                    lib.license = License("", "", "", "", "")
+                                }
+                                lib.license?.licenseShortDescription = value
+                            }
+                            LibraryFields.LICENSE_DESCRIPTION.name -> {
+                                if (lib.license == null) {
+                                    lib.license = License("", "", "", "", "")
+                                }
+                                lib.license?.licenseDescription = value
+                            }
+                            LibraryFields.LICENSE_WEBSITE.name -> {
+                                if (lib.license == null) {
+                                    lib.license = License("", "", "", "", "")
+                                }
+                                lib.license?.licenseWebsite = value
+                            }
                         }
                     }
                 }
