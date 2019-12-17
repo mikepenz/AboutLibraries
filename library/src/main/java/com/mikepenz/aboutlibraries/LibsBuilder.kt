@@ -39,9 +39,9 @@ class LibsBuilder : Serializable {
 
     var aboutShowIcon: Boolean = true
     var aboutVersionString: String = ""
-    var aboutAppName: String = ""
+    var aboutAppName: String? = null
     var aboutShowVersion: Boolean = true
-    var aboutDescription: String = ""
+    var aboutDescription: String? = null
     var aboutShowVersionName: Boolean = true
     var aboutShowVersionCode: Boolean = true
 
