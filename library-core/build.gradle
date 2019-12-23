@@ -45,4 +45,6 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.kotlin}"
 }
 
-apply from: '../gradle-release.gradle'
+if (project.hasProperty('pushall') || project.hasProperty('library_core_only')) {
+    apply from: '../gradle-release.gradle'
+}
