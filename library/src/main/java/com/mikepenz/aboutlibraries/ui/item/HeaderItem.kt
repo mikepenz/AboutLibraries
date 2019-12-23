@@ -93,7 +93,7 @@ class HeaderItem(var libsBuilder: LibsBuilder) : AbstractItem<HeaderItem.ViewHol
         }
 
         //Set the description or hide it
-        if (TextUtils.isEmpty(libsBuilder.aboutAppName)) {
+        if (!libsBuilder.aboutAppName.isNullOrEmpty()) {
             holder.aboutAppName.text = libsBuilder.aboutAppName
         } else {
             holder.aboutAppName.visibility = View.GONE
@@ -200,7 +200,7 @@ class HeaderItem(var libsBuilder: LibsBuilder) : AbstractItem<HeaderItem.ViewHol
         }
 
         //Set the description or hide it
-        if (TextUtils.isEmpty(libsBuilder.aboutDescription)) {
+        if (!libsBuilder.aboutDescription.isNullOrEmpty()) {
             holder.aboutAppDescription.text = Html.fromHtml(libsBuilder.aboutDescription)
             Iconics.Builder().ctx(ctx).on(holder.aboutAppDescription).build()
             holder.aboutAppDescription.movementMethod = MovementCheck.instance
