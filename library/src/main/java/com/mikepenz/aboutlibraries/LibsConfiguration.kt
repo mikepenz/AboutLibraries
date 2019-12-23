@@ -166,7 +166,6 @@ class LibsConfiguration private constructor() {
 
     abstract class LibsListenerImpl : LibsListener {
         override fun onIconClicked(v: View) {
-
         }
 
         override fun onLibraryAuthorClicked(v: View, library: Library): Boolean {

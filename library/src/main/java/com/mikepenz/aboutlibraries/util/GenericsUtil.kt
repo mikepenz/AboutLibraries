@@ -1,7 +1,6 @@
 package com.mikepenz.aboutlibraries.util
 
 import android.content.Context
-import android.text.TextUtils
 import com.mikepenz.aboutlibraries.Libs
 import java.lang.reflect.Field
 
@@ -37,7 +36,6 @@ internal fun resolveRClass(packageName: String): Class<*>? {
         } catch (e: ClassNotFoundException) {
             packageName = if (packageName.contains(".")) packageName.substring(0, packageName.lastIndexOf('.')) else ""
         }
-
     } while (packageName.isNotEmpty())
 
     return null

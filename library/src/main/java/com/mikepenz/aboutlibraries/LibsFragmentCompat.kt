@@ -61,10 +61,10 @@ class LibsFragmentCompat {
 
         // init CardView
         val mRecyclerView: RecyclerView
-        if (view.id == R.id.cardListView) {
-            mRecyclerView = view as RecyclerView
+        mRecyclerView = if (view.id == R.id.cardListView) {
+            view as RecyclerView
         } else {
-            mRecyclerView = view.findViewById(R.id.cardListView) as RecyclerView
+            view.findViewById(R.id.cardListView) as RecyclerView
         }
         mRecyclerView.layoutManager = LinearLayoutManager(context)
 
@@ -137,8 +137,10 @@ class LibsFragmentCompat {
             //fill the builder with the information
             builder.aboutShowIcon = ctx.extractBooleanBundleOrResource(builder.aboutShowIcon, "aboutLibraries_description_showIcon") ?: false
             builder.aboutShowVersion = ctx.extractBooleanBundleOrResource(builder.aboutShowVersion, "aboutLibraries_description_showVersion") ?: false
-            builder.aboutShowVersionName = ctx.extractBooleanBundleOrResource(builder.aboutShowVersionName, "aboutLibraries_description_showVersionName") ?: false
-            builder.aboutShowVersionCode = ctx.extractBooleanBundleOrResource(builder.aboutShowVersionCode, "aboutLibraries_description_showVersionCode") ?: false
+            builder.aboutShowVersionName = ctx.extractBooleanBundleOrResource(builder.aboutShowVersionName, "aboutLibraries_description_showVersionName")
+                    ?: false
+            builder.aboutShowVersionCode = ctx.extractBooleanBundleOrResource(builder.aboutShowVersionCode, "aboutLibraries_description_showVersionCode")
+                    ?: false
 
             builder.aboutAppName = ctx.extractStringBundleOrResource(builder.aboutAppName, "aboutLibraries_description_name") ?: ""
             builder.aboutDescription = ctx.extractStringBundleOrResource(builder.aboutDescription, "aboutLibraries_description_text") ?: ""
@@ -165,7 +167,8 @@ class LibsFragmentCompat {
             }
 
             //load the data for the header
-            if (builder.aboutShowIcon && (builder.aboutShowVersion || builder.aboutShowVersionName || builder.aboutShowVersionCode)) {
+            val showVersionInfo = builder.aboutShowVersion || builder.aboutShowVersionName || builder.aboutShowVersionCode
+            if (builder.aboutShowIcon && showVersionInfo) {
                 //get the packageManager to load and read some values :D
                 val pm = ctx.packageManager
                 //get the packageName
@@ -176,7 +179,8 @@ class LibsFragmentCompat {
                 try {
                     appInfo = pm.getApplicationInfo(packageName, 0)
                     packageInfo = pm.getPackageInfo(packageName, 0)
-                } catch (ex: Exception) {
+                } catch (ignored: Exception) {
+                    // ignored
                 }
 
                 //Set the Icon or hide it
@@ -199,7 +203,8 @@ class LibsFragmentCompat {
             mItemAdapter.clear()
 
             //Add the header
-            if (builder.aboutShowIcon && (builder.aboutShowVersion || builder.aboutShowVersionName || builder.aboutShowVersionCode)) {
+            val showVersionInfo = builder.aboutShowVersion || builder.aboutShowVersionName || builder.aboutShowVersionCode
+            if (builder.aboutShowIcon && showVersionInfo) {
                 //add this cool thing to the headerView of our listView
                 mItemAdapter.add(HeaderItem(builder).withAboutVersionName(versionName).withAboutVersionCode(versionCode).withAboutIcon(icon))
             }

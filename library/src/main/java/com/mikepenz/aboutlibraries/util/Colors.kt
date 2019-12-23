@@ -16,8 +16,8 @@ class Colors : Serializable {
         this.statusBarColor = statusBarColor
     }
 
-    private constructor(`in`: Parcel) {
-        this.appBarColor = `in`.readInt()
-        this.statusBarColor = `in`.readInt()
+    private constructor(input: Parcel) {
+        this.appBarColor = input.readInt()
+        this.statusBarColor = input.readInt()
     }
 }

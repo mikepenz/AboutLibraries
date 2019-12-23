@@ -3,7 +3,6 @@ package com.mikepenz.aboutlibraries.util
 import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
-import android.text.TextUtils
 
 
 internal fun Context.getPackageInfo(): PackageInfo? = try {
@@ -50,9 +49,9 @@ internal fun Context.extractBooleanBundleOrResource(value: Boolean?, resName: St
         if (descriptionShowVersion.isNotEmpty()) {
             try {
                 result = java.lang.Boolean.parseBoolean(descriptionShowVersion)
-            } catch (ex: Exception) {
+            } catch (ignored: Exception) {
+                // ignored
             }
-
         }
     }
     return result

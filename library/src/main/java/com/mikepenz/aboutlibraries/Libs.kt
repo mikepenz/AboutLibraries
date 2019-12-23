@@ -177,7 +177,7 @@ public class Libs(context: Context, fields: Array<String> = context.getFields())
         val lastCacheVersion = sharedPreferences.getInt("versionCode", -1)
         val isCacheUpToDate = pi != null && lastCacheVersion == pi.versionCode
 
-        if (checkCachedDetection) {//Retrieve from cache if up to date
+        if (checkCachedDetection) { //Retrieve from cache if up to date
             if (pi != null && isCacheUpToDate) {
                 val autoDetectedLibraries = sharedPreferences.getString("autoDetectedLibraries", "")?.split(DELIMITER.toRegex())?.dropLastWhile { it.isEmpty() }?.toTypedArray()
 
@@ -193,7 +193,7 @@ public class Libs(context: Context, fields: Array<String> = context.getFields())
         }
 
         val libraries = Detect.detect(ctx, libraries)
-        if (pi != null && !isCacheUpToDate) {//Update cache
+        if (pi != null && !isCacheUpToDate) { //Update cache
             val autoDetectedLibrariesPref = StringBuilder()
 
             for (lib in libraries) {
@@ -359,7 +359,6 @@ public class Libs(context: Context, fields: Array<String> = context.getFields())
             Log.e("aboutlibraries", "Failed to generateLicense from file: " + ex.toString())
             null
         }
-
     }
 
     /**
@@ -407,13 +406,13 @@ public class Libs(context: Context, fields: Array<String> = context.getFields())
 
             return if (lib.libraryName.isBlank() && lib.libraryDescription.isBlank()) {
                 null
-            } else lib
-
+            } else {
+                lib
+            }
         } catch (ex: Exception) {
             Log.e("aboutlibraries", "Failed to generateLibrary from file: $ex")
             return null
         }
-
     }
 
     /**
@@ -533,7 +532,6 @@ public class Libs(context: Context, fields: Array<String> = context.getFields())
     }
 
     companion object {
-
         const val BUNDLE_THEME = "ABOUT_LIBRARIES_THEME"
         const val BUNDLE_TITLE = "ABOUT_LIBRARIES_TITLE"
         const val BUNDLE_STYLE = "ABOUT_LIBRARIES_STYLE"

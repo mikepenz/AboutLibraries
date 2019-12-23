@@ -156,6 +156,5 @@ class FragmentActivity : AppCompatActivity() {
 
         val fragmentManager = supportFragmentManager
         fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit()
-
     }
 }

@@ -28,7 +28,6 @@ object Detect {
                 } catch (e: PackageManager.NameNotFoundException) {
                     //e.printStackTrace();
                 }
-
             }
         }
         // Only return AppSource if app has a library
