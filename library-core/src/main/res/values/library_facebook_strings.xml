@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_Facebook">year;owner</string>
+    <string name="library_Facebook_author">Facebook</string>
+    <string name="library_Facebook_authorWebsite">http://www.facebook.com/</string>
+    <string name="library_Facebook_classPath">com.facebook.FacebookSdkVersion</string>
+    <string name="library_Facebook_libraryName">Facebook</string>
+    <string name="library_Facebook_libraryDescription">Integrate Android apps with Facebook Platform.</string>
+    <string name="library_Facebook_libraryWebsite">https://developers.facebook.com/docs/android</string>
+    <string name="library_Facebook_licenseId">apache_2_0</string>
+    <string name="library_Facebook_isOpenSource">false</string>
+    <string name="library_Facebook_repositoryLink"></string>
+    <!-- Custom variables section -->
+    <string name="library_Facebook_owner">Facebook</string>
+    <string name="library_Facebook_year">2015</string>
+</resources> 

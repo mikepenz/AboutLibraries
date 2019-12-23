@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_magisterjava"/>
+    <!-- Author section -->
+    <string name="library_magisterjava_author">iLexiconn</string>
+    <string name="library_magisterjava_authorWebsite">https://ilexiconn.net/</string>
+    <!-- Library section -->
+    <string name="library_magisterjava_libraryName">Magister.java</string>
+    <string name="library_magisterjava_libraryDescription">A Java implementation of the Magister 6 API for desktop and Android.</string>
+    <string name="library_magisterjava_libraryVersion">0.1.0</string>
+    <!-- OpenSource section -->
+    <string name="library_magisterjava_isOpenSource">true</string>
+    <string name="library_magisterjava_repositoryLink">https://github.com/iLexiconn/Magister.java</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_magisterjava_classPath">net.ilexiconn.magister.Magister</string>
+    <!-- License section -->
+    <string name="library_magisterjava_licenseId">mit</string>
+    <!-- Custom variables section -->
+</resources>

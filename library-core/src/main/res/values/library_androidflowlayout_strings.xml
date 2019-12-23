@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_int_androidflowlayout"></string>
+	<!-- Author section -->
+	<string name="library_androidflowlayout_author">Artem Votincev</string>
+	<string name="library_androidflowlayout_authorWebsite">apmem.org</string>
+	<!-- Library section -->
+	<string name="library_androidflowlayout_libraryName">Android flow layout</string>
+	<string name="library_androidflowlayout_libraryDescription">Extended linear layout that wrap its content when there is no place in the current line.</string>
+	<string name="library_androidflowlayout_libraryWebsite"></string>
+	<string name="library_androidflowlayout_libraryVersion">1.8</string>
+	<!-- OpenSource section -->
+	<string name="library_androidflowlayout_isOpenSource">true</string>
+	<string name="library_androidflowlayout_repositoryLink">https://github.com/ApmeM/android-flowlayout</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_androidflowlayout_classPath">org.apmem.tools.layouts.FlowLayout</string>
+	<!-- License section -->
+	<string name="library_androidflowlayout_licenseId">apache_2_0</string>
+	<!-- Custom variables section -->
+</resources>

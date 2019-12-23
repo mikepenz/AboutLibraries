@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_int_android_maps_utils"></string>
+	<!-- Author section -->
+	<string name="library_android_maps_utils_author">Google Inc.</string>
+	<string name="library_android_maps_utils_authorWebsite">https://github.com/googlemaps/android-maps-utils</string>
+	<!-- Library section -->
+	<string name="library_android_maps_utils_libraryName">Google Maps Android API utility library</string>
+	<string name="library_android_maps_utils_libraryDescription">This open-source library contains classes that are useful for a wide range of applications using the Google Maps Android API.</string>
+	<string name="library_android_maps_utils_libraryWebsite">https://github.com/googlemaps/android-maps-utils</string>
+	<string name="library_android_maps_utils_libraryVersion">1.2.3</string>
+	<!-- OpenSource section -->
+	<string name="library_android_maps_utils_isOpenSource">true</string>
+	<string name="library_android_maps_utils_repositoryLink">https://github.com/googlemaps/android-maps-utils</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_android_maps_utils_classPath">com.google.maps.android.MarkerManager</string>
+	<!-- License section -->
+	<string name="library_android_maps_utils_licenseId">apache_2_0</string>
+	<!-- Custom variables section -->
+</resources>

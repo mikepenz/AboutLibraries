@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_LoganSquare">year;owner</string>
+    <string name="library_LoganSquare_author">BlueLine Labs, Inc.</string>
+    <string name="library_LoganSquare_authorWebsite">http://bluelinelabs.com/</string>
+    <string name="library_LoganSquare_libraryName">LoganSquare</string>
+    <string name="library_LoganSquare_libraryDescription">Screaming fast JSON parsing and serialization library for Android.</string>
+    <string name="library_LoganSquare_libraryVersion">1.3.6</string>
+    <string name="library_LoganSquare_libraryWebsite">https://github.com/bluelinelabs/LoganSquare</string>
+    <string name="library_LoganSquare_licenseId">apache_2_0</string>
+    <string name="library_LoganSquare_isOpenSource">true</string>
+    <string name="library_LoganSquare_repositoryLink">https://github.com/bluelinelabs/LoganSquare</string>
+    <string name="library_LoganSquare_classPath">com.bluelinelabs.logansquare.LoganSquare</string>
+    <!-- Custom variables section -->
+    <string name="library_LoganSquare_owner">BlueLine Labs, Inc.</string>
+    <string name="library_LoganSquare_year">2015</string>
+</resources>

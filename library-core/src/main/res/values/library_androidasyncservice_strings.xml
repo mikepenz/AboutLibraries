@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_androidasyncservice"></string>
+    <!-- Author section -->
+    <string name="library_androidasyncservice_author">Joan Zapata</string>
+    <string name="library_androidasyncservice_authorWebsite">http://www.joanzapata.com/</string>
+    <!-- Library section -->
+    <string name="library_androidasyncservice_libraryName">Android-AsynchService</string>
+    <string name="library_androidasyncservice_libraryDescription">AsyncService is born from an article I wrote a few weeks ago, which gave me a lot of feedbacks
+        and interesting comments. AsyncService manages threading and caching transparently in your Android app. It is an alternative to AsyncTasks, Loaders, or
+        more advanced libs like RxJava, Robospice, Groundy,… but AsyncService focuses on keeping your code short and simple!
+    </string>
+    <string name="library_androidasyncservice_libraryWebsite">https://github.com/JoanZapata/android-asyncservice</string>
+    <string name="library_androidasyncservice_libraryVersion">0.0.5</string>
+    <!-- OpenSource section -->
+    <string name="library_androidasyncservice_isOpenSource">true</string>
+    <string name="library_androidasyncservice_repositoryLink">https://github.com/JoanZapata/android-asyncservice</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_androidasyncservice_classPath">com.joanzapata.android.asyncservice.api.internal. AsyncServiceCache</string>
+    <!-- License section -->
+    <string name="library_androidasyncservice_licenseId">apache_2_0</string>
+    <!-- Custom variables section -->
+</resources>

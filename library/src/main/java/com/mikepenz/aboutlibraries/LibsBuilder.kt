@@ -469,7 +469,7 @@ class LibsBuilder : Serializable {
      * @param libTaskCallback
      * @return this
      */
-    fun withLibTaskCallback(libTaskCallback: LibTaskCallback): LibsBuilder {
+    fun withLibTaskCallback(libTaskCallback: com.mikepenz.aboutlibraries.LibTaskCallback): LibsBuilder {
         LibsConfiguration.instance.libTaskCallback = libTaskCallback
         return this
     }

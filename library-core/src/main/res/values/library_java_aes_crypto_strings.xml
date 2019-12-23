@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_JavaAesCrypto"></string>
+    <string name="library_JavaAesCrypto_author">TOZNY</string>
+    <string name="library_JavaAesCrypto_authorWebsite">http://tozny.com/</string>
+    <string name="library_JavaAesCrypto_libraryName">java-aes-crypto</string>
+    <string name="library_JavaAesCrypto_libraryDescription">A simple Android class for encrypting &amp; decrypting strings, aiming to avoid the classic mistakes that most such classes suffer from.</string>
+    <string name="library_JavaAesCrypto_libraryVersion">0.0.1</string>
+    <string name="library_JavaAesCrypto_libraryWebsite">https://github.com/tozny/java-aes-crypto</string>
+    <string name="library_JavaAesCrypto_licenseId">mit</string>
+    <string name="library_JavaAesCrypto_isOpenSource">true</string>
+    <string name="library_JavaAesCrypto_repositoryLink">https://github.com/tozny/java-aes-crypto</string>
+    <string name="library_JavaAesCrypto_classPath">com.tozny.crypto.android.AesCbcWithIntegrity</string>
+</resources>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_SuperRecyclerView"></string>
+    <string name="library_SuperRecyclerView_author">Anton Malinskiy</string>
+    <string name="library_SuperRecyclerView_authorWebsite">https://github.com/Malinskiy</string>
+    <string name="library_SuperRecyclerView_libraryName">SuperRecyclerView</string>
+    <string name="library_SuperRecyclerView_libraryDescription">Pumped up RecyclerView</string>
+    <string name="library_SuperRecyclerView_libraryVersion">1.1.0</string>
+    <string name="library_SuperRecyclerView_libraryWebsite">https://github.com/Malinskiy/SuperRecyclerView</string>
+    <string name="library_SuperRecyclerView_licenseId">apache_2_0</string>
+    <string name="library_SuperRecyclerView_isOpenSource">true</string>
+    <string name="library_SuperRecyclerView_repositoryLink">https://github.com/Malinskiy/SuperRecyclerView</string>
+    <string name="library_SuperRecyclerView_classPath">com.malinskiy.superrecyclerview.SuperRecyclerView</string>
+</resources>

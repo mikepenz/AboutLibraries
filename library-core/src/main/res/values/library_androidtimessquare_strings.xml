@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_AndroidTimesSquare">year;owner</string>
+    <string name="library_AndroidTimesSquare_author">Square</string>
+    <string name="library_AndroidTimesSquare_libraryName">Android Times Square</string>
+    <string name="library_AndroidTimesSquare_libraryDescription">Standalone Android widget for picking a single date from a calendar view.</string>
+    <string name="library_AndroidTimesSquare_libraryVersion">1.3.1</string>
+    <string name="library_AndroidTimesSquare_libraryWebsite">https://github.com/square/android-times-square</string>
+    <string name="library_AndroidTimesSquare_licenseId">apache_2_2</string>
+    <string name="library_AndroidTimesSquare_isOpenSource">true</string>
+    <string name="library_AndroidTimesSquare_repositoryLink">https://github.com/square/android-times-square</string>
+    <string name="library_AndroidTimesSquare_classPath">com.squareup.timessquare.MonthView</string>
+    <!-- Custom variables section -->
+    <string name="library_AndroidTimesSquare_owner">Square</string>
+    <string name="library_AndroidTimesSquare_year">2014</string>
+</resources>

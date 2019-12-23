@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_priorityjobqueue"></string>
+    <string name="library_priorityjobqueue_author">Path</string>
+    <string name="library_priorityjobqueue_authorWebsite">https://path.com/</string>
+    <string name="library_priorityjobqueue_libraryName">Android Priority Job Queue (Job Manager)</string>
+    <string name="library_priorityjobqueue_libraryDescription">A Job Queue specifically written for Android to easily schedule jobs (tasks) that run in the
+        background, improving UX and application stability.
+    </string>
+    <string name="library_priorityjobqueue_libraryWebsite">https://github.com/path/android-priority-jobqueue</string>
+    <string name="library_priorityjobqueue_libraryVersion">1.1.2</string>
+    <string name="library_priorityjobqueue_isOpenSource">true</string>
+    <string name="library_priorityjobqueue_repositoryLink">https://github.com/path/android-priority-jobqueue</string>
+    <string name="library_priorityjobqueue_classPath">com.path.android.jobqueue.JobQueue</string>
+    <string name="library_priorityjobqueue_licenseId">mit</string>
+</resources>

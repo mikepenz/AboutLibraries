@@ -1,6 +1,7 @@
 package com.mikepenz.aboutlibraries.util
 
 import android.content.Context
+import androidx.annotation.RestrictTo
 import com.mikepenz.aboutlibraries.Libs
 import java.lang.reflect.Field
 
@@ -10,7 +11,8 @@ import java.lang.reflect.Field
  * @param fields R.strings.class.getFields()
  * @return a String[] with the string ids we need
  */
-internal fun Array<Field>.toStringArray(): Array<String> =
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+fun Array<Field>.toStringArray(): Array<String> =
         map { it.name }.filter { it.contains(Libs.DEFINE_EXT) }.toTypedArray()
 
 /**
@@ -19,7 +21,8 @@ internal fun Array<Field>.toStringArray(): Array<String> =
  * @param ctx
  * @return
  */
-internal fun Context.getFields(): Array<String> =
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+fun Context.getFields(): Array<String> =
         resolveRClass(packageName)?.fields?.toStringArray() ?: emptyArray()
 
 /**

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_license_gpl_2_0" />
+    <string name="license_gpl_2_0_licenseName">GNU GPL 2.0</string>
+    <string name="license_gpl_2_0_licenseWebsite">https://www.gnu.org/licenses/gpl-2.0.html</string>
+    <string name="license_gpl_2_0_licenseShortDescription">
+        <![CDATA[
+        <p>&lt;one line to give the program\'s name and a brief idea of what it does.&gt;
+        Copyright &copy; &lt;year&gt;  &lt;name of author&gt;</p>
+
+        <p>This program is free software; you can redistribute it and/or
+        modify it under the terms of the GNU General Public License
+        as published by the Free Software Foundation; either version 2
+        of the License, or (at your option) any later version.</p>
+
+        <p>This program is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.</p>
+
+        <p>You should have received a copy of the GNU General Public License
+        along with this program; if not, write to the Free Software
+        Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.</p>
+        ]]>
+    </string>
+    <string name="license_gpl_2_0_licenseDescription">raw:license_gpl_2_0</string>
+
+</resources>

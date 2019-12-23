@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_NanoTasks"></string>
+    <string name="library_NanoTasks_author">fabiendevos</string>
+    <string name="library_NanoTasks_authorWebsite">https://github.com/fabiendevos</string>
+    <string name="library_NanoTasks_libraryName">NanoTasks</string>
+    <string name="library_NanoTasks_libraryDescription">Extremely light way to execute code in the background on Android. Alternative to AsyncTask.</string>
+    <string name="library_NanoTasks_libraryVersion">1.1.0</string>
+    <string name="library_NanoTasks_libraryWebsite">https://github.com/fabiendevos/nanotasks</string>
+    <string name="library_NanoTasks_licenseId">apache_2_0</string>
+    <string name="library_NanoTasks_isOpenSource">true</string>
+    <string name="library_NanoTasks_repositoryLink">https://github.com/fabiendevos/nanotasks</string>
+    <string name="library_NanoTasks_classPath">com.nanotasks.Nanotasks</string>
+</resources>

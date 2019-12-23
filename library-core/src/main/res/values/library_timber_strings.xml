@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_Timber">year;owner</string>
+    <string name="library_Timber_author">Jake Wharton</string>
+    <string name="library_Timber_libraryName">Timber</string>
+    <string name="library_Timber_libraryDescription">A logger with a small, extensible API which provides utility on top of Android\'s normal Log class.
+    </string>
+    <string name="library_Timber_libraryVersion">2.1.0</string>
+    <string name="library_Timber_libraryWebsite">https://github.com/JakeWharton/timber</string>
+    <string name="library_Timber_licenseId">apache_2_0</string>
+    <string name="library_Timber_isOpenSource">true</string>
+    <string name="library_Timber_repositoryLink">https://github.com/JakeWharton/timber</string>
+    <string name="library_Timber_classPath">timber.log.Timber</string>
+    <!-- Custom variables section -->
+    <string name="library_Timber_owner">Jake Wharton</string>
+    <string name="library_Timber_year">2014</string>
+</resources>

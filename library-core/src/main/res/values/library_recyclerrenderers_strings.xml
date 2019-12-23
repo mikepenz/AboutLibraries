@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_RecyclerRenderers"></string>
+    <string name="library_RecyclerRenderers_author">ppamorim</string>
+    <string name="library_RecyclerRenderers_authorWebsite">https://github.com/ppamorim</string>
+    <string name="library_RecyclerRenderers_libraryName">RecyclerRenderers</string>
+    <string name="library_RecyclerRenderers_libraryDescription">The easiest way to create adapters! You can add a lot of different layouts and models. This library avoid all the boilerplates needed to create a list for your application.</string>
+    <string name="library_RecyclerRenderers_libraryVersion">1.2.4</string>
+    <string name="library_RecyclerRenderers_libraryWebsite">https://github.com/ppamorim/RecyclerRenderers</string>
+    <string name="library_RecyclerRenderers_licenseId">apache_2_0</string>
+    <string name="library_RecyclerRenderers_isOpenSource">true</string>
+    <string name="library_RecyclerRenderers_repositoryLink">https://github.com/ppamorim/RecyclerRenderers</string>
+    <string name="library_RecyclerRenderers_classPath">com.github.ppamorim.RecyclerRenderers</string>
+</resources>

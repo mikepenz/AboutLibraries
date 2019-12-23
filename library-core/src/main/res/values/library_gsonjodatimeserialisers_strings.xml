@@ -1,0 +1,19 @@
+<resources>
+	<string name="define_int_gsonjodatimeserialisers"></string>
+	<!-- Author section -->
+	<string name="library_gsonjodatimeserialisers_author">gkopff</string>
+	<string name="library_gsonjodatimeserialisers_authorWebsite">https://github.com/gkopff</string>
+	<!-- Library section -->
+	<string name="library_gsonjodatimeserialisers_libraryName">gson-jodatime-serialisers</string>
+	<string name="library_gsonjodatimeserialisers_libraryDescription">A set of GSON serialiser/deserialisers for dealing with Joda Time entities.</string>
+	<string name="library_gsonjodatimeserialisers_libraryWebsite">https://github.com/gkopff/gson-jodatime-serialisers</string>
+	<string name="library_gsonjodatimeserialisers_libraryVersion">1.1.0</string>
+	<!-- OpenSource section -->
+	<string name="library_gsonjodatimeserialisers_isOpenSource">true</string>
+	<string name="library_gsonjodatimeserialisers_repositoryLink">https://github.com/gkopff/gson-jodatime-serialisers</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_gsonjodatimeserialisers_classPath">com.fatboyindustrial.gsonjodatime.Converters</string>
+	<!-- License section -->
+	<string name="library_gsonjodatimeserialisers_licenseId">mit</string>
+	<!-- Custom variables section -->
+</resources>

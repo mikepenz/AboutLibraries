@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_OkHttp">year;owner</string>
+    <string name="library_OkHttp_author">Square</string>
+    <string name="library_OkHttp_libraryName">OkHttp</string>
+    <string name="library_OkHttp_libraryDescription">An HTTP and SPDY client for Android and Java applications</string>
+    <string name="library_OkHttp_libraryVersion">3.8.1</string>
+    <string name="library_OkHttp_libraryWebsite">http://square.github.io/okhttp/</string>
+    <string name="library_OkHttp_licenseId">apache_2_0</string>
+    <string name="library_OkHttp_isOpenSource">true</string>
+    <string name="library_OkHttp_repositoryLink">https://github.com/square/okhttp</string>
+    <string name="library_OkHttp_classPath">okhttp3.OkHttpClient</string>
+    <!-- Custom variables section -->
+    <string name="library_OkHttp_owner">Square</string>
+    <string name="library_OkHttp_year">2014</string>
+</resources> 

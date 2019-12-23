@@ -113,7 +113,7 @@ class LibraryItem(private val library: Library, private val libsBuilder: LibsBui
                 val consumed = LibsConfiguration.instance.listener?.onLibraryContentClicked(v, library)
                         ?: false
                 if (!consumed) {
-                    openLibraryWebsite(ctx, if (library.libraryWebsite != null) library.libraryWebsite else library.repositoryLink)
+                    openLibraryWebsite(ctx, library.libraryWebsite)
                 }
             }
             holder.libraryDescription.setOnLongClickListener { v ->
@@ -121,7 +121,7 @@ class LibraryItem(private val library: Library, private val libsBuilder: LibsBui
                         ?: false
 
                 if (!consumed) {
-                    openLibraryWebsite(ctx, if (library.libraryWebsite != null) library.libraryWebsite else library.repositoryLink)
+                    openLibraryWebsite(ctx, library.libraryWebsite)
                     consumed = true
                 }
                 consumed

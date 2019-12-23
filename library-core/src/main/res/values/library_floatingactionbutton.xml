@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_FloatingActionButton"/>
+    <!-- Author section -->
+    <string name="library_FloatingActionButton_author">Oleksandr Melnykov</string>
+    <string name="library_FloatingActionButton_authorWebsite">https://github.com/makovkastar/FloatingActionButton</string>
+    <!-- Library section -->
+    <string name="library_FloatingActionButton_libraryName">FloatingActionButton</string>
+    <string name="library_FloatingActionButton_libraryDescription">Android Google+ like floating action button which reacts on the list view scrolling events. Becomes visible when the list view is scrolled up and invisible when scrolled down.</string>
+    <string name="library_FloatingActionButton_libraryWebsite">https://github.com/makovkastar/FloatingActionButton</string>
+    <string name="library_FloatingActionButton_libraryVersion">1.3.0</string>
+    <!-- OpenSource section -->
+    <string name="library_FloatingActionButton_isOpenSource">true</string>
+    <string name="library_FloatingActionButton_repositoryLink">https://github.com/makovkastar/FloatingActionButton</string>
+    <!-- License section -->
+    <string name="library_FloatingActionButton_licenseId">mit</string>
+    <!-- Custom variables section -->
+</resources>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_androidswipelayout"></string>
+    <!-- Author section -->
+    <string name="library_androidswipelayout_author">daimajia</string>
+    <string name="library_androidswipelayout_authorWebsite">http://daimajia.com</string>
+    <!-- Library section -->
+    <string name="library_androidswipelayout_libraryName">AndroidSwipeLayout</string>
+    <string name="library_androidswipelayout_libraryDescription">The Most Powerful Swipe Layout!</string>
+    <string name="library_androidswipelayout_libraryWebsite">https://github.com/daimajia/AndroidSwipeLayout</string>
+    <string name="library_androidswipelayout_libraryVersion">1.2.0</string>
+    <!-- OpenSource section -->
+    <string name="library_androidswipelayout_isOpenSource">true</string>
+    <string name="library_androidswipelayout_repositoryLink">https://github.com/daimajia/AndroidSwipeLayout</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_androidswipelayout_classPath">com.daimajia.swipe.SwipeLayout</string>
+    <!-- License section -->
+    <string name="library_androidswipelayout_licenseId">mit</string>
+</resources>

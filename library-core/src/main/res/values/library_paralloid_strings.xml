@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_Paralloid">year;owner</string>
+    <string name="library_Paralloid_author">Christopher Jenkins</string>
+    <string name="library_Paralloid_libraryName">Paralloid</string>
+    <string name="library_Paralloid_libraryDescription">Paralloid - (Pah-rah-loid) The Android Parallax library</string>
+    <string name="library_Paralloid_libraryVersion">0.3.0</string>
+    <string name="library_Paralloid_libraryWebsite">https://github.com/chrisjenx/Paralloid</string>
+    <string name="library_Paralloid_licenseId">apache_2_0</string>
+    <string name="library_Paralloid_isOpenSource">true</string>
+    <string name="library_Paralloid_repositoryLink">https://github.com/chrisjenx/Paralloid</string>
+    <string name="library_Paralloid_classPath">uk.co.chrisjenx.paralloid.Parallaxor</string>
+    <!-- Custom variables section -->
+    <string name="library_Paralloid_owner">Christopher Jenkins</string>
+    <string name="library_Paralloid_year">2014</string>
+</resources>

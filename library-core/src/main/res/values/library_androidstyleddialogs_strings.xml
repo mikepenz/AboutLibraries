@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="define_int_androidStyledDialogs">year;owner</string>
+    <string name="library_androidStyledDialogs_author">Avast</string>
+    <string name="library_androidStyledDialogs_authorWebsite">http://www.avast.com</string>
+    <string name="library_androidStyledDialogs_libraryName">StyledDialogs</string>
+    <string name="library_androidStyledDialogs_libraryDescription">Backport of material dialogs with easy-to-use API based on DialogFragment. This library makes styling and using dialogs a piece of cake.</string>
+    <string name="library_androidStyledDialogs_libraryVersion">2.3.3</string>
+    <string name="library_androidStyledDialogs_libraryWebsite">https://github.com/avast/android-styled-dialogs</string>
+    <string name="library_androidStyledDialogs_licenseId">apache_2_0</string>
+    <string name="library_androidStyledDialogs_isOpenSource">true</string>
+    <string name="library_androidStyledDialogs_repositoryLink">https://github.com/avast/android-styled-dialogs</string>
+    <string name="library_androidStyledDialogs_classPath">com.avast.android.dialogs.core.BaseDialogBuilder</string>
+    <!-- Custom variables section -->
+    <string name="library_androidStyledDialogs_owner">Avast</string>
+    <string name="library_androidStyledDialogs_year">2014</string>
+</resources>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="define_int_PagerSlidingTabStrip">year;owner</string>
+    <string name="library_PagerSlidingTabStrip_author">Andreas Stuetz</string>
+    <string name="library_PagerSlidingTabStrip_libraryName">PagerSlidingTabStrip</string>
+    <string name="library_PagerSlidingTabStrip_libraryDescription">Interactive paging indicator
+        widget, compatible with the ViewPager from the Android Support Library.
+    </string>
+    <string name="library_PagerSlidingTabStrip_libraryVersion">1.0.1</string>
+    <string name="library_PagerSlidingTabStrip_libraryWebsite">https://github.com/astuetz/PagerSlidingTabStrip</string>
+    <string name="library_PagerSlidingTabStrip_licenseId">apache_2_0</string>
+    <string name="library_PagerSlidingTabStrip_isOpenSource">true</string>
+    <string name="library_PagerSlidingTabStrip_repositoryLink">https://github.com/astuetz/PagerSlidingTabStrip</string>
+    <string name="library_PagerSlidingTabStrip_classPath">com.astuetz.PagerSlidingTabStrip</string>
+    <!-- Custom variables section -->
+    <string name="library_PagerSlidingTabStrip_owner">Andreas Stuetz</string>
+    <string name="library_PagerSlidingTabStrip_year">2014</string>
+</resources>

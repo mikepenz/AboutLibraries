@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="define_int_Crouton">year;owner</string>
+    <string name="library_Crouton_author">Benjamin Weiss</string>
+    <string name="library_Crouton_authorWebsite">https://plus.google.com/117509657298845443204</string>
+    <string name="library_Crouton_libraryName">Crouton</string>
+    <string name="library_Crouton_libraryDescription">Crouton is a class that can be used by Android developers that feel the need for an alternative to the
+        Context insensitive Toast.
+    </string>
+    <string name="library_Crouton_libraryVersion">1.8.4</string>
+    <string name="library_Crouton_libraryWebsite">https://github.com/keyboardsurfer/Crouton</string>
+    <string name="library_Crouton_licenseId">apache_2_0</string>
+    <string name="library_Crouton_isOpenSource">true</string>
+    <string name="library_Crouton_repositoryLink">https://github.com/keyboardsurfer/Crouton</string>
+    <string name="library_Crouton_classPath">de.keyboardsurfer.android.widget.crouton.Crouton</string>
+    <!-- Custom variables section -->
+    <string name="library_Crouton_owner">Benjamin Weiss</string>
+    <string name="library_Crouton_year">2014</string>
+</resources>

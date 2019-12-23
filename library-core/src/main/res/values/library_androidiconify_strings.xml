@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="define_int_androidIconify">year;owner</string>
+    <string name="library_androidIconify_author">Joan Zapata</string>
+    <string name="library_androidIconify_authorWebsite">https://github.com/JoanZapata</string>
+    <string name="library_androidIconify_libraryName">Android-Iconify</string>
+    <string name="library_androidIconify_libraryDescription">Iconify allows you to include any of the 361 FontAwesome icons by Dave Gandy in your texts, your
+        ActionBar, and even in your EditTexts. Icons are infinitely scalable, and customizable with shadows and everything you can do on texts.
+    </string>
+    <string name="library_androidIconify_libraryVersion">1.0.4</string>
+    <string name="library_androidIconify_libraryWebsite">http://joanzapata.com/android-iconify/</string>
+    <string name="library_androidIconify_licenseId">apache_2_0</string>
+    <string name="library_androidIconify_isOpenSource">true</string>
+    <string name="library_androidIconify_repositoryLink">https://github.com/JoanZapata/android-iconify</string>
+    <string name="library_androidIconify_classPath">com.joanzapata.android.iconify.Iconify</string>
+    <!-- Custom variables section -->
+    <string name="library_androidIconify_owner">Joan Zapata</string>
+    <string name="library_androidIconify_year">2014</string>
+</resources>

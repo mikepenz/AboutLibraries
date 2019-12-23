@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_androidviewhover"></string>
+    <!-- Author section -->
+    <string name="library_androidviewhover_author">daimajia</string>
+    <string name="library_androidviewhover_authorWebsite">http://daimajia.com/</string>
+    <!-- Library section -->
+    <string name="library_androidviewhover_libraryName">AndroidViewHover</string>
+    <string name="library_androidviewhover_libraryDescription">A beautiful view to create a minimalistic hover effect over an ImageView</string>
+    <string name="library_androidviewhover_libraryWebsite">https://github.com/daimajia/AndroidViewHover</string>
+    <string name="library_androidviewhover_libraryVersion">1.0.3</string>
+    <!-- OpenSource section -->
+    <string name="library_androidviewhover_isOpenSource">true</string>
+    <string name="library_androidviewhover_repositoryLink">https://github.com/daimajia/AndroidViewHover</string>
+    <string name="library_androidviewhover_classPath">com.daimajia.androidviewhover.BlurLayout</string>
+    <!-- License section -->
+    <string name="library_androidviewhover_licenseId">apache_2_0</string>
+    <!-- Custom variables section -->
+</resources>

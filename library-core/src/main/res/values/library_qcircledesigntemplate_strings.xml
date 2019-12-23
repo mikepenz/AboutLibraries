@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_qcircledesigntemplate"></string>
+    <!-- Author section -->
+    <string name="library_qcircledesigntemplate_author">LG Developers</string>
+    <string name="library_qcircledesigntemplate_authorWebsite">http://developer.lge.com/</string>
+    <!-- Library section -->
+    <string name="library_qcircledesigntemplate_libraryName">QCircleDesignTemplate</string>
+    <string name="library_qcircledesigntemplate_libraryDescription">The LG QCircle design template library provides the layout designs and basic UI elements
+        through API, enabling developers to save time designing and using repetitive tasks. The LG QCircle design template library provides various circle
+        layouts and receives QuickCircle broadcast intents, adjusts layout position, and handles back button operation.
+    </string>
+    <string name="library_qcircledesigntemplate_libraryWebsite">https://github.com/LGDeveloper/QCircle-Design-Template/wiki</string>
+    <string name="library_qcircledesigntemplate_libraryVersion">1.0.0</string>
+    <!-- OpenSource section -->
+    <string name="library_qcircledesigntemplate_isOpenSource">true</string>
+    <string name="library_qcircledesigntemplate_repositoryLink">https://github.com/LGDeveloper/QCircle-Design-Template</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_qcircledesigntemplate_classPath">com.lge.qcircle.template.QCircleTemplate</string>
+    <!-- License section -->
+    <string name="library_qcircledesigntemplate_licenseId">apache_2_0</string>
+    <!-- Custom variables section -->
+</resources>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="define_int_caldroid">year;owner</string>
+    <string name="library_caldroid_author">roomorama</string>
+    <string name="library_caldroid_authorWebsite">https://github.com/roomorama</string>
+    <string name="library_caldroid_libraryName">Caldroid</string>
+    <string name="library_caldroid_libraryDescription">Caldroid is a fragment that display calendar with dates in a month. Caldroid can be used as embedded
+        fragment, or as dialog fragment. User can also swipe left/right to navigate to different months.
+    </string>
+    <string name="library_caldroid_libraryVersion">#57</string>
+    <string name="library_caldroid_libraryWebsite">https://github.com/roomorama/Caldroid</string>
+    <string name="library_caldroid_licenseId">mit</string>
+    <string name="library_caldroid_isOpenSource">true</string>
+    <string name="library_caldroid_repositoryLink">https://github.com/roomorama/Caldroid</string>
+    <string name="library_caldroid_classPath">com.roomorama.caldroid.CaldroidFragment</string>
+    <!-- Custom variables section -->
+    <string name="library_caldroid_owner">roomorama</string>
+    <string name="library_caldroid_year">2014</string>
+</resources>

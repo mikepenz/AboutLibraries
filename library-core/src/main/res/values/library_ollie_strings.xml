@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_int_ollie"></string>
+	<!-- Author section -->
+	<string name="library_ollie_author">Michael Pardo</string>
+	<string name="library_ollie_authorWebsite">http://www.michaelpardo.com/</string>
+	<!-- Library section -->
+	<string name="library_ollie_libraryName">Ollie</string>
+	<string name="library_ollie_libraryDescription">Compile-time active record ORM for Android.</string>
+	<string name="library_ollie_libraryWebsite">https://github.com/pardom/Ollie</string>
+	<string name="library_ollie_libraryVersion">0.3.1</string>
+	<!-- OpenSource section -->
+	<string name="library_ollie_isOpenSource">true</string>
+	<string name="library_ollie_repositoryLink">https://github.com/pardom/Ollie</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_ollie_classPath">ollie.Ollie</string>
+	<!-- License section -->
+	<string name="library_ollie_licenseId">apache_2_0</string>
+	<!-- Custom variables section -->
+</resources>

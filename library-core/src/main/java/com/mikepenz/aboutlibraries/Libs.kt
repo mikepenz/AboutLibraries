@@ -366,7 +366,7 @@ public class Libs(context: Context, fields: Array<String> = context.getFields())
      * @return
      */
     private fun genLibrary(ctx: Context, libraryName: String): Library? {
-        var name = libraryName.replace("-", "_")
+        val name = libraryName.replace("-", "_")
 
         try {
             val lib = Library(definedName = name, libraryName = ctx.getStringResourceByName("library_" + name + "_libraryName"))

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_AppCompat">year;owner</string>
+    <string name="library_AppCompat_author">AOSP</string>
+    <string name="library_AppCompat_authorWebsite">https://source.android.com/</string>
+    <string name="library_AppCompat_libraryName">AppCompat Library</string>
+    <string name="library_AppCompat_libraryDescription">This library adds support for the Action Bar user interface design pattern. This library includes
+        support for material design user interface implementations.
+    </string>
+    <string name="library_AppCompat_libraryWebsite">https://developer.android.com/tools/support-library/features.html#v7</string>
+    <string name="library_AppCompat_licenseId">apache_2_0</string>
+    <string name="library_AppCompat_isOpenSource">true</string>
+    <string name="library_AppCompat_repositoryLink">https://android.googlesource.com/platform/frameworks/support/+/master/v7/appcompat/</string>
+    <!-- Custom variables section -->
+    <string name="library_AppCompat_owner">AOSP</string>
+    <string name="library_AppCompat_year">2015</string>
+</resources> 

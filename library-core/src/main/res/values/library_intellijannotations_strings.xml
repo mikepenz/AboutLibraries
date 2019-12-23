@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_intellijannotations">year;owner</string>
+    <string name="library_intellijannotations_author">Jetbrain developers</string>
+    <string name="library_intellijannotations_libraryName">IntelliJ IDEA Annotations</string>
+    <string name="library_intellijannotations_libraryDescription">A set of annotations used for code inspection support and code documentation.</string>
+    <string name="library_intellijannotations_libraryVersion">12.0.0</string>
+    <string name="library_intellijannotations_libraryWebsite">http://www.jetbrains.org</string>
+    <string name="library_intellijannotations_licenseId">apache_2_0</string>
+    <string name="library_intellijannotations_isOpenSource">false</string>
+    <string name="library_intellijannotations_classPath">org.jetbrains.annotations.Nullable</string>
+    <!-- Custom variables section -->
+    <string name="library_intellijannotations_owner">Jetbrain developers</string>
+    <string name="library_intellijannotations_year">2015</string>
+</resources> 
+

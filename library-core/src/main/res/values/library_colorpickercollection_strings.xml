@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_int_colorpickercollection"/>
+	<!-- Author section -->
+	<string name="library_colorpickercollection_author">Gabriele Mariotti</string>
+	<string name="library_colorpickercollection_authorWebsite">http://gmariotti.blogspot.it/</string>
+	<!-- Library section -->
+	<string name="library_colorpickercollection_libraryName">ColorPickerCollection</string>
+	<string name="library_colorpickercollection_libraryDescription"><![CDATA[This repository provides a simple collection of Color Picker.<br>
+	&#8226; Color Picker from Stock Calendar<br>
+	&#8226; Color Picker from Dashclock]]></string>
+	<string name="library_colorpickercollection_libraryWebsite">https://github.com/gabrielemariotti/colorpickercollection</string>
+	<string name="library_colorpickercollection_libraryVersion">1.1.0</string>
+	<!-- OpenSource section -->
+	<string name="library_colorpickercollection_isOpenSource">true</string>
+	<string name="library_colorpickercollection_repositoryLink">https://github.com/gabrielemariotti/colorpickercollection</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_colorpickercollection_classPath">it.gmariotti.android.example.colorpicker</string>
+	<!-- License section -->
+	<string name="library_colorpickercollection_licenseId">apache_2_0</string>
+	<!-- Custom variables section -->
+</resources>

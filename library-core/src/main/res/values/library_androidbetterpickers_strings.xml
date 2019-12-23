@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="define_int_androidBetterpickers">year;owner</string>
+    <string name="library_androidBetterpickers_author">Code-Troopers</string>
+    <string name="library_androidBetterpickers_authorWebsite">https://code-troopers.com/</string>
+    <string name="library_androidBetterpickers_libraryName">BetterPickers</string>
+    <string name="library_androidBetterpickers_libraryDescription">DialogFragments modeled after the 4.2 Alarm Clock TimePicker to improve UX for picking time, date, and numbers.
+    </string>
+    <string name="library_androidBetterpickers_libraryVersion">2.0.3</string>
+    <string name="library_androidBetterpickers_libraryWebsite">https://github.com/code-troopers/android-betterpickers</string>
+    <string name="library_androidBetterpickers_licenseId">apache_2_0</string>
+    <string name="library_androidBetterpickers_isOpenSource">true</string>
+    <string name="library_androidBetterpickers_repositoryLink">https://github.com/code-troopers/android-betterpickers</string>
+    <string name="library_androidBetterpickers_classPath">com.codetroopers.betterpickers.Utils</string>
+    <!-- Custom variables section -->
+    <string name="library_androidBetterpickers_owner">Code-Troopers</string>
+    <string name="library_androidBetterpickers_year">2014</string>
+</resources>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_int_httpclient_android"></string>
+	<!-- Author section -->
+	<string name="library_httpclient_android_author">Marek Sebera</string>
+	<string name="library_httpclient_android_authorWebsite">https://github.com/smarek/httpclient-android</string>
+	<!-- Library section -->
+	<string name="library_httpclient_android_libraryName">httpclient-android</string>
+	<string name="library_httpclient_android_libraryDescription">HttpClient repackage for Android</string>
+	<string name="library_httpclient_android_libraryWebsite">https://github.com/smarek/httpclient-android</string>
+	<string name="library_httpclient_android_libraryVersion">4.4.1.2</string>
+	<!-- OpenSource section -->
+	<string name="library_httpclient_android_isOpenSource">true</string>
+	<string name="library_httpclient_android_repositoryLink">https://mvnrepository.com/artifact/cz.msebera.android/httpclient/4.4.1.2</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_httpclient_android_classPath">cz.msebera.android.httpclient.client.HttpClient</string>
+	<!-- License section -->
+	<string name="library_httpclient_android_licenseId">apache_2_0</string>
+	<!-- Custom variables section -->
+</resources>

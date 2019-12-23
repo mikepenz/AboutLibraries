@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_encryption">year;owner</string>
+    <string name="library_encryption_author">simbiose</string>
+    <string name="library_encryption_libraryName">Encryption</string>
+    <string name="library_encryption_libraryDescription">Encryption is a simple way to create encrypted strings to Android project.</string>
+    <string name="library_encryption_libraryVersion">1.2.0</string>
+    <string name="library_encryption_libraryWebsite">https://github.com/simbiose/Encryption</string>
+    <string name="library_encryption_licenseId">lgpl_3_0</string>
+    <string name="library_encryption_isOpenSource">true</string>
+    <string name="library_encryption_repositoryLink">https://github.com/simbiose/Encryption</string>
+    <string name="library_encryption_classPath">se.simbio.encryption.Encryption</string>
+    <!-- Custom variables section -->
+    <string name="library_encryption_owner">simbiose</string>
+    <string name="library_encryption_year">2015</string>
+</resources> 
+

@@ -35,12 +35,16 @@ open class LibsActivity : AppCompatActivity() {
             }
         }
         if (!customTheme) {
-            if (activityStyle === Libs.ActivityStyle.DARK) {
-                setTheme(R.style.AboutLibrariesTheme)
-            } else if (activityStyle === Libs.ActivityStyle.LIGHT) {
-                setTheme(R.style.AboutLibrariesTheme_Light)
-            } else if (activityStyle === Libs.ActivityStyle.LIGHT_DARK_TOOLBAR) {
-                setTheme(R.style.AboutLibrariesTheme_Light_DarkToolbar)
+            when {
+                activityStyle === Libs.ActivityStyle.DARK -> {
+                    setTheme(R.style.AboutLibrariesTheme)
+                }
+                activityStyle === Libs.ActivityStyle.LIGHT -> {
+                    setTheme(R.style.AboutLibrariesTheme_Light)
+                }
+                activityStyle === Libs.ActivityStyle.LIGHT_DARK_TOOLBAR -> {
+                    setTheme(R.style.AboutLibrariesTheme_Light_DarkToolbar)
+                }
             }
         }
 
@@ -69,13 +73,9 @@ open class LibsActivity : AppCompatActivity() {
             // Set StatusBar Color by Code
             if (bundle != null && bundle.containsKey(Libs.BUNDLE_COLORS)) {
                 val colors = bundle.getSerializable(Libs.BUNDLE_COLORS) as Colors
-                if (colors != null) {
-                    ab.setBackgroundDrawable(ColorDrawable(colors.appBarColor))
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        window.statusBarColor = colors.statusBarColor
-                    }
-                } else {
-                    ab.setBackgroundDrawable(null)
+                ab.setBackgroundDrawable(ColorDrawable(colors.appBarColor))
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    window.statusBarColor = colors.statusBarColor
                 }
             }
 

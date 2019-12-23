@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_materialpreference"></string>
+    <!-- Author section -->
+    <string name="library_materialpreference_author">Eugen Pechanec</string>
+    <string name="library_materialpreference_authorWebsite">https://github.com/consp1racy</string>
+    <!-- Library section -->
+    <string name="library_materialpreference_libraryName">Material Preference</string>
+    <string name="library_materialpreference_libraryDescription">
+		Material theme for preference widgets.
+        <br />
+		Backporting dat material look and functionality.
+        <br />
+		Available from API 14. Connecting preference-v7 to appcompat-v7.
+	</string>
+    <string name="library_materialpreference_libraryWebsite">https://github.com/consp1racy/android-support-preference</string>
+    <string name="library_materialpreference_libraryVersion">2.3.2</string>
+    <!-- OpenSource section -->
+    <string name="library_materialpreference_isOpenSource">true</string>
+    <string name="library_materialpreference_repositoryLink">https://github.com/consp1racy/android-support-preference</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_materialpreference_classPath">net.xpece.android.support.preference.Preference</string>
+    <!-- License section -->
+    <string name="library_materialpreference_licenseId">apache_2_0</string>
+    <!-- Custom variables section -->
+</resources>

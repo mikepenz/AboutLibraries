@@ -3,14 +3,16 @@ package com.mikepenz.aboutlibraries.util
 import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
+import androidx.annotation.RestrictTo
 
-
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
 internal fun Context.getPackageInfo(): PackageInfo? = try {
     packageManager.getPackageInfo(packageName, 0)
 } catch (ex: Exception) {
     null
 }
 
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
 internal fun Context.getApplicationInfo(): ApplicationInfo? = try {
     packageManager.getApplicationInfo(packageName, 0)
 } catch (ex: Exception) {
@@ -18,10 +20,12 @@ internal fun Context.getApplicationInfo(): ApplicationInfo? = try {
 }
 
 
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
 internal fun Context.getRawResourceId(aString: String): Int {
     return resources.getIdentifier(aString, "raw", packageName)
 }
 
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
 internal fun Context.getStringResourceByName(aString: String): String {
     val resId = resources.getIdentifier(aString, "string", packageName)
     return if (resId == 0) {
@@ -40,7 +44,8 @@ internal fun Context.getStringResourceByName(aString: String): String {
  * @param resName
  * @return
  */
-internal fun Context.extractBooleanBundleOrResource(value: Boolean?, resName: String): Boolean? {
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+fun Context.extractBooleanBundleOrResource(value: Boolean?, resName: String): Boolean? {
     var result: Boolean? = null
     if (value != null) {
         result = value
@@ -65,5 +70,6 @@ internal fun Context.extractBooleanBundleOrResource(value: Boolean?, resName: St
  * @param resName
  * @return
  */
-internal fun Context.extractStringBundleOrResource(value: String?, resName: String): String? =
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+fun Context.extractStringBundleOrResource(value: String?, resName: String): String? =
         value ?: getStringResourceByName(resName).takeIf { it.isNotEmpty() }

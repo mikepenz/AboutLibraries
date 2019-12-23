@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_gson">year;owner</string>
+    <string name="library_gson_author">Google Inc.</string>
+    <string name="library_gson_libraryName">Gson</string>
+    <string name="library_gson_libraryDescription">Gson is a Java library that can be used to convert Java Objects into their JSON representation.</string>
+    <string name="library_gson_libraryVersion">2.8.0</string>
+    <string name="library_gson_libraryWebsite">https://code.google.com/p/google-gson/</string>
+    <string name="library_gson_licenseId">apache_2_0</string>
+    <string name="library_gson_isOpenSource">true</string>
+    <string name="library_gson_repositoryLink">https://code.google.com/p/google-gson/</string>
+    <string name="library_gson_classPath">com.google.gson.Gson</string>
+    <!-- Custom variables section -->
+    <string name="library_gson_owner">Google Inc.</string>
+    <string name="library_gson_year">2014</string>
+</resources>

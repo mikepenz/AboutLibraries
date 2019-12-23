@@ -26,7 +26,7 @@ class LibsConfiguration private constructor() {
 
     var itemAnimator: RecyclerView.ItemAnimator? = null
 
-    var libTaskCallback: LibTaskCallback? = null
+    var libTaskCallback: com.mikepenz.aboutlibraries.LibTaskCallback? = null
 
     fun removeListener() {
         this.listener = null

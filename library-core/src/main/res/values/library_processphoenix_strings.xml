@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_ProcessPhoenix"/>
+    <!-- Author section -->
+    <string name="library_ProcessPhoenix_author">Jake Wharton</string>
+    <string name="library_ProcessPhoenix_authorWebsite">http://jakewharton.com/</string>
+    <!-- Library section -->
+    <string name="library_ProcessPhoenix_libraryName">ProcessPhoenix</string>
+    <string name="library_ProcessPhoenix_libraryDescription">Process Phoenix facilitates restarting your application process.</string>
+    <string name="library_ProcessPhoenix_libraryWebsite">https://github.com/JakeWharton/ProcessPhoenix</string>
+    <string name="library_ProcessPhoenix_libraryVersion">1.0.2</string>
+    <!-- OpenSource section -->
+    <string name="library_ProcessPhoenix_isOpenSource">true</string>
+    <string name="library_ProcessPhoenix_repositoryLink">https://github.com/JakeWharton/ProcessPhoenix</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_ProcessPhoenix_classPath">com.jakewharton.processphoenix.ProcessPhoenix</string>
+    <!-- License section -->
+    <string name="library_ProcessPhoenix_licenseId">apache_2_0</string>
+    <!-- Custom variables section -->
+</resources>

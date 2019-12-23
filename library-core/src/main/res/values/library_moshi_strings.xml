@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_moshi"></string>
+    <!-- Author section -->
+    <string name="library_moshi_author">Square</string>
+    <string name="library_moshi_authorWebsite">http://square.github.io/</string>
+    <!-- Library section -->
+    <string name="library_moshi_libraryName">Moshi</string>
+    <string name="library_moshi_libraryDescription">Moshi is a modern JSON library for Android and Java. It makes it easy to parse JSON into Java objects.</string>
+    <string name="library_moshi_libraryWebsite">https://github.com/square/moshi</string>
+    <string name="library_moshi_libraryVersion">1.2.0</string>
+    <!-- OpenSource section -->
+    <string name="library_moshi_isOpenSource">true</string>
+    <string name="library_moshi_repositoryLink">https://github.com/square/moshi</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_moshi_classPath">com.squareup.moshi.Moshi</string>
+    <!-- License section -->
+    <string name="library_moshi_licenseId">apache_2_0</string>
+    <!-- Custom variables section -->
+</resources>

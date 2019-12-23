@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_mixpanelandroid"></string>
+    <!-- Author section -->
+    <string name="library_mixpanelandroid_author">Mixpanel</string>
+    <string name="library_mixpanelandroid_authorWebsite">http://mixpanel.com/</string>
+    <!-- Library section -->
+    <string name="library_mixpanelandroid_libraryName">Mixpanel Android</string>
+    <string name="library_mixpanelandroid_libraryDescription">Mixpanel is the most advanced analytics platform for mobile &amp; web.</string>
+    <string name="library_mixpanelandroid_libraryWebsite">http://mixpanel.github.io/mixpanel-android/index.html</string>
+    <string name="library_mixpanelandroid_libraryVersion">4.8.7</string>
+    <!-- OpenSource section -->
+    <string name="library_mixpanelandroid_isOpenSource">true</string>
+    <string name="library_mixpanelandroid_repositoryLink">https://github.com/mixpanel/mixpanel-android</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_mixpanelandroid_classPath">com.mixpanel.android.mpmetrics.MixpanelAPI</string>
+    <!-- License section -->
+    <string name="library_mixpanelandroid_licenseId">apache_2_0</string>
+    <!-- Custom variables section -->
+</resources>

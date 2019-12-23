@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_gradle_retrolambda"/>
+    <!-- Author section -->
+    <string name="library_gradle_retrolambda_author">Evan Tatarka</string>
+    <string name="library_gradle_retrolambda_authorWebsite">https://github.com/evant</string>
+    <!-- Library section -->
+    <string name="library_gradle_retrolambda_libraryName">gradle-retrolambda</string>
+    <string name="library_gradle_retrolambda_libraryDescription">A gradle plugin for getting java lambda support in java 6, 7 and android</string>
+    <string name="library_gradle_retrolambda_libraryWebsite">https://github.com/evant/gradle-retrolambda</string>
+    <string name="library_gradle_retrolambda_libraryVersion">3.2.5</string>
+    <!-- OpenSource section -->
+    <string name="library_gradle_retrolambda_isOpenSource">true</string>
+    <string name="library_gradle_retrolambda_repositoryLink">https://github.com/evant/gradle-retrolambda</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_gradle_retrolambda_classPath">me.tatarka.RetrolambdaPlugin</string>
+    <!-- License section -->
+    <string name="library_gradle_retrolambda_licenseId">apache_2_0</string>
+    <!-- Custom variables section -->
+</resources>

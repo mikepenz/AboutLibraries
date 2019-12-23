@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_int_subsamplingscaleimageview"></string>
+	<!-- Author section -->
+	<string name="library_subsamplingscaleimageview_author">davemorrissey</string>
+	<string name="library_subsamplingscaleimageview_authorWebsite">https://github.com/davemorrissey</string>
+	<!-- Library section -->
+	<string name="library_subsamplingscaleimageview_libraryName">Subsampling Scale Image View</string>
+	<string name="library_subsamplingscaleimageview_libraryDescription">A custom image view for Android, designed for photo galleries and displaying huge images (e.g. maps and building plans) without OutOfMemoryErrors. Includes pinch to zoom, panning, rotation and animation support, and allows easy extension so you can add your own overlays and touch event detection.</string>
+	<string name="library_subsamplingscaleimageview_libraryWebsite">https://github.com/davemorrissey/subsampling-scale-image-view</string>
+	<string name="library_subsamplingscaleimageview_libraryVersion">3.6.0</string>
+	<!-- OpenSource section -->
+	<string name="library_subsamplingscaleimageview_isOpenSource">true</string>
+	<string name="library_subsamplingscaleimageview_repositoryLink">https://github.com/davemorrissey/subsampling-scale-image-view</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_subsamplingscaleimageview_classPath">com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView</string>
+	<!-- License section -->
+	<string name="library_subsamplingscaleimageview_licenseId">apache_2_0</string>
+	<!-- Custom variables section -->
+</resources>

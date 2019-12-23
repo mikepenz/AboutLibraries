@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_int_recyclerviewanimators"></string>
+	<!-- Author section -->
+	<string name="library_recyclerviewanimators_author">Daichi Furiya</string>
+	<string name="library_recyclerviewanimators_authorWebsite">http://wasabeef.jp/</string>
+	<!-- Library section -->
+	<string name="library_recyclerviewanimators_libraryName">RecyclerView Animators</string>
+	<string name="library_recyclerviewanimators_libraryDescription">RecyclerView Animators is an Android library that allows developers to easily create RecyclerView with animations.</string>
+	<string name="library_recyclerviewanimators_libraryWebsite">https://github.com/wasabeef/recyclerview-animators</string>
+	<string name="library_recyclerviewanimators_libraryVersion">1.0.1</string>
+	<!-- OpenSource section -->
+	<string name="library_recyclerviewanimators_isOpenSource">true</string>
+	<string name="library_recyclerviewanimators_repositoryLink">https://github.com/wasabeef/recyclerview-animators</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_recyclerviewanimators_classPath">jp.wasabeef.recyclerview.animators.BaseItemAnimator</string>
+	<!-- License section -->
+	<string name="library_recyclerviewanimators_licenseId">apache_2_0</string>
+	<!-- Custom variables section -->
+</resources>

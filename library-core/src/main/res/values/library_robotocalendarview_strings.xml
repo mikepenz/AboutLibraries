@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_int_robotocalendarview"/>
+	<!-- Author section -->
+	<string name="library_robotocalendarview_author">Marco HC</string>
+	<string name="library_robotocalendarview_authorWebsite">https://github.com/marcohc</string>
+	<!-- Library section -->
+	<string name="library_robotocalendarview_libraryName">RobotoCalendarView</string>
+	<string name="library_robotocalendarview_libraryDescription">Android Roboto Calendar View provides an easy and customizable calendar view with native support for the Roboto fonts, includes the brand new Roboto Slab fonts.</string>
+	<string name="library_robotocalendarview_libraryWebsite">https://github.com/marcohc/RobotoCalendarView</string>
+	<string name="library_robotocalendarview_libraryVersion">1.0.0</string>
+	<!-- OpenSource section -->
+	<string name="library_robotocalendarview_isOpenSource">true</string>
+	<string name="library_robotocalendarview_repositoryLink">https://github.com/marcohc/RobotoCalendarView</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_robotocalendarview_classPath">com.disegnator.robotocalendar</string>
+	<!-- License section -->
+	<string name="library_robotocalendarview_licenseId">apache_2_0</string>
+	<!-- Custom variables section -->
+</resources>

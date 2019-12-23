@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="define_int_stickylistheaders"></string>
+	<string name="library_stickylistheaders_author">Emil Sjölander</string>
+	<string name="library_stickylistheaders_authorWebsite">http://emilsjolander.se</string>
+	<string name="library_stickylistheaders_libraryName">StickyListHeaders</string>
+	<string name="library_stickylistheaders_libraryDescription">StickyListHeaders is an Android library that makes it easy to integrate section headers that stick to the top.</string>
+	<string name="library_stickylistheaders_libraryWebsite">https://github.com/emilsjolander/StickyListHeaders</string>
+	<string name="library_stickylistheaders_libraryVersion">2.7.0</string>
+	<string name="library_stickylistheaders_isOpenSource">true</string>
+	<string name="library_stickylistheaders_repositoryLink">https://github.com/emilsjolander/StickyListHeaders</string>
+	<string name="library_stickylistheaders_classPath">se.emilsjolander.stickylistheaders.StickyListHeadersListView</string>
+	<string name="library_stickylistheaders_licenseId">apache_2_0</string>
+</resources>
