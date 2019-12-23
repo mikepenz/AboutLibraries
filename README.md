@@ -48,14 +48,22 @@ You can find anything you search for in the wiki. (If not open an issue)
 ### Using Maven
 The AboutLibraries Library is pushed to [Maven Central](http://search.maven.org/#search|ga|1|g%3A%22com.mikepenz%22), so you just need to add the following dependency to your `build.gradle`. It seems it is also required to add the support dependencies to the application. If it works without, you should be fine too :).
 
+#### CORE module
+
 ```javascript
-implementation "com.mikepenz:aboutlibraries:7.0.4"
+implementation "com.mikepenz:aboutlibraries-core:7.1.0"
+```
+
+#### UI module
+
+```javascript
+implementation "com.mikepenz:aboutlibraries:7.1.0"
 
 //required support lib modules
 implementation "androidx.appcompat:appcompat:${versions.appcompat | 1.x.y}"
 implementation "androidx.cardview:cardview:${versions.cardview | 1.x.y}"
-implementation "androidx.recyclerview:recyclerview:${versions.recyclerview | 1.x.y}"
-implementation "com.google.android.material:material:${versions.material | 1.x.y}"
+implementation "androidx.recyclerview:recyclerview:${versions.recyclerview | 1.1.y}"
+implementation "com.google.android.material:material:${versions.material | 1.1.y}"
 ```
 
 To use java version please use a version smaller than 7.0.0 (See the release on GitHub)
