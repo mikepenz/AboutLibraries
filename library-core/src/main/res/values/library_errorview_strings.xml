@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_int_ErrorView"></string>
+	<!-- Author section -->
+	<string name="library_ErrorView_author">İhsan Işık</string>
+	<string name="library_ErrorView_authorWebsite">https://xipdev.wordpress.com/</string>
+	<!-- Library section -->
+	<string name="library_ErrorView_libraryName">ErrorView</string>
+	<string name="library_ErrorView_libraryDescription">A custom view that displays an error image, a title, and a subtitle given an HTTP status code. It can be used for various other purposes like displaying other kinds of errors, or just messages with images.</string>
+	<string name="library_ErrorView_libraryWebsite">https://github.com/xiprox/ErrorView</string>
+	<string name="library_ErrorView_libraryVersion">1.0.0</string>
+	<!-- OpenSource section -->
+	<string name="library_ErrorView_isOpenSource">true</string>
+	<string name="library_ErrorView_repositoryLink">https://github.com/xiprox/ErrorView</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_ErrorView_classPath">tr.xip.errorview.ErrorView</string>
+	<!-- License section -->
+	<string name="library_ErrorView_licenseId">apache_2_0</string>
+	<!-- Custom variables section -->
+</resources>

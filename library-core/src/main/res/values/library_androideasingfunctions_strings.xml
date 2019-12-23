@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_androideasingfunctions"></string>
+    <!-- Author section -->
+    <string name="library_androideasingfunctions_author">daimajia</string>
+    <string name="library_androideasingfunctions_authorWebsite">http://daimajia.com/</string>
+    <!-- Library section -->
+    <string name="library_androideasingfunctions_libraryName">AndroidEasingFunctions</string>
+    <string name="library_androideasingfunctions_libraryDescription"></string>
+    <string name="library_androideasingfunctions_libraryWebsite">https://github.com/daimajia/AnimationEasingFunctions</string>
+    <string name="library_androideasingfunctions_libraryVersion">1.0.0</string>
+    <!-- OpenSource section -->
+    <string name="library_androideasingfunctions_isOpenSource">true</string>
+    <string name="library_androideasingfunctions_repositoryLink">https://github.com/daimajia/AnimationEasingFunctions</string>
+    <string name="library_androideasingfunctions_classPath">com.daimajia.easing.BaseEasingMethod</string>
+    <!-- License section -->
+    <string name="library_androideasingfunctions_licenseId">apache_2_0</string>
+    <!-- Custom variables section -->
+</resources>

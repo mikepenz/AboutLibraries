@@ -39,9 +39,9 @@ class LibsBuilder : Serializable {
 
     var aboutShowIcon: Boolean = true
     var aboutVersionString: String = ""
-    var aboutAppName: String = ""
+    var aboutAppName: String? = null
     var aboutShowVersion: Boolean = true
-    var aboutDescription: String = ""
+    var aboutDescription: String? = null
     var aboutShowVersionName: Boolean = true
     var aboutShowVersionCode: Boolean = true
 
@@ -469,7 +469,7 @@ class LibsBuilder : Serializable {
      * @param libTaskCallback
      * @return this
      */
-    fun withLibTaskCallback(libTaskCallback: LibTaskCallback): LibsBuilder {
+    fun withLibTaskCallback(libTaskCallback: com.mikepenz.aboutlibraries.LibTaskCallback): LibsBuilder {
         LibsConfiguration.instance.libTaskCallback = libTaskCallback
         return this
     }

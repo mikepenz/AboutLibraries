@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_int_parallaxscroll"></string>
+	<!-- Author section -->
+	<string name="library_parallaxscroll_author">Nir Hartmann</string>
+	<string name="library_parallaxscroll_authorWebsite">https://github.com/nirhart/ParallaxScroll</string>
+	<!-- Library section -->
+	<string name="library_parallaxscroll_libraryName">ParallaxScroll</string>
+	<string name="library_parallaxscroll_libraryDescription">Parallax ListView and ScrollView for Android</string>
+	<string name="library_parallaxscroll_libraryWebsite">https://github.com/nirhart/ParallaxScroll</string>
+	<string name="library_parallaxscroll_libraryVersion">1.0</string>
+	<!-- OpenSource section -->
+	<string name="library_parallaxscroll_isOpenSource">true</string>
+	<string name="library_parallaxscroll_repositoryLink">https://github.com/nirhart/ParallaxScroll</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_parallaxscroll_classPath">com.nirhart.parallaxscroll.views.ParallaxScrollView</string>
+	<!-- License section -->
+	<string name="library_parallaxscroll_licenseId">mit</string>
+	<!-- Custom variables section -->
+</resources>

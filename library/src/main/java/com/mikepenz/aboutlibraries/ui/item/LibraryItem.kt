@@ -63,14 +63,15 @@ class LibraryItem(private val library: Library, private val libsBuilder: LibsBui
         }
 
         //Set License or Version Text
-        if (TextUtils.isEmpty(library.libraryVersion) && library.license != null && library.license?.licenseName?.isEmpty() == true || (!libsBuilder.showVersion) && (!libsBuilder.showLicense)) {
+        val showVersionOrLicense = libsBuilder.showVersion || libsBuilder.showLicense
+        if (library.libraryVersion.isEmpty() && library.license?.licenseName?.isEmpty() == true || !showVersionOrLicense) {
             holder.libraryBottomDivider.visibility = View.GONE
             holder.libraryBottomContainer.visibility = View.GONE
         } else {
             holder.libraryBottomDivider.visibility = View.VISIBLE
             holder.libraryBottomContainer.visibility = View.VISIBLE
 
-            if (!TextUtils.isEmpty(library.libraryVersion) && libsBuilder.showVersion) {
+            if (library.libraryVersion.isNotEmpty() && libsBuilder.showVersion) {
                 holder.libraryVersion.text = library.libraryVersion
             } else {
                 holder.libraryVersion.text = ""
@@ -82,9 +83,8 @@ class LibraryItem(private val library: Library, private val libsBuilder: LibsBui
             }
         }
 
-
         //Define onClickListener
-        if (!TextUtils.isEmpty(library.authorWebsite)) {
+        if (library.authorWebsite.isNotEmpty()) {
             holder.libraryCreator.setOnClickListener { view ->
                 val consumed = LibsConfiguration.instance.listener?.onLibraryAuthorClicked(view, library)
                         ?: false
@@ -108,12 +108,12 @@ class LibraryItem(private val library: Library, private val libsBuilder: LibsBui
             holder.libraryCreator.setOnLongClickListener(null)
         }
 
-        if (!TextUtils.isEmpty(library.libraryWebsite) || !TextUtils.isEmpty(library.repositoryLink)) {
+        if (library.libraryWebsite.isNotEmpty() || library.repositoryLink.isNotEmpty()) {
             holder.libraryDescription.setOnClickListener { v ->
                 val consumed = LibsConfiguration.instance.listener?.onLibraryContentClicked(v, library)
                         ?: false
                 if (!consumed) {
-                    openLibraryWebsite(ctx, if (library.libraryWebsite != null) library.libraryWebsite else library.repositoryLink)
+                    openLibraryWebsite(ctx, library.libraryWebsite)
                 }
             }
             holder.libraryDescription.setOnLongClickListener { v ->
@@ -121,7 +121,7 @@ class LibraryItem(private val library: Library, private val libsBuilder: LibsBui
                         ?: false
 
                 if (!consumed) {
-                    openLibraryWebsite(ctx, if (library.libraryWebsite != null) library.libraryWebsite else library.repositoryLink)
+                    openLibraryWebsite(ctx, library.libraryWebsite)
                     consumed = true
                 }
                 consumed
@@ -153,7 +153,6 @@ class LibraryItem(private val library: Library, private val libsBuilder: LibsBui
             holder.libraryBottomContainer.setOnTouchListener(null)
             holder.libraryBottomContainer.setOnClickListener(null)
             holder.libraryBottomContainer.setOnLongClickListener(null)
-
         }
 
         //notify the libsRecyclerViewListener to allow modifications
@@ -170,9 +169,9 @@ class LibraryItem(private val library: Library, private val libsBuilder: LibsBui
         try {
             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(authorWebsite))
             ctx.startActivity(browserIntent)
-        } catch (ex: Exception) {
+        } catch (ignored: Exception) {
+            // ignored
         }
-
     }
 
     /**
@@ -185,9 +184,9 @@ class LibraryItem(private val library: Library, private val libsBuilder: LibsBui
         try {
             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(libraryWebsite))
             ctx.startActivity(browserIntent)
-        } catch (ex: Exception) {
+        } catch (ignored: Exception) {
+            // ignored
         }
-
     }
 
     /**
@@ -207,9 +206,9 @@ class LibraryItem(private val library: Library, private val libsBuilder: LibsBui
                 val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(library.license?.licenseWebsite))
                 ctx.startActivity(browserIntent)
             }
-        } catch (ex: Exception) {
+        } catch (ignored: Exception) {
+            // ignored
         }
-
     }
 
     override fun getViewHolder(v: View): ViewHolder {
@@ -219,7 +218,6 @@ class LibraryItem(private val library: Library, private val libsBuilder: LibsBui
     /**
      * our ViewHolder
      */
-
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         internal var card: MaterialCardView = itemView as MaterialCardView
 

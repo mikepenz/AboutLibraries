@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_greendao"></string>
+    <!-- Author section -->
+    <string name="library_greendao_author">GreenRobot</string>
+    <string name="library_greendao_authorWebsite">https://github.com/greenrobot/greenDAO</string>
+    <!-- Library section -->
+    <string name="library_greendao_libraryName">GreenDao</string>
+    <string name="library_greendao_libraryDescription">greenDAO is a light and fast ORM solution for Android that maps objects to SQLite databases.</string>
+    <string name="library_greendao_libraryWebsite">http://greendao-orm.com/</string>
+    <string name="library_greendao_libraryVersion">1.3.7</string>
+    <!-- OpenSource section -->
+    <string name="library_greendao_isOpenSource">true</string>
+    <string name="library_greendao_repositoryLink">https://github.com/greenrobot/greenDAO</string>
+    <string name="library_greendao_classPath">de.greenrobot.dao.AbstractDao</string>
+    <!-- License section -->
+    <string name="library_greendao_licenseId">apache_2_0</string>
+    <!-- Custom variables section -->
+</resources>

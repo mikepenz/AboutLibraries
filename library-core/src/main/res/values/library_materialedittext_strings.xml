@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_materialedittext"></string>
+    <string name="library_materialedittext_author">Kai Zhu</string>
+    <string name="library_materialedittext_authorWebsite"></string>
+    <string name="library_materialedittext_libraryName">MaterialEditText</string>
+    <string name="library_materialedittext_libraryDescription">MaterialEditText, the EditText in Material Design, with more features that Google Material Design
+        Spec has introduced.
+    </string>
+    <string name="library_materialedittext_libraryWebsite">https://github.com/rengwuxian/MaterialEditText</string>
+    <string name="library_materialedittext_libraryVersion">2.0.3</string>
+    <string name="library_materialedittext_isOpenSource">true</string>
+    <string name="library_materialedittext_repositoryLink">https://github.com/rengwuxian/MaterialEditText</string>
+    <string name="library_materialedittext_classPath">com.rengwuxian.materialedittext.MaterialEditText</string>
+    <string name="library_materialedittext_licenseId">apache_2_0</string>
+</resources>

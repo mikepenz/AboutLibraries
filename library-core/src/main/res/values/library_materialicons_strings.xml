@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_materialicons"></string>
+    <!-- Author section -->
+    <string name="library_materialicons_author">Anton Malinskiy</string>
+    <string name="library_materialicons_authorWebsite">http://malinskiy.com/</string>
+    <!-- Library section -->
+    <string name="library_materialicons_libraryName">Material Icons</string>
+    <string name="library_materialicons_libraryDescription">android-material-icons allows you to include any of the Material Design 1.0.1 icons by Google packed
+        by Sergey Kupletsky in your texts, your ActionBar, and even in your EditTexts. Icons are infinitely scalable, and customizable with shadows and
+        everything you can do on texts.
+    </string>
+    <string name="library_materialicons_libraryWebsite"></string>
+    <string name="library_materialicons_libraryVersion">1.0.1</string>
+    <!-- OpenSource section -->
+    <string name="library_materialicons_isOpenSource">true</string>
+    <string name="library_materialicons_repositoryLink">https://github.com/Malinskiy/android-material-icons</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_materialicons_classPath">com.malinskiy.materialicons.Iconify</string>
+    <!-- License section -->
+    <string name="library_materialicons_licenseId">apache_2_0</string>
+    <!-- Custom variables section -->
+</resources>

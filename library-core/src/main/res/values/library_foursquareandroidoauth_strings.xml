@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_foursquareAndroidOauth">year;owner</string>
+    <string name="library_foursquareAndroidOauth_author">Foursquare</string>
+    <string name="library_foursquareAndroidOauth_libraryName">foursquare-android-oauth</string>
+    <string name="library_foursquareAndroidOauth_libraryDescription">Single Sign-on Library for Android applications to use Foursquare app for authorization.
+    </string>
+    <string name="library_foursquareAndroidOauth_libraryVersion">1.0.1</string>
+    <string name="library_foursquareAndroidOauth_libraryWebsite">https://github.com/foursquare/foursquare-android-oauth</string>
+    <string name="library_foursquareAndroidOauth_licenseId">apache_2_0</string>
+    <string name="library_foursquareAndroidOauth_isOpenSource">true</string>
+    <string name="library_foursquareAndroidOauth_repositoryLink">https://github.com/foursquare/foursquare-android-oauth</string>
+    <string name="library_foursquareAndroidOauth_classPath">com.foursquare.android.nativeoauth.FoursquareOAuth</string>
+    <!-- Custom variables section -->
+    <string name="library_foursquareAndroidOauth_owner">Foursquare</string>
+    <string name="library_foursquareAndroidOauth_year">2014</string>
+</resources>

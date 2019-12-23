@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_paymill"></string>
+    <!-- Author section -->
+    <string name="library_paymill_author">PayMill</string>
+    <string name="library_paymill_authorWebsite">http://paymill.com</string>
+    <!-- Library section -->
+    <string name="library_paymill_libraryName">PayMill</string>
+    <string name="library_paymill_libraryDescription">The Android SDK provides a flexible and easy to integrate payment solution for your Android
+        applications.
+    </string>
+    <string name="library_paymill_libraryWebsite">https://github.com/paymill/paymill-android</string>
+    <string name="library_paymill_libraryVersion">1.2.0</string>
+    <!-- OpenSource section -->
+    <string name="library_paymill_isOpenSource">true</string>
+    <string name="library_paymill_repositoryLink">https://github.com/paymill/paymill-android</string>
+    <string name="library_paymill_classPath">com.paymill.android.api.Client</string>
+    <!-- License section -->
+    <string name="libray_paymill_licenseVersion"></string>
+    <string name="libray_paymill_licenseLink"></string>
+    <string name="libray_paymill_licenseContent"></string>
+    <!-- Custom variables section -->
+</resources>

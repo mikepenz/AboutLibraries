@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_int_reactivenetwork">year;owner</string>
+	<!-- Author section -->
+	<string name="library_reactivenetwork_author">Piotr Wittchen</string>
+	<string name="library_reactivenetwork_authorWebsite">http://wittchen.biz.pl</string>
+	<!-- Library section -->
+	<string name="library_reactivenetwork_libraryName">ReactiveNetwork</string>
+	<string name="library_reactivenetwork_libraryDescription">ReactiveNetwork is an Android library listening network connection state and Internet connectivity with RxJava Observables. </string>
+	<string name="library_reactivenetwork_libraryWebsite"></string>
+	<string name="library_reactivenetwork_libraryVersion">0.5.1</string>
+	<!-- OpenSource section -->
+	<string name="library_reactivenetwork_isOpenSource">true</string>
+	<string name="library_reactivenetwork_repositoryLink">https://github.com/pwittchen/ReactiveNetwork</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_reactivenetwork_classPath">com.github.pwittchen.reactivenetwork.library.ReactiveNetwork</string>
+	<!-- License section -->
+	<string name="library_reactivenetwork_licenseId">apache_2_0</string>
+	<!-- Custom variables section -->
+	<string name="library_reactivenetwork_owner">Piotr Wittchen</string>
+	<string name="library_reactivenetwork_year">2016</string>
+</resources>

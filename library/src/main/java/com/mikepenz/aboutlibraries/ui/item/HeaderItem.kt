@@ -93,7 +93,7 @@ class HeaderItem(var libsBuilder: LibsBuilder) : AbstractItem<HeaderItem.ViewHol
         }
 
         //Set the description or hide it
-        if (!TextUtils.isEmpty(libsBuilder.aboutAppName)) {
+        if (!libsBuilder.aboutAppName.isNullOrEmpty()) {
             holder.aboutAppName.text = libsBuilder.aboutAppName
         } else {
             holder.aboutAppName.visibility = View.GONE
@@ -124,9 +124,9 @@ class HeaderItem(var libsBuilder: LibsBuilder) : AbstractItem<HeaderItem.ViewHol
                         if (alertText != null) {
                             alertText.movementMethod = LinkMovementMethod.getInstance()
                         }
-                    } catch (ex: Exception) {
+                    } catch (ignored: Exception) {
+                        // ignored
                     }
-
                 }
             }
             holder.aboutSpecialContainer.visibility = View.VISIBLE
@@ -148,9 +148,9 @@ class HeaderItem(var libsBuilder: LibsBuilder) : AbstractItem<HeaderItem.ViewHol
                         if (alertText != null) {
                             alertText.movementMethod = LinkMovementMethod.getInstance()
                         }
-                    } catch (ex: Exception) {
+                    } catch (ignored: Exception) {
+                        // ignored
                     }
-
                 }
             }
             holder.aboutSpecialContainer.visibility = View.VISIBLE
@@ -173,34 +173,31 @@ class HeaderItem(var libsBuilder: LibsBuilder) : AbstractItem<HeaderItem.ViewHol
                         if (alertText != null) {
                             alertText.movementMethod = LinkMovementMethod.getInstance()
                         }
-                    } catch (ex: Exception) {
+                    } catch (ignored: Exception) {
+                        // ignored
                     }
-
                 }
             }
             holder.aboutSpecialContainer.visibility = View.VISIBLE
         }
-
 
         //set the Version or hide it
         if (libsBuilder.aboutVersionString.isNotEmpty())
             holder.aboutVersion.text = libsBuilder.aboutVersionString
         else {
             if (libsBuilder.aboutShowVersion) {
-                holder.aboutVersion.text = ctx.getString(R.string.version) + " " + aboutVersionName + " (" + aboutVersionCode + ")"
+                holder.aboutVersion.text = "${ctx.getString(R.string.version)} $aboutVersionName ($aboutVersionCode)"
             } else {
-                if (libsBuilder.aboutShowVersionName) {
-                    holder.aboutVersion.text = ctx.getString(R.string.version) + " " + aboutVersionName
-                } else if (libsBuilder.aboutShowVersionCode) {
-                    holder.aboutVersion.text = "${ctx.getString(R.string.version)} ${aboutVersionCode}"
-                } else {
-                    holder.aboutVersion.visibility = View.GONE
+                when {
+                    libsBuilder.aboutShowVersionName -> holder.aboutVersion.text = "${ctx.getString(R.string.version)} $aboutVersionName"
+                    libsBuilder.aboutShowVersionCode -> holder.aboutVersion.text = "${ctx.getString(R.string.version)} $aboutVersionCode"
+                    else -> holder.aboutVersion.visibility = View.GONE
                 }
             }
         }
 
         //Set the description or hide it
-        if (!TextUtils.isEmpty(libsBuilder.aboutDescription)) {
+        if (!libsBuilder.aboutDescription.isNullOrEmpty()) {
             holder.aboutAppDescription.text = Html.fromHtml(libsBuilder.aboutDescription)
             Iconics.Builder().ctx(ctx).on(holder.aboutAppDescription).build()
             holder.aboutAppDescription.movementMethod = MovementCheck.instance

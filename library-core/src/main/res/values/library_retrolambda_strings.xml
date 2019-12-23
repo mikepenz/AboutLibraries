@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_retrolambda"/>
+    <!-- Author section -->
+    <string name="library_retrolambda_author">Esko Luontola</string>
+    <string name="library_retrolambda_authorWebsite">http://www.orfjackal.net/</string>
+    <!-- Library section -->
+    <string name="library_retrolambda_libraryName">Retrolambda</string>
+    <string name="library_retrolambda_libraryDescription">Backport of Java 8\'s lambda expressions to Java 7, 6 and 5</string>
+    <string name="library_retrolambda_libraryWebsite">https://github.com/orfjackal/retrolambda</string>
+    <string name="library_retrolambda_libraryVersion">2.3.0</string>
+    <!-- OpenSource section -->
+    <string name="library_retrolambda_isOpenSource">true</string>
+    <string name="library_retrolambda_repositoryLink">https://github.com/orfjackal/retrolambda</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_retrolambda_classPath">net.orfjackal.retrolambda.RetroLambda</string>
+    <!-- License section -->
+    <string name="library_retrolambda_licenseId">apache_2_0</string>
+    <!-- Custom variables section -->
+</resources>

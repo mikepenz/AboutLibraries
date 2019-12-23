@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_calligraphy">year;owner</string>
+    <!-- Author section -->
+    <string name="library_calligraphy_author">Christopher Jenkins</string>
+    <string name="library_calligraphy_authorWebsite">https://github.com/chrisjenx/Calligraphy</string>
+    <!-- Library section -->
+    <string name="library_calligraphy_libraryName">Calligraphy</string>
+    <string name="library_calligraphy_libraryDescription">Custom fonts in Android the easy way&#8230;</string>
+    <string name="library_calligraphy_libraryWebsite">https://github.com/chrisjenx/Calligraphy</string>
+    <string name="library_calligraphy_libraryVersion">1.1.0</string>
+    <!-- OpenSource section -->
+    <string name="library_calligraphy_isOpenSource">true</string>
+    <string name="library_calligraphy_repositoryLink">https://github.com/chrisjenx/Calligraphy</string>
+    <string name="library_calligraphy_classPath">uk.co.chrisjenx.calligraphy.CalligraphyFactory</string>
+    <!-- License section -->
+    <string name="library_calligraphy_licenseId">apache_2_0</string>
+    <!-- Custom variables section -->
+    <string name="library_calligraphy_owner">Christopher Jenkins</string>
+    <string name="library_calligraphy_year">2013</string>
+</resources>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_ActionBarPullToRefresh">year;owner</string>
+    <string name="library_ActionBarPullToRefresh_author">Chris Banes</string>
+    <string name="library_ActionBarPullToRefresh_libraryName">ActionBarPullToRefresh</string>
+    <string name="library_ActionBarPullToRefresh_libraryDescription">ActionBar-PullToRefresh provides an easy way to add a modern version of the pull-to-refresh
+        interaction to your application.
+    </string>
+    <string name="library_ActionBarPullToRefresh_libraryVersion">0.9.9</string>
+    <string name="library_ActionBarPullToRefresh_libraryWebsite">https://github.com/chrisbanes/ActionBar-PullToRefresh</string>
+    <string name="library_ActionBarPullToRefresh_licenseId">apache_2_0</string>
+    <string name="library_ActionBarPullToRefresh_isOpenSource">true</string>
+    <string name="library_ActionBarPullToRefresh_repositoryLink">https://github.com/chrisbanes/ActionBar-PullToRefresh</string>
+    <string name="library_ActionBarPullToRefresh_classPath">uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh</string>
+    <!-- Custom variables section -->
+    <string name="library_ActionBarPullToRefresh_owner">Chris Banes</string>
+    <string name="library_ActionBarPullToRefresh_year">2014</string>
+</resources>

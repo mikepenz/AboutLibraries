@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="define_int_HoloGraphLibrary">year;owner</string>
+    <string name="library_HoloGraphLibrary_author">Daniel Nadeau</string>
+    <string name="library_HoloGraphLibrary_authorWebsite">https://bitbucket.org/danielnadeau</string>
+    <string name="library_HoloGraphLibrary_libraryName">HoloGraphLibrary</string>
+    <string name="library_HoloGraphLibrary_libraryDescription">This library is an open-source set of graph types that are easy to add to your app, and in
+        addition, look gorgeous. Themed in the much-loved Holo style of Android, the graphing library should fit in with any of your modern, standards-compliant
+        apps.
+    </string>
+    <string name="library_HoloGraphLibrary_libraryVersion">#45</string>
+    <string name="library_HoloGraphLibrary_libraryWebsite">https://bitbucket.org/danielnadeau/holographlibrary</string>
+    <string name="library_HoloGraphLibrary_licenseId">apache_2_0</string>
+    <string name="library_HoloGraphLibrary_isOpenSource">true</string>
+    <string name="library_HoloGraphLibrary_repositoryLink">https://bitbucket.org/danielnadeau/holographlibrary</string>
+    <string name="library_HoloGraphLibrary_classPath">com.echo.holographlibrary.Bar</string>
+    <!-- Custom variables section -->
+    <string name="library_HoloGraphLibrary_owner">Daniel Nadeau</string>
+    <string name="library_HoloGraphLibrary_year">2014</string>
+</resources>

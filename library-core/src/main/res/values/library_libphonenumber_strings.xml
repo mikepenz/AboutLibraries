@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_libphonenumber"></string>
+    <!-- Author section -->
+    <string name="library_libphonenumber_author">Google</string>
+    <string name="library_libphonenumber_authorWebsite">http://google.com</string>
+    <!-- Library section -->
+    <string name="library_libphonenumber_libraryName">LibPhoneNumber</string>
+    <string name="library_libphonenumber_libraryDescription">Google\'s common Java, C++ and Javascript library for parsing, formatting, storing and validating
+        international phone numbers. The Java version is optimized for running on smartphones, and is used by the Android framework since 4.0 (Ice Cream
+        Sandwich)
+    </string>
+    <string name="library_libphonenumber_libraryWebsite">http://libphonenumber.googlecode.com/svn/trunk/javascript/i18n/phonenumbers/demo-compiled.html</string>
+    <string name="library_libphonenumber_libraryVersion">7.0.1</string>
+    <!-- OpenSource section -->
+    <string name="library_libphonenumber_isOpenSource">true</string>
+    <string name="library_libphonenumber_repositoryLink">https://github.com/googlei18n/libphonenumber</string>
+    <!-- License section -->
+    <string name="library_libphonenumber_licenseId">apache_2_0</string>
+    <!-- Custom variables section -->
+</resources>

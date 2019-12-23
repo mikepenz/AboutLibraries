@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_int_simpleratingview"></string>
+	<!-- Author section -->
+	<string name="library_simpleratingview_author">Ihsan Isik</string>
+	<string name="library_simpleratingview_authorWebsite">https://github.com/xiprox/SimpleRatingView</string>
+	<!-- Library section -->
+	<string name="library_simpleratingview_libraryName">SimpleRatingView</string>
+	<string name="library_simpleratingview_libraryDescription">A rating toggle for Android which switches between 3 rating levels: positive, neutral, and negative</string>
+	<string name="library_simpleratingview_libraryWebsite">https://github.com/xiprox/SimpleRatingView</string>
+	<string name="library_simpleratingview_libraryVersion">0.14.4</string>
+	<!-- OpenSource section -->
+	<string name="library_simpleratingview_isOpenSource">true</string>
+	<string name="library_simpleratingview_repositoryLink">https://github.com/xiprox/SimpleRatingView</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_simpleratingview_classPath">tr.xip.widget.simpleratingview.SimpleRatingView</string>
+	<!-- License section -->
+	<string name="library_simpleratingview_licenseId">apache_2_0</string>
+	<!-- Custom variables section -->
+</resources>

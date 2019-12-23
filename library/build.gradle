@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion setup.compileSdk
@@ -39,6 +39,8 @@ android {
 }
 
 dependencies {
+    api project(':library-core')
+
     implementation "androidx.appcompat:appcompat:${versions.appcompat}"
     implementation "androidx.cardview:cardview:${versions.cardview}"
     implementation "androidx.recyclerview:recyclerview:${versions.recyclerview}"
@@ -61,4 +63,6 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.kotlin}"
 }
 
-apply from: '../gradle-release.gradle'
+if (project.hasProperty('pushall') || project.hasProperty('library_only')) {
+    apply from: '../gradle-release.gradle'
+}

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_int_hellocharts"></string>
+	<!-- Author section -->
+	<string name="library_hellocharts_author">Leszek Wach</string>
+	<string name="library_hellocharts_authorWebsite"></string>
+	<!-- Library section -->
+	<string name="library_hellocharts_libraryName">HelloCharts</string>
+	<string name="library_hellocharts_libraryDescription">Charting library for Android compatible with API 8+(Android 2.2).</string>
+	<string name="library_hellocharts_libraryWebsite"></string>
+	<string name="library_hellocharts_libraryVersion">1.5.4</string>
+	<!-- OpenSource section -->
+	<string name="library_hellocharts_isOpenSource">true</string>
+	<string name="library_hellocharts_repositoryLink">https://github.com/lecho/hellocharts-android</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_hellocharts_classPath">lecho.lib.hellocharts.view.Chart</string>
+	<!-- License section -->
+	<string name="library_hellocharts_licenseId">apache_2_0</string>
+	<!-- Custom variables section -->
+</resources>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_int_Jsoup"/>
+	<!-- Author section -->
+	<string name="library_Jsoup_author">Jonathan Hedley</string>
+	<string name="library_Jsoup_authorWebsite">http://jhy.io/</string>
+	<!-- Library section -->
+	<string name="library_Jsoup_libraryName">Jsoup</string>
+	<string name="library_Jsoup_libraryDescription">jsoup is a Java library for working with real-world HTML. It provides a very convenient API for extracting and manipulating data, using the best of DOM, CSS, and jquery-like methods.</string>
+	<string name="library_Jsoup_libraryWebsite">http://jsoup.org/</string>
+	<string name="library_Jsoup_libraryVersion">1.10.3</string>
+	<!-- OpenSource section -->
+	<string name="library_Jsoup_isOpenSource">true</string>
+	<string name="library_Jsoup_repositoryLink">https://github.com/jhy/jsoup</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_Jsoup_classPath">org.jsoup.Jsoup</string>
+	<!-- License section -->
+	<string name="library_Jsoup_licenseId">mit</string>
+	<!-- Custom variables section -->
+</resources>

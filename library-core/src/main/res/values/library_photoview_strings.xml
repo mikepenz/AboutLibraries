@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_int_photoview">year;owner</string>
+	<!-- Author section -->
+	<string name="library_photoview_author">Chris Banes</string>
+	<string name="library_photoview_authorWebsite">http://chris.banes.me/</string>
+	<!-- Library section -->
+	<string name="library_photoview_libraryName">PhotoView</string>
+	<string name="library_photoview_libraryDescription">Implementation of ImageView for Android that supports zooming, by various touch gestures.</string>
+	<string name="library_photoview_libraryWebsite">https://github.com/chrisbanes/PhotoView</string>
+	<string name="library_photoview_libraryVersion">2.0.0</string>
+	<!-- OpenSource section -->
+	<string name="library_photoview_isOpenSource">true</string>
+	<string name="library_photoview_repositoryLink">https://github.com/chrisbanes/PhotoView</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_photoview_classPath">com.github.chrisbanes.photoview.PhotoView</string>
+	<!-- License section -->
+	<string name="library_photoview_licenseId">apache_2_0</string>
+	<!-- Custom variables section -->
+    <string name="library_photoview_year">2017</string>
+    <string name="library_photoview_owner">Chris Banes</string>
+</resources>

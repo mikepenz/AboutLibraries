@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_Paper"></string>
+    <string name="library_Paper_author">Aleksey Masny</string>
+    <string name="library_Paper_authorWebsite">https://github.com/pilgr</string>
+    <string name="library_Paper_libraryName">Paper</string>
+    <string name="library_Paper_libraryDescription">Paper is a fast NoSQL data storage for Android that lets you save/restore Java objects by using efficient Kryo serialization and handling data structure changes automatically.</string>
+    <string name="library_Paper_libraryVersion">1.1</string>
+    <string name="library_Paper_libraryWebsite">https://github.com/pilgr/Paper</string>
+    <string name="library_Paper_licenseId">apache_2_0</string>
+    <string name="library_Paper_isOpenSource">true</string>
+    <string name="library_Paper_repositoryLink">https://github.com/pilgr/Paper</string>
+</resources>

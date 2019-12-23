@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_int_jmdns"></string>
+	<!-- Author section -->
+	<string name="library_jmdns_author">Arthur van Hoff, Rick Blair, Kai Kreuzer</string>
+	<string name="library_jmdns_authorWebsite">https://github.com/jmdns/jmdns</string>
+	<!-- Library section -->
+	<string name="library_jmdns_libraryName">JmDNS</string>
+	<string name="library_jmdns_libraryDescription">This is an implemenation of multi-cast DNS in Java. It supports service discovery and service registration. It is fully interoperable with Apple\'s Bonjour.</string>
+	<string name="library_jmdns_libraryWebsite">https://github.com/jmdns/jmdns</string>
+	<string name="library_jmdns_libraryVersion">3.5.3</string>
+	<!-- OpenSource section -->
+	<string name="library_jmdns_isOpenSource">true</string>
+	<string name="library_jmdns_repositoryLink">https://github.com/jmdns/jmdns</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_jmdns_classPath">javax.jmdns.JmDNS</string>
+	<!-- License section -->
+	<string name="library_jmdns_licenseId">apache_2_0</string>
+	<!-- Custom variables section -->
+</resources>
+

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_int_hawk"/>
+	<!-- Author section -->
+	<string name="library_hawk_author">Orhan Obut</string>
+	<string name="library_hawk_authorWebsite">http://orhanobut.com/</string>
+	<!-- Library section -->
+	<string name="library_hawk_libraryName">Hawk</string>
+	<string name="library_hawk_libraryDescription">Secure, simple key-value storage for android</string>
+	<string name="library_hawk_libraryWebsite">https://github.com/orhanobut/hawk</string>
+	<string name="library_hawk_libraryVersion">1.18</string>
+	<!-- OpenSource section -->
+	<string name="library_hawk_isOpenSource">true</string>
+	<string name="library_hawk_repositoryLink">https://github.com/orhanobut/hawk</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_hawk_classPath">com.orhanobut.hawk.Hawk</string>
+	<!-- License section -->
+	<string name="library_hawk_licenseId">apache_2_0</string>
+	<!-- Custom variables section -->
+</resources>

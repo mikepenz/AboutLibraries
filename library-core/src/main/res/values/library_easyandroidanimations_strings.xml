@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_int_easyandroidanimations"></string>
+	<!-- Author section -->
+	<string name="library_easyandroidanimations_author">2359media</string>
+	<string name="library_easyandroidanimations_authorWebsite">http://2359media.com/</string>
+	<!-- Library section -->
+	<string name="library_easyandroidanimations_libraryName">EasyAndroidAnimations</string>
+	<string name="library_easyandroidanimations_libraryDescription">Easy Android Animations is an animation library that aims to make android animations easier, with 50+ builtin animations, it allows you to introduce many complex animation effects in your application with one or two lines of code.</string>
+	<string name="library_easyandroidanimations_libraryWebsite"></string>
+	<string name="library_easyandroidanimations_libraryVersion">0.8</string>
+	<!-- OpenSource section -->
+	<string name="library_easyandroidanimations_isOpenSource">true</string>
+	<string name="library_easyandroidanimations_repositoryLink">https://github.com/2359media/EasyAndroidAnimations</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_easyandroidanimations_classPath">com.easyandroidanimations.library.Animation</string>
+	<!-- License section -->
+	<string name="library_easyandroidanimations_licenseId">apache_2_0</string>
+	<!-- Custom variables section -->
+</resources>

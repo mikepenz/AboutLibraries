@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="define_int_Eventbus">year;owner</string>
+    <string name="library_Eventbus_author">greenrobot</string>
+    <string name="library_Eventbus_libraryName">Eventbus</string>
+    <string name="library_Eventbus_libraryDescription">EventBus is an Android optimized publish/subscribe event bus.
+    </string>
+    <string name="library_Eventbus_libraryVersion">3.0.0</string>
+    <string name="library_Eventbus_libraryWebsite">https://github.com/greenrobot/EventBus</string>
+    <string name="library_Eventbus_licenseId">apache_2_0</string>
+    <string name="library_Eventbus_isOpenSource">true</string>
+    <string name="library_Eventbus_repositoryLink">https://github.com/greenrobot/EventBus</string>
+    <string name="library_Eventbus_classPath">org.greenrobot.eventbus.EventBus</string>
+    <!-- Custom variables section -->
+    <string name="library_Eventbus_owner">greenrobot</string>
+    <string name="library_Eventbus_year">2014</string>
+</resources>

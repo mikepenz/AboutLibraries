@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_int_avatar_view"></string>
+	<!-- Author section -->
+	<string name="library_avatar_view_author">Tango Agency</string>
+	<string name="library_avatar_view_authorWebsite">https://github.com/TangoAgency/avatar-view</string>
+	<!-- Library section -->
+	<string name="library_avatar_view_libraryName">Avatar ImageView</string>
+	<string name="library_avatar_view_libraryDescription">Avatar ImageView with user\'s name first letter Drawable placeholder.</string>
+	<string name="library_avatar_view_libraryWebsite">https://github.com/TangoAgency/avatar-view</string>
+	<string name="library_avatar_view_libraryVersion">0.0.2</string>
+	<!-- OpenSource section -->
+	<string name="library_avatar_view_isOpenSource">true</string>
+	<string name="library_avatar_view_repositoryLink">https://github.com/TangoAgency/avatar-view</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_avatar_view_classPath">agency.tango.android:avatar-view</string>
+	<!-- License section -->
+	<string name="library_avatar_view_licenseId">mit</string>
+	<!-- Custom variables section -->
+</resources>

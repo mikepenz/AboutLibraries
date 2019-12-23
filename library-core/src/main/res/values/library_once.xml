@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_once">year;owner</string>
+    <string name="library_once_author">Jon Finerty</string>
+    <string name="library_once_authorWebsite">https://github.com/jonfinerty</string>
+    <string name="library_once_libraryName">Once</string>
+    <string name="library_once_libraryDescription">A small Android library to manage one-off operations.</string>
+    <string name="library_once_libraryVersion">1.2.2</string>
+    <string name="library_once_libraryWebsite">https://github.com/jonfinerty/Once</string>
+    <string name="library_once_licenseId">apache_2_0</string>
+    <string name="library_once_isOpenSource">true</string>
+    <string name="library_once_repositoryLink">https://github.com/jonfinerty/Once</string>
+    <string name="library_once_classPath">jonathanfinerty.once.Once</string>
+    <string name="library_once_owner">Jon Finerty</string>
+    <string name="library_once_year">2016</string>
+</resources>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_rebound"></string>
+    <!-- Author section -->
+    <string name="library_rebound_author">Facebook</string>
+    <string name="library_rebound_authorWebsite">https://github.com/facebook</string>
+    <!-- Library section -->
+    <string name="library_rebound_libraryName">Rebound</string>
+    <string name="library_rebound_libraryDescription">Rebound is a java library that models spring dynamics. Rebound spring models can be used to create animations that feel natural by introducing real world physics to your application.</string>
+    <string name="library_rebound_libraryWebsite">http://facebook.github.io/rebound/</string>
+    <string name="library_rebound_libraryVersion">0.3.6</string>
+    <!-- OpenSource section -->
+    <string name="library_rebound_isOpenSource">true</string>
+    <string name="library_rebound_repositoryLink">https://github.com/facebook/rebound</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_rebound_classPath">com.facebook.rebound.Spring</string>
+    <!-- License section -->
+    <string name="library_rebound_licenseId">bsd_2</string>
+    <!-- Custom variables section -->
+</resources>

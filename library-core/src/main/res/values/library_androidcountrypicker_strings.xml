@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_androidcountrypicker"></string>
+    <!-- Author section -->
+    <string name="library_androidcountrypicker_author">Roomorama</string>
+    <string name="library_androidcountrypicker_authorWebsite">http://roomorama.com</string>
+    <!-- Library section -->
+    <string name="library_androidcountrypicker_libraryName">AndroidCountryPicker</string>
+    <string name="library_androidcountrypicker_libraryDescription">CountryPicker is a simple fragment that can be embedded or shown as dialog. See the example
+        to see more detail.
+    </string>
+    <string name="library_androidcountrypicker_libraryWebsite">https://github.com/roomorama/AndroidCountryPicker</string>
+    <string name="library_androidcountrypicker_libraryVersion"></string>
+    <!-- OpenSource section -->
+    <string name="library_androidcountrypicker_isOpenSource">true</string>
+    <string name="library_androidcountrypicker_repositoryLink">https://github.com/roomorama/AndroidCountryPicker</string>
+    <string name="library_androidcountrypicker_classPath">com.countrypicker.CountryPicker</string>
+    <!-- License section -->
+    <string name="library_androidcountrypicker_licenseId">mit</string>
+    <!-- Custom variables section -->
+</resources>

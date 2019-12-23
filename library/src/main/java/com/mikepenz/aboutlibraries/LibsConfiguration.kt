@@ -26,7 +26,7 @@ class LibsConfiguration private constructor() {
 
     var itemAnimator: RecyclerView.ItemAnimator? = null
 
-    var libTaskCallback: LibTaskCallback? = null
+    var libTaskCallback: com.mikepenz.aboutlibraries.LibTaskCallback? = null
 
     fun removeListener() {
         this.listener = null
@@ -166,7 +166,6 @@ class LibsConfiguration private constructor() {
 
     abstract class LibsListenerImpl : LibsListener {
         override fun onIconClicked(v: View) {
-
         }
 
         override fun onLibraryAuthorClicked(v: View, library: Library): Boolean {

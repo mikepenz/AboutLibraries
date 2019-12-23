@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_int_dynamicrecyclerview"></string>
+	<!-- Author section -->
+	<string name="library_dynamicrecyclerview_author">ismoli</string>
+	<string name="library_dynamicrecyclerview_authorWebsite">https://github.com/ismoli</string>
+	<!-- Library section -->
+	<string name="library_dynamicrecyclerview_libraryName">DynamicRecyclerView</string>
+	<string name="library_dynamicrecyclerview_libraryDescription">Set of light and non-invasive extensions for Android RecyclerView widget. Does not use custom RecyclerView or LayoutManager. With this extensions you can create RecyclerView with following features:</string>
+	<string name="library_dynamicrecyclerview_libraryWebsite">https://github.com/ismoli/DynamicRecyclerView</string>
+	<string name="library_dynamicrecyclerview_libraryVersion"></string>
+	<!-- OpenSource section -->
+	<string name="library_dynamicrecyclerview_isOpenSource">true</string>
+	<string name="library_dynamicrecyclerview_repositoryLink">https://github.com/ismoli/DynamicRecyclerView</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_dynamicrecyclerview_classPath">com.du.android.recyclerview. RecyclerViewAdapter</string>
+	<!-- License section -->
+	<string name="library_dynamicrecyclerview_licenseId">apache_2_0</string>
+	<!-- Custom variables section -->
+</resources>

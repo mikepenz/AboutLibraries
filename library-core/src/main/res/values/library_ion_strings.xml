@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_ion"></string>
+    <!-- Author section -->
+    <string name="library_ion_author">Koushik Dutta</string>
+    <string name="library_ion_authorWebsite">http://koush.com/</string>
+    <!-- Library section -->
+    <string name="library_ion_libraryName">Ion</string>
+    <string name="library_ion_libraryDescription">Android Asynchronous Networking and Image Loading Library</string>
+    <string name="library_ion_libraryWebsite">https://github.com/koush/ion</string>
+    <string name="library_ion_libraryVersion">1.3.8</string>
+    <!-- OpenSource section -->
+    <string name="library_ion_isOpenSource">true</string>
+    <string name="library_ion_repositoryLink">https://github.com/koush/ion</string>
+    <string name="library_ion_classPath">com.koushikdutta.ion.Ion</string>
+    <!-- License section -->
+    <string name="library_ion_licenseId">apache_2_0</string>
+    <!-- Custom variables section -->
+</resources>

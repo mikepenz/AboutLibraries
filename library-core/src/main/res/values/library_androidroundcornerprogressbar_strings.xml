@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_int_androidroundcornerprogressbar"></string>
+	<!-- Author section -->
+	<string name="library_androidroundcornerprogressbar_author">Akexorcist</string>
+	<string name="library_androidroundcornerprogressbar_authorWebsite">http://www.akexorcist.com/</string>
+	<!-- Library section -->
+	<string name="library_androidroundcornerprogressbar_libraryName">Android-RoundCornerProgressBar</string>
+	<string name="library_androidroundcornerprogressbar_libraryDescription">Colorful progress bar with round corner on progress which you can customized a color and corner radius. A library has two type of progress bar.</string>
+	<string name="library_androidroundcornerprogressbar_libraryWebsite">https://github.com/akexorcist/Android-RoundCornerProgressBar</string>
+	<string name="library_androidroundcornerprogressbar_libraryVersion"></string>
+	<!-- OpenSource section -->
+	<string name="library_androidroundcornerprogressbar_isOpenSource">true</string>
+	<string name="library_androidroundcornerprogressbar_repositoryLink">https://github.com/akexorcist/Android-RoundCornerProgressBar</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_androidroundcornerprogressbar_classPath">com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar</string>
+	<!-- License section -->
+	<string name="library_androidroundcornerprogressbar_licenseId">apache_2_0</string>
+	<!-- Custom variables section -->
+</resources>

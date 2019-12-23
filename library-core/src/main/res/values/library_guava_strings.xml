@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_guava"></string>
+    <!-- Author section -->
+    <string name="library_guava_author">Google</string>
+    <string name="library_guava_authorWebsite">https://code.google.com/p/guava-libraries/</string>
+    <!-- Library section -->
+    <string name="library_guava_libraryName">Guava</string>
+    <string name="library_guava_libraryDescription">The Guava project contains several of Google\'s core libraries that we rely on in our Java-based projects:
+        collections, caching, primitives support, concurrency libraries, common annotations, string processing, I/O, and so forth.
+    </string>
+    <string name="library_guava_libraryWebsite">https://code.google.com/p/guava-libraries/</string>
+    <string name="library_guava_libraryVersion">18.0</string>
+    <!-- OpenSource section -->
+    <string name="library_guava_isOpenSource">true</string>
+    <string name="library_guava_repositoryLink">https://code.google.com/p/guava-libraries/</string>
+    <!-- ClassPath for autoDetect -->
+    <string name="library_guava_classPath">com.google.common.collect.HashMultimap</string>
+    <!-- License section -->
+    <string name="library_guava_licenseId">apache_2_0</string>
+    <!-- Custom variables section -->
+</resources>
