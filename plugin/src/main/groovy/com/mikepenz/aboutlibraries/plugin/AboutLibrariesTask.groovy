@@ -2,7 +2,6 @@ package com.mikepenz.aboutlibraries.plugin
 
 import com.android.build.gradle.internal.ide.dependencies.ArtifactUtils
 import com.android.build.gradle.internal.ide.dependencies.BuildMappingUtils
-import com.android.build.gradle.internal.ide.dependencies.ResolvedArtifact
 import com.android.build.gradle.internal.pipeline.TransformManager
 import com.android.build.gradle.internal.publishing.AndroidArtifacts
 import com.android.build.gradle.internal.scope.VariantScopeImpl
@@ -36,34 +35,28 @@ public class AboutLibrariesTask extends DefaultTask {
         def globalScope = android.globalScope
         def gradle = project.gradle
 
-        def deps = new HashSet<ResolvedArtifact>()
+        // get all the componentIdentifiers from the artifacts
+        def componentIdentifiers = new HashSet<ComponentIdentifier>()
         project.android.applicationVariants.all { variant ->
-            def set = ArtifactUtils.getAllArtifacts(
+            ArtifactUtils.getAllArtifacts(
                     new VariantScopeImpl(globalScope, new TransformManager(project, null, null), variant.variantData),
                     AndroidArtifacts.ConsumedConfigType.RUNTIME_CLASSPATH,
                     null,
                     BuildMappingUtils.computeBuildMapping(gradle)
-            )
+            ).eachWithIndex { artifact, idx ->
+                // log all dependencies
+                // val componentIdentifier = artifact.componentIdentifier
+                // if (componentIdentifier.displayName.contains(':')) {
+                //     println "${idx} : ${componentIdentifier.displayName}"
+                // } else {
+                //     println "${idx} -> ${artifact.artifactFile}"
+                // }
 
-            println "${variant.name.capitalize()} all dependencies.size=${set.size()}"
-            set.eachWithIndex { artifact, idx ->
-                deps.add(artifact)
+                componentIdentifiers.add(artifact.componentIdentifier)
             }
         }
 
-        // get all the componentIdentifiers from the artifacts
-        def componentIdentifiers = new HashSet<ComponentIdentifier>()
-        deps.eachWithIndex { artifact, idx ->
-            def componentIdentifier = artifact.componentIdentifier
-            componentIdentifiers.add(componentIdentifier)
-            // log all dependencies
-            // if (componentIdentifier.displayName.contains(':')) {
-            //     println "${idx} : ${componentIdentifier.displayName}"
-            // } else {
-            //     println "${idx} -> ${artifact.artifactFile}"
-            // }
-        }
-
+        println "All dependencies.size=${componentIdentifiers.size()}"
 
         def result = project.dependencies.createArtifactResolutionQuery()
                 .forComponents(componentIdentifiers)
@@ -86,6 +79,12 @@ public class AboutLibrariesTask extends DefaultTask {
         def artifactPom = new XmlSlurper().parseText(artifact.file.getText('UTF-8'))
 
         def uniqueId = fixIdentifier(artifactPom.groupId) + "__" + fixIdentifier(artifactPom.artifactId)
+
+        // check if we shall skip this specific uniqueId
+        if (shouldSkip(uniqueId)) {
+            return
+        }
+
         // generate a unique ID for the library
         def author = fixAuthor(fixString(artifactPom.developers.developer.name))
         // get the author from the pom
@@ -146,14 +145,14 @@ public class AboutLibrariesTask extends DefaultTask {
     /**
      * Ensures no invalid chars stay in the identifier
      */
-    private static def fixIdentifier(Object value) {
+    static def fixIdentifier(Object value) {
         return fixString(value).replace(".", "_").replace("-", "_")
     }
 
     /**
      * Ensures all characters necessary are escaped
      */
-    private static def fixString(Object value) {
+    static def fixString(Object value) {
         if (value != null) {
             return value.toString().replace("\"", "\\\"").replace("'", "\\'")
         } else {
@@ -164,7 +163,7 @@ public class AboutLibrariesTask extends DefaultTask {
     /**
      * Ensures the author name is not too long (for known options)
      */
-    private static def fixAuthor(String value) {
+    static def fixAuthor(String value) {
         if (value == "The Android Open Source Project") {
             return "AOSP"
         } else {
@@ -175,7 +174,7 @@ public class AboutLibrariesTask extends DefaultTask {
     /**
      * Ensures and applies fixes to the library names (shorten, ...)
      */
-    private static def fixLibraryName(String uniqueId, String value) {
+    static def fixLibraryName(String uniqueId, String value) {
         if (uniqueId == "androidx_savedstate__savedstate") {
             return "SavedState"
         } else if (value.startsWith("Android Support Library")) {
@@ -192,7 +191,7 @@ public class AboutLibrariesTask extends DefaultTask {
     /**
      * Ensures and applies fixes to the library names (shorten, ...)
      */
-    private static def resolveLicenseId(String uniqueId, String name, String url) {
+    static def resolveLicenseId(String uniqueId, String name, String url) {
         if (name.contains("Apache") && url.endsWith("LICENSE-2.0.txt")) {
             return "apache_2_0"
         } else {
@@ -205,8 +204,16 @@ public class AboutLibrariesTask extends DefaultTask {
     /**
      * Checks if the given string is empty
      */
-    private static def checkEmpty(String value) {
+    static def checkEmpty(String value) {
         return value != null && value != ""
+    }
+
+    /**
+     * Skip libraries which have a core dependency and we don't want it to show up more than necessary
+     */
+    static def shouldSkip(String uniqueId) {
+        return uniqueId == "com_mikepenz__aboutlibraries" ||
+                uniqueId == "com_mikepenz__aboutlibraries_definitions"
     }
 
     @TaskAction

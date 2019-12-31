@@ -57,7 +57,7 @@ bintray {
     key = project.hasProperty('bintray.apikey') ? project.property('bintray.apikey') : System.getenv('BINTRAY_API_KEY')
     def gpgkey = project.hasProperty('bintray.gpg.key') ? project.property('bintray.gpg.key') : System.getenv('BINTRAY_GPG_KEY')
     def gpgpass = project.hasProperty('bintray.gpg.password') ? project.property('bintray.gpg.password') : System.getenv('BINTRAY_GPG_PASS')
-    def versionName = project.release.versionName
+    def versionName = project.version
 
     pkg {
         publish = true
