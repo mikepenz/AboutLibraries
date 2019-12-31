@@ -44,20 +44,43 @@ You can find anything you search for in the wiki. (If not open an issue)
 [Bring me to the wiki](https://github.com/mikepenz/AboutLibraries/wiki)
 
 
-## Include in your project
-### Using Maven
-The AboutLibraries Library is pushed to [Maven Central](http://search.maven.org/#search|ga|1|g%3A%22com.mikepenz%22), so you just need to add the following dependency to your `build.gradle`. It seems it is also required to add the support dependencies to the application. If it works without, you should be fine too :).
+# Include in your project
 
-#### CORE module
+## Latest releases
+
+- Kotlin && Gradle Plugin | [v8.0.0-a01](https://github.com/mikepenz/FastAdapter/tree/v8.0.0-a01)
+- Kotlin | [v7.1.0](https://github.com/mikepenz/FastAdapter/tree/v7.1.0)
+- Java && AndroidX | [v6.2.3](https://github.com/mikepenz/FastAdapter/tree/v6.2.3)
+- Java && AppCompat | [v6.1.1](https://github.com/mikepenz/FastAdapter/tree/v6.1.1)
+
+## Gradle Plugin
+
+As a new feature of the AboutLibraries v8.x.y we offer a gradle plugin which will resolve the dependency during compilation, and only includes the libraries which are really specified as dependencies.
 
 ```javascript
-implementation "com.mikepenz:aboutlibraries-core:7.1.0"
+// Root build.gradle
+maven {
+    url uri('https://dl.bintray.com/mikepenz/gradle-plugins/') // TODO wait for approval in jCenter
+}
+classpath "com.mikepenz.aboutlibraries.plugin:aboutlibraries-plugin:0.1.1"
+
+// App build.gradle
+apply plugin: 'aboutlibraries-plugin'
 ```
 
-#### UI module
+## Using Maven
+The AboutLibraries Library is pushed to [Maven Central](http://search.maven.org/#search|ga|1|g%3A%22com.mikepenz%22).
+
+## CORE module
 
 ```javascript
-implementation "com.mikepenz:aboutlibraries:7.1.0"
+implementation "com.mikepenz:aboutlibraries-core:${latestAboutLibsRelease}"
+```
+
+## UI module
+
+```javascript
+implementation "com.mikepenz:aboutlibraries:${latestAboutLibsRelease}"
 
 //required support lib modules
 implementation "androidx.appcompat:appcompat:${versions.appcompat | 1.x.y}"
@@ -66,16 +89,20 @@ implementation "androidx.recyclerview:recyclerview:${versions.recyclerview | 1.1
 implementation "com.google.android.material:material:${versions.material | 1.1.y}"
 ```
 
-To use java version please use a version smaller than 7.0.0 (See the release on GitHub)
-To use appcompat please use a version smaller than 6.2.0. (See the releases on GitHub)
+## WITHOUT gradle plugin
 
-Further information and how to use it if you can't update to the newest support libs can be found in the [wiki](https://github.com/mikepenz/AboutLibraries/wiki/HOWTO:-Include)
+If you do not want to use the gradle plugin, you need to add the legacy definition files, which will then be included in the built apk, and resolved via reflection during runtime.
+> NOTE: This is not recommended. Please migrate to use the gradle plugin
 
-## Usage
+```javascript
+implementation "com.mikepenz:aboutlibraries:${latestAboutLibsRelease}"
+```
+
+# Usage
 You can use this library in a few different ways. You can create your own activity, including a custom style and just use the information, or you can use the built-in Activity or Fragment and just pass the libs you would love to include.
 
 ### Upgrade Notes
-> If you upgrade from < 5.9.5 follow the [MIGRATION GUIDE](https://github.com/mikepenz/AboutLibraries/blob/develop/MIGRATION.md)
+> If you upgrade from < 8.x.y follow the [MIGRATION GUIDE](https://github.com/mikepenz/AboutLibraries/blob/develop/MIGRATION.md)
 
 ### Activity / Fragment
 #### Fragment

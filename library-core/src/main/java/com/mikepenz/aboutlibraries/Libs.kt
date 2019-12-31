@@ -13,6 +13,7 @@ import kotlin.collections.ArrayList
 
 public class Libs(context: Context, fields: Array<String> = context.getFields()) {
 
+    private var usedGradlePlugin = false
     private val internLibraries = ArrayList<Library>()
     private val externLibraries = ArrayList<Library>()
     private val licenses = ArrayList<License>()
@@ -65,11 +66,13 @@ public class Libs(context: Context, fields: Array<String> = context.getFields())
         val foundLicenseIdentifiers = ArrayList<String>()
         val foundInternalLibraryIdentifiers = ArrayList<String>()
         val foundExternalLibraryIdentifiers = ArrayList<String>()
+        val foundPluginLibraryIdentifiers = ArrayList<String>()
 
         for (field in fields) {
             when {
                 field.startsWith(DEFINE_LICENSE) -> foundLicenseIdentifiers.add(field.replace(DEFINE_LICENSE, ""))
                 field.startsWith(DEFINE_INT) -> foundInternalLibraryIdentifiers.add(field.replace(DEFINE_INT, ""))
+                field.startsWith(DEFINE_PLUGIN) -> foundPluginLibraryIdentifiers.add(field.replace(DEFINE_PLUGIN, ""))
                 field.startsWith(DEFINE_EXT) -> foundExternalLibraryIdentifiers.add(field.replace(DEFINE_EXT, ""))
             }
         }
@@ -82,21 +85,36 @@ public class Libs(context: Context, fields: Array<String> = context.getFields())
                 licenses.add(license)
             }
         }
-        //add internal libs
-        for (internalIdentifier in foundInternalLibraryIdentifiers) {
-            val library = genLibrary(context, internalIdentifier)
+
+        //add plugin libs
+        for (pluginLibraryIdentifier in foundPluginLibraryIdentifiers) {
+            val library = genLibrary(context, pluginLibraryIdentifier)
             if (library != null) {
-                library.isInternal = true
-                internLibraries.add(library)
+                library.isInternal = false
+                library.isPlugin = true
+                externLibraries.add(library)
+                usedGradlePlugin = true
             }
         }
 
-        //add external libs
-        for (externalIdentifier in foundExternalLibraryIdentifiers) {
-            val library = genLibrary(context, externalIdentifier)
-            if (library != null) {
-                library.isInternal = false
-                externLibraries.add(library)
+        // if we used the gradle plugin to resolve libraries, only use those
+        if (foundPluginLibraryIdentifiers.isEmpty()) {
+            //add internal libs
+            for (internalIdentifier in foundInternalLibraryIdentifiers) {
+                val library = genLibrary(context, internalIdentifier)
+                if (library != null) {
+                    library.isInternal = true
+                    internLibraries.add(library)
+                }
+            }
+
+            //add external libs
+            for (externalIdentifier in foundExternalLibraryIdentifiers) {
+                val library = genLibrary(context, externalIdentifier)
+                if (library != null) {
+                    library.isInternal = false
+                    externLibraries.add(library)
+                }
             }
         }
     }
@@ -116,7 +134,7 @@ public class Libs(context: Context, fields: Array<String> = context.getFields())
         val libraries = HashMap<String, Library>()
         val resultLibraries = ArrayList<Library>()
 
-        if (autoDetect) {
+        if (!usedGradlePlugin && autoDetect) {
             val autoDetected = getAutoDetectedLibraries(ctx, checkCachedDetection)
             resultLibraries.addAll(autoDetected)
 
@@ -137,7 +155,7 @@ public class Libs(context: Context, fields: Array<String> = context.getFields())
             }
         }
 
-        //Now add all libs which do not contains the info file, but are in the AboutLibraries lib
+        //Now add all libs which do not contain the info file, but are in the AboutLibraries lib
         if (internalLibraries.isNotEmpty()) {
             for (internalLibrary in internalLibraries) {
                 val lib = getLibrary(internalLibrary)
@@ -425,6 +443,8 @@ public class Libs(context: Context, fields: Array<String> = context.getFields())
         var customVariablesString = ctx.getStringResourceByName(DEFINE_EXT + libraryName)
         if (customVariablesString.isBlank()) {
             customVariablesString = ctx.getStringResourceByName(DEFINE_INT + libraryName)
+        } else if (customVariablesString.isBlank()) {
+            customVariablesString = ctx.getStringResourceByName(DEFINE_PLUGIN + libraryName)
         }
 
         if (customVariablesString.isNotEmpty()) {
@@ -539,6 +559,7 @@ public class Libs(context: Context, fields: Array<String> = context.getFields())
 
         private const val DEFINE_LICENSE = "define_license_"
         private const val DEFINE_INT = "define_int_"
+        private const val DEFINE_PLUGIN = "define_plu_"
         internal const val DEFINE_EXT = "define_"
 
         private const val DELIMITER = ";"

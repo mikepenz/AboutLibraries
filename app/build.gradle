@@ -1,6 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: "aboutlibraries-plugin"
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'aboutlibraries-plugin'
+
 //wrap with try and catch so the build is working even if the signing stuff is missing
 try {
     apply from: '../../../signing.gradle'
@@ -61,7 +63,6 @@ android {
 
 dependencies {
     implementation project(':library')
-    implementation project(':library-definitions')
 
     implementation "com.google.android.material:material:${versions.material}"
     implementation "androidx.appcompat:appcompat:${versions.appcompat}"

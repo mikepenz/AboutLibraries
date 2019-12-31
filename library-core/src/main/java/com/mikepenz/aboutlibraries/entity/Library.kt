@@ -4,6 +4,7 @@ package com.mikepenz.aboutlibraries.entity
 data class Library(
         var definedName: String,
         var isInternal: Boolean = false,
+        var isPlugin: Boolean = false,
 
         var libraryName: String,
         var author: String = "",
