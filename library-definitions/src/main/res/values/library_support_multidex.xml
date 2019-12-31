@@ -9,7 +9,7 @@
     <string name="library_multidex_libraryName">MultiDex</string>
     <string name="library_multidex_libraryDescription">MultiDex patches the application context class loader in order to load classes from more than one dex file.</string>
     <string name="library_multidex_libraryWebsite">https://developer.android.com/reference/android/support/multidex/MultiDex.html</string>
-    <string name="library_multidex_libraryVersion">@string/ext_support_lib_version</string>
+    <string name="library_multidex_libraryVersion">28.0.0</string>
     <!-- OpenSource section -->
     <string name="library_multidex_isOpenSource">true</string>
     <string name="library_multidex_repositoryLink"></string>

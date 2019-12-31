@@ -9,7 +9,7 @@
     <string name="library_support_cardview_libraryName">CardView</string>
     <string name="library_support_cardview_libraryDescription">A FrameLayout with a rounded corner background and shadow.</string>
     <string name="library_support_cardview_libraryWebsite">https://developer.android.com/reference/android/support/v7/widget/CardView.html</string>
-    <string name="library_support_cardview_libraryVersion">@string/ext_support_lib_version</string>
+    <string name="library_support_cardview_libraryVersion">28.0.0</string>
     <!-- OpenSource section -->
     <string name="library_support_cardview_isOpenSource">true</string>
     <string name="library_support_cardview_repositoryLink"></string>

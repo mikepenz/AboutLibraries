@@ -73,7 +73,8 @@ public class AboutLibrariesTask extends DefaultTask {
         outputFile.write("<resources>\n") // open
         for (component in result.resolvedComponents) {
             component.getArtifacts(MavenPomArtifact).each {
-                println "POM file for ${component.id}: ${it.file.getText('UTF-8')}"
+                // log the pom files content
+                // println "POM file for ${component.id}: ${it.file.getText('UTF-8')}"
                 writeDependency(component.id, it)
             }
         }

@@ -11,9 +11,6 @@ android {
         targetSdkVersion setup.targetSdk
         versionCode release.versionCode
         versionName release.versionName
-
-        resValue "string", "aboutlibrary_lib_version", "${versionName}"
-        resValue "string", "ext_support_lib_version", "${versions.androidX}"
     }
 
     buildTypes {

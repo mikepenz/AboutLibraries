@@ -9,7 +9,7 @@
     <string name="library_support_gridlayout_libraryName">GridLayout</string>
     <string name="library_support_gridlayout_libraryDescription">A layout that places its children in a rectangular grid.  The grid is composed of a set of infinitely thin lines that separate the viewing area into cells.</string>
     <string name="library_support_gridlayout_libraryWebsite">https://developer.android.com/reference/android/widget/GridLayout.html</string>
-    <string name="library_support_gridlayout_libraryVersion">@string/ext_support_lib_version</string>
+    <string name="library_support_gridlayout_libraryVersion">28.0.0</string>
     <!-- OpenSource section -->
     <string name="library_support_gridlayout_isOpenSource">true</string>
     <string name="library_support_gridlayout_repositoryLink"></string>
