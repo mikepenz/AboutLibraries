@@ -1,5 +1,6 @@
 plugins {
     id 'nu.studer.plugindev' version '1.0.12'
+    id "com.gradle.plugin-publish" version "0.10.1"
 }
 apply plugin: 'groovy'
 apply plugin: 'java'
@@ -8,7 +9,7 @@ group = "com.mikepenz.aboutlibraries.plugin"
 version = "8.0.0-a02"
 
 plugindev {
-    pluginId "${project.group}:${project.name}"
+    pluginId "${project.group}"
     pluginImplementationClass "${project.group}.AboutLibrariesPlugin"
     pluginName 'AboutLibraries Library Gradle Plugin'
     pluginDescription 'Plugin to resolve all libraries used in an app for the AboutLibraries library to offer relevant information of used libraries.'
@@ -20,6 +21,20 @@ plugindev {
     projectUrl 'https://github.com/mikepenz/AboutLibraries'
     projectInceptionYear '2020'
     done() // do not omit this
+}
+
+pluginBundle {
+    website = 'https://github.com/mikepenz/AboutLibraries'
+    vcsUrl = 'https://github.com/mikepenz/AboutLibraries'
+    description = 'Plugin to resolve all libraries used in an app for the AboutLibraries library to offer relevant information of used libraries.'
+    tags = ['gradle', 'plugin', 'android']
+
+    plugins {
+        aboutLibrariesPlugin {
+            id = "${project.group}"
+            displayName = 'AboutLibraries Library Gradle Plugin'
+        }
+    }
 }
 
 repositories {
