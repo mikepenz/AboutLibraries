@@ -129,9 +129,9 @@ class LibsFragmentCompat {
         override fun doInBackground(vararg strings: String) {
             //init the Libs instance with fields if they were set
             val libs: Libs = if (builder.fields.isEmpty()) {
-                Libs(ctx)
+                Libs(ctx, libraryEnchantments = builder.libraryEnchantment)
             } else {
-                Libs(ctx, builder.fields)
+                Libs(ctx, builder.fields, builder.libraryEnchantment)
             }
 
             //fill the builder with the information

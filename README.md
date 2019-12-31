@@ -59,10 +59,7 @@ As a new feature of the AboutLibraries v8.x.y we offer a gradle plugin which wil
 
 ```javascript
 // Root build.gradle
-maven {
-    url uri('https://dl.bintray.com/mikepenz/gradle-plugins/') // TODO wait for approval in jCenter
-}
-classpath "com.mikepenz.aboutlibraries.plugin:aboutlibraries-plugin:0.1.1"
+classpath "com.mikepenz.aboutlibraries.plugin:aboutlibraries-plugin:${latestAboutLibsRelease}"
 
 // App build.gradle
 apply plugin: 'aboutlibraries-plugin'

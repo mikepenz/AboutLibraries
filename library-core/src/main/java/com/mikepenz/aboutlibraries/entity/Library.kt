@@ -23,4 +23,23 @@ data class Library(
     override fun compareTo(other: Library): Int {
         return libraryName.compareTo(other.libraryName, ignoreCase = true)
     }
+
+    private fun ifNotEmpty(receiver: String): String? {
+        return if (receiver.isEmpty()) null else receiver
+    }
+
+    /**
+     * transfers the information from one to the other, if set
+     */
+    fun enchantBy(enchantWith: Library) {
+        libraryName = ifNotEmpty(enchantWith.libraryName) ?: libraryName
+        author = ifNotEmpty(enchantWith.author) ?: author
+        authorWebsite = ifNotEmpty(enchantWith.authorWebsite) ?: authorWebsite
+        libraryDescription = ifNotEmpty(enchantWith.libraryDescription) ?: libraryDescription
+        libraryVersion = ifNotEmpty(enchantWith.libraryVersion) ?: libraryVersion
+        libraryWebsite = ifNotEmpty(enchantWith.libraryWebsite) ?: libraryWebsite
+        license = enchantWith.license ?: license
+        isOpenSource = enchantWith.isOpenSource
+        repositoryLink = ifNotEmpty(enchantWith.repositoryLink) ?: repositoryLink
+    }
 }

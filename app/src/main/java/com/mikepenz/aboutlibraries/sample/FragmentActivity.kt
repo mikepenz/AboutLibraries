@@ -151,7 +151,9 @@ class FragmentActivity : AppCompatActivity() {
         val fragment = LibsBuilder()
                 .withVersionShown(false)
                 .withLicenseShown(true)
-                .withLibraryModification("aboutlibraries", Libs.LibraryFields.LIBRARY_NAME, "_AboutLibraries")
+                // find ids via './gradlew findLibraries'
+                .withLibraryModification("androidx_activity__activity", Libs.LibraryFields.LIBRARY_NAME, "Activity Support")
+                .withLibraryEnchantment("com_mikepenz__fastadapter", "fastadapter")
                 .supportFragment()
 
         val fragmentManager = supportFragmentManager

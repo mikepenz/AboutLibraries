@@ -60,6 +60,7 @@ class LibsBuilder : Serializable {
     var libTaskExecutor = LibTaskExecutor.DEFAULT_EXECUTOR
 
     val libraryModification: HashMap<String, HashMap<String, String>> = HashMap()
+    val libraryEnchantment: HashMap<String, String> = HashMap()
 
     var ownLibsActivityClass: Class<*> = LibsActivity::class.java
 
@@ -375,6 +376,18 @@ class LibsBuilder : Serializable {
     }
 
     /**
+     * Builder method to enchant specific libraries. NOTE: This will overwrite the original values
+     *
+     * @param library           the library to be modified
+     * @param enchantWith       the library id to use for enchanting the library id
+     * @return this
+     */
+    fun withLibraryEnchantment(library: String, enchantWith: String): LibsBuilder {
+        this.libraryEnchantment[library] = enchantWith
+        return this
+    }
+
+    /**
      * Builder method to modify specific libraries. NOTE: This will overwrite any modifications with the helper methods
      *
      * @param libraryModification an HashMap identified by libraryID containing an HashMap with the modifications identified by elementID.
@@ -488,8 +501,6 @@ class LibsBuilder : Serializable {
     /*
      * START OF THE FINAL METHODS
      */
-
-
     private fun preCheck() {
         if (fields.isEmpty()) {
             Log.w("AboutLibraries", "Have you missed to call withFields(R.string.class.getFields())? - autoDetect won't work - https://github.com/mikepenz/AboutLibraries/wiki/HOWTO:-Fragment")
@@ -504,9 +515,9 @@ class LibsBuilder : Serializable {
      */
     fun adapter(context: Context): FastAdapter<*> {
         val libs: Libs = if (fields.isEmpty()) {
-            Libs(context)
+            Libs(context, libraryEnchantments = libraryEnchantment)
         } else {
-            Libs(context, fields)
+            Libs(context, fields, libraryEnchantment)
         }
 
         //apply modifications

@@ -11,7 +11,11 @@ import com.mikepenz.aboutlibraries.util.*
 import java.util.*
 import kotlin.collections.ArrayList
 
-public class Libs(context: Context, fields: Array<String> = context.getFields()) {
+public class Libs(
+        context: Context,
+        fields: Array<String> = context.getFields(),
+        libraryEnchantments: HashMap<String, String> = HashMap()
+) {
 
     private var usedGradlePlugin = false
     private val internLibraries = ArrayList<Library>()
@@ -94,6 +98,14 @@ public class Libs(context: Context, fields: Array<String> = context.getFields())
                 library.isPlugin = true
                 externLibraries.add(library)
                 usedGradlePlugin = true
+
+                val enchantWithKey = libraryEnchantments[pluginLibraryIdentifier]
+                if (enchantWithKey != null) {
+                    val enchantWith = genLibrary(context, enchantWithKey)
+                    if (enchantWith != null) {
+                        library.enchantBy(enchantWith)
+                    }
+                }
             }
         }
 

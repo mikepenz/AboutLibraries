@@ -30,10 +30,7 @@ buildscript {
     repositories {
         google()
         jcenter()
-        maven {
-            // url uri('/tmp/sample')
-            url uri('https://dl.bintray.com/mikepenz/gradle-plugins/') // TODO wait for approval in jCenter
-        }
+        //maven { url uri('/tmp/sample') }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.0.0-alpha07'
@@ -41,7 +38,7 @@ buildscript {
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:${versions.detekt}"
-        classpath "com.mikepenz.aboutlibraries.plugin:aboutlibraries-plugin:0.1.1"
+        classpath "com.mikepenz.aboutlibraries.plugin:aboutlibraries-plugin:${release.versionName}"
     }
 }
 
