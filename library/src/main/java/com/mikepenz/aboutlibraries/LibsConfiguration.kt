@@ -4,6 +4,7 @@ package com.mikepenz.aboutlibraries
 
 import android.view.View
 import android.view.animation.LayoutAnimationController
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.ui.item.HeaderItem
@@ -26,7 +27,9 @@ class LibsConfiguration private constructor() {
 
     var itemAnimator: RecyclerView.ItemAnimator? = null
 
-    var libTaskCallback: com.mikepenz.aboutlibraries.LibTaskCallback? = null
+    var libTaskCallback: LibTaskCallback? = null
+
+    var postTextAction: ((TextView) -> Unit)? = null
 
     fun removeListener() {
         this.listener = null

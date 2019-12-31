@@ -1,6 +1,5 @@
 package com.mikepenz.aboutlibraries.ui.item
 
-import android.content.Context
 import android.graphics.drawable.Drawable
 import android.text.Html
 import android.text.TextUtils
@@ -18,8 +17,6 @@ import com.mikepenz.aboutlibraries.R
 import com.mikepenz.aboutlibraries.util.MovementCheck
 import com.mikepenz.aboutlibraries.util.getThemeColorFromAttrOrRes
 import com.mikepenz.fastadapter.items.AbstractItem
-import com.mikepenz.iconics.Iconics
-
 
 /**
  * Created by mikepenz on 28.12.15.
@@ -108,7 +105,7 @@ class HeaderItem(var libsBuilder: LibsBuilder) : AbstractItem<HeaderItem.ViewHol
         // set the values for the special fields
         if (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial1) && (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial1Description) || LibsConfiguration.instance.listener != null)) {
             holder.aboutSpecial1.text = libsBuilder.aboutAppSpecial1
-            Iconics.Builder().ctx(ctx).on(holder.aboutSpecial1).build()
+            LibsConfiguration.instance.postTextAction?.invoke(holder.aboutSpecial1)
             holder.aboutSpecial1.visibility = View.VISIBLE
             holder.aboutSpecial1.setOnClickListener { v ->
                 val consumed = LibsConfiguration.instance.listener?.onExtraClicked(v, Libs.SpecialButton.SPECIAL1)
@@ -133,7 +130,7 @@ class HeaderItem(var libsBuilder: LibsBuilder) : AbstractItem<HeaderItem.ViewHol
         }
         if (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial2) && (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial2Description) || LibsConfiguration.instance.listener != null)) {
             holder.aboutSpecial2.text = libsBuilder.aboutAppSpecial2
-            Iconics.Builder().ctx(ctx).on(holder.aboutSpecial2).build()
+            LibsConfiguration.instance.postTextAction?.invoke(holder.aboutSpecial2)
             holder.aboutSpecial2.visibility = View.VISIBLE
             holder.aboutSpecial2.setOnClickListener { v ->
                 val consumed = LibsConfiguration.instance.listener?.onExtraClicked(v, Libs.SpecialButton.SPECIAL2)
@@ -157,7 +154,7 @@ class HeaderItem(var libsBuilder: LibsBuilder) : AbstractItem<HeaderItem.ViewHol
         }
         if (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial3) && (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial3Description) || LibsConfiguration.instance.listener != null)) {
             holder.aboutSpecial3.text = libsBuilder.aboutAppSpecial3
-            Iconics.Builder().ctx(ctx).on(holder.aboutSpecial3).build()
+            LibsConfiguration.instance.postTextAction?.invoke(holder.aboutSpecial3)
             holder.aboutSpecial3.visibility = View.VISIBLE
             holder.aboutSpecial3.setOnClickListener { v ->
                 val consumed = LibsConfiguration.instance.listener?.onExtraClicked(v, Libs.SpecialButton.SPECIAL3)
@@ -199,7 +196,7 @@ class HeaderItem(var libsBuilder: LibsBuilder) : AbstractItem<HeaderItem.ViewHol
         //Set the description or hide it
         if (!libsBuilder.aboutDescription.isNullOrEmpty()) {
             holder.aboutAppDescription.text = Html.fromHtml(libsBuilder.aboutDescription)
-            Iconics.Builder().ctx(ctx).on(holder.aboutAppDescription).build()
+            LibsConfiguration.instance.postTextAction?.invoke(holder.aboutAppDescription)
             holder.aboutAppDescription.movementMethod = MovementCheck.instance
         } else {
             holder.aboutAppDescription.visibility = View.GONE
@@ -245,9 +242,4 @@ class HeaderItem(var libsBuilder: LibsBuilder) : AbstractItem<HeaderItem.ViewHol
             aboutDivider.setBackgroundColor(headerView.context.getThemeColorFromAttrOrRes(R.attr.about_libraries_dividerLight_openSource, R.color.about_libraries_dividerLight_openSource))
         }
     }
-}
-
-private fun Iconics.Builder.ctx(ctx: Context): Iconics.Builder {
-    Iconics.init(ctx)
-    return this
 }
