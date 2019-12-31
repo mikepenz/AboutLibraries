@@ -1,7 +1,7 @@
 buildscript {
     ext {
         release = [
-                versionName: "8.0.0-a01",
+                versionName: "8.0.0-a02",
                 versionCode: 80000
         ]
 
@@ -23,7 +23,7 @@ buildscript {
                 iconics         : "4.0.2",
                 detekt          : '1.0.1',
                 fastadapter     : "4.1.2",
-                materialdrawer  : "7.0.0-rc08"
+                materialdrawer  : "7.0.0"
         ]
     }
 
