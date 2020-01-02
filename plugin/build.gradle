@@ -46,7 +46,16 @@ dependencies {
     implementation gradleApi()
     implementation localGroovy()
     implementation "com.android.tools.build:gradle:4.0.0-alpha07"
-    //implementation "com.mikepenz:aboutlibraries-core:8.0.0-a01"
+}
+
+
+processResources {
+    from("../library-definitions/src/main/res/raw/") {
+        into 'static'
+    }
+    from("../library-definitions/src/main/res/values/") {
+        into 'values'
+    }
 }
 
 // generate zip file for android maven release tool
@@ -87,7 +96,7 @@ bintray {
             mavenCentralSync {
                 sync = false
                 user = hasProperty('NEXUS_USERNAME') ? NEXUS_USERNAME : ""
-                password =  hasProperty('NEXUS_PASSWORD') ? NEXUS_PASSWORD : ""
+                password = hasProperty('NEXUS_PASSWORD') ? NEXUS_PASSWORD : ""
             }
             gpg {
                 sign = true
