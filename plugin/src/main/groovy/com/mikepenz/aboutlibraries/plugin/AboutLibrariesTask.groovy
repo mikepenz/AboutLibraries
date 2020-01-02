@@ -19,6 +19,8 @@ public class AboutLibrariesTask extends DefaultTask {
 
     private File dependencies;
     private File outputFile;
+    static Map<String, String> customLicenseMappings = new HashMap<String, String>()
+    static Map<String, String> customNameMappings = new HashMap<String, String>()
 
     @OutputDirectory
     public File getDependencies() {
@@ -30,39 +32,41 @@ public class AboutLibrariesTask extends DefaultTask {
         this.outputFile = new File(dependencies, "aboutlibraries.xml")
     }
 
-    def gatherDependencies(def project) {
-        def android = project.android
-        def globalScope = android.globalScope
-        def gradle = project.gradle
+    def collectMappingDetails(targetMap, resourceName) {
+        def customMappingText = getClass().getResource(resourceName).getText('UTF-8')
+        customMappingText.eachLine {
+            def splitMapping = it.split(':')
+            targetMap.put(splitMapping[0], splitMapping[1])
+        }
+    }
 
+    def collectMappingDetails() {
+        collectMappingDetails(customLicenseMappings, '/static/custom_license_mappings.prop')
+        collectMappingDetails(customNameMappings, '/static/custom_name_mappings.prop')
+    }
+
+    def gatherDependencies(def project) {
         // get all the componentIdentifiers from the artifacts
         def componentIdentifiers = new HashSet<ComponentIdentifier>()
         project.android.applicationVariants.all { variant ->
             ArtifactUtils.getAllArtifacts(
-                    new VariantScopeImpl(globalScope, new TransformManager(project, null, null), variant.variantData),
+                    new VariantScopeImpl(project.android.globalScope, new TransformManager(project, null, null), variant.variantData),
                     AndroidArtifacts.ConsumedConfigType.RUNTIME_CLASSPATH,
                     null,
-                    BuildMappingUtils.computeBuildMapping(gradle)
+                    BuildMappingUtils.computeBuildMapping( project.gradle)
             ).eachWithIndex { artifact, idx ->
                 // log all dependencies
-                // val componentIdentifier = artifact.componentIdentifier
-                // if (componentIdentifier.displayName.contains(':')) {
-                //     println "${idx} : ${componentIdentifier.displayName}"
-                // } else {
-                //     println "${idx} -> ${artifact.artifactFile}"
-                // }
-
+                // println "${idx} : ${componentIdentifier.displayName}"
                 componentIdentifiers.add(artifact.componentIdentifier)
             }
         }
 
         println "All dependencies.size=${componentIdentifiers.size()}"
 
-        def result = project.dependencies.createArtifactResolutionQuery()
-                .forComponents(componentIdentifiers)
-                .withArtifacts(MavenModule, MavenPomArtifact)
-                .execute()
-
+        def result = project.dependencies.createArtifactResolutionQuery().forComponents(componentIdentifiers).withArtifacts(MavenModule, MavenPomArtifact).execute()
+        if (componentIdentifiers.size() > 0) {
+            collectMappingDetails()
+        }
         outputFile.write("<resources>\n", "UTF-8") // open
         for (component in result.resolvedComponents) {
             component.getArtifacts(MavenPomArtifact).each {
@@ -77,18 +81,15 @@ public class AboutLibrariesTask extends DefaultTask {
 
     def writeDependency(ComponentIdentifier component, ArtifactResult artifact) {
         def artifactPom = new XmlSlurper().parseText(artifact.file.getText('UTF-8'))
-
         def uniqueId = fixIdentifier(artifactPom.groupId) + "__" + fixIdentifier(artifactPom.artifactId)
-
         // check if we shall skip this specific uniqueId
         if (shouldSkip(uniqueId)) {
             return
         }
-
         // generate a unique ID for the library
-        def author = fixAuthor(fixString(artifactPom.developers.developer.name.toString()))
+        def author = fixAuthor(fixString(fixXmlSlurperArray(artifactPom.developers.developer.name)))
         // get the author from the pom
-        def authorWebsite = fixString(artifactPom.developers.developer.organizationUrl)
+        def authorWebsite = fixString(fixXmlSlurperArray(artifactPom.developers.developer.organizationUrl))
         // get the url for the author
         def libraryName = fixLibraryName(uniqueId, fixString(artifactPom.name))
         // get name of the library
@@ -150,6 +151,23 @@ public class AboutLibrariesTask extends DefaultTask {
     }
 
     /**
+     * Fix XmlSlurper array string
+     */
+    static def fixXmlSlurperArray(value) {
+        if (value != null) {
+            def delimiter = ""
+            def resultString = ""
+            for (item in value) {
+                resultString = resultString + delimiter + item.toString()
+                delimiter = ", "
+            }
+            return resultString
+        } else {
+            return null
+        }
+    }
+
+    /**
      * Ensures all characters necessary are escaped
      */
     static def fixString(Object value) {
@@ -175,8 +193,10 @@ public class AboutLibrariesTask extends DefaultTask {
      * Ensures and applies fixes to the library names (shorten, ...)
      */
     static def fixLibraryName(String uniqueId, String value) {
-        if (uniqueId == "androidx_savedstate__savedstate") {
-            return "SavedState"
+        if (customNameMappings.containsKey(uniqueId)) {
+            def customMapping = customNameMappings.get(uniqueId)
+            println("--> Had to resolve name from custom mapping for: ${uniqueId} as ${customMapping}")
+            return customMapping
         } else if (value.startsWith("Android Support Library")) {
             return value.replace("Android Support Library", "Support")
         } else if (value.startsWith("Android Support")) {
@@ -192,7 +212,11 @@ public class AboutLibrariesTask extends DefaultTask {
      * Ensures and applies fixes to the library names (shorten, ...)
      */
     static def resolveLicenseId(String uniqueId, String name, String url) {
-        if (name.contains("Apache") && url.endsWith("LICENSE-2.0.txt")) {
+        if (customLicenseMappings.containsKey(uniqueId)) {
+            def customMapping = customLicenseMappings.get(uniqueId)
+            println("--> Had to resolve license from custom mapping for: ${uniqueId} as ${customMapping}")
+            return customMapping
+        } else if (name.contains("Apache") && url.endsWith("LICENSE-2.0.txt")) {
             return "apache_2_0"
         } else if (name.contains("MIT License")) {
             return "mit"
@@ -215,8 +239,23 @@ public class AboutLibrariesTask extends DefaultTask {
      * Skip libraries which have a core dependency and we don't want it to show up more than necessary
      */
     static def shouldSkip(String uniqueId) {
-        return uniqueId == "com_mikepenz__aboutlibraries" ||
-                uniqueId == "com_mikepenz__aboutlibraries_definitions"
+        return uniqueId == "com_mikepenz__aboutlibraries" || uniqueId == "com_mikepenz__aboutlibraries_definitions"
+    }
+
+    /**
+     * Will convert some-thing-named to Some Thing Named
+     */
+    static def toProperNameString(String s){
+        String[] parts = s.split("-")
+        String camelCaseString = ""
+        for (String part : parts){
+            camelCaseString = camelCaseString + " " + toProperCase(part)
+        }
+        return camelCaseString
+    }
+
+    static def toProperCase(String s) {
+        return s.substring(0, 1).toUpperCase(Locale.US) + s.substring(1).toLowerCase(Locale.US)
     }
 
     @TaskAction
