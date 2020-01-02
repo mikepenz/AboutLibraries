@@ -36,10 +36,13 @@
 
         <TextView
             android:id="@+id/libraryCreator"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
+            android:ellipsize="end"
             android:gravity="end"
             android:maxLines="2"
             android:textSize="@dimen/textSizeSmall_openSource"
@@ -48,6 +51,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/libraryName"
             app:layout_constraintTop_toTopOf="@+id/libraryName"
+            app:layout_constraintWidth_max="wrap"
+            app:layout_constraintWidth_percent="0.3"
             tools:text="Creator" />
 
         <View
