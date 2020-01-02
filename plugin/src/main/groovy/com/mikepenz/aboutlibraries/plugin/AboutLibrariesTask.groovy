@@ -194,8 +194,10 @@ public class AboutLibrariesTask extends DefaultTask {
     static def resolveLicenseId(String uniqueId, String name, String url) {
         if (name.contains("Apache") && url.endsWith("LICENSE-2.0.txt")) {
             return "apache_2_0"
-        } else if (name.endsWith("MIT License")) {
+        } else if (name.contains("MIT License")) {
             return "mit"
+        } else if (name == "Android Software Development Kit License") {
+            return "asdkl"
         } else {
             return name
         }
