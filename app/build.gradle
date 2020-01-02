@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'aboutlibraries-plugin'
+apply plugin: 'com.mikepenz.aboutlibraries.plugin'
 
 //wrap with try and catch so the build is working even if the signing stuff is missing
 try {

@@ -62,7 +62,7 @@ As a new feature of the AboutLibraries v8.x.y we offer a gradle plugin which wil
 classpath "com.mikepenz.aboutlibraries.plugin:aboutlibraries-plugin:${latestAboutLibsRelease}"
 
 // App build.gradle
-apply plugin: 'aboutlibraries-plugin'
+apply plugin: 'com.mikepenz.aboutlibraries.plugin'
 ```
 
 ## Using Maven
