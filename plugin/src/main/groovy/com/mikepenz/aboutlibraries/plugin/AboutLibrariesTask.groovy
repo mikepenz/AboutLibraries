@@ -63,7 +63,7 @@ public class AboutLibrariesTask extends DefaultTask {
                 .withArtifacts(MavenModule, MavenPomArtifact)
                 .execute()
 
-        outputFile.write("<resources>\n") // open
+        outputFile.write("<resources>\n", "UTF-8") // open
         for (component in result.resolvedComponents) {
             component.getArtifacts(MavenPomArtifact).each {
                 // log the pom files content
@@ -86,7 +86,7 @@ public class AboutLibrariesTask extends DefaultTask {
         }
 
         // generate a unique ID for the library
-        def author = fixAuthor(fixString(artifactPom.developers.developer.name))
+        def author = fixAuthor(fixString(artifactPom.developers.developer.name.toString()))
         // get the author from the pom
         def authorWebsite = fixString(artifactPom.developers.developer.organizationUrl)
         // get the url for the author
@@ -194,10 +194,11 @@ public class AboutLibrariesTask extends DefaultTask {
     static def resolveLicenseId(String uniqueId, String name, String url) {
         if (name.contains("Apache") && url.endsWith("LICENSE-2.0.txt")) {
             return "apache_2_0"
+        } else if (name.endsWith("MIT License")) {
+            return "mit"
         } else {
             return name
         }
-
         // todo add support for more libraries. need to figure out how they are defined in the various pom files!
     }
 
