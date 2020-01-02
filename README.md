@@ -48,7 +48,7 @@ You can find anything you search for in the wiki. (If not open an issue)
 
 ## Latest releases
 
-- Kotlin && Gradle Plugin | [v8.0.0-a02](https://github.com/mikepenz/FastAdapter/tree/v8.0.0-a02)
+- Kotlin && Gradle Plugin | [v8.0.0-a04](https://github.com/mikepenz/FastAdapter/tree/v8.0.0-a04)
 - Kotlin | [v7.1.0](https://github.com/mikepenz/FastAdapter/tree/v7.1.0)
 - Java && AndroidX | [v6.2.3](https://github.com/mikepenz/FastAdapter/tree/v6.2.3)
 - Java && AppCompat | [v6.1.1](https://github.com/mikepenz/FastAdapter/tree/v6.1.1)
