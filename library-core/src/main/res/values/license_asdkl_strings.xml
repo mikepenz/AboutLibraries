@@ -17,6 +17,6 @@
         1.4 "Google" means Google LLC, a Delaware corporation with principal place of business at 1600 Amphitheatre Parkway, Mountain View, CA 94043, United States.
         ]]>
     </string>
-    <string name="license_Apache_2_0_licenseDescription">raw:license_asdkl</string>
+    <string name="license_asdkl_licenseDescription">raw:license_asdkl</string>
 
 </resources>
