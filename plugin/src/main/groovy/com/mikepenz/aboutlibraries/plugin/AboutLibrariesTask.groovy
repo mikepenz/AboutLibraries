@@ -6,11 +6,17 @@ import com.android.build.gradle.internal.pipeline.TransformManager
 import com.android.build.gradle.internal.publishing.AndroidArtifacts
 import com.android.build.gradle.internal.scope.VariantScopeImpl
 import org.gradle.api.DefaultTask
+import org.gradle.api.artifacts.ModuleVersionIdentifier
 import org.gradle.api.artifacts.component.ComponentIdentifier
+import org.gradle.api.artifacts.result.ArtifactResolutionResult
 import org.gradle.api.artifacts.result.ArtifactResult
+import org.gradle.api.artifacts.result.ComponentArtifactsResult
+import org.gradle.api.artifacts.result.ResolvedArtifactResult
+import org.gradle.api.internal.artifacts.DefaultModuleVersionIdentifier
 import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
+import org.gradle.internal.component.external.model.DefaultModuleComponentIdentifier
 import org.gradle.maven.MavenModule
 import org.gradle.maven.MavenPomArtifact
 
@@ -53,7 +59,7 @@ public class AboutLibrariesTask extends DefaultTask {
                     new VariantScopeImpl(project.android.globalScope, new TransformManager(project, null, null), variant.variantData),
                     AndroidArtifacts.ConsumedConfigType.RUNTIME_CLASSPATH,
                     null,
-                    BuildMappingUtils.computeBuildMapping( project.gradle)
+                    BuildMappingUtils.computeBuildMapping(project.gradle)
             ).eachWithIndex { artifact, idx ->
                 // log all dependencies
                 // println "${idx} : ${componentIdentifier.displayName}"
@@ -80,24 +86,48 @@ public class AboutLibrariesTask extends DefaultTask {
     }
 
     def writeDependency(ComponentIdentifier component, ArtifactResult artifact) {
-        def artifactPom = new XmlSlurper().parseText(artifact.file.getText('UTF-8'))
-        def uniqueId = fixIdentifier(artifactPom.groupId) + "__" + fixIdentifier(artifactPom.artifactId)
+        def artifactPom = new XmlSlurper(/* validating */ false, /* namespaceAware */ false).parseText(artifact.file.getText('UTF-8'))
+
+        // the uniqueId
+        def groupId = ifEmptyElse(artifactPom.groupId, artifactPom.parent.groupId)
+        def uniqueId = fixIdentifier(groupId) + "__" + fixIdentifier(artifactPom.artifactId)
+
         // check if we shall skip this specific uniqueId
         if (shouldSkip(uniqueId)) {
             return
         }
+
+        // we also want to check if there are parent POMs with additional information
+        def parentPomFile = resolveParentPomFile(uniqueId, getParentFromPom(artifactPom))
+        def parentPom = null
+        if (parentPomFile != null) {
+            parentPom = new XmlSlurper(/* validating */ false, /* namespaceAware */ false).parseText(parentPomFile.getText('UTF-8'))
+        }
+
         // generate a unique ID for the library
         def author = fixAuthor(fixString(fixXmlSlurperArray(artifactPom.developers.developer.name)))
+        if (!checkEmpty(author) && parentPom != null) { // fallback to parentPom if available
+            println("----> Had to fallback to parent author for: ${uniqueId}")
+            author = fixAuthor(fixString(fixXmlSlurperArray(parentPom.developers.developer.name)))
+        }
         // get the author from the pom
         def authorWebsite = fixString(fixXmlSlurperArray(artifactPom.developers.developer.organizationUrl))
+        if (!checkEmpty(authorWebsite) && parentPom != null) { // fallback to parentPom if available
+            println("----> Had to fallback to parent authorWebsite for: ${uniqueId}")
+            authorWebsite = fixAuthor(fixString(fixXmlSlurperArray(parentPom.developers.developer.organizationUrl)))
+        }
         // get the url for the author
         def libraryName = fixLibraryName(uniqueId, fixString(artifactPom.name))
         // get name of the library
-        def libraryDescription = fixString(artifactPom.description) + "<br /><br />Artifact: ${artifactPom.groupId}:${artifactPom.artifactId}:${artifactPom.version}"
+        def libraryDescription = fixString(artifactPom.description)
         // get the description of the library
         def libraryVersion = fixString(artifactPom.version) // get the version of the library
         def libraryWebsite = fixString(artifactPom.url) // get the url to the library
         def licenseId = resolveLicenseId(uniqueId, fixString(artifactPom.licenses.license.name), fixString(artifactPom.licenses.license.url))
+        if (!checkEmpty(licenseId) && parentPom != null) { // fallback to parentPom if available
+            println("----> Had to fallback to parent licenseId for: ${uniqueId}")
+            licenseId = resolveLicenseId(uniqueId, fixString(parentPom.licenses.license.name), fixString(parentPom.licenses.license.url))
+        }
         // get the url to the library
         def isOpenSource = fixString(artifactPom.url)
         def repositoryLink = fixString(artifactPom.scm.url)
@@ -125,6 +155,8 @@ public class AboutLibrariesTask extends DefaultTask {
         outputFile.append("<string name=\"library_${uniqueId}_libraryName\">${libraryName}</string>")
         outputFile.append("<string name=\"library_${uniqueId}_libraryDescription\"><![CDATA[${libraryDescription}]]></string>")
         outputFile.append("<string name=\"library_${uniqueId}_libraryVersion\">${libraryVersion}</string>")
+        outputFile.append("<string name=\"library_${uniqueId}_libraryArtifactId\">${groupId}:${artifactPom.artifactId}:${artifactPom.version}</string>")
+        // the maven artifact Id
         if (checkEmpty(libraryWebsite)) {
             outputFile.append("<string name=\"library_${uniqueId}_libraryWebsiten\">${libraryWebsite}</string>")
         }
@@ -141,6 +173,17 @@ public class AboutLibrariesTask extends DefaultTask {
             outputFile.append("<string name=\"library_${uniqueId}_owner\">${libraryOwner}</string>")
         }
         outputFile.append("\n")
+    }
+
+    /**
+     * returns value1 if it is not empty otherwise value2
+     */
+    static def ifEmptyElse(def value1, def value2) {
+        if (value1 != null && checkEmpty(value1.toString())) {
+            return value1
+        } else {
+            return value2
+        }
     }
 
     /**
@@ -245,10 +288,10 @@ public class AboutLibrariesTask extends DefaultTask {
     /**
      * Will convert some-thing-named to Some Thing Named
      */
-    static def toProperNameString(String s){
+    static def toProperNameString(String s) {
         String[] parts = s.split("-")
         String camelCaseString = ""
-        for (String part : parts){
+        for (String part : parts) {
             camelCaseString = camelCaseString + " " + toProperCase(part)
         }
         return camelCaseString
@@ -261,5 +304,54 @@ public class AboutLibrariesTask extends DefaultTask {
     @TaskAction
     public void action() throws IOException {
         gatherDependencies(project)
+    }
+
+    /**
+     * Looks in the pom if there is a parent we potentially could resolve
+     *
+     * Logic based on: https://github.com/ben-manes/gradle-versions-plugin
+     */
+    static ModuleVersionIdentifier getParentFromPom(pom) {
+        def parent = pom.children().find { child -> child.name() == 'parent' }
+        if (parent) {
+            String groupId = parent.groupId
+            String artifactId = parent.artifactId
+            String version = parent.version
+            if (groupId && artifactId && version) {
+                return DefaultModuleVersionIdentifier.newId(groupId, artifactId, version)
+            }
+        }
+        return null
+    }
+
+    /**
+     * Tries to resolve the parent pom file given the id if possible
+     *
+     * Logic based on: https://github.com/ben-manes/gradle-versions-plugin
+     */
+    File resolveParentPomFile(uniqueId, ModuleVersionIdentifier id) {
+        try {
+            if (id == null) {
+                return null
+            }
+            ArtifactResolutionResult resolutionResult = project.dependencies.createArtifactResolutionQuery()
+                    .forComponents(DefaultModuleComponentIdentifier.newId(id))
+                    .withArtifacts(MavenModule, MavenPomArtifact)
+                    .execute()
+
+            // size is 0 for gradle plugins, 1 for normal dependencies
+            for (ComponentArtifactsResult result : resolutionResult.resolvedComponents) {
+                // size should always be 1
+                for (ArtifactResult artifact : result.getArtifacts(MavenPomArtifact)) {
+                    if (artifact instanceof ResolvedArtifactResult) {
+                        println "--> Retrieved parent POM for: ${uniqueId} from ${id.group}:${id.name}:${id.version}"
+                        return ((ResolvedArtifactResult) artifact).file
+                    }
+                }
+            }
+            return null
+        } catch (Exception e) {
+            return null
+        }
     }
 }
