@@ -119,7 +119,7 @@ public class AboutLibrariesTask extends DefaultTask {
         // get the url for the author
         def libraryName = fixLibraryName(uniqueId, fixString(artifactPom.name))
         // get name of the library
-        def libraryDescription = fixString(artifactPom.description)
+        def libraryDescription = fixLibraryDescription(uniqueId, fixString(artifactPom.description))
         // get the description of the library
         def libraryVersion = fixString(artifactPom.version) // get the version of the library
         def libraryWebsite = fixString(artifactPom.url) // get the url to the library
@@ -136,7 +136,7 @@ public class AboutLibrariesTask extends DefaultTask {
         def delimiter = ""
         def customProperties = ""
         if (checkEmpty(libraryOwner)) {
-            customProperties = delimiter + "owner" + customProperties
+            customProperties = delimiter + customProperties + "owner"
             delimiter = ","
         }
 
@@ -246,6 +246,17 @@ public class AboutLibrariesTask extends DefaultTask {
             return value.replace("Android Support", "Support")
         } else if (value.startsWith("org.jetbrains.kotlin:")) {
             return value.replace("org.jetbrains.kotlin:", "")
+        } else {
+            return value
+        }
+    }
+
+    /**
+     * Ensures and applies fixes to the library descriptions (remove 'null', ...)
+     */
+    static def fixLibraryDescription(String uniqueId, String value) {
+        if (value == "null") {
+            return ""
         } else {
             return value
         }
