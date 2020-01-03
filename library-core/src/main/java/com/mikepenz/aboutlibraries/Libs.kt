@@ -455,7 +455,8 @@ public class Libs(
         var customVariablesString = ctx.getStringResourceByName(DEFINE_EXT + libraryName)
         if (customVariablesString.isBlank()) {
             customVariablesString = ctx.getStringResourceByName(DEFINE_INT + libraryName)
-        } else if (customVariablesString.isBlank()) {
+        }
+        if (customVariablesString.isBlank()) {
             customVariablesString = ctx.getStringResourceByName(DEFINE_PLUGIN + libraryName)
         }
 
