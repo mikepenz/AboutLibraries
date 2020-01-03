@@ -284,6 +284,8 @@ public class AboutLibrariesTask extends DefaultTask {
             return "mit"
         } else if (name == "Android Software Development Kit License") {
             return "asdkl"
+        }  else if (name == "Eclipse Public License v2.0" || url == "https://www.eclipse.org/legal/epl-v20.html") {
+            return "epl_2_0"
         } else {
             return name
         }
