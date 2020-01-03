@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_license_cts" />
+    <string name="license_cts_licenseName">Crashlytics Agreement</string>
+    <string name="license_cts_licenseWebsite">https://fabric.io/crashlytics-terms-of-service.pdf</string>
+    <string name="license_cts_licenseShortDescription">
+        <![CDATA[This Crashlytics Agreement (“Agreement”) is entered into by Crashlytics (defined as either: (a)
+Google Ireland Limited, with offices at Gordon House, Barrow Street, Dublin 4, Ireland, if Your
+principal place of business (for entities) or place of residence (for individuals) is in any country
+within Europe, the Middle East, or Africa ("EMEA"), (b) Google Asia Pacific Pte. Ltd., with offices
+at 8 Marina View Asia Square 1 #30-01 Singapore 018960, if Your principal place of business
+(for entities) or place of residence (for individuals) is in any country within the Asia Pacific region
+("APAC"), or (c) Google LLC, with offices at 1600 Amphitheatre Parkway, Mountain View,
+California 94043, if Your principal place of business (for entities) or place of residence (for
+individuals) is in any country in the world other than those in EMEA and APAC) and you
+(“Developer” or “You”) and governs your access and use of www.crashlytics.com and the
+Crashlytics crash reporting and beta testing solution (collectively, the “Services” as more fully
+described below). If You are accessing or using the Services on behalf of a company or other
+legal entity, You represent and warrant that You are an authorized representative of that entity
+and have the authority to bind such entity to this Agreement, in which case the terms
+“Developer” and “You” shall refer to such entity. You and Crashlytics hereby agree as follows:
+YOUR RIGHT TO ACCESS AND USE THE SERVICES IS EXPRESSLY CONDITIONED ON
+ACCEPTANCE OF THIS AGREEMENT. BY ACCESSING OR USING THE SERVICES, YOU
+AGREE TO BE BOUND BY THIS AGREEMENT. IF YOU ARE ACCESSING OR USING THE
+SERVICES ON BEHALF OF YOUR EMPLOYER OR ANOTHER ENTITY (“ENTITY”), YOU
+AGREE TO PROVIDE CRASHLYTICS WITH THE NAME OF THE ENTITY AND OBTAIN
+CRASHLYTICS\'S APPROVAL TO USE THE SOFTWARE ON YOUR BEHALF AND BEHALF
+OF THE ENTITY AND YOU AGREE TO REMAIN RESPONSIBLE AND LIABLE FOR YOUR
+AND SUCH ENTITY\'S COMPLIANCE WITH THIS AGREEMENT. FURTHER, YOU
+REPRESENT AND WARRANT THAT: (I) YOU ARE THE AUTHORIZED AGENT OF THE
+APPLICABLE ENTITY AND HAVE THE LEGAL AUTHORITY TO ENTER INTO THE
+AGREEMENT ON BEHALF OF YOURSELF AND THE ENTITY, AND (II) YOU HAVE
+OBTAINED, ON BEHALF OF YOURSELF AND THE ENTITY (IF APPLICABLE), ALL
+NECESSARY RIGHTS, WAIVERS, CONSENTS AND PERMISSIONS NECESSARY TO
+COLLECT, USE, STORE, AND SHARE USER INFORMATION IN CONNECTION WITH THE
+SOFTWARE. Effective November 20, 2015, this Agreement does not cover www.answers.io or
+the related “Answers” service, which is a software development kit and associated services
+focused on analysis and computation of the behavior and usage of mobile applications,
+including app analytics, event tracking, and conversion tracking. If you use Answers, then
+please consult the Answers Agreement, which is the contract governing your use of Answers.]]>
+    </string>
+    <string name="license_cts_licenseDescription">raw:license_cts</string>
+
+</resources>
