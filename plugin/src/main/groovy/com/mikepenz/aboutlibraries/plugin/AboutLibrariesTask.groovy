@@ -290,6 +290,8 @@ public class AboutLibrariesTask extends DefaultTask {
             return "epl_2_0"
         } else if (name == "Crashlytics Terms of Service") {
             return "cts"
+        } else if (name == "Fabric Software and Services Agreement") {
+            return "fssa"
         } else {
             return name
         }
