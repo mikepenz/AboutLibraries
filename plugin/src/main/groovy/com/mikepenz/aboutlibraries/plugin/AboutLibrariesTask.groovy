@@ -158,7 +158,7 @@ public class AboutLibrariesTask extends DefaultTask {
         outputFile.append("<string name=\"library_${uniqueId}_libraryArtifactId\">${groupId}:${artifactPom.artifactId}:${artifactPom.version}</string>")
         // the maven artifact Id
         if (checkEmpty(libraryWebsite)) {
-            outputFile.append("<string name=\"library_${uniqueId}_libraryWebsiten\">${libraryWebsite}</string>")
+            outputFile.append("<string name=\"library_${uniqueId}_libraryWebsite\">${libraryWebsite}</string>")
         }
         if (checkEmpty(licenseId)) {
             outputFile.append("<string name=\"library_${uniqueId}_licenseId\">${licenseId}</string>")
