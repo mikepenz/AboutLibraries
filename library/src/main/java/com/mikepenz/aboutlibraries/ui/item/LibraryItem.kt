@@ -66,10 +66,12 @@ class LibraryItem(private val library: Library, private val libsBuilder: LibsBui
         val showVersionOrLicense = libsBuilder.showVersion || libsBuilder.showLicense
         if (library.libraryVersion.isEmpty() && library.license?.licenseName?.isEmpty() == true || !showVersionOrLicense) {
             holder.libraryBottomDivider.visibility = View.GONE
-            holder.libraryBottomContainer.visibility = View.GONE
+            holder.libraryVersion.visibility = View.GONE
+            holder.libraryLicense.visibility = View.GONE
         } else {
             holder.libraryBottomDivider.visibility = View.VISIBLE
-            holder.libraryBottomContainer.visibility = View.VISIBLE
+            holder.libraryVersion.visibility = View.VISIBLE
+            holder.libraryLicense.visibility = View.VISIBLE
 
             if (library.libraryVersion.isNotEmpty() && libsBuilder.showVersion) {
                 holder.libraryVersion.text = library.libraryVersion
@@ -133,14 +135,14 @@ class LibraryItem(private val library: Library, private val libsBuilder: LibsBui
         }
 
         if (library.license != null && (library.license?.licenseWebsite?.isNotEmpty() == true || libsBuilder.showLicenseDialog)) {
-            holder.libraryBottomContainer.setOnClickListener { view ->
+            holder.libraryLicense.setOnClickListener { view ->
                 val consumed = LibsConfiguration.instance.listener?.onLibraryBottomClicked(view, library)
                         ?: false
                 if (!consumed) {
                     openLicense(ctx, libsBuilder, library)
                 }
             }
-            holder.libraryBottomContainer.setOnLongClickListener { v ->
+            holder.libraryLicense.setOnLongClickListener { v ->
                 var consumed = LibsConfiguration.instance.listener?.onLibraryBottomLongClicked(v, library)
                         ?: false
                 if (!consumed) {
@@ -150,9 +152,9 @@ class LibraryItem(private val library: Library, private val libsBuilder: LibsBui
                 consumed
             }
         } else {
-            holder.libraryBottomContainer.setOnTouchListener(null)
-            holder.libraryBottomContainer.setOnClickListener(null)
-            holder.libraryBottomContainer.setOnLongClickListener(null)
+            holder.libraryLicense.setOnTouchListener(null)
+            holder.libraryLicense.setOnClickListener(null)
+            holder.libraryLicense.setOnLongClickListener(null)
         }
 
         //notify the libsRecyclerViewListener to allow modifications
@@ -227,7 +229,6 @@ class LibraryItem(private val library: Library, private val libsBuilder: LibsBui
         internal var libraryDescription: TextView = itemView.findViewById(R.id.libraryDescription) as TextView
 
         internal var libraryBottomDivider: View = itemView.findViewById(R.id.libraryBottomDivider)
-        internal var libraryBottomContainer: View = itemView.findViewById(R.id.libraryBottomContainer)
         internal var libraryVersion: TextView = itemView.findViewById(R.id.libraryVersion) as TextView
         internal var libraryLicense: TextView = itemView.findViewById(R.id.libraryLicense) as TextView
 
