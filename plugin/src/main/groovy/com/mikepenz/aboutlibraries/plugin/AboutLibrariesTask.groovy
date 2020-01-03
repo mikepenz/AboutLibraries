@@ -120,8 +120,16 @@ public class AboutLibrariesTask extends DefaultTask {
         def libraryName = fixLibraryName(uniqueId, fixString(artifactPom.name))
         // get name of the library
         def libraryDescription = fixLibraryDescription(uniqueId, fixString(artifactPom.description))
+        if (!checkEmpty(libraryDescription) && parentPom != null) { // fallback to parentPom if available
+            println("----> Had to fallback to parent description for: ${uniqueId}")
+            libraryDescription = fixLibraryDescription(uniqueId, fixString(parentPom.description))
+        }
         // get the description of the library
         def libraryVersion = fixString(artifactPom.version) // get the version of the library
+        if (!checkEmpty(libraryVersion) && parentPom != null) { // fallback to parentPom if available
+            println("----> Had to fallback to parent version for: ${uniqueId}")
+            libraryVersion = fixString(parentPom.version)
+        }
         def libraryWebsite = fixString(artifactPom.url) // get the url to the library
         def licenseId = resolveLicenseId(uniqueId, fixString(artifactPom.licenses.license.name), fixString(artifactPom.licenses.license.url))
         if (!checkEmpty(licenseId) && parentPom != null) { // fallback to parentPom if available
