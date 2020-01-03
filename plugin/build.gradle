@@ -46,6 +46,8 @@ dependencies {
     implementation gradleApi()
     implementation localGroovy()
     implementation "com.android.tools.build:gradle:4.0.0-alpha07"
+    implementation 'org.apache.maven:maven-model:3.6.3'
+    implementation 'org.apache.maven:maven-model-builder:3.6.3'
 }
 
 
