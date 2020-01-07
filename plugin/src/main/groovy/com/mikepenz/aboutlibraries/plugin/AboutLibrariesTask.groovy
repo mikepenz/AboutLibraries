@@ -44,9 +44,7 @@ public class AboutLibrariesTask extends DefaultTask {
     public void setDependencies(File dependencies) {
         this.dependencies = dependencies
         this.outputValuesFolder = new File(dependencies, "values")
-        this.outputValuesFolder.mkdirs()
         this.outputRawFolder = new File(dependencies, "raw")
-        this.outputRawFolder.mkdirs()
         this.combinedLibrariesOutputFile = new File(outputValuesFolder, "aboutlibraries.xml")
     }
 
@@ -65,6 +63,11 @@ public class AboutLibrariesTask extends DefaultTask {
     }
 
     def gatherDependencies(def project) {
+        // ensure directories exist
+        this.outputValuesFolder.mkdirs()
+        this.outputRawFolder.mkdirs()
+        combinedLibrariesOutputFile.createNewFile()
+
         // get all the componentIdentifiers from the artifacts
         def componentIdentifiers = new HashSet<ComponentIdentifier>()
         project.android.applicationVariants.all { variant ->
