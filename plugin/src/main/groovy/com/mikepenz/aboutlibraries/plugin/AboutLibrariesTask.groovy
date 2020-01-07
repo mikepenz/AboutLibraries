@@ -24,21 +24,28 @@ import org.gradle.maven.MavenPomArtifact
 @CacheableTask
 public class AboutLibrariesTask extends DefaultTask {
 
-    private File dependencies;
-    private File outputFile;
+    private File dependencies
+    private File combinedLibrariesOutputFile
+    private File outputValuesFolder
+    private File outputRawFolder
+
+    static Set<String> neededLicenses = new HashSet<String>()
     static Map<String, String> customLicenseMappings = new HashMap<String, String>()
     static Map<String, String> customNameMappings = new HashMap<String, String>()
 
     @OutputDirectory
     public File getDependencies() {
-        return dependencies;
+        return dependencies
     }
 
     @InputDirectory
     public void setDependencies(File dependencies) {
         this.dependencies = dependencies
-        this.outputFile = new File(dependencies, "values/aboutlibraries.xml")
-        this.outputFile.getParentFile().mkdirs()
+        this.outputValuesFolder = new File(dependencies, "values")
+        this.outputValuesFolder.mkdirs()
+        this.outputRawFolder = new File(dependencies, "raw")
+        this.outputRawFolder.mkdirs()
+        this.combinedLibrariesOutputFile = new File(outputValuesFolder, "aboutlibraries.xml")
     }
 
     def collectMappingDetails(targetMap, resourceName) {
@@ -76,7 +83,7 @@ public class AboutLibrariesTask extends DefaultTask {
         if (componentIdentifiers.size() > 0) {
             collectMappingDetails()
         }
-        outputFile.write("<resources>\n", "UTF-8") // open
+        combinedLibrariesOutputFile.write("<resources>\n", "UTF-8") // open
         for (component in result.resolvedComponents) {
             component.getArtifacts(MavenPomArtifact).each {
                 // log the pom files content
@@ -84,8 +91,36 @@ public class AboutLibrariesTask extends DefaultTask {
                 writeDependency(component.id, it)
             }
         }
-        outputFile.append("<string name=\"config_aboutLibraries_plugin\">yes</string>")
-        outputFile.append("</resources>") // close
+        combinedLibrariesOutputFile.append("<string name=\"config_aboutLibraries_plugin\">yes</string>")
+        combinedLibrariesOutputFile.append("</resources>") // close
+
+        processNeededLicenses()
+    }
+
+    /**
+     * Copy in the needed licenses to the relevant folder
+     */
+    def processNeededLicenses() {
+        // now copy over all licenses
+        for (String licenseId : neededLicenses) {
+            try {
+                def resultFile = new File(outputRawFolder, "license_${licenseId}.txt")
+                if (!resultFile.exists()) {
+                    def is = getClass().getResourceAsStream("/static/license_${licenseId}.txt")
+                    resultFile.append(is)
+                    is.close()
+                }
+
+                resultFile = new File(outputValuesFolder, "license_${licenseId}_strings.xml")
+                if (!resultFile.exists()) {
+                    def is = getClass().getResourceAsStream("/values/license_${licenseId}_strings.xml")
+                    resultFile.append(is)
+                    is.close()
+                }
+            } catch (Exception ex) {
+                println("--> License not available: ${licenseId}")
+            }
+        }
     }
 
     def writeDependency(ComponentIdentifier component, ArtifactResult artifact) {
@@ -141,6 +176,9 @@ public class AboutLibrariesTask extends DefaultTask {
             println("----> Had to fallback to parent licenseId for: ${uniqueId}")
             licenseId = resolveLicenseId(uniqueId, fixString(parentPom.licenses.license.name), fixString(parentPom.licenses.license.url))
         }
+        if (checkEmpty(licenseId)) {
+            neededLicenses.add(licenseId) // remember the license we hit
+        }
         // get the url to the library
         def isOpenSource = fixString(artifactPom.url)
         def repositoryLink = fixString(artifactPom.scm.url)
@@ -158,34 +196,34 @@ public class AboutLibrariesTask extends DefaultTask {
             return
         }
 
-        outputFile.append("<string name=\"define_plu_${uniqueId}\">${customProperties}</string>")
+        combinedLibrariesOutputFile.append("<string name=\"define_plu_${uniqueId}\">${customProperties}</string>")
         if (checkEmpty(author)) {
-            outputFile.append("<string name=\"library_${uniqueId}_author\">${author}</string>")
+            combinedLibrariesOutputFile.append("<string name=\"library_${uniqueId}_author\">${author}</string>")
         }
         if (checkEmpty(authorWebsite)) {
-            outputFile.append("<string name=\"library_${uniqueId}_authorWebsite\">${authorWebsite}</string>")
+            combinedLibrariesOutputFile.append("<string name=\"library_${uniqueId}_authorWebsite\">${authorWebsite}</string>")
         }
-        outputFile.append("<string name=\"library_${uniqueId}_libraryName\">${libraryName}</string>")
-        outputFile.append("<string name=\"library_${uniqueId}_libraryDescription\"><![CDATA[${libraryDescription}]]></string>")
-        outputFile.append("<string name=\"library_${uniqueId}_libraryVersion\">${libraryVersion}</string>")
-        outputFile.append("<string name=\"library_${uniqueId}_libraryArtifactId\">${groupId}:${artifactPom.artifactId}:${artifactPom.version}</string>")
-        // the maven artifact Id
+        combinedLibrariesOutputFile.append("<string name=\"library_${uniqueId}_libraryName\">${libraryName}</string>")
+        combinedLibrariesOutputFile.append("<string name=\"library_${uniqueId}_libraryDescription\"><![CDATA[${libraryDescription}]]></string>")
+        combinedLibrariesOutputFile.append("<string name=\"library_${uniqueId}_libraryVersion\">${libraryVersion}</string>")
+        combinedLibrariesOutputFile.append("<string name=\"library_${uniqueId}_libraryArtifactId\">${groupId}:${artifactPom.artifactId}:${artifactPom.version}</string>")
+        // the maven artifactId
         if (checkEmpty(libraryWebsite)) {
-            outputFile.append("<string name=\"library_${uniqueId}_libraryWebsite\">${libraryWebsite}</string>")
+            combinedLibrariesOutputFile.append("<string name=\"library_${uniqueId}_libraryWebsite\">${libraryWebsite}</string>")
         }
         if (checkEmpty(licenseId)) {
-            outputFile.append("<string name=\"library_${uniqueId}_licenseId\">${licenseId}</string>")
+            combinedLibrariesOutputFile.append("<string name=\"library_${uniqueId}_licenseId\">${licenseId}</string>")
         }
         if (checkEmpty(isOpenSource)) {
-            outputFile.append("<string name=\"library_${uniqueId}_isOpenSource\">${isOpenSource}</string>")
+            combinedLibrariesOutputFile.append("<string name=\"library_${uniqueId}_isOpenSource\">${isOpenSource}</string>")
         }
         if (checkEmpty(repositoryLink)) {
-            outputFile.append("<string name=\"library_${uniqueId}_repositoryLink\">${repositoryLink}</string>")
+            combinedLibrariesOutputFile.append("<string name=\"library_${uniqueId}_repositoryLink\">${repositoryLink}</string>")
         }
         if (checkEmpty(libraryOwner)) {
-            outputFile.append("<string name=\"library_${uniqueId}_owner\">${libraryOwner}</string>")
+            combinedLibrariesOutputFile.append("<string name=\"library_${uniqueId}_owner\">${libraryOwner}</string>")
         }
-        outputFile.append("\n")
+        combinedLibrariesOutputFile.append("\n")
     }
 
     /**
