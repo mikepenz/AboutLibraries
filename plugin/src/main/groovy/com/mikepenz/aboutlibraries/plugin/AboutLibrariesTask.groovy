@@ -144,15 +144,31 @@ public class AboutLibrariesTask extends DefaultTask {
 
         // generate a unique ID for the library
         def author = fixAuthor(fixString(fixXmlSlurperArray(artifactPom.developers.developer.name)))
+        if (!checkEmpty(author)) {
+            // if no devs listed, use organisation
+            author = fixString(artifactPom.organization.name)
+        }
         if (!checkEmpty(author) && parentPom != null) { // fallback to parentPom if available
-            println("----> Had to fallback to parent author for: ${uniqueId}")
             author = fixAuthor(fixString(fixXmlSlurperArray(parentPom.developers.developer.name)))
+            if (!checkEmpty(author)) {
+                // if no devs listed, use organisation
+                author = fixString(parentPom.organization.name)
+            }
+            println("----> Had to fallback to parent author for: ${uniqueId} -- result: ${author}")
         }
         // get the author from the pom
         def authorWebsite = fixString(fixXmlSlurperArray(artifactPom.developers.developer.organizationUrl))
+        if (!checkEmpty(authorWebsite)) {
+            // if no devs listed, use organisation
+            authorWebsite = fixString(artifactPom.organization.url)
+        }
         if (!checkEmpty(authorWebsite) && parentPom != null) { // fallback to parentPom if available
-            println("----> Had to fallback to parent authorWebsite for: ${uniqueId}")
             authorWebsite = fixAuthor(fixString(fixXmlSlurperArray(parentPom.developers.developer.organizationUrl)))
+            if (!checkEmpty(authorWebsite)) {
+                // if no devs listed, use organisation
+                authorWebsite = fixString(parentPom.organization.url)
+            }
+            println("----> Had to fallback to parent authorWebsite for: ${uniqueId} -- result: ${authorWebsite}")
         }
         // get the url for the author
         def libraryName = fixLibraryName(uniqueId, fixString(artifactPom.name))
@@ -167,14 +183,14 @@ public class AboutLibrariesTask extends DefaultTask {
         def libraryVersion = fixString(artifactPom.version) // get the version of the library
         if (!checkEmpty(libraryVersion) && parentPom != null) {
             // fallback to parentPom if available
-            println("----> Had to fallback to parent version for: ${uniqueId}")
             libraryVersion = fixString(parentPom.version)
+            println("----> Had to fallback to parent version for: ${uniqueId} -- result: ${libraryVersion}")
         }
         def libraryWebsite = fixString(artifactPom.url) // get the url to the library
         def licenseId = resolveLicenseId(uniqueId, fixString(artifactPom.licenses.license.name), fixString(artifactPom.licenses.license.url))
         if (!checkEmpty(licenseId) && parentPom != null) { // fallback to parentPom if available
-            println("----> Had to fallback to parent licenseId for: ${uniqueId}")
             licenseId = resolveLicenseId(uniqueId, fixString(parentPom.licenses.license.name), fixString(parentPom.licenses.license.url))
+            println("----> Had to fallback to parent licenseId for: ${uniqueId} -- result: ${licenseId}")
         }
         if (checkEmpty(licenseId)) {
             neededLicenses.add(licenseId) // remember the license we hit
