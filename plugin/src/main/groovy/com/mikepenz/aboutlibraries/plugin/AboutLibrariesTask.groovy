@@ -14,6 +14,7 @@ import org.gradle.api.artifacts.result.ComponentArtifactsResult
 import org.gradle.api.artifacts.result.ResolvedArtifactResult
 import org.gradle.api.internal.artifacts.DefaultModuleVersionIdentifier
 import org.gradle.api.tasks.CacheableTask
+import org.gradle.api.tasks.InputDirectory
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
 import org.gradle.internal.component.external.model.DefaultModuleComponentIdentifier
@@ -33,9 +34,11 @@ public class AboutLibrariesTask extends DefaultTask {
         return dependencies;
     }
 
+    @InputDirectory
     public void setDependencies(File dependencies) {
         this.dependencies = dependencies
-        this.outputFile = new File(dependencies, "aboutlibraries.xml")
+        this.outputFile = new File(dependencies, "values/aboutlibraries.xml")
+        this.outputFile.getParentFile().mkdirs()
     }
 
     def collectMappingDetails(targetMap, resourceName) {

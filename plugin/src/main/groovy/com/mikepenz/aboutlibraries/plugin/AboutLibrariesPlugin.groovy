@@ -8,8 +8,6 @@ class AboutLibrariesPlugin implements Plugin<Project> {
     @Override
     void apply(Project project) {
         File outputFile = project.file("$project.buildDir/generated/aboutlibraries/res/")
-        outputFile.mkdirs()
-        File resultFile = new File(outputFile, "aboutlibraries.xml")
 
         // task for cleaning
         def cleanupTask = project.tasks.create("aboutLibrariesClean", AboutLibrariesCleanTask)
@@ -20,7 +18,7 @@ class AboutLibrariesPlugin implements Plugin<Project> {
         // task to write the general definitions information
         AboutLibrariesTask task = project.tasks.create("prepareLibraryDefinitions", AboutLibrariesTask)
         task.description = "Writes the relevant meta data for the AboutLibraries plugin to display dependencies"
-        task.dependencies = outputFile
+        task.setDependencies(outputFile)
 
         project.android.applicationVariants.all { variant ->
             // This is necessary for backwards compatibility with versions of gradle that do not support
@@ -35,7 +33,7 @@ class AboutLibrariesPlugin implements Plugin<Project> {
             // This is necessary for backwards compatibility with versions of gradle that do not support
             // this new API.
             if (variant.respondsTo("registerGeneratedResFolders")) {
-                task.ext.generatedResFolders = project.files(resultFile).builtBy(task)
+                task.ext.generatedResFolders = project.files(task.getDependencies()).builtBy(task)
                 variant.registerGeneratedResFolders(task.generatedResFolders)
 
                 if (variant.hasProperty("mergeResourcesProvider")) {
@@ -46,7 +44,7 @@ class AboutLibrariesPlugin implements Plugin<Project> {
                 }
             } else {
                 //noinspection GrDeprecatedAPIUsage
-                variant.registerResGeneratingTask(task, resultFile)
+                variant.registerResGeneratingTask(task, task.getDependencies())
             }
         }
 
