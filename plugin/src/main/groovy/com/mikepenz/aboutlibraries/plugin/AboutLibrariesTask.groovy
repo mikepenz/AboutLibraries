@@ -33,6 +33,7 @@ public class AboutLibrariesTask extends DefaultTask {
     static Set<String> neededLicenses = new HashSet<String>()
     static Map<String, String> customLicenseMappings = new HashMap<String, String>()
     static Map<String, String> customNameMappings = new HashMap<String, String>()
+    static Map<String, String> customEnchantMapping = new HashMap<String, String>()
 
     @OutputDirectory
     public File getDependencies() {
@@ -60,6 +61,7 @@ public class AboutLibrariesTask extends DefaultTask {
     def collectMappingDetails() {
         collectMappingDetails(customLicenseMappings, '/static/custom_license_mappings.prop')
         collectMappingDetails(customNameMappings, '/static/custom_name_mappings.prop')
+        collectMappingDetails(customEnchantMapping, '/static/custom_enchant_mapping.prop')
     }
 
     def gatherDependencies(def project) {
@@ -148,6 +150,17 @@ public class AboutLibrariesTask extends DefaultTask {
             parentPom = new XmlSlurper(/* validating */ false, /* namespaceAware */ false).parseText(parentPomFile.getText('UTF-8'))
         }
 
+        def enchantedDefinition = null
+        if (customEnchantMapping.containsKey(uniqueId)) {
+            def enchantedDefinitionId = customEnchantMapping.get(uniqueId)
+            try {
+                enchantedDefinition = new XmlSlurper(/* validating */ false, /* namespaceAware */ false)
+                        .parseText(getClass().getResource("/values/library_${enchantedDefinitionId}_strings.xml").getText('UTF-8'))
+            } catch (Exception ex) {
+                println("--> Enchanted file not available: ${enchantedDefinitionId}")
+            }
+        }
+
         // generate a unique ID for the library
         def author = fixAuthor(fixString(fixXmlSlurperArray(artifactPom.developers.developer.name)))
         if (!checkEmpty(author)) {
@@ -180,6 +193,10 @@ public class AboutLibrariesTask extends DefaultTask {
         def libraryName = fixLibraryName(uniqueId, fixString(artifactPom.name))
         // get name of the library
         def libraryDescription = fixLibraryDescription(uniqueId, fixString(artifactPom.description))
+        if (enchantedDefinition != null) {
+            // enchant the library by the description of the available definition file
+            libraryDescription = ifEmptyElse(enchantedDefinition.string.find { it.@name.toString().endsWith("_libraryDescription") }.toString(), libraryDescription)
+        }
         if (!checkEmpty(libraryDescription) && parentPom != null) {
             // fallback to parentPom if available
             println("----> Had to fallback to parent description for: ${uniqueId}")
