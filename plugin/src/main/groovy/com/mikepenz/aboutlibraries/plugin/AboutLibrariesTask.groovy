@@ -14,10 +14,7 @@ import org.gradle.api.artifacts.result.ArtifactResult
 import org.gradle.api.artifacts.result.ComponentArtifactsResult
 import org.gradle.api.artifacts.result.ResolvedArtifactResult
 import org.gradle.api.internal.artifacts.DefaultModuleVersionIdentifier
-import org.gradle.api.tasks.CacheableTask
-import org.gradle.api.tasks.InputDirectory
-import org.gradle.api.tasks.OutputDirectory
-import org.gradle.api.tasks.TaskAction
+import org.gradle.api.tasks.*
 import org.gradle.internal.component.external.model.DefaultModuleComponentIdentifier
 import org.gradle.maven.MavenModule
 import org.gradle.maven.MavenPomArtifact
@@ -35,6 +32,20 @@ public class AboutLibrariesTask extends DefaultTask {
     static Map<String, String> customNameMappings = new HashMap<String, String>()
     static Map<String, String> customEnchantMapping = new HashMap<String, String>()
 
+    File getCombinedLibrariesOutputFile() {
+        return new File(outputValuesFolder, "aboutlibraries.xml")
+    }
+
+    @OutputDirectory
+    public File getValuesFolder() {
+        return new File(dependencies, "values")
+    }
+
+    @OutputDirectory
+    public File getRawFolder() {
+        return new File(dependencies, "raw")
+    }
+
     @OutputDirectory
     public File getDependencies() {
         return dependencies
@@ -43,9 +54,6 @@ public class AboutLibrariesTask extends DefaultTask {
     @InputDirectory
     public void setDependencies(File dependencies) {
         this.dependencies = dependencies
-        this.outputValuesFolder = new File(dependencies, "values")
-        this.outputRawFolder = new File(dependencies, "raw")
-        this.combinedLibrariesOutputFile = new File(outputValuesFolder, "aboutlibraries.xml")
     }
 
     def collectMappingDetails(targetMap, resourceName) {
@@ -64,9 +72,9 @@ public class AboutLibrariesTask extends DefaultTask {
 
     def gatherDependencies(def project) {
         // ensure directories exist
-        this.outputValuesFolder.mkdirs()
-        this.outputRawFolder.mkdirs()
-        combinedLibrariesOutputFile.createNewFile()
+        this.outputValuesFolder = getValuesFolder()
+        this.outputRawFolder = getRawFolder()
+        this.combinedLibrariesOutputFile = getCombinedLibrariesOutputFile()
 
         // get all the componentIdentifiers from the artifacts
         def componentIdentifiers = new HashSet<ComponentIdentifier>()
