@@ -90,7 +90,7 @@
 
         <TextView
             android:id="@+id/libraryVersion"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
@@ -103,17 +103,17 @@
             android:maxLines="1"
             android:textSize="@dimen/textSizeSmall_openSource"
             android:textStyle="normal"
+            app:layout_constrainedWidth="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/libraryLicense"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/libraryBottomDivider"
-            app:layout_constraintWidth_default="wrap"
             tools:text="Version" />
 
         <TextView
             android:id="@+id/libraryLicense"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_marginLeft="4dp"
@@ -125,12 +125,12 @@
             android:maxLines="1"
             android:textSize="@dimen/textSizeSmall_openSource"
             android:textStyle="normal"
+            app:layout_constrainedWidth="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toEndOf="@id/libraryVersion"
             app:layout_constraintTop_toBottomOf="@id/libraryBottomDivider"
-            app:layout_constraintWidth_default="wrap"
             tools:text="License" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
