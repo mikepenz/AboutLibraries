@@ -5,6 +5,7 @@ import com.android.build.gradle.internal.ide.dependencies.BuildMappingUtils
 import com.android.build.gradle.internal.pipeline.TransformManager
 import com.android.build.gradle.internal.publishing.AndroidArtifacts
 import com.android.build.gradle.internal.scope.VariantScopeImpl
+import groovy.xml.MarkupBuilder
 import org.gradle.api.DefaultTask
 import org.gradle.api.artifacts.ModuleVersionIdentifier
 import org.gradle.api.artifacts.component.ComponentIdentifier
@@ -83,16 +84,21 @@ public class AboutLibrariesTask extends DefaultTask {
         if (componentIdentifiers.size() > 0) {
             collectMappingDetails()
         }
-        combinedLibrariesOutputFile.write("<resources>\n", "UTF-8") // open
-        for (component in result.resolvedComponents) {
-            component.getArtifacts(MavenPomArtifact).each {
-                // log the pom files content
-                // println "POM file for ${component.id}: ${it.file.getText('UTF-8')}"
-                writeDependency(component.id, it)
+
+        def fileWriter = new FileWriter(combinedLibrariesOutputFile)
+        def combinedLibrariesBuilder = new MarkupBuilder(fileWriter)
+        combinedLibrariesBuilder.doubleQuotes = true
+        combinedLibrariesBuilder.resources {
+            for (component in result.resolvedComponents) {
+                component.getArtifacts(MavenPomArtifact).each {
+                    // log the pom files content
+                    // println "POM file for ${component.id}: ${it.file.getText('UTF-8')}"
+                    //writeDependency(component.id, it)
+                    writeDependency(combinedLibrariesBuilder, component.id, it)
+                }
             }
+            string name: "config_aboutLibraries_plugin", "yes"
         }
-        combinedLibrariesOutputFile.append("<string name=\"config_aboutLibraries_plugin\">yes</string>")
-        combinedLibrariesOutputFile.append("</resources>") // close
 
         processNeededLicenses()
     }
@@ -123,7 +129,7 @@ public class AboutLibrariesTask extends DefaultTask {
         }
     }
 
-    def writeDependency(ComponentIdentifier component, ArtifactResult artifact) {
+    def writeDependency(MarkupBuilder resources, ComponentIdentifier component, ArtifactResult artifact) {
         def artifactPom = new XmlSlurper(/* validating */ false, /* namespaceAware */ false).parseText(artifact.file.getText('UTF-8'))
 
         // the uniqueId
@@ -212,34 +218,35 @@ public class AboutLibrariesTask extends DefaultTask {
             return
         }
 
-        combinedLibrariesOutputFile.append("<string name=\"define_plu_${uniqueId}\">${customProperties}</string>")
+        resources.string name: "define_plu_${uniqueId}", "${customProperties}"
         if (checkEmpty(author)) {
-            combinedLibrariesOutputFile.append("<string name=\"library_${uniqueId}_author\">${author}</string>")
+            resources.string name: "library_${uniqueId}_author", "${author}"
         }
         if (checkEmpty(authorWebsite)) {
-            combinedLibrariesOutputFile.append("<string name=\"library_${uniqueId}_authorWebsite\">${authorWebsite}</string>")
+            resources.string name: "library_${uniqueId}_authorWebsite", "${authorWebsite}"
         }
-        combinedLibrariesOutputFile.append("<string name=\"library_${uniqueId}_libraryName\">${libraryName}</string>")
-        combinedLibrariesOutputFile.append("<string name=\"library_${uniqueId}_libraryDescription\"><![CDATA[${libraryDescription}]]></string>")
-        combinedLibrariesOutputFile.append("<string name=\"library_${uniqueId}_libraryVersion\">${libraryVersion}</string>")
-        combinedLibrariesOutputFile.append("<string name=\"library_${uniqueId}_libraryArtifactId\">${groupId}:${artifactPom.artifactId}:${artifactPom.version}</string>")
+        resources.string name: "library_${uniqueId}_libraryName", "${libraryName}"
+        resources.string(name: "library_${uniqueId}_libraryDescription") {
+            mkp.yieldUnescaped("<![CDATA[${libraryDescription}]]>")
+        }
+        resources.string name: "library_${uniqueId}_libraryVersion", "${libraryVersion}"
+        resources.string name: "library_${uniqueId}_libraryArtifactId", "${groupId}:${artifactPom.artifactId}:${artifactPom.version}"
         // the maven artifactId
         if (checkEmpty(libraryWebsite)) {
-            combinedLibrariesOutputFile.append("<string name=\"library_${uniqueId}_libraryWebsite\">${libraryWebsite}</string>")
+            resources.string name: "library_${uniqueId}_libraryWebsite", "${libraryWebsite}"
         }
         if (checkEmpty(licenseId)) {
-            combinedLibrariesOutputFile.append("<string name=\"library_${uniqueId}_licenseId\">${licenseId}</string>")
+            resources.string name: "library_${uniqueId}_licenseId", "${licenseId}"
         }
         if (checkEmpty(isOpenSource)) {
-            combinedLibrariesOutputFile.append("<string name=\"library_${uniqueId}_isOpenSource\">${isOpenSource}</string>")
+            resources.string name: "library_${uniqueId}_isOpenSource", "${isOpenSource}"
         }
         if (checkEmpty(repositoryLink)) {
-            combinedLibrariesOutputFile.append("<string name=\"library_${uniqueId}_repositoryLink\">${repositoryLink}</string>")
+            resources.string name: "library_${uniqueId}_repositoryLink", "${repositoryLink}"
         }
         if (checkEmpty(libraryOwner)) {
-            combinedLibrariesOutputFile.append("<string name=\"library_${uniqueId}_owner\">${libraryOwner}</string>")
+            resources.string name: "library_${uniqueId}_owner", "${libraryOwner}"
         }
-        combinedLibrariesOutputFile.append("\n")
     }
 
     /**
