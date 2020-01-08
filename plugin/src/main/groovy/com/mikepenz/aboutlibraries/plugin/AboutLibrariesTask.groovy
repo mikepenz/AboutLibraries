@@ -14,7 +14,10 @@ import org.gradle.api.artifacts.result.ArtifactResult
 import org.gradle.api.artifacts.result.ComponentArtifactsResult
 import org.gradle.api.artifacts.result.ResolvedArtifactResult
 import org.gradle.api.internal.artifacts.DefaultModuleVersionIdentifier
-import org.gradle.api.tasks.*
+import org.gradle.api.tasks.CacheableTask
+import org.gradle.api.tasks.InputDirectory
+import org.gradle.api.tasks.OutputDirectory
+import org.gradle.api.tasks.TaskAction
 import org.gradle.internal.component.external.model.DefaultModuleComponentIdentifier
 import org.gradle.maven.MavenModule
 import org.gradle.maven.MavenPomArtifact
@@ -126,15 +129,19 @@ public class AboutLibrariesTask extends DefaultTask {
                 def resultFile = new File(outputRawFolder, "license_${licenseId}.txt")
                 if (!resultFile.exists()) {
                     def is = getClass().getResourceAsStream("/static/license_${licenseId}.txt")
-                    resultFile.append(is)
-                    is.close()
+                    if (is != null) {
+                        resultFile.append(is)
+                        is.close()
+                    }
                 }
 
                 resultFile = new File(outputValuesFolder, "license_${licenseId}_strings.xml")
                 if (!resultFile.exists()) {
                     def is = getClass().getResourceAsStream("/values/license_${licenseId}_strings.xml")
-                    resultFile.append(is)
-                    is.close()
+                    if (is != null) {
+                        resultFile.append(is)
+                        is.close()
+                    }
                 }
             } catch (Exception ex) {
                 println("--> License not available: ${licenseId}")
@@ -382,7 +389,7 @@ public class AboutLibrariesTask extends DefaultTask {
             return "epl_2_0"
         } else if (name == "Crashlytics Terms of Service") {
             return "cts"
-        } else if (name == "Fabric Software and Services Agreement") {
+        } else if (name == "Fabric Software and Services Agreement" || name == "Answers Terms of Service") {
             return "fssa"
         } else {
             return name
