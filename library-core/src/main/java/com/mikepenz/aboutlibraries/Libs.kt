@@ -199,7 +199,7 @@ public class Libs(
                 if (autoDetectedLibraries?.isNotEmpty() == true) {
                     val libraries = ArrayList<Library>(autoDetectedLibraries.size)
                     for (autoDetectedLibrary in autoDetectedLibraries) {
-                        val lib = getLibrary(autoDetectedLibrary)?: continue
+                        val lib = getLibrary(autoDetectedLibrary) ?: continue
                         libraries.add(lib)
                     }
                     return libraries
@@ -440,7 +440,7 @@ public class Libs(
 
         val customVariablesString = sequenceOf(DEFINE_EXT, DEFINE_INT, DEFINE_PLUGIN)
                 .map { ctx.getStringResourceByName("$it$libraryName") }
-                .filter { it.isNotBlank()}
+                .filter { it.isNotBlank() }
                 .firstOrNull()
                 ?: ""
 

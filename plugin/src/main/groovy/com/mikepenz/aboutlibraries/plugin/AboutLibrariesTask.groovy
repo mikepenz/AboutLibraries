@@ -30,12 +30,12 @@ public class AboutLibrariesTask extends DefaultTask {
     private File outputValuesFolder
     private File outputRawFolder
 
-    static Set<String> handledLibraries = new HashSet<String>()
+    Set<String> handledLibraries = new HashSet<String>()
 
-    static Set<String> neededLicenses = new HashSet<String>()
-    static Map<String, String> customLicenseMappings = new HashMap<String, String>()
-    static Map<String, String> customNameMappings = new HashMap<String, String>()
-    static Map<String, String> customEnchantMapping = new HashMap<String, String>()
+    Set<String> neededLicenses = new HashSet<String>()
+    Map<String, String> customLicenseMappings = new HashMap<String, String>()
+    Map<String, String> customNameMappings = new HashMap<String, String>()
+    Map<String, String> customEnchantMapping = new HashMap<String, String>()
 
     File getCombinedLibrariesOutputFile() {
         return new File(outputValuesFolder, "aboutlibraries.xml")
@@ -356,7 +356,7 @@ public class AboutLibrariesTask extends DefaultTask {
     /**
      * Ensures and applies fixes to the library names (shorten, ...)
      */
-    static def fixLibraryName(String uniqueId, String value) {
+    def fixLibraryName(String uniqueId, String value) {
         if (customNameMappings.containsKey(uniqueId)) {
             def customMapping = customNameMappings.get(uniqueId)
             println("--> Had to resolve name from custom mapping for: ${uniqueId} as ${customMapping}")
@@ -386,7 +386,7 @@ public class AboutLibrariesTask extends DefaultTask {
     /**
      * Ensures and applies fixes to the library names (shorten, ...)
      */
-    static def resolveLicenseId(String uniqueId, String name, String url) {
+    def resolveLicenseId(String uniqueId, String name, String url) {
         if (customLicenseMappings.containsKey(uniqueId)) {
             def customMapping = customLicenseMappings.get(uniqueId)
             println("--> Had to resolve license from custom mapping for: ${uniqueId} as ${customMapping}")
@@ -420,7 +420,7 @@ public class AboutLibrariesTask extends DefaultTask {
     /**
      * Skip libraries which have a core dependency and we don't want it to show up more than necessary
      */
-    static def shouldSkip(String uniqueId) {
+    def shouldSkip(String uniqueId) {
         return handledLibraries.contains(uniqueId) || uniqueId == "com_mikepenz__aboutlibraries" || uniqueId == "com_mikepenz__aboutlibraries_definitions"
     }
 
