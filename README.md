@@ -2,21 +2,24 @@
 
 [![Join the chat at https://gitter.im/mikepenz/AboutLibraries](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/mikepenz/AboutLibraries?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-The **AboutLibraries** library allows you to easily create an **used open source libraries** fragment/activity within your app. As an extra feature you can also add an **about this app** section. 
+The **AboutLibraries** library allows you to easily create an **used open source libraries** fragment/activity within your app. As an extra feature you can also add an **about this app** section.
+All the library information is automatically collected from the POM information of the depencencies and included during compile time. No runtime overhead. Strong caching, so build times stay short. Due to usage of maven POM information practically any dependency is supported.
 
 Here's a quick overview of functions it include:
 - **used open source libraries**
 	- name, description, creator, license, version, ...
 - **about this app** section (optional)
-- autodetect libraries
+- autodetect libraries (via the gradle depencies)
 - many included library details
 - automatic created fragment/activity
-- feature rich builder to simply create and start the fragment / activity
+- feature rich builder to simply create and start the fragment / activities
+- large amount of configuration options
+  - usage standalone possible too
 - much much more... try the sample for a quick overview.
 
 # Motivation
 
-Most modern apps feature a "Used Library"-section, which requires information about those respective libs. As it gets annoying to always copy those strings to your app, I've developed this small helper library to provide the required information.
+Most modern apps feature a "Used Library"-section, which requires information about those respective libs. As it gets annoying to always copy those strings to your app, **AboutLibraries** is there for the rescue.
 
 # Migration
 - [MIGRATION GUIDE](https://github.com/mikepenz/AboutLibraries/blob/develop/MIGRATION.md)
@@ -28,27 +31,17 @@ Most modern apps feature a "Used Library"-section, which requires information ab
 
 # More...
 - [Sample (Google Play Store)](https://play.google.com/store/apps/details?id=com.mikepenz.aboutlibraries.sample)
-- [Create new definition files](http://def-builder.mikepenz.com/)
 - [Get detailed instructions in the wiki](https://github.com/mikepenz/AboutLibraries/wiki)
-- [Compatible/included libs](https://github.com/mikepenz/AboutLibraries/wiki/Compatible-Libs)
-
 
 # Screenshots
 ![Image](https://raw.githubusercontent.com/mikepenz/AboutLibraries/master/DEV/screenshots/screenshot1_small.png)
 ![Image](https://raw.githubusercontent.com/mikepenz/AboutLibraries/master/DEV/screenshots/screenshot2_small.png)
 
-
-# Wiki
-You can find anything you search for in the wiki. (If not open an issue)
-
-[Bring me to the wiki](https://github.com/mikepenz/AboutLibraries/wiki)
-
-
 # Include in your project
 
 ## Latest releases
 
-- Kotlin && Gradle Plugin | [v8.0.0-a08](https://github.com/mikepenz/FastAdapter/tree/v8.0.0-a08)
+- Kotlin && Gradle Plugin | [v8.0.0-b01](https://github.com/mikepenz/FastAdapter/tree/v8.0.0-b01)
 - Kotlin | [v7.1.0](https://github.com/mikepenz/FastAdapter/tree/v7.1.0)
 - Java && AndroidX | [v6.2.3](https://github.com/mikepenz/FastAdapter/tree/v6.2.3)
 - Java && AppCompat | [v6.1.1](https://github.com/mikepenz/FastAdapter/tree/v6.1.1)
@@ -86,13 +79,13 @@ implementation "androidx.recyclerview:recyclerview:${versions.recyclerview | 1.1
 implementation "com.google.android.material:material:${versions.material | 1.1.y}"
 ```
 
-## WITHOUT gradle plugin
+## WITHOUT gradle plugin (not recommended)
 
 If you do not want to use the gradle plugin, you need to add the legacy definition files, which will then be included in the built apk, and resolved via reflection during runtime.
 > NOTE: This is not recommended. Please migrate to use the gradle plugin
 
 ```javascript
-implementation "com.mikepenz:aboutlibraries:${latestAboutLibsRelease}"
+implementation "com.mikepenz:aboutlibraries-definitions:${latestAboutLibsRelease}"
 ```
 
 # Usage
@@ -198,6 +191,11 @@ You can contribute by creating a information file for a new library, and open a 
 * [OneMeme: Meme Maker](https://play.google.com/store/apps/details?id=com.mememaker.android&hl)
 * [andOTP](https://play.google.com/store/apps/details?id=org.shadowice.flocke.andotp)
 
+# Wiki
+You can find anything you search for in the wiki. (If not open an issue)
+
+[Bring me to the wiki](https://github.com/mikepenz/AboutLibraries/wiki)
+
 # Developed By
 
 * Mike Penz 
@@ -206,7 +204,7 @@ You can contribute by creating a information file for a new library, and open a 
 
 # License
 
-    Copyright 2019 Mike Penz
+    Copyright 2020 Mike Penz
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
