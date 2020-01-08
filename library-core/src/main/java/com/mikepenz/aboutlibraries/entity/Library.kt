@@ -11,6 +11,7 @@ data class Library(
         var authorWebsite: String = "",
         var libraryDescription: String = "",
         var libraryVersion: String = "",
+        var libraryArtifactId: String = "",
         var libraryWebsite: String = "",
         var license: License? = null,
 
@@ -37,6 +38,7 @@ data class Library(
         authorWebsite = ifNotEmpty(enchantWith.authorWebsite) ?: authorWebsite
         libraryDescription = ifNotEmpty(enchantWith.libraryDescription) ?: libraryDescription
         libraryVersion = ifNotEmpty(enchantWith.libraryVersion) ?: libraryVersion
+        libraryArtifactId = ifNotEmpty(enchantWith.libraryArtifactId) ?: libraryArtifactId
         libraryWebsite = ifNotEmpty(enchantWith.libraryWebsite) ?: libraryWebsite
         license = enchantWith.license ?: license
         isOpenSource = enchantWith.isOpenSource

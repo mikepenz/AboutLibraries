@@ -41,6 +41,7 @@ public class Libs(
         LIBRARY_NAME,
         LIBRARY_DESCRIPTION,
         LIBRARY_VERSION,
+        LIBRARY_ARTIFACT_ID,
         LIBRARY_WEBSITE,
         LIBRARY_OPEN_SOURCE,
         LIBRARY_REPOSITORY_LINK,
@@ -392,6 +393,7 @@ public class Libs(
             lib.authorWebsite = ctx.getStringResourceByName("library_" + name + "_authorWebsite")
             lib.libraryDescription = insertVariables(ctx.getStringResourceByName("library_" + name + "_libraryDescription"), customVariables)
             lib.libraryVersion = ctx.getStringResourceByName("library_" + name + "_libraryVersion")
+            lib.libraryArtifactId = ctx.getStringResourceByName("library_" + name + "_libraryArtifactId")
             lib.libraryWebsite = ctx.getStringResourceByName("library_" + name + "_libraryWebsite")
 
             val licenseId = ctx.getStringResourceByName("library_" + name + "_licenseId")
@@ -501,6 +503,9 @@ public class Libs(
                         }
                         LibraryFields.LIBRARY_VERSION.name -> {
                             lib.libraryVersion = value
+                        }
+                        LibraryFields.LIBRARY_ARTIFACT_ID.name -> {
+                            lib.libraryArtifactId = value
                         }
                         LibraryFields.LIBRARY_WEBSITE.name -> {
                             lib.libraryWebsite = value
