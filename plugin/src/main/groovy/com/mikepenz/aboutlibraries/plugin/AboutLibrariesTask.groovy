@@ -111,7 +111,6 @@ public class AboutLibrariesTask extends DefaultTask {
                 component.getArtifacts(MavenPomArtifact).each {
                     // log the pom files content
                     // println "POM file for ${component.id}: ${it.file.getText('UTF-8')}"
-                    //writeDependency(component.id, it)
                     writeDependency(combinedLibrariesBuilder, component.id, it)
                 }
             }
