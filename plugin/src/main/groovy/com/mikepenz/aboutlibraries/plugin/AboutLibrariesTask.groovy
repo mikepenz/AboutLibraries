@@ -30,6 +30,8 @@ public class AboutLibrariesTask extends DefaultTask {
     private File outputValuesFolder
     private File outputRawFolder
 
+    static Set<String> handledLibraries = new HashSet<String>()
+
     static Set<String> neededLicenses = new HashSet<String>()
     static Map<String, String> customLicenseMappings = new HashMap<String, String>()
     static Map<String, String> customNameMappings = new HashMap<String, String>()
@@ -161,6 +163,9 @@ public class AboutLibrariesTask extends DefaultTask {
             return
         }
 
+        // remember that we handled the library
+        handledLibraries.add(uniqueId)
+
         // we also want to check if there are parent POMs with additional information
         def parentPomFile = resolveParentPomFile(uniqueId, getParentFromPom(artifactPom))
         def parentPom = null
@@ -181,31 +186,35 @@ public class AboutLibrariesTask extends DefaultTask {
 
         // generate a unique ID for the library
         def author = fixAuthor(fixString(fixXmlSlurperArray(artifactPom.developers.developer.name)))
-        if (!checkEmpty(author)) {
+        if (!isNotEmpty(author)) {
             // if no devs listed, use organisation
             author = fixString(artifactPom.organization.name)
         }
-        if (!checkEmpty(author) && parentPom != null) { // fallback to parentPom if available
+        if (!isNotEmpty(author) && parentPom != null) { // fallback to parentPom if available
             author = fixAuthor(fixString(fixXmlSlurperArray(parentPom.developers.developer.name)))
-            if (!checkEmpty(author)) {
+            if (!isNotEmpty(author)) {
                 // if no devs listed, use organisation
                 author = fixString(parentPom.organization.name)
             }
-            println("----> Had to fallback to parent author for: ${uniqueId} -- result: ${author}")
+            if (isNotEmpty(author)) {
+                println("----> Had to fallback to parent author for: ${uniqueId} -- result: ${author}")
+            }
         }
         // get the author from the pom
         def authorWebsite = fixString(fixXmlSlurperArray(artifactPom.developers.developer.organizationUrl))
-        if (!checkEmpty(authorWebsite)) {
+        if (!isNotEmpty(authorWebsite)) {
             // if no devs listed, use organisation
             authorWebsite = fixString(artifactPom.organization.url)
         }
-        if (!checkEmpty(authorWebsite) && parentPom != null) { // fallback to parentPom if available
+        if (!isNotEmpty(authorWebsite) && parentPom != null) { // fallback to parentPom if available
             authorWebsite = fixAuthor(fixString(fixXmlSlurperArray(parentPom.developers.developer.organizationUrl)))
-            if (!checkEmpty(authorWebsite)) {
+            if (!isNotEmpty(authorWebsite)) {
                 // if no devs listed, use organisation
                 authorWebsite = fixString(parentPom.organization.url)
             }
-            println("----> Had to fallback to parent authorWebsite for: ${uniqueId} -- result: ${authorWebsite}")
+            if (isNotEmpty(authorWebsite)) {
+                println("----> Had to fallback to parent authorWebsite for: ${uniqueId} -- result: ${authorWebsite}")
+            }
         }
         // get the url for the author
         def libraryName = fixLibraryName(uniqueId, fixString(artifactPom.name))
@@ -215,25 +224,29 @@ public class AboutLibrariesTask extends DefaultTask {
             // enchant the library by the description of the available definition file
             libraryDescription = ifEmptyElse(enchantedDefinition.string.find { it.@name.toString().endsWith("_libraryDescription") }.toString(), libraryDescription)
         }
-        if (!checkEmpty(libraryDescription) && parentPom != null) {
+        if (!isNotEmpty(libraryDescription) && parentPom != null) {
             // fallback to parentPom if available
             println("----> Had to fallback to parent description for: ${uniqueId}")
             libraryDescription = fixLibraryDescription(uniqueId, fixString(parentPom.description))
         }
         // get the description of the library
         def libraryVersion = fixString(artifactPom.version) // get the version of the library
-        if (!checkEmpty(libraryVersion) && parentPom != null) {
+        if (!isNotEmpty(libraryVersion) && parentPom != null) {
             // fallback to parentPom if available
             libraryVersion = fixString(parentPom.version)
-            println("----> Had to fallback to parent version for: ${uniqueId} -- result: ${libraryVersion}")
+            if (isNotEmpty(libraryVersion)) {
+                println("----> Had to fallback to parent version for: ${uniqueId} -- result: ${libraryVersion}")
+            }
         }
         def libraryWebsite = fixString(artifactPom.url) // get the url to the library
         def licenseId = resolveLicenseId(uniqueId, fixString(artifactPom.licenses.license.name), fixString(artifactPom.licenses.license.url))
-        if (!checkEmpty(licenseId) && parentPom != null) { // fallback to parentPom if available
+        if (!isNotEmpty(licenseId) && parentPom != null) { // fallback to parentPom if available
             licenseId = resolveLicenseId(uniqueId, fixString(parentPom.licenses.license.name), fixString(parentPom.licenses.license.url))
-            println("----> Had to fallback to parent licenseId for: ${uniqueId} -- result: ${licenseId}")
+            if (isNotEmpty(licenseId)) {
+                println("----> Had to fallback to parent licenseId for: ${uniqueId} -- result: ${licenseId}")
+            }
         }
-        if (checkEmpty(licenseId)) {
+        if (isNotEmpty(licenseId)) {
             neededLicenses.add(licenseId) // remember the license we hit
         }
         // get the url to the library
@@ -243,21 +256,21 @@ public class AboutLibrariesTask extends DefaultTask {
 
         def delimiter = ""
         def customProperties = ""
-        if (checkEmpty(libraryOwner)) {
+        if (isNotEmpty(libraryOwner)) {
             customProperties = delimiter + customProperties + "owner"
             delimiter = ","
         }
 
-        if (!checkEmpty(libraryName)) {
+        if (!isNotEmpty(libraryName)) {
             println "Could not get the name for ${uniqueId}, Skipping"
             return
         }
 
         resources.string name: "define_plu_${uniqueId}", "${customProperties}"
-        if (checkEmpty(author)) {
+        if (isNotEmpty(author)) {
             resources.string name: "library_${uniqueId}_author", "${author}"
         }
-        if (checkEmpty(authorWebsite)) {
+        if (isNotEmpty(authorWebsite)) {
             resources.string name: "library_${uniqueId}_authorWebsite", "${authorWebsite}"
         }
         resources.string name: "library_${uniqueId}_libraryName", "${libraryName}"
@@ -267,19 +280,19 @@ public class AboutLibrariesTask extends DefaultTask {
         resources.string name: "library_${uniqueId}_libraryVersion", "${libraryVersion}"
         resources.string name: "library_${uniqueId}_libraryArtifactId", "${groupId}:${artifactPom.artifactId}:${artifactPom.version}"
         // the maven artifactId
-        if (checkEmpty(libraryWebsite)) {
+        if (isNotEmpty(libraryWebsite)) {
             resources.string name: "library_${uniqueId}_libraryWebsite", "${libraryWebsite}"
         }
-        if (checkEmpty(licenseId)) {
+        if (isNotEmpty(licenseId)) {
             resources.string name: "library_${uniqueId}_licenseId", "${licenseId}"
         }
-        if (checkEmpty(isOpenSource)) {
+        if (isNotEmpty(isOpenSource)) {
             resources.string name: "library_${uniqueId}_isOpenSource", "${isOpenSource}"
         }
-        if (checkEmpty(repositoryLink)) {
+        if (isNotEmpty(repositoryLink)) {
             resources.string name: "library_${uniqueId}_repositoryLink", "${repositoryLink}"
         }
-        if (checkEmpty(libraryOwner)) {
+        if (isNotEmpty(libraryOwner)) {
             resources.string name: "library_${uniqueId}_owner", "${libraryOwner}"
         }
     }
@@ -288,7 +301,7 @@ public class AboutLibrariesTask extends DefaultTask {
      * returns value1 if it is not empty otherwise value2
      */
     static def ifEmptyElse(def value1, def value2) {
-        if (value1 != null && checkEmpty(value1.toString())) {
+        if (value1 != null && isNotEmpty(value1.toString())) {
             return value1
         } else {
             return value2
@@ -398,9 +411,10 @@ public class AboutLibrariesTask extends DefaultTask {
     }
 
     /**
-     * Checks if the given string is empty
+     * Checks if the given string is empty.
+     * Returns true if it is NOT empty
      */
-    static def checkEmpty(String value) {
+    static def isNotEmpty(String value) {
         return value != null && value != ""
     }
 
@@ -408,7 +422,7 @@ public class AboutLibrariesTask extends DefaultTask {
      * Skip libraries which have a core dependency and we don't want it to show up more than necessary
      */
     static def shouldSkip(String uniqueId) {
-        return uniqueId == "com_mikepenz__aboutlibraries" || uniqueId == "com_mikepenz__aboutlibraries_definitions"
+        return handledLibraries.contains(uniqueId) || uniqueId == "com_mikepenz__aboutlibraries" || uniqueId == "com_mikepenz__aboutlibraries_definitions"
     }
 
     /**
