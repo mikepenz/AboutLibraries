@@ -105,9 +105,7 @@ val fragment = LibsBuilder()
 ##### Code:
 ```kotlin
 LibsBuilder()
-        //provide a style (optional) (LIGHT, DARK, LIGHT_DARK_TOOLBAR)
-        .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
-        //start the activity
+    // start the activity
     .start(this)
 ```
 
@@ -128,6 +126,32 @@ or use the builder and add following:
 	.withAboutIconShown(true)
 	.withAboutVersionShown(true)
 	.withAboutDescription("This is a small sample which can be set in the about my app description file.<br /><b>You can style this with html markup :D</b>")
+```
+
+## Style the AboutLibraries
+
+Create your custom style. If you don't need a custom theme see the next section, how you can set the colors just by overwriting the original colors.
+```xml
+// define a custom style
+<style name="CustomAboutLibrariesStyle" parent="">
+    <!-- AboutLibraries specific values -->
+    <item name="aboutLibrariesWindowBackground">?android:colorBackground</item>
+    <item name="aboutLibrariesCardBackground">?cardBackgroundColor</item>
+    <item name="aboutLibrariesDescriptionTitle">?android:textColorPrimary</item>
+    <item name="aboutLibrariesDescriptionText">?android:textColorSecondary</item>
+    <item name="aboutLibrariesDescriptionDivider">@color/opensource_divider</item>
+    <item name="aboutLibrariesOpenSourceTitle">?android:textColorPrimary</item>
+    <item name="aboutLibrariesOpenSourceText">?android:textColorSecondary</item>
+    <item name="aboutLibrariesSpecialButtonText">?android:textColorPrimary</item>
+    <item name="aboutLibrariesOpenSourceDivider">@color/opensource_divider</item>
+</style>
+
+// define the custom styles for the theme
+<style name="SampleApp" parent="Theme.MaterialComponents.Light.NoActionBar">
+    ...
+    <item name="aboutLibrariesStyle">@style/CustomAboutLibrariesStyle</item>
+    ...
+</style>
 ```
 
 ## ProGuard
