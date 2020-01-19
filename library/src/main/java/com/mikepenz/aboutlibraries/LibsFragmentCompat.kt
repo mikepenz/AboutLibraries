@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable
 import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,7 @@ import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.ui.item.HeaderItem
 import com.mikepenz.aboutlibraries.ui.item.LibraryItem
 import com.mikepenz.aboutlibraries.ui.item.LoaderItem
+import com.mikepenz.aboutlibraries.util.doOnApplySystemWindowInsets
 import com.mikepenz.aboutlibraries.util.extractBooleanBundleOrResource
 import com.mikepenz.aboutlibraries.util.extractStringBundleOrResource
 import com.mikepenz.fastadapter.FastAdapter
@@ -34,13 +36,13 @@ import kotlin.collections.ArrayList
  * Gets an libs instance and gets all external libs
  */
 class LibsFragmentCompat {
-    private lateinit var mAdapter: FastAdapter<IItem<*>>
-    private lateinit var mItemAdapter: ItemAdapter<IItem<*>>
+    private lateinit var adapter: FastAdapter<IItem<*>>
+    private lateinit var itemAdapter: ItemAdapter<IItem<*>>
 
     private lateinit var builder: LibsBuilder
     private var libraries: ArrayList<Library> = ArrayList()
     private var comparator: Comparator<Library>? = null
-    private var mLibTask: LibraryTask? = null
+    private var libTask: LibraryTask? = null
 
     fun setLibraryComparator(comparator: Comparator<Library>) {
         this.comparator = comparator
@@ -60,40 +62,41 @@ class LibsFragmentCompat {
         view = LibsConfiguration.instance.uiListener?.preOnCreateView(view) ?: view
 
         // init CardView
-        val mRecyclerView: RecyclerView
-        mRecyclerView = if (view.id == R.id.cardListView) {
+        val recyclerView: RecyclerView = if (view.id == R.id.cardListView) {
             view as RecyclerView
         } else {
             view.findViewById(R.id.cardListView) as RecyclerView
         }
-        mRecyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.layoutManager = LinearLayoutManager(context)
 
         if (LibsConfiguration.instance.itemAnimator != null) {
-            mRecyclerView.itemAnimator = LibsConfiguration.instance.itemAnimator
+            recyclerView.itemAnimator = LibsConfiguration.instance.itemAnimator
         } else {
-            mRecyclerView.itemAnimator = DefaultItemAnimator()
+            recyclerView.itemAnimator = DefaultItemAnimator()
         }
 
-        mItemAdapter = ItemAdapter()
-        mAdapter = FastAdapter.with<IItem<*>, ItemAdapter<IItem<*>>>(mItemAdapter)
-        mRecyclerView.adapter = mAdapter
+        itemAdapter = ItemAdapter()
+        adapter = FastAdapter.with(itemAdapter)
+        recyclerView.adapter = adapter
 
         if (builder.showLoadingProgress) {
-            mItemAdapter.add(LoaderItem())
+            itemAdapter.add(LoaderItem())
         }
 
         //allows to modify the view after creating
         view = LibsConfiguration.instance.uiListener?.postOnCreateView(view) ?: view
 
+        recyclerView.doOnApplySystemWindowInsets(Gravity.BOTTOM)
+
         return view
     }
 
-    fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    fun onViewCreated(view: View) {
         //load the data (only possible if we were able to get the Arguments
         if (view.context != null) {
             //fill the fragment with the content
-            mLibTask = LibraryTask(view.context.applicationContext)
-            executeLibTask(mLibTask)
+            libTask = LibraryTask(view.context.applicationContext)
+            executeLibTask(libTask)
         }
     }
 
@@ -109,9 +112,9 @@ class LibsFragmentCompat {
 
 
     fun onDestroyView() {
-        if (mLibTask != null) {
-            mLibTask?.cancel(true)
-            mLibTask = null
+        if (libTask != null) {
+            libTask?.cancel(true)
+            libTask = null
         }
     }
 
@@ -129,9 +132,9 @@ class LibsFragmentCompat {
         override fun doInBackground(vararg strings: String) {
             //init the Libs instance with fields if they were set
             val libs: Libs = if (builder.fields.isEmpty()) {
-                Libs(ctx)
+                Libs(ctx, libraryEnchantments = builder.libraryEnchantment)
             } else {
-                Libs(ctx, builder.fields)
+                Libs(ctx, builder.fields, builder.libraryEnchantment)
             }
 
             //fill the builder with the information
@@ -200,13 +203,13 @@ class LibsFragmentCompat {
 
         override fun onPostExecute(nothing: Unit) {
             //remove loader
-            mItemAdapter.clear()
+            itemAdapter.clear()
 
             //Add the header
             val showVersionInfo = builder.aboutShowVersion || builder.aboutShowVersionName || builder.aboutShowVersionCode
             if (builder.aboutShowIcon && showVersionInfo) {
                 //add this cool thing to the headerView of our listView
-                mItemAdapter.add(HeaderItem(builder).withAboutVersionName(versionName).withAboutVersionCode(versionCode).withAboutIcon(icon))
+                itemAdapter.add(HeaderItem(builder).withAboutVersionName(versionName).withAboutVersionCode(versionCode).withAboutIcon(icon))
             }
 
             //add the libs
@@ -214,12 +217,12 @@ class LibsFragmentCompat {
             for (library in libraries) {
                 libraryItems.add(LibraryItem(library, builder))
             }
-            mItemAdapter.add(libraryItems)
+            itemAdapter.add(libraryItems)
 
             super.onPostExecute(nothing)
 
             //finished loading
-            LibsConfiguration.instance.libTaskCallback?.onLibTaskFinished(mItemAdapter)
+            LibsConfiguration.instance.libTaskCallback?.onLibTaskFinished(itemAdapter)
         }
     }
 }

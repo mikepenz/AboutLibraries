@@ -1,8 +1,6 @@
 package com.mikepenz.aboutlibraries.ui
 
-import android.annotation.TargetApi
 import android.app.Fragment
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +11,6 @@ import com.mikepenz.aboutlibraries.LibsFragmentCompat
 /**
  * Created by mikepenz on 04.06.14.
  */
-@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 open class LibsFragment : Fragment() {
 
     private val libsFragmentCompat: LibsFragmentCompat = LibsFragmentCompat()
@@ -24,7 +21,7 @@ open class LibsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        libsFragmentCompat.onViewCreated(view, savedInstanceState)
+        libsFragmentCompat.onViewCreated(view)
     }
 
     override fun onDestroyView() {

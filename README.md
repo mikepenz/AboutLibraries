@@ -2,21 +2,24 @@
 
 [![Join the chat at https://gitter.im/mikepenz/AboutLibraries](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/mikepenz/AboutLibraries?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-The **AboutLibraries** library allows you to easily create an **used open source libraries** fragment/activity within your app. As an extra feature you can also add an **about this app** section. 
+The **AboutLibraries** library allows you to easily create an **used open source libraries** fragment/activity within your app. As an extra feature you can also add an **about this app** section.
+All the library information is automatically collected from the POM information of the depencencies and included during compile time. No runtime overhead. Strong caching, so build times stay short. Due to usage of maven POM information practically any dependency is supported.
 
 Here's a quick overview of functions it include:
 - **used open source libraries**
 	- name, description, creator, license, version, ...
 - **about this app** section (optional)
-- autodetect libraries
+- autodetect libraries (via the gradle depencies)
 - many included library details
 - automatic created fragment/activity
-- feature rich builder to simply create and start the fragment / activity
+- feature rich builder to simply create and start the fragment / activities
+- large amount of configuration options
+  - usage standalone possible too
 - much much more... try the sample for a quick overview.
 
 # Motivation
 
-Most modern apps feature a "Used Library"-section, which requires information about those respective libs. As it gets annoying to always copy those strings to your app, I've developed this small helper library to provide the required information.
+Most modern apps feature a "Used Library"-section, which requires information about those respective libs. As it gets annoying to always copy those strings to your app, **AboutLibraries** is there for the rescue.
 
 # Migration
 - [MIGRATION GUIDE](https://github.com/mikepenz/AboutLibraries/blob/develop/MIGRATION.md)
@@ -28,36 +31,46 @@ Most modern apps feature a "Used Library"-section, which requires information ab
 
 # More...
 - [Sample (Google Play Store)](https://play.google.com/store/apps/details?id=com.mikepenz.aboutlibraries.sample)
-- [Create new definition files](http://def-builder.mikepenz.com/)
 - [Get detailed instructions in the wiki](https://github.com/mikepenz/AboutLibraries/wiki)
-- [Compatible/included libs](https://github.com/mikepenz/AboutLibraries/wiki/Compatible-Libs)
-
 
 # Screenshots
 ![Image](https://raw.githubusercontent.com/mikepenz/AboutLibraries/master/DEV/screenshots/screenshot1_small.png)
 ![Image](https://raw.githubusercontent.com/mikepenz/AboutLibraries/master/DEV/screenshots/screenshot2_small.png)
 
+# Include in your project
 
-# Wiki
-You can find anything you search for in the wiki. (If not open an issue)
+## Latest releases
 
-[Bring me to the wiki](https://github.com/mikepenz/AboutLibraries/wiki)
+- Kotlin && Gradle Plugin | [v8.0.0-b03](https://github.com/mikepenz/FastAdapter/tree/v8.0.0-b03)
+- Kotlin | [v7.1.0](https://github.com/mikepenz/FastAdapter/tree/v7.1.0)
+- Java && AndroidX | [v6.2.3](https://github.com/mikepenz/FastAdapter/tree/v6.2.3)
+- Java && AppCompat | [v6.1.1](https://github.com/mikepenz/FastAdapter/tree/v6.1.1)
 
+## Gradle Plugin
 
-## Include in your project
-### Using Maven
-The AboutLibraries Library is pushed to [Maven Central](http://search.maven.org/#search|ga|1|g%3A%22com.mikepenz%22), so you just need to add the following dependency to your `build.gradle`. It seems it is also required to add the support dependencies to the application. If it works without, you should be fine too :).
-
-#### CORE module
+As a new feature of the AboutLibraries v8.x.y we offer a gradle plugin which will resolve the dependency during compilation, and only includes the libraries which are really specified as dependencies.
 
 ```javascript
-implementation "com.mikepenz:aboutlibraries-core:7.1.0"
+// Root build.gradle
+classpath "com.mikepenz.aboutlibraries.plugin:aboutlibraries-plugin:${latestAboutLibsRelease}"
+
+// App build.gradle
+apply plugin: 'com.mikepenz.aboutlibraries.plugin'
 ```
 
-#### UI module
+## Using Maven
+The AboutLibraries Library is pushed to [Maven Central](http://search.maven.org/#search|ga|1|g%3A%22com.mikepenz%22).
+
+## CORE module
 
 ```javascript
-implementation "com.mikepenz:aboutlibraries:7.1.0"
+implementation "com.mikepenz:aboutlibraries-core:${latestAboutLibsRelease}"
+```
+
+## UI module
+
+```javascript
+implementation "com.mikepenz:aboutlibraries:${latestAboutLibsRelease}"
 
 //required support lib modules
 implementation "androidx.appcompat:appcompat:${versions.appcompat | 1.x.y}"
@@ -66,16 +79,20 @@ implementation "androidx.recyclerview:recyclerview:${versions.recyclerview | 1.1
 implementation "com.google.android.material:material:${versions.material | 1.1.y}"
 ```
 
-To use java version please use a version smaller than 7.0.0 (See the release on GitHub)
-To use appcompat please use a version smaller than 6.2.0. (See the releases on GitHub)
+## WITHOUT gradle plugin (not recommended)
 
-Further information and how to use it if you can't update to the newest support libs can be found in the [wiki](https://github.com/mikepenz/AboutLibraries/wiki/HOWTO:-Include)
+If you do not want to use the gradle plugin, you need to add the legacy definition files, which will then be included in the built apk, and resolved via reflection during runtime.
+> NOTE: This is not recommended. Please migrate to use the gradle plugin
 
-## Usage
+```gradle
+implementation "com.mikepenz:aboutlibraries-definitions:${latestAboutLibsRelease}"
+```
+
+# Usage
 You can use this library in a few different ways. You can create your own activity, including a custom style and just use the information, or you can use the built-in Activity or Fragment and just pass the libs you would love to include.
 
 ### Upgrade Notes
-> If you upgrade from < 5.9.5 follow the [MIGRATION GUIDE](https://github.com/mikepenz/AboutLibraries/blob/develop/MIGRATION.md)
+> If you upgrade from < 8.x.y follow the [MIGRATION GUIDE](https://github.com/mikepenz/AboutLibraries/blob/develop/MIGRATION.md)
 
 ### Activity / Fragment
 #### Fragment
@@ -88,9 +105,7 @@ val fragment = LibsBuilder()
 ##### Code:
 ```kotlin
 LibsBuilder()
-        //provide a style (optional) (LIGHT, DARK, LIGHT_DARK_TOOLBAR)
-        .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
-        //start the activity
+    // start the activity
     .start(this)
 ```
 
@@ -111,6 +126,32 @@ or use the builder and add following:
 	.withAboutIconShown(true)
 	.withAboutVersionShown(true)
 	.withAboutDescription("This is a small sample which can be set in the about my app description file.<br /><b>You can style this with html markup :D</b>")
+```
+
+## Style the AboutLibraries
+
+Create your custom style. If you don't need a custom theme see the next section, how you can set the colors just by overwriting the original colors.
+```xml
+// define a custom style
+<style name="CustomAboutLibrariesStyle" parent="">
+    <!-- AboutLibraries specific values -->
+    <item name="aboutLibrariesWindowBackground">?android:colorBackground</item>
+    <item name="aboutLibrariesCardBackground">?cardBackgroundColor</item>
+    <item name="aboutLibrariesDescriptionTitle">?android:textColorPrimary</item>
+    <item name="aboutLibrariesDescriptionText">?android:textColorSecondary</item>
+    <item name="aboutLibrariesDescriptionDivider">@color/opensource_divider</item>
+    <item name="aboutLibrariesOpenSourceTitle">?android:textColorPrimary</item>
+    <item name="aboutLibrariesOpenSourceText">?android:textColorSecondary</item>
+    <item name="aboutLibrariesSpecialButtonText">?android:textColorPrimary</item>
+    <item name="aboutLibrariesOpenSourceDivider">@color/opensource_divider</item>
+</style>
+
+// define the custom styles for the theme
+<style name="SampleApp" parent="Theme.MaterialComponents.Light.NoActionBar">
+    ...
+    <item name="aboutLibrariesStyle">@style/CustomAboutLibrariesStyle</item>
+    ...
+</style>
 ```
 
 ## ProGuard
@@ -174,6 +215,11 @@ You can contribute by creating a information file for a new library, and open a 
 * [OneMeme: Meme Maker](https://play.google.com/store/apps/details?id=com.mememaker.android&hl)
 * [andOTP](https://play.google.com/store/apps/details?id=org.shadowice.flocke.andotp)
 
+# Wiki
+You can find anything you search for in the wiki. (If not open an issue)
+
+[Bring me to the wiki](https://github.com/mikepenz/AboutLibraries/wiki)
+
 # Developed By
 
 * Mike Penz 
@@ -182,7 +228,7 @@ You can contribute by creating a information file for a new library, and open a 
 
 # License
 
-    Copyright 2019 Mike Penz
+    Copyright 2020 Mike Penz
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.

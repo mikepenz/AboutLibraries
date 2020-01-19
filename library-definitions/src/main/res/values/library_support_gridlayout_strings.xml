@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_support_gridlayout">year;owner</string>
+    <!-- Author section -->
+    <string name="library_support_gridlayout_author">AOSP</string>
+    <string name="library_support_gridlayout_authorWebsite">https://source.android.com/</string>
+    <!-- Library section -->
+    <string name="library_support_gridlayout_libraryName">GridLayout</string>
+    <string name="library_support_gridlayout_libraryDescription">A layout that places its children in a rectangular grid.  The grid is composed of a set of infinitely thin lines that separate the viewing area into cells.</string>
+    <string name="library_support_gridlayout_libraryWebsite">https://developer.android.com/reference/android/widget/GridLayout.html</string>
+    <string name="library_support_gridlayout_libraryVersion">28.0.0</string>
+    <!-- OpenSource section -->
+    <string name="library_support_gridlayout_isOpenSource">true</string>
+    <string name="library_support_gridlayout_repositoryLink"></string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_support_gridlayout_classPath">android.support.v7.gridlayout.BuildConfig</string>
+    <!-- License section -->
+    <string name="library_support_gridlayout_licenseId">apache_2_0</string>
+    <!-- Custom variables section -->
+    <string name="library_support_gridlayout_owner">The Android Open Source Project</string>
+    <string name="library_support_gridlayout_year">2011</string>
+</resources>

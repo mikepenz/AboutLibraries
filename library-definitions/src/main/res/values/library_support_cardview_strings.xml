@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_support_cardview">year;owner</string>
+    <!-- Author section -->
+    <string name="library_support_cardview_author">AOSP</string>
+    <string name="library_support_cardview_authorWebsite">https://source.android.com/</string>
+    <!-- Library section -->
+    <string name="library_support_cardview_libraryName">CardView</string>
+    <string name="library_support_cardview_libraryDescription">A FrameLayout with a rounded corner background and shadow.</string>
+    <string name="library_support_cardview_libraryWebsite">https://developer.android.com/reference/android/support/v7/widget/CardView.html</string>
+    <string name="library_support_cardview_libraryVersion">28.0.0</string>
+    <!-- OpenSource section -->
+    <string name="library_support_cardview_isOpenSource">true</string>
+    <string name="library_support_cardview_repositoryLink"></string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_support_cardview_classPath">android.support.v7.cardview.BuildConfig</string>
+    <!-- License section -->
+    <string name="library_support_cardview_licenseId">apache_2_0</string>
+    <!-- Custom variables section -->
+    <string name="library_support_cardview_owner">The Android Open Source Project</string>
+    <string name="library_support_cardview_year">2011</string>
+</resources>

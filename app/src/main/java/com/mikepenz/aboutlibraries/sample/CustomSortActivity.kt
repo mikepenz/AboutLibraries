@@ -13,7 +13,6 @@ class CustomSortActivity : LibsActivity() {
 
         val builder = LibsBuilder()
                 .withLibraries("crouton, actionbarsherlock", "showcaseview")
-                .withActivityTheme(R.style.MaterialDrawerTheme)
                 .withLibraryComparator(LibraryComparator())
 
         intent = builder.intent(this)

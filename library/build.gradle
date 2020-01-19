@@ -11,9 +11,6 @@ android {
         targetSdkVersion setup.targetSdk
         versionCode release.versionCode
         versionName release.versionName
-
-        resValue "string", "aboutlibrary_lib_version", "${versionName}"
-        resValue "string", "ext_support_lib_version", "${versions.androidX}"
     }
 
     buildTypes {
@@ -41,6 +38,7 @@ android {
 dependencies {
     api project(':library-core')
 
+    implementation "androidx.core:core-ktx:${versions.coreKtx}"
     implementation "androidx.appcompat:appcompat:${versions.appcompat}"
     implementation "androidx.cardview:cardview:${versions.cardview}"
     implementation "androidx.recyclerview:recyclerview:${versions.recyclerview}"
@@ -48,11 +46,6 @@ dependencies {
 
     // add the constraintLayout used to create the items and headers
     implementation "androidx.constraintlayout:constraintlayout:${versions.constraintLayout}"
-
-    // used to provide out of the box icon font support. simplifies development,
-    // and provides scalable icons. the core is very very light
-    // https://github.com/mikepenz/Android-Iconics
-    implementation "com.mikepenz:iconics-core:${versions.iconics}"
 
     // used to fill the RecyclerView with the items
     // and provides single and multi selection, expandable items

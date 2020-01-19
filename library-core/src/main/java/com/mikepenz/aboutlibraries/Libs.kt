@@ -11,20 +11,25 @@ import com.mikepenz.aboutlibraries.util.*
 import java.util.*
 import kotlin.collections.ArrayList
 
-public class Libs(context: Context, fields: Array<String> = context.getFields()) {
+public class Libs(
+        context: Context,
+        fields: Array<String> = context.getFields(),
+        libraryEnchantments: Map<String, String> = emptyMap()
+) {
 
-    private val internLibraries = ArrayList<Library>()
-    private val externLibraries = ArrayList<Library>()
-    private val licenses = ArrayList<License>()
+    private var usedGradlePlugin = false
+    private val internLibraries = mutableListOf<Library>()
+    private val externLibraries = mutableListOf<Library>()
+    private val licenses = mutableListOf<License>()
 
     /**
      * Get all available Libraries
      *
      * @return an ArrayList Library with all available Libraries
      */
-    val libraries: ArrayList<Library>
+    val libraries: List<Library>
         get() {
-            val libs = ArrayList<Library>()
+            val libs = mutableListOf<Library>()
             libs.addAll(getInternLibraries())
             libs.addAll(getExternLibraries())
             return libs
@@ -36,6 +41,7 @@ public class Libs(context: Context, fields: Array<String> = context.getFields())
         LIBRARY_NAME,
         LIBRARY_DESCRIPTION,
         LIBRARY_VERSION,
+        LIBRARY_ARTIFACT_ID,
         LIBRARY_WEBSITE,
         LIBRARY_OPEN_SOURCE,
         LIBRARY_REPOSITORY_LINK,
@@ -65,11 +71,13 @@ public class Libs(context: Context, fields: Array<String> = context.getFields())
         val foundLicenseIdentifiers = ArrayList<String>()
         val foundInternalLibraryIdentifiers = ArrayList<String>()
         val foundExternalLibraryIdentifiers = ArrayList<String>()
+        val foundPluginLibraryIdentifiers = ArrayList<String>()
 
         for (field in fields) {
             when {
                 field.startsWith(DEFINE_LICENSE) -> foundLicenseIdentifiers.add(field.replace(DEFINE_LICENSE, ""))
                 field.startsWith(DEFINE_INT) -> foundInternalLibraryIdentifiers.add(field.replace(DEFINE_INT, ""))
+                field.startsWith(DEFINE_PLUGIN) -> foundPluginLibraryIdentifiers.add(field.replace(DEFINE_PLUGIN, ""))
                 field.startsWith(DEFINE_EXT) -> foundExternalLibraryIdentifiers.add(field.replace(DEFINE_EXT, ""))
             }
         }
@@ -77,24 +85,35 @@ public class Libs(context: Context, fields: Array<String> = context.getFields())
         // add licenses
         // this has to happen first as the licenses need to be initialized before the libraries are read in
         for (licenseIdentifier in foundLicenseIdentifiers) {
-            val license = genLicense(context, licenseIdentifier)
-            if (license != null) {
-                licenses.add(license)
-            }
+            val license = genLicense(context, licenseIdentifier) ?: continue
+            licenses.add(license)
         }
-        //add internal libs
-        for (internalIdentifier in foundInternalLibraryIdentifiers) {
-            val library = genLibrary(context, internalIdentifier)
-            if (library != null) {
+
+        //add plugin libs
+        for (pluginLibraryIdentifier in foundPluginLibraryIdentifiers) {
+            val library = genLibrary(context, pluginLibraryIdentifier) ?: continue
+            library.isInternal = false
+            library.isPlugin = true
+            externLibraries.add(library)
+            usedGradlePlugin = true
+
+            val enchantWithKey = libraryEnchantments[pluginLibraryIdentifier] ?: continue
+            val enchantWith = genLibrary(context, enchantWithKey) ?: continue
+            library.enchantBy(enchantWith)
+        }
+
+        // if we used the gradle plugin to resolve libraries, only use those
+        if (foundPluginLibraryIdentifiers.isEmpty()) {
+            //add internal libs
+            for (internalIdentifier in foundInternalLibraryIdentifiers) {
+                val library = genLibrary(context, internalIdentifier) ?: continue
                 library.isInternal = true
                 internLibraries.add(library)
             }
-        }
 
-        //add external libs
-        for (externalIdentifier in foundExternalLibraryIdentifiers) {
-            val library = genLibrary(context, externalIdentifier)
-            if (library != null) {
+            //add external libs
+            for (externalIdentifier in foundExternalLibraryIdentifiers) {
+                val library = genLibrary(context, externalIdentifier) ?: continue
                 library.isInternal = false
                 externLibraries.add(library)
             }
@@ -116,7 +135,7 @@ public class Libs(context: Context, fields: Array<String> = context.getFields())
         val libraries = HashMap<String, Library>()
         val resultLibraries = ArrayList<Library>()
 
-        if (autoDetect) {
+        if (!usedGradlePlugin && autoDetect) {
             val autoDetected = getAutoDetectedLibraries(ctx, checkCachedDetection)
             resultLibraries.addAll(autoDetected)
 
@@ -137,24 +156,20 @@ public class Libs(context: Context, fields: Array<String> = context.getFields())
             }
         }
 
-        //Now add all libs which do not contains the info file, but are in the AboutLibraries lib
+        //Now add all libs which do not contain the info file, but are in the AboutLibraries lib
         if (internalLibraries.isNotEmpty()) {
             for (internalLibrary in internalLibraries) {
-                val lib = getLibrary(internalLibrary)
-                if (lib != null) {
-                    resultLibraries.add(lib)
-                    libraries[lib.definedName] = lib
-                }
+                val lib = getLibrary(internalLibrary) ?: continue
+                resultLibraries.add(lib)
+                libraries[lib.definedName] = lib
             }
         }
 
         //remove libraries which should be excluded
         if (isExcluding) {
             for (excludeLibrary in excludeLibraries) {
-                val lib = libraries[excludeLibrary]
-                if (lib != null) {
-                    resultLibraries.remove(lib)
-                }
+                val lib = libraries[excludeLibrary] ?: continue
+                resultLibraries.remove(lib)
             }
         }
 
@@ -184,8 +199,8 @@ public class Libs(context: Context, fields: Array<String> = context.getFields())
                 if (autoDetectedLibraries?.isNotEmpty() == true) {
                     val libraries = ArrayList<Library>(autoDetectedLibraries.size)
                     for (autoDetectedLibrary in autoDetectedLibraries) {
-                        val lib = getLibrary(autoDetectedLibrary)
-                        if (lib != null) libraries.add(lib)
+                        val lib = getLibrary(autoDetectedLibrary) ?: continue
+                        libraries.add(lib)
                     }
                     return libraries
                 }
@@ -260,7 +275,7 @@ public class Libs(context: Context, fields: Array<String> = context.getFields())
      * @param limit      -1 for all results or smaller 0 for a limitted result
      * @return an ArrayList Library with the found internLibraries
      */
-    fun findLibrary(searchTerm: String, limit: Int): ArrayList<Library> {
+    fun findLibrary(searchTerm: String, limit: Int): List<Library> {
         return find(libraries, searchTerm, false, limit)
     }
 
@@ -270,7 +285,7 @@ public class Libs(context: Context, fields: Array<String> = context.getFields())
      * @param limit
      * @return
      */
-    fun findInInternalLibrary(searchTerm: String, idOnly: Boolean, limit: Int): ArrayList<Library> {
+    fun findInInternalLibrary(searchTerm: String, idOnly: Boolean, limit: Int): List<Library> {
         return find(getInternLibraries(), searchTerm, idOnly, limit)
     }
 
@@ -280,7 +295,7 @@ public class Libs(context: Context, fields: Array<String> = context.getFields())
      * @param limit
      * @return
      */
-    fun findInExternalLibrary(searchTerm: String, idOnly: Boolean, limit: Int): ArrayList<Library> {
+    fun findInExternalLibrary(searchTerm: String, idOnly: Boolean, limit: Int): List<Library> {
         return find(getExternLibraries(), searchTerm, idOnly, limit)
     }
 
@@ -291,7 +306,7 @@ public class Libs(context: Context, fields: Array<String> = context.getFields())
      * @param limit
      * @return
      */
-    private fun find(libraries: ArrayList<Library>, searchTerm: String, idOnly: Boolean, limit: Int): ArrayList<Library> {
+    private fun find(libraries: List<Library>, searchTerm: String, idOnly: Boolean, limit: Int): List<Library> {
         val localLibs = ArrayList<Library>()
 
         var count = 0
@@ -378,6 +393,7 @@ public class Libs(context: Context, fields: Array<String> = context.getFields())
             lib.authorWebsite = ctx.getStringResourceByName("library_" + name + "_authorWebsite")
             lib.libraryDescription = insertVariables(ctx.getStringResourceByName("library_" + name + "_libraryDescription"), customVariables)
             lib.libraryVersion = ctx.getStringResourceByName("library_" + name + "_libraryVersion")
+            lib.libraryArtifactId = ctx.getStringResourceByName("library_" + name + "_libraryArtifactId")
             lib.libraryWebsite = ctx.getStringResourceByName("library_" + name + "_libraryWebsite")
 
             val licenseId = ctx.getStringResourceByName("library_" + name + "_licenseId")
@@ -422,10 +438,11 @@ public class Libs(context: Context, fields: Array<String> = context.getFields())
     fun getCustomVariables(ctx: Context, libraryName: String): HashMap<String, String> {
         val customVariables = HashMap<String, String>()
 
-        var customVariablesString = ctx.getStringResourceByName(DEFINE_EXT + libraryName)
-        if (customVariablesString.isBlank()) {
-            customVariablesString = ctx.getStringResourceByName(DEFINE_INT + libraryName)
-        }
+        val customVariablesString = sequenceOf(DEFINE_EXT, DEFINE_INT, DEFINE_PLUGIN)
+                .map { ctx.getStringResourceByName("$it$libraryName") }
+                .filter { it.isNotBlank() }
+                .firstOrNull()
+                ?: ""
 
         if (customVariablesString.isNotEmpty()) {
             val customVariableArray = customVariablesString.split(";".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
@@ -461,69 +478,71 @@ public class Libs(context: Context, fields: Array<String> = context.getFields())
      * @param modifications
      */
     fun modifyLibraries(modifications: HashMap<String, HashMap<String, String>>?) {
-        if (modifications != null) {
-            for ((key1, value1) in modifications) {
-                var foundLibs: ArrayList<Library>? = findInExternalLibrary(key1, true, 1)
-                if (foundLibs == null || foundLibs.size == 0) {
-                    foundLibs = findInInternalLibrary(key1, true, 1)
-                }
+        modifications ?: return
+        for ((key1, value1) in modifications) {
+            var foundLibs: List<Library>? = findInExternalLibrary(key1, true, 1)
+            if (foundLibs == null || foundLibs.isEmpty()) {
+                foundLibs = findInInternalLibrary(key1, true, 1)
+            }
 
-                if (foundLibs.size == 1) {
-                    val lib = foundLibs[0]
-                    for ((key2, value) in value1) {
-                        when (key2.toUpperCase(Locale.US)) {
-                            LibraryFields.AUTHOR_NAME.name -> {
-                                lib.author = value
+            if (foundLibs.size == 1) {
+                val lib = foundLibs[0]
+                for ((key2, value) in value1) {
+                    when (key2.toUpperCase(Locale.US)) {
+                        LibraryFields.AUTHOR_NAME.name -> {
+                            lib.author = value
+                        }
+                        LibraryFields.AUTHOR_WEBSITE.name -> {
+                            lib.authorWebsite = value
+                        }
+                        LibraryFields.LIBRARY_NAME.name -> {
+                            lib.libraryName = value
+                        }
+                        LibraryFields.LIBRARY_DESCRIPTION.name -> {
+                            lib.libraryDescription = value
+                        }
+                        LibraryFields.LIBRARY_VERSION.name -> {
+                            lib.libraryVersion = value
+                        }
+                        LibraryFields.LIBRARY_ARTIFACT_ID.name -> {
+                            lib.libraryArtifactId = value
+                        }
+                        LibraryFields.LIBRARY_WEBSITE.name -> {
+                            lib.libraryWebsite = value
+                        }
+                        LibraryFields.LIBRARY_OPEN_SOURCE.name -> {
+                            lib.isOpenSource = java.lang.Boolean.parseBoolean(value)
+                        }
+                        LibraryFields.LIBRARY_REPOSITORY_LINK.name -> {
+                            lib.repositoryLink = value
+                        }
+                        LibraryFields.LIBRARY_CLASSPATH.name -> {
+                            //note this can be set but won't probably work for autodetect
+                            lib.classPath = value
+                        }
+                        LibraryFields.LICENSE_NAME.name -> {
+                            if (lib.license == null) {
+                                lib.license = License("", "", "", "", "")
                             }
-                            LibraryFields.AUTHOR_WEBSITE.name -> {
-                                lib.authorWebsite = value
+                            lib.license?.licenseName = value
+                        }
+                        LibraryFields.LICENSE_SHORT_DESCRIPTION.name -> {
+                            if (lib.license == null) {
+                                lib.license = License("", "", "", "", "")
                             }
-                            LibraryFields.LIBRARY_NAME.name -> {
-                                lib.libraryName = value
+                            lib.license?.licenseShortDescription = value
+                        }
+                        LibraryFields.LICENSE_DESCRIPTION.name -> {
+                            if (lib.license == null) {
+                                lib.license = License("", "", "", "", "")
                             }
-                            LibraryFields.LIBRARY_DESCRIPTION.name -> {
-                                lib.libraryDescription = value
+                            lib.license?.licenseDescription = value
+                        }
+                        LibraryFields.LICENSE_WEBSITE.name -> {
+                            if (lib.license == null) {
+                                lib.license = License("", "", "", "", "")
                             }
-                            LibraryFields.LIBRARY_VERSION.name -> {
-                                lib.libraryVersion = value
-                            }
-                            LibraryFields.LIBRARY_WEBSITE.name -> {
-                                lib.libraryWebsite = value
-                            }
-                            LibraryFields.LIBRARY_OPEN_SOURCE.name -> {
-                                lib.isOpenSource = java.lang.Boolean.parseBoolean(value)
-                            }
-                            LibraryFields.LIBRARY_REPOSITORY_LINK.name -> {
-                                lib.repositoryLink = value
-                            }
-                            LibraryFields.LIBRARY_CLASSPATH.name -> {
-                                //note this can be set but won't probably work for autodetect
-                                lib.classPath = value
-                            }
-                            LibraryFields.LICENSE_NAME.name -> {
-                                if (lib.license == null) {
-                                    lib.license = License("", "", "", "", "")
-                                }
-                                lib.license?.licenseName = value
-                            }
-                            LibraryFields.LICENSE_SHORT_DESCRIPTION.name -> {
-                                if (lib.license == null) {
-                                    lib.license = License("", "", "", "", "")
-                                }
-                                lib.license?.licenseShortDescription = value
-                            }
-                            LibraryFields.LICENSE_DESCRIPTION.name -> {
-                                if (lib.license == null) {
-                                    lib.license = License("", "", "", "", "")
-                                }
-                                lib.license?.licenseDescription = value
-                            }
-                            LibraryFields.LICENSE_WEBSITE.name -> {
-                                if (lib.license == null) {
-                                    lib.license = License("", "", "", "", "")
-                                }
-                                lib.license?.licenseWebsite = value
-                            }
+                            lib.license?.licenseWebsite = value
                         }
                     }
                 }
@@ -532,13 +551,12 @@ public class Libs(context: Context, fields: Array<String> = context.getFields())
     }
 
     companion object {
-        const val BUNDLE_THEME = "ABOUT_LIBRARIES_THEME"
         const val BUNDLE_TITLE = "ABOUT_LIBRARIES_TITLE"
-        const val BUNDLE_STYLE = "ABOUT_LIBRARIES_STYLE"
-        const val BUNDLE_COLORS = "ABOUT_COLOR"
+        const val BUNDLE_EDGE_TO_EDGE = "ABOUT_LIBRARIES_EDGE_TO_EDGE"
 
         private const val DEFINE_LICENSE = "define_license_"
         private const val DEFINE_INT = "define_int_"
+        private const val DEFINE_PLUGIN = "define_plu_"
         internal const val DEFINE_EXT = "define_"
 
         private const val DELIMITER = ";"

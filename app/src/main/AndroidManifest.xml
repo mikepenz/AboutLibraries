@@ -7,12 +7,13 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round">
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:theme="@style/SampleApp.DayNight">
         <!--android:supportsRtl="true"-->
         <activity
             android:name="com.mikepenz.aboutlibraries.sample.FragmentActivity"
             android:label="@string/app_name"
-            android:theme="@style/AboutLibrariesSampleTheme">
+            android:theme="@style/SampleApp.DayNight">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,11 +23,11 @@
         <activity
             android:name="com.mikepenz.aboutlibraries.sample.ExtendActivity"
             android:label="@string/app_name"
-            android:theme="@style/AboutLibrariesTheme" />
+            android:theme="@style/SampleApp.DayNight" />
         <activity
             android:name="com.mikepenz.aboutlibraries.sample.CustomSortActivity"
             android:label="@string/app_name"
-            android:theme="@style/AboutLibrariesTheme" />
+            android:theme="@style/SampleApp.DayNight" />
     </application>
 
 </manifest>

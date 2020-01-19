@@ -14,6 +14,13 @@ class CustomApplication : Application() {
     override fun onCreate() {
         //define an itemAnimator for our AboutLibs
         LibsConfiguration.instance.itemAnimator = SlideDownAlphaAnimator()
+
+        // define a custom action after the text is applied on iconics (previously) compatible views
+        LibsConfiguration.instance.postTextAction = {
+            Iconics.init(it.context)
+            Iconics.Builder().on(it).build()
+        }
+
         //register our font
         Iconics.registerFont(MaterialDesignIconic)
         super.onCreate()
