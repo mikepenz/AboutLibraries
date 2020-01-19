@@ -15,7 +15,8 @@ import org.gradle.api.artifacts.result.ComponentArtifactsResult
 import org.gradle.api.artifacts.result.ResolvedArtifactResult
 import org.gradle.api.internal.artifacts.DefaultModuleVersionIdentifier
 import org.gradle.api.tasks.CacheableTask
-import org.gradle.api.tasks.InputDirectory
+import org.gradle.api.tasks.InputFiles
+import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
 import org.gradle.internal.component.external.model.DefaultModuleComponentIdentifier
@@ -26,15 +27,21 @@ import org.gradle.maven.MavenPomArtifact
 public class AboutLibrariesTask extends DefaultTask {
 
     private File dependencies
+    @Internal
     private File combinedLibrariesOutputFile
     private File outputValuesFolder
     private File outputRawFolder
 
+    @Internal
     Set<String> handledLibraries = new HashSet<String>()
 
+    @Internal
     Set<String> neededLicenses = new HashSet<String>()
+    @Internal
     Map<String, String> customLicenseMappings = new HashMap<String, String>()
+    @Internal
     Map<String, String> customNameMappings = new HashMap<String, String>()
+    @Internal
     Map<String, String> customEnchantMapping = new HashMap<String, String>()
 
     File getCombinedLibrariesOutputFile() {
@@ -56,7 +63,7 @@ public class AboutLibrariesTask extends DefaultTask {
         return dependencies
     }
 
-    @InputDirectory
+    @InputFiles
     public void setDependencies(File dependencies) {
         this.dependencies = dependencies
     }
