@@ -195,14 +195,6 @@ internal fun View.doOnApplySystemWindowInsets(vararg gravities: Int) {
 }
 
 /**
- * Data class holding the initial padding of a view
- * @hide
- */
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
-internal class InitialPadding(val left: Int, val top: Int, val right: Int, val bottom: Int)
-
-
-/**
  * Fix potential issue with window insets
  * https://chris.banes.dev/2019/04/12/insets-listeners-to-layouts/
  * @hide
