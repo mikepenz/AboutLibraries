@@ -126,7 +126,7 @@ class FragmentActivity : AppCompatActivity() {
                                     .withLicenseShown(true)
                                     .withVersionShown(true)
                                     .withActivityTitle("Open Source")
-                                    .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
+                                    .withEdgeToEdge(true)
                                     .withListener(libsListener)
                                     .withLibTaskCallback(libTaskCallback)
                                     .withUiListener(libsUIListener)

@@ -551,10 +551,8 @@ public class Libs(
     }
 
     companion object {
-        const val BUNDLE_THEME = "ABOUT_LIBRARIES_THEME"
         const val BUNDLE_TITLE = "ABOUT_LIBRARIES_TITLE"
-        const val BUNDLE_STYLE = "ABOUT_LIBRARIES_STYLE"
-        const val BUNDLE_COLORS = "ABOUT_COLOR"
+        const val BUNDLE_EDGE_TO_EDGE = "ABOUT_LIBRARIES_EDGE_TO_EDGE"
 
         private const val DEFINE_LICENSE = "define_license_"
         private const val DEFINE_INT = "define_int_"

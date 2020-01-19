@@ -14,7 +14,9 @@ import com.mikepenz.aboutlibraries.LibsBuilder
 import com.mikepenz.aboutlibraries.LibsConfiguration
 import com.mikepenz.aboutlibraries.R
 import com.mikepenz.aboutlibraries.entity.Library
-import com.mikepenz.aboutlibraries.util.getThemeColorFromAttrOrRes
+import com.mikepenz.aboutlibraries.util.getSupportColor
+import com.mikepenz.aboutlibraries.util.getThemeColor
+import com.mikepenz.aboutlibraries.util.resolveStyledValue
 import com.mikepenz.fastadapter.items.AbstractItem
 
 
@@ -233,14 +235,17 @@ class LibraryItem(private val library: Library, private val libsBuilder: LibsBui
         internal var libraryLicense: TextView = itemView.findViewById(R.id.libraryLicense) as TextView
 
         init {
-            card.setCardBackgroundColor(itemView.context.getThemeColorFromAttrOrRes(R.attr.about_libraries_card, R.color.about_libraries_card))
-            libraryName.setTextColor(itemView.context.getThemeColorFromAttrOrRes(R.attr.about_libraries_title_openSource, R.color.about_libraries_title_openSource))
-            libraryCreator.setTextColor(itemView.context.getThemeColorFromAttrOrRes(R.attr.about_libraries_text_openSource, R.color.about_libraries_text_openSource))
-            libraryDescriptionDivider.setBackgroundColor(itemView.context.getThemeColorFromAttrOrRes(R.attr.about_libraries_dividerLight_openSource, R.color.about_libraries_dividerLight_openSource))
-            libraryDescription.setTextColor(itemView.context.getThemeColorFromAttrOrRes(R.attr.about_libraries_text_openSource, R.color.about_libraries_text_openSource))
-            libraryBottomDivider.setBackgroundColor(itemView.context.getThemeColorFromAttrOrRes(R.attr.about_libraries_dividerLight_openSource, R.color.about_libraries_dividerLight_openSource))
-            libraryVersion.setTextColor(itemView.context.getThemeColorFromAttrOrRes(R.attr.about_libraries_text_openSource, R.color.about_libraries_text_openSource))
-            libraryLicense.setTextColor(itemView.context.getThemeColorFromAttrOrRes(R.attr.about_libraries_text_openSource, R.color.about_libraries_text_openSource))
+            val ctx = itemView.context
+            ctx.resolveStyledValue {
+                card.setCardBackgroundColor(it.getColor(R.styleable.AboutLibraries_aboutLibrariesWindowBackground, ctx.getThemeColor(R.attr.aboutLibrariesWindowBackground, ctx.getSupportColor(R.color.about_libraries_card))))
+                libraryName.setTextColor(it.getColorStateList(R.styleable.AboutLibraries_aboutLibrariesOpenSourceTitle))
+                libraryCreator.setTextColor(it.getColorStateList(R.styleable.AboutLibraries_aboutLibrariesOpenSourceText))
+                libraryDescriptionDivider.setBackgroundColor(it.getColor(R.styleable.AboutLibraries_aboutLibrariesOpenSourceDivider, ctx.getThemeColor(R.attr.aboutLibrariesOpenSourceDivider, ctx.getSupportColor(R.color.about_libraries_dividerLight_openSource))))
+                libraryDescription.setTextColor(it.getColorStateList(R.styleable.AboutLibraries_aboutLibrariesOpenSourceText))
+                libraryBottomDivider.setBackgroundColor(it.getColor(R.styleable.AboutLibraries_aboutLibrariesOpenSourceDivider, ctx.getThemeColor(R.attr.aboutLibrariesOpenSourceDivider, ctx.getSupportColor(R.color.about_libraries_dividerLight_openSource))))
+                libraryVersion.setTextColor(it.getColorStateList(R.styleable.AboutLibraries_aboutLibrariesOpenSourceText))
+                libraryLicense.setTextColor(it.getColorStateList(R.styleable.AboutLibraries_aboutLibrariesOpenSourceText))
+            }
         }
     }
 }

@@ -1,16 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#2196F3</color>
-    <color name="colorPrimaryDark">#1976D2</color>
-    <color name="colorAccent">#FF4081</color>
-    <!-- for backwards compatiblity make a color chain :D -->
-    <color name="theme_default_primary">@color/colorPrimary</color>
-    <color name="theme_default_primary_dark">@color/colorPrimaryDark</color>
-    <color name="theme_accent">@color/colorAccent</color>
-    <color name="about_libraries_primary">@color/theme_default_primary</color>
-    <color name="about_libraries_primary_dark">@color/theme_default_primary_dark</color>
-    <color name="about_libraries_accent">@color/theme_accent</color>
-
     <!-- AboutLibraries DEFAULT colors -->
     <color name="about_libraries_window_background">#ECECEC</color>
     <color name="about_libraries_card">#FAFAFA</color>
@@ -20,17 +9,11 @@
     <color name="about_libraries_dividerDark_openSource">#AAA</color>
     <color name="about_libraries_dividerLight_openSource">#DADADA</color>
 
-    <!-- AboutLibraries SAMPLE DARK colors -->
-    <color name="about_libraries_window_background_dark">#303030</color>
-    <color name="about_libraries_card_dark">#666666</color>
-    <color name="about_libraries_title_openSource_dark">#ffffffff</color>
-    <color name="about_libraries_text_openSource_dark">#DEDEDE</color>
-    <color name="about_libraries_special_button_openSource_dark">#ffffffff</color>
-    <color name="about_libraries_dividerDark_openSource_dark">#303030</color>
-    <color name="about_libraries_dividerLight_openSource_dark">#303030</color>
+    <!-- Provide colors for immersive bars when going edge to edge-->
+    <color name="immersive_bars">#99FFFFFF</color>
+    <color name="nav_bar">@color/immersive_bars</color>
 
-    <!-- Reuse colors for backwards compatibility -->
-    <color name="about_libraries_title_description">@color/about_libraries_title_openSource</color>
-    <color name="about_libraries_text_description">@color/about_libraries_text_openSource</color>
-    <color name="about_libraries_divider_description">@color/about_libraries_dividerDark_openSource</color>
+    <!-- Provide colors for immersive bars when going edge to edge-->
+    <color name="dark_immersive_bars">#99000000</color>
+    <color name="dark_nav_bar">@color/dark_immersive_bars</color>
 </resources>

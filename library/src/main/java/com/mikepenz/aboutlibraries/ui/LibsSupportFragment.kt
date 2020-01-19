@@ -21,7 +21,7 @@ open class LibsSupportFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        libsFragmentCompat.onViewCreated(view, savedInstanceState)
+        libsFragmentCompat.onViewCreated(view)
     }
 
     override fun onDestroyView() {

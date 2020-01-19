@@ -38,6 +38,7 @@ android {
 dependencies {
     api project(':library-core')
 
+    implementation "androidx.core:core-ktx:${versions.coreKtx}"
     implementation "androidx.appcompat:appcompat:${versions.appcompat}"
     implementation "androidx.cardview:cardview:${versions.cardview}"
     implementation "androidx.recyclerview:recyclerview:${versions.recyclerview}"

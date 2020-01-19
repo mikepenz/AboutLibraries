@@ -15,7 +15,9 @@ import com.mikepenz.aboutlibraries.LibsBuilder
 import com.mikepenz.aboutlibraries.LibsConfiguration
 import com.mikepenz.aboutlibraries.R
 import com.mikepenz.aboutlibraries.util.MovementCheck
-import com.mikepenz.aboutlibraries.util.getThemeColorFromAttrOrRes
+import com.mikepenz.aboutlibraries.util.getSupportColor
+import com.mikepenz.aboutlibraries.util.getThemeColor
+import com.mikepenz.aboutlibraries.util.resolveStyledValue
 import com.mikepenz.fastadapter.items.AbstractItem
 
 /**
@@ -230,16 +232,16 @@ class HeaderItem(var libsBuilder: LibsBuilder) : AbstractItem<HeaderItem.ViewHol
         internal var aboutAppDescription: TextView = headerView.findViewById(R.id.aboutDescription) as TextView
 
         init {
-            aboutAppName.setTextColor(headerView.context.getThemeColorFromAttrOrRes(R.attr.about_libraries_title_description, R.color.about_libraries_title_description))
-            aboutVersion.setTextColor(headerView.context.getThemeColorFromAttrOrRes(R.attr.about_libraries_text_description, R.color.about_libraries_text_description))
-            aboutDivider.setBackgroundColor(headerView.context.getThemeColorFromAttrOrRes(R.attr.about_libraries_divider_description, R.color.about_libraries_divider_description))
-            aboutAppDescription.setTextColor(headerView.context.getThemeColorFromAttrOrRes(R.attr.about_libraries_text_description, R.color.about_libraries_text_description))
-
-            aboutSpecial1.setTextColor(headerView.context.getThemeColorFromAttrOrRes(R.attr.about_libraries_special_button_openSource, R.color.about_libraries_special_button_openSource))
-            aboutSpecial2.setTextColor(headerView.context.getThemeColorFromAttrOrRes(R.attr.about_libraries_special_button_openSource, R.color.about_libraries_special_button_openSource))
-            aboutSpecial3.setTextColor(headerView.context.getThemeColorFromAttrOrRes(R.attr.about_libraries_special_button_openSource, R.color.about_libraries_special_button_openSource))
-
-            aboutDivider.setBackgroundColor(headerView.context.getThemeColorFromAttrOrRes(R.attr.about_libraries_dividerLight_openSource, R.color.about_libraries_dividerLight_openSource))
+            val ctx = itemView.context
+            ctx.resolveStyledValue {
+                aboutAppName.setTextColor(it.getColorStateList(R.styleable.AboutLibraries_aboutLibrariesDescriptionTitle))
+                aboutVersion.setTextColor(it.getColorStateList(R.styleable.AboutLibraries_aboutLibrariesDescriptionText))
+                aboutAppDescription.setTextColor(it.getColorStateList(R.styleable.AboutLibraries_aboutLibrariesDescriptionText))
+                aboutDivider.setBackgroundColor(it.getColor(R.styleable.AboutLibraries_aboutLibrariesDescriptionDivider, ctx.getThemeColor(R.attr.aboutLibrariesDescriptionDivider, ctx.getSupportColor(R.color.about_libraries_dividerLight_openSource))))
+                aboutSpecial1.setTextColor(it.getColorStateList(R.styleable.AboutLibraries_aboutLibrariesSpecialButtonText))
+                aboutSpecial2.setTextColor(it.getColorStateList(R.styleable.AboutLibraries_aboutLibrariesSpecialButtonText))
+                aboutSpecial3.setTextColor(it.getColorStateList(R.styleable.AboutLibraries_aboutLibrariesSpecialButtonText))
+            }
         }
     }
 }

@@ -12,7 +12,6 @@ import com.mikepenz.aboutlibraries.ui.LibsActivity
 import com.mikepenz.aboutlibraries.ui.LibsFragment
 import com.mikepenz.aboutlibraries.ui.LibsSupportFragment
 import com.mikepenz.aboutlibraries.ui.item.LibraryItem
-import com.mikepenz.aboutlibraries.util.Colors
 import com.mikepenz.aboutlibraries.util.toStringArray
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.IItem
@@ -52,10 +51,8 @@ class LibsBuilder : Serializable {
     var aboutAppSpecial3: String? = null
     var aboutAppSpecial3Description: String? = null
 
-    var activityTheme: Int = -1
     var activityTitle: String? = null
-    var activityColor: Colors? = null
-    var activityStyle: Libs.ActivityStyle? = null
+    var edgeToEdge: Boolean = false
 
     var libTaskExecutor = LibTaskExecutor.DEFAULT_EXECUTOR
 
@@ -332,17 +329,6 @@ class LibsBuilder : Serializable {
     }
 
     /**
-     * Builder method to set the activity theme
-     *
-     * @param activityTheme as example R.theme.AppTheme (just for the activity)
-     * @return this
-     */
-    fun withActivityTheme(activityTheme: Int): LibsBuilder {
-        this.activityTheme = activityTheme
-        return this
-    }
-
-    /**
      * Builder method to set the ActivityTitle
      *
      * @param activityTitle the activity title (just for the activity)
@@ -354,24 +340,13 @@ class LibsBuilder : Serializable {
     }
 
     /**
-     * Builder method to set the ActivityColor
+     * Builder method to set the view to be edge to edge
      *
-     * @param activityColor the activity color (just for the activity)
+     * @param asEdgeToEdge true / false
      * @return this
      */
-    fun withActivityColor(activityColor: Colors): LibsBuilder {
-        this.activityColor = activityColor
-        return this
-    }
-
-    /**
-     * Builder method to set the ActivityStyle
-     *
-     * @param libraryStyle LibraryStyles.LIGHT / DARK / LIGHT_DARK_TOOLBAR
-     * @return this
-     */
-    fun withActivityStyle(libraryStyle: Libs.ActivityStyle): LibsBuilder {
-        this.activityStyle = libraryStyle
+    fun withEdgeToEdge(asEdgeToEdge: Boolean): LibsBuilder {
+        this.edgeToEdge = asEdgeToEdge
         return this
     }
 
@@ -551,19 +526,11 @@ class LibsBuilder : Serializable {
 
         val i = Intent(ctx, clazz)
         i.putExtra("data", this)
-        i.putExtra(Libs.BUNDLE_THEME, this.activityTheme)
 
         if (this.activityTitle != null) {
             i.putExtra(Libs.BUNDLE_TITLE, this.activityTitle)
         }
-
-        if (this.activityColor != null) {
-            i.putExtra(Libs.BUNDLE_COLORS, this.activityColor)
-        }
-
-        if (this.activityStyle != null) {
-            i.putExtra(Libs.BUNDLE_STYLE, this.activityStyle?.name)
-        }
+        i.putExtra(Libs.BUNDLE_EDGE_TO_EDGE, this.edgeToEdge)
 
         return i
     }

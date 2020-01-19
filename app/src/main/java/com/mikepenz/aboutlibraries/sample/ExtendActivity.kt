@@ -13,8 +13,7 @@ class ExtendActivity : LibsActivity() {
         intent.putExtra(Libs.BUNDLE_LIBS, arrayOf("activeandroid", "caldroid"))
         setIntent(intent)
         */
-
-        intent = LibsBuilder().withLibraries("activeandroid", "caldroid").withActivityTheme(R.style.MaterialDrawerTheme).intent(this)
+        intent = LibsBuilder().withLibraries("activeandroid", "caldroid").withEdgeToEdge(true).intent(this)
         super.onCreate(savedInstanceState)
     }
 }
