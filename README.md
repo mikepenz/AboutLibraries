@@ -84,7 +84,7 @@ implementation "com.google.android.material:material:${versions.material | 1.1.y
 If you do not want to use the gradle plugin, you need to add the legacy definition files, which will then be included in the built apk, and resolved via reflection during runtime.
 > NOTE: This is not recommended. Please migrate to use the gradle plugin
 
-```javascript
+```gradle
 implementation "com.mikepenz:aboutlibraries-definitions:${latestAboutLibsRelease}"
 ```
 
