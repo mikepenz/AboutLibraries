@@ -8,7 +8,7 @@ buildscript {
         setup = [
                 compileSdk: 29,
                 buildTools: "29.0.2",
-                minSdk    : 14,
+                minSdk    : 16,
                 targetSdk : 29
         ]
 
@@ -20,10 +20,10 @@ buildscript {
                 material        : '1.1.0-rc02',
                 kotlin          : "1.3.61",
                 constraintLayout: '2.0.0-beta4',
-                iconics         : "4.0.2",
+                iconics         : "5.0.0-a01",
                 detekt          : '1.0.1',
-                fastadapter     : "4.1.2",
-                materialdrawer  : "7.0.0",
+                fastadapter     : "5.0.0-a02",
+                materialdrawer  : "8.0.0-a06",
                 coreKtx         : "1.1.0"
         ]
     }
