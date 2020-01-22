@@ -14,11 +14,7 @@ import org.gradle.api.artifacts.result.ArtifactResult
 import org.gradle.api.artifacts.result.ComponentArtifactsResult
 import org.gradle.api.artifacts.result.ResolvedArtifactResult
 import org.gradle.api.internal.artifacts.DefaultModuleVersionIdentifier
-import org.gradle.api.tasks.CacheableTask
-import org.gradle.api.tasks.InputFiles
-import org.gradle.api.tasks.Internal
-import org.gradle.api.tasks.OutputDirectory
-import org.gradle.api.tasks.TaskAction
+import org.gradle.api.tasks.*
 import org.gradle.internal.component.external.model.DefaultModuleComponentIdentifier
 import org.gradle.maven.MavenModule
 import org.gradle.maven.MavenPomArtifact
@@ -91,8 +87,18 @@ public class AboutLibrariesTask extends DefaultTask {
         // get all the componentIdentifiers from the artifacts
         def componentIdentifiers = new HashSet<ComponentIdentifier>()
         project.android.applicationVariants.all { variant ->
+            def variantScopeImpl = null
+            try {
+                // 4.0.0-alpha09
+                variantScopeImpl = new VariantScopeImpl(project.android.globalScope, new TransformManager(project, null, null), variant.variantData.getVariantDslInfo(), variant.variantData.getType())
+                variantScopeImpl.setVariantData(variant.variantData)
+            } catch (Exception ex) {
+                // pre 4.0.0-alpha09
+                variantScopeImpl = new VariantScopeImpl(project.android.globalScope, new TransformManager(project, null, null), variant.variantData)
+            }
+
             ArtifactUtils.getAllArtifacts(
-                    new VariantScopeImpl(project.android.globalScope, new TransformManager(project, null, null), variant.variantData),
+                    variantScopeImpl,
                     AndroidArtifacts.ConsumedConfigType.RUNTIME_CLASSPATH,
                     null,
                     BuildMappingUtils.computeBuildMapping(project.gradle)

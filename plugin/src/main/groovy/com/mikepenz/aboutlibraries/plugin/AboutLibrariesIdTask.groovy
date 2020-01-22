@@ -1,5 +1,6 @@
 package com.mikepenz.aboutlibraries.plugin
 
+
 import com.android.build.gradle.internal.ide.dependencies.ArtifactUtils
 import com.android.build.gradle.internal.ide.dependencies.BuildMappingUtils
 import com.android.build.gradle.internal.pipeline.TransformManager
@@ -22,9 +23,18 @@ public class AboutLibrariesIdTask extends DefaultTask {
 
         def componentIdentifiers = new HashSet<ComponentIdentifier>()
         project.android.applicationVariants.all { variant ->
-            // get all the componentIdentifiers from the artifacts
+            def variantScopeImpl = null
+            try {
+                // 4.0.0-alpha09
+                variantScopeImpl = new VariantScopeImpl(project.android.globalScope, new TransformManager(project, null, null), variant.variantData.getVariantDslInfo(), variant.variantData.getType())
+                variantScopeImpl.setVariantData(variant.variantData)
+            } catch (Exception ex) {
+                // pre 4.0.0-alpha09
+                variantScopeImpl = new VariantScopeImpl(project.android.globalScope, new TransformManager(project, null, null), variant.variantData)
+            }
+
             ArtifactUtils.getAllArtifacts(
-                    new VariantScopeImpl(globalScope, new TransformManager(project, null, null), variant.variantData),
+                    variantScopeImpl,
                     AndroidArtifacts.ConsumedConfigType.RUNTIME_CLASSPATH,
                     null,
                     BuildMappingUtils.computeBuildMapping(gradle)
