@@ -6,7 +6,7 @@ apply plugin: 'groovy'
 apply plugin: 'java'
 
 group = "com.mikepenz.aboutlibraries.plugin"
-version = "8.0.0-b03"
+version = "8.0.0-b04"
 
 plugindev {
     pluginId "${project.group}"
