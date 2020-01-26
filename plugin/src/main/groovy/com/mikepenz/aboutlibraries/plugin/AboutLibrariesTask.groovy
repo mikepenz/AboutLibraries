@@ -349,7 +349,13 @@ public class AboutLibrariesTask extends DefaultTask {
      */
     static def fixString(Object value) {
         if (value != null) {
-            return value.toString().replace("\"", "\\\"").replace("'", "\\'")
+            return value.toString()
+                    .replace("\\", "")
+                    .replace("\"", "\\\"")
+                    .replace("'", "\\'")
+                    .replace("&", "&amp;")
+                    .replace("<", "&lt;")
+                    .replace(">", "&gt;")
         } else {
             return ""
         }
