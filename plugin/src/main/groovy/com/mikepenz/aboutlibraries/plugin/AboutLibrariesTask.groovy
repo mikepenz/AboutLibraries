@@ -37,6 +37,8 @@ public class AboutLibrariesTask extends DefaultTask {
     @Internal
     Map<String, String> customLicenseMappings = new HashMap<String, String>()
     @Internal
+    Map<String, String> customLicenseYearMappings = new HashMap<String, String>()
+    @Internal
     Map<String, String> customNameMappings = new HashMap<String, String>()
     @Internal
     Map<String, String> customEnchantMapping = new HashMap<String, String>()
@@ -75,6 +77,7 @@ public class AboutLibrariesTask extends DefaultTask {
 
     def collectMappingDetails() {
         collectMappingDetails(customLicenseMappings, '/static/custom_license_mappings.prop')
+        collectMappingDetails(customLicenseYearMappings, '/static/custom_license_year_mappings.prop')
         collectMappingDetails(customNameMappings, '/static/custom_name_mappings.prop')
         collectMappingDetails(customEnchantMapping, '/static/custom_enchant_mapping.prop')
     }
@@ -288,11 +291,18 @@ public class AboutLibrariesTask extends DefaultTask {
         def repositoryLink = fixString(artifactPom.scm.url)
         def libraryOwner = fixString(author)
 
+        // the license year
+        def licenseYear = resolveLicenseYear(uniqueId, repositoryLink)
+
         def delimiter = ""
         def customProperties = ""
         if (isNotEmpty(libraryOwner)) {
-            customProperties = delimiter + customProperties + "owner"
-            delimiter = ","
+            customProperties = customProperties + delimiter + "owner"
+            delimiter = ";"
+        }
+        if (isNotEmpty(licenseYear)) {
+            customProperties = customProperties + delimiter + "year"
+            delimiter = ";"
         }
 
         if (!isNotEmpty(libraryName)) {
@@ -328,6 +338,9 @@ public class AboutLibrariesTask extends DefaultTask {
         }
         if (isNotEmpty(libraryOwner)) {
             resources.string name: "library_${uniqueId}_owner", "${libraryOwner}"
+        }
+        if (isNotEmpty(licenseYear)) {
+            resources.string name: "library_${uniqueId}_year", "${licenseYear}"
         }
     }
 
@@ -445,6 +458,17 @@ public class AboutLibrariesTask extends DefaultTask {
             }
         }
         return name
+    }
+
+    def resolveLicenseYear(String uniqueId, String repositoryLink) {
+        if (customLicenseYearMappings.containsKey(uniqueId)) {
+            def customMapping = customLicenseYearMappings.get(uniqueId)
+            println("--> Had to resolve license year custom mapping for: ${uniqueId} as ${customMapping}")
+            return customMapping
+        } else {
+            // TODO resolve via custom pom rule? try to resolve via git repo?
+        }
+        return ""
     }
 
     /**
