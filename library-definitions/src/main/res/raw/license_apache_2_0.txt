@@ -2,6 +2,11 @@ Copyright &#169; <<<YEAR>>>, <<<OWNER>>>
 <br />
 All rights reserved.
 <br /><br />
+<br /><br />
+Apache License<br />
+Version 2.0, January 2004<br />
+http://www.apache.org/licenses/<br />
+<br /><br />
 <b>TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION</b>
 <br /><br />
 <b>1. Definitions.</b>
