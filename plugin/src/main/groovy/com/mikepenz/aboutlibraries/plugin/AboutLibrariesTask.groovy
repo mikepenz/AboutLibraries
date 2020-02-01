@@ -5,6 +5,7 @@ import com.android.build.gradle.internal.ide.dependencies.BuildMappingUtils
 import com.android.build.gradle.internal.pipeline.TransformManager
 import com.android.build.gradle.internal.publishing.AndroidArtifacts
 import com.android.build.gradle.internal.scope.VariantScopeImpl
+import com.mikepenz.aboutlibraries.plugin.mapping.License
 import groovy.xml.MarkupBuilder
 import org.gradle.api.DefaultTask
 import org.gradle.api.artifacts.ModuleVersionIdentifier
@@ -139,11 +140,13 @@ public class AboutLibrariesTask extends DefaultTask {
     def processNeededLicenses() {
         // now copy over all licenses
         for (String licenseId : neededLicenses) {
+            def foundLibraryInformation = false
             try {
                 def resultFile = new File(outputRawFolder, "license_${licenseId}.txt")
                 if (!resultFile.exists()) {
                     def is = getClass().getResourceAsStream("/static/license_${licenseId}.txt")
                     if (is != null) {
+                        foundLibraryInformation = true
                         resultFile.append(is)
                         is.close()
                     }
@@ -153,12 +156,31 @@ public class AboutLibrariesTask extends DefaultTask {
                 if (!resultFile.exists()) {
                     def is = getClass().getResourceAsStream("/values/license_${licenseId}_strings.xml")
                     if (is != null) {
+                        foundLibraryInformation = true
                         resultFile.append(is)
                         is.close()
                     }
                 }
             } catch (Exception ex) {
                 println("--> License not available: ${licenseId}")
+            }
+
+            if (!foundLibraryInformation) {
+                try {
+                    def enumLicense = License.valueOf(licenseId)
+                    // license was not available generate the url license template
+                    def resultFile = new File(outputValuesFolder, "license_${licenseId.toLowerCase()}_strings.xml")
+                    def fileWriter = new FileWriter(resultFile)
+                    def licenseBuilder = new MarkupBuilder(fileWriter)
+                    licenseBuilder.doubleQuotes = true
+                    licenseBuilder.resources {
+                        string name: "define_license_${licenseId}", ""
+                        string name: "license_${licenseId}_licenseName", "${enumLicense.fullName}"
+                        string name: "license_${licenseId}_licenseWebsite", "${enumLicense.getUrl()}"
+                    }
+                } catch (Exception ex) {
+                    println("--> License not available: ${licenseId}")
+                }
             }
         }
     }
@@ -410,22 +432,19 @@ public class AboutLibrariesTask extends DefaultTask {
             def customMapping = customLicenseMappings.get(uniqueId)
             println("--> Had to resolve license from custom mapping for: ${uniqueId} as ${customMapping}")
             return customMapping
-        } else if (name.contains("Apache") && url.endsWith("LICENSE-2.0.txt")) {
-            return "apache_2_0"
-        } else if (name.contains("MIT License")) {
-            return "mit"
-        } else if (name == "Android Software Development Kit License") {
-            return "asdkl"
-        } else if (name == "Eclipse Public License v2.0" || url == "https://www.eclipse.org/legal/epl-v20.html") {
-            return "epl_2_0"
-        } else if (name == "Crashlytics Terms of Service") {
-            return "cts"
-        } else if (name == "Fabric Software and Services Agreement" || name == "Answers Terms of Service") {
-            return "fssa"
         } else {
-            return name
+            for (License l : License.values()) {
+                def matcher = l.customMatcher
+                if (l.id.equalsIgnoreCase(name) || l.name().equalsIgnoreCase(name) || l.fullName.equalsIgnoreCase(name) || (matcher != null && matcher.invoke(name, url))) {
+                    if (l.aboutLibsId != null) {
+                        return l.aboutLibsId
+                    } else {
+                        return l.id
+                    }
+                }
+            }
         }
-        // todo add support for more libraries. need to figure out how they are defined in the various pom files!
+        return name
     }
 
     /**
