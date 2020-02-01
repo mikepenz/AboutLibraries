@@ -3,6 +3,7 @@ package com.mikepenz.aboutlibraries.plugin.mapping
 /**
  * LICENSE LIST THANKS TO: https://spdx.org/licenses/
  */
+@Suppress("EnumNaming")
 enum class License(val fullName: String, val id: String, val aboutLibsId: String? = null, val customMatcher: ((name: String, url: String) -> Boolean)? = null) {
     _0BSD("BSD Zero Clause License", "0BSD"),
     AAL("Attribution Assurance License", "AAL"),
@@ -391,7 +392,5 @@ enum class License(val fullName: String, val id: String, val aboutLibsId: String
     CTS("Crashlytics Terms of Service", "CTS", "cts"),
     FSSA("Fabric Software and Services Agreement", "FSSA", "cts");
 
-    fun getUrl(): String {
-        return "https://spdx.org/licenses/${id}.html"
-    }
+    fun getUrl(): String = "https://spdx.org/licenses/$id.html"
 }
