@@ -58,7 +58,11 @@ android {
         exclude 'META-INF/library-core_release.kotlin_module'
         exclude 'META-INF/library_release.kotlin_module'
     }
+}
 
+// It is possible to define a custom config path with custom mappings
+aboutLibraries {
+    configPath = "config"
 }
 
 dependencies {

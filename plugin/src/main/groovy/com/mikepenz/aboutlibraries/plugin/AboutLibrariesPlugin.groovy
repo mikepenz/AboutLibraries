@@ -4,9 +4,17 @@ package com.mikepenz.aboutlibraries.plugin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
+class AboutLibrariesExtension {
+    String configPath
+}
+
+
 class AboutLibrariesPlugin implements Plugin<Project> {
     @Override
     void apply(Project project) {
+        // create the config possible
+        project.extensions.create('aboutLibraries', AboutLibrariesExtension)
+
         File outputFile = project.file("$project.buildDir/generated/aboutlibraries/res/")
 
         // task for cleaning

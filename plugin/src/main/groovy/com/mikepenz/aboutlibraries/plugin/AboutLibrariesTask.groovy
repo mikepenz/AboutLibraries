@@ -22,12 +22,12 @@ import org.gradle.maven.MavenPomArtifact
 
 @CacheableTask
 public class AboutLibrariesTask extends DefaultTask {
-
     private File dependencies
     @Internal
     private File combinedLibrariesOutputFile
     private File outputValuesFolder
     private File outputRawFolder
+    private File configFolder
 
     @Internal
     Set<String> handledLibraries = new HashSet<String>()
@@ -68,18 +68,34 @@ public class AboutLibrariesTask extends DefaultTask {
     }
 
     def collectMappingDetails(targetMap, resourceName) {
-        def customMappingText = getClass().getResource(resourceName).getText('UTF-8')
+        def customMappingText = getClass().getResource("/static/${resourceName}").getText('UTF-8')
         customMappingText.eachLine {
             def splitMapping = it.split(':')
             targetMap.put(splitMapping[0], splitMapping[1])
         }
+
+        if (configFolder != null) {
+            try {
+                def target = new File(configFolder, "${resourceName}")
+                if (target.exists()) {
+                    customMappingText = target.getText('UTF-8')
+                    customMappingText.eachLine {
+                        def splitMapping = it.split(':')
+                        targetMap.put(splitMapping[0], splitMapping[1])
+                    }
+                    println "Read custom mapping file from: ${target.absolutePath}"
+                }
+            } catch (Exception ex) {
+                // ignored
+            }
+        }
     }
 
     def collectMappingDetails() {
-        collectMappingDetails(customLicenseMappings, '/static/custom_license_mappings.prop')
-        collectMappingDetails(customLicenseYearMappings, '/static/custom_license_year_mappings.prop')
-        collectMappingDetails(customNameMappings, '/static/custom_name_mappings.prop')
-        collectMappingDetails(customEnchantMapping, '/static/custom_enchant_mapping.prop')
+        collectMappingDetails(customLicenseMappings, 'custom_license_mappings.prop')
+        collectMappingDetails(customLicenseYearMappings, 'custom_license_year_mappings.prop')
+        collectMappingDetails(customNameMappings, 'custom_name_mappings.prop')
+        collectMappingDetails(customEnchantMapping, 'custom_enchant_mapping.prop')
     }
 
     def gatherDependencies(def project) {
@@ -87,6 +103,11 @@ public class AboutLibrariesTask extends DefaultTask {
         this.outputValuesFolder = getValuesFolder()
         this.outputRawFolder = getRawFolder()
         this.combinedLibrariesOutputFile = getCombinedLibrariesOutputFile()
+
+        def extension = project.extensions.aboutLibraries
+        if (extension.configPath != null) {
+            configFolder = new File(extension.configPath)
+        }
 
         // get all the componentIdentifiers from the artifacts
         def componentIdentifiers = new HashSet<ComponentIdentifier>()
