@@ -88,6 +88,26 @@ If you do not want to use the gradle plugin, you need to add the legacy definiti
 implementation "com.mikepenz:aboutlibraries-definitions:${latestAboutLibsRelease}"
 ```
 
+# Gradle API
+
+The gradle plugin will automatically run when building the application, so no action is required to build the library information showed / retrieved via the `Libs` class.
+But there are additional commands which may be helpful for various situations.
+
+## Export Library information
+
+```kotlin
+./gradlew exportLibraries
+```
+Exports all libraries in a CSV format with the name, artifactId, and licenseId. And a seperate list with all licenses used, and a potential list of unmatched libraries / licenses.
+
+## Find
+
+```kotlin
+./gradlew findLibraries
+```
+Finds all included libraries with their name, and the unique AboutLibraries identifier which can be used to modify libraries and their information, or create custom mapping information if required.
+See the `Config` section for more information.
+
 # Usage
 You can use this library in a few different ways. You can create your own activity, including a custom style and just use the information, or you can use the built-in Activity or Fragment and just pass the libs you would love to include.
 
@@ -95,24 +115,25 @@ You can use this library in a few different ways. You can create your own activi
 > If you upgrade from < 8.x.y follow the [MIGRATION GUIDE](https://github.com/mikepenz/AboutLibraries/blob/develop/MIGRATION.md)
 
 ### Activity / Fragment
+
+#### Activity
+
+```kotlin
+LibsBuilder()
+    .start(this) // start the activity
+```
+
 #### Fragment
 ```kotlin
 val fragment = LibsBuilder()
-                .withLibraryModification("aboutlibraries", Libs.LibraryFields.LIBRARY_NAME, "_AboutLibraries")
-                .supportFragment()
-```
-#### Activity
-##### Code:
-```kotlin
-LibsBuilder()
-    // start the activity
-    .start(this)
+    .withFields(R.string::class.java.fields) // in some cases it may be needed to provide the R class, if it can not be automatically resolved
+    .withLibraryModification("aboutlibraries", Libs.LibraryFields.LIBRARY_NAME, "_AboutLibraries") // optionally apply modifications for library information
+    .supportFragment()
 ```
 
-## Small extra
-For those who read the whole README here's one more thing.
-You can also use the AboutLibraries activity as an "about this app" screen. You ask how?
-Yeah pretty simple just add the following .xml file (or just the strings - the key must be the same) to your project.
+## About this App UI
+You can also use the AboutLibraries activity as an "about this app" screen.
+Add the following .xml file (or just the strings - the key must be the same) to your project.
 
 ```xml
 <resources>
@@ -153,6 +174,31 @@ Create your custom style. If you don't need a custom theme see the next section,
     ...
 </style>
 ```
+
+## Advanced usage
+
+This section is still in development
+
+### Configure Gradle Plugin
+
+It is possible to provide custom configurations / adjustments to the automatic detection. This can be done via the gradle plugin.
+
+```groovy
+aboutLibraries {
+    configPath = "config" // the path to the directory containing configuration files
+}
+```
+
+This directory may contain one or more of the following configurations:
+
+```
+custom_enchant_mapping.prop // allows providing custom mapping files to overwrite the information from the POM file
+custom_license_mappings.prop // allows defining the licenseId which should be used for the library (if not resolveable via the POM file)
+custom_license_year_mappings.prop // allows defining the license Year for this library (this information CANNOT be resolved from the POM file)
+custom_name_mappings.prop // allows overwriting the name of a library if the POM specifies unexpected information
+```
+
+See the corresponding files here for the format and content: https://github.com/mikepenz/AboutLibraries/tree/develop/library-definitions/src/main/res/raw
 
 ## ProGuard
 Exclude `R` from ProGuard to enable the **libraries auto detection**
