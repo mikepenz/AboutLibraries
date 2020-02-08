@@ -341,11 +341,7 @@ class AboutLibrariesProcessor {
             for (License l : License.values()) {
                 def matcher = l.customMatcher
                 if (l.id.equalsIgnoreCase(name) || l.name().equalsIgnoreCase(name) || l.fullName.equalsIgnoreCase(name) || (matcher != null && matcher.invoke(name, url))) {
-                    if (l.aboutLibsId != null) {
-                        return l.aboutLibsId
-                    } else {
-                        return l.id
-                    }
+                    return l.name()
                 }
             }
         }

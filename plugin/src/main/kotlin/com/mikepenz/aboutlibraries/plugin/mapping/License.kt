@@ -381,14 +381,12 @@ enum class License(val fullName: String, val id: String, val aboutLibsId: String
     ZPL_2_1("Zope Public License 2.1", "ZPL-2.1"),
     // Special handling section
     Apache_2_0("Apache License 2.0", "Apache-2.0", "apache_2_0", { name, url ->
-        name.contains("Apache", true) && url.endsWith("LICENSE-2.0.txt")
+        name.contains("Apache", true) || url.endsWith("LICENSE-2.0.txt")
     }),
     MIT("MIT License", "MIT", "mit", { name, url ->
         name.contains("MIT", true)
     }),
-    ASDKL("Android Software Development Kit License", "ASDKL", "asdkl", { name, url ->
-        name.contains("MIT", true)
-    }),
+    ASDKL("Android Software Development Kit License", "ASDKL", "asdkl"),
     CTS("Crashlytics Terms of Service", "CTS", "cts"),
     FSSA("Fabric Software and Services Agreement", "FSSA", "cts");
 

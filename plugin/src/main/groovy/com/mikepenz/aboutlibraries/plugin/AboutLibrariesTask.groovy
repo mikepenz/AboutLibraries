@@ -66,51 +66,66 @@ public class AboutLibrariesTask extends DefaultTask {
         processNeededLicenses()
     }
 
+    def tryToFindAndWriteLibrary(def licenseId) {
+        try {
+            def resultFile = new File(outputRawFolder, "license_${licenseId}.txt")
+            if (!resultFile.exists()) {
+                def is = getClass().getResourceAsStream("/static/license_${licenseId}.txt")
+                if (is != null) {
+                    foundLibraryInformation = true
+                    resultFile.append(is)
+                    is.close()
+                }
+            }
+
+            resultFile = new File(outputValuesFolder, "license_${licenseId}_strings.xml")
+            if (!resultFile.exists()) {
+                def is = getClass().getResourceAsStream("/values/license_${licenseId}_strings.xml")
+                if (is != null) {
+                    foundLibraryInformation = true
+                    resultFile.append(is)
+                    is.close()
+
+                    return true
+                }
+            }
+        } catch (Exception ex) {
+            println("--> License not available: ${licenseId}")
+        }
+        return false
+    }
+
     /**
      * Copy in the needed licenses to the relevant folder
      */
     def processNeededLicenses() {
         // now copy over all licenses
         for (String licenseId : neededLicenses) {
-            def foundLibraryInformation = false
             try {
-                def resultFile = new File(outputRawFolder, "license_${licenseId}.txt")
-                if (!resultFile.exists()) {
-                    def is = getClass().getResourceAsStream("/static/license_${licenseId}.txt")
-                    if (is != null) {
-                        foundLibraryInformation = true
-                        resultFile.append(is)
-                        is.close()
-                    }
-                }
+                def enumLicense = License.valueOf(licenseId)
 
-                resultFile = new File(outputValuesFolder, "license_${licenseId}_strings.xml")
-                if (!resultFile.exists()) {
-                    def is = getClass().getResourceAsStream("/values/license_${licenseId}_strings.xml")
-                    if (is != null) {
-                        foundLibraryInformation = true
-                        resultFile.append(is)
-                        is.close()
+                // try to find and write license by aboutLibsId
+                if (!tryToFindAndWriteLibrary(enumLicense.aboutLibsId)) {
+                    // try to find and write license by id
+                    if (!tryToFindAndWriteLibrary(enumLicense.id)) {
+                        // license was not available generate the url license template
+                        def resultFile = new File(outputValuesFolder, "license_${licenseId.toLowerCase()}_strings.xml")
+                        def fileWriter = new FileWriter(resultFile)
+                        def licenseBuilder = new MarkupBuilder(fileWriter)
+                        licenseBuilder.doubleQuotes = true
+                        licenseBuilder.resources {
+                            string name: "define_license_${licenseId}", ""
+                            string name: "license_${licenseId}_licenseName", "${enumLicense.fullName}"
+                            string name: "license_${licenseId}_licenseWebsite", "${enumLicense.getUrl()}"
+                        }
                     }
                 }
             } catch (Exception ex) {
-                println("--> License not available: ${licenseId}")
-            }
-
-            if (!foundLibraryInformation) {
                 try {
-                    def enumLicense = License.valueOf(licenseId)
-                    // license was not available generate the url license template
-                    def resultFile = new File(outputValuesFolder, "license_${licenseId.toLowerCase()}_strings.xml")
-                    def fileWriter = new FileWriter(resultFile)
-                    def licenseBuilder = new MarkupBuilder(fileWriter)
-                    licenseBuilder.doubleQuotes = true
-                    licenseBuilder.resources {
-                        string name: "define_license_${licenseId}", ""
-                        string name: "license_${licenseId}_licenseName", "${enumLicense.fullName}"
-                        string name: "license_${licenseId}_licenseWebsite", "${enumLicense.getUrl()}"
+                    if (!tryToFindAndWriteLibrary(licenseId)) {
+                        println("--> License not available: ${licenseId}")
                     }
-                } catch (Exception ex) {
+                } catch (Exception ex2) {
                     println("--> License not available: ${licenseId}")
                 }
             }
