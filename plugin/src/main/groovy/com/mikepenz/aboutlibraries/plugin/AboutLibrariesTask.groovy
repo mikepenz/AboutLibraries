@@ -72,7 +72,6 @@ public class AboutLibrariesTask extends DefaultTask {
             if (!resultFile.exists()) {
                 def is = getClass().getResourceAsStream("/static/license_${licenseId}.txt")
                 if (is != null) {
-                    foundLibraryInformation = true
                     resultFile.append(is)
                     is.close()
                 }
@@ -82,10 +81,8 @@ public class AboutLibrariesTask extends DefaultTask {
             if (!resultFile.exists()) {
                 def is = getClass().getResourceAsStream("/values/license_${licenseId}_strings.xml")
                 if (is != null) {
-                    foundLibraryInformation = true
                     resultFile.append(is)
                     is.close()
-
                     return true
                 }
             }
