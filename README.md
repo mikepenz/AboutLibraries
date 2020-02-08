@@ -88,27 +88,7 @@ If you do not want to use the gradle plugin, you need to add the legacy definiti
 implementation "com.mikepenz:aboutlibraries-definitions:${latestAboutLibsRelease}"
 ```
 
-# Gradle API
-
-The gradle plugin will automatically run when building the application, so no action is required to build the library information showed / retrieved via the `Libs` class.
-But there are additional commands which may be helpful for various situations.
-
-## Export Library information
-
-```kotlin
-./gradlew exportLibraries
-```
-Exports all libraries in a CSV format with the name, artifactId, and licenseId. And a seperate list with all licenses used, and a potential list of unmatched libraries / licenses.
-
-## Find
-
-```kotlin
-./gradlew findLibraries
-```
-Finds all included libraries with their name, and the unique AboutLibraries identifier which can be used to modify libraries and their information, or create custom mapping information if required.
-See the `Config` section for more information.
-
-# Usage
+# Basic Usage
 You can use this library in a few different ways. You can create your own activity, including a custom style and just use the information, or you can use the built-in Activity or Fragment and just pass the libs you would love to include.
 
 ### Upgrade Notes
@@ -130,6 +110,28 @@ val fragment = LibsBuilder()
     .withLibraryModification("aboutlibraries", Libs.LibraryFields.LIBRARY_NAME, "_AboutLibraries") // optionally apply modifications for library information
     .supportFragment()
 ```
+
+# Gradle API
+
+The gradle plugin will automatically run when building the application, so no action is required to build the library information showed / retrieved via the `Libs` class.
+But there are additional commands which may be helpful for various situations.
+
+## Export Library information
+
+```kotlin
+./gradlew exportLibraries
+```
+Exports all libraries in a CSV format with the name, artifactId, and licenseId. And a seperate list with all licenses used, and a potential list of unmatched libraries / licenses.
+
+## Find
+
+```kotlin
+./gradlew findLibraries
+```
+Finds all included libraries with their name, and the unique AboutLibraries identifier which can be used to modify libraries and their information, or create custom mapping information if required.
+See the `Config` section for more information.
+
+# Advanced Usage
 
 ## About this App UI
 You can also use the AboutLibraries activity as an "about this app" screen.
@@ -175,11 +177,7 @@ Create your custom style. If you don't need a custom theme see the next section,
 </style>
 ```
 
-## Advanced usage
-
-This section is still in development
-
-### Configure Gradle Plugin
+## Gradle Plugin Configuration
 
 It is possible to provide custom configurations / adjustments to the automatic detection. This can be done via the gradle plugin.
 
