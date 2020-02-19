@@ -6,6 +6,8 @@ import groovy.xml.MarkupBuilder
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.*
 
+import java.nio.charset.StandardCharsets
+
 @CacheableTask
 public class AboutLibrariesTask extends DefaultTask {
     @Internal
@@ -49,8 +51,9 @@ public class AboutLibrariesTask extends DefaultTask {
 
         def libraries = new AboutLibrariesProcessor().gatherDependencies(project)
 
-        def fileWriter = new FileWriter(combinedLibrariesOutputFile)
-        def combinedLibrariesBuilder = new MarkupBuilder(fileWriter)
+        def printWriter = new PrintWriter(new OutputStreamWriter(combinedLibrariesOutputFile.newOutputStream(), StandardCharsets.UTF_8), true)
+        def combinedLibrariesBuilder = new MarkupBuilder(printWriter)
+        combinedLibrariesBuilder.mkp.xmlDeclaration(version: "1.0", encoding: "utf-8")
         combinedLibrariesBuilder.doubleQuotes = true
         combinedLibrariesBuilder.resources {
             for (final library in libraries) {
@@ -62,6 +65,7 @@ public class AboutLibrariesTask extends DefaultTask {
             }
             string name: "config_aboutLibraries_plugin", "yes"
         }
+        printWriter.close()
 
         processNeededLicenses()
     }
@@ -107,14 +111,16 @@ public class AboutLibrariesTask extends DefaultTask {
                     if (!tryToFindAndWriteLibrary(enumLicense.id)) {
                         // license was not available generate the url license template
                         def resultFile = new File(outputValuesFolder, "license_${licenseId.toLowerCase()}_strings.xml")
-                        def fileWriter = new FileWriter(resultFile)
-                        def licenseBuilder = new MarkupBuilder(fileWriter)
+                        def printWriter = new PrintWriter(new OutputStreamWriter(resultFile.newOutputStream(), StandardCharsets.UTF_8), true)
+                        def licenseBuilder = new MarkupBuilder(printWriter)
+                        licenseBuilder.mkp.xmlDeclaration(version: "1.0", encoding: "utf-8")
                         licenseBuilder.doubleQuotes = true
                         licenseBuilder.resources {
                             string name: "define_license_${licenseId}", ""
                             string name: "license_${licenseId}_licenseName", "${enumLicense.fullName}"
                             string name: "license_${licenseId}_licenseWebsite", "${enumLicense.getUrl()}"
                         }
+                        printWriter.close()
                     }
                 }
             } catch (Exception ex) {
