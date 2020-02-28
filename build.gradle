@@ -22,8 +22,8 @@ buildscript {
                 constraintLayout: '2.0.0-beta4',
                 iconics         : "5.0.0-a04",
                 detekt          : '1.0.1',
-                fastadapter     : "5.0.0-a06",
-                materialdrawer  : "8.0.0-b02",
+                fastadapter     : "5.0.0-a08",
+                materialdrawer  : "8.0.0-b03",
                 coreKtx         : "1.1.0"
         ]
     }
@@ -34,7 +34,7 @@ buildscript {
         maven { url uri('/tmp/sample') }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.0.0-alpha09'
+        classpath 'com.android.tools.build:gradle:3.6.0'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
