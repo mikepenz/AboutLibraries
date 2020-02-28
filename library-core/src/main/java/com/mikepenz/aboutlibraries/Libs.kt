@@ -35,6 +35,9 @@ public class Libs(
             return libs
         }
 
+    /**
+     * Keys to handle specific fields describing a Library.
+     */
     enum class LibraryFields {
         AUTHOR_NAME,
         AUTHOR_WEBSITE,
@@ -50,12 +53,6 @@ public class Libs(
         LICENSE_SHORT_DESCRIPTION,
         LICENSE_DESCRIPTION,
         LICENSE_WEBSITE
-    }
-
-    enum class ActivityStyle {
-        LIGHT,
-        DARK,
-        LIGHT_DARK_TOOLBAR
     }
 
     enum class SpecialButton {
