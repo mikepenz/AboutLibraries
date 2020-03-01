@@ -1,11 +1,22 @@
-# AboutLibraries [![Status](https://travis-ci.org/mikepenz/AboutLibraries.svg?branch=master)](https://travis-ci.org/mikepenz/AboutLibraries) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.mikepenz/aboutlibraries/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/com.mikepenz/aboutlibraries) [![Android Arsenal](http://img.shields.io/badge/Android%20Arsenal-AboutLibraries-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/102)
+# AboutLibraries [![Status](https://travis-ci.org/mikepenz/AboutLibraries.svg?branch=master)](https://travis-ci.org/mikepenz/AboutLibraries) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.mikepenz/aboutlibraries/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/com.mikepenz/aboutlibraries)
 
-[![Join the chat at https://gitter.im/mikepenz/AboutLibraries](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/mikepenz/AboutLibraries?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+.. allows you to easily create an **used open source libraries** fragment/activity within your app. All the library information is automatically collected from the POM information of your depencencies and included during compile time.
+*No runtime overhead.* Strong caching. Any dependency is supported.
 
-The **AboutLibraries** library allows you to easily create an **used open source libraries** fragment/activity within your app. As an extra feature you can also add an **about this app** section.
-All the library information is automatically collected from the POM information of the depencencies and included during compile time. No runtime overhead. Strong caching, so build times stay short. Due to usage of maven POM information practically any dependency is supported.
+-------
 
-Here's a quick overview of functions it include:
+<p align="center">
+    <a href="#whats-included-">What's included 🚀</a> &bull;
+    <a href="#setup">Setup 🛠️</a> &bull;
+    <a href="MIGRATION.md">Migration Guide 🧬</a> &bull;
+    <a href="https://github.com/mikepenz/AboutLibraries/wiki">WIKI 📖</a> &bull;
+    <a href="#used-by">Used by</a> &bull;
+    <a href="https://play.google.com/store/apps/details?id=com.mikepenz.aboutlibraries.sample">Sample App</a>
+</p>
+
+-------
+
+### What's included 🚀
 - **used open source libraries**
 	- name, description, creator, license, version, ...
 - **about this app** section (optional)
@@ -17,29 +28,13 @@ Here's a quick overview of functions it include:
   - usage standalone possible too
 - much much more... try the sample for a quick overview.
 
-# Motivation
-
-Most modern apps feature a "Used Library"-section, which requires information about those respective libs. As it gets annoying to always copy those strings to your app, **AboutLibraries** is there for the rescue.
-
-# Migration
-- [MIGRATION GUIDE](https://github.com/mikepenz/AboutLibraries/blob/develop/MIGRATION.md)
-
-# Get started
-- [Include in your project](#include-in-your-project)
-- [Usage](#usage)
-- [Contribute](#contribute)
-
-# More...
-- [Sample (Google Play Store)](https://play.google.com/store/apps/details?id=com.mikepenz.aboutlibraries.sample)
-- [Get detailed instructions in the wiki](https://github.com/mikepenz/AboutLibraries/wiki)
-
 # Screenshots
 ![Image](https://raw.githubusercontent.com/mikepenz/AboutLibraries/master/DEV/screenshots/screenshot1_small.png)
 ![Image](https://raw.githubusercontent.com/mikepenz/AboutLibraries/master/DEV/screenshots/screenshot2_small.png)
 
-# Include in your project
+# Setup
 
-## Latest releases
+## Latest releases 🛠
 
 - Kotlin && Gradle Plugin | [v8.0.0-rc02](https://github.com/mikepenz/FastAdapter/tree/v8.0.0-rc02)
 - Kotlin | [v7.1.0](https://github.com/mikepenz/FastAdapter/tree/v7.1.0)
@@ -50,7 +45,7 @@ Most modern apps feature a "Used Library"-section, which requires information ab
 
 As a new feature of the AboutLibraries v8.x.y we offer a gradle plugin which will resolve the dependency during compilation, and only includes the libraries which are really specified as dependencies.
 
-```javascript
+```gradle
 // Root build.gradle
 classpath "com.mikepenz.aboutlibraries.plugin:aboutlibraries-plugin:${latestAboutLibsRelease}"
 
@@ -63,13 +58,13 @@ The AboutLibraries Library is pushed to [Maven Central](http://search.maven.org/
 
 ## CORE module
 
-```javascript
+```gradle
 implementation "com.mikepenz:aboutlibraries-core:${latestAboutLibsRelease}"
 ```
 
 ## UI module
 
-```javascript
+```gradle
 implementation "com.mikepenz:aboutlibraries:${latestAboutLibsRelease}"
 
 //required support lib modules
@@ -89,10 +84,7 @@ implementation "com.mikepenz:aboutlibraries-definitions:${latestAboutLibsRelease
 ```
 
 # Basic Usage
-You can use this library in a few different ways. You can create your own activity, including a custom style and just use the information, or you can use the built-in Activity or Fragment and just pass the libs you would love to include.
-
-### Upgrade Notes
-> If you upgrade from < 8.x.y follow the [MIGRATION GUIDE](https://github.com/mikepenz/AboutLibraries/blob/develop/MIGRATION.md)
+You can use this library in a few different ways. Create your own activity, including a custom style or just use its generated information. Or simply use the built-in Activity or Fragment and just pass the libs you would love to include.
 
 ### Activity / Fragment
 
@@ -151,7 +143,7 @@ or use the builder and add following:
 	.withAboutDescription("This is a small sample which can be set in the about my app description file.<br /><b>You can style this with html markup :D</b>")
 ```
 
-## Style the AboutLibraries
+## Style the AboutLibraries 🖌️
 
 Create your custom style. If you don't need a custom theme see the next section, how you can set the colors just by overwriting the original colors.
 ```xml
@@ -215,12 +207,7 @@ In case you want to minimize your resources as much as possible use the followin
 ```
 These rules **will** require you to add the libraries manually. (see more in the above linked issue)
 
-
-## Contribute
-You can contribute by creating a information file for a new library, and open a pull-request at the creators Git repository. If he doesn't include the information file in his repo, or if the library isn't maintained anymore you can create a pull-request here. Find more information in the wiki [Create a definition file](https://github.com/mikepenz/AboutLibraries/wiki/HOWTODEV:-Include-into-AboutLibraries)
-
-
-## Already in use in following apps
+# Used by
 (feel free to send me new projects)
 
 * [wallsplash](https://play.google.com/store/apps/details?id=com.mikepenz.unsplash)
@@ -258,11 +245,6 @@ You can contribute by creating a information file for a new library, and open a 
 * [Frost for Facebook](https://play.google.com/store/apps/details?id=com.pitchedapps.frost)
 * [OneMeme: Meme Maker](https://play.google.com/store/apps/details?id=com.mememaker.android&hl)
 * [andOTP](https://play.google.com/store/apps/details?id=org.shadowice.flocke.andotp)
-
-# Wiki
-You can find anything you search for in the wiki. (If not open an issue)
-
-[Bring me to the wiki](https://github.com/mikepenz/AboutLibraries/wiki)
 
 # Developed By
 
