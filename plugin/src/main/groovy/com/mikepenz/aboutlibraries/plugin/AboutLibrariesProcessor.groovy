@@ -259,23 +259,27 @@ class AboutLibrariesProcessor {
             return
         }
 
-        libraries.add(
-                new Library(
-                        uniqueId,
-                        "${groupId}:${artifactPom.artifactId}:${artifactPom.version}",
-                        author,
-                        authorWebsite,
-                        libraryName,
-                        libraryDescription,
-                        libraryVersion,
-                        libraryWebsite,
-                        licenseId,
-                        isOpenSource,
-                        repositoryLink,
-                        libraryOwner,
-                        licenseYear
-                )
+        def library = new Library(
+                uniqueId,
+                // TODO: Why was this used instead of component.displayName?
+                //"${groupId}:${artifactPom.artifactId}:${artifactPom.version}",
+                // Alternate
+                //"${groupId}:${artifactPom.artifactId}:${libraryVersion}",
+                component.displayName,
+                author,
+                authorWebsite,
+                libraryName,
+                libraryDescription,
+                libraryVersion,
+                libraryWebsite,
+                licenseId,
+                isOpenSource,
+                repositoryLink,
+                libraryOwner,
+                licenseYear
         )
+        LOGGER.debug("Adding library: {}", library);
+        libraries.add(library);
     }
 
     /**
