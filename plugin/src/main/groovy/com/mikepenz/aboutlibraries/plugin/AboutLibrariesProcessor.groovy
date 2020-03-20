@@ -7,6 +7,7 @@ import com.android.build.gradle.internal.publishing.AndroidArtifacts
 import com.android.build.gradle.internal.scope.VariantScopeImpl
 import com.mikepenz.aboutlibraries.plugin.mapping.Library
 import com.mikepenz.aboutlibraries.plugin.mapping.License
+import groovy.xml.XmlUtil
 import org.gradle.api.artifacts.ModuleVersionIdentifier
 import org.gradle.api.artifacts.component.ComponentIdentifier
 import org.gradle.api.artifacts.result.ArtifactResolutionResult
@@ -17,8 +18,12 @@ import org.gradle.api.internal.artifacts.DefaultModuleVersionIdentifier
 import org.gradle.internal.component.external.model.DefaultModuleComponentIdentifier
 import org.gradle.maven.MavenModule
 import org.gradle.maven.MavenPomArtifact
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 class AboutLibrariesProcessor {
+    private static final Logger LOGGER = LoggerFactory.getLogger(AboutLibrariesProcessor.class);
+
     private File configFolder
 
     Set<String> handledLibraries = new HashSet<String>()
@@ -85,14 +90,18 @@ class AboutLibrariesProcessor {
                     BuildMappingUtils.computeBuildMapping(project.gradle)
             ).eachWithIndex { artifact, idx ->
                 // log all dependencies
-                // println "${idx} : ${componentIdentifier.displayName}"
+                LOGGER.debug("variant artifact idx displayName: {} : {} : {}", variant.variantData.name, idx, artifact.componentIdentifier.displayName)
                 componentIdentifiers.add(artifact.componentIdentifier)
             }
         }
 
         println "All dependencies.size=${componentIdentifiers.size()}"
 
-        def result = project.dependencies.createArtifactResolutionQuery().forComponents(componentIdentifiers).withArtifacts(MavenModule, MavenPomArtifact).execute()
+        def result = project.dependencies.createArtifactResolutionQuery()
+                .forComponents(componentIdentifiers)
+                .withArtifacts(MavenModule, MavenPomArtifact)
+                .execute()
+
         if (componentIdentifiers.size() > 0) {
             collectMappingDetails()
         }
@@ -109,11 +118,19 @@ class AboutLibrariesProcessor {
     }
 
     def writeDependency(List<Library> libraries, ComponentIdentifier component, ArtifactResult artifact) {
-        def artifactPom = new XmlSlurper(/* validating */ false, /* namespaceAware */ false).parseText(artifact.file.getText('UTF-8'))
+        def artifactPomText = artifact.file.getText('UTF-8')
+        def artifactPom = new XmlSlurper(/* validating */ false, /* namespaceAware */ false).parseText(artifactPomText)
 
         // the uniqueId
         def groupId = ifEmptyElse(artifactPom.groupId, artifactPom.parent.groupId)
         def uniqueId = fixIdentifier(groupId) + "__" + fixIdentifier(artifactPom.artifactId)
+
+        LOGGER.debug(
+                "--> ArtifactPom for [{}:{}]:\n{}\n\n",
+                groupId,
+                artifactPom.artifactId,
+                artifactPomText
+        )
 
         // check if we shall skip this specific uniqueId
         if (shouldSkip(uniqueId)) {
@@ -127,7 +144,21 @@ class AboutLibrariesProcessor {
         def parentPomFile = resolveParentPomFile(uniqueId, getParentFromPom(artifactPom))
         def parentPom = null
         if (parentPomFile != null) {
-            parentPom = new XmlSlurper(/* validating */ false, /* namespaceAware */ false).parseText(parentPomFile.getText('UTF-8'))
+            def parentPomText = parentPomFile.getText('UTF-8')
+            LOGGER.debug(
+                    "--> ArtifactPom ParentPom for [{}:{}]:\n{}\n\n",
+                    groupId,
+                    artifactPom.artifactId,
+                    parentPomText
+            )
+            parentPom = new XmlSlurper(/* validating */ false, /* namespaceAware */ false).parseText(parentPomText)
+        }
+        else {
+            LOGGER.debug(
+                    "--> No Artifact Parent Pom found for [{}:{}]",
+                    groupId,
+                    artifactPom.artifactId,
+            )
         }
 
         def enchantedDefinition = null
@@ -188,13 +219,24 @@ class AboutLibrariesProcessor {
         }
         // get the description of the library
         def libraryVersion = fixString(artifactPom.version) // get the version of the library
-        if (!isNotEmpty(libraryVersion) && parentPom != null) {
-            // fallback to parentPom if available
-            libraryVersion = fixString(parentPom.version)
+        if (!isNotEmpty(libraryVersion)) {
+            // fallback to parent version if available
+            libraryVersion = fixString(artifactPom.parent.version)
             if (isNotEmpty(libraryVersion)) {
                 println("----> Had to fallback to parent version for: ${uniqueId} -- result: ${libraryVersion}")
             }
+            else if( parentPom != null ) {
+              // fallback to parentPom if available
+              libraryVersion = fixString(parentPom.version)
+              if (isNotEmpty(libraryVersion)) {
+                  println("----> Had to fallback to version in parent pom for: ${uniqueId} -- result: ${libraryVersion}")
+              }
+            }
         }
+        if (!isNotEmpty(libraryVersion)) {
+            println("----> Failed to identify version for: ${uniqueId}")
+        }
+
         def libraryWebsite = fixString(artifactPom.url) // get the url to the library
         def licenseId = resolveLicenseId(uniqueId, fixString(artifactPom.licenses.license.name), fixString(artifactPom.licenses.license.url))
         if (!isNotEmpty(licenseId) && parentPom != null) { // fallback to parentPom if available
@@ -398,6 +440,7 @@ class AboutLibrariesProcessor {
     static ModuleVersionIdentifier getParentFromPom(pom) {
         def parent = pom.children().find { child -> child.name() == 'parent' }
         if (parent) {
+            LOGGER.debug("Parent element: [{}]",  XmlUtil.serialize(parent))
             String groupId = parent.groupId
             String artifactId = parent.artifactId
             String version = parent.version
@@ -418,6 +461,7 @@ class AboutLibrariesProcessor {
             if (id == null) {
                 return null
             }
+            LOGGER.debug("Attempting resolveParentPomFile for uniqueId={}, ModuleVersionIdentifier id={}", uniqueId, id);
             ArtifactResolutionResult resolutionResult = project.dependencies.createArtifactResolutionQuery()
                     .forComponents(DefaultModuleComponentIdentifier.newId(id))
                     .withArtifacts(MavenModule, MavenPomArtifact)
@@ -425,9 +469,12 @@ class AboutLibrariesProcessor {
 
             // size is 0 for gradle plugins, 1 for normal dependencies
             for (ComponentArtifactsResult result : resolutionResult.resolvedComponents) {
+                LOGGER.debug("Processing component artifact result {}", result);
                 // size should always be 1
                 for (ArtifactResult artifact : result.getArtifacts(MavenPomArtifact)) {
+                    LOGGER.debug("Processing artifact result {}", artifact);
                     if (artifact instanceof ResolvedArtifactResult) {
+                        LOGGER.debug("Detected instance of ResolvedArtifactResult");
                         println "--> Retrieved parent POM for: ${uniqueId} from ${id.group}:${id.name}:${id.version}"
                         return ((ResolvedArtifactResult) artifact).file
                     }
