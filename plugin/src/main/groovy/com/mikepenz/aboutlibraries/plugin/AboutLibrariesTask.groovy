@@ -55,7 +55,7 @@ public class AboutLibrariesTask extends DefaultTask {
         def combinedLibrariesBuilder = new MarkupBuilder(printWriter)
         combinedLibrariesBuilder.mkp.xmlDeclaration(version: "1.0", encoding: "utf-8")
         combinedLibrariesBuilder.doubleQuotes = true
-        combinedLibrariesBuilder.resources {
+        combinedLibrariesBuilder.resources('xmlns:tools': 'http://schemas.android.com/tools', 'tools:ignore': 'MissingTranslation') {
             for (final library in libraries) {
                 writeDependency(combinedLibrariesBuilder, library)
 
