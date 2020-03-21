@@ -51,7 +51,6 @@ enum class License(val fullName: String, val id: String, val aboutLibsId: String
     BSD_2_Clause_FreeBSD("BSD 2-Clause FreeBSD License", "BSD-2-Clause-FreeBSD"),
     BSD_2_Clause_NetBSD("BSD 2-Clause NetBSD License", "BSD-2-Clause-NetBSD"),
     BSD_2_Clause_Patent("BSD-2-Clause Plus Patent License", "BSD-2-Clause-Patent"),
-    BSD_3_Clause("BSD 3-Clause \"New\" or \"Revised\" License", "BSD-3-Clause"),
     BSD_3_Clause_Attribution("BSD with attribution", "BSD-3-Clause-Attribution"),
     BSD_3_Clause_Clear("BSD 3-Clause Clear License", "BSD-3-Clause-Clear"),
     BSD_3_Clause_LBNL("Lawrence Berkeley National Labs BSD variant license", "BSD-3-Clause-LBNL"),
@@ -379,9 +378,13 @@ enum class License(val fullName: String, val id: String, val aboutLibsId: String
     ZPL_1_1("Zope Public License 1.1", "ZPL-1.1"),
     ZPL_2_0("Zope Public License 2.0", "ZPL-2.0"),
     ZPL_2_1("Zope Public License 2.1", "ZPL-2.1"),
+
     // Special handling section
     Apache_2_0("Apache License 2.0", "Apache-2.0", "apache_2_0", { name, url ->
         name.contains("Apache", true) || url.endsWith("LICENSE-2.0.txt")
+    }),
+    BSD_3_Clause("BSD 3-Clause \"New\" or \"Revised\" License", "BSD-3-Clause", customMatcher = { name, url ->
+        name.equals("New BSD License", true) || name.equals("Modified BSD License", true)
     }),
     MIT("MIT License", "MIT", "mit", { name, url ->
         name.contains("MIT", true)
