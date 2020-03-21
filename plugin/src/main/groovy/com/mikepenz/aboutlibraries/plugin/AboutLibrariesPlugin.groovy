@@ -55,11 +55,16 @@ class AboutLibrariesPlugin implements Plugin<Project> {
             }
         }
 
+        // task to generate libraries, and their license into the build folder (not hooked to the build task)
+        AboutLibrariesTask generateTask = project.tasks.create("generateLibraryDefinitions", AboutLibrariesTask)
+        generateTask.description = "Writes the relevant meta data for the AboutLibraries plugin to display dependencies"
+        generateTask.setDependencies(outputFile)
+
         // task to output library names with ids for further actions
         AboutLibrariesIdTask taskId = project.tasks.create("findLibraries", AboutLibrariesIdTask)
         taskId.description = "Writes the relevant meta data for the AboutLibraries plugin to display dependencies"
 
-        // task to output libraries and their license in CSV format to the CLI
+        // task to output libraries, and their license in CSV format to the CLI
         AboutLibrariesExportTask exportTaskId = project.tasks.create("exportLibraries", AboutLibrariesExportTask)
         exportTaskId.description = "Writes all libraries and their license in CSV format to the CLI"
     }
