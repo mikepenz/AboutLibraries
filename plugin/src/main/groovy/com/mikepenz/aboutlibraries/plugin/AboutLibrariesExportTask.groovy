@@ -8,7 +8,8 @@ import org.gradle.api.tasks.TaskAction
 @CacheableTask
 public class AboutLibrariesExportTask extends DefaultTask {
     Set<License> neededLicenses = new HashSet<License>()
-    Set<String> unknownLicenses = new HashSet<String>()
+    Set<String> librariesWithoutLicenses = new HashSet<String>()
+    HashMap<String, HashSet<String>> unknownLicenses = new HashMap<String, HashSet<String>>()
 
     def gatherDependencies(def project) {
         def libraries = new AboutLibrariesProcessor().gatherDependencies(project)
@@ -22,9 +23,11 @@ public class AboutLibrariesExportTask extends DefaultTask {
                 neededLicenses.add(License.valueOf(library.licenseId))
             } catch (Exception ex) {
                 if (library.licenseId != null && library.licenseId != "") {
-                    unknownLicenses.add(library.licenseId)
+                    HashSet<String> libsWithMissing = unknownLicenses.getOrDefault(library.licenseId, new HashSet<String>())
+                    libsWithMissing.add(library.artifactId)
+                    unknownLicenses.put(library.licenseId, libsWithMissing)
                 } else {
-                    unknownLicenses.add(library.artifactId)
+                    librariesWithoutLicenses.add(library.artifactId)
                 }
             }
             println "${library.libraryName};${library.artifactId};${library.licenseId}"
@@ -40,9 +43,17 @@ public class AboutLibrariesExportTask extends DefaultTask {
 
         println ""
         println ""
-        println "UNKNOWN LICENSES / ARTIFACTS WITHOUT LICENSE:"
-        for (final license in unknownLicenses) {
+        println "ARTIFACTS WITHOUT LICENSE:"
+        for (final license in librariesWithoutLicenses) {
             println "${license}"
+        }
+
+        println ""
+        println ""
+        println "UNKNOWN LICENSES:"
+        for (final entry in unknownLicenses) {
+            println "${entry.key}"
+            println "-- ${entry.value}"
         }
     }
 
