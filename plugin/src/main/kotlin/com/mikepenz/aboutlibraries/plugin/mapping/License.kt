@@ -47,7 +47,6 @@ enum class License(val fullName: String, val id: String, val aboutLibsId: String
     BlueOak_1_0_0("Blue Oak Model License 1.0.0", "BlueOak-1.0.0"),
     Borceux("Borceux license", "Borceux"),
     BSD_1_Clause("BSD 1-Clause License", "BSD-1-Clause"),
-    BSD_2_Clause("BSD 2-Clause \"Simplified\" License", "BSD-2-Clause"),
     BSD_2_Clause_FreeBSD("BSD 2-Clause FreeBSD License", "BSD-2-Clause-FreeBSD"),
     BSD_2_Clause_NetBSD("BSD 2-Clause NetBSD License", "BSD-2-Clause-NetBSD"),
     BSD_2_Clause_Patent("BSD-2-Clause Plus Patent License", "BSD-2-Clause-Patent"),
@@ -98,7 +97,6 @@ enum class License(val fullName: String, val id: String, val aboutLibsId: String
     CC_BY_SA_3_0("Creative Commons Attribution Share Alike 3.0 Unported", "CC-BY-SA-3.0"),
     CC_BY_SA_4_0("Creative Commons Attribution Share Alike 4.0 International", "CC-BY-SA-4.0"),
     CC_PDDC("Creative Commons Public Domain Dedication and Certification", "CC-PDDC"),
-    CC0_1_0("Creative Commons Zero v1.0 Universal", "CC0-1.0"),
     CDDL_1_0("Common Development and Distribution License 1.0", "CDDL-1.0"),
     CDDL_1_1("Common Development and Distribution License 1.1", "CDDL-1.1"),
     CDLA_Permissive_1_0("Community Data License Agreement Permissive 1.0", "CDLA-Permissive-1.0"),
@@ -383,12 +381,20 @@ enum class License(val fullName: String, val id: String, val aboutLibsId: String
     Apache_2_0("Apache License 2.0", "Apache-2.0", "apache_2_0", { name, url ->
         name.contains("Apache", true) || url.endsWith("LICENSE-2.0.txt")
     }),
+    BSD_2_Clause("BSD 2-Clause \"Simplified\" License", "BSD-2-Clause", customMatcher = { name, url ->
+        name.equals("BSD 2-Clause License", true)
+    }),
     BSD_3_Clause("BSD 3-Clause \"New\" or \"Revised\" License", "BSD-3-Clause", customMatcher = { name, url ->
-        name.equals("New BSD License", true) || name.equals("Modified BSD License", true)
+        name.equals("New BSD License", true) || name.equals("Modified BSD License", true) || name.equals("BSD 3-clause", true)
     }),
     MIT("MIT License", "MIT", "mit", { name, url ->
         name.contains("MIT", true)
     }),
+    CC0_1_0("Creative Commons Zero v1.0 Universal", "CC0-1.0", customMatcher = { name, url ->
+        name.equals("CC0", true)
+    }),
+
+    // Special propatriary libraries section
     ASDKL("Android Software Development Kit License", "ASDKL", "asdkl"),
     CTS("Crashlytics Terms of Service", "CTS", "cts"),
     FSSA("Fabric Software and Services Agreement", "FSSA", "cts");
