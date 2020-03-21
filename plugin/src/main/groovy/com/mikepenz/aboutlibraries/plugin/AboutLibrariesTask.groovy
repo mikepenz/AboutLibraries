@@ -5,11 +5,15 @@ import com.mikepenz.aboutlibraries.plugin.mapping.License
 import groovy.xml.MarkupBuilder
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.*
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 import java.nio.charset.StandardCharsets
 
 @CacheableTask
 public class AboutLibrariesTask extends DefaultTask {
+    private static final Logger LOGGER = LoggerFactory.getLogger(AboutLibrariesTask.class);
+
     @Internal
     Set<String> neededLicenses = new HashSet<String>()
 
@@ -72,7 +76,21 @@ public class AboutLibrariesTask extends DefaultTask {
 
     def tryToFindAndWriteLibrary(def licenseId) {
         try {
-            def resultFile = new File(outputRawFolder, "license_${licenseId}.txt")
+            LOGGER.debug("--> Try load library with ID {}", licenseId)
+            def successfulXml = false
+            def resultFile = new File(outputValuesFolder, "license_${licenseId}_strings.xml")
+            if (!resultFile.exists()) {
+                def is = getClass().getResourceAsStream("/values/license_${licenseId}_strings.xml")
+                if (is != null) {
+                    resultFile.append(is)
+                    is.close()
+                    successfulXml = true
+                } else {
+                    LOGGER.debug("--> File did not exist {}", getClass().getResource("values/license_${licenseId}_strings.xml"))
+                }
+            }
+
+            resultFile = new File(outputRawFolder, "license_${licenseId}.txt")
             if (!resultFile.exists()) {
                 def is = getClass().getResourceAsStream("/static/license_${licenseId}.txt")
                 if (is != null) {
@@ -81,15 +99,7 @@ public class AboutLibrariesTask extends DefaultTask {
                 }
             }
 
-            resultFile = new File(outputValuesFolder, "license_${licenseId}_strings.xml")
-            if (!resultFile.exists()) {
-                def is = getClass().getResourceAsStream("/values/license_${licenseId}_strings.xml")
-                if (is != null) {
-                    resultFile.append(is)
-                    is.close()
-                    return true
-                }
-            }
+            return successfulXml
         } catch (Exception ex) {
             println("--> License not available: ${licenseId}")
         }
