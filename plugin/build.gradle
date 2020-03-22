@@ -16,7 +16,7 @@ apply plugin: 'java'
 apply plugin: "org.jetbrains.kotlin.jvm"
 
 group = "com.mikepenz.aboutlibraries.plugin"
-version = "8.0.0-rc04"
+version = "8.0.0"
 
 plugindev {
     pluginId "${project.group}"
