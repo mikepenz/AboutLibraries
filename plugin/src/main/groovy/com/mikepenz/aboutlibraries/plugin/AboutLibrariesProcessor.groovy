@@ -385,22 +385,6 @@ class AboutLibrariesProcessor {
     }
 
     /**
-     * Will convert some-thing-named to Some Thing Named
-     */
-    static def toProperNameString(String s) {
-        String[] parts = s.split("-")
-        String camelCaseString = ""
-        for (String part : parts) {
-            camelCaseString = camelCaseString + " " + toProperCase(part)
-        }
-        return camelCaseString
-    }
-
-    static def toProperCase(String s) {
-        return s.substring(0, 1).toUpperCase(Locale.US) + s.substring(1).toLowerCase(Locale.US)
-    }
-
-    /**
      * Looks in the pom if there is a parent we potentially could resolve
      *
      * Logic based on: https://github.com/ben-manes/gradle-versions-plugin

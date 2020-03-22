@@ -54,7 +54,6 @@ public class AboutLibrariesTask extends DefaultTask {
         this.combinedLibrariesOutputFile = getCombinedLibrariesOutputFile()
 
         def libraries = new AboutLibrariesProcessor().gatherDependencies(project)
-
         def printWriter = new PrintWriter(new OutputStreamWriter(combinedLibrariesOutputFile.newOutputStream(), StandardCharsets.UTF_8), true)
         def combinedLibrariesBuilder = new MarkupBuilder(printWriter)
         combinedLibrariesBuilder.mkp.xmlDeclaration(version: "1.0", encoding: "utf-8")
@@ -74,29 +73,30 @@ public class AboutLibrariesTask extends DefaultTask {
         processNeededLicenses()
     }
 
+    /**
+     * Loos inside the *.jar and tries to find a license file to include in the apk
+     */
     def tryToFindAndWriteLibrary(def licenseId) {
         try {
             LOGGER.debug("--> Try load library with ID {}", licenseId)
             def successfulXml = false
             def resultFile = new File(outputValuesFolder, "license_${licenseId}_strings.xml")
-            if (!resultFile.exists()) {
-                def is = getClass().getResourceAsStream("/values/license_${licenseId}_strings.xml")
-                if (is != null) {
-                    resultFile.append(is)
-                    is.close()
-                    successfulXml = true
-                } else {
-                    LOGGER.debug("--> File did not exist {}", getClass().getResource("values/license_${licenseId}_strings.xml"))
-                }
+            resultFile.delete()
+            def is = getClass().getResourceAsStream("/values/license_${licenseId}_strings.xml")
+            if (is != null) {
+                resultFile.append(is)
+                is.close()
+                successfulXml = true
+            } else {
+                LOGGER.debug("--> File did not exist {}", getClass().getResource("values/license_${licenseId}_strings.xml"))
             }
 
             resultFile = new File(outputRawFolder, "license_${licenseId}.txt")
-            if (!resultFile.exists()) {
-                def is = getClass().getResourceAsStream("/static/license_${licenseId}.txt")
-                if (is != null) {
-                    resultFile.append(is)
-                    is.close()
-                }
+            resultFile.delete()
+            is = getClass().getResourceAsStream("/static/license_${licenseId}.txt")
+            if (is != null) {
+                resultFile.append(is)
+                is.close()
             }
 
             return successfulXml
@@ -145,8 +145,10 @@ public class AboutLibrariesTask extends DefaultTask {
         }
     }
 
+    /**
+     * Writes out the given library to disk
+     */
     def writeDependency(MarkupBuilder resources, Library library) {
-
         def delimiter = ""
         def customProperties = ""
         if (isNotEmpty(library.libraryOwner)) {
