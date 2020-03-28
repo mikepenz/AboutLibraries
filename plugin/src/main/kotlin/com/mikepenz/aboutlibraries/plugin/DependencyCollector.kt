@@ -20,7 +20,6 @@ import org.gradle.api.artifacts.Configuration
 import org.gradle.api.artifacts.component.ModuleComponentIdentifier
 import org.gradle.api.tasks.diagnostics.internal.graph.nodes.RenderableDependency
 import org.gradle.api.tasks.diagnostics.internal.graph.nodes.RenderableModuleResult
-import org.gradle.internal.deprecation.DeprecatableConfiguration
 import java.util.*
 
 /**
@@ -68,15 +67,12 @@ class DependencyCollector {
     private fun getNonDeprecatedConfigurations(project: Project): List<Configuration> {
         val filteredConfigurations: MutableList<Configuration> = ArrayList()
         for (configuration in project.configurations) {
-            if (!(configuration as DeprecatableConfiguration).isFullyDeprecated) {
-                filteredConfigurations.add(configuration)
-            }
+            filteredConfigurations.add(configuration)
         }
         return filteredConfigurations
     }
 
     private fun canBeResolved(configuration: Configuration): Boolean {
-        val isDeprecatedForResolving = (configuration as DeprecatableConfiguration).resolutionAlternatives != null
-        return configuration.isCanBeResolved() && !isDeprecatedForResolving
+        return configuration.isCanBeResolved
     }
 }
