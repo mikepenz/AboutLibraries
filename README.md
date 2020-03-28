@@ -36,7 +36,7 @@
 
 ## Latest releases 🛠
 
-- Kotlin && Gradle Plugin | [v8.0.0](https://github.com/mikepenz/FastAdapter/tree/v8.0.0)
+- Kotlin && Gradle Plugin | [v8.0.1](https://github.com/mikepenz/FastAdapter/tree/v8.0.1)
 - Kotlin | [v7.1.0](https://github.com/mikepenz/FastAdapter/tree/v7.1.0)
 - Java && AndroidX | [v6.2.3](https://github.com/mikepenz/FastAdapter/tree/v6.2.3)
 - Java && AppCompat | [v6.1.1](https://github.com/mikepenz/FastAdapter/tree/v6.1.1)
@@ -111,7 +111,7 @@ But there are additional commands which may be helpful for various situations.
 ## Export Library information
 
 ```kotlin
-./gradlew exportLibraries
+./gradlew exportLibraries // exists also per variant
 ```
 Exports all libraries in a CSV format with the name, artifactId, and licenseId. And a seperate list with all licenses used, and a potential list of unmatched libraries / licenses.
 
