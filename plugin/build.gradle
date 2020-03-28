@@ -4,12 +4,12 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.70"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.71"
     }
 }
 plugins {
     id 'nu.studer.plugindev' version '1.0.12'
-    id "com.gradle.plugin-publish" version "0.10.1"
+    id "com.gradle.plugin-publish" version "0.11.0"
 }
 apply plugin: 'groovy'
 apply plugin: 'java'
