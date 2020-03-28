@@ -3,16 +3,30 @@ package com.mikepenz.aboutlibraries.plugin
 import com.mikepenz.aboutlibraries.plugin.mapping.License
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.CacheableTask
+import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.TaskAction
 
 @CacheableTask
 public class AboutLibrariesExportTask extends DefaultTask {
+
+    private String variant = null
     Set<License> neededLicenses = new HashSet<License>()
     Set<String> librariesWithoutLicenses = new HashSet<String>()
     HashMap<String, HashSet<String>> unknownLicenses = new HashMap<String, HashSet<String>>()
 
+    @Input
+    public void setVariant(String variant) {
+        this.variant = variant
+    }
+
     def gatherDependencies(def project) {
-        def libraries = new AboutLibrariesProcessor().gatherDependencies(project)
+        def libraries = new AboutLibrariesProcessor().gatherDependencies(project, variant)
+
+        if (variant != null) {
+            println ""
+            println ""
+            println "Variant: ${variant}"
+        }
 
         println ""
         println ""

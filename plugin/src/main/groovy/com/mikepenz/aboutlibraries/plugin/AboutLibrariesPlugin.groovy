@@ -83,5 +83,11 @@ class AboutLibrariesPlugin implements Plugin<Project> {
         generateTask.group = 'Build'
         generateTask.setDependencies(project.file("$project.buildDir/generated/aboutlibraries/${variant.name}/res/"))
         generateTask.setVariant(variant.name)
+
+        // task to output libraries, and their license in CSV format to the CLI
+        AboutLibrariesExportTask exportTaskId = project.tasks.create("exportLibraries${variant.name.capitalize()}", AboutLibrariesExportTask)
+        exportTaskId.description = "Writes all libraries and their license in CSV format to the CLI"
+        exportTaskId.group = 'Help'
+        exportTaskId.setVariant(variant.name)
     }
 }
