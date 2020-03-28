@@ -23,7 +23,7 @@ public class AboutLibrariesCleanTask extends DefaultTask {
     @TaskAction
     public void action() throws IOException {
         if (dependencies.exists()) {
-            dependencies.delete()
+            dependencies.deleteDir()
         }
     }
 }
