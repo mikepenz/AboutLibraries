@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources translatable="false">
 
-    <string name="define_license_mit"></string>
-    <string name="license_mit_licenseName">MIT License</string>
-    <string name="license_mit_licenseWebsite">http://opensource.org/licenses/MIT</string>
-    <string name="license_mit_licenseShortDescription">
+    <string name="define_license_mit" translatable="false"></string>
+    <string name="license_mit_licenseName" translatable="false">MIT License</string>
+    <string name="license_mit_licenseWebsite" translatable="false">http://opensource.org/licenses/MIT</string>
+    <string name="license_mit_licenseShortDescription" translatable="false">
         <![CDATA[
         Copyright &#169; <<<YEAR>>>, <<<OWNER>>>
         <br />
@@ -21,6 +21,6 @@
         all copies or substantial portions of the Software.
         ]]>
     </string>
-    <string name="license_mit_licenseDescription">raw:license_mit</string>
+    <string name="license_mit_licenseDescription" translatable="false">raw:license_mit</string>
 
 </resources>

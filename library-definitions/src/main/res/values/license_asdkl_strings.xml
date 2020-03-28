@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources translatable="false">
 
-    <string name="define_license_asdkl"></string>
-    <string name="license_asdkl_licenseName">Android Software Development Kit License</string>
-    <string name="license_asdkl_licenseWebsite">https://developer.android.com/studio/terms.html</string>
-    <string name="license_asdkl_licenseShortDescription">
+    <string name="define_license_asdkl" translatable="false"></string>
+    <string name="license_asdkl_licenseName" translatable="false">Android Software Development Kit License</string>
+    <string name="license_asdkl_licenseWebsite" translatable="false">https://developer.android.com/studio/terms.html</string>
+    <string name="license_asdkl_licenseShortDescription" translatable="false">
         <![CDATA[
         This is the Android Software Development Kit License Agreement
         <br /><br />
@@ -17,6 +17,6 @@
         1.4 "Google" means Google LLC, a Delaware corporation with principal place of business at 1600 Amphitheatre Parkway, Mountain View, CA 94043, United States.
         ]]>
     </string>
-    <string name="license_asdkl_licenseDescription">raw:license_asdkl</string>
+    <string name="license_asdkl_licenseDescription" translatable="false">raw:license_asdkl</string>
 
 </resources>

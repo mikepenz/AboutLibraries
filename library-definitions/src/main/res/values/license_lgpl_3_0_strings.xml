@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources translatable="false">
-    <string name="define_license_lgpl_3_0" />
-    <string name="license_lgpl_3_0_licenseName">GNU LGPL 3.0</string>
-    <string name="license_lgpl_3_0_licenseWebsite">https://www.gnu.org/licenses/lgpl-3.0.html</string>
-    <string name="license_lgpl_3_0_licenseShortDescription">
+    <string name="define_license_lgpl_3_0" translatable="false" />
+    <string name="license_lgpl_3_0_licenseName" translatable="false">GNU LGPL 3.0</string>
+    <string name="license_lgpl_3_0_licenseWebsite" translatable="false">https://www.gnu.org/licenses/lgpl-3.0.html</string>
+    <string name="license_lgpl_3_0_licenseShortDescription" translatable="false">
         <![CDATA[
         <p>&lt;one line to give the program\'s name and a brief idea of what it does.&gt;
         Copyright &copy; &lt;year&gt;  &lt;name of author&gt;</p>
@@ -22,6 +22,6 @@
         along with this library.  If not, see &lt;https://www.gnu.org/licenses/&gt;.</p>
         ]]>
     </string>
-    <string name="license_lgpl_3_0_licenseDescription">raw:license_lgpl_3_0</string>
+    <string name="license_lgpl_3_0_licenseDescription" translatable="false">raw:license_lgpl_3_0</string>
 
 </resources>

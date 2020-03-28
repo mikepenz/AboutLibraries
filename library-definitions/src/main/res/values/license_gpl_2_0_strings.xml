@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="define_license_gpl_2_0" />
-    <string name="license_gpl_2_0_licenseName">GNU GPL 2.0</string>
-    <string name="license_gpl_2_0_licenseWebsite">https://www.gnu.org/licenses/gpl-2.0.html</string>
-    <string name="license_gpl_2_0_licenseShortDescription">
+    <string name="define_license_gpl_2_0" translatable="false" />
+    <string name="license_gpl_2_0_licenseName" translatable="false">GNU GPL 2.0</string>
+    <string name="license_gpl_2_0_licenseWebsite" translatable="false">https://www.gnu.org/licenses/gpl-2.0.html</string>
+    <string name="license_gpl_2_0_licenseShortDescription" translatable="false">
         <![CDATA[
         <p>&lt;one line to give the program\'s name and a brief idea of what it does.&gt;
         Copyright &copy; &lt;year&gt;  &lt;name of author&gt;</p>
@@ -23,6 +23,6 @@
         Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.</p>
         ]]>
     </string>
-    <string name="license_gpl_2_0_licenseDescription">raw:license_gpl_2_0</string>
+    <string name="license_gpl_2_0_licenseDescription" translatable="false">raw:license_gpl_2_0</string>
 
 </resources>
