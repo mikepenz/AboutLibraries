@@ -17,7 +17,9 @@ public class AboutLibrariesTask extends DefaultTask {
     @Internal
     Set<String> neededLicenses = new HashSet<String>()
 
+    private String variant
     private File dependencies
+
     @Internal
     private File combinedLibrariesOutputFile
     private File outputValuesFolder
@@ -47,13 +49,18 @@ public class AboutLibrariesTask extends DefaultTask {
         this.dependencies = dependencies
     }
 
+    @Input
+    public void setVariant(String variant) {
+        this.variant = variant
+    }
+
     def gatherDependencies(def project) {
         // ensure directories exist
         this.outputValuesFolder = getValuesFolder()
         this.outputRawFolder = getRawFolder()
         this.combinedLibrariesOutputFile = getCombinedLibrariesOutputFile()
 
-        def libraries = new AboutLibrariesProcessor().gatherDependencies(project)
+        def libraries = new AboutLibrariesProcessor().gatherDependencies(project, variant)
         def printWriter = new PrintWriter(new OutputStreamWriter(combinedLibrariesOutputFile.newOutputStream(), StandardCharsets.UTF_8), true)
         def combinedLibrariesBuilder = new MarkupBuilder(printWriter)
         combinedLibrariesBuilder.mkp.xmlDeclaration(version: "1.0", encoding: "utf-8")

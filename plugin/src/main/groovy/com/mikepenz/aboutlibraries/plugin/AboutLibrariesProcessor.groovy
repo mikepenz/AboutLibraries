@@ -59,14 +59,14 @@ class AboutLibrariesProcessor {
         collectMappingDetails(customEnchantMapping, 'custom_enchant_mapping.prop')
     }
 
-    def gatherDependencies(def project) {
+    def gatherDependencies(def project, def variant) {
         def extension = project.extensions.aboutLibraries
         if (extension.configPath != null) {
             configFolder = new File(extension.configPath)
         }
 
         // get all dependencies
-        Map<String, HashSet<String>> collectedDependencies = new DependencyCollector().collect(project)
+        Map<String, HashSet<String>> collectedDependencies = new DependencyCollector(variant).collect(project)
 
         println "All dependencies.size=${collectedDependencies.size()}"
         if (collectedDependencies.size() > 0) {

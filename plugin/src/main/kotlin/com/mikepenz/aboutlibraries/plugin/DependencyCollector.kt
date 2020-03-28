@@ -20,12 +20,15 @@ import org.gradle.api.artifacts.Configuration
 import org.gradle.api.artifacts.component.ModuleComponentIdentifier
 import org.gradle.api.tasks.diagnostics.internal.graph.nodes.RenderableDependency
 import org.gradle.api.tasks.diagnostics.internal.graph.nodes.RenderableModuleResult
+import org.slf4j.LoggerFactory
 import java.util.*
 
 /**
  * Based on https://raw.githubusercontent.com/gradle/gradle/master/subprojects/diagnostics/src/main/java/org/gradle/api/reporting/dependencies/internal/JsonProjectDependencyRenderer.java
  */
-class DependencyCollector {
+class DependencyCollector(
+        private val variant: String? = null
+) {
     /**
      * Generates the project dependency report structure
      *
@@ -33,6 +36,7 @@ class DependencyCollector {
      * @return the generated JSON, as a String
      */
     fun collect(project: Project): Map<String, HashSet<String>> {
+        LOGGER.info("Collecting dependencies")
         return createConfigurations(project)
     }
 
@@ -41,12 +45,20 @@ class DependencyCollector {
         val configurations: Iterable<Configuration> = getNonDeprecatedConfigurations(project)
         for (configuration in configurations) {
             if (canBeResolved(configuration)) {
-                if (!configuration.name.contains("classpath", true)) {
-                    // we are not specially concerned about special entries
-                    continue
-                } else if (configuration.name.contains("compiler", true)) {
+                if (!configuration.name.endsWith("CompileClasspath", true)) {
                     // we are not keen to include compiler entries
                     continue
+                }
+
+                if (variant != null) {
+                    if (!configuration.name.equals("${variant}CompileClasspath", true)) {
+                        // we are not keen to include compiler entries
+                        continue
+                    }
+
+                    LOGGER.info("Collecting dependencies for variant ${variant} from config: ${configuration.name}")
+                } else {
+                    LOGGER.info("Collecting dependencies from config: ${configuration.name}")
                 }
 
                 val result = configuration.incoming.resolutionResult
@@ -74,5 +86,10 @@ class DependencyCollector {
 
     private fun canBeResolved(configuration: Configuration): Boolean {
         return configuration.isCanBeResolved
+    }
+
+    companion object {
+        private val LOGGER = LoggerFactory.getLogger(DependencyCollector::class.java)!!
+
     }
 }
