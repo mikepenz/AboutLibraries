@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="define_license_fssa" />
-    <string name="license_fssa_licenseName">Fabric Software and Services Agreement</string>
-    <string name="license_fssa_licenseWebsite">https://fabric.io/terms/fabric</string>
-    <string name="license_fssa_licenseShortDescription">
+    <string name="define_license_fssa" translatable="false" />
+    <string name="license_fssa_licenseName" translatable="false">Fabric Software and Services Agreement</string>
+    <string name="license_fssa_licenseWebsite" translatable="false">https://fabric.io/terms/fabric</string>
+    <string name="license_fssa_licenseShortDescription" translatable="false">
         <![CDATA[PLEASE READ THIS AGREEMENT CAREFULLY. BY CLICKING THE UPGRADE OR SIGN UP BUTTON OR BY ACCESSING OR USING THE FABRIC TECHNOLOGY, YOU AGREE TO BE BOUND BY THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL THE TERMS OF THIS AGREEMENT, YOU MAY NOT ACCESS OR USE THE FABRIC TECHNOLOGY.
 
 This Fabric Software and Services Agreement (“Agreement”) is entered into by Google Inc. and you (“Developer” or “You”) and governs Your access and use of the Fabric Technology (defined below). If You are accessing or using the Fabric Technology on behalf of a company or other legal entity, You represent and warrant that You are an authorized representative of that entity and have the authority to bind such entity to this Agreement, in which case the terms “Developer” and “You” shall refer to such entity. ]]>
     </string>
-    <string name="license_fssa_licenseDescription">raw:license_fssa</string>
+    <string name="license_fssa_licenseDescription" translatable="false">raw:license_fssa</string>
 
 </resources>

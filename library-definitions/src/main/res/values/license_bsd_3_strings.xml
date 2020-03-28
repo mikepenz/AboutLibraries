@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources translatable="false">
 
-    <string name="define_license_bsd_3"></string>
-    <string name="license_bsd_3_licenseName">BSD 3-Clause License</string>
-    <string name="license_bsd_3_licenseWebsite">http://opensource.org/licenses/BSD-3-Clause</string>
-    <string name="license_bsd_3_licenseShortDescription">
+    <string name="define_license_bsd_3" translatable="false"></string>
+    <string name="license_bsd_3_licenseName" translatable="false">BSD 3-Clause License</string>
+    <string name="license_bsd_3_licenseWebsite" translatable="false">http://opensource.org/licenses/BSD-3-Clause</string>
+    <string name="license_bsd_3_licenseShortDescription" translatable="false">
         <![CDATA[
         Copyright &#169; <<<YEAR>>>, <<<OWNER>>>
         <br />
@@ -21,6 +21,6 @@
         without specific prior written permission.
         ]]>
     </string>
-    <string name="license_bsd_3_licenseDescription">raw:license_bsd_3</string>
+    <string name="license_bsd_3_licenseDescription" translatable="false">raw:license_bsd_3</string>
 
 </resources>

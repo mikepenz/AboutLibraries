@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources translatable="false">
 
-    <string name="define_license_bsd_2"></string>
-    <string name="license_bsd_2_licenseName">BSD 2-Clause License</string>
-    <string name="license_bsd_2_licenseWebsite">http://opensource.org/licenses/BSD-2-Clause</string>
-    <string name="license_bsd_2_licenseShortDescription">
+    <string name="define_license_bsd_2" translatable="false"></string>
+    <string name="license_bsd_2_licenseName" translatable="false">BSD 2-Clause License</string>
+    <string name="license_bsd_2_licenseWebsite" translatable="false">http://opensource.org/licenses/BSD-2-Clause</string>
+    <string name="license_bsd_2_licenseShortDescription" translatable="false">
         <![CDATA[
         Copyright &#169; <<<YEAR>>>, <<<OWNER>>>
         <br />
@@ -18,6 +18,6 @@
         and/or other materials provided with the distribution.
         ]]>
     </string>
-    <string name="license_bsd_2_licenseDescription">raw:license_bsd_2</string>
+    <string name="license_bsd_2_licenseDescription" translatable="false">raw:license_bsd_2</string>
 
 </resources>

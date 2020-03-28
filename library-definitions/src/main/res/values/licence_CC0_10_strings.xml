@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources translatable="false">
-    <string name="define_license_cc0_10"></string>
-    <string name="license_cc0_10_licenseName">Creative Commons CC0 1.0 Universal License</string>
-    <string name="license_cc0_10_licenseWebsite">https://creativecommons.org/publicdomain/zero/1.0/legalcode</string>
-    <string name="license_cc0_10_licenseShortDescription">
+    <string name="define_license_cc0_10" translatable="false"></string>
+    <string name="license_cc0_10_licenseName" translatable="false">Creative Commons CC0 1.0 Universal License</string>
+    <string name="license_cc0_10_licenseWebsite" translatable="false">https://creativecommons.org/publicdomain/zero/1.0/legalcode</string>
+    <string name="license_cc0_10_licenseShortDescription" translatable="false">
 		<![CDATA[
 		<strong>No Copyright</strong>
 		<br /><br />
@@ -20,5 +20,5 @@
 		</ul>
 		]]>
     </string>
-    <string name="license_cc0_10_licenseDescription">raw:license_cc0_10</string>
+    <string name="license_cc0_10_licenseDescription" translatable="false">raw:license_cc0_10</string>
 </resources>

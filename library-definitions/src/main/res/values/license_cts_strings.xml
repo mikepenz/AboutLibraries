@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="define_license_cts" />
-    <string name="license_cts_licenseName">Crashlytics Agreement</string>
-    <string name="license_cts_licenseWebsite">https://fabric.io/crashlytics-terms-of-service.pdf</string>
-    <string name="license_cts_licenseShortDescription">
+    <string name="define_license_cts" translatable="false" />
+    <string name="license_cts_licenseName" translatable="false">Crashlytics Agreement</string>
+    <string name="license_cts_licenseWebsite" translatable="false">https://fabric.io/crashlytics-terms-of-service.pdf</string>
+    <string name="license_cts_licenseShortDescription" translatable="false">
         <![CDATA[This Crashlytics Agreement (“Agreement”) is entered into by Crashlytics (defined as either: (a)
 Google Ireland Limited, with offices at Gordon House, Barrow Street, Dublin 4, Ireland, if Your
 principal place of business (for entities) or place of residence (for individuals) is in any country
@@ -39,6 +39,6 @@ focused on analysis and computation of the behavior and usage of mobile applicat
 including app analytics, event tracking, and conversion tracking. If you use Answers, then
 please consult the Answers Agreement, which is the contract governing your use of Answers.]]>
     </string>
-    <string name="license_cts_licenseDescription">raw:license_cts</string>
+    <string name="license_cts_licenseDescription" translatable="false">raw:license_cts</string>
 
 </resources>

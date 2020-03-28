@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources translatable="false">
 
-    <string name="define_license_Apache_2_0"></string>
-    <string name="license_Apache_2_0_licenseName">Apache Version 2.0</string>
-    <string name="license_Apache_2_0_licenseWebsite">http://www.apache.org/licenses/LICENSE-2.0.html</string>
-    <string name="license_Apache_2_0_licenseShortDescription">
+    <string name="define_license_Apache_2_0" translatable="false"></string>
+    <string name="license_Apache_2_0_licenseName" translatable="false">Apache Version 2.0</string>
+    <string name="license_Apache_2_0_licenseWebsite" translatable="false">http://www.apache.org/licenses/LICENSE-2.0.html</string>
+    <string name="license_Apache_2_0_licenseShortDescription" translatable="false">
         <![CDATA[
         Copyright &#169; <<<YEAR>>>, <<<OWNER>>>
         <br />
@@ -23,6 +23,6 @@
         limitations under the License.
         ]]>
     </string>
-    <string name="license_Apache_2_0_licenseDescription">raw:license_apache_2_0</string>
+    <string name="license_Apache_2_0_licenseDescription" translatable="false">raw:license_apache_2_0</string>
 
 </resources>
