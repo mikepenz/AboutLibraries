@@ -56,7 +56,7 @@ class DependencyCollector(
                         continue
                     }
 
-                    LOGGER.info("Collecting dependencies for variant ${variant} from config: ${configuration.name}")
+                    LOGGER.info("Collecting dependencies for variant $variant from config: ${configuration.name}")
                 } else {
                     LOGGER.info("Collecting dependencies from config: ${configuration.name}")
                 }
@@ -90,6 +90,5 @@ class DependencyCollector(
 
     companion object {
         private val LOGGER = LoggerFactory.getLogger(DependencyCollector::class.java)!!
-
     }
 }
