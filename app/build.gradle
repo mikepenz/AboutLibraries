@@ -40,6 +40,14 @@ android {
             zipAlignEnabled true
             minifyEnabled false
         }
+        staging {
+            try {
+                signingConfig signingConfigs.release
+            } catch (ignored) {
+            }
+            applicationIdSuffix ".debugStaging"
+            matchingFallbacks = ['debug']
+        }
     }
     productFlavors {
     }
@@ -93,6 +101,8 @@ dependencies {
     // kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.kotlin}"
 
+    // used only tho showcase multi flavor support
+    stagingImplementation("com.squareup.okhttp3:okhttp:4.4.0")
 }
 
 configurations.all {
