@@ -73,7 +73,7 @@ public class AboutLibrariesTask extends DefaultTask {
                     neededLicenses.add(library.licenseId) // remember the license we hit
                 }
             }
-            string name: "config_aboutLibraries_plugin", "yes"
+            string name: "config_aboutLibraries_plugin", translatable: 'false', "yes"
         }
         printWriter.close()
 
