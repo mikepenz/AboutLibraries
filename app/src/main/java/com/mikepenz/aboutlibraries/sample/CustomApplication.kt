@@ -13,10 +13,10 @@ import com.mikepenz.itemanimators.SlideDownAlphaAnimator
 class CustomApplication : Application() {
     override fun onCreate() {
         //define an itemAnimator for our AboutLibs
-        LibsConfiguration.instance.itemAnimator = SlideDownAlphaAnimator()
+        LibsConfiguration.itemAnimator = SlideDownAlphaAnimator()
 
         // define a custom action after the text is applied on iconics (previously) compatible views
-        LibsConfiguration.instance.postTextAction = {
+        LibsConfiguration.postTextAction = {
             Iconics.init(it.context)
             Iconics.Builder().on(it).build()
         }

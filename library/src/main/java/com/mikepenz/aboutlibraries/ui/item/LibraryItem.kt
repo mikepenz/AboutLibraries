@@ -90,14 +90,14 @@ class LibraryItem(private val library: Library, private val libsBuilder: LibsBui
         //Define onClickListener
         if (library.authorWebsite.isNotEmpty()) {
             holder.libraryCreator.setOnClickListener { view ->
-                val consumed = LibsConfiguration.instance.listener?.onLibraryAuthorClicked(view, library)
+                val consumed = LibsConfiguration.listener?.onLibraryAuthorClicked(view, library)
                         ?: false
                 if (!consumed) {
                     openAuthorWebsite(ctx, library.authorWebsite)
                 }
             }
             holder.libraryCreator.setOnLongClickListener { v ->
-                var consumed = LibsConfiguration.instance.listener?.onLibraryAuthorLongClicked(v, library)
+                var consumed = LibsConfiguration.listener?.onLibraryAuthorLongClicked(v, library)
                         ?: false
 
                 if (!consumed) {
@@ -114,14 +114,14 @@ class LibraryItem(private val library: Library, private val libsBuilder: LibsBui
 
         if (library.libraryWebsite.isNotEmpty() || library.repositoryLink.isNotEmpty()) {
             holder.libraryDescription.setOnClickListener { v ->
-                val consumed = LibsConfiguration.instance.listener?.onLibraryContentClicked(v, library)
+                val consumed = LibsConfiguration.listener?.onLibraryContentClicked(v, library)
                         ?: false
                 if (!consumed) {
                     openLibraryWebsite(ctx, library.libraryWebsite)
                 }
             }
             holder.libraryDescription.setOnLongClickListener { v ->
-                var consumed = LibsConfiguration.instance.listener?.onLibraryContentLongClicked(v, library)
+                var consumed = LibsConfiguration.listener?.onLibraryContentLongClicked(v, library)
                         ?: false
 
                 if (!consumed) {
@@ -138,14 +138,14 @@ class LibraryItem(private val library: Library, private val libsBuilder: LibsBui
 
         if (library.license != null && (library.license?.licenseWebsite?.isNotEmpty() == true || libsBuilder.showLicenseDialog)) {
             holder.libraryLicense.setOnClickListener { view ->
-                val consumed = LibsConfiguration.instance.listener?.onLibraryBottomClicked(view, library)
+                val consumed = LibsConfiguration.listener?.onLibraryBottomClicked(view, library)
                         ?: false
                 if (!consumed) {
                     openLicense(ctx, libsBuilder, library)
                 }
             }
             holder.libraryLicense.setOnLongClickListener { v ->
-                var consumed = LibsConfiguration.instance.listener?.onLibraryBottomLongClicked(v, library)
+                var consumed = LibsConfiguration.listener?.onLibraryBottomLongClicked(v, library)
                         ?: false
                 if (!consumed) {
                     openLicense(ctx, libsBuilder, library)
@@ -160,7 +160,7 @@ class LibraryItem(private val library: Library, private val libsBuilder: LibsBui
         }
 
         //notify the libsRecyclerViewListener to allow modifications
-        LibsConfiguration.instance.libsRecyclerViewListener?.onBindViewHolder(holder)
+        LibsConfiguration.libsRecyclerViewListener?.onBindViewHolder(holder)
     }
 
     /**

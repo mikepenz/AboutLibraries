@@ -411,7 +411,7 @@ class LibsBuilder : Serializable {
      * @return this
      */
     fun withListener(libsListener: LibsConfiguration.LibsListener): LibsBuilder {
-        LibsConfiguration.instance.listener = libsListener
+        LibsConfiguration.listener = libsListener
         return this
     }
 
@@ -422,7 +422,7 @@ class LibsBuilder : Serializable {
      * @return this
      */
     fun withLibsRecyclerViewListener(recyclerViewListener: LibsConfiguration.LibsRecyclerViewListener): LibsBuilder {
-        LibsConfiguration.instance.libsRecyclerViewListener = recyclerViewListener
+        LibsConfiguration.libsRecyclerViewListener = recyclerViewListener
         return this
     }
 
@@ -434,7 +434,7 @@ class LibsBuilder : Serializable {
      * @return this
      */
     fun withUiListener(uiListener: LibsConfiguration.LibsUIListener): LibsBuilder {
-        LibsConfiguration.instance.uiListener = uiListener
+        LibsConfiguration.uiListener = uiListener
         return this
     }
 
@@ -445,7 +445,7 @@ class LibsBuilder : Serializable {
      * @return this
      */
     fun withLayoutAnimationController(layoutAnimationController: LayoutAnimationController): LibsBuilder {
-        LibsConfiguration.instance.layoutAnimationController = layoutAnimationController
+        LibsConfiguration.layoutAnimationController = layoutAnimationController
         return this
     }
 
@@ -471,7 +471,7 @@ class LibsBuilder : Serializable {
      * @return this
      */
     fun withLibTaskCallback(libTaskCallback: com.mikepenz.aboutlibraries.LibTaskCallback): LibsBuilder {
-        LibsConfiguration.instance.libTaskCallback = libTaskCallback
+        LibsConfiguration.libTaskCallback = libTaskCallback
         return this
     }
 

@@ -56,7 +56,7 @@ class SimpleLibraryItem(private val library: Library, private val libsBuilder: L
 
         if (library.license != null && (library.license?.licenseWebsite?.isNotEmpty() == true || libsBuilder.showLicenseDialog)) {
             holder.itemView.setOnClickListener { view ->
-                val consumed = LibsConfiguration.instance.listener?.onLibraryBottomClicked(view, library)
+                val consumed = LibsConfiguration.listener?.onLibraryBottomClicked(view, library)
                         ?: false
                 if (!consumed) {
                     openLicense(ctx, libsBuilder, library)
@@ -65,7 +65,7 @@ class SimpleLibraryItem(private val library: Library, private val libsBuilder: L
         }
 
         //notify the libsRecyclerViewListener to allow modifications
-        LibsConfiguration.instance.libsRecyclerViewListener?.onBindViewHolder(holder)
+        LibsConfiguration.libsRecyclerViewListener?.onBindViewHolder(holder)
     }
 
 

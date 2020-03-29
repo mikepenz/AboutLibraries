@@ -8,17 +8,20 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.ui.item.HeaderItem
+import com.mikepenz.fastadapter.IItem
 
 /**
- * Created by mikepenz on 20.05.15.
+ * Util class to modify behavior of the
  */
-class LibsConfiguration private constructor() {
-    /**
-     * LOGIC FOR THE LISTENER
-     */
+object LibsConfiguration {
+    /** LOGIC FOR THE LISTENER*/
     var listener: LibsListener? = null
 
+    /** Intercept the UI and allow to modify it */
     var uiListener: LibsUIListener? = null
+
+    /** Interceptor allowing creating custom items for the list */
+    var libsItemInterceptor: ((Library, LibsBuilder) -> IItem<*>)? = null
 
     var libsRecyclerViewListener: LibsRecyclerViewListener? = null
 
@@ -28,19 +31,8 @@ class LibsConfiguration private constructor() {
 
     var libTaskCallback: LibTaskCallback? = null
 
+    /** Allow to adjust text manually, foramt to HTML, ...*/
     var postTextAction: ((TextView) -> Unit)? = null
-
-    fun removeListener() {
-        this.listener = null
-    }
-
-    fun removeUiListener() {
-        this.uiListener = null
-    }
-
-    fun removeLibsRecyclerViewListener() {
-        this.libsRecyclerViewListener = null
-    }
 
     interface LibsUIListener {
         /**
@@ -158,56 +150,5 @@ class LibsConfiguration private constructor() {
          * @return true if consumed and no further action is required
          */
         fun onLibraryBottomLongClicked(v: View, library: Library): Boolean
-    }
-
-    abstract class LibsRecyclerViewListenerImpl : LibsRecyclerViewListener {
-        override fun onBindViewHolder(headerViewHolder: HeaderItem.ViewHolder) {}
-
-        override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder) {}
-    }
-
-    abstract class LibsListenerImpl : LibsListener {
-        override fun onIconClicked(v: View) {
-        }
-
-        override fun onLibraryAuthorClicked(v: View, library: Library): Boolean {
-            return false
-        }
-
-        override fun onLibraryContentClicked(v: View, library: Library): Boolean {
-            return false
-        }
-
-        override fun onLibraryBottomClicked(v: View, library: Library): Boolean {
-            return false
-        }
-
-        override fun onExtraClicked(v: View, specialButton: Libs.SpecialButton): Boolean {
-            return false
-        }
-
-        override fun onIconLongClicked(v: View): Boolean {
-            return true
-        }
-
-        override fun onLibraryAuthorLongClicked(v: View, library: Library): Boolean {
-            return true
-        }
-
-        override fun onLibraryContentLongClicked(v: View, library: Library): Boolean {
-            return true
-        }
-
-        override fun onLibraryBottomLongClicked(v: View, library: Library): Boolean {
-            return true
-        }
-    }
-
-    private object Holder {
-        val INSTANCE = LibsConfiguration()
-    }
-
-    companion object {
-        val instance: LibsConfiguration by lazy { Holder.INSTANCE }
     }
 }

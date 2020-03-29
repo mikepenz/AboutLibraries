@@ -28,13 +28,8 @@ import com.mikepenz.fastadapter.adapters.ItemAdapter
 import java.util.*
 import kotlin.collections.ArrayList
 
-
 /**
- * Created by mikepenz on 02.11.15.
- */
-/**
- * Default Constructor
- * Gets an libs instance and gets all external libs
+ * Fragment implementation creating the aboutlibraries UI
  */
 class LibsFragmentCompat {
     private lateinit var adapter: FastAdapter<IItem<*>>
@@ -60,7 +55,7 @@ class LibsFragmentCompat {
         var view = inflater.inflate(R.layout.fragment_opensource, container, false)
 
         //allows to modify the view before creating
-        view = LibsConfiguration.instance.uiListener?.preOnCreateView(view) ?: view
+        view = LibsConfiguration.uiListener?.preOnCreateView(view) ?: view
 
         // init CardView
         val recyclerView: RecyclerView = if (view.id == R.id.cardListView) {
@@ -70,8 +65,8 @@ class LibsFragmentCompat {
         }
         recyclerView.layoutManager = LinearLayoutManager(context)
 
-        if (LibsConfiguration.instance.itemAnimator != null) {
-            recyclerView.itemAnimator = LibsConfiguration.instance.itemAnimator
+        if (LibsConfiguration.itemAnimator != null) {
+            recyclerView.itemAnimator = LibsConfiguration.itemAnimator
         } else {
             recyclerView.itemAnimator = DefaultItemAnimator()
         }
@@ -85,7 +80,7 @@ class LibsFragmentCompat {
         }
 
         //allows to modify the view after creating
-        view = LibsConfiguration.instance.uiListener?.postOnCreateView(view) ?: view
+        view = LibsConfiguration.uiListener?.postOnCreateView(view) ?: view
 
         recyclerView.doOnApplySystemWindowInsets(Gravity.BOTTOM)
 
@@ -127,7 +122,7 @@ class LibsFragmentCompat {
 
         override fun onPreExecute() {
             //started loading
-            LibsConfiguration.instance.libTaskCallback?.onLibTaskStarted()
+            LibsConfiguration.libTaskCallback?.onLibTaskStarted()
         }
 
         override fun doInBackground(vararg strings: String) {
@@ -215,11 +210,18 @@ class LibsFragmentCompat {
 
             //add the libs
             val libraryItems = ArrayList<IItem<*>>()
+            val interceptor = LibsConfiguration.libsItemInterceptor
             for (library in libraries) {
-                if (builder.aboutMinimalDesign) {
-                    libraryItems.add(SimpleLibraryItem(library, builder))
-                } else {
-                    libraryItems.add(LibraryItem(library, builder))
+                when {
+                    interceptor != null -> {
+                        libraryItems.add(interceptor(library, builder))
+                    }
+                    builder.aboutMinimalDesign -> {
+                        libraryItems.add(SimpleLibraryItem(library, builder))
+                    }
+                    else -> {
+                        libraryItems.add(LibraryItem(library, builder))
+                    }
                 }
             }
             itemAdapter.add(libraryItems)
@@ -227,7 +229,7 @@ class LibsFragmentCompat {
             super.onPostExecute(nothing)
 
             //finished loading
-            LibsConfiguration.instance.libTaskCallback?.onLibTaskFinished(itemAdapter)
+            LibsConfiguration.libTaskCallback?.onLibTaskFinished(itemAdapter)
         }
     }
 }

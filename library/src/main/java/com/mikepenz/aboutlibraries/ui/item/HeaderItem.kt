@@ -83,10 +83,10 @@ class HeaderItem(var libsBuilder: LibsBuilder) : AbstractItem<HeaderItem.ViewHol
         if (libsBuilder.aboutShowIcon && aboutIcon != null) {
             holder.aboutIcon.setImageDrawable(aboutIcon)
             holder.aboutIcon.setOnClickListener {
-                LibsConfiguration.instance.listener?.onIconClicked(it)
+                LibsConfiguration.listener?.onIconClicked(it)
             }
 
-            holder.aboutIcon.setOnLongClickListener { v -> LibsConfiguration.instance.listener != null && LibsConfiguration.instance.listener?.onIconLongClicked(v) ?: false }
+            holder.aboutIcon.setOnLongClickListener { v -> LibsConfiguration.listener != null && LibsConfiguration.listener?.onIconLongClicked(v) ?: false }
         } else {
             holder.aboutIcon.visibility = View.GONE
         }
@@ -105,12 +105,12 @@ class HeaderItem(var libsBuilder: LibsBuilder) : AbstractItem<HeaderItem.ViewHol
         holder.aboutSpecial3.visibility = View.GONE
 
         // set the values for the special fields
-        if (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial1) && (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial1Description) || LibsConfiguration.instance.listener != null)) {
+        if (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial1) && (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial1Description) || LibsConfiguration.listener != null)) {
             holder.aboutSpecial1.text = libsBuilder.aboutAppSpecial1
-            LibsConfiguration.instance.postTextAction?.invoke(holder.aboutSpecial1)
+            LibsConfiguration.postTextAction?.invoke(holder.aboutSpecial1)
             holder.aboutSpecial1.visibility = View.VISIBLE
             holder.aboutSpecial1.setOnClickListener { v ->
-                val consumed = LibsConfiguration.instance.listener?.onExtraClicked(v, Libs.SpecialButton.SPECIAL1)
+                val consumed = LibsConfiguration.listener?.onExtraClicked(v, Libs.SpecialButton.SPECIAL1)
                         ?: false
 
                 if (!consumed && !TextUtils.isEmpty(libsBuilder.aboutAppSpecial1Description)) {
@@ -130,12 +130,12 @@ class HeaderItem(var libsBuilder: LibsBuilder) : AbstractItem<HeaderItem.ViewHol
             }
             holder.aboutSpecialContainer.visibility = View.VISIBLE
         }
-        if (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial2) && (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial2Description) || LibsConfiguration.instance.listener != null)) {
+        if (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial2) && (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial2Description) || LibsConfiguration.listener != null)) {
             holder.aboutSpecial2.text = libsBuilder.aboutAppSpecial2
-            LibsConfiguration.instance.postTextAction?.invoke(holder.aboutSpecial2)
+            LibsConfiguration.postTextAction?.invoke(holder.aboutSpecial2)
             holder.aboutSpecial2.visibility = View.VISIBLE
             holder.aboutSpecial2.setOnClickListener { v ->
-                val consumed = LibsConfiguration.instance.listener?.onExtraClicked(v, Libs.SpecialButton.SPECIAL2)
+                val consumed = LibsConfiguration.listener?.onExtraClicked(v, Libs.SpecialButton.SPECIAL2)
                         ?: false
                 if (!consumed && !TextUtils.isEmpty(libsBuilder.aboutAppSpecial2Description)) {
                     try {
@@ -154,12 +154,12 @@ class HeaderItem(var libsBuilder: LibsBuilder) : AbstractItem<HeaderItem.ViewHol
             }
             holder.aboutSpecialContainer.visibility = View.VISIBLE
         }
-        if (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial3) && (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial3Description) || LibsConfiguration.instance.listener != null)) {
+        if (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial3) && (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial3Description) || LibsConfiguration.listener != null)) {
             holder.aboutSpecial3.text = libsBuilder.aboutAppSpecial3
-            LibsConfiguration.instance.postTextAction?.invoke(holder.aboutSpecial3)
+            LibsConfiguration.postTextAction?.invoke(holder.aboutSpecial3)
             holder.aboutSpecial3.visibility = View.VISIBLE
             holder.aboutSpecial3.setOnClickListener { v ->
-                val consumed = LibsConfiguration.instance.listener?.onExtraClicked(v, Libs.SpecialButton.SPECIAL3)
+                val consumed = LibsConfiguration.listener?.onExtraClicked(v, Libs.SpecialButton.SPECIAL3)
                         ?: false
 
                 if (!consumed && !TextUtils.isEmpty(libsBuilder.aboutAppSpecial3Description)) {
@@ -198,7 +198,7 @@ class HeaderItem(var libsBuilder: LibsBuilder) : AbstractItem<HeaderItem.ViewHol
         //Set the description or hide it
         if (!libsBuilder.aboutDescription.isNullOrEmpty()) {
             holder.aboutAppDescription.text = Html.fromHtml(libsBuilder.aboutDescription)
-            LibsConfiguration.instance.postTextAction?.invoke(holder.aboutAppDescription)
+            LibsConfiguration.postTextAction?.invoke(holder.aboutAppDescription)
             holder.aboutAppDescription.movementMethod = MovementCheck.instance
         } else {
             holder.aboutAppDescription.visibility = View.GONE
@@ -210,7 +210,7 @@ class HeaderItem(var libsBuilder: LibsBuilder) : AbstractItem<HeaderItem.ViewHol
         }
 
         //notify the libsRecyclerViewListener to allow modifications
-        LibsConfiguration.instance.libsRecyclerViewListener?.onBindViewHolder(holder)
+        LibsConfiguration.libsRecyclerViewListener?.onBindViewHolder(holder)
     }
 
     override fun getViewHolder(v: View): ViewHolder {
