@@ -29,8 +29,7 @@
 - much much more... try the sample for a quick overview.
 
 # Screenshots
-![Image](https://raw.githubusercontent.com/mikepenz/AboutLibraries/master/DEV/screenshots/screenshot1_small.png)
-![Image](https://raw.githubusercontent.com/mikepenz/AboutLibraries/master/DEV/screenshots/screenshot2_small.png)
+![Image](https://raw.githubusercontent.com/mikepenz/AboutLibraries/develop/DEV/screenshots/screenshots.png)
 
 # Setup
 
