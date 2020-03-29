@@ -73,19 +73,12 @@ implementation "androidx.recyclerview:recyclerview:${versions.recyclerview | 1.1
 implementation "com.google.android.material:material:${versions.material | 1.1.y}"
 ```
 
-## WITHOUT gradle plugin (not recommended)
-
-If you do not want to use the gradle plugin, you need to add the legacy definition files, which will then be included in the built apk, and resolved via reflection during runtime.
-> NOTE: This is not recommended. Please migrate to use the gradle plugin
-
-```gradle
-implementation "com.mikepenz:aboutlibraries-definitions:${latestAboutLibsRelease}"
-```
-
 # Basic Usage
 You can use this library in a few different ways. Create your own activity, including a custom style or just use its generated information. Or simply use the built-in Activity or Fragment and just pass the libs you would love to include.
 
 ### Activity / Fragment
+
+> NOTE: These integrations require the `ui-module`
 
 #### Activity
 
@@ -123,6 +116,17 @@ Finds all included libraries with their name, and the unique AboutLibraries iden
 See the `Config` section for more information.
 
 # Advanced Usage
+
+## Access generated library details
+
+If you want to create your own integration you can access the generated library information programmatically through the code module.
+
+```kotlin
+val libraries = Libs(this).libraries
+for (lib in libraries) {
+    Log.e("AboutLibraries", "${lib.libraryName} from ${lib.author}")
+}
+```
 
 ## About this App UI
 You can also use the AboutLibraries activity as an "about this app" screen.
@@ -188,6 +192,15 @@ custom_name_mappings.prop // allows overwriting the name of a library if the POM
 ```
 
 See the corresponding files here for the format and content: https://github.com/mikepenz/AboutLibraries/tree/develop/library-definitions/src/main/res/raw
+
+## Usage WITHOUT gradle plugin (not recommended)
+
+If you do not want to use the gradle plugin, you need to add the legacy definition files, which will then be included in the built apk, and resolved via reflection during runtime.
+> NOTE: This is not recommended. Please migrate to use the gradle plugin
+
+```gradle
+implementation "com.mikepenz:aboutlibraries-definitions:${latestAboutLibsRelease}"
+```
 
 ## ProGuard
 Exclude `R` from ProGuard to enable the **libraries auto detection**
