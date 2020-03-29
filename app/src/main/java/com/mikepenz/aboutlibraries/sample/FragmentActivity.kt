@@ -108,6 +108,7 @@ class FragmentActivity : AppCompatActivity() {
             itemAdapter.add(
                     PrimaryDrawerItem().withName("Home"),
                     PrimaryDrawerItem().withName(R.string.action_manifestactivity).withIdentifier(R.id.action_manifestactivity.toLong()).withSelectable(false),
+                    PrimaryDrawerItem().withName(R.string.action_minimalactivity).withIdentifier(R.id.action_minimalctivity.toLong()).withSelectable(false),
                     PrimaryDrawerItem().withName(R.string.action_extendactivity).withIdentifier(R.id.action_extendactivity.toLong()).withSelectable(false),
                     PrimaryDrawerItem().withName(R.string.action_customsortactivity).withIdentifier(R.id.action_customsortactivity.toLong()).withSelectable(false),
                     PrimaryDrawerItem().withName(R.string.action_opensource).withIdentifier(R.id.action_opensource.toLong()).withSelectable(false)
@@ -129,6 +130,11 @@ class FragmentActivity : AppCompatActivity() {
                         val intent = Intent(applicationContext, CustomSortActivity::class.java)
                         startActivity(intent)
                     }
+                    R.id.action_minimalctivity.toLong() -> LibsBuilder()
+                            .withAboutMinimalDesign(true)
+                            .withActivityTitle("Open Source")
+                            .withAboutIconShown(false)
+                            .start(this@FragmentActivity)
                     R.id.action_manifestactivity.toLong() -> LibsBuilder()
                             .withLibraries("crouton", "actionbarsherlock", "showcaseview", "glide")
                             .withAutoDetect(false)
@@ -143,7 +149,7 @@ class FragmentActivity : AppCompatActivity() {
                 }
                 false
             }
-            selectedItemPosition = -1
+            selectedItemPosition = 0
         }
 
         /*

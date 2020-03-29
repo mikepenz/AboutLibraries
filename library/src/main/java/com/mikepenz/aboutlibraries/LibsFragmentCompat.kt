@@ -18,6 +18,7 @@ import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.ui.item.HeaderItem
 import com.mikepenz.aboutlibraries.ui.item.LibraryItem
 import com.mikepenz.aboutlibraries.ui.item.LoaderItem
+import com.mikepenz.aboutlibraries.ui.item.SimpleLibraryItem
 import com.mikepenz.aboutlibraries.util.doOnApplySystemWindowInsets
 import com.mikepenz.aboutlibraries.util.extractBooleanBundleOrResource
 import com.mikepenz.aboutlibraries.util.extractStringBundleOrResource
@@ -215,7 +216,11 @@ class LibsFragmentCompat {
             //add the libs
             val libraryItems = ArrayList<IItem<*>>()
             for (library in libraries) {
-                libraryItems.add(LibraryItem(library, builder))
+                if (builder.aboutMinimalDesign) {
+                    libraryItems.add(SimpleLibraryItem(library, builder))
+                } else {
+                    libraryItems.add(LibraryItem(library, builder))
+                }
             }
             itemAdapter.add(libraryItems)
 

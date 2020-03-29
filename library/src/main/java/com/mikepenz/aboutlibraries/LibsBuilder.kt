@@ -44,6 +44,8 @@ class LibsBuilder : Serializable {
     var aboutShowVersionName: Boolean = true
     var aboutShowVersionCode: Boolean = true
 
+    var aboutMinimalDesign: Boolean = false
+
     var aboutAppSpecial1: String? = null
     var aboutAppSpecial1Description: String? = null
     var aboutAppSpecial2: String? = null
@@ -203,6 +205,17 @@ class LibsBuilder : Serializable {
      */
     fun withAboutIconShown(aboutShowIcon: Boolean): LibsBuilder {
         this.aboutShowIcon = aboutShowIcon
+        return this
+    }
+
+    /**
+     * Builder method to show the list in a minimal design
+     *
+     * @param aboutMinimalDesign enabled or disabled
+     * @return this
+     */
+    fun withAboutMinimalDesign(aboutMinimalDesign: Boolean): LibsBuilder {
+        this.aboutMinimalDesign = aboutMinimalDesign
         return this
     }
 

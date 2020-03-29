@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.ui.item.HeaderItem
-import com.mikepenz.aboutlibraries.ui.item.LibraryItem
 
 /**
  * Created by mikepenz on 20.05.15.
@@ -74,7 +73,7 @@ class LibsConfiguration private constructor() {
          *
          * @param viewHolder
          */
-        fun onBindViewHolder(viewHolder: LibraryItem.ViewHolder)
+        fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder)
     }
 
     interface LibsListener {
@@ -164,7 +163,7 @@ class LibsConfiguration private constructor() {
     abstract class LibsRecyclerViewListenerImpl : LibsRecyclerViewListener {
         override fun onBindViewHolder(headerViewHolder: HeaderItem.ViewHolder) {}
 
-        override fun onBindViewHolder(holder: LibraryItem.ViewHolder) {}
+        override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder) {}
     }
 
     abstract class LibsListenerImpl : LibsListener {
