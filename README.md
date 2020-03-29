@@ -29,7 +29,7 @@
 - much much more... try the sample for a quick overview.
 
 # Screenshots
-![Image](https://raw.githubusercontent.com/mikepenz/AboutLibraries/develop/DEV/screenshots/screenshots.png)
+![Image](https://raw.githubusercontent.com/mikepenz/AboutLibraries/develop/DEV/screenshots/screenshots.jpg)
 
 # Setup
 
