@@ -130,22 +130,29 @@ class FragmentActivity : AppCompatActivity() {
                         val intent = Intent(applicationContext, CustomSortActivity::class.java)
                         startActivity(intent)
                     }
-                    R.id.action_minimalctivity.toLong() -> LibsBuilder()
-                            .withAboutMinimalDesign(true)
-                            .withActivityTitle("Open Source")
-                            .withAboutIconShown(false)
-                            .start(this@FragmentActivity)
-                    R.id.action_manifestactivity.toLong() -> LibsBuilder()
-                            .withLibraries("crouton", "actionbarsherlock", "showcaseview", "glide")
-                            .withAutoDetect(false)
-                            .withLicenseShown(true)
-                            .withVersionShown(true)
-                            .withActivityTitle("Open Source")
-                            .withEdgeToEdge(true)
-                            .withListener(libsListener)
-                            .withLibTaskCallback(libTaskCallback)
-                            .withUiListener(libsUIListener)
-                            .start(this@FragmentActivity)
+                    R.id.action_minimalctivity.toLong() -> {
+                        // create and launch an activity in minmal design without any additional modifications
+                        LibsBuilder()
+                                .withAboutMinimalDesign(true)
+                                .withEdgeToEdge(true)
+                                .withActivityTitle("Open Source")
+                                .withAboutIconShown(false)
+                                .start(this@FragmentActivity)
+                    }
+                    R.id.action_manifestactivity.toLong() -> {
+                        // create and launch an activity in full design, with various configurations and adjustments
+                        LibsBuilder()
+                                .withLibraries("crouton", "actionbarsherlock", "showcaseview", "glide")
+                                .withAutoDetect(false)
+                                .withLicenseShown(true)
+                                .withVersionShown(true)
+                                .withActivityTitle("Open Source")
+                                .withEdgeToEdge(true)
+                                .withListener(libsListener)
+                                .withLibTaskCallback(libTaskCallback)
+                                .withUiListener(libsUIListener)
+                                .start(this@FragmentActivity)
+                    }
                 }
                 false
             }
