@@ -41,10 +41,6 @@ internal fun Activity?.applyLightSystemUi(view: View? = null, additionalFlags: I
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
         var flags = view?.systemUiVisibility ?: window.decorView.systemUiVisibility
-        flags = flags or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            flags = flags or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
-        }
         flags = flags or additionalFlags
         view?.systemUiVisibility = flags
         if (view == null) {
@@ -69,10 +65,6 @@ internal fun Activity?.applyDarkSystemUi(view: View? = null, additionalFlags: In
     this ?: return
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
         var flags = view?.systemUiVisibility ?: window.decorView.systemUiVisibility
-        flags = flags and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            flags = flags and View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR.inv()
-        }
         flags = flags or additionalFlags
         view?.systemUiVisibility = flags
         if (view == null) {
