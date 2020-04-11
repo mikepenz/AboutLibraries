@@ -237,7 +237,7 @@ class LibraryItem(private val library: Library, private val libsBuilder: LibsBui
         init {
             val ctx = itemView.context
             ctx.resolveStyledValue {
-                card.setCardBackgroundColor(it.getColor(R.styleable.AboutLibraries_aboutLibrariesWindowBackground, ctx.getThemeColor(R.attr.aboutLibrariesWindowBackground, ctx.getSupportColor(R.color.about_libraries_card))))
+                card.setCardBackgroundColor(it.getColor(R.styleable.AboutLibraries_aboutLibrariesCardBackground, ctx.getThemeColor(R.attr.aboutLibrariesCardBackground, ctx.getSupportColor(R.color.about_libraries_card))))
                 libraryName.setTextColor(it.getColorStateList(R.styleable.AboutLibraries_aboutLibrariesOpenSourceTitle))
                 libraryCreator.setTextColor(it.getColorStateList(R.styleable.AboutLibraries_aboutLibrariesOpenSourceText))
                 libraryDescriptionDivider.setBackgroundColor(it.getColor(R.styleable.AboutLibraries_aboutLibrariesOpenSourceDivider, ctx.getThemeColor(R.attr.aboutLibrariesOpenSourceDivider, ctx.getSupportColor(R.color.about_libraries_dividerLight_openSource))))
