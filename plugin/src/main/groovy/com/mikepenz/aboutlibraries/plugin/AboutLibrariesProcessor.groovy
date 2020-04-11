@@ -59,7 +59,7 @@ class AboutLibrariesProcessor {
         collectMappingDetails(customEnchantMapping, 'custom_enchant_mapping.prop')
     }
 
-    def gatherDependencies(def project, def variant) {
+    def gatherDependencies(def project, def variant = null) {
         def extension = project.extensions.aboutLibraries
         if (extension.configPath != null) {
             configFolder = new File(extension.configPath)
