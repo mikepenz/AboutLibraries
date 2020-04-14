@@ -35,10 +35,10 @@
 
 ## Latest releases 🛠
 
-- Kotlin && Gradle Plugin | [v8.1.1](https://github.com/mikepenz/FastAdapter/tree/v8.1.1)
-- Kotlin | [v7.1.0](https://github.com/mikepenz/FastAdapter/tree/v7.1.0)
-- Java && AndroidX | [v6.2.3](https://github.com/mikepenz/FastAdapter/tree/v6.2.3)
-- Java && AppCompat | [v6.1.1](https://github.com/mikepenz/FastAdapter/tree/v6.1.1)
+- Kotlin && Gradle Plugin | [v8.1.1](https://github.com/mikepenz/AboutLibraries/tree/v8.1.1)
+- Kotlin | [v7.1.0](https://github.com/mikepenz/AboutLibraries/tree/v7.1.0)
+- Java && AndroidX | [v6.2.3](https://github.com/mikepenz/AboutLibraries/tree/v6.2.3)
+- Java && AppCompat | [v6.1.1](https://github.com/mikepenz/AboutLibraries/tree/v6.1.1)
 
 ## Gradle Plugin
 
