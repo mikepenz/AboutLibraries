@@ -223,8 +223,8 @@ class AboutLibrariesProcessor {
         def licenseYear = resolveLicenseYear(uniqueId, repositoryLink)
 
         if (!isNotEmpty(libraryName)) {
-            println "Could not get the name for ${uniqueId}, Skipping"
-            return
+            println "Could not get the name for ${uniqueId}, Using ${groupId}:${artifactPom.artifactId}"
+            libraryName = "${groupId}:${artifactPom.artifactId}"
         }
 
         def library = new Library(
