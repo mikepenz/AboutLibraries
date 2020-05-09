@@ -219,6 +219,17 @@ In case you want to minimize your resources as much as possible use the followin
 ```
 These rules **will** require you to add the libraries manually. (see more in the above linked issue)
 
+# Disclaimer
+
+This library uses all compile time dependencies (and their sub dependencies) as defined in your `build.gradle` file,
+this could lead to dependencies which are only used during compilation (and not actually distributed in your app) to be listed or missing in the attribution screen.
+It might also fail to identify licenses if the dependencies do not define it properly in their pom.xml file.
+
+Careful optimisation and review of all licenses is recommended to really include all required dependencies. The use of the gradle commands like `findLibraries` can help doing this.
+
+It is also important that native sub dependencies can *not* be resolved automatically as they are not included via gradle.
+Additional dependencies can be provided via this plugins API to extend and provide any additional details.
+
 # Used by
 (feel free to send me new projects)
 
