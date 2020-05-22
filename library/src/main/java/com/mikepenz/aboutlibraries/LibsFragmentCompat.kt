@@ -97,7 +97,7 @@ class LibsFragmentCompat {
     }
 
     protected fun executeLibTask(libraryTask: LibraryTask?) {
-        if (libraryTask != null) {
+        if (libraryTask != null && ::builder.isInitialized) {
             when (builder.libTaskExecutor) {
                 LibTaskExecutor.THREAD_POOL_EXECUTOR -> libraryTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
                 LibTaskExecutor.SERIAL_EXECUTOR -> libraryTask.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR)
