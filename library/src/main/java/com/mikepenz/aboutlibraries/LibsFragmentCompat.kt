@@ -82,7 +82,7 @@ class LibsFragmentCompat {
         //allows to modify the view after creating
         view = LibsConfiguration.uiListener?.postOnCreateView(view) ?: view
 
-        recyclerView.doOnApplySystemWindowInsets(Gravity.BOTTOM)
+        recyclerView.doOnApplySystemWindowInsets(Gravity.BOTTOM, Gravity.START, Gravity.END)
 
         return view
     }
