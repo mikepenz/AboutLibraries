@@ -4,7 +4,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.71"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.72"
     }
 }
 plugins {
@@ -55,8 +55,8 @@ repositories {
 dependencies {
     implementation gradleApi()
     implementation localGroovy()
-    implementation "com.android.tools.build:gradle:3.6.1"
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.3.71'
+    implementation "com.android.tools.build:gradle:4.0.0"
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.3.72'
 }
 
 compileGroovy {
