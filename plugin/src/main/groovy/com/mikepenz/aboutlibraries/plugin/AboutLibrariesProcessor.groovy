@@ -26,6 +26,7 @@ class AboutLibrariesProcessor {
     Map<String, String> customLicenseMappings = new HashMap<String, String>()
     Map<String, String> customLicenseYearMappings = new HashMap<String, String>()
     Map<String, String> customNameMappings = new HashMap<String, String>()
+    Map<String, String> customAuthorMappings = new HashMap<String, String>()
     Map<String, String> customEnchantMapping = new HashMap<String, String>()
 
     def collectMappingDetails(targetMap, resourceName) {
@@ -56,6 +57,7 @@ class AboutLibrariesProcessor {
         collectMappingDetails(customLicenseMappings, 'custom_license_mappings.prop')
         collectMappingDetails(customLicenseYearMappings, 'custom_license_year_mappings.prop')
         collectMappingDetails(customNameMappings, 'custom_name_mappings.prop')
+        collectMappingDetails(customAuthorMappings, 'custom_author_mappings.prop')
         collectMappingDetails(customEnchantMapping, 'custom_enchant_mapping.prop')
     }
 
@@ -142,13 +144,13 @@ class AboutLibrariesProcessor {
         }
 
         // generate a unique ID for the library
-        def author = fixAuthor(fixString(fixXmlSlurperArray(artifactPom.developers.developer.name)))
+        def author = fixAuthor(uniqueId, fixString(fixXmlSlurperArray(artifactPom.developers.developer.name)))
         if (!isNotEmpty(author)) {
             // if no devs listed, use organisation
             author = fixString(artifactPom.organization.name)
         }
         if (!isNotEmpty(author) && parentPom != null) { // fallback to parentPom if available
-            author = fixAuthor(fixString(fixXmlSlurperArray(parentPom.developers.developer.name)))
+            author = fixAuthor(uniqueId, fixString(fixXmlSlurperArray(parentPom.developers.developer.name)))
             if (!isNotEmpty(author)) {
                 // if no devs listed, use organisation
                 author = fixString(parentPom.organization.name)
@@ -164,7 +166,7 @@ class AboutLibrariesProcessor {
             authorWebsite = fixString(artifactPom.organization.url)
         }
         if (!isNotEmpty(authorWebsite) && parentPom != null) { // fallback to parentPom if available
-            authorWebsite = fixAuthor(fixString(fixXmlSlurperArray(parentPom.developers.developer.organizationUrl)))
+            authorWebsite = fixString(fixXmlSlurperArray(parentPom.developers.developer.organizationUrl))
             if (!isNotEmpty(authorWebsite)) {
                 // if no devs listed, use organisation
                 authorWebsite = fixString(parentPom.organization.url)
@@ -301,8 +303,12 @@ class AboutLibrariesProcessor {
     /**
      * Ensures the author name is not too long (for known options)
      */
-    static def fixAuthor(String value) {
-        if (value == "The Android Open Source Project") {
+    def fixAuthor(String uniqueId, String value) {
+        if (customAuthorMappings.containsKey(uniqueId)) {
+            def customMapping = customAuthorMappings.get(uniqueId)
+            println("--> Had to resolve author from custom mapping for: ${uniqueId} as ${customMapping}")
+            return customMapping
+        } else if (value == "The Android Open Source Project") {
             return "AOSP"
         } else {
             return value
