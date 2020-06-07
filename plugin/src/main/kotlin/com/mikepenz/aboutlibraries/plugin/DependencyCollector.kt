@@ -45,14 +45,15 @@ class DependencyCollector(
         val configurations: Iterable<Configuration> = getNonDeprecatedConfigurations(project)
         for (configuration in configurations) {
             if (canBeResolved(configuration)) {
-                if (!configuration.name.endsWith("CompileClasspath", true)) {
-                    // we are not keen to include compiler entries
+                val cn = configuration.name
+                if (!(cn.endsWith("CompileClasspath", true) || cn.endsWith("RuntimeClasspath", true))) {
+                    // we are not keen to include compile time and runtime entries
                     continue
                 }
 
                 if (variant != null) {
-                    if (!configuration.name.equals("${variant}CompileClasspath", true)) {
-                        // we are not keen to include compiler entries
+                    if (!(cn.equals("${variant}CompileClasspath", true) || cn.equals("${variant}RuntimeClasspath", true))) {
+                        // we are not keen to include compile time and runtime entries
                         continue
                     }
 
@@ -63,17 +64,24 @@ class DependencyCollector(
 
                 val result = configuration.incoming.resolutionResult
                 val root: RenderableDependency = RenderableModuleResult(result.root)
-                for (childDependency in root.children) {
-                    if (childDependency.id is ModuleComponentIdentifier) {
-                        val id = childDependency.id as ModuleComponentIdentifier
-                        val versions = collected.getOrDefault(id.group + ":" + id.module, HashSet())
-                        versions.add(id.version)
-                        collected[id.group + ":" + id.module] = versions
-                    }
-                }
+                addChildDependencies(root.children, collected, configuration.name)
             }
         }
         return collected
+    }
+
+    private fun addChildDependencies(childDependencies: Set<RenderableDependency>?, collected: MutableMap<String, HashSet<String>>, configurationName: String?) {
+        childDependencies ?: return
+        for (childDependency in childDependencies) {
+            if (childDependency.id is ModuleComponentIdentifier) {
+                val id = childDependency.id as ModuleComponentIdentifier
+                val versions = collected.getOrDefault(id.group + ":" + id.module, HashSet())
+                versions.add(id.version)
+                collected[id.group + ":" + id.module] = versions
+            }
+            // check children
+            addChildDependencies(childDependency.children, collected, configurationName)
+        }
     }
 
     private fun getNonDeprecatedConfigurations(project: Project): List<Configuration> {
