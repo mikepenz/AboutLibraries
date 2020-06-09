@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_int_Android-Week-View"></string>
+	<string name="library_1_author">Till Hellmund</string>
+	<string name="library_1_authorWebsite">https://about.me/till</string>
+	<string name="library_1_libraryName">Android Week View</string>
+	<string name="library_1_libraryDescription">Android Week View is an Android library for displaying highly customizable calendar views within your app.</string>
+	<string name="library_1_libraryWebsite">https://github.com/thellmund/Android-Week-View</string>
+	<string name="library_1_libraryVersion">4.1.6</string>
+	<string name="library_1_isOpenSource">true</string>
+	<string name="library_1_repositoryLink">https://github.com/thellmund/Android-Week-View</string>
+	<string name="library_1_classPath">com.alamkanak.weekview.WeekView</string>
+	<string name="library_1_licenseId">apache_2_0</string>
+</resources>
