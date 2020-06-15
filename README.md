@@ -153,7 +153,6 @@ Create your custom style. If you don't need a custom theme see the next section,
 // define a custom style
 <style name="CustomAboutLibrariesStyle" parent="">
     <!-- AboutLibraries specific values -->
-    <item name="aboutLibrariesWindowBackground">?android:colorBackground</item>
     <item name="aboutLibrariesCardBackground">?cardBackgroundColor</item>
     <item name="aboutLibrariesDescriptionTitle">?android:textColorPrimary</item>
     <item name="aboutLibrariesDescriptionText">?android:textColorSecondary</item>
