@@ -3,7 +3,6 @@
 
     <style name="AboutLibrariesStyleCustom" parent="AboutLibrariesStyle">
         <!-- AboutLibraries specific values -->
-        <item name="aboutLibrariesWindowBackground">@color/about_libraries_window_background</item>
         <item name="aboutLibrariesCardBackground">@color/about_libraries_card</item>
         <item name="aboutLibrariesOpenSourceTitle">@color/about_libraries_title_openSource</item>
         <item name="aboutLibrariesOpenSourceText">@color/about_libraries_text_openSource</item>

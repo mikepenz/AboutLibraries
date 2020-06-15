@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- AboutLibraries DEFAULT colors -->
-    <color name="about_libraries_window_background">#ECECEC</color>
     <color name="about_libraries_card">#FAFAFA</color>
     <color name="about_libraries_title_openSource">#212121</color>
     <color name="about_libraries_text_openSource">#727272</color>

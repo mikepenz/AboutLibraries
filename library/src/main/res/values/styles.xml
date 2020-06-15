@@ -3,7 +3,6 @@
 
     <style name="AboutLibrariesStyle" parent="">
         <!-- AboutLibraries specific values -->
-        <item name="aboutLibrariesWindowBackground">?android:colorBackground</item>
         <item name="aboutLibrariesCardBackground">?attr/colorSurface</item>
         <item name="aboutLibrariesDescriptionTitle">?android:textColorPrimary</item>
         <item name="aboutLibrariesDescriptionText">?android:textColorSecondary</item>

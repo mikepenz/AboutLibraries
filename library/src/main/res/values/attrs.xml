@@ -5,7 +5,6 @@
     </declare-styleable>
 
     <declare-styleable name="AboutLibraries">
-        <attr name="aboutLibrariesWindowBackground" format="color|reference" />
         <attr name="aboutLibrariesCardBackground" format="color|reference" />
         <attr name="aboutLibrariesDescriptionTitle" format="color|reference" />
         <attr name="aboutLibrariesDescriptionText" format="color|reference" />
