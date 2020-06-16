@@ -28,6 +28,7 @@ class AboutLibrariesProcessor {
     Map<String, String> customNameMappings = new HashMap<String, String>()
     Map<String, String> customAuthorMappings = new HashMap<String, String>()
     Map<String, String> customEnchantMapping = new HashMap<String, String>()
+    Map<String, String> customIdMappings = new HashMap<String, String>()
 
     def collectMappingDetails(targetMap, resourceName) {
         def customMappingText = getClass().getResource("/static/${resourceName}").getText('UTF-8')
@@ -59,6 +60,7 @@ class AboutLibrariesProcessor {
         collectMappingDetails(customNameMappings, 'custom_name_mappings.prop')
         collectMappingDetails(customAuthorMappings, 'custom_author_mappings.prop')
         collectMappingDetails(customEnchantMapping, 'custom_enchant_mapping.prop')
+        collectMappingDetails(customIdMappings, 'custom_id_mappings.prop')
     }
 
     def gatherDependencies(def project, def variant = null) {
@@ -96,6 +98,10 @@ class AboutLibrariesProcessor {
         // the uniqueId
         def groupId = ifEmptyElse(artifactPom.groupId, artifactPom.parent.groupId)
         def uniqueId = fixIdentifier(groupId) + "__" + fixIdentifier(artifactPom.artifactId)
+
+        if (customIdMappings.containsKey(uniqueId)) {
+            uniqueId = customIdMappings.get(uniqueId)
+        }
 
         LOGGER.debug(
                 "--> ArtifactPom for [{}:{}]:\n{}\n\n",
