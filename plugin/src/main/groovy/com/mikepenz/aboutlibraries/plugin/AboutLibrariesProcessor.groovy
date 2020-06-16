@@ -28,7 +28,7 @@ class AboutLibrariesProcessor {
     Map<String, String> customNameMappings = new HashMap<String, String>()
     Map<String, String> customAuthorMappings = new HashMap<String, String>()
     Map<String, String> customEnchantMapping = new HashMap<String, String>()
-    Map<String, String> customIdMappings = new HashMap<String, String>()
+    List<String> customExclusionList = new ArrayList<String>()
 
     def collectMappingDetails(targetMap, resourceName) {
         def customMappingText = getClass().getResource("/static/${resourceName}").getText('UTF-8')
@@ -54,13 +54,36 @@ class AboutLibrariesProcessor {
         }
     }
 
+    def collectListDetails(targetList, resourceName) {
+        def customListText = getClass().getResource("/static/${resourceName}").getText('UTF-8')
+        customListText.eachLine {
+            targetList.add(it)
+        }
+
+        if (configFolder != null) {
+            try {
+                def target = new File(configFolder, "${resourceName}")
+                if (target.exists()) {
+                    customListText = target.getText('UTF-8')
+                    customListText.eachLine {
+                        targetList.add(it)
+                    }
+                    println "Read custom list file from: ${target.absolutePath}"
+                }
+            } catch (Exception ex) {
+                println ex.localizedMessage
+                // ignored
+            }
+        }
+    }
+
     def collectMappingDetails() {
         collectMappingDetails(customLicenseMappings, 'custom_license_mappings.prop')
         collectMappingDetails(customLicenseYearMappings, 'custom_license_year_mappings.prop')
         collectMappingDetails(customNameMappings, 'custom_name_mappings.prop')
         collectMappingDetails(customAuthorMappings, 'custom_author_mappings.prop')
         collectMappingDetails(customEnchantMapping, 'custom_enchant_mapping.prop')
-        collectMappingDetails(customIdMappings, 'custom_id_mappings.prop')
+        collectListDetails(customExclusionList, 'custom_exclusion_list.prop')
     }
 
     def gatherDependencies(def project, def variant = null) {
@@ -99,8 +122,9 @@ class AboutLibrariesProcessor {
         def groupId = ifEmptyElse(artifactPom.groupId, artifactPom.parent.groupId)
         def uniqueId = fixIdentifier(groupId) + "__" + fixIdentifier(artifactPom.artifactId)
 
-        if (customIdMappings.containsKey(uniqueId)) {
-            uniqueId = customIdMappings.get(uniqueId)
+        if (customExclusionList.contains(uniqueId)) {
+            println "--> Skipping ${uniqueId}"
+            return
         }
 
         LOGGER.debug(
