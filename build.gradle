@@ -1,8 +1,8 @@
 buildscript {
     ext {
         release = [
-                versionName: "8.2.0",
-                versionCode: 80200
+                versionName: "8.3.0",
+                versionCode: 80300
         ]
 
         setup = [
@@ -19,7 +19,7 @@ buildscript {
                 recyclerview    : '1.1.0',
                 material        : '1.1.0',
                 kotlin          : "1.3.72",
-                constraintLayout: '2.0.0-beta6',
+                constraintLayout: '2.0.0-beta7',
                 iconics         : "5.0.3",
                 detekt          : '1.0.1',
                 fastadapter     : "5.1.0",
