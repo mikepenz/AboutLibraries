@@ -223,13 +223,26 @@ class AboutLibrariesProcessor {
         }
 
         def libraryWebsite = fixString(artifactPom.url) // get the url to the library
-        def licenseId = resolveLicenseId(uniqueId, fixString(artifactPom.licenses.license.name), fixString(artifactPom.licenses.license.url))
-        if (!isNotEmpty(licenseId) && parentPom != null) { // fallback to parentPom if available
-            licenseId = resolveLicenseId(uniqueId, fixString(parentPom.licenses.license.name), fixString(parentPom.licenses.license.url))
+
+        // the list of licenses a lib may have
+        def licenses = new HashSet<String>()
+        artifactPom.licenses.each { l ->
+            def licenseId = resolveLicenseId(uniqueId, fixString(l.license.name), fixString(l.license.url))
             if (isNotEmpty(licenseId)) {
-                println("----> Had to fallback to parent licenseId for: ${uniqueId} -- result: ${licenseId}")
+                licenses.add(licenseId)
             }
         }
+        if (parentPom != null) { // also read parent licenses if available
+            parentPom.licenses.each { l ->
+                def licenseId = resolveLicenseId(uniqueId, fixString(l.license.name), fixString(l.license.url))
+                if (isNotEmpty(licenseId)) {
+                    if (licenses.add(licenseId)) {
+                        println("----> Found license from parent for: ${uniqueId} -- result: ${licenseId}")
+                    }
+                }
+            }
+        }
+
         // get the url to the library
         def repositoryLink = fixString(artifactPom.scm.url)
         def isOpenSource = isNotEmpty(repositoryLink)
@@ -253,7 +266,7 @@ class AboutLibrariesProcessor {
                 libraryDescription,
                 libraryVersion,
                 libraryWebsite,
-                licenseId,
+                licenses,
                 isOpenSource,
                 repositoryLink,
                 libraryOwner,

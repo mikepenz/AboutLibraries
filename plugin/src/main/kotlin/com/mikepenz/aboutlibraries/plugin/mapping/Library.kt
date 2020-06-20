@@ -12,7 +12,7 @@ data class Library(
         val libraryDescription: String?,
         val libraryVersion: String?,
         val libraryWebsite: String?,
-        val licenseId: String?,
+        val licenseIds: Set<String> = emptySet(),
         val isOpenSource: Boolean,
         val repositoryLink: String?,
         val libraryOwner: String?,

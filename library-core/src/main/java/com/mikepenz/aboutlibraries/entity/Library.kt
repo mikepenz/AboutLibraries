@@ -13,13 +13,20 @@ data class Library(
         var libraryVersion: String = "",
         var libraryArtifactId: String = "",
         var libraryWebsite: String = "",
-        var license: License? = null,
+        var licenses: Set<License>? = null,
 
         var isOpenSource: Boolean = true,
         var repositoryLink: String = "",
 
         var classPath: String = ""
 ) : Comparable<Library> {
+
+    @Deprecated("Note. AboutLibraries v8.3.0 now supports multiple licenses per Library", ReplaceWith("licenses.firstOrNull()"))
+    var license: License?
+        get() = licenses?.firstOrNull()
+        set(value) {
+            licenses = setOf(value ?: License("", "", "", "", ""))
+        }
 
     override fun compareTo(other: Library): Int {
         return libraryName.compareTo(other.libraryName, ignoreCase = true)
@@ -40,7 +47,7 @@ data class Library(
         libraryVersion = ifNotEmpty(enchantWith.libraryVersion) ?: libraryVersion
         libraryArtifactId = ifNotEmpty(enchantWith.libraryArtifactId) ?: libraryArtifactId
         libraryWebsite = ifNotEmpty(enchantWith.libraryWebsite) ?: libraryWebsite
-        license = enchantWith.license ?: license
+        licenses = enchantWith.licenses ?: licenses
         isOpenSource = enchantWith.isOpenSource
         repositoryLink = ifNotEmpty(enchantWith.repositoryLink) ?: repositoryLink
     }

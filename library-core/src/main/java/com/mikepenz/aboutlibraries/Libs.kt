@@ -49,9 +49,17 @@ public class Libs(
         LIBRARY_OPEN_SOURCE,
         LIBRARY_REPOSITORY_LINK,
         LIBRARY_CLASSPATH,
+
+        @Deprecated("Note this only will work for libraries with a single license, otehrwise only the first is modified")
         LICENSE_NAME,
+
+        @Deprecated("Note this only will work for libraries with a single license, otehrwise only the first is modified")
         LICENSE_SHORT_DESCRIPTION,
+
+        @Deprecated("Note this only will work for libraries with a single license, otehrwise only the first is modified")
         LICENSE_DESCRIPTION,
+
+        @Deprecated("Note this only will work for libraries with a single license, otehrwise only the first is modified")
         LICENSE_WEBSITE
     }
 
@@ -393,23 +401,27 @@ public class Libs(
             lib.libraryArtifactId = ctx.getStringResourceByName("library_" + name + "_libraryArtifactId")
             lib.libraryWebsite = ctx.getStringResourceByName("library_" + name + "_libraryWebsite")
 
-            val licenseId = ctx.getStringResourceByName("library_" + name + "_licenseId")
-            if (licenseId.isBlank()) {
+            val licenseIds = ctx.getStringResourceByName("library_" + name + "_licenseIds")
+            if (licenseIds.isBlank()) {
                 val license = License("",
                         ctx.getStringResourceByName("library_" + name + "_licenseVersion"),
                         ctx.getStringResourceByName("library_" + name + "_licenseLink"),
                         insertVariables(ctx.getStringResourceByName("library_" + name + "_licenseContent"), customVariables),
                         insertVariables(ctx.getStringResourceByName("library_" + name + "_licenseContent"), customVariables)
                 )
-                lib.license = license
+                lib.licenses = setOf(license)
             } else {
-                var license = getLicense(licenseId)
-                if (license != null) {
-                    license = license.copy()
-                    license.licenseShortDescription = insertVariables(license.licenseShortDescription, customVariables)
-                    license.licenseDescription = insertVariables(license.licenseDescription, customVariables)
-                    lib.license = license
+                val licenses = mutableSetOf<License>()
+                licenseIds.split(",").onEach { licenseId ->
+                    var license = getLicense(licenseId)
+                    if (license != null) {
+                        license = license.copy()
+                        license.licenseShortDescription = insertVariables(license.licenseShortDescription, customVariables)
+                        license.licenseDescription = insertVariables(license.licenseDescription, customVariables)
+                        licenses.add(license)
+                    }
                 }
+                lib.licenses = licenses
             }
 
             lib.isOpenSource = java.lang.Boolean.valueOf(ctx.getStringResourceByName("library_" + name + "_isOpenSource"))

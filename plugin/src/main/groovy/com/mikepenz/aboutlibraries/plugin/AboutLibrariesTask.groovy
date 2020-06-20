@@ -70,8 +70,10 @@ public class AboutLibrariesTask extends DefaultTask {
             for (final library in libraries) {
                 writeDependency(combinedLibrariesBuilder, library)
 
-                if (isNotEmpty(library.licenseId)) {
-                    neededLicenses.add(library.licenseId) // remember the license we hit
+                if (!library.licenseIds.isEmpty()) {
+                    library.licenseIds.each {
+                        neededLicenses.add(it) // remember the license we hit
+                    }
                 }
             }
             string name: "config_aboutLibraries_plugin", translatable: 'false', "yes"
@@ -185,8 +187,11 @@ public class AboutLibrariesTask extends DefaultTask {
         if (isNotEmpty(library.libraryWebsite)) {
             resources.string name: "library_${library.uniqueId}_libraryWebsite", translatable: 'false', "${library.libraryWebsite}"
         }
-        if (isNotEmpty(library.licenseId)) {
-            resources.string name: "library_${library.uniqueId}_licenseId", translatable: 'false', "${library.licenseId}"
+        if (!library.licenseIds.isEmpty()) {
+            resources.string name: "library_${library.uniqueId}_licenseIds", translatable: 'false', "${library.licenseIds.join(",")}"
+
+            // note only for backwards compatibility. remove with v9.x.y
+            resources.string name: "library_${library.uniqueId}_licenseId", translatable: 'false', "${library.licenseIds.first()}"
         }
         if (library.isOpenSource) {
             resources.string name: "library_${library.uniqueId}_isOpenSource", translatable: 'false', "${library.isOpenSource}"

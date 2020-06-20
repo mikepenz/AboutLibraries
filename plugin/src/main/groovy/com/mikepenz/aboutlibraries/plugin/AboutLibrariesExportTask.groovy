@@ -33,18 +33,21 @@ public class AboutLibrariesExportTask extends DefaultTask {
         println "LIBRARIES:"
 
         for (final library in libraries) {
-            try {
-                neededLicenses.add(License.valueOf(library.licenseId))
-            } catch (Exception ex) {
-                if (library.licenseId != null && library.licenseId != "") {
-                    HashSet<String> libsWithMissing = unknownLicenses.getOrDefault(library.licenseId, new HashSet<String>())
-                    libsWithMissing.add(library.artifactId)
-                    unknownLicenses.put(library.licenseId, libsWithMissing)
-                } else {
-                    librariesWithoutLicenses.add(library.artifactId)
+            library.licenseIds.each { licenseId ->
+                try {
+                    neededLicenses.add(License.valueOf(licenseId))
+                } catch (Exception ex) {
+                    if (licenseId != null && licenseId != "") {
+                        HashSet<String> libsWithMissing = unknownLicenses.getOrDefault(licenseId, new HashSet<String>())
+                        libsWithMissing.add(library.artifactId)
+                        unknownLicenses.put(licenseId, libsWithMissing)
+                    } else {
+                        librariesWithoutLicenses.add(library.artifactId)
+                    }
                 }
             }
-            println "${library.libraryName};${library.artifactId};${library.licenseId}"
+
+            println "${library.libraryName};${library.artifactId};${library.licenseIds}"
         }
 
         println ""
