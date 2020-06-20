@@ -189,6 +189,7 @@ custom_license_mappings.prop // allows defining the licenseId which should be us
 custom_license_year_mappings.prop // allows defining the license Year for this library (this information CANNOT be resolved from the POM file)
 custom_name_mappings.prop // allows overwriting the name of a library if the POM specifies unexpected information
 custom_author_mappings.prop // allows overwriting the authors of a library if the POM specifies unexpected information
+custom_exclusion_list.prop // allows excluding libraries by their id at build time
 ```
 
 See the corresponding files here for the format and content: https://github.com/mikepenz/AboutLibraries/tree/develop/library-definitions/src/main/res/raw
