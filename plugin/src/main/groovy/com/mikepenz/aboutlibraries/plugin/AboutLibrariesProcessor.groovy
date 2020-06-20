@@ -225,19 +225,22 @@ class AboutLibrariesProcessor {
         def libraryWebsite = fixString(artifactPom.url) // get the url to the library
 
         // the list of licenses a lib may have
-        def licenses = new HashSet<String>()
-        artifactPom.licenses.each { l ->
-            def licenseId = resolveLicenseId(uniqueId, fixString(l.license.name), fixString(l.license.url))
-            if (isNotEmpty(licenseId)) {
-                licenses.add(licenseId)
-            }
-        }
-        if (parentPom != null) { // also read parent licenses if available
-            parentPom.licenses.each { l ->
-                def licenseId = resolveLicenseId(uniqueId, fixString(l.license.name), fixString(l.license.url))
+        def licenses = resolveCustomLicenseIds(uniqueId);
+
+        if (licenses.isEmpty()) {
+            artifactPom.licenses.each { l ->
+                def licenseId = resolveLicenseId(fixString(l.license.name), fixString(l.license.url))
                 if (isNotEmpty(licenseId)) {
-                    if (licenses.add(licenseId)) {
-                        println("----> Found license from parent for: ${uniqueId} -- result: ${licenseId}")
+                    licenses.add(licenseId)
+                }
+            }
+            if (parentPom != null) { // also read parent licenses if available
+                parentPom.licenses.each { l ->
+                    def licenseId = resolveLicenseId(fixString(l.license.name), fixString(l.license.url))
+                    if (isNotEmpty(licenseId)) {
+                        if (licenses.add(licenseId)) {
+                            println("----> Found license from parent for: ${uniqueId} -- result: ${licenseId}")
+                        }
                     }
                 }
             }
@@ -376,20 +379,32 @@ class AboutLibrariesProcessor {
     /**
      * Ensures and applies fixes to the library names (shorten, ...)
      */
-    def resolveLicenseId(String uniqueId, String name, String url) {
-        if (customLicenseMappings.containsKey(uniqueId)) {
-            def customMapping = customLicenseMappings.get(uniqueId)
-            println("--> Had to resolve license from custom mapping for: ${uniqueId} as ${customMapping}")
-            return customMapping
-        } else {
-            for (License l : License.values()) {
-                def matcher = l.customMatcher
-                if (l.id.equalsIgnoreCase(name) || l.name().equalsIgnoreCase(name) || l.fullName.equalsIgnoreCase(name) || (matcher != null && matcher.invoke(name, url))) {
-                    return l.name()
-                }
+    def resolveLicenseId(String name, String url) {
+        for (License l : License.values()) {
+            def matcher = l.customMatcher
+            if (l.id.equalsIgnoreCase(name) || l.name().equalsIgnoreCase(name) || l.fullName.equalsIgnoreCase(name) || (matcher != null && matcher.invoke(name, url))) {
+                return l.name()
             }
         }
         return name
+    }
+
+    /**
+     * Retrieves custom license mapping and returns it
+     */
+    def resolveCustomLicenseIds(String uniqueId) {
+        if (customLicenseMappings.containsKey(uniqueId)) {
+            def customMapping = customLicenseMappings.get(uniqueId)
+            println("--> Had to resolve license from custom mapping for: ${uniqueId} as ${customMapping}")
+
+            def licensesSet = new HashSet<String>()
+            customMapping.split(",").each {
+                licensesSet.add(it)
+            }
+            return licensesSet
+        } else {
+            return new HashSet<String>()
+        }
     }
 
     def resolveLicenseYear(String uniqueId, String repositoryLink) {
