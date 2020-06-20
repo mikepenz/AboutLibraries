@@ -30,48 +30,33 @@ class AboutLibrariesProcessor {
     Map<String, String> customEnchantMapping = new HashMap<String, String>()
     List<String> customExclusionList = new ArrayList<String>()
 
-    def collectMappingDetails(targetMap, resourceName) {
+    def collectMappingDetails(target, resourceName) {
         def customMappingText = getClass().getResource("/static/${resourceName}").getText('UTF-8')
         customMappingText.eachLine {
-            def splitMapping = it.split(':')
-            targetMap.put(splitMapping[0], splitMapping[1])
-        }
-
-        if (configFolder != null) {
-            try {
-                def target = new File(configFolder, "${resourceName}")
-                if (target.exists()) {
-                    customMappingText = target.getText('UTF-8')
-                    customMappingText.eachLine {
-                        def splitMapping = it.split(':')
-                        targetMap.put(splitMapping[0], splitMapping[1])
-                    }
-                    println "Read custom mapping file from: ${target.absolutePath}"
-                }
-            } catch (Exception ex) {
-                // ignored
+            if (target instanceof Map) {
+                def splitMapping = it.split(':')
+                target.put(splitMapping[0], splitMapping[1])
+            } else if (target instanceof List) {
+                target.add(it)
             }
         }
-    }
-
-    def collectListDetails(targetList, resourceName) {
-        def customListText = getClass().getResource("/static/${resourceName}").getText('UTF-8')
-        customListText.eachLine {
-            targetList.add(it)
-        }
 
         if (configFolder != null) {
             try {
-                def target = new File(configFolder, "${resourceName}")
-                if (target.exists()) {
-                    customListText = target.getText('UTF-8')
-                    customListText.eachLine {
-                        targetList.add(it)
+                final def targetFile = new File(configFolder, "${resourceName}")
+                if (targetFile.exists()) {
+                    customMappingText = targetFile.getText('UTF-8')
+                    customMappingText.eachLine {
+                        if (target instanceof Map) {
+                            def splitMapping = it.split(':')
+                            target.put(splitMapping[0], splitMapping[1])
+                        } else if (target instanceof List) {
+                            target.add(it)
+                        }
                     }
-                    println "Read custom list file from: ${target.absolutePath}"
+                    println "Read custom mapping file from: ${targetFile.absolutePath}"
                 }
             } catch (Exception ex) {
-                println ex.localizedMessage
                 // ignored
             }
         }
@@ -83,7 +68,7 @@ class AboutLibrariesProcessor {
         collectMappingDetails(customNameMappings, 'custom_name_mappings.prop')
         collectMappingDetails(customAuthorMappings, 'custom_author_mappings.prop')
         collectMappingDetails(customEnchantMapping, 'custom_enchant_mapping.prop')
-        collectListDetails(customExclusionList, 'custom_exclusion_list.prop')
+        collectMappingDetails(customExclusionList, 'custom_exclusion_list.prop')
     }
 
     def gatherDependencies(def project, def variant = null) {
