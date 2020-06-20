@@ -4,7 +4,10 @@ import com.mikepenz.aboutlibraries.plugin.mapping.Library
 import com.mikepenz.aboutlibraries.plugin.mapping.License
 import groovy.xml.MarkupBuilder
 import org.gradle.api.DefaultTask
-import org.gradle.api.tasks.*
+import org.gradle.api.tasks.CacheableTask
+import org.gradle.api.tasks.Internal
+import org.gradle.api.tasks.OutputDirectory
+import org.gradle.api.tasks.TaskAction
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
@@ -44,12 +47,10 @@ public class AboutLibrariesTask extends DefaultTask {
         return dependencies
     }
 
-    @InputFiles
     public void setDependencies(File dependencies) {
         this.dependencies = dependencies
     }
 
-    @Input
     public void setVariant(String variant) {
         this.variant = variant
     }
