@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion setup.compileSdk
@@ -11,9 +11,6 @@ android {
         targetSdkVersion setup.targetSdk
         versionCode release.versionCode
         versionName release.versionName
-
-        resValue "string", "aboutlibrary_lib_version", "${versionName}"
-        resValue "string", "ext_support_lib_version", "${versions.androidX}"
     }
 
     buildTypes {
@@ -33,9 +30,19 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    // specify the artifactId as module-name for kotlin
+    kotlinOptions.freeCompilerArgs += ["-module-name", POM_ARTIFACT_ID]
 }
 
 dependencies {
+    api project(':library-core')
+
+    implementation "androidx.core:core-ktx:${versions.coreKtx}"
     implementation "androidx.appcompat:appcompat:${versions.appcompat}"
     implementation "androidx.cardview:cardview:${versions.cardview}"
     implementation "androidx.recyclerview:recyclerview:${versions.recyclerview}"
@@ -44,18 +51,15 @@ dependencies {
     // add the constraintLayout used to create the items and headers
     implementation "androidx.constraintlayout:constraintlayout:${versions.constraintLayout}"
 
-    // used to provide out of the box icon font support. simplifies development,
-    // and provides scalable icons. the core is very very light
-    // https://github.com/mikepenz/Android-Iconics
-    implementation "com.mikepenz:iconics-core:${versions.iconics}"
-
     // used to fill the RecyclerView with the items
     // and provides single and multi selection, expandable items
     // https://github.com/mikepenz/FastAdapter
     implementation "com.mikepenz:fastadapter:${versions.fastadapter}"
 
     // kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.kotlin}"
 }
 
-apply from: '../gradle-release.gradle'
+if (project.hasProperty('pushall') || project.hasProperty('library_only')) {
+    apply from: '../gradle-release.gradle'
+}

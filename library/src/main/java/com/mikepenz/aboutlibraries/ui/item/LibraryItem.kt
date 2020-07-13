@@ -14,7 +14,9 @@ import com.mikepenz.aboutlibraries.LibsBuilder
 import com.mikepenz.aboutlibraries.LibsConfiguration
 import com.mikepenz.aboutlibraries.R
 import com.mikepenz.aboutlibraries.entity.Library
-import com.mikepenz.aboutlibraries.util.getThemeColorFromAttrOrRes
+import com.mikepenz.aboutlibraries.util.getSupportColor
+import com.mikepenz.aboutlibraries.util.getThemeColor
+import com.mikepenz.aboutlibraries.util.resolveStyledValue
 import com.mikepenz.fastadapter.items.AbstractItem
 
 
@@ -47,7 +49,7 @@ class LibraryItem(private val library: Library, private val libsBuilder: LibsBui
      *
      * @param holder the viewHolder of this item
      */
-    override fun bindView(holder: ViewHolder, payloads: MutableList<Any>) {
+    override fun bindView(holder: ViewHolder, payloads: List<Any>) {
         super.bindView(holder, payloads)
 
         //ctx
@@ -63,14 +65,17 @@ class LibraryItem(private val library: Library, private val libsBuilder: LibsBui
         }
 
         //Set License or Version Text
-        if (TextUtils.isEmpty(library.libraryVersion) && library.license != null && library.license?.licenseName?.isEmpty() == true || (!libsBuilder.showVersion) && (!libsBuilder.showLicense)) {
+        val showVersionOrLicense = libsBuilder.showVersion || libsBuilder.showLicense
+        if (library.libraryVersion.isEmpty() && library.license?.licenseName?.isEmpty() == true || !showVersionOrLicense) {
             holder.libraryBottomDivider.visibility = View.GONE
-            holder.libraryBottomContainer.visibility = View.GONE
+            holder.libraryVersion.visibility = View.GONE
+            holder.libraryLicense.visibility = View.GONE
         } else {
             holder.libraryBottomDivider.visibility = View.VISIBLE
-            holder.libraryBottomContainer.visibility = View.VISIBLE
+            holder.libraryVersion.visibility = View.VISIBLE
+            holder.libraryLicense.visibility = View.VISIBLE
 
-            if (!TextUtils.isEmpty(library.libraryVersion) && libsBuilder.showVersion) {
+            if (library.libraryVersion.isNotEmpty() && libsBuilder.showVersion) {
                 holder.libraryVersion.text = library.libraryVersion
             } else {
                 holder.libraryVersion.text = ""
@@ -82,18 +87,17 @@ class LibraryItem(private val library: Library, private val libsBuilder: LibsBui
             }
         }
 
-
         //Define onClickListener
-        if (!TextUtils.isEmpty(library.authorWebsite)) {
+        if (library.authorWebsite.isNotEmpty()) {
             holder.libraryCreator.setOnClickListener { view ->
-                val consumed = LibsConfiguration.instance.listener?.onLibraryAuthorClicked(view, library)
+                val consumed = LibsConfiguration.listener?.onLibraryAuthorClicked(view, library)
                         ?: false
                 if (!consumed) {
                     openAuthorWebsite(ctx, library.authorWebsite)
                 }
             }
             holder.libraryCreator.setOnLongClickListener { v ->
-                var consumed = LibsConfiguration.instance.listener?.onLibraryAuthorLongClicked(v, library)
+                var consumed = LibsConfiguration.listener?.onLibraryAuthorLongClicked(v, library)
                         ?: false
 
                 if (!consumed) {
@@ -108,20 +112,20 @@ class LibraryItem(private val library: Library, private val libsBuilder: LibsBui
             holder.libraryCreator.setOnLongClickListener(null)
         }
 
-        if (!TextUtils.isEmpty(library.libraryWebsite) || !TextUtils.isEmpty(library.repositoryLink)) {
+        if (library.libraryWebsite.isNotEmpty() || library.repositoryLink.isNotEmpty()) {
             holder.libraryDescription.setOnClickListener { v ->
-                val consumed = LibsConfiguration.instance.listener?.onLibraryContentClicked(v, library)
+                val consumed = LibsConfiguration.listener?.onLibraryContentClicked(v, library)
                         ?: false
                 if (!consumed) {
-                    openLibraryWebsite(ctx, if (library.libraryWebsite != null) library.libraryWebsite else library.repositoryLink)
+                    openLibraryWebsite(ctx, library.libraryWebsite)
                 }
             }
             holder.libraryDescription.setOnLongClickListener { v ->
-                var consumed = LibsConfiguration.instance.listener?.onLibraryContentLongClicked(v, library)
+                var consumed = LibsConfiguration.listener?.onLibraryContentLongClicked(v, library)
                         ?: false
 
                 if (!consumed) {
-                    openLibraryWebsite(ctx, if (library.libraryWebsite != null) library.libraryWebsite else library.repositoryLink)
+                    openLibraryWebsite(ctx, library.libraryWebsite)
                     consumed = true
                 }
                 consumed
@@ -133,15 +137,15 @@ class LibraryItem(private val library: Library, private val libsBuilder: LibsBui
         }
 
         if (library.license != null && (library.license?.licenseWebsite?.isNotEmpty() == true || libsBuilder.showLicenseDialog)) {
-            holder.libraryBottomContainer.setOnClickListener { view ->
-                val consumed = LibsConfiguration.instance.listener?.onLibraryBottomClicked(view, library)
+            holder.libraryLicense.setOnClickListener { view ->
+                val consumed = LibsConfiguration.listener?.onLibraryBottomClicked(view, library)
                         ?: false
                 if (!consumed) {
                     openLicense(ctx, libsBuilder, library)
                 }
             }
-            holder.libraryBottomContainer.setOnLongClickListener { v ->
-                var consumed = LibsConfiguration.instance.listener?.onLibraryBottomLongClicked(v, library)
+            holder.libraryLicense.setOnLongClickListener { v ->
+                var consumed = LibsConfiguration.listener?.onLibraryBottomLongClicked(v, library)
                         ?: false
                 if (!consumed) {
                     openLicense(ctx, libsBuilder, library)
@@ -150,14 +154,13 @@ class LibraryItem(private val library: Library, private val libsBuilder: LibsBui
                 consumed
             }
         } else {
-            holder.libraryBottomContainer.setOnTouchListener(null)
-            holder.libraryBottomContainer.setOnClickListener(null)
-            holder.libraryBottomContainer.setOnLongClickListener(null)
-
+            holder.libraryLicense.setOnTouchListener(null)
+            holder.libraryLicense.setOnClickListener(null)
+            holder.libraryLicense.setOnLongClickListener(null)
         }
 
         //notify the libsRecyclerViewListener to allow modifications
-        LibsConfiguration.instance.libsRecyclerViewListener?.onBindViewHolder(holder)
+        LibsConfiguration.libsRecyclerViewListener?.onBindViewHolder(holder)
     }
 
     /**
@@ -170,9 +173,9 @@ class LibraryItem(private val library: Library, private val libsBuilder: LibsBui
         try {
             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(authorWebsite))
             ctx.startActivity(browserIntent)
-        } catch (ex: Exception) {
+        } catch (ignored: Exception) {
+            // ignored
         }
-
     }
 
     /**
@@ -185,9 +188,9 @@ class LibraryItem(private val library: Library, private val libsBuilder: LibsBui
         try {
             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(libraryWebsite))
             ctx.startActivity(browserIntent)
-        } catch (ex: Exception) {
+        } catch (ignored: Exception) {
+            // ignored
         }
-
     }
 
     /**
@@ -207,9 +210,9 @@ class LibraryItem(private val library: Library, private val libsBuilder: LibsBui
                 val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(library.license?.licenseWebsite))
                 ctx.startActivity(browserIntent)
             }
-        } catch (ex: Exception) {
+        } catch (ignored: Exception) {
+            // ignored
         }
-
     }
 
     override fun getViewHolder(v: View): ViewHolder {
@@ -219,7 +222,6 @@ class LibraryItem(private val library: Library, private val libsBuilder: LibsBui
     /**
      * our ViewHolder
      */
-
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         internal var card: MaterialCardView = itemView as MaterialCardView
 
@@ -229,19 +231,21 @@ class LibraryItem(private val library: Library, private val libsBuilder: LibsBui
         internal var libraryDescription: TextView = itemView.findViewById(R.id.libraryDescription) as TextView
 
         internal var libraryBottomDivider: View = itemView.findViewById(R.id.libraryBottomDivider)
-        internal var libraryBottomContainer: View = itemView.findViewById(R.id.libraryBottomContainer)
         internal var libraryVersion: TextView = itemView.findViewById(R.id.libraryVersion) as TextView
         internal var libraryLicense: TextView = itemView.findViewById(R.id.libraryLicense) as TextView
 
         init {
-            card.setCardBackgroundColor(itemView.context.getThemeColorFromAttrOrRes(R.attr.about_libraries_card, R.color.about_libraries_card))
-            libraryName.setTextColor(itemView.context.getThemeColorFromAttrOrRes(R.attr.about_libraries_title_openSource, R.color.about_libraries_title_openSource))
-            libraryCreator.setTextColor(itemView.context.getThemeColorFromAttrOrRes(R.attr.about_libraries_text_openSource, R.color.about_libraries_text_openSource))
-            libraryDescriptionDivider.setBackgroundColor(itemView.context.getThemeColorFromAttrOrRes(R.attr.about_libraries_dividerLight_openSource, R.color.about_libraries_dividerLight_openSource))
-            libraryDescription.setTextColor(itemView.context.getThemeColorFromAttrOrRes(R.attr.about_libraries_text_openSource, R.color.about_libraries_text_openSource))
-            libraryBottomDivider.setBackgroundColor(itemView.context.getThemeColorFromAttrOrRes(R.attr.about_libraries_dividerLight_openSource, R.color.about_libraries_dividerLight_openSource))
-            libraryVersion.setTextColor(itemView.context.getThemeColorFromAttrOrRes(R.attr.about_libraries_text_openSource, R.color.about_libraries_text_openSource))
-            libraryLicense.setTextColor(itemView.context.getThemeColorFromAttrOrRes(R.attr.about_libraries_text_openSource, R.color.about_libraries_text_openSource))
+            val ctx = itemView.context
+            ctx.resolveStyledValue {
+                card.setCardBackgroundColor(it.getColor(R.styleable.AboutLibraries_aboutLibrariesCardBackground, ctx.getThemeColor(R.attr.aboutLibrariesCardBackground, ctx.getSupportColor(R.color.about_libraries_card))))
+                libraryName.setTextColor(it.getColorStateList(R.styleable.AboutLibraries_aboutLibrariesOpenSourceTitle))
+                libraryCreator.setTextColor(it.getColorStateList(R.styleable.AboutLibraries_aboutLibrariesOpenSourceText))
+                libraryDescriptionDivider.setBackgroundColor(it.getColor(R.styleable.AboutLibraries_aboutLibrariesOpenSourceDivider, ctx.getThemeColor(R.attr.aboutLibrariesOpenSourceDivider, ctx.getSupportColor(R.color.about_libraries_dividerLight_openSource))))
+                libraryDescription.setTextColor(it.getColorStateList(R.styleable.AboutLibraries_aboutLibrariesOpenSourceText))
+                libraryBottomDivider.setBackgroundColor(it.getColor(R.styleable.AboutLibraries_aboutLibrariesOpenSourceDivider, ctx.getThemeColor(R.attr.aboutLibrariesOpenSourceDivider, ctx.getSupportColor(R.color.about_libraries_dividerLight_openSource))))
+                libraryVersion.setTextColor(it.getColorStateList(R.styleable.AboutLibraries_aboutLibrariesOpenSourceText))
+                libraryLicense.setTextColor(it.getColorStateList(R.styleable.AboutLibraries_aboutLibrariesOpenSourceText))
+            }
         }
     }
 }

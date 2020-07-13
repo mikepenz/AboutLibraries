@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources translatable="false">
+
+    <string name="define_license_bsd_3" translatable="false"></string>
+    <string name="license_bsd_3_licenseName" translatable="false">BSD 3-Clause License</string>
+    <string name="license_bsd_3_licenseWebsite" translatable="false">http://opensource.org/licenses/BSD-3-Clause</string>
+    <string name="license_bsd_3_licenseShortDescription" translatable="false">
+        <![CDATA[
+        Copyright &#169; <<<YEAR>>>, <<<OWNER>>>
+        <br />
+        All rights reserved.
+        <br /><br />
+        Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+        <br /><br />
+        1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+        <br /><br />
+        2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation
+        and/or other materials provided with the distribution.
+        <br /><br />
+        3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software
+        without specific prior written permission.
+        ]]>
+    </string>
+    <string name="license_bsd_3_licenseDescription" translatable="false">raw:license_bsd_3</string>
+
+</resources>

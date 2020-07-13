@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources translatable="false">
+
+    <string name="define_license_asdkl" translatable="false"></string>
+    <string name="license_asdkl_licenseName" translatable="false">Android Software Development Kit License</string>
+    <string name="license_asdkl_licenseWebsite" translatable="false">https://developer.android.com/studio/terms.html</string>
+    <string name="license_asdkl_licenseShortDescription" translatable="false">
+        <![CDATA[
+        This is the Android Software Development Kit License Agreement
+        <br /><br />
+        1.1 The Android Software Development Kit (referred to in the License Agreement as the "SDK" and specifically including the Android system files, packaged APIs, and Google APIs add-ons) is licensed to you subject to the terms of the License Agreement. The License Agreement forms a legally binding contract between you and Google in relation to your use of the SDK.
+        <br />
+        1.2 "Android" means the Android software stack for devices, as made available under the Android Open Source Project, which is located at the following URL: http://source.android.com/, as updated from time to time.
+        <br />
+        1.3 A "compatible implementation" means any Android device that (i) complies with the Android Compatibility Definition document, which can be found at the Android compatibility website (http://source.android.com/compatibility) and which may be updated from time to time; and (ii) successfully passes the Android Compatibility Test Suite (CTS).
+        <br />
+        1.4 "Google" means Google LLC, a Delaware corporation with principal place of business at 1600 Amphitheatre Parkway, Mountain View, CA 94043, United States.
+        ]]>
+    </string>
+    <string name="license_asdkl_licenseDescription" translatable="false">raw:license_asdkl</string>
+
+</resources>

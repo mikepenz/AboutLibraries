@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources translatable="false">
+
+    <string name="define_license_mpl_2_0" translatable="false"></string>
+    <string name="license_mpl_2_0_licenseName" translatable="false">Mozilla Public License, v2.0</string>
+    <string name="license_mpl_2_0_licenseWebsite" translatable="false">https://www.mozilla.org/MPL/2.0/</string>
+    <string name="license_mpl_2_0_licenseShortDescription" translatable="false">
+        <![CDATA[
+This Source Code Form is subject to the terms of the Mozilla Public
+License, v. 2.0. If a copy of the MPL was not distributed with this
+file, You can obtain one at https://mozilla.org/MPL/2.0/.
+        ]]>
+    </string>
+    <string name="license_mpl_2_0_licenseDescription" translatable="false">raw:license_mpl_2_0</string>
+
+</resources>

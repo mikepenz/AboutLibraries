@@ -1,6 +1,5 @@
 package com.mikepenz.aboutlibraries.ui.item
 
-import android.content.Context
 import android.graphics.drawable.Drawable
 import android.text.Html
 import android.text.TextUtils
@@ -16,10 +15,10 @@ import com.mikepenz.aboutlibraries.LibsBuilder
 import com.mikepenz.aboutlibraries.LibsConfiguration
 import com.mikepenz.aboutlibraries.R
 import com.mikepenz.aboutlibraries.util.MovementCheck
-import com.mikepenz.aboutlibraries.util.getThemeColorFromAttrOrRes
+import com.mikepenz.aboutlibraries.util.getSupportColor
+import com.mikepenz.aboutlibraries.util.getThemeColor
+import com.mikepenz.aboutlibraries.util.resolveStyledValue
 import com.mikepenz.fastadapter.items.AbstractItem
-import com.mikepenz.iconics.Iconics
-
 
 /**
  * Created by mikepenz on 28.12.15.
@@ -74,7 +73,7 @@ class HeaderItem(var libsBuilder: LibsBuilder) : AbstractItem<HeaderItem.ViewHol
      *
      * @param holder the viewHolder of this item
      */
-    override fun bindView(holder: ViewHolder, payloads: MutableList<Any>) {
+    override fun bindView(holder: ViewHolder, payloads: List<Any>) {
         super.bindView(holder, payloads)
 
         //ctx
@@ -84,16 +83,16 @@ class HeaderItem(var libsBuilder: LibsBuilder) : AbstractItem<HeaderItem.ViewHol
         if (libsBuilder.aboutShowIcon && aboutIcon != null) {
             holder.aboutIcon.setImageDrawable(aboutIcon)
             holder.aboutIcon.setOnClickListener {
-                LibsConfiguration.instance.listener?.onIconClicked(it)
+                LibsConfiguration.listener?.onIconClicked(it)
             }
 
-            holder.aboutIcon.setOnLongClickListener { v -> LibsConfiguration.instance.listener != null && LibsConfiguration.instance.listener?.onIconLongClicked(v) ?: false }
+            holder.aboutIcon.setOnLongClickListener { v -> LibsConfiguration.listener != null && LibsConfiguration.listener?.onIconLongClicked(v) ?: false }
         } else {
             holder.aboutIcon.visibility = View.GONE
         }
 
         //Set the description or hide it
-        if (!TextUtils.isEmpty(libsBuilder.aboutAppName)) {
+        if (!libsBuilder.aboutAppName.isNullOrEmpty()) {
             holder.aboutAppName.text = libsBuilder.aboutAppName
         } else {
             holder.aboutAppName.visibility = View.GONE
@@ -106,12 +105,12 @@ class HeaderItem(var libsBuilder: LibsBuilder) : AbstractItem<HeaderItem.ViewHol
         holder.aboutSpecial3.visibility = View.GONE
 
         // set the values for the special fields
-        if (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial1) && (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial1Description) || LibsConfiguration.instance.listener != null)) {
+        if (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial1) && (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial1Description) || LibsConfiguration.listener != null)) {
             holder.aboutSpecial1.text = libsBuilder.aboutAppSpecial1
-            Iconics.Builder().ctx(ctx).on(holder.aboutSpecial1).build()
+            LibsConfiguration.postTextAction?.invoke(holder.aboutSpecial1)
             holder.aboutSpecial1.visibility = View.VISIBLE
             holder.aboutSpecial1.setOnClickListener { v ->
-                val consumed = LibsConfiguration.instance.listener?.onExtraClicked(v, Libs.SpecialButton.SPECIAL1)
+                val consumed = LibsConfiguration.listener?.onExtraClicked(v, Libs.SpecialButton.SPECIAL1)
                         ?: false
 
                 if (!consumed && !TextUtils.isEmpty(libsBuilder.aboutAppSpecial1Description)) {
@@ -124,19 +123,19 @@ class HeaderItem(var libsBuilder: LibsBuilder) : AbstractItem<HeaderItem.ViewHol
                         if (alertText != null) {
                             alertText.movementMethod = LinkMovementMethod.getInstance()
                         }
-                    } catch (ex: Exception) {
+                    } catch (ignored: Exception) {
+                        // ignored
                     }
-
                 }
             }
             holder.aboutSpecialContainer.visibility = View.VISIBLE
         }
-        if (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial2) && (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial2Description) || LibsConfiguration.instance.listener != null)) {
+        if (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial2) && (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial2Description) || LibsConfiguration.listener != null)) {
             holder.aboutSpecial2.text = libsBuilder.aboutAppSpecial2
-            Iconics.Builder().ctx(ctx).on(holder.aboutSpecial2).build()
+            LibsConfiguration.postTextAction?.invoke(holder.aboutSpecial2)
             holder.aboutSpecial2.visibility = View.VISIBLE
             holder.aboutSpecial2.setOnClickListener { v ->
-                val consumed = LibsConfiguration.instance.listener?.onExtraClicked(v, Libs.SpecialButton.SPECIAL2)
+                val consumed = LibsConfiguration.listener?.onExtraClicked(v, Libs.SpecialButton.SPECIAL2)
                         ?: false
                 if (!consumed && !TextUtils.isEmpty(libsBuilder.aboutAppSpecial2Description)) {
                     try {
@@ -148,19 +147,19 @@ class HeaderItem(var libsBuilder: LibsBuilder) : AbstractItem<HeaderItem.ViewHol
                         if (alertText != null) {
                             alertText.movementMethod = LinkMovementMethod.getInstance()
                         }
-                    } catch (ex: Exception) {
+                    } catch (ignored: Exception) {
+                        // ignored
                     }
-
                 }
             }
             holder.aboutSpecialContainer.visibility = View.VISIBLE
         }
-        if (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial3) && (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial3Description) || LibsConfiguration.instance.listener != null)) {
+        if (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial3) && (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial3Description) || LibsConfiguration.listener != null)) {
             holder.aboutSpecial3.text = libsBuilder.aboutAppSpecial3
-            Iconics.Builder().ctx(ctx).on(holder.aboutSpecial3).build()
+            LibsConfiguration.postTextAction?.invoke(holder.aboutSpecial3)
             holder.aboutSpecial3.visibility = View.VISIBLE
             holder.aboutSpecial3.setOnClickListener { v ->
-                val consumed = LibsConfiguration.instance.listener?.onExtraClicked(v, Libs.SpecialButton.SPECIAL3)
+                val consumed = LibsConfiguration.listener?.onExtraClicked(v, Libs.SpecialButton.SPECIAL3)
                         ?: false
 
                 if (!consumed && !TextUtils.isEmpty(libsBuilder.aboutAppSpecial3Description)) {
@@ -173,36 +172,33 @@ class HeaderItem(var libsBuilder: LibsBuilder) : AbstractItem<HeaderItem.ViewHol
                         if (alertText != null) {
                             alertText.movementMethod = LinkMovementMethod.getInstance()
                         }
-                    } catch (ex: Exception) {
+                    } catch (ignored: Exception) {
+                        // ignored
                     }
-
                 }
             }
             holder.aboutSpecialContainer.visibility = View.VISIBLE
         }
-
 
         //set the Version or hide it
         if (libsBuilder.aboutVersionString.isNotEmpty())
             holder.aboutVersion.text = libsBuilder.aboutVersionString
         else {
             if (libsBuilder.aboutShowVersion) {
-                holder.aboutVersion.text = ctx.getString(R.string.version) + " " + aboutVersionName + " (" + aboutVersionCode + ")"
+                holder.aboutVersion.text = "${ctx.getString(R.string.version)} $aboutVersionName ($aboutVersionCode)"
             } else {
-                if (libsBuilder.aboutShowVersionName) {
-                    holder.aboutVersion.text = ctx.getString(R.string.version) + " " + aboutVersionName
-                } else if (libsBuilder.aboutShowVersionCode) {
-                    holder.aboutVersion.text = "${ctx.getString(R.string.version)} ${aboutVersionCode}"
-                } else {
-                    holder.aboutVersion.visibility = View.GONE
+                when {
+                    libsBuilder.aboutShowVersionName -> holder.aboutVersion.text = "${ctx.getString(R.string.version)} $aboutVersionName"
+                    libsBuilder.aboutShowVersionCode -> holder.aboutVersion.text = "${ctx.getString(R.string.version)} $aboutVersionCode"
+                    else -> holder.aboutVersion.visibility = View.GONE
                 }
             }
         }
 
         //Set the description or hide it
-        if (!TextUtils.isEmpty(libsBuilder.aboutDescription)) {
+        if (!libsBuilder.aboutDescription.isNullOrEmpty()) {
             holder.aboutAppDescription.text = Html.fromHtml(libsBuilder.aboutDescription)
-            Iconics.Builder().ctx(ctx).on(holder.aboutAppDescription).build()
+            LibsConfiguration.postTextAction?.invoke(holder.aboutAppDescription)
             holder.aboutAppDescription.movementMethod = MovementCheck.instance
         } else {
             holder.aboutAppDescription.visibility = View.GONE
@@ -214,7 +210,7 @@ class HeaderItem(var libsBuilder: LibsBuilder) : AbstractItem<HeaderItem.ViewHol
         }
 
         //notify the libsRecyclerViewListener to allow modifications
-        LibsConfiguration.instance.libsRecyclerViewListener?.onBindViewHolder(holder)
+        LibsConfiguration.libsRecyclerViewListener?.onBindViewHolder(holder)
     }
 
     override fun getViewHolder(v: View): ViewHolder {
@@ -236,21 +232,16 @@ class HeaderItem(var libsBuilder: LibsBuilder) : AbstractItem<HeaderItem.ViewHol
         internal var aboutAppDescription: TextView = headerView.findViewById(R.id.aboutDescription) as TextView
 
         init {
-            aboutAppName.setTextColor(headerView.context.getThemeColorFromAttrOrRes(R.attr.about_libraries_title_description, R.color.about_libraries_title_description))
-            aboutVersion.setTextColor(headerView.context.getThemeColorFromAttrOrRes(R.attr.about_libraries_text_description, R.color.about_libraries_text_description))
-            aboutDivider.setBackgroundColor(headerView.context.getThemeColorFromAttrOrRes(R.attr.about_libraries_divider_description, R.color.about_libraries_divider_description))
-            aboutAppDescription.setTextColor(headerView.context.getThemeColorFromAttrOrRes(R.attr.about_libraries_text_description, R.color.about_libraries_text_description))
-
-            aboutSpecial1.setTextColor(headerView.context.getThemeColorFromAttrOrRes(R.attr.about_libraries_special_button_openSource, R.color.about_libraries_special_button_openSource))
-            aboutSpecial2.setTextColor(headerView.context.getThemeColorFromAttrOrRes(R.attr.about_libraries_special_button_openSource, R.color.about_libraries_special_button_openSource))
-            aboutSpecial3.setTextColor(headerView.context.getThemeColorFromAttrOrRes(R.attr.about_libraries_special_button_openSource, R.color.about_libraries_special_button_openSource))
-
-            aboutDivider.setBackgroundColor(headerView.context.getThemeColorFromAttrOrRes(R.attr.about_libraries_dividerLight_openSource, R.color.about_libraries_dividerLight_openSource))
+            val ctx = itemView.context
+            ctx.resolveStyledValue {
+                aboutAppName.setTextColor(it.getColorStateList(R.styleable.AboutLibraries_aboutLibrariesDescriptionTitle))
+                aboutVersion.setTextColor(it.getColorStateList(R.styleable.AboutLibraries_aboutLibrariesDescriptionText))
+                aboutAppDescription.setTextColor(it.getColorStateList(R.styleable.AboutLibraries_aboutLibrariesDescriptionText))
+                aboutDivider.setBackgroundColor(it.getColor(R.styleable.AboutLibraries_aboutLibrariesDescriptionDivider, ctx.getThemeColor(R.attr.aboutLibrariesDescriptionDivider, ctx.getSupportColor(R.color.about_libraries_dividerLight_openSource))))
+                aboutSpecial1.setTextColor(it.getColorStateList(R.styleable.AboutLibraries_aboutLibrariesSpecialButtonText))
+                aboutSpecial2.setTextColor(it.getColorStateList(R.styleable.AboutLibraries_aboutLibrariesSpecialButtonText))
+                aboutSpecial3.setTextColor(it.getColorStateList(R.styleable.AboutLibraries_aboutLibrariesSpecialButtonText))
+            }
         }
     }
-}
-
-private fun Iconics.Builder.ctx(ctx: Context): Iconics.Builder {
-    Iconics.init(ctx)
-    return this
 }

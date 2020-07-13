@@ -11,7 +11,7 @@ import com.mikepenz.aboutlibraries.LibsFragmentCompat
 /**
  * Created by mikepenz on 04.06.14.
  */
-class LibsSupportFragment : Fragment() {
+open class LibsSupportFragment : Fragment() {
 
     private val libsFragmentCompat: LibsFragmentCompat = LibsFragmentCompat()
 
@@ -21,7 +21,7 @@ class LibsSupportFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        libsFragmentCompat.onViewCreated(view, savedInstanceState)
+        libsFragmentCompat.onViewCreated(view)
     }
 
     override fun onDestroyView() {

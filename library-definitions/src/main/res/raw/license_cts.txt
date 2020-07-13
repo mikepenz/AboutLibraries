@@ -1,0 +1,544 @@
+<h1>CRASHLYTICS AGREEMENT</h1>
+Last Updated: July 23, 2018<br /><br />
+This Crashlytics Agreement (“Agreement”) is entered into by Crashlytics (defined as either: (a)
+Google Ireland Limited, with offices at Gordon House, Barrow Street, Dublin 4, Ireland, if Your
+principal place of business (for entities) or place of residence (for individuals) is in any country
+within Europe, the Middle East, or Africa ("EMEA"), (b) Google Asia Pacific Pte. Ltd., with offices
+at 8 Marina View Asia Square 1 #30-01 Singapore 018960, if Your principal place of business
+(for entities) or place of residence (for individuals) is in any country within the Asia Pacific region
+("APAC"), or (c) Google LLC, with offices at 1600 Amphitheatre Parkway, Mountain View,
+California 94043, if Your principal place of business (for entities) or place of residence (for
+individuals) is in any country in the world other than those in EMEA and APAC) and you
+(“Developer” or “You”) and governs your access and use of www.crashlytics.com and the
+Crashlytics crash reporting and beta testing solution (collectively, the “Services” as more fully
+described below). If You are accessing or using the Services on behalf of a company or other
+legal entity, You represent and warrant that You are an authorized representative of that entity
+and have the authority to bind such entity to this Agreement, in which case the terms
+“Developer” and “You” shall refer to such entity. You and Crashlytics hereby agree as follows:
+YOUR RIGHT TO ACCESS AND USE THE SERVICES IS EXPRESSLY CONDITIONED ON
+ACCEPTANCE OF THIS AGREEMENT. BY ACCESSING OR USING THE SERVICES, YOU
+AGREE TO BE BOUND BY THIS AGREEMENT. IF YOU ARE ACCESSING OR USING THE
+SERVICES ON BEHALF OF YOUR EMPLOYER OR ANOTHER ENTITY (“ENTITY”), YOU
+AGREE TO PROVIDE CRASHLYTICS WITH THE NAME OF THE ENTITY AND OBTAIN
+CRASHLYTICS'S APPROVAL TO USE THE SOFTWARE ON YOUR BEHALF AND BEHALF
+OF THE ENTITY AND YOU AGREE TO REMAIN RESPONSIBLE AND LIABLE FOR YOUR
+AND SUCH ENTITY'S COMPLIANCE WITH THIS AGREEMENT. FURTHER, YOU
+REPRESENT AND WARRANT THAT: (I) YOU ARE THE AUTHORIZED AGENT OF THE
+APPLICABLE ENTITY AND HAVE THE LEGAL AUTHORITY TO ENTER INTO THE
+AGREEMENT ON BEHALF OF YOURSELF AND THE ENTITY, AND (II) YOU HAVE
+OBTAINED, ON BEHALF OF YOURSELF AND THE ENTITY (IF APPLICABLE), ALL
+NECESSARY RIGHTS, WAIVERS, CONSENTS AND PERMISSIONS NECESSARY TO
+COLLECT, USE, STORE, AND SHARE USER INFORMATION IN CONNECTION WITH THE
+SOFTWARE. Effective November 20, 2015, this Agreement does not cover www.answers.io or
+the related “Answers” service, which is a software development kit and associated services
+focused on analysis and computation of the behavior and usage of mobile applications,
+including app analytics, event tracking, and conversion tracking. If you use Answers, then
+please consult the Answers Agreement, which is the contract governing your use of Answers. If
+you have questions regarding this Agreement, please contact Crashlytics at
+support@crashlytics.com.<br /><br />
+SECTION 1. OVERVIEW OF THE SERVICES<br />
+1.1 The Services provide a reporting solution for developers of mobile applications , including
+publicly released mobile applications (“Application(s)”), and facilitates Developers’ ability to
+invite certain designated users (“Beta Tester(s)”) to test mobile applications that have not yet
+been publicly released (“Beta Application(s)”). The Services provide information to Developers
+about the functioning of Applications and Beta Applications they own or manage, including, but
+not limited to, information about how and under what circumstances such applications crashed
+and how many users interact with such applications and how they do so.<br /><br />
+SECTION 2. SPECIFIC TERMS FOR DEVELOPERS<br />
+2.1 Service and Access Credentials. Developer will provide reasonable cooperation,
+assistance, information and access to Crashlytics as may be necessary to initiate Developer’s
+use of the Services. During the Term, and subject to Developer’s compliance with all terms and
+conditions of this Agreement, Crashlytics will provide Developer with access to the Services. As
+part of the implementation process, Developer will identify a user name and password that will
+be used to set up Developer’s account. Developer will not share its user name or password with
+any third party and will be responsible and liable for the acts or omissions of any person who
+accesses the Services using passwords or access procedures provided to Developer.
+Crashlytics reserves the right to refuse registration of, or to suspend or cancel, login IDs used by
+Developer to access the Services for any reason, including if Developer violates the terms and
+conditions set forth in this Agreement.<br /><br />
+2.2 License to Developer. During the Term, and subject to all terms and conditions of this
+Agreement (as a condition to the grants below), Crashlytics grants Developer and Developer
+accepts a nonexclusive, nontransferable right and license (without right to sublicense) to: (a)
+access and use the Services, solely for the purpose of accessing and downloading the Software
+(defined below) and assessing the performance of its own Applications and Beta Applications
+for Developer’s internal business purposes; and (b) download, install and use a reasonable
+number of copies of the Crashlytics software development kit (the “SDK”) and any tools
+provided as part of the SDK, including, but not limited to, any plugins (collectively, the
+“Software”) solely for the integration of the Software into an Application or Beta Application.
+Developer may use the Services and the Software solely for the purpose: (i) enabling
+Developer’s users, including Beta Testers, to access and use Applications and Beta
+Applications, (ii) obtaining information regarding the installation, use of and engagement with,
+and the functionality of Developer’s Applications and Beta Applications, including reporting on
+errors or bugs (collectively, “Performance Data”), (iii) improving the functionality of Developer’s
+Applications, Beta Applications and related products and services, and/or (iv) communicating
+with users, including Beta Testers, about Developer’s Applications and Beta Applications.
+Developer’s access and use of the Services shall also comply with all other conditions set forth
+in all documentation, instructions, end user guides and other documents regarding the Services
+and Software, in each case that is provided or made available by Crashlytics to Developer in
+electronic or other form (collectively, “Documentation”). Developer shall comply with all: (a)
+applicable laws, rules, and regulations, and (b) any applicable third party terms, including any
+third party terms applicable to Developer’s development and distribution of any Application or
+Beta Application operating on the Android or iOS mobile operating systems, or any other
+operating system upon which the Application or Beta Application is made available and upon
+which Crashlytics makes the Services available to Developer.<br /><br />
+2.3 Restrictions. Developer shall not directly or indirectly, or allow any third-party to: (a) use the
+Services or any of Crashlytics’s Confidential Information (as defined below) to create any
+service, software, or documentation that is the same as, substantially similar to or has similar
+functionality as the Services, (b) disassemble, decompile, reverse engineer, decipher, translate
+or use any other means to attempt to discover any source code, algorithms, or trade secrets
+underlying the Services or Background Materials (defined below), except and only to the extent
+these restrictions are expressly prohibited by applicable statutory law, (c) encumber, sublicense,
+transfer, distribute, rent, lease, timeshare, or use any Crashlytics Properties (as defined below)
+in any service bureau, rental or managed services arrangement or permit other individuals or
+entities to create Internet "links" to the Crashlytics Properties or "frame" or "mirror" the
+Crashlytics Properties on any other server, or wireless or Internet-based device, (d) adapt,
+combine, create derivative works of, or otherwise modify any Crashlytics Properties, (e) use or
+allow the transmission, transfer, export, reexport, or other transfer of any product, technology, or
+information it obtains or learns in connection with Developer’s use of the Services in violation of
+any export control or other laws and regulations of the United States or any other relevant
+jurisdiction, (f) remove or alter any proprietary notices or labels on or in any Crashlytics
+Properties; (g) use any Crashlytics Properties in connection with the development or
+transmission of any virus, worms or malicious code, (h) use any Crashlytics Properties to
+infringe the rights of Crashlytics or any third party, or in any way that does not comply with all
+applicable laws, or (i) use any Crashlytics Properties (including to create any Application) in any
+way that interferes with, disrupts, damages, or accesses in an unauthorized manner the servers,
+networks, or other properties or services of Crashlytics or any third party, including any mobile
+communications carrier.<br /><br />
+2.4 Developer Feedback. From time to time, Crashlytics may solicit from Developer or
+Developer may make, in its sole discretion, suggestions for changes, modifications or
+improvements to the Crashlytics Properties (as defined below) or any other feedback related to
+Crashlytics or the Crashlytics Properties (collectively, “Developer Feedback”). All Developer
+Feedback shall be solely owned by Crashlytics (including all intellectual property rights therein
+and thereto) and shall also be Crashlytics’s confidential information. Developer hereby assigns
+all of its right, title and interest in and to any Developer Feedback to Crashlytics and
+acknowledges that Crashlytics has the unrestricted right to use and exploit such Developer
+Feedback in any manner, without attribution, and without any obligations or compensation to
+Developer.<br /><br />
+2.5 Developer Data. Developer hereby grants Crashlytics a nonexclusive, license fee free and
+royalty free right and license to access, copy, distribute, process and use all information, data
+and other content provided by Developer or received by Crashlytics in connection with
+Developer’s authorized use of the Services, including, without limitation information provided
+through any Application or Beta Application that Developer makes available for testing through
+the Services (collectively, “Developer Data”), solely for the purpose of providing, developing,
+and maintaining the Services, along with any related customer or technical support, and as
+otherwise expressly permitted in this Agreement. Developer agrees that: (a) the Services
+depend on the availability of the Developer Data, and (b) Crashlytics will not assume any
+responsibility or liability for, or undertake to verify, the legality, accuracy or completeness of the
+Developer Data. Crashlytics shall have no obligation to store any Developer Data or Results (as
+defined below).<br /><br />
+2.6 Access by Beta Testers; EULA; End Users; Compliance. Developer shall provide to
+Crashlytics the contact information of any user of Developer’s application(s) whom Developer
+intends to invite to become a Beta Tester. Developer is solely responsible for determining which
+users will receive an invitation to become a Beta Tester, and for ensuring the accuracy of any
+user contact information provided to Crashlytics. Developer may provide Beta Testers with its
+own EULA for a Beta Application that will be accessed by Beta Testers (“Developer EULA”);
+provided that the Developer EULA provides terms and conditions consistent with this Agreement
+and, with respect to Crashlytics, no less protective than those terms and conditions set forth in
+the standard EULA provided in Appendix A (“Standard EULA”). If Developer does not provide a
+separate Developer EULA to Beta Testers in connection with Developer’s Beta Application,
+then Developer acknowledges and agrees that such Beta Testers, by accessing the Beta
+Application through the Services, will be made subject to the terms and conditions of the
+Standard EULA between Developer and such Beta Testers.. Developer acknowledges and
+agrees that Crashlytics provides the Standard EULA by way of convenience only, and does not
+represent or warrant that the Standard EULA will be enforceable under, or in compliance with,
+all applicable laws, rules, regulations, or otherwise. Developer acknowledges and agrees that
+the EULA applicable to Developer’s Beta Application shall be between Developer and any Beta
+Tester, and Crashlytics shall not be responsible for, and shall not have any liability whatsoever
+for, such EULA, any application tested by a Beta Tester, or for any breach by Developer or any
+Beta Tester of the terms and conditions of such EULA. The Services allow the Developer to
+collect information relating to performance of Developer’s applications, including, without
+limitation, device state information, unique device identifiers, information relating to the physical
+location of a device, and information about how the application was used. Developer may turn
+on features of the Services to allow collection of other information via the Services, including
+some personally identifiable information (e.g., a user’s email address), which allows Developers
+to communicate with users about the engagement with and functionality of their applications and
+to invite them to become Beta Testers. Developer represents and warrants that Developer is
+collecting information via the Services solely to obtain information about the user engagement
+with and functionality of Developer’s applications, and to communicate with users about such
+engagement and functionality. Developer agrees that it will not enable collection of personally
+identifiable information via the Services unless it is necessary to communicate with users about
+the applications or Developer wishes to invite users to be Beta Testers and the user has
+provided affirmative consent to the collection and use of such information. Subject to and
+without limiting the foregoing, Developer agrees it will not enable collection or use of credit card
+information, Social Security numbers, driver’s license numbers, dates of birth or physical
+addresses via the Services. Developer further agrees it will not invite any user to be a Beta
+Tester that is under the age of consent as defined under any applicable laws, rules, or
+regulations relating to data collection, including without limitation the Children’s Online Privacy
+Protection Act of 1998 (“COPPA”), the Regulation (EU) 2016/679 of the European Parliament
+and of the Council of 27 April 2016 on the protection of natural persons with regard to the
+processing of personal data and on the free movement of such data, and repealing Directive
+95/46/EC (General Data Protection Regulation or “GDPR”), and all other relevant laws and
+regulations. At all times during the term of this Agreement, Developer shall maintain a privacy
+policy: (a) that is readily accessible to users from its website or within its online service (as
+applicable), (b) that fully and accurately discloses to its users what information is collected about
+its users, and (c) that states that such information is disclosed to and processed by third party
+providers like Crashlytics in the manner contemplated by the Services, including, without
+limitation, disclosure of the use of technology to track users’ activity and otherwise collect
+information from users. For Developer’s users in the European Union, Developer shall provide
+such users with clear notice of, and obtain such users’ consent to, the transfer, storage, and use
+of their information in the United States and any other country where Crashlytics, or any third
+party service providers acting on its behalf, operates, and shall further notify such users that the
+privacy and data protection laws in some of these countries may vary from the laws in the
+country where such users live. Developer shall at all times comply with all applicable laws, rules
+and regulations relating to data collection, privacy and security, including without limitation,
+COPPA, GDPR, and all other such laws and regulations.. Developer will obtain and maintain
+any required consents necessary and will comply with any other applicable requirements to
+permit the processing of Developer Data under this Agreement.<br /><br />
+2.7 Developer Systems. Developer is responsible for providing: (a) all equipment, subscriptions
+and credentials necessary for Crashlytics to receive the Developer Data, and (b) all modems,
+servers, devices, storage, software (other than Software), databases, network and
+communications equipment and ancillary services needed to connect to, access, or otherwise
+use the Services at its facility (collectively, “Developer Systems”). Developer shall ensure that
+Developer Systems are compatible with the Services and comply with all configurations and
+specifications described in the Documentation.<br /><br />
+2.8 Limitations. Crashlytics will not be responsible or liable for any failures in the Services or any
+other problems which are related to: (a) the Developer Data or Developer Systems, or (b) any
+satellite, telecommunications, network or other equipment or service outside of Crashlytics’s
+facilities or control.<br /><br />
+2.9 Confidentiality. “Confidential Information” means any information disclosed by one party
+(“Discloser”) to the other party (“Recipient”) that is marked or otherwise identified as
+“confidential” or “proprietary,” or by its nature or the circumstances of disclosure should
+reasonably be understood to be confidential, including without limitation, all financial, business
+or technical information disclosed in relation to this Agreement. Except for the specific rights
+granted by this Agreement, the Recipient may not use, copy or disclose any Confidential
+Information of the Discloser without Discloser’s prior written consent, and shall use no less than
+reasonable care to safeguard Discloser’s Confidential Information, including ensuring that
+Recipient’s employees, contractors and agents (“Representatives”)with access to Discloser’s
+Confidential Information have a need to know such Confidential Information for the purposes of
+this Agreement and are bound by confidentiality obligations no less protective of the parties as
+those set forth herein. The foregoing obligations shall not apply to any Confidential Information
+that Recipient can demonstrate is: (a) already known by it without restriction, (b) rightfully
+furnished to it without restriction by a third party not in breach of any obligation to Discloser, (c)
+generally available to the public without breach of this Agreement or (d) independently
+developed by it without reference to or use of any of Discloser’s Confidential Information and
+without any violation of any obligation of this Agreement. Each party shall be responsible for any
+breach of confidentiality by its Representatives, as applicable. Promptly upon Discloser’s
+request at any time, Recipient shall, or in the case of Developer Data shall use reasonable
+efforts to, return all of Discloser’s tangible Confidential Information, permanently erase all
+Confidential Information from any storage media and destroy all information, records, copies,
+summaries, analyses and materials developed therefrom. Nothing herein shall prevent a party
+from disclosing any of the other’s Confidential Information as necessary pursuant to any court
+order or any legal, regulatory, law enforcement or similar requirement or investigation; provided,
+however, prior to any such disclosure, Recipient shall use reasonable efforts to: (i) promptly
+notify Discloser in writing of such requirement to disclose where permitted by law, and (ii)
+cooperate with Discloser in protecting against or minimizing any such disclosure and/or
+obtaining a protective order.<br /><br />
+2.10 Proprietary Rights. As used in this Agreement: “Background Materials” means all ideas,
+concepts, inventions, systems, platforms, software (including all Software), interfaces, tools,
+utilities, templates, forms, Report Formats, techniques, methods, processes, algorithms,
+knowhow, trade secrets and other technologies and information that are used by Crashlytics in
+providing the Services and Results (including any correction, improvement, derivative work,
+extension or other modification to the Services made, created, conceived or developed by or for
+Crashlytics, including at Developer’s request or as a result of feedback provided by Developer
+to Crashlytics); “Reports” means the reports, charts, graphs and other presentation in which the
+Results are presented to Developer; “Report Formats” means the formatting, look and feel of
+the Reports; and “Results” means the work products resulting from the Services that are
+delivered to Developer by Crashlytics through the Services, and which are based on the
+Developer Data. For the sake of clarity, Results shall expressly exclude all Background
+Materials. Developer shall own all right, title and interest (including all intellectual property and
+other proprietary rights) in and to: (a) feedback, suggestions, ideas or other materials and
+information provided by Beta Testers with respect to any Beta Application (“User Feedback”),
+(b) the Results and (c) Developer Data. Developer acknowledges and agrees that the Results
+will be presented to it in a Report, the Report Format of which is Confidential Information and
+proprietary to Crashlytics. Developer may make a reasonable number of copies of the Reports
+only for its internal purposes in using the Results. .<br /><br />
+2.11 General Learning; Aggregate Data. Crashlytics reserves the right to disclose aggregate
+information of Services usage, engagement, and performance, and to reuse all general
+knowledge, experience, knowhow, works and technologies (including ideas, concepts,
+processes and techniques) related to the Results or acquired during provision of the Services
+(including without limitation, that which it could have acquired performing the same or similar
+services for another customer).<br /><br />
+2.12 Reservation of Rights. Except for the limited rights and licenses expressly granted
+hereunder, no other license is granted, no other use is permitted and Crashlytics (and its
+licensors) shall retain all right, title, and interest (including all intellectual property and proprietary
+rights embodied therein) in and to the Services, Software, Documentation, Background
+Materials, aggregate data, and analyses (collectively, "Crashlytics Properties").<br /><br />
+SECTION 3. SPECIFIC TERMS FOR BETA TESTERS<br /><br />
+3.1 License; Restrictions. In order to access and use the Services to test any Beta Application,
+you may need to download or install Software (defined in Section 2 above), web clips,
+certificates, or other materials provided by Crashlytics (“Crashlytics Material”). Subject to your
+compliance with this Agreement, Crashlytics grants you a limited, nonexclusive, non-assignable,
+non-sublicensable license to access, download, and use any Crashlytics Material made
+available to you by Crashlytics, solely to access and use the Services. Crashlytics reserves all
+right, title, and interest in the Crashlytics Material not expressly granted to you, including but not
+limited to intellectual property rights. To the maximum extent permitted by law, you may not do
+any of the following with respect to any Crashlytics Material you receive or otherwise have
+access to: (a) modify, reverse engineer, decompile, or disassemble any Crashlytics Material, (b)
+rent, lease, loan, sell, sublicense, distribute, transmit, or otherwise transfer any Crashlytics
+Material, (c) make any copy of or otherwise reproduce any Crashlytics Material, (d) remove,
+alter, or obscure any copyright, trademark or other proprietary rights notice on or in any
+Crashlytics Material, (e) work around any technical limitations in any Crashlytics Material, or (f)
+use any Crashlytics Material for purposes for which it is not designed.<br /><br />
+3.2 No Responsibility for Beta Applications. If you have any complaints or disputes relating to
+your use of any Beta Application, you agree to look solely to the applicable Developer of such
+Beta Application and not Crashlytics. You acknowledge and agree that the applicable
+Developer, not Crashlytics, is fully responsible for any Beta Application, and the processing of
+information about your use of any Beta Application. If you want to terminate this Agreement, you
+must stop using the Services and delete from your device all Crashlytics Material.<br /><br />
+3.3 Consent to Data Processing and Transfer. Irrespective of which country you live in, you
+authorize Crashlytics to use your information in, and as a result to transfer it to and store it in,
+the United States and any other country where Crashlytics operates. Privacy and data
+protection laws in some of these countries may vary from the laws in the country where you live.<br /><br />
+3.4 No Compensation. By becoming a Beta Tester, you are acting as a volunteer. You will bear
+your own costs, including any mobile carrier and data costs that you incur in connection with
+your use of the Beta Application or any User Feedback (defined above) that you submit.<br /><br />
+3.5 Standard EULA for Beta Applications. You agree to comply with the terms of the Standard
+EULA in connection with your access and use of any Beta Application of a Developer, unless
+you agree to comply with a separate license agreement that the Developer provides in
+connection with such Beta Application, in which case the terms of that separate license
+agreement will govern.<br /><br />
+SECTION 4. WARRANTY, LIABILITY & INDEMNITY<br /><br />
+4.1 Warranties. Crashlytics represents and warrants that it has full right, power, and authority to
+enter into this Agreement and to perform its obligations and duties under this Agreement, and
+that the performance of such obligations and duties does not conflict with or result in a breach of
+any other agreement of Crashlytics, or any judgment, order, or decree by which such party is
+bound. Developer’s sole and exclusive remedy for any and all breaches of this provision is the
+remedy set forth in Section 4.4. Developer represents and warrants that it owns all right, title
+and interest, or possesses sufficient license rights, in and to the Developer Data as may be
+necessary to grant the rights and licenses, and provide the representations, and for Crashlytics
+to provide the Services set forth herein. Developer bears all responsibility and liability for the
+legality, accuracy and completeness of the Developer Data and Crashlytics’s access,
+possession, distribution, and use thereof, as permitted herein.<br /><br />
+4.2 Disclaimers. THE CRASHLYTICS SERVICES, CRASHLYTICS PROPERTIES AND
+RESULTS ARE PROVIDED “AS IS” WITHOUT WARRANTY OF ANY KIND. WITHOUT
+LIMITING THE FOREGOING, CRASHLYTICS AND ITS PARENTS, SUBSIDIARIES,
+AFFILIATES, RELATED COMPANIES, OFFICERS, DIRECTORS, EMPLOYEES, AGENTS,
+REPRESENTATIVES, PARTNERS AND LICENSORS (COLLECTIVELY, THE “CRASHLYTICS
+ENTITIES”) MAKE NO WARRANTY: (A) THAT THE SERVICES OR RESULTS WILL MEET
+YOUR REQUIREMENTS OR BE UNINTERRUPTED, ERROR FREE OR BUGFREE, (B)
+REGARDING THE RELIABILITY, TIMELINESS, OR PERFORMANCE OF THE SERVICES, OR
+(C) THAT ANY ERRORS IN THE SERVICES CAN OR WILL BE CORRECTED. THE
+CRASHLYTICS ENTITIES HEREBY DISCLAIM (FOR THEMSELVES AND THEIR
+SUPPLIERS) ALL WARRANTIES, WHETHER EXPRESS OR IMPLIED, ORAL OR WRITTEN,
+INCLUDING WITHOUT LIMITATION, ALL IMPLIED WARRANTIES OF NONINFRINGEMENT,
+MERCHANTABILITY, TITLE OR FITNESS FOR ANY PARTICULAR PURPOSE AND ALL
+WARRANTIES ARISING FROM ANY COURSE OF DEALING, COURSE OF PERFORMANCE
+OR USAGE OF TRADE.<br /><br />
+4.3 Claims Against Crashlytics. Developer will defend Crashlytics from all third party claims,
+whether actual or alleged (collectively, “Crashlytics Claims”), and will indemnify Crashlytics
+and hold Crashlytics harmless from any and all losses, liabilities, damages, costs, and expenses
+(including reasonable attorney’s fees) resulting from such Crashlytics Claims that arise out of
+Developer’s: (a) use of the Services, (b) actual or alleged infringement or misappropriation of
+the rights of any third party, including, without limitation, any intellectual property rights, privacy
+rights or publicity rights, and (c) breach of any representations and warranties set forth in the
+Agreement. Developer is solely responsible for defending any such Crashlytics Claims, subject
+to Crashlytics’s right to participate with counsel of its own choosing, and for payment of all
+judgments, settlements, damages, losses, liabilities, costs, and expenses, including reasonable
+attorneys’ fees, resulting from such Claims against Crashlytics, provided that Developer will not
+agree to any settlement related to any such Crashlytics Claims without Crashlytics’s prior
+express written consent regardless of whether or not such settlement releases Crashlytics from
+any obligation or liability. If Developer uses the Services in an official capacity as an employee
+or representative of a United States federal, state, or local government entity and is legally
+unable to accept this indemnification provision, then it does not apply to such entity, but only to
+the extent required by applicable law.<br /><br />
+4.4 Claims Against Developer. Crashlytics will defend the Developer from all third party claims,
+actions, suits, or proceedings, whether actual or alleged (collectively, “Developer Claims”), and
+will indemnify Developer and hold Developer harmless from any and all losses, liabilities,
+damages, costs, and expenses (including reasonable attorney’s fees) resulting from such
+Developer Claims, that arise out of an allegation that the Services, when used as expressly
+permitted by this Agreement, infringes the intellectual property rights of such third party.
+Notwithstanding the foregoing, Crashlytics will have no obligation under this Section 4.4 or
+otherwise with respect to any infringement claim based upon: (a) any use of the Services not
+expressly permitted under this Agreement; (b) any use of the Services in combination with
+products, equipment, software, or data not made available by Crashlytics if such infringement
+would have been avoided without the combination with such other products, equipment,
+software, or data; (c) any modification of the Services by any person other than Crashlytics or its
+authorized agents or subcontractors; or (d) any claim not clearly based on the Services itself.
+This Section 4.4 states Crashlytics’s entire liability and Developer’s sole and exclusive remedy
+for all third party claims.<br /><br />
+4.5 Procedure. The foregoing obligations are conditioned on the party seeking indemnification:
+(a) promptly notifying the other party in writing of such claim; (b) giving the other party sole
+control of the defense thereof and any related settlement negotiations; and (c) cooperating and,
+at the other party’s request and expense, assisting in such defense. Neither party may make
+any public announcement of any claim, defense or settlement without the other party’s prior
+written approval. The indemnifying party may not settle, compromise or resolve a claim without
+the consent of the indemnified party, if such settlement, compromise or resolution (i) causes or
+requires an admission or finding of guilt against the indemnified party, (i) imposes any monetary
+damages against the indemnified party, or (iii) does not fully release the indemnified party from
+liability with respect to the claim.<br /><br />
+4.6 Limitation of Liability.
+(a) IN NO EVENT WILL EITHER PARTY BE LIABLE TO THE OTHER FOR ANY INDIRECT,
+SPECIAL, INCIDENTAL, EXEMPLARY, PUNITIVE, OR CONSEQUENTIAL DAMAGES
+ARISING OUT OF OR IN CONNECTION WITH THIS AGREEMENT, OR FOR ANY DAMAGES
+ASSOCIATED WITH ANY LOSS OF USE, BUSINESS, PROFITS, OR GOODWILL OR FOR
+INTERRUPTION, LOSS OR CORRUPTION OF DATA OR NETWORKS.
+(b) IN NO EVENT WILL EITHER PARTY’S AGGREGATE LIABILITY FOR ANY AND ALL
+CLAIMS UNDER THIS AGREEMENT EXCEED FIFTY ($50.00) DOLLARS (USD).
+(c) THE FOREGOING LIMITATIONS SHALL NOT APPLY TO BREACHES OF
+CONFIDENTIALITY OBLIGATIONS OR FOR MISAPPROPRIATION OR INFRINGEMENT OF
+INTELLECTUAL PROPERTY RIGHTS, AND SHALL APPLY NOTWITHSTANDING THE
+FAILURE OF ANY REMEDY PROVIDED HEREIN.
+THE FOREGOING LIMITATIONS, EXCLUSIONS AND DISCLAIMERS SHALL APPLY TO ANY
+AND ALL CLAIMS, REGARDLESS OF WHETHER SUCH LIABILITY ARISES FROM ANY
+CLAIM BASED UPON CONTRACT, WARRANTY, TORT (INCLUDING NEGLIGENCE), STRICT
+LIABILITY, OR OTHERWISE, AND WHETHER OR NOT THE PARTY HAS BEEN ADVISED OF
+THE POSSIBILITY OF SUCH LOSS OR DAMAGE. Some states do not allow the exclusion or
+limitation of incidental or consequential damages, so the above limitation or exclusion may not
+apply to You. INSOFAR AS APPLICABLE LAW PROHIBITS ANY LIMITATION ON LIABILITY
+HEREIN, THE PARTIES AGREE THAT SUCH LIMITATION WILL BE AUTOMATICALLY
+MODIFIED, BUT ONLY TO THE EXTENT SO AS TO MAKE THE LIMITATION COMPLIANT
+WITH APPLICABLE LAW.<br /><br />
+SECTION 5. TERM AND TERMINATION<br /><br />
+5.1 Term. The term of this Agreement will begin on the date you first agree to this Agreement
+and are approved to register for the Services, and continue until terminated as set forth herein
+(“Term”). Your use of the Services may be terminated by Crashlytics or you at any time, for any
+reason, effective immediately upon notice provided by one party to the other party as set forth
+herein.<br /><br />
+5.2 Effects of Termination. Upon any expiration or termination of this Agreement, all rights,
+obligations and licenses of the parties shall cease, except that: (a) all obligations that accrued
+prior to the effective date of termination and all remedies for breach of this Agreement shall
+survive, (b) you must discontinue accessing and using the Services and delete all Software,
+Crashlytics Properties, and Crashlytics Material, and (c) the provisions in Section 2 titled
+Restrictions, Developer Feedback, Confidentiality, Proprietary Rights, General Learning;
+Aggregate Data, the provisions of Section 4 and the provisions in this Section 5 shall survive.
+Crashlytics has no obligation to store, delete or return any User Feedback, Performance Data,
+Developer Data, or Results.<br /><br />
+SECTION 6. MISCELLANEOUS<br /><br />
+6.1 Entire Agreement. This Agreement (which includes any order form completed by Developer)
+constitutes the entire agreement, and supersede all prior negotiations, understandings, or
+agreements (oral or written), between the parties about the subject matter of this Agreement.<br />
+6.2 Waivers, Consents and Amendments. No waiver, consent, or modification of this
+Agreement shall bind the Crashlytics Entities unless in writing and signed by Crashlytics.
+Crashlytics may amend this Agreement from time to time. If we make a change to this
+Agreement that, in our sole discretion, is material, we will notify you at the email address that
+you provided upon signing up to access the Services or upon signing up to access the
+Crashlytics Fabric services, at crashlytics.com, or otherwise through the Services. If you do not
+agree to the modified terms, you shall notify Crashlytics in writing within thirty (30) days, after
+which your right to access and use the Services shall immediately terminate and the Crashlytics
+Entities shall have no further responsibility or liability to you. The failure of either party to enforce
+its rights under this Agreement at any time for any period will not be construed as a waiver of
+such rights.<br />
+6.3 Severability. If any provision of this Agreement is determined to be illegal or unenforceable,
+that provision will be limited or eliminated to the minimum extent necessary so that this
+Agreement will otherwise remain in full force and effect and enforceable.<br />
+6.4 Governing Law and Disputes. This Agreement shall be governed by and construed in
+accordance with the laws of the State of California, without regard to its conflicts of law
+provisions.<br />
+(a) Except as set forth in Section 6.4(b) below, all claims arising out of or relating to this
+Agreement or the Services ("Disputes”) will be governed by California law, excluding
+California’s conflict of laws rules, and all Disputes will be litigated exclusively in the federal or
+state courts of Santa Clara County, California, USA, and You and Crashlytics consent to
+personal jurisdiction in those courts.<br />
+(b) If Your principal place of business (for entities) or place of residence (for individuals) is in any
+country within APAC (other than Australia, Japan, New Zealand or Singapore) or Latin America,
+this Section 6.4(b) will apply instead of Section 6.4(a) above. ALL DISPUTES (AS DEFINED
+ABOVE) WILL BE GOVERNED BY CALIFORNIA LAW, EXCLUDING CALIFORNIA’S
+CONFLICT OF LAWS RULES.The parties will try in good faith to settle any Dispute within 30
+days after the Dispute arises. If the Dispute is not resolved within 30 days, it must be resolved
+by arbitration by the American Arbitration Association’s International Centre for Dispute
+Resolution in accordance with its Expedited Commercial Rules in force as of the date of this
+Agreement ("Rules"). The parties will mutually select one arbitrator. The arbitration will be
+conducted in English in Santa Clara County, California, USA. Either party may apply to any
+competent court for injunctive relief necessary to protect its rights pending resolution of the
+arbitration. The arbitrator may order equitable or injunctive relief consistent with the remedies
+and limitations in this Agreement. Subject to the confidentiality requirements in of this
+Agreement, either party may petition any competent court to issue any order necessary to
+protect that party's rights or property; this petition will not be considered a violation or waiver of
+this governing law and arbitration section and will not affect the arbitrator’s powers, including the
+power to review the judicial decision. The parties stipulate that the courts of Santa Clara County,
+California, USA, are competent to grant any order under this subsection. The arbitral award will
+be final and binding on the parties and its execution may be presented in any competent court,
+including any court with jurisdiction over either party or any of its property. Any arbitration
+proceeding conducted in accordance with this section will be considered Confidential
+Information under this Agreement's confidentiality section, including: (i) the existence of, (ii) any
+information disclosed during, and (iii) any oral communications or documents related to the
+arbitration proceedings. The parties may also disclose the information described in this section
+to a competent court as may be necessary to file any order under this section or execute any
+arbitral decision, but the parties must request that those judicial proceedings be conducted in
+camera (in private). The parties will pay the arbitrator’s fees, the arbitrator's appointed experts'
+fees and expenses, and the arbitration center's administrative expenses in accordance with the
+Rules. In its final decision, the arbitrator will determine the non-prevailing party's obligation to
+reimburse the amount paid in advance by the prevailing party for these fees. Each party will
+bear its own lawyers’ and experts’ fees and expenses, regardless of the arbitrator’s final
+decision.<br /><br />
+6.5 Force Majeure. In the event that either party is prevented from performing, or is unable to
+perform, any of its obligations under this Agreement (except payment obligations) due to any
+cause beyond its reasonable control, the affected party shall give written notice thereof to the
+other party and its performance shall be extended for the period of delay or inability to perform
+due to such occurrence.<br /><br />
+6.6 Notices. Any notice or communication hereunder shall be in writing and either personally
+delivered or sent via confirmed facsimile, confirmed electronic transmission, recognized express
+delivery courier or certified or registered mail, prepaid and return receipt requested, addressed
+to the other party, which, in the case of Developer, shall be the email address provided to
+Crashlytics upon signing up for the Services or upon signing up to access the Crashlytics Fabric
+services, and, in the case of Crashlytics, shall be Google LLC 1600 Amphitheatre Parkway,
+Mountain View, CA 94043, USA, with a copy to Legal Department. All notices shall be in
+English, and deemed to have been received when they are hand delivered, or five business
+days after their mailing, or upon confirmed electronic transmission or confirmed facsimile
+transmission.<br /><br />
+6.7 Assignment. This Agreement and the rights and obligations hereunder may not be assigned,
+transferred or delegated, in whole or in part, whether voluntarily or by operation of law, contract,
+merger (whether Developer is the surviving or disappearing entity), stock or asset sale,
+consolidation, dissolution, through government action or otherwise, by Developer without
+Crashlytics’s prior written consent. Any assignment or transfer in violation of the foregoing shall
+automatically be null and void, and Crashlytics may immediately terminate this Agreement upon
+such an attempt. This Agreement shall be binding upon, and inure to the benefit of, any
+permitted successors, representatives, and permitted assigns of the parties hereto.
+6.8 Independent Contractors. The parties shall be independent contractors under this<br /><br />
+Agreement, and nothing herein will constitute either party as the employer, employee, agent, or
+representative of the other party, or both parties as joint venturers or partners for any purpose.
+Appendix A - Standard EULA<br />
+You, the Beta Tester, and the Developer (“Licensor”) of the Beta Application you access and use
+via the Services agree to comply with the terms of this EULA in connection with your access and
+use of such Beta Application (the “Application”).<br /><br />
+1. Relationship between the Parties. Licensor and the Beta Tester acknowledge that this
+Standard EULA is entered into by and between Licensor and the Beta Tester only, and not with
+Google LLCand its worldwide affiliates (“Crashlytics”), and Licensor, not Crashlytics, is solely
+responsible and liable for the Application accessed and used by the Beta Tester, including (i)
+any related maintenance and support, (ii) any and all express, implied, or statutory warranties
+associated with the Application, and (iii) any disputes or claims arising out of or related to the
+access and use of the Application.<br /><br />
+2. License. Subject to your compliance with this Standard EULA, the Licensor grants you a
+limited, nonexclusive, non-assignable, non-sublicensable license to access, download, and use
+the Application and any related documentation made available to you by the Licensor, solely for
+beta testing purposes. Licensor reserves all right, title, and interest in the Application not
+expressly granted to you, including but not limited to intellectual property rights. To the maximum
+extent permitted by law, you may not do any of the following with respect to the Application: (a)
+modify, reverse engineer, decompile, or disassemble the Application; (b) rent, lease, loan, sell,
+sublicense, distribute, transmit, or otherwise transfer the Application; or (c) make any copy of or
+otherwise reproduce the Application. This license is effective until terminated by you or the
+Licensor. Your rights under this license will terminate automatically without notice from the
+Licensor if you fail to comply with any term of this Standard EULA. Upon termination of the
+license, you shall cease all use of the Application, and destroy all copies, full or partial, of the
+Application.<br /><br />
+3. Consent to Data Processing and Transfer. Irrespective of which country you live in, you
+authorize us to use your information in, and as a result to transfer it to and store it in, the United
+States and any other country where we or Crashlytics operate. Privacy and data protection laws
+in some of these countries may vary from the laws in the country where you live<br /><br />.
+4. No Compensation. By becoming a Beta Tester, you are acting as a volunteer. You will bear
+your own costs, including any mobile carrier and data costs that you incur in connection with
+your use of the Application or any User Feedback (defined in Section 2 above) that you submit.<br /><br />
+5. User Feedback. You agree to use reasonable efforts to beta test any application downloaded
+from the Services. User Feedback shall be owned by the Licensor. You hereby assign all of your
+right, title, and interest in and to any User Feedback to Licensor and acknowledge that Licensor
+has the unrestricted right to use and exploit such User Feedback in any manner, with or without
+attribution, and without compensation or any duty to account to you for such use.<br /><br />
+6. Confidentiality. The Application and related information that Licensor provides to you are
+Licensor’s confidential information. You will not disclose information about the Application or any
+other Licensor confidential information to anyone other than Licensor’s employees, unless
+Licensor gives you written permission. For example, do not share screenshots or video clips of
+the Application with your friends, family, coworkers, or the media. You will also take reasonable
+precautions to prevent anyone from obtaining Licensor’s confidential information. For example,
+you should restrict access to your mobile device, prevent others from watching you use the
+Application, and not create any screenshots or video clips of the Application.<br /><br />
+7. Disclaimer. THE APPLICATION IS A TEST VERSION THAT IS MADE AVAILABLE TO YOU
+FOR TESTING AND EVALUATION PURPOSES ONLY. THE APPLICATION IS NOT READY
+FOR COMMERCIAL RELEASE AND MAY CONTAIN BUGS, ERRORS, AND DEFECTS.
+ACCORDINGLY, THE APPLICATION IS PROVIDED “AS IS,” WITH ALL FAULTS, DEFECTS,
+AND ERRORS, AND WITHOUT WARRANTY OF ANY KIND. LICENSOR AND ITS
+SUPPLIERS DISCLAIM ALL WARRANTIES (EXPRESS, IMPLIED, ARISING BY LAW, OR
+OTHERWISE) REGARDING THE APPLICATION AND ITS PERFORMANCE OR SUITABILITY
+FOR YOUR INTENDED USE, INCLUDING ANY IMPLIED WARRANTY OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR NONINFRINGEMENT.<br /><br />
+8. Limitation of Liability. EXCEPT TO THE EXTENT PROHIBITED BY LAW, IN NO EVENT
+WILL LICENSOR OR ITS SUPPLIERS BE LIABLE (UNDER ANY THEORY OF LIABILITY)
+FOR PERSONAL INJURY OR ANY INDIRECT, INCIDENTAL, CONSEQUENTIAL OR SPECIAL
+DAMAGES (INCLUDING FOR LOSS OF DATA, LOSS OF CONTENT, LOSS OF
+IN-APPLICATION FEATURES, LOSS OF PROFITS, OR BUSINESS INTERRUPTION)
+ARISING OUT OF OR RELATED TO YOUR USE OF OR INABILITY TO USE THE
+APPLICATION, EVEN IF LICENSOR AND/OR ITS SUPPLIERS HAS/HAVE BEEN ADVISED
+OF THE POSSIBILITY OF SUCH DAMAGES. SOME JURISDICTIONS DO NOT ALLOW THE
+FOREGOING LIMITATIONS OF LIABILITY, SO THESE LIMITATIONS MAY NOT APPLY TO
+YOU. IN NO EVENT SHALL LICENSOR AND ITS SUPPLIERS’ AGGREGATE LIABILITY
+ARISING FROM YOUR USE OR INABILITY TO USE THE APPLICATION EXCEED FIFTY
+UNITED STATES DOLLARS (US $50.00).

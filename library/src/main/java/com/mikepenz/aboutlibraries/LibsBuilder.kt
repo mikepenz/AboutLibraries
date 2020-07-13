@@ -12,7 +12,6 @@ import com.mikepenz.aboutlibraries.ui.LibsActivity
 import com.mikepenz.aboutlibraries.ui.LibsFragment
 import com.mikepenz.aboutlibraries.ui.LibsSupportFragment
 import com.mikepenz.aboutlibraries.ui.item.LibraryItem
-import com.mikepenz.aboutlibraries.util.Colors
 import com.mikepenz.aboutlibraries.util.toStringArray
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.IItem
@@ -39,11 +38,13 @@ class LibsBuilder : Serializable {
 
     var aboutShowIcon: Boolean = true
     var aboutVersionString: String = ""
-    var aboutAppName: String = ""
+    var aboutAppName: String? = null
     var aboutShowVersion: Boolean = true
-    var aboutDescription: String = ""
+    var aboutDescription: String? = null
     var aboutShowVersionName: Boolean = true
     var aboutShowVersionCode: Boolean = true
+
+    var aboutMinimalDesign: Boolean = false
 
     var aboutAppSpecial1: String? = null
     var aboutAppSpecial1Description: String? = null
@@ -52,19 +53,18 @@ class LibsBuilder : Serializable {
     var aboutAppSpecial3: String? = null
     var aboutAppSpecial3Description: String? = null
 
-    var activityTheme: Int = -1
     var activityTitle: String? = null
-    var activityColor: Colors? = null
-    var activityStyle: Libs.ActivityStyle? = null
+    var edgeToEdge: Boolean = false
 
     var libTaskExecutor = LibTaskExecutor.DEFAULT_EXECUTOR
 
     val libraryModification: HashMap<String, HashMap<String, String>> = HashMap()
+    val libraryEnchantment: HashMap<String, String> = HashMap()
 
     var ownLibsActivityClass: Class<*> = LibsActivity::class.java
 
     /**
-     * Builder method to pass the an own LibsActivity.
+     * Builder method to pass a custom LibsActivity.
      *
      * @param clazz Class
      * @return this
@@ -209,6 +209,17 @@ class LibsBuilder : Serializable {
     }
 
     /**
+     * Builder method to show the list in a minimal design
+     *
+     * @param aboutMinimalDesign enabled or disabled
+     * @return this
+     */
+    fun withAboutMinimalDesign(aboutMinimalDesign: Boolean): LibsBuilder {
+        this.aboutMinimalDesign = aboutMinimalDesign
+        return this
+    }
+
+    /**
      * Builder method to enable the display of the application version name and code as about this app view
      *
      * @param aboutShowVersion enabled or disabled
@@ -331,17 +342,6 @@ class LibsBuilder : Serializable {
     }
 
     /**
-     * Builder method to set the activity theme
-     *
-     * @param activityTheme as example R.theme.AppTheme (just for the activity)
-     * @return this
-     */
-    fun withActivityTheme(activityTheme: Int): LibsBuilder {
-        this.activityTheme = activityTheme
-        return this
-    }
-
-    /**
      * Builder method to set the ActivityTitle
      *
      * @param activityTitle the activity title (just for the activity)
@@ -353,24 +353,25 @@ class LibsBuilder : Serializable {
     }
 
     /**
-     * Builder method to set the ActivityColor
+     * Builder method to set the view to be edge to edge
      *
-     * @param activityColor the activity color (just for the activity)
+     * @param asEdgeToEdge true / false
      * @return this
      */
-    fun withActivityColor(activityColor: Colors): LibsBuilder {
-        this.activityColor = activityColor
+    fun withEdgeToEdge(asEdgeToEdge: Boolean): LibsBuilder {
+        this.edgeToEdge = asEdgeToEdge
         return this
     }
 
     /**
-     * Builder method to set the ActivityStyle
+     * Builder method to enchant specific libraries. NOTE: This will overwrite the original values
      *
-     * @param libraryStyle LibraryStyles.LIGHT / DARK / LIGHT_DARK_TOOLBAR
+     * @param library           the library to be modified
+     * @param enchantWith       the library id to use for enchanting the library id
      * @return this
      */
-    fun withActivityStyle(libraryStyle: Libs.ActivityStyle): LibsBuilder {
-        this.activityStyle = libraryStyle
+    fun withLibraryEnchantment(library: String, enchantWith: String): LibsBuilder {
+        this.libraryEnchantment[library] = enchantWith
         return this
     }
 
@@ -410,7 +411,7 @@ class LibsBuilder : Serializable {
      * @return this
      */
     fun withListener(libsListener: LibsConfiguration.LibsListener): LibsBuilder {
-        LibsConfiguration.instance.listener = libsListener
+        LibsConfiguration.listener = libsListener
         return this
     }
 
@@ -421,7 +422,7 @@ class LibsBuilder : Serializable {
      * @return this
      */
     fun withLibsRecyclerViewListener(recyclerViewListener: LibsConfiguration.LibsRecyclerViewListener): LibsBuilder {
-        LibsConfiguration.instance.libsRecyclerViewListener = recyclerViewListener
+        LibsConfiguration.libsRecyclerViewListener = recyclerViewListener
         return this
     }
 
@@ -433,7 +434,7 @@ class LibsBuilder : Serializable {
      * @return this
      */
     fun withUiListener(uiListener: LibsConfiguration.LibsUIListener): LibsBuilder {
-        LibsConfiguration.instance.uiListener = uiListener
+        LibsConfiguration.uiListener = uiListener
         return this
     }
 
@@ -444,7 +445,7 @@ class LibsBuilder : Serializable {
      * @return this
      */
     fun withLayoutAnimationController(layoutAnimationController: LayoutAnimationController): LibsBuilder {
-        LibsConfiguration.instance.layoutAnimationController = layoutAnimationController
+        LibsConfiguration.layoutAnimationController = layoutAnimationController
         return this
     }
 
@@ -469,8 +470,8 @@ class LibsBuilder : Serializable {
      * @param libTaskCallback
      * @return this
      */
-    fun withLibTaskCallback(libTaskCallback: LibTaskCallback): LibsBuilder {
-        LibsConfiguration.instance.libTaskCallback = libTaskCallback
+    fun withLibTaskCallback(libTaskCallback: com.mikepenz.aboutlibraries.LibTaskCallback): LibsBuilder {
+        LibsConfiguration.libTaskCallback = libTaskCallback
         return this
     }
 
@@ -488,8 +489,6 @@ class LibsBuilder : Serializable {
     /*
      * START OF THE FINAL METHODS
      */
-
-
     private fun preCheck() {
         if (fields.isEmpty()) {
             Log.w("AboutLibraries", "Have you missed to call withFields(R.string.class.getFields())? - autoDetect won't work - https://github.com/mikepenz/AboutLibraries/wiki/HOWTO:-Fragment")
@@ -504,9 +503,9 @@ class LibsBuilder : Serializable {
      */
     fun adapter(context: Context): FastAdapter<*> {
         val libs: Libs = if (fields.isEmpty()) {
-            Libs(context)
+            Libs(context, libraryEnchantments = libraryEnchantment)
         } else {
-            Libs(context, fields)
+            Libs(context, fields, libraryEnchantment)
         }
 
         //apply modifications
@@ -540,19 +539,11 @@ class LibsBuilder : Serializable {
 
         val i = Intent(ctx, clazz)
         i.putExtra("data", this)
-        i.putExtra(Libs.BUNDLE_THEME, this.activityTheme)
 
         if (this.activityTitle != null) {
             i.putExtra(Libs.BUNDLE_TITLE, this.activityTitle)
         }
-
-        if (this.activityColor != null) {
-            i.putExtra(Libs.BUNDLE_COLORS, this.activityColor)
-        }
-
-        if (this.activityStyle != null) {
-            i.putExtra(Libs.BUNDLE_STYLE, this.activityStyle?.name)
-        }
+        i.putExtra(Libs.BUNDLE_EDGE_TO_EDGE, this.edgeToEdge)
 
         return i
     }

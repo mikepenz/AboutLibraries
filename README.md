@@ -1,95 +1,136 @@
-# AboutLibraries [![Status](https://travis-ci.org/mikepenz/AboutLibraries.svg?branch=master)](https://travis-ci.org/mikepenz/AboutLibraries) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.mikepenz/aboutlibraries/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/com.mikepenz/aboutlibraries) [![Android Arsenal](http://img.shields.io/badge/Android%20Arsenal-AboutLibraries-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/102)
+# AboutLibraries [![Status](https://travis-ci.org/mikepenz/AboutLibraries.svg?branch=develop)](https://travis-ci.org/mikepenz/AboutLibraries) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.mikepenz/aboutlibraries/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/com.mikepenz/aboutlibraries)
 
-[![Join the chat at https://gitter.im/mikepenz/AboutLibraries](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/mikepenz/AboutLibraries?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+.. allows you to easily create an **used open source libraries** fragment/activity within your app. All the library information is automatically collected from the POM information of your depencencies and included during compile time.
+*No runtime overhead.* Strong caching. Any dependency is supported.
 
-The **AboutLibraries** library allows you to easily create an **used open source libraries** fragment/activity within your app. As an extra feature you can also add an **about this app** section. 
+-------
 
-Here's a quick overview of functions it include:
+<p align="center">
+    <a href="#whats-included-">What's included 🚀</a> &bull;
+    <a href="#setup">Setup 🛠️</a> &bull;
+    <a href="MIGRATION.md">Migration Guide 🧬</a> &bull;
+    <a href="https://github.com/mikepenz/AboutLibraries/wiki">WIKI 📖</a> &bull;
+    <a href="#used-by">Used by</a> &bull;
+    <a href="https://play.google.com/store/apps/details?id=com.mikepenz.aboutlibraries.sample">Sample App</a>
+</p>
+
+-------
+
+### What's included 🚀
 - **used open source libraries**
 	- name, description, creator, license, version, ...
 - **about this app** section (optional)
-- autodetect libraries
+- autodetect libraries (via the gradle depencies)
 - many included library details
 - automatic created fragment/activity
-- feature rich builder to simply create and start the fragment / activity
+- feature rich builder to simply create and start the fragment / activities
+- large amount of configuration options
+  - usage standalone possible too
 - much much more... try the sample for a quick overview.
 
-# Motivation
-
-Most modern apps feature a "Used Library"-section, which requires information about those respective libs. As it gets annoying to always copy those strings to your app, I've developed this small helper library to provide the required information.
-
-# Migration
-- [MIGRATION GUIDE](https://github.com/mikepenz/AboutLibraries/blob/develop/MIGRATION.md)
-
-# Get started
-- [Include in your project](#include-in-your-project)
-- [Usage](#usage)
-- [Contribute](#contribute)
-
-# More...
-- [Sample (Google Play Store)](https://play.google.com/store/apps/details?id=com.mikepenz.aboutlibraries.sample)
-- [Create new definition files](http://def-builder.mikepenz.com/)
-- [Get detailed instructions in the wiki](https://github.com/mikepenz/AboutLibraries/wiki)
-- [Compatible/included libs](https://github.com/mikepenz/AboutLibraries/wiki/Compatible-Libs)
-
-
 # Screenshots
-![Image](https://raw.githubusercontent.com/mikepenz/AboutLibraries/master/DEV/screenshots/screenshot1_small.png)
-![Image](https://raw.githubusercontent.com/mikepenz/AboutLibraries/master/DEV/screenshots/screenshot2_small.png)
+![Image](https://raw.githubusercontent.com/mikepenz/AboutLibraries/develop/DEV/screenshots/screenshots.jpg)
 
+# Setup
 
-# Wiki
-You can find anything you search for in the wiki. (If not open an issue)
+## Latest releases 🛠
 
-[Bring me to the wiki](https://github.com/mikepenz/AboutLibraries/wiki)
+- Kotlin && Gradle Plugin | [v8.3.0](https://github.com/mikepenz/AboutLibraries/tree/v8.3.0)
+- Kotlin | [v7.1.0](https://github.com/mikepenz/AboutLibraries/tree/v7.1.0)
+- Java && AndroidX | [v6.2.3](https://github.com/mikepenz/AboutLibraries/tree/v6.2.3)
+- Java && AppCompat | [v6.1.1](https://github.com/mikepenz/AboutLibraries/tree/v6.1.1)
 
+## Gradle Plugin
 
-## Include in your project
-### Using Maven
-The AboutLibraries Library is pushed to [Maven Central](http://search.maven.org/#search|ga|1|g%3A%22com.mikepenz%22), so you just need to add the following dependency to your `build.gradle`. It seems it is also required to add the support dependencies to the application. If it works without, you should be fine too :).
+As a new feature of the AboutLibraries v8.x.y we offer a gradle plugin which will resolve the dependency during compilation, and only includes the libraries which are really specified as dependencies.
 
-```javascript
-implementation "com.mikepenz:aboutlibraries:7.0.0-rc1"
+```gradle
+// Root build.gradle
+classpath "com.mikepenz.aboutlibraries.plugin:aboutlibraries-plugin:${latestAboutLibsRelease}"
 
-//required support lib modules
-implementation "androidx.appcompat:appcompat:${versions.appcompat}"
-implementation "androidx.cardview:cardview:${versions.cardview}"
-implementation "androidx.recyclerview:recyclerview:${versions.recyclerview}"
-implementation "com.google.android.material:material:${versions.material}"
+// App build.gradle
+apply plugin: 'com.mikepenz.aboutlibraries.plugin'
 ```
 
-To use java version please use a version smaller than 7.0.0 (See the release on GitHub)
-To use appcompat please use a version smaller than 6.2.0. (See the releases on GitHub)
+## Using Maven
+The AboutLibraries Library is pushed to [Maven Central](http://search.maven.org/#search|ga|1|g%3A%22com.mikepenz%22).
 
-Further information and how to use it if you can't update to the newest support libs can be found in the [wiki](https://github.com/mikepenz/AboutLibraries/wiki/HOWTO:-Include)
+## CORE module
 
-## Usage
-You can use this library in a few different ways. You can create your own activity, including a custom style and just use the information, or you can use the built-in Activity or Fragment and just pass the libs you would love to include.
+```gradle
+implementation "com.mikepenz:aboutlibraries-core:${latestAboutLibsRelease}"
+```
 
-### Upgrade Notes
-> If you upgrade from < 5.9.5 follow the [MIGRATION GUIDE](https://github.com/mikepenz/AboutLibraries/blob/develop/MIGRATION.md)
+## UI module
+
+```gradle
+implementation "com.mikepenz:aboutlibraries:${latestAboutLibsRelease}"
+
+//required support lib modules
+implementation "androidx.appcompat:appcompat:${versions.appcompat | 1.x.y}"
+implementation "androidx.cardview:cardview:${versions.cardview | 1.x.y}"
+implementation "androidx.recyclerview:recyclerview:${versions.recyclerview | 1.1.y}"
+implementation "com.google.android.material:material:${versions.material | 1.1.y}"
+```
+
+# Basic Usage
+You can use this library in a few different ways. Create your own activity, including a custom style or just use its generated information. Or simply use the built-in Activity or Fragment and just pass the libs you would love to include.
 
 ### Activity / Fragment
+
+> NOTE: These integrations require the `ui-module`
+
+#### Activity
+
+```kotlin
+LibsBuilder()
+    .start(this) // start the activity
+```
+
 #### Fragment
 ```kotlin
 val fragment = LibsBuilder()
-                .withLibraryModification("aboutlibraries", Libs.LibraryFields.LIBRARY_NAME, "_AboutLibraries")
-                .supportFragment()
-```
-#### Activity
-##### Code:
-```kotlin
-LibsBuilder()
-        //provide a style (optional) (LIGHT, DARK, LIGHT_DARK_TOOLBAR)
-        .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
-        //start the activity
-    .start(this)
+    .withFields(R.string::class.java.fields) // in some cases it may be needed to provide the R class, if it can not be automatically resolved
+    .withLibraryModification("aboutlibraries", Libs.LibraryFields.LIBRARY_NAME, "_AboutLibraries") // optionally apply modifications for library information
+    .supportFragment()
 ```
 
-## Small extra
-For those who read the whole README here's one more thing.
-You can also use the AboutLibraries activity as an "about this app" screen. You ask how?
-Yeah pretty simple just add the following .xml file (or just the strings - the key must be the same) to your project.
+# Gradle API
+
+The gradle plugin will automatically run when building the application, so no action is required to build the library information showed / retrieved via the `Libs` class.
+But there are additional commands which may be helpful for various situations.
+
+## Export Library information
+
+```kotlin
+./gradlew exportLibraries // exists also per variant
+```
+Exports all libraries in a CSV format with the name, artifactId, and licenseId. And a seperate list with all licenses used, and a potential list of unmatched libraries / licenses.
+
+## Find
+
+```kotlin
+./gradlew findLibraries
+```
+Finds all included libraries with their name, and the unique AboutLibraries identifier which can be used to modify libraries and their information, or create custom mapping information if required.
+See the `Config` section for more information.
+
+# Advanced Usage
+
+## Access generated library details
+
+If you want to create your own integration you can access the generated library information programmatically through the code module.
+
+```kotlin
+val libraries = Libs(this).libraries
+for (lib in libraries) {
+    Log.e("AboutLibraries", "${lib.libraryName} from ${lib.author}")
+}
+```
+
+## About this App UI
+You can also use the AboutLibraries activity as an "about this app" screen.
+Add the following .xml file (or just the strings - the key must be the same) to your project.
 
 ```xml
 <resources>
@@ -103,6 +144,63 @@ or use the builder and add following:
 	.withAboutIconShown(true)
 	.withAboutVersionShown(true)
 	.withAboutDescription("This is a small sample which can be set in the about my app description file.<br /><b>You can style this with html markup :D</b>")
+```
+
+## Style the AboutLibraries 🖌️
+
+Create your custom style. If you don't need a custom theme see the next section, how you can set the colors just by overwriting the original colors.
+```xml
+// define a custom style
+<style name="CustomAboutLibrariesStyle" parent="">
+    <!-- AboutLibraries specific values -->
+    <item name="aboutLibrariesCardBackground">?cardBackgroundColor</item>
+    <item name="aboutLibrariesDescriptionTitle">?android:textColorPrimary</item>
+    <item name="aboutLibrariesDescriptionText">?android:textColorSecondary</item>
+    <item name="aboutLibrariesDescriptionDivider">@color/opensource_divider</item>
+    <item name="aboutLibrariesOpenSourceTitle">?android:textColorPrimary</item>
+    <item name="aboutLibrariesOpenSourceText">?android:textColorSecondary</item>
+    <item name="aboutLibrariesSpecialButtonText">?android:textColorPrimary</item>
+    <item name="aboutLibrariesOpenSourceDivider">@color/opensource_divider</item>
+</style>
+
+// define the custom styles for the theme
+<style name="SampleApp" parent="Theme.MaterialComponents.Light.NoActionBar">
+    ...
+    <item name="aboutLibrariesStyle">@style/CustomAboutLibrariesStyle</item>
+    ...
+</style>
+```
+
+## Gradle Plugin Configuration
+
+It is possible to provide custom configurations / adjustments to the automatic detection. This can be done via the gradle plugin.
+
+```groovy
+aboutLibraries {
+    configPath = "config" // the path to the directory containing configuration files
+}
+```
+
+This directory may contain one or more of the following configurations:
+
+```
+custom_enchant_mapping.prop // allows providing custom mapping files to overwrite the information from the POM file
+custom_license_mappings.prop // allows defining the licenseId which should be used for the library (if not resolveable via the POM file)
+custom_license_year_mappings.prop // allows defining the license Year for this library (this information CANNOT be resolved from the POM file)
+custom_name_mappings.prop // allows overwriting the name of a library if the POM specifies unexpected information
+custom_author_mappings.prop // allows overwriting the authors of a library if the POM specifies unexpected information
+custom_exclusion_list.prop // allows excluding libraries by their id at build time
+```
+
+See the corresponding files here for the format and content: https://github.com/mikepenz/AboutLibraries/tree/develop/library-definitions/src/main/res/raw
+
+## Usage WITHOUT gradle plugin (not recommended)
+
+If you do not want to use the gradle plugin, you need to add the legacy definition files, which will then be included in the built apk, and resolved via reflection during runtime.
+> NOTE: This is not recommended. Please migrate to use the gradle plugin
+
+```gradle
+implementation "com.mikepenz:aboutlibraries-definitions:${latestAboutLibsRelease}"
 ```
 
 ## ProGuard
@@ -122,12 +220,18 @@ In case you want to minimize your resources as much as possible use the followin
 ```
 These rules **will** require you to add the libraries manually. (see more in the above linked issue)
 
+# Disclaimer
 
-## Contribute
-You can contribute by creating a information file for a new library, and open a pull-request at the creators Git repository. If he doesn't include the information file in his repo, or if the library isn't maintained anymore you can create a pull-request here. Find more information in the wiki [Create a definition file](https://github.com/mikepenz/AboutLibraries/wiki/HOWTODEV:-Include-into-AboutLibraries)
+This library uses all compile time dependencies (and their sub dependencies) as defined in your `build.gradle` file,
+this could lead to dependencies which are only used during compilation (and not actually distributed in your app) to be listed or missing in the attribution screen.
+It might also fail to identify licenses if the dependencies do not define it properly in their pom.xml file.
 
+Careful optimisation and review of all licenses is recommended to really include all required dependencies. The use of the gradle commands like `findLibraries` can help doing this.
 
-## Already in use in following apps
+It is also important that native sub dependencies can *not* be resolved automatically as they are not included via gradle.
+Additional dependencies can be provided via this plugins API to extend and provide any additional details.
+
+# Used by
 (feel free to send me new projects)
 
 * [wallsplash](https://play.google.com/store/apps/details?id=com.mikepenz.unsplash)
@@ -174,7 +278,7 @@ You can contribute by creating a information file for a new library, and open a 
 
 # License
 
-    Copyright 2019 Mike Penz
+    Copyright 2020 Mike Penz
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
