@@ -269,6 +269,7 @@ Additional dependencies can be provided via this plugins API to extend and provi
 * [Frost for Facebook](https://play.google.com/store/apps/details?id=com.pitchedapps.frost)
 * [OneMeme: Meme Maker](https://play.google.com/store/apps/details?id=com.mememaker.android&hl)
 * [andOTP](https://play.google.com/store/apps/details?id=org.shadowice.flocke.andotp)
+* [MyLife - Journal](https://play.google.com/store/apps/details?id=com.pi143.mylife)
 
 # Developed By
 
