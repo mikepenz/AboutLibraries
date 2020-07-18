@@ -87,7 +87,7 @@ LibsBuilder()
     .start(this) // start the activity
 ```
 
-The activity defines it's own Toolbar/ActionBar, so make sure that the applied theme doesn't provide an additional one, you will get an exception when starting the activity. If your default app theme still uses a theme with ActionBars you can override the AboutLibraries' Activity theme as described in [Style the AboutLibraries](#style-the-aboutlibraries)
+The activity defines it's own Toolbar/ActionBar, so make sure that the applied theme doesn't provide an additional one, you will get an exception when starting the activity. If your default app theme still uses a theme with ActionBars you can override the AboutLibraries' Activity theme as described in [Style the AboutLibraries](#style-the-aboutlibraries-%EF%B8%8F)
 
 #### Fragment
 ```kotlin
