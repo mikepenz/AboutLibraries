@@ -87,6 +87,8 @@ LibsBuilder()
     .start(this) // start the activity
 ```
 
+The activity uses a toolbar, which requires the appropriate theme. See [Style the AboutLibraries](#style-the-aboutlibraries-%EF%B8%8F) for more details
+
 #### Fragment
 ```kotlin
 val fragment = LibsBuilder()
