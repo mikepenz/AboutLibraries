@@ -11,7 +11,7 @@ import com.mikepenz.aboutlibraries.util.*
 import java.util.*
 import kotlin.collections.ArrayList
 
-public class Libs(
+class Libs(
         context: Context,
         fields: Array<String> = context.getFields(),
         libraryEnchantments: Map<String, String> = emptyMap()
@@ -50,16 +50,16 @@ public class Libs(
         LIBRARY_REPOSITORY_LINK,
         LIBRARY_CLASSPATH,
 
-        @Deprecated("Note this only will work for libraries with a single license, otehrwise only the first is modified")
+        @Deprecated("Note this only will work for libraries with a single license, otherwise only the first is modified")
         LICENSE_NAME,
 
-        @Deprecated("Note this only will work for libraries with a single license, otehrwise only the first is modified")
+        @Deprecated("Note this only will work for libraries with a single license, otherwise only the first is modified")
         LICENSE_SHORT_DESCRIPTION,
 
-        @Deprecated("Note this only will work for libraries with a single license, otehrwise only the first is modified")
+        @Deprecated("Note this only will work for libraries with a single license, otherwise only the first is modified")
         LICENSE_DESCRIPTION,
 
-        @Deprecated("Note this only will work for libraries with a single license, otehrwise only the first is modified")
+        @Deprecated("Note this only will work for libraries with a single license, otherwise only the first is modified")
         LICENSE_WEBSITE
     }
 
