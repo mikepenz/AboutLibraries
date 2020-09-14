@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="define_plu_Mike">year;owner</string>
+    <string name="library_Mike_author">Mike Penz</string>
+    <string name="library_Mike_authorWebsite">https://mikepenz.com</string>
+    <string name="library_Mike_libraryName">Mike Library</string>
+    <string name="library_Mike_libraryDescription">Some text
+    </string>
+    <string name="library_Mike_libraryVersion">10.1.1</string>
+    <string name="library_Mike_libraryWebsite">https://github.com/mikepenz/AboutLibraries</string>
+    <string name="library_Mike_licenseIds">mikeLicense</string>
+    <string name="library_Mike_isOpenSource">true</string>
+    <string name="library_Mike_repositoryLink">https://github.com/mikepenz/AboutLibraries</string>
+    <!-- Custom variables section -->
+    <string name="library_Mike_owner">Mike Penz</string>
+    <string name="library_Mike_year">2020</string>
+</resources>
