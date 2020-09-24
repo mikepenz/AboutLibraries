@@ -262,6 +262,7 @@ Additional dependencies can be provided via this plugins API to extend and provi
 * [OneMeme: Meme Maker](https://play.google.com/store/apps/details?id=com.mememaker.android&hl)
 * [andOTP](https://play.google.com/store/apps/details?id=org.shadowice.flocke.andotp)
 * [MyLife - Journal](https://play.google.com/store/apps/details?id=com.pi143.mylife)
+* [LibreAV](https://github.com/projectmatris/antimalwareapp)
 
 # Developed By
 
