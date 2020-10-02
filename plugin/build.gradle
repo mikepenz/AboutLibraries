@@ -22,7 +22,7 @@ version = "8.3.1"
 gradlePlugin {
     plugins {
         aboutlibsPlugin {
-            id = "aboutlibraries-plugin"
+            id = "${project.group}"
             implementationClass = "${project.group}.AboutLibrariesPlugin"
         }
     }
