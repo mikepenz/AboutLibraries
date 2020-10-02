@@ -29,6 +29,9 @@ import java.util.*
 class DependencyCollector(
         private val variant: String? = null
 ) {
+
+    private val processedDependency = mutableSetOf<Any>()
+
     /**
      * Generates the project dependency report structure
      *
@@ -64,7 +67,12 @@ class DependencyCollector(
 
                 val result = configuration.incoming.resolutionResult
                 val root: RenderableDependency = RenderableModuleResult(result.root)
-                addChildDependencies(root.children, collected, configuration.name)
+
+                try {
+                    addChildDependencies(root.children, collected, configuration.name)
+                } catch (ex: Throwable) {
+                    LOGGER.error("Problem occurred while adding child dependencies", ex)
+                }
             }
         }
         return collected
@@ -73,14 +81,15 @@ class DependencyCollector(
     private fun addChildDependencies(childDependencies: Set<RenderableDependency>?, collected: MutableMap<String, HashSet<String>>, configurationName: String?) {
         childDependencies ?: return
         for (childDependency in childDependencies) {
+            processedDependency.add(childDependency.id)
             if (childDependency.id is ModuleComponentIdentifier) {
                 val id = childDependency.id as ModuleComponentIdentifier
                 val versions = collected.getOrDefault(id.group + ":" + id.module, HashSet())
                 versions.add(id.version)
                 collected[id.group + ":" + id.module] = versions
             }
-            // check children
-            addChildDependencies(childDependency.children, collected, configurationName)
+            // check children, but filter out references we already processed.
+            addChildDependencies(childDependency.children.filter { !processedDependency.contains(it.id) }.toSet(), collected, configurationName)
         }
     }
 
