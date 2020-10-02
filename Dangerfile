@@ -19,12 +19,8 @@ File.open("settings.gradle", "r") do |file_handle|
     if setting.include? "include"
         gradleModule = setting[10, setting.length-12]
 
-        message(gradleModule)
-
         # AndroidLint
         androidLintFile = String.new(gradleModule + "/build/reports/lint-results.xml")
-
-        message(androidLintFile)
 
         if File.file?(androidLintFile)
             android_lint.skip_gradle_task = true
