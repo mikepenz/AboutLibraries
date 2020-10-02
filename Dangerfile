@@ -17,7 +17,7 @@ warn("Big PR") if git.lines_of_code > 5000
 File.open("settings.gradle", "r") do |file_handle|
   file_handle.each_line do |setting|
     if setting.include? "include"
-        gradleModule = setting[10, setting.length-11]
+        gradleModule = setting[10, setting.length-12]
 
         message(gradleModule)
 
