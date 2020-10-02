@@ -17,12 +17,15 @@ warn("Big PR") if git.lines_of_code > 5000
 File.open("settings.gradle", "r") do |file_handle|
   file_handle.each_line do |setting|
     if setting.include? "include"
-        gradleModule = setting[10..-2]
+        gradleModule = setting[10, setting.length-1]
 
         message(gradleModule)
 
         # AndroidLint
         androidLintFile = String.new(gradleModule + "/build/reports/lint-results.xml")
+
+        message(androidLintFile)
+
         if File.file?(androidLintFile)
             android_lint.skip_gradle_task = true
             android_lint.severity = "Warning"
