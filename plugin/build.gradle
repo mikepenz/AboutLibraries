@@ -37,14 +37,12 @@ pluginBundle {
         aboutlibsPlugin {
             displayName = 'AboutLibraries Library Gradle Plugin'
             tags = ['gradle', 'plugin', 'android']
-            version = version
         }
     }
 
     mavenCoordinates {
-        groupId = group
+        groupId = "${project.group}"
         artifactId = "aboutlibraries-plugin"
-        version = version
     }
 }
 

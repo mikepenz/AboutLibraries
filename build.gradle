@@ -31,10 +31,10 @@ buildscript {
     }
 
     repositories {
+        maven { url "https://plugins.gradle.org/m2/" }
         google()
         jcenter()
         mavenLocal()
-        maven { url uri('/tmp/sample') }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.0.1'
@@ -42,7 +42,8 @@ buildscript {
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.5'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:${versions.detekt}"
-        classpath "com.mikepenz.aboutlibraries.plugin:aboutlibraries-plugin:${release.versionName}"
+        //classpath "com.mikepenz.aboutlibraries.plugin:aboutlibraries-plugin:${release.versionName}"
+        classpath "gradle.plugin.com.mikepenz.aboutlibraries.plugin:aboutlibraries-plugin:${release.versionName}"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
     }
 }
@@ -54,8 +55,6 @@ allprojects {
         google()
         jcenter()
         mavenLocal()
-        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
-        flatDir { dirs 'libs' }
     }
 }
 
