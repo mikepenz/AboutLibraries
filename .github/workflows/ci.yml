@@ -34,7 +34,7 @@ jobs:
             gradle-${{ runner.os }}-
 
       - name: Build Debug
-        run: ./gradlew clean buildDebug
+        run: ./gradlew clean app:assembleDebug
 
       - name: Run Lint
         if: github.event_name  == 'pull_request'
@@ -75,6 +75,7 @@ jobs:
       - name: Relase bintray
         if: startsWith(github.ref, 'refs/tags/')
         run: |
+          ./gradlew build
           ./gradlew library-core:bintrayUpload -Plibrary_core_only
           ./gradlew library:bintrayUpload -x test -x lint -Plibrary_only
           ./gradlew library-definitions:bintrayUpload -x test -x lint -Plibrary_definitions_only
