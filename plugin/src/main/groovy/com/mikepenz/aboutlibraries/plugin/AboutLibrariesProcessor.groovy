@@ -93,14 +93,23 @@ class AboutLibrariesProcessor {
             ModuleVersionIdentifier versionIdentifier = DefaultModuleVersionIdentifier.newId(group_artifact[0], group_artifact[1], version)
             File file = resolvePomFile(project, group_artifact, versionIdentifier, false)
             if (file != null) {
-                writeDependency(project, librariesList, file)
+                try {
+                    writeDependency(project, librariesList, file)
+                } catch (Throwable ex) {
+                    LOGGER.error("--> Failed to write dependency information for: ${group_artifact}")
+                }
             }
         }
         return librariesList
     }
 
     def writeDependency(def project, List<Library> libraries, File artifactFile) {
-        def artifactPomText = artifactFile.getText('UTF-8')
+        def artifactPomText = artifactFile.getText('UTF-8').trim()
+        if (artifactPomText.charAt(0) != (char) '<') {
+            LOGGER.warn("--> ${artifactFile.path} contains a invalid character at the first position. Applying workaround.")
+            artifactPomText = artifactPomText.substring(artifactPomText.indexOf('<'))
+        }
+
         def artifactPom = new XmlSlurper(/* validating */ false, /* namespaceAware */ false).parseText(artifactPomText)
 
         // the uniqueId
