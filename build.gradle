@@ -1,4 +1,6 @@
 buildscript {
+    apply from: 'configurations.gradle'
+
     ext {
         release = [
                 versionName: "8.3.1",
@@ -17,20 +19,21 @@ buildscript {
                 cardview        : '1.0.0',
                 appcompat       : '1.2.0',
                 recyclerview    : '1.1.0',
-                material        : '1.2.0',
+                material        : '1.2.1',
                 kotlin          : "1.4.10",
                 constraintLayout: '2.0.1',
                 iconics         : "5.0.3",
-                detekt          : '1.0.1',
-                fastadapter     : "5.1.0",
-                materialdrawer  : "8.1.0",
-                coreKtx         : "1.3.1"
+                detekt          : '1.12.0',
+                fastadapter     : "5.2.3",
+                materialdrawer  : "8.1.5",
+                coreKtx         : "1.3.2"
         ]
     }
 
     repositories {
         google()
         jcenter()
+        mavenLocal()
         maven { url uri('/tmp/sample') }
     }
     dependencies {
@@ -50,6 +53,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        mavenLocal()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         flatDir { dirs 'libs' }
     }
