@@ -36,8 +36,10 @@ jobs:
       - name: Prepare Gradle Publish properties
         if: startsWith(github.ref, 'refs/tags/')
         run: |
-          echo "${{ secrets.GRADLE_PUBLISH_KEY }}" >> ~/.gradle/gradle.properties
-          echo "${{ secrets.GRADLE_PUBLISH_SECRET }}" >> ~/.gradle/gradle.properties
+          echo "gradle.publish.key=${{ secrets.GRADLE_PUBLISH_KEY }}" >> ~/.gradle/gradle.properties
+          echo "gradle.publish.secret=${{ secrets.GRADLE_PUBLISH_SECRET }}" >> ~/.gradle/gradle.properties
+          echo "NEXUS_USERNAME=${{ secrets.NEXUS_USERNAME }}" >> ~/.gradle/gradle.properties
+          echo "NEXUS_PASSWORD=${{ secrets.NEXUS_PASSWORD }}" >> ~/.gradle/gradle.properties
 
       - name: Relase Plugin
         if: startsWith(github.ref, 'refs/tags/')
