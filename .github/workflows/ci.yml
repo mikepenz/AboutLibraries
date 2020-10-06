@@ -34,7 +34,9 @@ jobs:
             gradle-${{ runner.os }}-
 
       - name: Publish plugin locally
-        run: ./gradlew plugin:publishToMavenLocal
+        run: |
+          cd plugin
+          ./gradlew publishToMavenLocal
 
       - name: Build Debug
         run: ./gradlew clean app:assembleDebug
