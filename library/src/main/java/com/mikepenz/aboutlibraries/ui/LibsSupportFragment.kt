@@ -13,7 +13,7 @@ import com.mikepenz.aboutlibraries.LibsFragmentCompat
  */
 open class LibsSupportFragment : Fragment() {
 
-    private val libsFragmentCompat: LibsFragmentCompat = LibsFragmentCompat()
+    protected val libsFragmentCompat: LibsFragmentCompat = LibsFragmentCompat()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return libsFragmentCompat.onCreateView(inflater.context, inflater, container, savedInstanceState, arguments)
