@@ -3,7 +3,7 @@ buildscript {
 
     ext {
         release = [
-                versionName: "8.4.0",
+                versionName: "$VERSION",
                 versionCode: 80400
         ]
 
@@ -31,10 +31,10 @@ buildscript {
     }
 
     repositories {
+        maven { url "https://plugins.gradle.org/m2/" }
         google()
         jcenter()
         mavenLocal()
-        maven { url uri('/tmp/sample') }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.0.1'
@@ -54,8 +54,6 @@ allprojects {
         google()
         jcenter()
         mavenLocal()
-        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
-        flatDir { dirs 'libs' }
     }
 }
 
