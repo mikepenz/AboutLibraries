@@ -199,6 +199,8 @@ See the corresponding files here for the format and content: https://github.com/
 ## Custom Licenses
 
 It is possible to add additional licenses. In order to do so, you have to add the content of the license as an own text file in the app's raw folder e.g. `app/src/main/res/raw/myLicense.txt`
+This file will contain the full raw license text which may be too long for the strings.xml file.
+
 ```html
 <h3>GNU GENERAL PUBLIC LICENSE</h3>
 
@@ -240,7 +242,7 @@ Next, you need to add string identifiers that allow the plugin to recognize the 
 <string name="license_myLicense_licenseDescription" translatable="false">raw:myLicense</string>
 ```
 
-Finally, you simply have to use the specified identifier `myLicense` when referencing this license in your mappings.
+Finally, you have to use the specified identifier `myLicense` when referencing this license in your mappings.
 
 ## Custom Libraries
 
@@ -251,15 +253,15 @@ In case the plugin fails to detect a library or you're using an embedded library
     <!-- identifier used to reference this library -->
     <string name="define_plu_myLibrary">year;owner</string>
     <string name="library_myLibrary_author">Author</string>
-    <string name="library_myLibrary_authorWebsite">https://google.com<string>
+    <string name="library_myLibrary_authorWebsite">https://mikepenz.dev<string>
     <string name="library_myLibrary_libraryName">My Library</string>
     <string name="library_myLibrary_libraryDescription">Some text</string>
     <string name="library_myLibrary_libraryVersion">10.1.1</string>
-    <string name="library_myLibrary_libraryWebsite">https://google.com</string>
+    <string name="library_myLibrary_libraryWebsite">https://mikepenz.dev</string>
     <!-- you can also reference custom licenses here e.g. myLicense -->
     <string name="library_myLibrary_licenseIds">apache_2_0</string>
     <string name="library_myLibrary_isOpenSource">true</string>
-    <string name="library_myLibrary_repositoryLink">https://google.com</string>
+    <string name="library_myLibrary_repositoryLink">https://mikepenz.dev</string>
     <!-- Custom variables section -->
     <string name="library_myLibrary_owner">Owner</string>
     <string name="library_myLibrary_year">2020</string>
