@@ -25,7 +25,8 @@ class AboutLibrariesPlugin implements Plugin<Project> {
         cleanupTask.description = "Cleans the generated data from the AboutLibraries plugin"
         cleanupTask.group = 'Build'
         cleanupTask.dependencies = project.file("$project.buildDir/generated/aboutlibraries/")
-        project.tasks.findByName("clean").dependsOn(cleanupTask)
+        // project.tasks.findByName("clean").dependsOn(cleanupTask)
+        // doing a clean will regardless delete the dir containing the files
 
         // create tasks for different application variants
         project.android.applicationVariants.all { variant ->
