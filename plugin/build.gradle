@@ -17,7 +17,7 @@ apply plugin: 'groovy'
 apply plugin: "org.jetbrains.kotlin.jvm"
 
 group = "com.mikepenz.aboutlibraries.plugin"
-version = "8.4.0"
+version = "8.4.2"
 
 gradlePlugin {
     plugins {
