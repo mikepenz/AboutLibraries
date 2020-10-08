@@ -31,7 +31,7 @@ object LibsConfiguration {
 
     var libTaskCallback: LibTaskCallback? = null
 
-    /** Allow to adjust text manually, foramt to HTML, ...*/
+    /** Allow to adjust text manually, format to HTML, ...*/
     var postTextAction: ((TextView) -> Unit)? = null
 
     interface LibsUIListener {
