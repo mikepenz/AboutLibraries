@@ -130,7 +130,7 @@ public class AboutLibrariesTask extends DefaultTask {
                     // try to find and write license by id
                     if (!tryToFindAndWriteLibrary(enumLicense.id)) {
                         // license was not available generate the url license template
-                        def resultFile = new File(outputValuesFolder, "license_${licenseId.toLowerCase()}_strings.xml")
+                        def resultFile = new File(outputValuesFolder, "license_${licenseId.toLowerCase(Locale.US)}_strings.xml")
                         def printWriter = new PrintWriter(new OutputStreamWriter(resultFile.newOutputStream(), StandardCharsets.UTF_8), true)
                         def licenseBuilder = new MarkupBuilder(printWriter)
                         licenseBuilder.mkp.xmlDeclaration(version: "1.0", encoding: "utf-8")
