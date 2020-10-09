@@ -131,7 +131,7 @@ internal fun Activity?.applyEdgeSystemUi(view: View? = null) {
 }
 
 /**
- * a helper method to get the colorres from the context
+ * a helper method to get the colors from the context
  * @hide
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)

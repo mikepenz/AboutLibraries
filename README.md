@@ -1,6 +1,6 @@
 # AboutLibraries [![Status](https://travis-ci.org/mikepenz/AboutLibraries.svg?branch=develop)](https://travis-ci.org/mikepenz/AboutLibraries) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.mikepenz/aboutlibraries/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/com.mikepenz/aboutlibraries)
 
-.. allows you to easily create an **used open source libraries** fragment/activity within your app. All the library information is automatically collected from the POM information of your depencencies and included during compile time.
+.. allows you to easily create an **used open source libraries** fragment/activity within your app. All the library information is automatically collected from the POM information of your dependencies and included during compile time.
 *No runtime overhead.* Strong caching. Any dependency is supported.
 
 -------
@@ -20,7 +20,7 @@
 - **used open source libraries**
 	- name, description, creator, license, version, ...
 - **about this app** section (optional)
-- autodetect libraries (via the gradle depencies)
+- autodetect libraries (via the gradle dependencies)
 - many included library details
 - automatic created fragment/activity
 - feature rich builder to simply create and start the fragment / activities

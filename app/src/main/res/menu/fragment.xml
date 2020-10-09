@@ -7,11 +7,11 @@
         android:title="@string/action_manifestactivity"
         app:showAsAction="never" />
     <item
-        android:id="@+id/action_minimalctivity"
+        android:id="@+id/action_minimalactivity"
         android:title="@string/action_minimalactivity"
         app:showAsAction="never" />
     <item
-        android:id="@+id/action_extendactivity"
+        android:id="@+id/action_extendedactivity"
         android:title="@string/action_extendactivity"
         app:showAsAction="never" />
     <item

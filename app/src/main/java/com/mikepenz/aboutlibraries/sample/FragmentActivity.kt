@@ -108,8 +108,8 @@ class FragmentActivity : AppCompatActivity() {
             itemAdapter.add(
                     PrimaryDrawerItem().withName("Home"),
                     PrimaryDrawerItem().withName(R.string.action_manifestactivity).withIdentifier(R.id.action_manifestactivity.toLong()).withSelectable(false),
-                    PrimaryDrawerItem().withName(R.string.action_minimalactivity).withIdentifier(R.id.action_minimalctivity.toLong()).withSelectable(false),
-                    PrimaryDrawerItem().withName(R.string.action_extendactivity).withIdentifier(R.id.action_extendactivity.toLong()).withSelectable(false),
+                    PrimaryDrawerItem().withName(R.string.action_minimalactivity).withIdentifier(R.id.action_minimalactivity.toLong()).withSelectable(false),
+                    PrimaryDrawerItem().withName(R.string.action_extendactivity).withIdentifier(R.id.action_extendedactivity.toLong()).withSelectable(false),
                     PrimaryDrawerItem().withName(R.string.action_customsortactivity).withIdentifier(R.id.action_customsortactivity.toLong()).withSelectable(false),
                     PrimaryDrawerItem().withName(R.string.action_opensource).withIdentifier(R.id.action_opensource.toLong()).withSelectable(false)
             )
@@ -122,7 +122,7 @@ class FragmentActivity : AppCompatActivity() {
                         val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/mikepenz/AboutLibraries"))
                         startActivity(browserIntent)
                     }
-                    R.id.action_extendactivity.toLong() -> {
+                    R.id.action_extendedactivity.toLong() -> {
                         val intent = Intent(applicationContext, ExtendActivity::class.java)
                         startActivity(intent)
                     }
@@ -130,7 +130,7 @@ class FragmentActivity : AppCompatActivity() {
                         val intent = Intent(applicationContext, CustomSortActivity::class.java)
                         startActivity(intent)
                     }
-                    R.id.action_minimalctivity.toLong() -> {
+                    R.id.action_minimalactivity.toLong() -> {
                         // create and launch an activity in minmal design without any additional modifications
                         LibsBuilder()
                                 .withAboutMinimalDesign(true)
