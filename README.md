@@ -121,7 +121,7 @@ See the `Config` section for more information.
 
 ## Access generated library details
 
-If you want to create your own integration you can access the generated library information programmatically through the code module.
+If you want to create your own integration you can access the generated library information programmatically through the core module.
 
 ```kotlin
 val libraries = Libs(this).libraries
