@@ -24,9 +24,8 @@ android {
         debug {
             applicationIdSuffix ".debug"
             versionNameSuffix "-DEBUG"
-            try {
+            if (getSigningFile() != null) {
                 signingConfig signingConfigs.debug
-            } catch (ignored) {
             }
             minifyEnabled false
         }
