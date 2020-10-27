@@ -126,7 +126,7 @@ class Libs(
     }
 
     /**
-     * This will summarize all libraries and elimate duplicates
+     * This will summarize all libraries and eliminate duplicates
      *
      * @param internalLibraries    the String[] with the internalLibraries (if set manual)
      * @param excludeLibraries     the String[] with the libs to be excluded
@@ -259,7 +259,7 @@ class Libs(
     /**
      * Get a library by its name (the name must be equal)
      *
-     * @param libraryName the name of the lib (NOT case sensitiv) or the real name of the lib (this is the name used for github)
+     * @param libraryName the name of the lib (NOT case sensitive) or the real name of the lib (this is the name used for github)
      * @return the found library or null
      */
     fun getLibrary(libraryName: String): Library? {
@@ -276,8 +276,8 @@ class Libs(
     /**
      * Find a library by a searchTerm (Limit the results if there are more than one)
      *
-     * @param searchTerm the term which is in the libs name (NOT case sensitiv) or the real name of the lib (this is the name used for github)
-     * @param limit      -1 for all results or smaller 0 for a limitted result
+     * @param searchTerm the term which is in the libs name (NOT case sensitive) or the real name of the lib (this is the name used for github)
+     * @param limit      -1 for all results or smaller 0 for a limited result
      * @return an ArrayList Library with the found internLibraries
      */
     fun findLibrary(searchTerm: String, limit: Int): List<Library> {
@@ -376,7 +376,7 @@ class Libs(
                     licenseDescription
             )
         } catch (ex: Exception) {
-            Log.e("aboutlibraries", "Failed to generateLicense from file: " + ex.toString())
+            Log.e("aboutlibraries", "Failed to generateLicense from file: $ex")
             null
         }
     }
@@ -402,7 +402,8 @@ class Libs(
             lib.libraryWebsite = ctx.getStringResourceByName("library_" + name + "_libraryWebsite")
 
             val licenseIds = ctx.getStringResourceByName("library_" + name + "_licenseIds")
-            if (licenseIds.isBlank()) {
+            val legacyLicenseId = ctx.getStringResourceByName("library_" + name + "_licenseId")
+            if (licenseIds.isBlank() && legacyLicenseId.isBlank()) {
                 val license = License("",
                         ctx.getStringResourceByName("library_" + name + "_licenseVersion"),
                         ctx.getStringResourceByName("library_" + name + "_licenseLink"),
@@ -412,7 +413,7 @@ class Libs(
                 lib.licenses = setOf(license)
             } else {
                 val licenses = mutableSetOf<License>()
-                licenseIds.split(",").onEach { licenseId ->
+                (if (licenseIds.isBlank()) listOf(legacyLicenseId) else licenseIds.split(",")).onEach { licenseId ->
                     var license = getLicense(licenseId)
                     if (license != null) {
                         license = license.copy()

@@ -1,6 +1,6 @@
 # AboutLibraries [![Status](https://travis-ci.org/mikepenz/AboutLibraries.svg?branch=develop)](https://travis-ci.org/mikepenz/AboutLibraries) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.mikepenz/aboutlibraries/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/com.mikepenz/aboutlibraries)
 
-.. allows you to easily create an **used open source libraries** fragment/activity within your app. All the library information is automatically collected from the POM information of your depencencies and included during compile time.
+.. allows you to easily create an **used open source libraries** fragment/activity within your app. All the library information is automatically collected from the POM information of your dependencies and included during compile time.
 *No runtime overhead.* Strong caching. Any dependency is supported.
 
 -------
@@ -20,7 +20,7 @@
 - **used open source libraries**
 	- name, description, creator, license, version, ...
 - **about this app** section (optional)
-- autodetect libraries (via the gradle depencies)
+- autodetect libraries (via the gradle dependencies)
 - many included library details
 - automatic created fragment/activity
 - feature rich builder to simply create and start the fragment / activities
@@ -35,7 +35,7 @@
 
 ## Latest releases 🛠
 
-- Kotlin && Gradle Plugin | [v8.4.2](https://github.com/mikepenz/AboutLibraries/tree/v8.4.2)
+- Kotlin && Gradle Plugin | [v8.4.3](https://github.com/mikepenz/AboutLibraries/tree/v8.4.3)
 - Kotlin | [v7.1.0](https://github.com/mikepenz/AboutLibraries/tree/v7.1.0)
 - Java && AndroidX | [v6.2.3](https://github.com/mikepenz/AboutLibraries/tree/v6.2.3)
 - Java && AppCompat | [v6.1.1](https://github.com/mikepenz/AboutLibraries/tree/v6.1.1)
@@ -121,7 +121,7 @@ See the `Config` section for more information.
 
 ## Access generated library details
 
-If you want to create your own integration you can access the generated library information programmatically through the code module.
+If you want to create your own integration you can access the generated library information programmatically through the core module.
 
 ```kotlin
 val libraries = Libs(this).libraries
@@ -187,7 +187,7 @@ This directory may contain one or more of the following configurations:
 
 ```
 custom_enchant_mapping.prop // allows providing custom mapping files to overwrite the information from the POM file
-custom_license_mappings.prop // allows defining the licenseId which should be used for the library (if not resolveable via the POM file)
+custom_license_mappings.prop // allows defining the licenseId which should be used for the library (if not resolvable via the POM file)
 custom_license_year_mappings.prop // allows defining the license Year for this library (this information CANNOT be resolved from the POM file)
 custom_name_mappings.prop // allows overwriting the name of a library if the POM specifies unexpected information
 custom_author_mappings.prop // allows overwriting the authors of a library if the POM specifies unexpected information
@@ -195,6 +195,78 @@ custom_exclusion_list.prop // allows excluding libraries by their id at build ti
 ```
 
 See the corresponding files here for the format and content: https://github.com/mikepenz/AboutLibraries/tree/develop/library-definitions/src/main/res/raw
+
+## Custom Licenses
+
+It is possible to add additional licenses. In order to do so, you have to add the content of the license as an own text file in the app's raw folder e.g. `app/src/main/res/raw/myLicense.txt`
+This file will contain the full raw license text which may be too long for the strings.xml file.
+
+```html
+<h3>GNU GENERAL PUBLIC LICENSE</h3>
+
+<p>Version 2, June 1991</p>
+
+<p>
+Copyright &copy; 1989, 1991 Free Software Foundation, Inc.<br/>
+51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA<br/><br/>
+
+Everyone is permitted to copy and distribute verbatim copies
+of this license document, but changing it is not allowed.
+```
+
+Next, you need to add string identifiers that allow the plugin to recognize the license.
+
+```xml
+<!-- identifier used to reference this license -->
+<string name="define_license_myLicense" translatable="false" />
+<string name="license_myLicense_licenseName" translatable="false">Custom License</string>
+<string name="license_myLicense_licenseWebsite" translatable="false">https://www.gnu.org/licenses/gpl-2.0.html</string>
+<string name="license_myLicense_licenseShortDescription" translatable="false">
+        <![CDATA[
+        <p>&lt;one line to give the program\'s name and a brief idea of what it does.&gt;
+        Copyright &copy; &lt;year&gt;  &lt;name of author&gt;</p>
+        <p>This program is free software; you can redistribute it and/or
+        modify it under the terms of the GNU General Public License
+        as published by the Free Software Foundation; either version 2
+        of the License, or (at your option) any later version.</p>
+        <p>This program is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.</p>
+        <p>You should have received a copy of the GNU General Public License
+        along with this program; if not, write to the Free Software
+        Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.</p>
+        ]]>
+    </string>
+<!-- name of the license file under the raw folder -->
+<string name="license_myLicense_licenseDescription" translatable="false">raw:myLicense</string>
+```
+
+Finally, you have to use the specified identifier `myLicense` when referencing this license in your mappings.
+
+## Custom Libraries
+
+In case the plugin fails to detect a library or you're using an embedded library, you can manually add an entry that will be picked up by the plugin. All you have to do is define custom string identifiers for the library.
+
+```xml
+<resources>
+    <!-- identifier used to reference this library -->
+    <string name="define_plu_myLibrary">year;owner</string>
+    <string name="library_myLibrary_author">Author</string>
+    <string name="library_myLibrary_authorWebsite">https://mikepenz.dev<string>
+    <string name="library_myLibrary_libraryName">My Library</string>
+    <string name="library_myLibrary_libraryDescription">Some text</string>
+    <string name="library_myLibrary_libraryVersion">10.1.1</string>
+    <string name="library_myLibrary_libraryWebsite">https://mikepenz.dev</string>
+    <!-- you can also reference custom licenses here e.g. myLicense -->
+    <string name="library_myLibrary_licenseIds">apache_2_0</string>
+    <string name="library_myLibrary_isOpenSource">true</string>
+    <string name="library_myLibrary_repositoryLink">https://mikepenz.dev</string>
+    <!-- Custom variables section -->
+    <string name="library_myLibrary_owner">Owner</string>
+    <string name="library_myLibrary_year">2020</string>
+</resources> 
+```
 
 ## Usage WITHOUT gradle plugin (not recommended)
 
@@ -266,9 +338,10 @@ Additional dependencies can be provided via this plugins API to extend and provi
 
 # Developed By
 
-* Mike Penz 
- * [mikepenz.com](http://mikepenz.com) - <mikepenz@gmail.com>
- * [paypal.me/mikepenz](http://paypal.me/mikepenz)
+- Mike Penz
+  - [mikepenz.dev](https://mikepenz.dev) - [blog.mikepenz.dev](https://blog.mikepenz.dev) - <mikepenz@gmail.com>
+  - [paypal.me/mikepenz](http://paypal.me/mikepenz)
+  - [Automatic changelog generation action](https://github.com/marketplace/actions/release-changelog-builder)
 
 # License
 

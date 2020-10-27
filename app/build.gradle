@@ -24,9 +24,8 @@ android {
         debug {
             applicationIdSuffix ".debug"
             versionNameSuffix "-DEBUG"
-            try {
+            if (getSigningFile() != null) {
                 signingConfig signingConfigs.debug
-            } catch (ignored) {
             }
             minifyEnabled false
         }
@@ -101,7 +100,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.kotlin}"
 
     // used only tho showcase multi flavor support
-    stagingImplementation("com.squareup.okhttp3:okhttp:4.4.0")
+    stagingImplementation("com.squareup.okhttp3:okhttp:4.9.0")
 }
 
 configurations.all {

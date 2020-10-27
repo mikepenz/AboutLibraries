@@ -75,7 +75,7 @@ class LibsBuilder : Serializable {
     }
 
     /**
-     * Builder method to pass the R.string.class.getFields() array to the fragment/activity so we can also include all ressources which are within libraries or your app.
+     * Builder method to pass the R.string.class.getFields() array to the fragment/activity so we can also include all resources which are within libraries or your app.
      *
      * @param fields R.string.class.getFields()
      * @return this
@@ -86,7 +86,7 @@ class LibsBuilder : Serializable {
     }
 
     /**
-     * Builder method to pass the Libs.toStringArray(R.string.class.getFields()) array to the fragment/activity so we can also include all ressources which are within libraries or your app.
+     * Builder method to pass the Libs.toStringArray(R.string.class.getFields()) array to the fragment/activity so we can also include all resources which are within libraries or your app.
      *
      * @param fields Libs.toStringArray(R.string.class.getFields())
      * @return this
