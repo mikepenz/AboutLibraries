@@ -376,7 +376,7 @@ class Libs(
                     licenseDescription
             )
         } catch (ex: Exception) {
-            Log.e("aboutlibraries", "Failed to generateLicense from file: " + ex.toString())
+            Log.e("aboutlibraries", "Failed to generateLicense from file: $ex")
             null
         }
     }
@@ -402,7 +402,8 @@ class Libs(
             lib.libraryWebsite = ctx.getStringResourceByName("library_" + name + "_libraryWebsite")
 
             val licenseIds = ctx.getStringResourceByName("library_" + name + "_licenseIds")
-            if (licenseIds.isBlank()) {
+            val legacyLicenseId = ctx.getStringResourceByName("library_" + name + "_licenseId")
+            if (licenseIds.isBlank() && legacyLicenseId.isBlank()) {
                 val license = License("",
                         ctx.getStringResourceByName("library_" + name + "_licenseVersion"),
                         ctx.getStringResourceByName("library_" + name + "_licenseLink"),
@@ -412,7 +413,7 @@ class Libs(
                 lib.licenses = setOf(license)
             } else {
                 val licenses = mutableSetOf<License>()
-                licenseIds.split(",").onEach { licenseId ->
+                (if (licenseIds.isBlank()) listOf(legacyLicenseId) else licenseIds.split(",")).onEach { licenseId ->
                     var license = getLicense(licenseId)
                     if (license != null) {
                         license = license.copy()
