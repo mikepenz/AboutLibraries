@@ -335,6 +335,7 @@ Additional dependencies can be provided via this plugins API to extend and provi
 * [andOTP](https://play.google.com/store/apps/details?id=org.shadowice.flocke.andotp)
 * [MyLife - Journal](https://play.google.com/store/apps/details?id=com.pi143.mylife)
 * [LibreAV](https://github.com/projectmatris/antimalwareapp)
+* [Honda RoadSync](https://play.google.com/store/apps/details?id=com.honda.ms.dm.sab)
 
 # Developed By
 
