@@ -3,7 +3,7 @@ package com.mikepenz.aboutlibraries.plugin.mapping
 /**
  * LICENSE LIST THANKS TO: https://spdx.org/licenses/
  */
-@Suppress("EnumNaming")
+@Suppress("EnumNaming", "EnumEntryName", "unused")
 enum class License(val fullName: String, val id: String, val aboutLibsId: String? = null, val customMatcher: ((name: String, url: String) -> Boolean)? = null) {
     _0BSD("BSD Zero Clause License", "0BSD"),
     AAL("Attribution Assurance License", "AAL"),
@@ -137,7 +137,7 @@ enum class License(val fullName: String, val id: String, val aboutLibsId: String
     eGenix("eGenix.com Public License 1.1.0", "eGenix"),
     Entessa("Entessa Public License v1.0", "Entessa"),
     EPL_1_0("Eclipse Public License 1.0", "EPL-1.0"),
-    EPL_2_0("Eclipse Public License 2.0", "EPL-2.0", "epl_2_0", { name, url ->
+    EPL_2_0("Eclipse Public License 2.0", "EPL-2.0", "epl_2_0", { _, url ->
         url == "https://www.eclipse.org/legal/epl-v20.html"
     }),
     ErlPL_1_1("Erlang Public License v1.1", "ErlPL-1.1"),
@@ -381,16 +381,16 @@ enum class License(val fullName: String, val id: String, val aboutLibsId: String
     Apache_2_0("Apache License 2.0", "Apache-2.0", "apache_2_0", { name, url ->
         name.contains("Apache", true) || url.endsWith("LICENSE-2.0.txt")
     }),
-    BSD_2_Clause("BSD 2-Clause \"Simplified\" License", "BSD-2-Clause", customMatcher = { name, url ->
+    BSD_2_Clause("BSD 2-Clause \"Simplified\" License", "BSD-2-Clause", customMatcher = { name, _ ->
         name.equals("BSD 2-Clause License", true)
     }),
-    BSD_3_Clause("BSD 3-Clause \"New\" or \"Revised\" License", "BSD-3-Clause", customMatcher = { name, url ->
+    BSD_3_Clause("BSD 3-Clause \"New\" or \"Revised\" License", "BSD-3-Clause", customMatcher = { name, _ ->
         name.equals("New BSD License", true) || name.equals("Modified BSD License", true) || name.equals("BSD 3-clause", true)
     }),
-    MIT("MIT License", "MIT", "mit", { name, url ->
+    MIT("MIT License", "MIT", "mit", { name, _ ->
         name.contains("MIT", true)
     }),
-    CC0_1_0("Creative Commons Zero v1.0 Universal", "CC0-1.0", customMatcher = { name, url ->
+    CC0_1_0("Creative Commons Zero v1.0 Universal", "CC0-1.0", customMatcher = { name, _ ->
         name.equals("CC0", true)
     }),
 
