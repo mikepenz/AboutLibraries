@@ -394,7 +394,7 @@ enum class License(val fullName: String, val id: String, val aboutLibsId: String
         name.equals("CC0", true)
     }),
 
-    // Special propatriary libraries section
+    // Special proprietary libraries section
     ASDKL("Android Software Development Kit License", "ASDKL", "asdkl"),
     CTS("Crashlytics Terms of Service", "CTS", "cts"),
     FSSA("Fabric Software and Services Agreement", "FSSA", "cts");
