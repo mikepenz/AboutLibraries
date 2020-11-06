@@ -26,5 +26,5 @@ android {
 }
 
 if (project.hasProperty('pushall') || project.hasProperty('library_definitions_only')) {
-    apply from: '../gradle-release.gradle'
+    apply from: '../../gradle-release.gradle'
 }
