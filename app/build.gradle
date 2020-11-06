@@ -69,6 +69,13 @@ android {
 // It is possible to define a custom config path with custom mappings
 aboutLibraries {
     configPath = "config"
+
+    // Full license text for license IDs mentioned here
+    // will be included, even if no detected dependency uses them.
+    additionalLicenses {
+        mit
+        mpl_2_0
+    }
 }
 
 dependencies {
