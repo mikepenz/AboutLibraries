@@ -5,9 +5,6 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.util.GradleVersion
 
-class AboutLibrariesExtension {
-    String configPath
-}
 
 class AboutLibrariesPlugin implements Plugin<Project> {
     @Override
