@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="define_int_ftpserver"/>
+    <string name="define_int_ftpserver" />
     <string name="library_ftpserver_author">The Apache Software Foundation</string>
     <string name="library_ftpserver_authorWebsite">https://mina.apache.org/ftpserver-project/contributors.html</string>
     <string name="library_ftpserver_libraryName">Apache FTP Server</string>

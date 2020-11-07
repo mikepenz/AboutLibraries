@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>SSHv2 library for Java
-    <string name="define_int_sshj"/>
+    <string name="define_int_sshj" />
     <string name="library_sshj_author">Jeroen van Erp</string>
     <string name="library_sshj_authorWebsite">http://www.javadude.nl/</string>
     <string name="library_sshj_libraryName">sshj</string>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="define_int_jackson"/>
+    <string name="define_int_jackson" />
     <!-- Author section -->
     <string name="library_jackson_author">FasterXML, LLC</string>
     <string name="library_jackson_authorWebsite">http://fasterxml.com</string>
@@ -13,7 +13,7 @@
         best possible combination of fast, correct, lightweight, and
         ergonomic for developers.
     </string>
-    <string name="library_jackson_libraryWebsite"/>
+    <string name="library_jackson_libraryWebsite" />
     <string name="library_jackson_libraryVersion">2.4.2</string>
     <!-- OpenSource section -->
     <string name="library_jackson_isOpenSource">true</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <string name="define_int_gradle_retrolambda"/>
+    <string name="define_int_gradle_retrolambda" />
     <!-- Author section -->
     <string name="library_gradle_retrolambda_author">Evan Tatarka</string>
     <string name="library_gradle_retrolambda_authorWebsite">https://github.com/evant</string>

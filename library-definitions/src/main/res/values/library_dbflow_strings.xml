@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-	<string name="define_int_dbflow"></string>
-	<!-- Author section -->
-	<string name="library_dbflow_author">Raizlabs</string>
-	<string name="library_dbflow_authorWebsite">https://www.raizlabs.com/</string>
-	<!-- Library section -->
-	<string name="library_dbflow_libraryName">DbFlow</string>
-    	<string name="library_dbflow_libraryDescription">
+    <string name="define_int_dbflow"></string>
+    <!-- Author section -->
+    <string name="library_dbflow_author">Raizlabs</string>
+    <string name="library_dbflow_authorWebsite">https://www.raizlabs.com/</string>
+    <!-- Library section -->
+    <string name="library_dbflow_libraryName">DbFlow</string>
+    <string name="library_dbflow_libraryDescription">
 		<![CDATA[
 		A robust, powerful, and very simple ORM android database library with <b>annotation processing</b>.
 		<br/><br/>
@@ -15,14 +15,14 @@
 		Let DBFlow make SQL code <i>flow</i> like a steady stream so you can focus on writing amazing apps.
 		]]>
     	</string>
-	<string name="library_dbflow_libraryWebsite">https://github.com/Raizlabs/DBFlow</string>
-	<string name="library_dbflow_libraryVersion">4.0.5</string>
-	<!-- OpenSource section -->
-	<string name="library_dbflow_isOpenSource">true</string>
-	<string name="library_dbflow_repositoryLink">https://github.com/Raizlabs/DBFlow</string>
-	<!-- ClassPath for autoDetect section -->
-	<string name="library_dbflow_classPath">com.raizlabs.android.dbflow</string>
-	<!-- License section -->
-	<string name="library_dbflow_licenseId">mit</string>
-	<!-- Custom variables section -->
+    <string name="library_dbflow_libraryWebsite">https://github.com/Raizlabs/DBFlow</string>
+    <string name="library_dbflow_libraryVersion">4.0.5</string>
+    <!-- OpenSource section -->
+    <string name="library_dbflow_isOpenSource">true</string>
+    <string name="library_dbflow_repositoryLink">https://github.com/Raizlabs/DBFlow</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_dbflow_classPath">com.raizlabs.android.dbflow</string>
+    <!-- License section -->
+    <string name="library_dbflow_licenseId">mit</string>
+    <!-- Custom variables section -->
 </resources>

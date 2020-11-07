@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <string name="define_int_material_tap_target_prompt"/>
+    <string name="define_int_material_tap_target_prompt" />
     <!-- Author section -->
     <string name="library_material_tap_target_prompt_author">Sam Wall</string>
     <string name="library_material_tap_target_prompt_authorWebsite">https://github.com/sjwall/</string>

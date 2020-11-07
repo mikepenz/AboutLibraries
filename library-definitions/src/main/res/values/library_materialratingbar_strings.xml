@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-	<string name="define_int_materialratingbar"></string>
-	<!-- Author section -->
-	<string name="library_materialratingbar_author">Zhang Hai</string>
-	<string name="library_materialratingbar_authorWebsite">http://blog.zhanghai.me/</string>
-	<!-- Library section -->
-	<string name="library_materialratingbar_libraryName">MaterialRatingBar</string>
-	<string name="library_materialratingbar_libraryDescription">Material Design RatingBar with better appearance, compatible with Android 3.0+.</string>
-	<string name="library_materialratingbar_libraryWebsite">https://github.com/DreaminginCodeZH/MaterialRatingBar</string>
-	<string name="library_materialratingbar_libraryVersion">1.0.2</string>
-	<!-- OpenSource section -->
-	<string name="library_materialratingbar_isOpenSource">true</string>
-	<string name="library_materialratingbar_repositoryLink">https://github.com/DreaminginCodeZH/MaterialRatingBar</string>
-	<!-- ClassPath for autoDetect section -->
-	<string name="library_materialratingbar_classPath">me.zhanghai.android.materialratingbar.MaterialRatingBar</string>
-	<!-- License section -->
-	<string name="library_materialratingbar_licenseId">apache_2_0</string>
-	<!-- Custom variables section -->
+    <string name="define_int_materialratingbar"></string>
+    <!-- Author section -->
+    <string name="library_materialratingbar_author">Zhang Hai</string>
+    <string name="library_materialratingbar_authorWebsite">http://blog.zhanghai.me/</string>
+    <!-- Library section -->
+    <string name="library_materialratingbar_libraryName">MaterialRatingBar</string>
+    <string name="library_materialratingbar_libraryDescription">Material Design RatingBar with better appearance, compatible with Android 3.0+.</string>
+    <string name="library_materialratingbar_libraryWebsite">https://github.com/DreaminginCodeZH/MaterialRatingBar</string>
+    <string name="library_materialratingbar_libraryVersion">1.0.2</string>
+    <!-- OpenSource section -->
+    <string name="library_materialratingbar_isOpenSource">true</string>
+    <string name="library_materialratingbar_repositoryLink">https://github.com/DreaminginCodeZH/MaterialRatingBar</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_materialratingbar_classPath">me.zhanghai.android.materialratingbar.MaterialRatingBar</string>
+    <!-- License section -->
+    <string name="library_materialratingbar_licenseId">apache_2_0</string>
+    <!-- Custom variables section -->
 </resources>
