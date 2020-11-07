@@ -91,7 +91,8 @@ jobs:
       - name: Release Plugin
         if: startsWith(github.ref, 'refs/tags/')
         run: |
-          ./gradlew plugin:publishPlugins | true
+          cd plugin-build
+          ./gradlew publishPlugins | true
 
       - name: Release bintray
         if: startsWith(github.ref, 'refs/tags/')
