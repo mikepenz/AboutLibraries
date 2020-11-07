@@ -42,7 +42,7 @@ buildscript {
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.5'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:${versions.detekt}"
-        classpath "com.mikepenz.aboutlibraries.plugin:aboutlibraries-plugin:${release.versionName}"
+        classpath "com.mikepenz.aboutlibraries.plugin:aboutlibraries-plugin"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
     }
 }

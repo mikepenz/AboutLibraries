@@ -1,5 +1,13 @@
+rootProject.name = "AboutLibraries"
+
 include ':app'
 include ':library-core'
 include ':library'
 include ':library-definitions'
-include ':plugin'
+
+includeBuild("plugin-build") {
+    dependencySubstitution {
+        // Set up substitution so :app uses the plugin/libs from the composite build.
+        substitute(module("com.mikepenz.aboutlibraries.plugin:aboutlibraries-plugin")).with(project(":plugin"))
+    }
+}
