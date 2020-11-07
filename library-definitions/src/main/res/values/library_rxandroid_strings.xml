@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-	<string name="define_int_rxandroid">year;owner</string>
-	<!-- Author section -->
-	<string name="library_rxandroid_author">ReactiveX</string>
-	<string name="library_rxandroid_authorWebsite">http://reactivex.io/</string>
-	<!-- Library section -->
-	<string name="library_rxandroid_libraryName">RxAndroid</string>
-	<string name="library_rxandroid_libraryDescription"><![CDATA[Android specific bindings for <b>RxJava</b>.<br /><br />This module adds the minimum classes to RxJava that make writing reactive components in Android applications easy and hassle-free. More specifically, it provides a Scheduler that schedules on the main UI thread or any given Handler.]]></string>
-	<string name="library_rxandroid_libraryWebsite">https://github.com/ReactiveX/RxAndroid</string>
-	<string name="library_rxandroid_libraryVersion">2.0.2</string>
-	<!-- OpenSource section -->
-	<string name="library_rxandroid_isOpenSource">true</string>
-	<string name="library_rxandroid_repositoryLink">https://github.com/ReactiveX/RxAndroid</string>
-	<!-- ClassPath for autoDetect section -->
-	<string name="library_rxandroid_classPath">io.reactivex.android.schedulers.AndroidSchedulers</string>
-	<!-- License section -->
-	<string name="library_rxandroid_licenseId">apache_2_0</string>
-	<!-- Custom variables section -->
+    <string name="define_int_rxandroid">year;owner</string>
+    <!-- Author section -->
+    <string name="library_rxandroid_author">ReactiveX</string>
+    <string name="library_rxandroid_authorWebsite">http://reactivex.io/</string>
+    <!-- Library section -->
+    <string name="library_rxandroid_libraryName">RxAndroid</string>
+    <string name="library_rxandroid_libraryDescription"><![CDATA[Android specific bindings for <b>RxJava</b>.<br /><br />This module adds the minimum classes to RxJava that make writing reactive components in Android applications easy and hassle-free. More specifically, it provides a Scheduler that schedules on the main UI thread or any given Handler.]]></string>
+    <string name="library_rxandroid_libraryWebsite">https://github.com/ReactiveX/RxAndroid</string>
+    <string name="library_rxandroid_libraryVersion">2.0.2</string>
+    <!-- OpenSource section -->
+    <string name="library_rxandroid_isOpenSource">true</string>
+    <string name="library_rxandroid_repositoryLink">https://github.com/ReactiveX/RxAndroid</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_rxandroid_classPath">io.reactivex.android.schedulers.AndroidSchedulers</string>
+    <!-- License section -->
+    <string name="library_rxandroid_licenseId">apache_2_0</string>
+    <!-- Custom variables section -->
     <string name="library_rxandroid_owner">The RxAndroid Authors</string>
     <string name="library_rxandroid_year">2015</string>
 </resources>

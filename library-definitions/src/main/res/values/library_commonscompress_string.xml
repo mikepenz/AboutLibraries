@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="define_int_commonscompress"/>
+    <string name="define_int_commonscompress" />
     <string name="library_commonscompress_author">The Apache Software Foundation</string>
     <string name="library_commonscompress_authorWebsite">https://commons.apache.org/proper/commons-compress/</string>
     <string name="library_commonscompress_libraryName">Apache Commons Compress</string>

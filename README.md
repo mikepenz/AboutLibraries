@@ -54,6 +54,7 @@ apply plugin: 'com.mikepenz.aboutlibraries.plugin'
 
 ## Using Maven
 The AboutLibraries Library is pushed to [Maven Central](http://search.maven.org/#search|ga|1|g%3A%22com.mikepenz%22).
+The gradle plugin is hosted via [Gradle Plugins](https://plugins.gradle.org/plugin/com.mikepenz.aboutlibraries.plugin).
 
 ## CORE module
 
@@ -335,6 +336,7 @@ Additional dependencies can be provided via this plugins API to extend and provi
 * [andOTP](https://play.google.com/store/apps/details?id=org.shadowice.flocke.andotp)
 * [MyLife - Journal](https://play.google.com/store/apps/details?id=com.pi143.mylife)
 * [LibreAV](https://github.com/projectmatris/antimalwareapp)
+* [Honda RoadSync](https://play.google.com/store/apps/details?id=com.honda.ms.dm.sab)
 
 # Developed By
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <string name="define_int_retrolambda"/>
+    <string name="define_int_retrolambda" />
     <!-- Author section -->
     <string name="library_retrolambda_author">Esko Luontola</string>
     <string name="library_retrolambda_authorWebsite">http://www.orfjackal.net/</string>

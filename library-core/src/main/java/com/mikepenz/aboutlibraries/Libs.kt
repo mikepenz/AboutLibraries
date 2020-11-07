@@ -498,6 +498,7 @@ class Libs(
             if (foundLibs.size == 1) {
                 val lib = foundLibs[0]
                 for ((key2, value) in value1) {
+                    @Suppress("DEPRECATION")
                     when (key2.toUpperCase(Locale.US)) {
                         LibraryFields.AUTHOR_NAME.name -> {
                             lib.author = value

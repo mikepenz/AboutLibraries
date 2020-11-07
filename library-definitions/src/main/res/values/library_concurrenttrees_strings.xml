@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="define_int_concurrenttrees"/>
+    <string name="define_int_concurrenttrees" />
     <string name="library_concurrenttrees_author">Niall Gallagher</string>
     <string name="library_concurrenttrees_authorWebsite">http://www.npgall.com/</string>
     <string name="library_concurrenttrees_libraryName">Concurrent Trees</string>

@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-	<string name="define_int_easy_pref"></string>
-	<!-- Author section -->
-	<string name="library_easy_pref_author">Pixplicity</string>
-	<string name="library_easy_pref_authorWebsite">https://github.com/Pixplicity/EasyPreferences</string>
-	<!-- Library section -->
-	<string name="library_easy_pref_libraryName">easy-pref</string>
-	<string name="library_easy_pref_libraryDescription">A small library containing a wrapper/helper for the shared preferences of Android.  With this library you can initialize the shared preference inside the onCreate of the Application class of your app.</string>
-	<string name="library_easy_pref_libraryWebsite"></string>
-	<string name="library_easy_pref_libraryVersion">1.8.1</string>
-	<!-- OpenSource section -->
-	<string name="library_easy_pref_isOpenSource">true</string>
-	<string name="library_easy_pref_repositoryLink"></string>
-	<!-- ClassPath for autoDetect section -->
-	<string name="library_easy_pref_classPath">com.pixplicity.easyprefs.library.Prefs</string>
-	<!-- License section -->
-	<string name="library_easy_pref_licenseId">apache_2_0</string>
-	<!-- Custom variables section -->
+    <string name="define_int_easy_pref"></string>
+    <!-- Author section -->
+    <string name="library_easy_pref_author">Pixplicity</string>
+    <string name="library_easy_pref_authorWebsite">https://github.com/Pixplicity/EasyPreferences</string>
+    <!-- Library section -->
+    <string name="library_easy_pref_libraryName">easy-pref</string>
+    <string name="library_easy_pref_libraryDescription">A small library containing a wrapper/helper for the shared preferences of Android.  With this library you can initialize the shared preference inside the onCreate of the Application class of your app.</string>
+    <string name="library_easy_pref_libraryWebsite"></string>
+    <string name="library_easy_pref_libraryVersion">1.8.1</string>
+    <!-- OpenSource section -->
+    <string name="library_easy_pref_isOpenSource">true</string>
+    <string name="library_easy_pref_repositoryLink"></string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_easy_pref_classPath">com.pixplicity.easyprefs.library.Prefs</string>
+    <!-- License section -->
+    <string name="library_easy_pref_licenseId">apache_2_0</string>
+    <!-- Custom variables section -->
 </resources>

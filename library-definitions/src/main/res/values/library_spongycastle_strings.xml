@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="define_int_spongycastle"/>
+    <string name="define_int_spongycastle" />
     <string name="library_spongycastle_author">Roberto Tyley</string>
     <string name="library_spongycastle_authorWebsite">https://twitter.com/rtyley</string>
     <string name="library_spongycastle_libraryName">Spongy Castle</string>

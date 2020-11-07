@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-	<string name="define_int_appintro"></string>
-	<!-- Author section -->
-	<string name="library_appintro_author">Paolo Rotolo</string>
-	<string name="library_appintro_authorWebsite">https://github.com/PaoloRotolo/AppIntro</string>
-	<!-- Library section -->
-	<string name="library_appintro_libraryName">appintro</string>
-	<string name="library_appintro_libraryDescription">AppIntro is an Android Library that helps you make a cool intro for your app, like the ones in Google apps.</string>
-	<string name="library_appintro_libraryWebsite"></string>
-	<string name="library_appintro_libraryVersion">3.4.0</string>
-	<!-- OpenSource section -->
-	<string name="library_appintro_isOpenSource">true</string>
-	<string name="library_appintro_repositoryLink"></string>
-	<!-- ClassPath for autoDetect section -->
-	<string name="library_appintro_classPath">com.github.paolorotolo.appintro.AppIntro</string>
-	<!-- License section -->
-	<string name="library_appintro_licenseId">apache_2_0</string>
-	<!-- Custom variables section -->
+    <string name="define_int_appintro"></string>
+    <!-- Author section -->
+    <string name="library_appintro_author">Paolo Rotolo</string>
+    <string name="library_appintro_authorWebsite">https://github.com/PaoloRotolo/AppIntro</string>
+    <!-- Library section -->
+    <string name="library_appintro_libraryName">appintro</string>
+    <string name="library_appintro_libraryDescription">AppIntro is an Android Library that helps you make a cool intro for your app, like the ones in Google apps.</string>
+    <string name="library_appintro_libraryWebsite"></string>
+    <string name="library_appintro_libraryVersion">3.4.0</string>
+    <!-- OpenSource section -->
+    <string name="library_appintro_isOpenSource">true</string>
+    <string name="library_appintro_repositoryLink"></string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_appintro_classPath">com.github.paolorotolo.appintro.AppIntro</string>
+    <!-- License section -->
+    <string name="library_appintro_licenseId">apache_2_0</string>
+    <!-- Custom variables section -->
 </resources>

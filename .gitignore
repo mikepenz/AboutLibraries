@@ -1,7 +1,12 @@
 build/
 .gradle
-/local.properties
+local.properties
 .idea/
 *.iml
 .DS_Store
 functiongraphic.psd
+.classpath
+.project
+.settings
+.vscode/
+bin/

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <string name="define_int_androidviewanimations"/>
+    <string name="define_int_androidviewanimations" />
     <!-- Author section -->
     <string name="library_androidviewanimations_author">daimajia</string>
     <string name="library_androidviewanimations_authorWebsite">http://daimajia.com/</string>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="define_int_slf4j"/>
+    <string name="define_int_slf4j" />
     <string name="library_slf4j_author">QOS.ch</string>
     <string name="library_slf4j_authorWebsite">http://www.qos.ch</string>
     <string name="library_slf4j_libraryName">Simple Logging Facade for Java</string>

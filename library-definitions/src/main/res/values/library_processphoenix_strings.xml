@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <string name="define_int_ProcessPhoenix"/>
+    <string name="define_int_ProcessPhoenix" />
     <!-- Author section -->
     <string name="library_ProcessPhoenix_author">Jake Wharton</string>
     <string name="library_ProcessPhoenix_authorWebsite">http://jakewharton.com/</string>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="define_int_volley"/>
+    <string name="define_int_volley" />
     <string name="library_volley_author">Google</string>
     <string name="library_volley_libraryName">Volley</string>
     <string name="library_volley_libraryWebsite">https://developer.android.com/training/volley/index.html</string>

@@ -11,7 +11,7 @@ public class AboutLibrariesIdTask extends DefaultTask {
         def libraries = new AboutLibrariesProcessor().gatherDependencies(project)
 
         for (final library in libraries) {
-           println "${library.libraryName} (${library.libraryVersion}) -> ${library.uniqueId}"
+            println "${library.libraryName} (${library.libraryVersion}) -> ${library.uniqueId}"
         }
     }
 
