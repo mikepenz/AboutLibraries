@@ -10,8 +10,6 @@ buildscript {
 }
 
 allprojects {
-    group "com.mikepenz"
-
     repositories {
         google()
         jcenter()
