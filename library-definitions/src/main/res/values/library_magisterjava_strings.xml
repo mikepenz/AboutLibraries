@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <string name="define_int_magisterjava"/>
+    <string name="define_int_magisterjava" />
     <!-- Author section -->
     <string name="library_magisterjava_author">iLexiconn</string>
     <string name="library_magisterjava_authorWebsite">https://ilexiconn.net/</string>

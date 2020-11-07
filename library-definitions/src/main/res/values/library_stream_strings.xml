@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-	<string name="define_int_stream"></string>
-	<!-- Author section -->
-	<string name="library_stream_author">Victor Melnik</string>
-	<string name="library_stream_authorWebsite">https://github.com/aNNiMON/Lightweight-Stream-API</string>
-	<!-- Library section -->
-	<string name="library_stream_libraryName">stream</string>
-	<string name="library_stream_libraryDescription">Stream API from Java 8 rewrited on iterators for Java 7 and below.</string>
-	<string name="library_stream_libraryWebsite"></string>
-	<string name="library_stream_libraryVersion">1.0.8</string>
-	<!-- OpenSource section -->
-	<string name="library_stream_isOpenSource">true</string>
-	<string name="library_stream_repositoryLink"></string>
-	<!-- ClassPath for autoDetect section -->
-	<string name="library_stream_classPath">com.annimon.stream.Stream</string>
-	<!-- License section -->
-	<string name="library_stream_licenseId">apache_2_0</string>
-	<!-- Custom variables section -->
+    <string name="define_int_stream"></string>
+    <!-- Author section -->
+    <string name="library_stream_author">Victor Melnik</string>
+    <string name="library_stream_authorWebsite">https://github.com/aNNiMON/Lightweight-Stream-API</string>
+    <!-- Library section -->
+    <string name="library_stream_libraryName">stream</string>
+    <string name="library_stream_libraryDescription">Stream API from Java 8 rewrited on iterators for Java 7 and below.</string>
+    <string name="library_stream_libraryWebsite"></string>
+    <string name="library_stream_libraryVersion">1.0.8</string>
+    <!-- OpenSource section -->
+    <string name="library_stream_isOpenSource">true</string>
+    <string name="library_stream_repositoryLink"></string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_stream_classPath">com.annimon.stream.Stream</string>
+    <!-- License section -->
+    <string name="library_stream_licenseId">apache_2_0</string>
+    <!-- Custom variables section -->
 </resources>

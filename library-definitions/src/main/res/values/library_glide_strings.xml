@@ -18,7 +18,7 @@
     <!-- License section -->
     <string name="library_glide_licenseVersion">Glide License</string>
     <string name="library_glide_licenseLink">https://github.com/bumptech/glide/blob/master/LICENSE</string>
-	<string name="library_glide_licenseContent">License for everything not in third_party and not otherwise marked:
+    <string name="library_glide_licenseContent">License for everything not in third_party and not otherwise marked:
 
 Copyright 2014 Google, Inc. All rights reserved.
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="define_int_libsuperuser"/>
+    <string name="define_int_libsuperuser" />
     <string name="library_libsuperuser_author">Jorrit \"Chainfire\" Jongma</string>
     <string name="library_libsuperuser_authorWebsite">https://twitter.com/ChainfireXDA</string>
     <string name="library_libsuperuser_libraryName">Example code for "How-To SU"</string>

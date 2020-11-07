@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="define_int_JCIFS"/>
+    <string name="define_int_JCIFS" />
     <string name="library_JCIFS_author">The JCIFS Project</string>
     <string name="library_JCIFS_authorWebsite">https://jcifs.samba.org/</string>
     <string name="library_JCIFS_libraryName">The Java CIFS Client Library</string>

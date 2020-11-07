@@ -17,7 +17,7 @@
     <string name="library_materialaboutlibrary_classPath">com.danielstone.materialaboutlibrary.MaterialAboutActivity</string>
     <!-- License section -->
     <string name="library_materialaboutlibrary_licenseId">mit</string>
-     <!-- Custom variables section -->
+    <!-- Custom variables section -->
     <string name="library_materialaboutlibrary_owner">Daniel Stone</string>
     <string name="library_materialaboutlibrary_year">2016</string>
 </resources>

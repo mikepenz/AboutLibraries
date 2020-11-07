@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="define_int_apachemina"/>
+    <string name="define_int_apachemina" />
     <string name="library_apachemina_author">The Apache Software Foundation</string>
     <string name="library_apachemina_authorWebsite">https://mina.apache.org/contributors.html</string>
     <string name="library_apachemina_libraryName">Apache Mina</string>
