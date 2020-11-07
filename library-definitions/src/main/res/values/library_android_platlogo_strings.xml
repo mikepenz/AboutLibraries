@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_android_platlogo"></string>
+    <!-- Author section -->
+    <string name="library_android_platlogo_author">Axel Rindle</string>
+    <string name="library_android_platlogo_authorWebsite">https://axelrindle.de</string>
+    <!-- Library section -->
+    <string name="library_android_platlogo_libraryName">Android PlatLogo</string>
+    <string name="library_android_platlogo_libraryDescription">The Easter Egg in the Android Settings App in Android Marshmallow, when you click multiple times on the version number. NOW CUSTOMIZABLE!</string>
+    <string name="library_android_platlogo_libraryWebsite"></string>
+    <string name="library_android_platlogo_libraryVersion">1.0</string>
+    <!-- OpenSource section -->
+    <string name="library_android_platlogo_isOpenSource">true</string>
+    <string name="library_android_platlogo_repositoryLink">https://github.com/PlayWithAndroid/Android-PlatLogo</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_android_platlogo_classPath">net.playwithandroid.platlogo.view.PlatLogoView</string>
+    <!-- License section -->
+    <string name="library_android_platlogo_licenseId">mit</string>
+    <!-- Custom variables section -->
+</resources>

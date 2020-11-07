@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_android_job"></string>
+    <!-- Author section -->
+    <string name="library_android_job_author">Evernote Corporation</string>
+    <string name="library_android_job_authorWebsite">https://github.com/evernote/android-job</string>
+    <!-- Library section -->
+    <string name="library_android_job_libraryName">Android-Job</string>
+    <string name="library_android_job_libraryDescription">Android library to handle jobs in the background.</string>
+    <string name="library_android_job_libraryWebsite">https://github.com/evernote/android-job</string>
+    <string name="library_android_job_libraryVersion">1.1.5</string>
+    <!-- OpenSource section -->
+    <string name="library_android_job_isOpenSource">true</string>
+    <string name="library_android_job_repositoryLink">https://github.com/evernote/android-job</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_android_job_classPath">com.evernote.android.job</string>
+    <!-- License section -->
+    <string name="library_android_job_licenseId">apache_2_0</string>
+    <!-- Custom variables section -->
+</resources>

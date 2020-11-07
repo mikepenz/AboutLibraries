@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_materialdesigndimens"></string>
+    <!-- Author section -->
+    <string name="library_materialdesigndimens_author">Dmitry Malkovich</string>
+    <string name="library_materialdesigndimens_authorWebsite">https://github.com/DmitryMalkovich</string>
+    <!-- Library section -->
+    <string name="library_materialdesigndimens_libraryName">Material Design Dimens</string>
+    <string name="library_materialdesigndimens_libraryDescription">Default colors and dimens per Material Design guidelines and Android Design guidelines inside one library.</string>
+    <string name="library_materialdesigndimens_libraryWebsite">https://github.com/DmitryMalkovich/material-design-dimens</string>
+    <string name="library_materialdesigndimens_libraryVersion">1.4</string>
+    <!-- OpenSource section -->
+    <string name="library_materialdesigndimens_isOpenSource">true</string>
+    <string name="library_materialdesigndimens_repositoryLink">https://github.com/DmitryMalkovich/material-design-dimens</string>
+    <!-- License section -->
+    <string name="library_materialdesigndimens_licenseId">apache_2_0</string>
+    <!-- Custom variables section -->
+</resources>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_smsverifycatcher">year;owner</string>
+    <!-- Author section -->
+    <string name="library_smsverifycatcher_author">Stfalcon LLC</string>
+    <string name="library_smsverifycatcher_authorWebsite">http://stfalcon.com/</string>
+    <!-- Library section -->
+    <string name="library_smsverifycatcher_libraryName">SmsVerifyCatcher</string>
+    <string name="library_smsverifycatcher_libraryDescription">Android library for phone number verification feature in your app. Automatically copies verification code from SMS right into the app.</string>
+    <string name="library_smsverifycatcher_libraryWebsite">https://github.com/stfalcon-studio/SmsVerifyCatcher/</string>
+    <string name="library_smsverifycatcher_libraryVersion">0.3.1</string>
+    <!-- OpenSource section -->
+    <string name="library_smsverifycatcher_isOpenSource">true</string>
+    <string name="library_smsverifycatcher_repositoryLink">https://github.com/stfalcon-studio/SmsVerifyCatcher</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_smsverifycatcher_classPath">com.stfalcon.smsverifycatcher.SmsVerifyCatcher</string>
+    <!-- License section -->
+    <string name="library_smsverifycatcher_licenseId">apache_2_0</string>
+    <!-- Custom variables section -->
+</resources>

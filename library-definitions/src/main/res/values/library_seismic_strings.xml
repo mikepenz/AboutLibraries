@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_seismic">year;owner</string>
+    <!-- Author section -->
+    <string name="library_seismic_author">Square</string>
+    <string name="library_seismic_authorWebsite">https://github.com/square</string>
+    <!-- Library section -->
+    <string name="library_seismic_libraryName">Seismic</string>
+    <string name="library_seismic_libraryDescription">Android device shake detection.</string>
+    <string name="library_seismic_libraryWebsite"></string>
+    <string name="library_seismic_libraryVersion">1.0.2</string>
+    <!-- OpenSource section -->
+    <string name="library_seismic_isOpenSource">true</string>
+    <string name="library_seismic_repositoryLink">https://github.com/square/seismic</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_seismic_classPath">com.squareup.seismic.ShakeDetector</string>
+    <!-- License section -->
+    <string name="library_seismic_licenseId">apache_2_0</string>
+    <!-- Custom variables section -->
+    <string name="library_seismic_owner">Square, Inc.</string>
+    <string name="library_seismic_year">2012</string>
+</resources>

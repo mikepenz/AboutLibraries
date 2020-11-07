@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_android_shape_imageview"></string>
+    <!-- Author section -->
+    <string name="library_android_shape_imageview_author">Siyamed Sinir</string>
+    <string name="library_android_shape_imageview_authorWebsite">https://siyamed.com</string>
+    <!-- Library section -->
+    <string name="library_android_shape_imageview_libraryName">Shape Image View</string>
+    <string name="library_android_shape_imageview_libraryDescription">Provides a set of custom shaped android imageview components, and a framework to define more shapes. Implements both shader and bitmap mask based image views.</string>
+    <string name="library_android_shape_imageview_libraryWebsite"></string>
+    <string name="library_android_shape_imageview_libraryVersion">0.9.3</string>
+    <!-- OpenSource section -->
+    <string name="library_android_shape_imageview_isOpenSource">true</string>
+    <string name="library_android_shape_imageview_repositoryLink">https://github.com/siyamed/android-shape-imageview</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_android_shape_imageview_classPath">com.siyamed.shapeimageview</string>
+    <!-- License section -->
+    <string name="library_android_shape_imageview_licenseId">mit</string>
+    <!-- Custom variables section -->
+</resources>

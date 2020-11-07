@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_side_menu_android"></string>
+    <!-- Author section -->
+    <string name="library_side_menu_android_author">Yalantis</string>
+    <string name="library_side_menu_android_authorWebsite">https://yalantis.com</string>
+    <!-- Library section -->
+    <string name="library_side_menu_android_libraryName">Side-Menu.Android</string>
+    <string name="library_side_menu_android_libraryDescription">Side menu with some categories to choose.</string>
+    <string name="library_side_menu_android_libraryWebsite">https://github.com/Yalantis/Side-Menu.Android</string>
+    <string name="library_side_menu_android_libraryVersion">1.0</string>
+    <!-- OpenSource section -->
+    <string name="library_side_menu_android_isOpenSource">true</string>
+    <string name="library_side_menu_android_repositoryLink">https://github.com/Yalantis/Side-Menu.Android</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_side_menu_android_classPath">yalantis.com.sidemenu.model.SlideMenuItem</string>
+    <!-- License section -->
+    <string name="library_side_menu_android_licenseId">apache_2_0</string>
+    <!-- Custom variables section -->
+</resources>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_materialprogressbar"></string>
+    <!-- Author section -->
+    <string name="library_materialprogressbar_author">Zhang Hai</string>
+    <string name="library_materialprogressbar_authorWebsite">http://blog.zhanghai.me/</string>
+    <!-- Library section -->
+    <string name="library_materialprogressbar_libraryName">MaterialProgressBar</string>
+    <string name="library_materialprogressbar_libraryDescription">Material Design ProgressBar with consistent appearance on Android 4.0+.</string>
+    <string name="library_materialprogressbar_libraryWebsite">https://github.com/DreaminginCodeZH/MaterialProgressBar</string>
+    <string name="library_materialprogressbar_libraryVersion">1.4.1</string>
+    <!-- OpenSource section -->
+    <string name="library_materialprogressbar_isOpenSource">true</string>
+    <string name="library_materialprogressbar_repositoryLink">https://github.com/DreaminginCodeZH/MaterialProgressBar</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_materialprogressbar_classPath">me.zhanghai.android.materialprogressbar.MaterialProgressBar</string>
+    <!-- License section -->
+    <string name="library_materialprogressbar_licenseId">apache_2_0</string>
+    <!-- Custom variables section -->
+</resources>

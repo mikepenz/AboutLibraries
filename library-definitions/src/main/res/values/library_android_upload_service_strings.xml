@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_android_upload_service">year;owner</string>
+    <!-- Author section -->
+    <string name="library_android_upload_service_author">Alex Gotev</string>
+    <string name="library_android_upload_service_authorWebsite">http://www.gotev.net</string>
+    <!-- Library section -->
+    <string name="library_android_upload_service_libraryName">Android Upload Service</string>
+    <string name="library_android_upload_service_libraryDescription">Easily upload files in the background with automatic Android Notification Center progress indication.</string>
+    <string name="library_android_upload_service_libraryWebsite"></string>
+    <string name="library_android_upload_service_libraryVersion">3.0.1</string>
+    <!-- OpenSource section -->
+    <string name="library_android_upload_service_isOpenSource">true</string>
+    <string name="library_android_upload_service_repositoryLink">https://github.com/gotev/android-upload-service</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_android_upload_service_classPath">net.gotev.uploadservice.UploadService</string>
+    <!-- License section -->
+    <string name="library_android_upload_service_licenseId">apache_2_0</string>
+    <!-- Custom variables section -->
+    <string name="library_android_upload_service_owner">Aleksandar Gotev</string>
+    <string name="library_android_upload_service_year">2013–2016</string>
+</resources>

@@ -1,4 +1,1 @@
-include ':library-core'
-include ':library'
-include ':library-definitions'
 include ':plugin'

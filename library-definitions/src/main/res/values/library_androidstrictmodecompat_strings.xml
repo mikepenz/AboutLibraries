@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_androidstrictmodecompat"></string>
+    <!-- Author section -->
+    <string name="library_androidstrictmodecompat_author">Kirill Rozov</string>
+    <string name="library_androidstrictmodecompat_authorWebsite">https://github.com/kirich1409</string>
+    <!-- Library section -->
+    <string name="library_androidstrictmodecompat_libraryName">Android StrictMode Compat</string>
+    <string name="library_androidstrictmodecompat_libraryDescription">Wrapper of StrictMode API that can be safely called on any version of Android.</string>
+    <string name="library_androidstrictmodecompat_libraryWebsite">https://github.com/kirich1409/StrictModeCompat</string>
+    <string name="library_androidstrictmodecompat_libraryVersion">26.0.0</string>
+    <!-- OpenSource section -->
+    <string name="library_androidstrictmodecompat_isOpenSource">true</string>
+    <string name="library_androidstrictmodecompat_repositoryLink">https://github.com/kirich1409/StrictModeCompat</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_androidstrictmodecompat_classPath">com.kirillr.strictmodehelper.StrictModeCompat</string>
+    <!-- License section -->
+    <string name="library_androidstrictmodecompat_licenseId">apache_2_0</string>
+    <!-- Custom variables section -->
+</resources>

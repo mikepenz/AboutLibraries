@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_appauth">year;owner</string>
+    <!-- Author section -->
+    <string name="library_appauth_author">OpenID</string>
+    <string name="library_appauth_authorWebsite">https://openid.net/</string>
+    <!-- Library section -->
+    <string name="library_appauth_libraryName">AppAuth-Android</string>
+    <string name="library_appauth_libraryDescription">Android client SDK for communicating with OAuth 2.0 and OpenID Connect providers.</string>
+    <string name="library_appauth_libraryWebsite">https://github.com/openid/AppAuth-Android</string>
+    <string name="library_appauth_libraryVersion">0.7.0</string>
+    <!-- OpenSource section -->
+    <string name="library_appauth_isOpenSource">true</string>
+    <string name="library_appauth_repositoryLink">https://github.com/openid/AppAuth-Android</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_appauth_classPath">net.openid.appauth.AuthorizationService</string>
+    <!-- License section -->
+    <string name="library_appauth_licenseId">apache_2_0</string>
+    <!-- Custom variables section -->
+    <string name="library_appauth_owner">OpenID Contributors</string>
+    <string name="library_appauth_year">2016-present</string>
+</resources>

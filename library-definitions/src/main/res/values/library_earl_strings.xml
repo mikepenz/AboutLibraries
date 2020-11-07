@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="define_int_earl"></string>
+    <!-- Author section -->
+    <string name="library_earl_author">einmalfel</string>
+    <string name="library_earl_authorWebsite">https://github.com/einmalfel/Earl</string>
+    <!-- Library section -->
+    <string name="library_earl_libraryName">Earl</string>
+    <string name="library_earl_libraryDescription">Earl parses both Atom and RSS 1.0 and 2.0</string>
+    <string name="library_earl_libraryWebsite">https://github.com/einmalfel/Earl</string>
+    <string name="library_earl_libraryVersion">1.2.0</string>
+    <!-- OpenSource section -->
+    <string name="library_earl_isOpenSource">true</string>
+    <string name="library_earl_repositoryLink">https://github.com/einmalfel/Earl</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_earl_classPath">com.einmalfel.earl</string>
+    <!-- License section -->
+    <string name="library_earl_licenseId">lgpl_3_0</string>
+    <!-- Custom variables section -->
+</resources>

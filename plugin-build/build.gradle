@@ -1,48 +1,11 @@
 buildscript {
     apply from: '../configurations.gradle'
 
-    ext {
-        release = [
-                versionName: "$VERSION",
-                versionCode: 80403
-        ]
-
-        setup = [
-                compileSdk: 30,
-                buildTools: "30.0.2",
-                minSdk    : 16,
-                targetSdk : 30
-        ]
-
-        versions = [
-                androidX        : '1.0.0',
-                cardview        : '1.0.0',
-                appcompat       : '1.2.0',
-                recyclerview    : '1.1.0',
-                material        : '1.2.1',
-                kotlin          : "1.4.10",
-                constraintLayout: '2.0.2',
-                iconics         : "5.0.3",
-                detekt          : '1.14.2',
-                fastadapter     : "5.2.4",
-                materialdrawer  : "8.1.7",
-                coreKtx         : "1.3.2"
-        ]
-    }
-
     repositories {
         maven { url "https://plugins.gradle.org/m2/" }
         google()
         jcenter()
         mavenLocal()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.0'
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.5'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
-        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:${versions.detekt}"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
     }
 }
 
@@ -53,13 +16,5 @@ allprojects {
         google()
         jcenter()
         mavenLocal()
-    }
-}
-
-subprojects {
-    apply from: '../../detekt.gradle'
-
-    dependencies {
-        detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:${versions.detekt}"
     }
 }
