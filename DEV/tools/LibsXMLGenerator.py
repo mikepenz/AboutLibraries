@@ -17,19 +17,13 @@ def writeFile(name, version):
     f.write("	<string name=\"library_" + name + "_author\"></string>\n")
     f.write("	<string name=\"library_" + name + "_authorWebsite\"></string>\n")
     f.write("	<!-- Library section -->\n")
-    f.write("	<string name=\"library_" + name +
-            "_libraryName\">" + name + "</string>\n")
-    f.write("	<string name=\"library_" + name +
-            "_libraryDescription\"></string>\n")
-    f.write("	<string name=\"library_" + name +
-            "_libraryWebsite\"></string>\n")
-    f.write("	<string name=\"library_" + name +
-            "_libraryVersion\">" + version + "</string>\n")
+    f.write("	<string name=\"library_" + name + "_libraryName\">" + name + "</string>\n")
+    f.write("	<string name=\"library_" + name + "_libraryDescription\"></string>\n")
+    f.write("	<string name=\"library_" + name + "_libraryWebsite\"></string>\n")
+    f.write("	<string name=\"library_" + name + "_libraryVersion\">" + version + "</string>\n")
     f.write("	<!-- OpenSource section -->\n")
-    f.write("	<string name=\"library_" + name +
-            "_isOpenSource\">true</string>\n")
-    f.write("	<string name=\"library_" + name +
-            "_repositoryLink\"></string>\n")
+    f.write("	<string name=\"library_" + name + "_isOpenSource\">true</string>\n")
+    f.write("	<string name=\"library_" + name + "_repositoryLink\"></string>\n")
     f.write("	<!-- License section -->\n")
     f.write("	<string name=\"library_" + name + "_licenseId\"></string>\n")
     f.write("</resources> \n")
