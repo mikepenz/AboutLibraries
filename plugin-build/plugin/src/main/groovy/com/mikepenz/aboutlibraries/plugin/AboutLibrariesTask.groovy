@@ -61,7 +61,14 @@ public class AboutLibrariesTask extends DefaultTask {
         this.outputRawFolder = getRawFolder()
         this.combinedLibrariesOutputFile = getCombinedLibrariesOutputFile()
 
-        def libraries = new AboutLibrariesProcessor().gatherDependencies(project, variant)
+        def processor = new AboutLibrariesProcessor()
+        def libraries = processor.gatherDependencies(project, variant)
+
+        // Include additional licenses explicitly requested.
+        processor.additionalLicenses.each {
+            neededLicenses.add(it)
+        }
+
         def printWriter = new PrintWriter(new OutputStreamWriter(combinedLibrariesOutputFile.newOutputStream(), StandardCharsets.UTF_8), true)
         def combinedLibrariesBuilder = new MarkupBuilder(printWriter)
         combinedLibrariesBuilder.mkp.xmlDeclaration(version: "1.0", encoding: "utf-8")
