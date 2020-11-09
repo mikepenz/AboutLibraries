@@ -17,6 +17,22 @@ public class AboutLibrariesExportTask extends DefaultTask {
         this.variant = variant
     }
 
+    String getVariant() {
+        return variant
+    }
+
+    Set<License> getNeededLicenses() {
+        return neededLicenses
+    }
+
+    Set<String> getLibrariesWithoutLicenses() {
+        return librariesWithoutLicenses
+    }
+
+    HashMap<String, HashSet<String>> getUnknownLicenses() {
+        return unknownLicenses
+    }
+
     def gatherDependencies(def project) {
         def libraries = new AboutLibrariesProcessor().gatherDependencies(project, variant)
 
