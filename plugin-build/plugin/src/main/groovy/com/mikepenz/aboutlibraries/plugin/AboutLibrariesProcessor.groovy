@@ -33,13 +33,16 @@ class AboutLibrariesProcessor {
     List<String> customExclusionList = new ArrayList<String>()
 
     def collectMappingDetails(target, resourceName) {
-        def customMappingText = getClass().getResource("/static/${resourceName}").getText('UTF-8')
-        customMappingText.eachLine {
-            if (target instanceof Map) {
-                def splitMapping = it.split(':')
-                target.put(splitMapping[0], splitMapping[1])
-            } else if (target instanceof List) {
-                target.add(it)
+        def customMappingRef = getClass().getResource("/static/${resourceName}")
+        if (customMappingRef != null) {
+            def customMappingText = customMappingRef.getText('UTF-8')
+            customMappingText.eachLine {
+                if (target instanceof Map) {
+                    def splitMapping = it.split(':')
+                    target.put(splitMapping[0], splitMapping[1])
+                } else if (target instanceof List) {
+                    target.add(it)
+                }
             }
         }
 
@@ -290,7 +293,8 @@ class AboutLibrariesProcessor {
                 isOpenSource,
                 repositoryLink,
                 libraryOwner,
-                licenseYear
+                licenseYear,
+                artifactFile?.getParentFile()?.getParentFile() // artifactFile references the pom directly
         )
         LOGGER.debug("Adding library: {}", library)
         libraries.add(library)

@@ -87,5 +87,11 @@ class AboutLibrariesPlugin implements Plugin<Project> {
         exportTaskId.description = "Writes all libraries and their license in CSV format to the CLI"
         exportTaskId.group = 'Help'
         exportTaskId.setVariant(variant.name)
+
+        // task to output libraries, their license in CSV format and source to a given location
+        AboutLibrariesExportComplianceTask exportComplianceTaskId = project.tasks.create("exportComplianceLibraries${variant.name.capitalize()}", AboutLibrariesExportComplianceTask)
+        exportComplianceTaskId.description = "Writes all libraries with their source and their license in CSV format to the configured directory"
+        exportComplianceTaskId.group = 'Help'
+        exportComplianceTaskId.setVariant(variant.name)
     }
 }

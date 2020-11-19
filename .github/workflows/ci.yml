@@ -35,16 +35,13 @@ jobs:
           restore-keys: |
             gradle-${{ runner.os }}-
 
-      - name: Build Debug (as composite build)
-        run: ./gradlew clean app:assembleDebug
-
       - name: Publish plugin locally
         run: |
           cd plugin-build
           ./gradlew publishToMavenLocal
 
       - name: Build Debug
-        run: ./gradlew clean app:assembleDebug
+        run: ./gradlew app:assembleDebug
 
       - name: Run Lint
         if: github.event_name  == 'pull_request'
