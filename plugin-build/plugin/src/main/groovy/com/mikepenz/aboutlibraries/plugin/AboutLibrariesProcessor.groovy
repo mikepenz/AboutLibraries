@@ -293,7 +293,8 @@ class AboutLibrariesProcessor {
                 isOpenSource,
                 repositoryLink,
                 libraryOwner,
-                licenseYear
+                licenseYear,
+                artifactFile?.getParentFile()?.getParentFile() // artifactFile references the pom directly
         )
         LOGGER.debug("Adding library: {}", library)
         libraries.add(library)
