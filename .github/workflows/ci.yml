@@ -41,7 +41,7 @@ jobs:
           ./gradlew publishToMavenLocal
 
       - name: Build Debug
-        run: ./gradle app:assembleDebug
+        run: ./gradlew app:assembleDebug
 
       - name: Run Lint
         if: github.event_name  == 'pull_request'
