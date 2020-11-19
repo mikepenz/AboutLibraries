@@ -1,5 +1,7 @@
 package com.mikepenz.aboutlibraries.plugin.mapping
 
+import java.io.File
+
 /**
  * Library class describing a library and its information
  */
@@ -16,5 +18,6 @@ data class Library(
         val isOpenSource: Boolean,
         val repositoryLink: String?,
         val libraryOwner: String?,
-        val licenseYear: String?
+        val licenseYear: String?,
+        val artifactFolder: File? = null
 )
