@@ -122,10 +122,11 @@ class AboutLibrariesProcessor {
         }
 
         def artifactPom = new XmlSlurper(/* validating */ false, /* namespaceAware */ false).parseText(artifactPomText)
+        def properties = artifactPom.properties?.children()
 
         // the uniqueId
         def groupId = ifEmptyElse(artifactPom.groupId, artifactPom.parent.groupId)
-        def uniqueId = fixIdentifier(groupId) + "__" + fixIdentifier(artifactPom.artifactId)
+        def uniqueId = fixIdentifier(groupId) + "__" + fixIdentifier(applyProperties(properties, artifactPom.artifactId?.toString()))
 
         if (customExclusionList.contains(uniqueId)) {
             println "--> Skipping ${uniqueId}"
@@ -150,6 +151,7 @@ class AboutLibrariesProcessor {
         // we also want to check if there are parent POMs with additional information
         def parentPomFile = resolvePomFile(project, uniqueId, getParentFromPom(artifactPom), true)
         def parentPom = null
+        def parentProperties = null
         if (parentPomFile != null) {
             def parentPomText = parentPomFile.getText('UTF-8')
             LOGGER.debug(
@@ -159,6 +161,7 @@ class AboutLibrariesProcessor {
                     parentPomText
             )
             parentPom = new XmlSlurper(/* validating */ false, /* namespaceAware */ false).parseText(parentPomText)
+            parentProperties = parentPom.properties?.children()
         } else {
             LOGGER.debug(
                     "--> No Artifact Parent Pom found for [{}:{}]",
@@ -211,9 +214,9 @@ class AboutLibrariesProcessor {
             }
         }
         // get the url for the author
-        def libraryName = fixLibraryName(uniqueId, fixString(artifactPom.name))
+        def libraryName = fixLibraryName(uniqueId, applyProperties(properties, fixString(artifactPom.name)))
         // get name of the library
-        def libraryDescription = fixLibraryDescription(uniqueId, fixString(artifactPom.description))
+        def libraryDescription = fixLibraryDescription(uniqueId, applyProperties(properties, fixString(artifactPom.description)))
         if (enchantedDefinition != null) {
             // enchant the library by the description of the available definition file
             libraryDescription = ifEmptyElse(enchantedDefinition.string.find { it.@name.toString().endsWith("_libraryDescription") }.toString(), libraryDescription)
@@ -221,7 +224,7 @@ class AboutLibrariesProcessor {
         if (!isNotEmpty(libraryDescription) && parentPom != null) {
             // fallback to parentPom if available
             println("----> Had to fallback to parent description for: ${uniqueId}")
-            libraryDescription = fixLibraryDescription(uniqueId, fixString(parentPom.description))
+            libraryDescription = fixLibraryDescription(uniqueId, applyProperties(parentProperties, fixString(parentPom.description)))
         }
         // get the description of the library
         def libraryVersion = fixString(artifactPom.version) // get the version of the library
@@ -316,6 +319,21 @@ class AboutLibrariesProcessor {
      */
     static def fixIdentifier(Object value) {
         return fixString(value).replace(".", "_").replace("-", "_")
+    }
+
+    /**
+     * Applies properties defined in the pom file onto the provided string
+     */
+    static def applyProperties(properties, String value) {
+        if (value == null) {
+            return value
+        }
+        if (properties != null && properties.size() > 0) {
+            for (final item in properties) {
+                value = value.replace("\${${item.name()}}", item.text())
+            }
+        }
+        return value
     }
 
     /**
