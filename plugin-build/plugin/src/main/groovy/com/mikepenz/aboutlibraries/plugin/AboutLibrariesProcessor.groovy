@@ -126,7 +126,8 @@ class AboutLibrariesProcessor {
 
         // the uniqueId
         def groupId = ifEmptyElse(artifactPom.groupId, artifactPom.parent.groupId)
-        def uniqueId = fixIdentifier(groupId) + "__" + fixIdentifier(applyProperties(properties, artifactPom.artifactId?.toString()))
+        def artifactId = applyProperties(properties, artifactPom.artifactId?.toString())
+        def uniqueId = fixIdentifier(groupId) + "__" + fixIdentifier(artifactId)
 
         if (customExclusionList.contains(uniqueId)) {
             println "--> Skipping ${uniqueId}"
@@ -136,7 +137,7 @@ class AboutLibrariesProcessor {
         LOGGER.debug(
                 "--> ArtifactPom for [{}:{}]:\n{}\n\n",
                 groupId,
-                artifactPom.artifactId,
+                artifactId,
                 artifactPomText
         )
 
@@ -157,7 +158,7 @@ class AboutLibrariesProcessor {
             LOGGER.debug(
                     "--> ArtifactPom ParentPom for [{}:{}]:\n{}\n\n",
                     groupId,
-                    artifactPom.artifactId,
+                    artifactId,
                     parentPomText
             )
             parentPom = new XmlSlurper(/* validating */ false, /* namespaceAware */ false).parseText(parentPomText)
@@ -166,7 +167,7 @@ class AboutLibrariesProcessor {
             LOGGER.debug(
                     "--> No Artifact Parent Pom found for [{}:{}]",
                     groupId,
-                    artifactPom.artifactId,
+                    artifactId,
             )
         }
 
@@ -279,13 +280,13 @@ class AboutLibrariesProcessor {
         def licenseYear = resolveLicenseYear(uniqueId, repositoryLink)
 
         if (!isNotEmpty(libraryName)) {
-            println "Could not get the name for ${uniqueId}, Using ${groupId}:${artifactPom.artifactId}"
-            libraryName = "${groupId}:${artifactPom.artifactId}"
+            println "Could not get the name for ${uniqueId}, Using ${groupId}:${artifactId}"
+            libraryName = "${groupId}:${artifactId}"
         }
 
         def library = new Library(
                 uniqueId,
-                "${groupId}:${artifactPom.artifactId}:${libraryVersion}",
+                "${groupId}:${artifactId}:${libraryVersion}",
                 author,
                 authorWebsite,
                 libraryName,
