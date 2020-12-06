@@ -120,6 +120,23 @@ See the `Config` section for more information.
 
 # Advanced Usage
 
+## Jetpack navigation
+
+Include the AboutLibraries destination in your graph
+
+```xml
+<include app:graph="@navigation/aboutlibs_navigation" />
+```
+
+After that you can define it as your target
+```xml
+<action
+    android:id="@+id/action_x_to_about_libs"
+    app:destination="@id/about_libraries" />
+```
+
+> To configure provide the `LibsBuilder` as the data argument
+
 ## Access generated library details
 
 If you want to create your own integration you can access the generated library information programmatically through the core module.
