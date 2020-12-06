@@ -1,7 +1,6 @@
 package com.mikepenz.aboutlibraries.util
 
 import android.content.Context
-import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import androidx.annotation.RestrictTo
 
@@ -11,14 +10,6 @@ internal fun Context.getPackageInfo(): PackageInfo? = try {
 } catch (ex: Exception) {
     null
 }
-
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
-internal fun Context.getApplicationInfo(): ApplicationInfo? = try {
-    packageManager.getApplicationInfo(packageName, 0)
-} catch (ex: Exception) {
-    null
-}
-
 
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
 internal fun Context.getRawResourceId(aString: String): Int {

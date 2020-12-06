@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.mikepenz.aboutlibraries.plugin' // has to be applied AFTER android
 
 if (getSigningFile() != null) {
@@ -49,6 +48,10 @@ android {
 
     lintOptions {
         abortOnError false
+    }
+
+    buildFeatures {
+        viewBinding true
     }
 
     compileOptions {
