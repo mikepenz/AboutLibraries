@@ -9,7 +9,8 @@
         android:name="com.mikepenz.aboutlibraries.ui.LibsSupportFragment">
         <argument
             android:name="data"
-            app:argType="java.io.Serializable" />
+            app:argType="java.io.Serializable"
+            app:nullable="true" />
     </fragment>
 
 </navigation>
