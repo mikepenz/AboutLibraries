@@ -16,17 +16,18 @@ import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.LibsBuilder
 import com.mikepenz.aboutlibraries.LibsConfiguration
 import com.mikepenz.aboutlibraries.entity.Library
+import com.mikepenz.aboutlibraries.sample.databinding.ActivityFragmentBinding
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.withIdentifier
 import com.mikepenz.materialdrawer.model.interfaces.withName
 import com.mikepenz.materialdrawer.model.interfaces.withSelectable
-import kotlinx.android.synthetic.main.activity_fragment.*
 
 /**
  * Created by mikepenz on 04.06.14.
  */
 class FragmentActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityFragmentBinding
 
     private lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
 
@@ -90,7 +91,9 @@ class FragmentActivity : AppCompatActivity() {
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_fragment)
+        binding = ActivityFragmentBinding.inflate(layoutInflater).also {
+            setContentView(it.root)
+        }
 
         //Remove line to test RTL support
         //window.decorView.layoutDirection = View.LAYOUT_DIRECTION_RTL
@@ -101,10 +104,9 @@ class FragmentActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
 
-        actionBarDrawerToggle = ActionBarDrawerToggle(this, root, toolbar, R.string.material_drawer_open, R.string.material_drawer_close)
+        actionBarDrawerToggle = ActionBarDrawerToggle(this, binding.root, toolbar, R.string.material_drawer_open, R.string.material_drawer_close)
 
-
-        slider.apply {
+        binding.slider.apply {
             itemAdapter.add(
                     PrimaryDrawerItem().withName("Home"),
                     PrimaryDrawerItem().withName(R.string.action_manifestactivity).withIdentifier(R.id.action_manifestactivity.toLong()).withSelectable(false),
@@ -113,7 +115,7 @@ class FragmentActivity : AppCompatActivity() {
                     PrimaryDrawerItem().withName(R.string.action_customsortactivity).withIdentifier(R.id.action_customsortactivity.toLong()).withSelectable(false),
                     PrimaryDrawerItem().withName(R.string.action_opensource).withIdentifier(R.id.action_opensource.toLong()).withSelectable(false)
             )
-            onDrawerItemClickListener = { v, drawerItem, position ->
+            onDrawerItemClickListener = { _, drawerItem, _ ->
                 // Handle action bar item clicks here. The action bar will
                 // automatically handle clicks on the Home/Up button, so long
                 // as you specify a parent activity in AndroidManifest.xml.

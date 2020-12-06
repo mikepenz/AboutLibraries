@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
     compileSdkVersion setup.compileSdk
@@ -19,6 +19,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
+
+    buildFeatures {
+        viewBinding true
+    }
+
     productFlavors {
     }
 
@@ -58,6 +63,9 @@ dependencies {
 
     // kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.kotlin}"
+
+    // navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:${versions.navigation}"
 }
 
 if (project.hasProperty('pushall') || project.hasProperty('library_only')) {

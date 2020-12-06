@@ -45,13 +45,13 @@ class LibsFragmentCompat {
     }
 
     fun onCreateView(context: Context, inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, arguments: Bundle?): View {
-        if (arguments != null) {
-            builder = arguments.getSerializable("data") as LibsBuilder
+        val data = arguments?.getSerializable("data") as? LibsBuilder
+        builder = if (data == null) {
+            Log.i("AboutLibraries", "Fallback to default configuration, due to missing argument")
+            LibsBuilder()
         } else {
-            Log.e("AboutLibraries", "The AboutLibraries fragment can't be build without the bundle containing the LibsBuilder")
-            return View(context)
+            data
         }
-
         var view = inflater.inflate(R.layout.fragment_opensource, container, false)
 
         //allows to modify the view before creating
