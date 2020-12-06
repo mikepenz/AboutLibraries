@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/aboutLibrariesNavigation"
+    app:startDestination="@id/aboutLibrariesDestination">
+
+    <fragment
+        android:id="@+id/aboutLibrariesDestination"
+        android:name="com.mikepenz.aboutlibraries.ui.LibsSupportFragment">
+        <argument
+            android:name="data"
+            app:argType="java.io.Serializable" />
+    </fragment>
+
+</navigation>

@@ -31,8 +31,8 @@ fun Context.getFields(): Array<String> =
  * @param packageName
  * @return
  */
-internal fun resolveRClass(packageName: String): Class<*>? {
-    var packageName = packageName
+internal fun resolveRClass(pn: String): Class<*>? {
+    var packageName = pn
     do {
         try {
             return Class.forName("$packageName.R\$string")
