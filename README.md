@@ -326,8 +326,6 @@ Additional dependencies can be provided via this plugins API to extend and provi
 # Used by
 (feel free to send me new projects)
 
-* [MegaYatzy](https://play.google.com/store/apps/details?id=com.tundem.yatzyTJ)
-* [Sir Spellalot](https://play.google.com/store/apps/details?id=com.sirspellalot.app.android)
 * [TV Time](https://play.google.com/store/apps/details?id=com.tozelabs.tvshowtime)
 * [Sprit Club](https://play.google.com/store/apps/details?id=at.idev.spritpreise)
 * [ML Manager](https://play.google.com/store/apps/details?id=com.javiersantos.mlmanager)
@@ -345,7 +343,6 @@ Additional dependencies can be provided via this plugins API to extend and provi
 * [Ordspill GRATIS](https://play.google.com/store/apps/details?id=com.ap.ordspill.free)
 * [Ordspill](https://play.google.com/store/apps/details?id=com.ap.ordspill.full)
 * [Betapet FREE](https://play.google.com/store/apps/details?id=com.betapet.mobile.se.free)
-* [Betapet](https://play.google.com/store/apps/details?id=com.betapet.mobile.se.full)
 * [Contact Lenses Time](https://play.google.com/store/apps/details?id=com.brando.lenti)
 * [HTTP Shortcuts](https://github.com/Waboodoo/HTTP-Shortcuts)
 * [KAU (library)](https://allanwang.github.io/KAU/about/)
