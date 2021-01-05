@@ -271,7 +271,7 @@ In case the plugin fails to detect a library or you're using an embedded library
     <!-- identifier used to reference this library -->
     <string name="define_plu_myLibrary">year;owner</string>
     <string name="library_myLibrary_author">Author</string>
-    <string name="library_myLibrary_authorWebsite">https://mikepenz.dev<string>
+    <string name="library_myLibrary_authorWebsite">https://mikepenz.dev</string>
     <string name="library_myLibrary_libraryName">My Library</string>
     <string name="library_myLibrary_libraryDescription">Some text</string>
     <string name="library_myLibrary_libraryVersion">10.1.1</string>
