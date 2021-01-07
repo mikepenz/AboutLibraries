@@ -50,7 +50,7 @@ class AboutLibrariesProcessor {
             try {
                 final def targetFile = new File(configFolder, "${resourceName}")
                 if (targetFile.exists()) {
-                    customMappingText = targetFile.getText('UTF-8')
+                    def customMappingText = targetFile.getText('UTF-8')
                     customMappingText.eachLine {
                         if (target instanceof Map) {
                             def splitMapping = it.split(':')
