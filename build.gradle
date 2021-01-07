@@ -9,7 +9,7 @@ buildscript {
 
         setup = [
                 compileSdk: 30,
-                buildTools: "30.0.2",
+                buildTools: "30.0.3",
                 minSdk    : 16,
                 targetSdk : 30
         ]
@@ -20,7 +20,7 @@ buildscript {
                 appcompat       : '1.2.0',
                 recyclerview    : '1.1.0',
                 material        : '1.2.1',
-                kotlin          : "1.4.20",
+                kotlin          : "1.4.21",
                 constraintLayout: '2.0.4',
                 navigation      : "2.3.2",
                 iconics         : "5.2.1",
