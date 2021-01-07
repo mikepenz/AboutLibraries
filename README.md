@@ -35,7 +35,7 @@
 
 ## Latest releases 🛠
 
-- Kotlin && Gradle Plugin | [v8.6.3](https://github.com/mikepenz/AboutLibraries/tree/v8.6.3)
+- Kotlin && Gradle Plugin | [v8.6.4](https://github.com/mikepenz/AboutLibraries/tree/v8.6.4)
 - Kotlin | [v7.1.0](https://github.com/mikepenz/AboutLibraries/tree/v7.1.0)
 - Java && AndroidX | [v6.2.3](https://github.com/mikepenz/AboutLibraries/tree/v6.2.3)
 - Java && AppCompat | [v6.1.1](https://github.com/mikepenz/AboutLibraries/tree/v6.1.1)
@@ -119,6 +119,23 @@ Finds all included libraries with their name, and the unique AboutLibraries iden
 See the `Config` section for more information.
 
 # Advanced Usage
+
+## Jetpack navigation
+
+Include the AboutLibraries destination in your graph
+
+```xml
+<include app:graph="@navigation/aboutlibs_navigation" />
+```
+
+After that you can define it as your target
+```xml
+<action
+    android:id="@+id/action_x_to_about_libs"
+    app:destination="@id/about_libraries" />
+```
+
+> To configure provide the `LibsBuilder` as the data argument
 
 ## Access generated library details
 
@@ -254,7 +271,7 @@ In case the plugin fails to detect a library or you're using an embedded library
     <!-- identifier used to reference this library -->
     <string name="define_plu_myLibrary">year;owner</string>
     <string name="library_myLibrary_author">Author</string>
-    <string name="library_myLibrary_authorWebsite">https://mikepenz.dev<string>
+    <string name="library_myLibrary_authorWebsite">https://mikepenz.dev</string>
     <string name="library_myLibrary_libraryName">My Library</string>
     <string name="library_myLibrary_libraryDescription">Some text</string>
     <string name="library_myLibrary_libraryVersion">10.1.1</string>
@@ -309,8 +326,6 @@ Additional dependencies can be provided via this plugins API to extend and provi
 # Used by
 (feel free to send me new projects)
 
-* [MegaYatzy](https://play.google.com/store/apps/details?id=com.tundem.yatzyTJ)
-* [Sir Spellalot](https://play.google.com/store/apps/details?id=com.sirspellalot.app.android)
 * [TV Time](https://play.google.com/store/apps/details?id=com.tozelabs.tvshowtime)
 * [Sprit Club](https://play.google.com/store/apps/details?id=at.idev.spritpreise)
 * [ML Manager](https://play.google.com/store/apps/details?id=com.javiersantos.mlmanager)
@@ -328,7 +343,6 @@ Additional dependencies can be provided via this plugins API to extend and provi
 * [Ordspill GRATIS](https://play.google.com/store/apps/details?id=com.ap.ordspill.free)
 * [Ordspill](https://play.google.com/store/apps/details?id=com.ap.ordspill.full)
 * [Betapet FREE](https://play.google.com/store/apps/details?id=com.betapet.mobile.se.free)
-* [Betapet](https://play.google.com/store/apps/details?id=com.betapet.mobile.se.full)
 * [Contact Lenses Time](https://play.google.com/store/apps/details?id=com.brando.lenti)
 * [HTTP Shortcuts](https://github.com/Waboodoo/HTTP-Shortcuts)
 * [KAU (library)](https://allanwang.github.io/KAU/about/)
@@ -347,7 +361,7 @@ Additional dependencies can be provided via this plugins API to extend and provi
 
 # License
 
-    Copyright 2020 Mike Penz
+    Copyright 2021 Mike Penz
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
