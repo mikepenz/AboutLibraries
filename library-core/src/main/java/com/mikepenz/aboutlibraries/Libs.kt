@@ -420,6 +420,8 @@ class Libs(
                         license.licenseShortDescription = insertVariables(license.licenseShortDescription, customVariables)
                         license.licenseDescription = insertVariables(license.licenseDescription, customVariables)
                         licenses.add(license)
+                    } else {
+                        licenses.add(License("", licenseId, "", "", ""))
                     }
                 }
                 lib.licenses = licenses
