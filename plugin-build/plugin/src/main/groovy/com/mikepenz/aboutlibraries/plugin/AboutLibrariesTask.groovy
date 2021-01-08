@@ -61,12 +61,17 @@ public class AboutLibrariesTask extends DefaultTask {
         this.outputRawFolder = getRawFolder()
         this.combinedLibrariesOutputFile = getCombinedLibrariesOutputFile()
 
-        def processor = new AboutLibrariesProcessor()
-        def libraries = processor.gatherDependencies(project, variant)
+        final def processor = new AboutLibrariesProcessor()
+        final def libraries = processor.gatherDependencies(project, variant)
 
         // Include additional licenses explicitly requested.
-        processor.additionalLicenses.each {
-            neededLicenses.add(it)
+        processor.additionalLicenses.each { final al ->
+            final def foundLicense = License.values().find { final li ->
+                li.name().equalsIgnoreCase(al) || li.id.equalsIgnoreCase(al)
+            }
+            if (foundLicense != null) {
+                neededLicenses.add(foundLicense.name())
+            }
         }
 
         def printWriter = new PrintWriter(new OutputStreamWriter(combinedLibrariesOutputFile.newOutputStream(), StandardCharsets.UTF_8), true)

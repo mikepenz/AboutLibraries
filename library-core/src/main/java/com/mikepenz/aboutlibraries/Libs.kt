@@ -285,59 +285,40 @@ class Libs(
     }
 
     /**
-     * @param searchTerm
-     * @param idOnly
-     * @param limit
-     * @return
+     * Tries to find a library given a [searchTerm] from the internal libraries.
+     * If [limit] is set to 1, an equal definedName match would be tried to match, fallback to search in lib name or definedName.
      */
     fun findInInternalLibrary(searchTerm: String, idOnly: Boolean, limit: Int): List<Library> {
         return find(getInternLibraries(), searchTerm, idOnly, limit)
     }
 
     /**
-     * @param searchTerm
-     * @param idOnly
-     * @param limit
-     * @return
+     * Tries to find a library given a [searchTerm] from the external libraries.
+     * If [limit] is set to 1, an equal definedName match would be tried to match, fallback to search in lib name or definedName.
      */
     fun findInExternalLibrary(searchTerm: String, idOnly: Boolean, limit: Int): List<Library> {
         return find(getExternLibraries(), searchTerm, idOnly, limit)
     }
 
     /**
-     * @param libraries
-     * @param searchTerm
-     * @param idOnly
-     * @param limit
-     * @return
+     * Tries to find a library given a [searchTerm] from the given [libraries].
+     * If [limit] is set to 1, an equal definedName match would be tried to match, fallback to search in lib name or definedName.
      */
     private fun find(libraries: List<Library>, searchTerm: String, idOnly: Boolean, limit: Int): List<Library> {
-        val localLibs = ArrayList<Library>()
-
-        var count = 0
-        for (library in libraries) {
-            if (idOnly) {
-                if (library.definedName.contains(searchTerm, true)) {
-                    localLibs.add(library)
-                    count += 1
-
-                    if (limit != -1 && limit < count) {
-                        break
-                    }
-                }
-            } else {
-                if (library.libraryName.contains(searchTerm, true) || library.definedName.contains(searchTerm, true)) {
-                    localLibs.add(library)
-                    count += 1
-
-                    if (limit != -1 && limit < count) {
-                        break
-                    }
-                }
+        /** special optimization to return a equal id match in case we only want max 1 elements */
+        if (limit == 1) {
+            libraries.firstOrNull { it.definedName.equals(searchTerm, true) }?.let {
+                return listOf(it)
             }
         }
 
-        return localLibs
+        /** no equal match found, try to find alternative matches instead */
+        val matchFunction = if (idOnly) {
+            { library: Library -> library.definedName.contains(searchTerm, true) }
+        } else {
+            { library: Library -> library.libraryName.contains(searchTerm, true) || library.definedName.contains(searchTerm, true) }
+        }
+        return libraries.filter(matchFunction).take(limit)
     }
 
 
@@ -420,6 +401,8 @@ class Libs(
                         license.licenseShortDescription = insertVariables(license.licenseShortDescription, customVariables)
                         license.licenseDescription = insertVariables(license.licenseDescription, customVariables)
                         licenses.add(license)
+                    } else {
+                        licenses.add(License("", licenseId, "", "", ""))
                     }
                 }
                 lib.licenses = licenses
