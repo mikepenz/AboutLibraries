@@ -214,6 +214,30 @@ custom_exclusion_list.prop // allows excluding libraries by their id at build ti
 
 See the corresponding files here for the format and content: https://github.com/mikepenz/AboutLibraries/tree/develop/library-definitions/src/main/res/raw
 
+### Include undetected licenses
+
+Only licenses from detected dependencies are loaded. You may need to manually include some licenses to have them available in your project.
+
+```groovy
+aboutLibraries {
+    // Full license text for license IDs mentioned here
+    // will be included, even if no detected dependency uses them.
+    additionalLicenses {
+        mit
+        mpl_2_0
+        LGPL_2_1_or_later
+    }
+}
+```
+
+If you wish to include all licenses you may use the below, but note that doing this will unnecessarily include extra string resources in your project.
+
+```groovy
+aboutLibraries {
+    includeAllLicenses = true
+}
+```
+
 ## Custom Licenses
 
 It is possible to add additional licenses. In order to do so, you have to add the content of the license as an own text file in the app's raw folder e.g. `app/src/main/res/raw/myLicense.txt`
