@@ -64,13 +64,18 @@ public class AboutLibrariesTask extends DefaultTask {
         final def processor = new AboutLibrariesProcessor()
         final def libraries = processor.gatherDependencies(project, variant)
 
-        // Include additional licenses explicitly requested.
-        processor.additionalLicenses.each { final al ->
-            final def foundLicense = License.values().find { final li ->
-                li.name().equalsIgnoreCase(al) || li.id.equalsIgnoreCase(al)
-            }
-            if (foundLicense != null) {
-                neededLicenses.add(foundLicense.name())
+        if (processor.includeAllLicenses) {
+            // Include all licenses
+            neededLicenses.addAll(License.values())
+        } else {
+            // Include additional licenses explicitly requested.
+            processor.additionalLicenses.each { final al ->
+                final def foundLicense = License.values().find { final li ->
+                    li.name().equalsIgnoreCase(al) || li.id.equalsIgnoreCase(al)
+                }
+                if (foundLicense != null) {
+                    neededLicenses.add(foundLicense.name())
+                }
             }
         }
 

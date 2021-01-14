@@ -22,7 +22,7 @@ enum class License(val fullName: String, val id: String, val aboutLibsId: String
     AGPL_3_0_only("GNU Affero General Public License v3.0 only", "AGPL-3.0-only"),
     AGPL_3_0_or_later("GNU Affero General Public License v3.0 or later", "AGPL-3.0-or-later"),
     Aladdin("Aladdin Free Public License", "Aladdin"),
-    AMDPLPA("AMD's plpa_map.c License", "AMDPLPA"),
+    AMDPLPA("AMD\\'s plpa_map.c License", "AMDPLPA"),
     AML("Apple MIT License", "AML"),
     AMPAS("Academy of Motion Picture Arts and Sciences BSD", "AMPAS"),
     ANTLR_PD("ANTLR Software Rights Notice", "ANTLR-PD"),
