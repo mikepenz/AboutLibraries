@@ -66,9 +66,7 @@ public class AboutLibrariesTask extends DefaultTask {
 
         if (processor.includeAllLicenses) {
             // Include all licenses
-            for (License license : License) {
-                neededLicenses.add(license);
-            }
+            neededLicenses.addAll(License.values())
         } else {
             // Include additional licenses explicitly requested.
             processor.additionalLicenses.each { final al ->

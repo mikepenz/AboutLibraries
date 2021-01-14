@@ -216,12 +216,12 @@ See the corresponding files here for the format and content: https://github.com/
 
 ### Include undetected licenses
 
-Only licenses from detected dependencies are loaded. You may need to manually include some licenses to have them available in your project.
+Only licenses from gradle dependencies with matching pom information are loaded. You may need to manually include some licenses if they are missing.
+Required identifiers can be found in the [License.kt](https://github.com/mikepenz/AboutLibraries/blob/develop/plugin-build/plugin/src/main/kotlin/com/mikepenz/aboutlibraries/plugin/mapping/License.kt) class.
 
 ```groovy
 aboutLibraries {
-    // Full license text for license IDs mentioned here
-    // will be included, even if no detected dependency uses them.
+    // Licenses specified here will be included even if undetected.
     additionalLicenses {
         mit
         mpl_2_0
@@ -230,7 +230,9 @@ aboutLibraries {
 }
 ```
 
-If you wish to include all licenses you may use the below, but note that doing this will unnecessarily include extra string resources in your project.
+Alternatively all licenses can be included in the project.
+
+> NOTE: Doing this will include extra string resources in your project.
 
 ```groovy
 aboutLibraries {
