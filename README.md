@@ -309,7 +309,7 @@ In case the plugin fails to detect a library or you're using an embedded library
     <!-- Custom variables section -->
     <string name="library_myLibrary_owner">Owner</string>
     <string name="library_myLibrary_year">2020</string>
-</resources> 
+</resources>
 ```
 
 ## Usage WITHOUT gradle plugin (not recommended)
@@ -377,6 +377,7 @@ Additional dependencies can be provided via this plugins API to extend and provi
 * [MyLife - Journal](https://play.google.com/store/apps/details?id=com.pi143.mylife)
 * [LibreAV](https://github.com/projectmatris/antimalwareapp)
 * [Honda RoadSync](https://play.google.com/store/apps/details?id=com.honda.ms.dm.sab)
+* [Secure File Manager](https://play.google.com/store/apps/details?id=com.securefilemanager.app)
 
 # Developed By
 
