@@ -22,7 +22,7 @@ enum class License(val fullName: String, val id: String, val aboutLibsId: String
     AGPL_3_0_only("GNU Affero General Public License v3.0 only", "AGPL-3.0-only"),
     AGPL_3_0_or_later("GNU Affero General Public License v3.0 or later", "AGPL-3.0-or-later"),
     Aladdin("Aladdin Free Public License", "Aladdin"),
-    AMDPLPA("AMD's plpa_map.c License", "AMDPLPA"),
+    AMDPLPA("AMD\\'s plpa_map.c License", "AMDPLPA"),
     AML("Apple MIT License", "AML"),
     AMPAS("Academy of Motion Picture Arts and Sciences BSD", "AMPAS"),
     ANTLR_PD("ANTLR Software Rights Notice", "ANTLR-PD"),
@@ -390,7 +390,7 @@ enum class License(val fullName: String, val id: String, val aboutLibsId: String
     MIT("MIT License", "MIT", "mit", { name, _ ->
         name.contains("MIT", true)
     }),
-    CC0_1_0("Creative Commons Zero v1.0 Universal", "CC0-1.0", customMatcher = { name, _ ->
+    CC0_1_0("Creative Commons Zero v1.0 Universal", "CC0-1.0", "cc0_10", customMatcher = { name, _ ->
         name.equals("CC0", true)
     }),
 

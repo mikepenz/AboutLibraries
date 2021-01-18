@@ -21,6 +21,8 @@ class AboutLibrariesProcessor {
 
     private File configFolder
 
+    boolean includeAllLicenses;
+
     Set<String> additionalLicenses = new HashSet<String>()
 
     Set<String> handledLibraries = new HashSet<String>()
@@ -81,7 +83,10 @@ class AboutLibrariesProcessor {
         if (extension.configPath != null) {
             configFolder = new File(extension.configPath)
         }
-        if (extension.additionalLicenses != null) {
+        if (extension.includeAllLicenses) {
+            includeAllLicenses = extension.includeAllLicenses
+            LOGGER.debug("Manually requested all licenses")
+        } else if (extension.additionalLicenses != null) {
             extension.additionalLicenses.all { licenseExt ->
                 LOGGER.debug("Manually requested license: ${licenseExt.name}")
                 additionalLicenses.add(licenseExt.name)

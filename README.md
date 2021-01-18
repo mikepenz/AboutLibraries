@@ -35,7 +35,7 @@
 
 ## Latest releases 🛠
 
-- Kotlin && Gradle Plugin | [v8.6.5](https://github.com/mikepenz/AboutLibraries/tree/v8.6.5)
+- Kotlin && Gradle Plugin | [v8.6.6](https://github.com/mikepenz/AboutLibraries/tree/v8.6.6)
 - Kotlin | [v7.1.0](https://github.com/mikepenz/AboutLibraries/tree/v7.1.0)
 - Java && AndroidX | [v6.2.3](https://github.com/mikepenz/AboutLibraries/tree/v6.2.3)
 - Java && AppCompat | [v6.1.1](https://github.com/mikepenz/AboutLibraries/tree/v6.1.1)
@@ -214,6 +214,32 @@ custom_exclusion_list.prop // allows excluding libraries by their id at build ti
 
 See the corresponding files here for the format and content: https://github.com/mikepenz/AboutLibraries/tree/develop/library-definitions/src/main/res/raw
 
+### Include undetected licenses
+
+Only licenses from gradle dependencies with matching pom information are loaded. You may need to manually include some licenses if they are missing.
+Required identifiers can be found in the [License.kt](https://github.com/mikepenz/AboutLibraries/blob/develop/plugin-build/plugin/src/main/kotlin/com/mikepenz/aboutlibraries/plugin/mapping/License.kt) class.
+
+```groovy
+aboutLibraries {
+    // Licenses specified here will be included even if undetected.
+    additionalLicenses {
+        mit
+        mpl_2_0
+        LGPL_2_1_or_later
+    }
+}
+```
+
+Alternatively all licenses can be included in the project.
+
+> NOTE: Doing this will include extra string resources in your project.
+
+```groovy
+aboutLibraries {
+    includeAllLicenses = true
+}
+```
+
 ## Custom Licenses
 
 It is possible to add additional licenses. In order to do so, you have to add the content of the license as an own text file in the app's raw folder e.g. `app/src/main/res/raw/myLicense.txt`
@@ -351,6 +377,7 @@ Additional dependencies can be provided via this plugins API to extend and provi
 * [MyLife - Journal](https://play.google.com/store/apps/details?id=com.pi143.mylife)
 * [LibreAV](https://github.com/projectmatris/antimalwareapp)
 * [Honda RoadSync](https://play.google.com/store/apps/details?id=com.honda.ms.dm.sab)
+* [SimpleSettings Library](https://github.com/marcauberer/simple-settings)
 
 # Developed By
 
