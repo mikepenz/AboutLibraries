@@ -390,7 +390,7 @@ enum class License(val fullName: String, val id: String, val aboutLibsId: String
     MIT("MIT License", "MIT", "mit", { name, _ ->
         name.contains("MIT", true)
     }),
-    CC0_1_0("Creative Commons Zero v1.0 Universal", "CC0-1.0", "cc0_10", customMatcher = { name, _ ->
+    CC0_1_0("Creative Commons Zero v1.0 Universal", "CC0-1.0", "cc0_1_0", customMatcher = { name, _ ->
         name.equals("CC0", true)
     }),
 
