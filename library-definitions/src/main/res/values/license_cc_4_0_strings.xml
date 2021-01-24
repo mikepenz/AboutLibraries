@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources translatable="false">
-    <string name="define_license_cc40" translatable="false"></string>
-    <string name="license_cc40_licenseName" translatable="false">Creative Commons 4.0 License</string>
-    <string name="license_cc40_licenseWebsite" translatable="false">https://creativecommons.org/licenses/by/4.0/legalcode</string>
-    <string name="license_cc40_licenseShortDescription" translatable="false">
+    <string name="define_license_cc_4_0" translatable="false"></string>
+    <string name="license_cc_4_0_licenseName" translatable="false">Creative Commons 4.0 License</string>
+    <string name="license_cc_4_0_licenseWebsite" translatable="false">https://creativecommons.org/licenses/by/4.0/legalcode</string>
+    <string name="license_cc_4_0_licenseShortDescription" translatable="false">
         <![CDATA[
         By exercising the Licensed Rights (defined below), You accept
         and agree to be bound by the terms and conditions of this
@@ -16,5 +16,5 @@
         available under these terms and conditions.
 		]]>
     </string>
-    <string name="license_cc40_licenseDescription" translatable="false">raw:license_cc40</string>
+    <string name="license_cc_4_0_licenseDescription" translatable="false">raw:license_cc_4_0</string>
 </resources>
