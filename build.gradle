@@ -22,7 +22,7 @@ buildscript {
                 material        : '1.2.1',
                 kotlin          : "1.4.21",
                 constraintLayout: '2.0.4',
-                navigation      : "2.3.2",
+                navigation      : "2.3.3",
                 iconics         : "5.2.1",
                 detekt          : '1.15.0',
                 fastadapter     : "5.3.2",
@@ -38,7 +38,7 @@ buildscript {
         mavenLocal()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.1'
+        classpath 'com.android.tools.build:gradle:4.1.2'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.5'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
