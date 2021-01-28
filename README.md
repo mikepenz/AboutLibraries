@@ -336,21 +336,27 @@ implementation "com.mikepenz:aboutlibraries-definitions:${latestAboutLibsRelease
 ```
 
 ## ProGuard
-Exclude `R` from ProGuard to enable the **libraries auto detection**
-```proguard
--keep class .R
--keep class **.R$* {
-    <fields>;
-}
-```
 
 In case you want to minimize your resources as much as possible use the following rules (Thanks to @rubengees and @AllanWang as discussed here: https://github.com/mikepenz/AboutLibraries/issues/331)
+
 ```proguard
 -keepclasseswithmembers class **.R$* {
     public static final int define_*;
+    public static final int library_*;
 }
 ```
-These rules **will** require you to add the libraries manually. (see more in the above linked issue)
+
+Please note that the resources need to be kept to be discoverable by the library.
+
+```
+android {
+    buildTypes {
+        release {
+            shrinkResources false
+        }
+    }
+}
+```
 
 # Disclaimer
 
