@@ -16,12 +16,16 @@ import org.gradle.maven.MavenPomArtifact
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
+import java.util.regex.Pattern
+
 class AboutLibrariesProcessor {
     private static final Logger LOGGER = LoggerFactory.getLogger(AboutLibrariesProcessor.class);
 
     private File configFolder
 
-    boolean includeAllLicenses;
+    private List<Pattern> exclusionPatterns
+
+    boolean includeAllLicenses
 
     Set<String> additionalLicenses = new HashSet<String>()
 
@@ -83,6 +87,7 @@ class AboutLibrariesProcessor {
         if (extension.configPath != null) {
             configFolder = new File(extension.configPath)
         }
+        exclusionPatterns = extension.exclusionPatterns
         if (extension.includeAllLicenses) {
             includeAllLicenses = extension.includeAllLicenses
             LOGGER.debug("Manually requested all licenses")
@@ -110,7 +115,7 @@ class AboutLibrariesProcessor {
             File file = resolvePomFile(project, group_artifact, versionIdentifier, false)
             if (file != null) {
                 try {
-                    writeDependency(project, librariesList, file)
+                    parseDependency(project, librariesList, file)
                 } catch (Throwable ex) {
                     LOGGER.error("--> Failed to write dependency information for: ${group_artifact}")
                 }
@@ -119,7 +124,7 @@ class AboutLibrariesProcessor {
         return librariesList
     }
 
-    def writeDependency(def project, List<Library> libraries, File artifactFile) {
+    def parseDependency(def project, List<Library> libraries, File artifactFile) {
         def artifactPomText = artifactFile.getText('UTF-8').trim()
         if (artifactPomText.charAt(0) != (char) '<') {
             LOGGER.warn("--> ${artifactFile.path} contains a invalid character at the first position. Applying workaround.")
@@ -137,6 +142,15 @@ class AboutLibrariesProcessor {
         if (customExclusionList.contains(uniqueId)) {
             println "--> Skipping ${uniqueId}"
             return
+        }
+
+        if (exclusionPatterns != null) {
+            for (pattern in exclusionPatterns) {
+                if (pattern.matcher(uniqueId).matches()) {
+                    println "--> Skipping ${uniqueId}, matching exclusion pattern"
+                    return
+                }
+            }
         }
 
         LOGGER.debug(

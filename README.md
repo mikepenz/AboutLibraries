@@ -35,7 +35,7 @@
 
 ## Latest releases 🛠
 
-- Kotlin && Gradle Plugin | [v8.6.8](https://github.com/mikepenz/AboutLibraries/tree/v8.6.8)
+- Kotlin && Gradle Plugin | [v8.6.9](https://github.com/mikepenz/AboutLibraries/tree/v8.6.9)
 - Kotlin | [v7.1.0](https://github.com/mikepenz/AboutLibraries/tree/v7.1.0)
 - Java && AndroidX | [v6.2.3](https://github.com/mikepenz/AboutLibraries/tree/v6.2.3)
 - Java && AppCompat | [v6.1.1](https://github.com/mikepenz/AboutLibraries/tree/v6.1.1)
@@ -213,6 +213,20 @@ custom_exclusion_list.prop // allows excluding libraries by their id at build ti
 ```
 
 See the corresponding files here for the format and content: https://github.com/mikepenz/AboutLibraries/tree/develop/library-definitions/src/main/res/raw
+
+### Exclude libraries
+
+> This is mainly meant for internal libraries, or projects. Full attribution to used projects is appreciated.
+
+```groovy
+aboutLibraries {
+    // allows to specify regex patterns to exclude some libraries
+    // preferred for internal libraries, ...
+    // The regex applies onto the uniqueId. E.g.: `com_mikepenz__materialdrawer`
+    // specify with the groovy regex syntax.
+    exclusionPatterns = [~"com_.*", ~/com_mylibrary_.*/]
+}
+```
 
 ### Include undetected licenses
 
