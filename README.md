@@ -214,6 +214,20 @@ custom_exclusion_list.prop // allows excluding libraries by their id at build ti
 
 See the corresponding files here for the format and content: https://github.com/mikepenz/AboutLibraries/tree/develop/library-definitions/src/main/res/raw
 
+### Exclude libraries
+
+> This is mainly meant for internal libraries, or projects. Full attribution to used projects is appreciated.
+
+```groovy
+aboutLibraries {
+    // allows to specify regex patterns to exclude some libraries
+    // preferred for internal libraries, ...
+    // The regex applies onto the uniqueId. E.g.: `com_mikepenz__materialdrawer`
+    // specify with the groovy regex syntax.
+    exclusionPatterns = [~"com_.*", ~/com_mylibrary_.*/]
+}
+```
+
 ### Include undetected licenses
 
 Only licenses from gradle dependencies with matching pom information are loaded. You may need to manually include some licenses if they are missing.
