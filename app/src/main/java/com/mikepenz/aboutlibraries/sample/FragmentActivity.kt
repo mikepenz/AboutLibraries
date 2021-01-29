@@ -191,7 +191,6 @@ class FragmentActivity : AppCompatActivity() {
                 .forEach {
                     Log.d("AboutLibraries", it.libraryName)
                 }
-
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
