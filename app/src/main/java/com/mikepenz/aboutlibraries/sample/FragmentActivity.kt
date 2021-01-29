@@ -17,6 +17,7 @@ import com.mikepenz.aboutlibraries.LibsBuilder
 import com.mikepenz.aboutlibraries.LibsConfiguration
 import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.sample.databinding.ActivityFragmentBinding
+import com.mikepenz.aboutlibraries.util.toStringArray
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.withIdentifier
@@ -135,6 +136,7 @@ class FragmentActivity : AppCompatActivity() {
                     R.id.action_minimalactivity.toLong() -> {
                         // create and launch an activity in minmal design without any additional modifications
                         LibsBuilder()
+                                .withFields(R.string::class.java.fields)
                                 .withAboutMinimalDesign(true)
                                 .withEdgeToEdge(true)
                                 .withActivityTitle("Open Source")
@@ -144,6 +146,7 @@ class FragmentActivity : AppCompatActivity() {
                     R.id.action_manifestactivity.toLong() -> {
                         // create and launch an activity in full design, with various configurations and adjustments
                         LibsBuilder()
+                                .withFields(R.string::class.java.fields)
                                 .withLibraries("crouton", "actionbarsherlock", "showcaseview", "glide")
                                 .withAutoDetect(false)
                                 .withLicenseShown(true)
@@ -171,6 +174,7 @@ class FragmentActivity : AppCompatActivity() {
         */
 
         val fragment = LibsBuilder()
+                .withFields(R.string::class.java.fields)
                 .withVersionShown(false)
                 .withLicenseShown(true)
                 // find ids via './gradlew findLibraries'
@@ -180,6 +184,13 @@ class FragmentActivity : AppCompatActivity() {
 
         val fragmentManager = supportFragmentManager
         fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit()
+
+        // Showcase to use the library meta information without the UI module
+        Libs(this, R.string::class.java.fields.toStringArray())
+                .prepareLibraries()
+                .forEach {
+                    Log.d("AboutLibraries", it.libraryName)
+                }
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {

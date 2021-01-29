@@ -35,7 +35,7 @@
 
 ## Latest releases 🛠
 
-- Kotlin && Gradle Plugin | [v8.6.9](https://github.com/mikepenz/AboutLibraries/tree/v8.6.9)
+- Kotlin && Gradle Plugin | [v8.7.0](https://github.com/mikepenz/AboutLibraries/tree/v8.7.0)
 - Kotlin | [v7.1.0](https://github.com/mikepenz/AboutLibraries/tree/v7.1.0)
 - Java && AndroidX | [v6.2.3](https://github.com/mikepenz/AboutLibraries/tree/v6.2.3)
 - Java && AppCompat | [v6.1.1](https://github.com/mikepenz/AboutLibraries/tree/v6.1.1)
@@ -326,9 +326,10 @@ In case the plugin fails to detect a library or you're using an embedded library
 </resources> 
 ```
 
-## Usage WITHOUT gradle plugin (not recommended)
+## Usage WITHOUT gradle plugin (deprecated)
 
 If you do not want to use the gradle plugin, you need to add the legacy definition files, which will then be included in the built apk, and resolved via reflection during runtime.
+
 > NOTE: This is not recommended. Please migrate to use the gradle plugin
 
 ```gradle
@@ -336,21 +337,10 @@ implementation "com.mikepenz:aboutlibraries-definitions:${latestAboutLibsRelease
 ```
 
 ## ProGuard
-Exclude `R` from ProGuard to enable the **libraries auto detection**
-```proguard
--keep class .R
--keep class **.R$* {
-    <fields>;
-}
-```
 
-In case you want to minimize your resources as much as possible use the following rules (Thanks to @rubengees and @AllanWang as discussed here: https://github.com/mikepenz/AboutLibraries/issues/331)
-```proguard
--keepclasseswithmembers class **.R$* {
-    public static final int define_*;
-}
-```
-These rules **will** require you to add the libraries manually. (see more in the above linked issue)
+ProGuard / R8 rules are bundled internally with the core module.
+
+> Please check the configuration in regards to passing in the fields `.withFields(R.string::class.java.fields)`
 
 # Disclaimer
 
