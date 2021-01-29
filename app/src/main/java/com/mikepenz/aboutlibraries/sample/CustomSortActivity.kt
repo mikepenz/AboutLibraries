@@ -12,6 +12,7 @@ class CustomSortActivity : LibsActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         val builder = LibsBuilder()
+                .withFields(R.string::class.java.fields)
                 .withLibraries("crouton, actionbarsherlock", "showcaseview")
                 .withLibraryComparator(LibraryComparator())
 

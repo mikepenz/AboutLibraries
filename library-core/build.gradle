@@ -11,6 +11,8 @@ android {
         versionCode release.versionCode
         versionName release.versionName
 
+        consumerProguardFiles 'consumer-proguard-rules.pro'
+
         resValue "string", "aboutlibrary_lib_version", "${versionName}"
     }
 
