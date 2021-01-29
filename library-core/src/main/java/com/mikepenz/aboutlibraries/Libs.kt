@@ -4,10 +4,12 @@ package com.mikepenz.aboutlibraries
 
 import android.content.Context
 import android.util.Log
-import com.mikepenz.aboutlibraries.detector.Detect
 import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.entity.License
-import com.mikepenz.aboutlibraries.util.*
+import com.mikepenz.aboutlibraries.util.getFields
+import com.mikepenz.aboutlibraries.util.getRawResourceId
+import com.mikepenz.aboutlibraries.util.getStringResourceByName
+import com.mikepenz.aboutlibraries.util.toStringArray
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -17,7 +19,6 @@ class Libs(
         libraryEnchantments: Map<String, String> = emptyMap()
 ) {
 
-    private var usedGradlePlugin = false
     private val internLibraries = mutableListOf<Library>()
     private val externLibraries = mutableListOf<Library>()
     private val licenses = mutableListOf<License>()
@@ -74,16 +75,12 @@ class Libs(
      */
     init {
         val foundLicenseIdentifiers = ArrayList<String>()
-        val foundInternalLibraryIdentifiers = ArrayList<String>()
-        val foundExternalLibraryIdentifiers = ArrayList<String>()
         val foundPluginLibraryIdentifiers = ArrayList<String>()
 
         for (field in fields) {
             when {
                 field.startsWith(DEFINE_LICENSE) -> foundLicenseIdentifiers.add(field.replace(DEFINE_LICENSE, ""))
-                field.startsWith(DEFINE_INT) -> foundInternalLibraryIdentifiers.add(field.replace(DEFINE_INT, ""))
                 field.startsWith(DEFINE_PLUGIN) -> foundPluginLibraryIdentifiers.add(field.replace(DEFINE_PLUGIN, ""))
-                field.startsWith(DEFINE_EXT) -> foundExternalLibraryIdentifiers.add(field.replace(DEFINE_EXT, ""))
             }
         }
 
@@ -100,79 +97,34 @@ class Libs(
             library.isInternal = false
             library.isPlugin = true
             externLibraries.add(library)
-            usedGradlePlugin = true
 
             val enchantWithKey = libraryEnchantments[pluginLibraryIdentifier] ?: continue
             val enchantWith = genLibrary(context, enchantWithKey) ?: continue
             library.enchantBy(enchantWith)
         }
-
-        // if we used the gradle plugin to resolve libraries, only use those
-        if (foundPluginLibraryIdentifiers.isEmpty()) {
-            //add internal libs
-            for (internalIdentifier in foundInternalLibraryIdentifiers) {
-                val library = genLibrary(context, internalIdentifier) ?: continue
-                library.isInternal = true
-                internLibraries.add(library)
-            }
-
-            //add external libs
-            for (externalIdentifier in foundExternalLibraryIdentifiers) {
-                val library = genLibrary(context, externalIdentifier) ?: continue
-                library.isInternal = false
-                externLibraries.add(library)
-            }
-        }
     }
 
     /**
-     * This will summarize all libraries and eliminate duplicates
+     * This will summarize libraries, exclude requested libs, and sort the list
      *
-     * @param ctx                  only required if library is used without gradle plugin
-     * @param internalLibraries    the String[] with the internalLibraries (if set manual)
      * @param excludeLibraries     the String[] with the libs to be excluded
-     * @param autoDetect           defines if the libraries should be resolved by their classpath (if possible)
-     * @param checkCachedDetection defines if we should check the cached autodetected libraries (per version) (default: enabled)
      * @param sort                 defines if the array should be sorted
      * @return the summarized list of included Libraries
      */
-    fun prepareLibraries(ctx: Context? = null, internalLibraries: Array<out String> = emptyArray(), excludeLibraries: Array<out String> = emptyArray(), autoDetect: Boolean = true, checkCachedDetection: Boolean = true, sort: Boolean = true): ArrayList<Library> {
-        val isExcluding = excludeLibraries.isNotEmpty()
+    fun prepareLibraries(excludeLibraries: Array<out String> = emptyArray(), sort: Boolean = true): ArrayList<Library> {
         val libraries = HashMap<String, Library>()
         val resultLibraries = ArrayList<Library>()
-
-        if (!usedGradlePlugin && autoDetect && ctx != null) {
-            val autoDetected = getAutoDetectedLibraries(ctx, checkCachedDetection)
-            resultLibraries.addAll(autoDetected)
-
-            if (isExcluding) {
-                for (lib in autoDetected) {
-                    libraries[lib.definedName] = lib
-                }
-            }
-        }
 
         //Add all external libraries
         val extern = getExternLibraries()
         resultLibraries.addAll(extern)
 
-        if (isExcluding) {
+        if (excludeLibraries.isNotEmpty()) {
             for (lib in extern) {
                 libraries[lib.definedName] = lib
             }
-        }
 
-        //Now add all libs which do not contain the info file, but are in the AboutLibraries lib
-        if (internalLibraries.isNotEmpty()) {
-            for (internalLibrary in internalLibraries) {
-                val lib = getLibrary(internalLibrary) ?: continue
-                resultLibraries.add(lib)
-                libraries[lib.definedName] = lib
-            }
-        }
-
-        //remove libraries which should be excluded
-        if (isExcluding) {
+            //remove libraries which should be excluded
             for (excludeLibrary in excludeLibraries) {
                 val lib = libraries[excludeLibrary] ?: continue
                 resultLibraries.remove(lib)
@@ -183,51 +135,6 @@ class Libs(
             resultLibraries.sort()
         }
         return resultLibraries
-    }
-
-    /**
-     * Get all autoDetected Libraries
-     *
-     * @param ctx                  the current context
-     * @param checkCachedDetection defines if we should check the cached autodetected libraries (per version) (default: enabled)
-     * @return an ArrayList Library with all found libs by their classpath
-     */
-    fun getAutoDetectedLibraries(ctx: Context, checkCachedDetection: Boolean): List<Library> {
-        val pi = ctx.getPackageInfo()
-        val sharedPreferences = ctx.getSharedPreferences("aboutLibraries", Context.MODE_PRIVATE)
-        val lastCacheVersion = sharedPreferences.getInt("versionCode", -1)
-        val isCacheUpToDate = pi != null && lastCacheVersion == pi.versionCode
-
-        if (checkCachedDetection) { //Retrieve from cache if up to date
-            if (pi != null && isCacheUpToDate) {
-                val autoDetectedLibraries = sharedPreferences.getString("autoDetectedLibraries", "")?.split(DELIMITER.toRegex())?.dropLastWhile { it.isEmpty() }?.toTypedArray()
-
-                if (autoDetectedLibraries?.isNotEmpty() == true) {
-                    val libraries = ArrayList<Library>(autoDetectedLibraries.size)
-                    for (autoDetectedLibrary in autoDetectedLibraries) {
-                        val lib = getLibrary(autoDetectedLibrary) ?: continue
-                        libraries.add(lib)
-                    }
-                    return libraries
-                }
-            }
-        }
-
-        val libraries = Detect.detect(ctx, libraries)
-        if (pi != null && !isCacheUpToDate) { //Update cache
-            val autoDetectedLibrariesPref = StringBuilder()
-
-            for (lib in libraries) {
-                autoDetectedLibrariesPref.append(DELIMITER).append(lib.definedName)
-            }
-
-            sharedPreferences.edit()
-                    .putInt("versionCode", pi.versionCode)
-                    .putString("autoDetectedLibraries", autoDetectedLibrariesPref.toString())
-                    .apply()
-        }
-
-        return libraries
     }
 
     /**
@@ -432,7 +339,7 @@ class Libs(
     fun getCustomVariables(ctx: Context, libraryName: String): HashMap<String, String> {
         val customVariables = HashMap<String, String>()
 
-        val customVariablesString = sequenceOf(DEFINE_EXT, DEFINE_INT, DEFINE_PLUGIN)
+        val customVariablesString = sequenceOf(DEFINE_PLUGIN)
                 .map { ctx.getStringResourceByName("$it$libraryName") }
                 .filter { it.isNotBlank() }
                 .firstOrNull()
@@ -550,11 +457,8 @@ class Libs(
         const val BUNDLE_EDGE_TO_EDGE = "ABOUT_LIBRARIES_EDGE_TO_EDGE"
 
         private const val DEFINE_LICENSE = "define_license_"
-        private const val DEFINE_INT = "define_int_"
         private const val DEFINE_PLUGIN = "define_plu_"
         internal const val DEFINE_EXT = "define_"
-
-        private const val DELIMITER = ";"
 
         fun classFields(rClass: Class<*>): Array<String> = rClass.fields.toStringArray()
     }

@@ -147,8 +147,6 @@ class FragmentActivity : AppCompatActivity() {
                         // create and launch an activity in full design, with various configurations and adjustments
                         LibsBuilder()
                                 .withFields(R.string::class.java.fields)
-                                .withLibraries("crouton", "actionbarsherlock", "showcaseview", "glide")
-                                .withAutoDetect(false)
                                 .withLicenseShown(true)
                                 .withVersionShown(true)
                                 .withActivityTitle("Open Source")

@@ -13,7 +13,6 @@ class CustomSortActivity : LibsActivity() {
 
         val builder = LibsBuilder()
                 .withFields(R.string::class.java.fields)
-                .withLibraries("crouton, actionbarsherlock", "showcaseview")
                 .withLibraryComparator(LibraryComparator())
 
         intent = builder.intent(this)

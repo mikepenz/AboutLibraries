@@ -23,11 +23,8 @@ import kotlin.collections.HashMap
 
 class LibsBuilder : Serializable {
     var fields: Array<String> = emptyArray()
-    var internalLibraries: Array<out String> = emptyArray()
     var excludeLibraries: Array<out String> = emptyArray()
 
-    var autoDetect: Boolean = true
-    var checkCachedDetection: Boolean = true
     var sort: Boolean = true
     var libraryComparator: Comparator<Library>? = null
 
@@ -97,17 +94,6 @@ class LibsBuilder : Serializable {
     }
 
     /**
-     * Builder method to pass manual libraries (libs which are not autoDetected)
-     *
-     * @param libraries the identifiers of the manual added libraries
-     * @return this
-     */
-    fun withLibraries(vararg libraries: String): LibsBuilder {
-        this.internalLibraries = libraries
-        return this
-    }
-
-    /**
      * Builder method to exclude specific libraries
      *
      * @param excludeLibraries the identifiers of the libraries which should be excluded
@@ -115,28 +101,6 @@ class LibsBuilder : Serializable {
      */
     fun withExcludedLibraries(vararg excludeLibraries: String): LibsBuilder {
         this.excludeLibraries = excludeLibraries
-        return this
-    }
-
-    /**
-     * Builder method to disable autoDetect (default: enabled)
-     *
-     * @param autoDetect enabled or disabled
-     * @return this
-     */
-    fun withAutoDetect(autoDetect: Boolean): LibsBuilder {
-        this.autoDetect = autoDetect
-        return this
-    }
-
-    /**
-     * Builder method to disable checking the cached autodetected libraries (per version) (default: enabled)
-     *
-     * @param checkCachedDetection enabled or disabled
-     * @return this
-     */
-    fun withCheckCachedDetection(checkCachedDetection: Boolean): LibsBuilder {
-        this.checkCachedDetection = checkCachedDetection
         return this
     }
 
@@ -150,7 +114,6 @@ class LibsBuilder : Serializable {
         this.sort = sort
         return this
     }
-
 
     /**
      * Builder method to enable custom sorting of the libraries (default: null)
@@ -512,7 +475,7 @@ class LibsBuilder : Serializable {
         libs.modifyLibraries(libraryModification)
 
         //fetch the libraries and sort if a comparator was set
-        val libraries = libs.prepareLibraries(context, internalLibraries, excludeLibraries, autoDetect, checkCachedDetection, sort)
+        val libraries = libs.prepareLibraries(excludeLibraries, sort)
 
         //prepare adapter
         val itemAdapter = ItemAdapter<IItem<*>>()

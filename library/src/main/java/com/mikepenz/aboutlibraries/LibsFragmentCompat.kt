@@ -157,7 +157,7 @@ class LibsFragmentCompat {
             //fetch the libraries and sort if a comparator was set
             val doDefaultSort = builder.sort && null == builder.libraryComparator && null == comparator
 
-            libraries = libs.prepareLibraries(ctx, builder.internalLibraries, builder.excludeLibraries, builder.autoDetect, builder.checkCachedDetection, doDefaultSort)
+            libraries = libs.prepareLibraries(builder.excludeLibraries, doDefaultSort)
 
             if (comparator != null) {
                 Collections.sort(libraries, comparator)
