@@ -128,6 +128,7 @@ class Libs(
     /**
      * This will summarize all libraries and eliminate duplicates
      *
+     * @param ctx                  only required if library is used without gradle plugin
      * @param internalLibraries    the String[] with the internalLibraries (if set manual)
      * @param excludeLibraries     the String[] with the libs to be excluded
      * @param autoDetect           defines if the libraries should be resolved by their classpath (if possible)
@@ -135,12 +136,12 @@ class Libs(
      * @param sort                 defines if the array should be sorted
      * @return the summarized list of included Libraries
      */
-    fun prepareLibraries(ctx: Context, internalLibraries: Array<out String> = emptyArray(), excludeLibraries: Array<out String> = emptyArray(), autoDetect: Boolean = true, checkCachedDetection: Boolean = true, sort: Boolean = true): ArrayList<Library> {
+    fun prepareLibraries(ctx: Context? = null, internalLibraries: Array<out String> = emptyArray(), excludeLibraries: Array<out String> = emptyArray(), autoDetect: Boolean = true, checkCachedDetection: Boolean = true, sort: Boolean = true): ArrayList<Library> {
         val isExcluding = excludeLibraries.isNotEmpty()
         val libraries = HashMap<String, Library>()
         val resultLibraries = ArrayList<Library>()
 
-        if (!usedGradlePlugin && autoDetect) {
+        if (!usedGradlePlugin && autoDetect && ctx != null) {
             val autoDetected = getAutoDetectedLibraries(ctx, checkCachedDetection)
             resultLibraries.addAll(autoDetected)
 
