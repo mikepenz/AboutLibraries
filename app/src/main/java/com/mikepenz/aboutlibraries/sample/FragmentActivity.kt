@@ -135,6 +135,7 @@ class FragmentActivity : AppCompatActivity() {
                     R.id.action_minimalactivity.toLong() -> {
                         // create and launch an activity in minmal design without any additional modifications
                         LibsBuilder()
+                                .withFields(R.string::class.java.fields)
                                 .withAboutMinimalDesign(true)
                                 .withEdgeToEdge(true)
                                 .withActivityTitle("Open Source")
@@ -144,6 +145,7 @@ class FragmentActivity : AppCompatActivity() {
                     R.id.action_manifestactivity.toLong() -> {
                         // create and launch an activity in full design, with various configurations and adjustments
                         LibsBuilder()
+                                .withFields(R.string::class.java.fields)
                                 .withLibraries("crouton", "actionbarsherlock", "showcaseview", "glide")
                                 .withAutoDetect(false)
                                 .withLicenseShown(true)
@@ -171,6 +173,7 @@ class FragmentActivity : AppCompatActivity() {
         */
 
         val fragment = LibsBuilder()
+                .withFields(R.string::class.java.fields)
                 .withVersionShown(false)
                 .withLicenseShown(true)
                 // find ids via './gradlew findLibraries'

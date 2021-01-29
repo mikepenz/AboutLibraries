@@ -326,9 +326,10 @@ In case the plugin fails to detect a library or you're using an embedded library
 </resources> 
 ```
 
-## Usage WITHOUT gradle plugin (not recommended)
+## Usage WITHOUT gradle plugin (deprecated)
 
 If you do not want to use the gradle plugin, you need to add the legacy definition files, which will then be included in the built apk, and resolved via reflection during runtime.
+
 > NOTE: This is not recommended. Please migrate to use the gradle plugin
 
 ```gradle
@@ -337,26 +338,9 @@ implementation "com.mikepenz:aboutlibraries-definitions:${latestAboutLibsRelease
 
 ## ProGuard
 
-In case you want to minimize your resources as much as possible use the following rules (Thanks to @rubengees and @AllanWang as discussed here: https://github.com/mikepenz/AboutLibraries/issues/331)
+ProGuard / R8 rules are bundled internally with the core module.
 
-```proguard
--keepclasseswithmembers class **.R$* {
-    public static final int define_*;
-    public static final int library_*;
-}
-```
-
-Please note that the resources need to be kept to be discoverable by the library.
-
-```
-android {
-    buildTypes {
-        release {
-            shrinkResources false
-        }
-    }
-}
-```
+> Please check the configuration in regards to passing in the fields `.withFields(R.string::class.java.fields)`
 
 # Disclaimer
 

@@ -13,7 +13,11 @@ class ExtendActivity : LibsActivity() {
         intent.putExtra(Libs.BUNDLE_LIBS, arrayOf("activeandroid", "caldroid"))
         setIntent(intent)
         */
-        intent = LibsBuilder().withLibraries("activeandroid", "caldroid").withEdgeToEdge(true).intent(this)
+        intent = LibsBuilder()
+                .withFields(R.string::class.java.fields)
+                .withLibraries("activeandroid", "caldroid")
+                .withEdgeToEdge(true)
+                .intent(this)
         super.onCreate(savedInstanceState)
     }
 }
