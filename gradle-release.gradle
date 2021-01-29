@@ -80,7 +80,7 @@ afterEvaluate { project ->
                     sync = true
                     user = getRepositoryUsername()
                     password = getRepositoryPassword()
-                    close = '1'
+                    close = '0'
                 }
                 gpg {
                     sign = true
