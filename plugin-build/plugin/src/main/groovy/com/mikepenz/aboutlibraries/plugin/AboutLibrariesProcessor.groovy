@@ -82,19 +82,16 @@ class AboutLibrariesProcessor {
         collectMappingDetails(customExclusionList, 'custom_exclusion_list.prop')
     }
 
-    def gatherDependencies(def project, def variant = null) {
-        def extension = project.extensions.aboutLibraries
-        if (extension.configPath != null) {
-            configFolder = new File(extension.configPath)
-        }
-        exclusionPatterns = extension.exclusionPatterns
-        if (extension.includeAllLicenses) {
-            includeAllLicenses = extension.includeAllLicenses
+    def gatherDependencies(def project, File configPath, List<Pattern> exclusionPatterns, Boolean includeAllLicenses, HashSet<String> additionalLicenses, def variant = null) {
+        this.configFolder = configPath
+        this.exclusionPatterns = exclusionPatterns
+        if (includeAllLicenses) {
+            this.includeAllLicenses = includeAllLicenses
             LOGGER.debug("Manually requested all licenses")
-        } else if (extension.additionalLicenses != null) {
-            extension.additionalLicenses.all { licenseExt ->
-                LOGGER.debug("Manually requested license: ${licenseExt.name}")
-                additionalLicenses.add(licenseExt.name)
+        } else if (additionalLicenses != null) {
+            this.additionalLicenses = additionalLicenses
+            this.additionalLicenses.each { licenseExt ->
+                LOGGER.error("Manually requested license: ${licenseExt}")
             }
         }
 

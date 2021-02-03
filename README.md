@@ -197,7 +197,7 @@ It is possible to provide custom configurations / adjustments to the automatic d
 
 ```groovy
 aboutLibraries {
-    configPath = "config" // the path to the directory containing configuration files
+    configPath = "config" // the path to the directory relative to the root of the whole project containing configuration files
 }
 ```
 

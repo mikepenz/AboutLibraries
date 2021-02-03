@@ -1,13 +1,12 @@
 package com.mikepenz.aboutlibraries.plugin
 
 import com.mikepenz.aboutlibraries.plugin.mapping.License
-import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 
 import java.nio.file.Files
 import java.nio.file.StandardCopyOption
 
-public class AboutLibrariesExportComplianceTask extends DefaultTask {
+public class AboutLibrariesExportComplianceTask extends BaseAboutLibrariesTask {
 
     private String variant = null
     private Set<License> neededLicenses = new HashSet<License>()
@@ -42,7 +41,7 @@ public class AboutLibrariesExportComplianceTask extends DefaultTask {
             throw new IllegalArgumentException("Please specify `exportPath` via the gradle CLI (-PexportPath=...)")
         }
 
-        final def libraries = new AboutLibrariesProcessor().gatherDependencies(project, variant)
+        final def libraries = new AboutLibrariesProcessor().gatherDependencies(project, configPath, exclusionPatterns, includeAllLicenses, additionalLicenses, variant)
 
         if (variant != null) {
             println ""
