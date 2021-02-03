@@ -3,7 +3,6 @@ package com.mikepenz.aboutlibraries.plugin
 import com.mikepenz.aboutlibraries.plugin.mapping.Library
 import com.mikepenz.aboutlibraries.plugin.mapping.License
 import groovy.xml.MarkupBuilder
-import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.OutputDirectory
@@ -14,7 +13,7 @@ import org.slf4j.LoggerFactory
 import java.nio.charset.StandardCharsets
 
 @CacheableTask
-public class AboutLibrariesTask extends DefaultTask {
+public class AboutLibrariesTask extends BaseAboutLibrariesTask {
     private static final Logger LOGGER = LoggerFactory.getLogger(AboutLibrariesTask.class);
 
     @Internal
@@ -62,7 +61,7 @@ public class AboutLibrariesTask extends DefaultTask {
         this.combinedLibrariesOutputFile = getCombinedLibrariesOutputFile()
 
         final def processor = new AboutLibrariesProcessor()
-        final def libraries = processor.gatherDependencies(project, variant)
+        final def libraries = processor.gatherDependencies(project, configPath, exclusionPatterns, includeAllLicenses, additionalLicenses, variant)
 
         if (processor.includeAllLicenses) {
             // Include all licenses

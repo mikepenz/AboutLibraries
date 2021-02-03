@@ -1,10 +1,8 @@
 package com.mikepenz.aboutlibraries.plugin
 
-
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.util.GradleVersion
-
 
 class AboutLibrariesPlugin implements Plugin<Project> {
     @Override
