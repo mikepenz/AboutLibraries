@@ -3,18 +3,29 @@ package com.mikepenz.aboutlibraries.plugin
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputDirectory
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 import java.util.regex.Pattern
 
 abstract class BaseAboutLibrariesTask extends DefaultTask {
+    private static final Logger LOGGER = LoggerFactory.getLogger(BaseAboutLibrariesTask.class);
+
     @InputDirectory
     File getConfigPath() {
-        String path = project.extensions.aboutLibraries.configPath
+        final String path = project.extensions.aboutLibraries.configPath
         if (path != null) {
-            return new File(path)
-        } else {
-            return null
+            final File inputFile = new File(path)
+            final File absoluteFile = new File(project.rootDir, path)
+            if (inputFile.isAbsolute() && inputFile.exists()) {
+                return inputFile
+            } else if (absoluteFile.exists()) {
+                return absoluteFile
+            } else {
+                LOGGER.warn("Couldn't find provided path in: '${inputFile.absolutePath}' or '${absoluteFile.absolutePath}'")
+            }
         }
+        return null
     }
 
     @Input
