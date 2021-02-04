@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- AboutLibraries pre API 21 divider colors -->
+    <color name="description_divider">#DADADA</color>
+    <color name="opensource_divider">#DADADA</color>
+
     <!-- AboutLibraries DEFAULT colors -->
     <color name="about_libraries_card">#FAFAFA</color>
     <color name="about_libraries_title_openSource">#212121</color>
