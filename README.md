@@ -35,7 +35,7 @@
 
 ## Latest releases 🛠
 
-- Kotlin && Gradle Plugin | [v8.7.1](https://github.com/mikepenz/AboutLibraries/tree/v8.7.1)
+- Kotlin && Gradle Plugin | [v8.8.0](https://github.com/mikepenz/AboutLibraries/tree/v8.8.0)
 - Kotlin | [v7.1.0](https://github.com/mikepenz/AboutLibraries/tree/v7.1.0)
 - Java && AndroidX | [v6.2.3](https://github.com/mikepenz/AboutLibraries/tree/v6.2.3)
 - Java && AppCompat | [v6.1.1](https://github.com/mikepenz/AboutLibraries/tree/v6.1.1)
