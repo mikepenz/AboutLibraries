@@ -2,12 +2,15 @@ package com.mikepenz.aboutlibraries.ui.item
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.net.Uri
-import android.text.Html
 import android.text.TextUtils
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.core.text.HtmlCompat
+import androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
 import com.mikepenz.aboutlibraries.LibsBuilder
@@ -59,9 +62,12 @@ class LibraryItem(private val library: Library, private val libsBuilder: LibsBui
         holder.libraryName.text = library.libraryName
         holder.libraryCreator.text = library.author
         if (TextUtils.isEmpty(library.libraryDescription)) {
-            holder.libraryDescription.text = library.libraryDescription
+            holder.libraryDescription.visibility = View.GONE
+            holder.libraryDescriptionDivider.visibility = View.GONE
         } else {
-            holder.libraryDescription.text = Html.fromHtml(library.libraryDescription)
+            holder.libraryDescription.visibility = View.VISIBLE
+            holder.libraryDescriptionDivider.visibility = View.VISIBLE
+            holder.libraryDescription.text = HtmlCompat.fromHtml(library.libraryDescription, FROM_HTML_MODE_LEGACY)
         }
 
         //Set License or Version Text
@@ -89,6 +95,7 @@ class LibraryItem(private val library: Library, private val libsBuilder: LibsBui
 
         //Define onClickListener
         if (library.authorWebsite.isNotEmpty()) {
+            holder.libraryCreator.isClickable = true
             holder.libraryCreator.setOnClickListener { view ->
                 val consumed = LibsConfiguration.listener?.onLibraryAuthorClicked(view, library)
                         ?: false
@@ -107,36 +114,42 @@ class LibraryItem(private val library: Library, private val libsBuilder: LibsBui
                 consumed
             }
         } else {
+            holder.libraryCreator.isClickable = false
             holder.libraryCreator.setOnTouchListener(null)
             holder.libraryCreator.setOnClickListener(null)
             holder.libraryCreator.setOnLongClickListener(null)
         }
 
         if (library.libraryWebsite.isNotEmpty() || library.repositoryLink.isNotEmpty()) {
-            holder.libraryDescription.setOnClickListener { v ->
+            holder.card.isClickable = true
+            holder.card.rippleColor = holder.defaultRippleColor
+            holder.card.setOnClickListener { v ->
                 val consumed = LibsConfiguration.listener?.onLibraryContentClicked(v, library)
                         ?: false
                 if (!consumed) {
-                    openLibraryWebsite(ctx, library.libraryWebsite)
+                    openLibraryWebsite(ctx, library.libraryWebsite.takeIf { it.isNotEmpty() } ?: library.repositoryLink)
                 }
             }
-            holder.libraryDescription.setOnLongClickListener { v ->
+            holder.card.setOnLongClickListener { v ->
                 var consumed = LibsConfiguration.listener?.onLibraryContentLongClicked(v, library)
                         ?: false
 
                 if (!consumed) {
-                    openLibraryWebsite(ctx, library.libraryWebsite)
+                    openLibraryWebsite(ctx, library.libraryWebsite.takeIf { it.isNotEmpty() } ?: library.repositoryLink)
                     consumed = true
                 }
                 consumed
             }
         } else {
-            holder.libraryDescription.setOnTouchListener(null)
-            holder.libraryDescription.setOnClickListener(null)
-            holder.libraryDescription.setOnLongClickListener(null)
+            holder.card.isClickable = false
+            holder.card.rippleColor = ColorStateList.valueOf(Color.TRANSPARENT)
+            holder.card.setOnTouchListener(null)
+            holder.card.setOnClickListener(null)
+            holder.card.setOnLongClickListener(null)
         }
 
         if (library.license != null && (library.license?.licenseWebsite?.isNotEmpty() == true || libsBuilder.showLicenseDialog)) {
+            holder.libraryLicense.isClickable = true
             holder.libraryLicense.setOnClickListener { view ->
                 val consumed = LibsConfiguration.listener?.onLibraryBottomClicked(view, library)
                         ?: false
@@ -154,6 +167,7 @@ class LibraryItem(private val library: Library, private val libsBuilder: LibsBui
                 consumed
             }
         } else {
+            holder.libraryLicense.isClickable = false
             holder.libraryLicense.setOnTouchListener(null)
             holder.libraryLicense.setOnClickListener(null)
             holder.libraryLicense.setOnLongClickListener(null)
@@ -204,7 +218,7 @@ class LibraryItem(private val library: Library, private val libsBuilder: LibsBui
         try {
             if (libsBuilder.showLicenseDialog && library.license?.licenseDescription?.isNotEmpty() == true) {
                 val builder = AlertDialog.Builder(ctx)
-                builder.setMessage(Html.fromHtml(library.license?.licenseDescription))
+                builder.setMessage(HtmlCompat.fromHtml(library.license?.licenseDescription ?: "", FROM_HTML_MODE_LEGACY))
                 builder.create().show()
             } else {
                 val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(library.license?.licenseWebsite))
@@ -224,6 +238,7 @@ class LibraryItem(private val library: Library, private val libsBuilder: LibsBui
      */
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         internal var card: MaterialCardView = itemView as MaterialCardView
+        internal var defaultRippleColor: ColorStateList? = null
 
         internal var libraryName: TextView = itemView.findViewById(R.id.libraryName) as TextView
         internal var libraryCreator: TextView = itemView.findViewById(R.id.libraryCreator) as TextView
@@ -238,6 +253,7 @@ class LibraryItem(private val library: Library, private val libsBuilder: LibsBui
             val ctx = itemView.context
             ctx.resolveStyledValue {
                 card.setCardBackgroundColor(it.getColor(R.styleable.AboutLibraries_aboutLibrariesCardBackground, ctx.getThemeColor(R.attr.aboutLibrariesCardBackground, ctx.getSupportColor(R.color.about_libraries_card))))
+                defaultRippleColor = card.rippleColor
                 libraryName.setTextColor(it.getColorStateList(R.styleable.AboutLibraries_aboutLibrariesOpenSourceTitle))
                 libraryCreator.setTextColor(it.getColorStateList(R.styleable.AboutLibraries_aboutLibrariesOpenSourceText))
                 libraryDescriptionDivider.setBackgroundColor(it.getColor(R.styleable.AboutLibraries_aboutLibrariesOpenSourceDivider, ctx.getThemeColor(R.attr.aboutLibrariesOpenSourceDivider, ctx.getSupportColor(R.color.about_libraries_dividerLight_openSource))))

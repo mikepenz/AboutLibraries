@@ -11,6 +11,7 @@ import java.util.regex.Pattern
 abstract class BaseAboutLibrariesTask extends DefaultTask {
     private static final Logger LOGGER = LoggerFactory.getLogger(BaseAboutLibrariesTask.class);
 
+    @org.gradle.api.tasks.Optional
     @InputDirectory
     File getConfigPath() {
         final String path = project.extensions.aboutLibraries.configPath
