@@ -83,7 +83,7 @@ aboutLibraries {
 }
 
 dependencies {
-    implementation project(':library')
+    implementation project(':aboutlibraries')
 
     implementation "com.google.android.material:material:${versions.material}"
     implementation "androidx.appcompat:appcompat:${versions.appcompat}"

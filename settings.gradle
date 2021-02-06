@@ -1,9 +1,9 @@
 rootProject.name = "AboutLibraries"
 
 include ':app'
-include ':library-core'
-include ':library'
-include ':library-definitions'
+include ':aboutlibraries-core'
+include ':aboutlibraries'
+include ':aboutlibraries-definitions'
 
 includeBuild("plugin-build") {
     dependencySubstitution {
