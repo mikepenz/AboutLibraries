@@ -47,7 +47,7 @@ android {
 }
 
 dependencies {
-    api project(':library-core')
+    api project(':aboutlibraries-core')
 
     implementation "androidx.core:core-ktx:${versions.coreKtx}"
     implementation "androidx.appcompat:appcompat:${versions.appcompat}"
