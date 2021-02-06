@@ -83,7 +83,7 @@ aboutLibraries {
 }
 
 dependencies {
-    implementation project(':library')
+    implementation project(':aboutlibraries')
 
     implementation "com.google.android.material:material:${versions.material}"
     implementation "androidx.appcompat:appcompat:${versions.appcompat}"
@@ -111,7 +111,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.kotlin}"
 
     // used only tho showcase multi flavor support
-    stagingImplementation("com.squareup.okhttp3:okhttp:4.9.0")
+    stagingImplementation("com.squareup.okhttp3:okhttp:4.9.1")
 }
 
 configurations.all {

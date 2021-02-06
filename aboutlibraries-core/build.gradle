@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: "androidx.navigation.safeargs.kotlin"
+
+version release.versionName
 
 android {
     compileSdkVersion setup.compileSdk
@@ -11,6 +12,10 @@ android {
         targetSdkVersion setup.targetSdk
         versionCode release.versionCode
         versionName release.versionName
+
+        consumerProguardFiles 'consumer-proguard-rules.pro'
+
+        resValue "string", "aboutlibrary_lib_version", "${versionName}"
     }
 
     buildTypes {
@@ -19,11 +24,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
-
-    buildFeatures {
-        viewBinding true
-    }
-
     productFlavors {
     }
 
@@ -45,29 +45,12 @@ android {
 }
 
 dependencies {
-    api project(':library-core')
-
-    implementation "androidx.core:core-ktx:${versions.coreKtx}"
     implementation "androidx.appcompat:appcompat:${versions.appcompat}"
-    implementation "androidx.cardview:cardview:${versions.cardview}"
-    implementation "androidx.recyclerview:recyclerview:${versions.recyclerview}"
-    implementation "com.google.android.material:material:${versions.material}"
-
-    // add the constraintLayout used to create the items and headers
-    implementation "androidx.constraintlayout:constraintlayout:${versions.constraintLayout}"
-
-    // used to fill the RecyclerView with the items
-    // and provides single and multi selection, expandable items
-    // https://github.com/mikepenz/FastAdapter
-    implementation "com.mikepenz:fastadapter:${versions.fastadapter}"
 
     // kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.kotlin}"
-
-    // navigation
-    implementation "androidx.navigation:navigation-fragment-ktx:${versions.navigation}"
 }
 
-if (project.hasProperty('pushall') || project.hasProperty('library_only')) {
+if (project.hasProperty('pushall') || project.hasProperty('library_core_only')) {
     apply from: '../gradle-release.gradle'
 }
