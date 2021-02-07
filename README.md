@@ -1,4 +1,4 @@
-# AboutLibraries [![Status](https://travis-ci.org/mikepenz/AboutLibraries.svg?branch=develop)](https://travis-ci.org/mikepenz/AboutLibraries) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.mikepenz/aboutlibraries/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/com.mikepenz/aboutlibraries)
+# AboutLibraries
 
 .. allows you to easily create an **used open source libraries** fragment/activity within your app. All the library information is automatically collected from the POM information of your dependencies and included during compile time.
 *No runtime overhead.* Strong caching. Any dependency is supported.
@@ -35,7 +35,7 @@
 
 ## Latest releases 🛠
 
-- Kotlin && Gradle Plugin | [v8.8.1](https://github.com/mikepenz/AboutLibraries/tree/v8.8.1)
+- Kotlin && Gradle Plugin | [v8.8.2](https://github.com/mikepenz/AboutLibraries/tree/v8.8.2)
 - Kotlin | [v7.1.0](https://github.com/mikepenz/AboutLibraries/tree/v7.1.0)
 - Java && AndroidX | [v6.2.3](https://github.com/mikepenz/AboutLibraries/tree/v6.2.3)
 - Java && AppCompat | [v6.1.1](https://github.com/mikepenz/AboutLibraries/tree/v6.1.1)
