@@ -50,7 +50,6 @@ dependencies {
     api project(':aboutlibraries-core')
 
     implementation "androidx.core:core-ktx:${versions.coreKtx}"
-    implementation "androidx.appcompat:appcompat:${versions.appcompat}"
     implementation "androidx.cardview:cardview:${versions.cardview}"
     implementation "androidx.recyclerview:recyclerview:${versions.recyclerview}"
     implementation "com.google.android.material:material:${versions.material}"
@@ -62,9 +61,6 @@ dependencies {
     // and provides single and multi selection, expandable items
     // https://github.com/mikepenz/FastAdapter
     implementation "com.mikepenz:fastadapter:${versions.fastadapter}"
-
-    // kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.kotlin}"
 
     // navigation
     implementation "androidx.navigation:navigation-fragment-ktx:${versions.navigation}"
