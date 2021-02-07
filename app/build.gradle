@@ -86,7 +86,6 @@ dependencies {
     implementation project(':aboutlibraries')
 
     implementation "com.google.android.material:material:${versions.material}"
-    implementation "androidx.appcompat:appcompat:${versions.appcompat}"
     implementation "androidx.recyclerview:recyclerview:${versions.recyclerview}"
     implementation "androidx.cardview:cardview:${versions.cardview}"
 
@@ -106,9 +105,6 @@ dependencies {
     //used to display the icons in the drawer
     //https://github.com/mikepenz/Android-Iconics
     implementation "com.mikepenz:material-design-iconic-typeface:2.2.0.8-kotlin@aar"
-
-    // kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.kotlin}"
 
     // used only tho showcase multi flavor support
     stagingImplementation("com.squareup.okhttp3:okhttp:4.9.1")

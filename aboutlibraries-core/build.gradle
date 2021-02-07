@@ -45,10 +45,10 @@ android {
 }
 
 dependencies {
-    implementation "androidx.appcompat:appcompat:${versions.appcompat}"
+    api "androidx.appcompat:appcompat:${versions.appcompat}"
 
     // kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.kotlin}"
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.kotlin}"
 }
 
 if (project.hasProperty('pushall') || project.hasProperty('library_core_only')) {
