@@ -548,6 +548,7 @@ class Libs(
     companion object {
         const val BUNDLE_TITLE = "ABOUT_LIBRARIES_TITLE"
         const val BUNDLE_EDGE_TO_EDGE = "ABOUT_LIBRARIES_EDGE_TO_EDGE"
+        const val BUNDLE_SEARCH_ENABLED = "ABOUT_LIBRARIES_SEARCH_ENABLED"
 
         private const val DEFINE_LICENSE = "define_license_"
         private const val DEFINE_INT = "define_int_"

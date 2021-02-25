@@ -10,7 +10,9 @@
         style="?toolbarStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:elevation="4dp"
+        app:contentInsetStart="0dp"
+        app:contentInsetStartWithNavigation="0dp"
+        app:elevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
