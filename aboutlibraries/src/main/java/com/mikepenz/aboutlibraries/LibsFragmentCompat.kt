@@ -92,19 +92,10 @@ class LibsFragmentCompat : Filterable {
                 return true
             }
 
-            val locale = context.resources.configuration.locale ?: Locale.ENGLISH
-            val cleanedConstraint = constraint.toString().toLowerCase(locale)
-
             return when (item) {
-                is LibraryItem -> {
-                    item.library.libraryName.toLowerCase(locale).contains(cleanedConstraint)
-                }
-                is SimpleLibraryItem -> {
-                    item.library.libraryName.toLowerCase(locale).contains(cleanedConstraint)
-                }
-                else -> {
-                    false
-                }
+                is LibraryItem -> item.library.libraryName.contains(constraint, ignoreCase = true)
+                is SimpleLibraryItem -> item.library.libraryName.contains(constraint, ignoreCase = true)
+                else -> false
             }
         }
 
