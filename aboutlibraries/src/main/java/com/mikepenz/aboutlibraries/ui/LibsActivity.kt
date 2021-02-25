@@ -5,13 +5,10 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
-import androidx.appcompat.widget.SearchView.SearchAutoComplete
 import androidx.appcompat.widget.Toolbar
-import androidx.core.view.children
 import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.Libs.Companion.BUNDLE_EDGE_TO_EDGE
 import com.mikepenz.aboutlibraries.R
