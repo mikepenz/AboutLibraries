@@ -15,6 +15,7 @@ class CustomSortActivity : LibsActivity() {
                 .withFields(R.string::class.java.fields)
                 .withLibraries("crouton, actionbarsherlock", "showcaseview")
                 .withLibraryComparator(LibraryComparator())
+                .withSearchEnabled(true)
 
         intent = builder.intent(this)
         super.onCreate(savedInstanceState)

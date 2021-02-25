@@ -55,6 +55,7 @@ class LibsBuilder : Serializable {
 
     var activityTitle: String? = null
     var edgeToEdge: Boolean = false
+    var searchEnabled: Boolean = false
 
     var libTaskExecutor = LibTaskExecutor.DEFAULT_EXECUTOR
 
@@ -470,7 +471,7 @@ class LibsBuilder : Serializable {
      * @param libTaskCallback
      * @return this
      */
-    fun withLibTaskCallback(libTaskCallback: com.mikepenz.aboutlibraries.LibTaskCallback): LibsBuilder {
+    fun withLibTaskCallback(libTaskCallback: LibTaskCallback): LibsBuilder {
         LibsConfiguration.libTaskCallback = libTaskCallback
         return this
     }
@@ -483,6 +484,19 @@ class LibsBuilder : Serializable {
      */
     fun withShowLoadingProgress(showLoadingProgress: Boolean): LibsBuilder {
         this.showLoadingProgress = showLoadingProgress
+        return this
+    }
+
+    /**
+     * Builder method to allow you to toggle search in [LibsActivity], which will be displayed using
+     * a standard SearchView in the Toolbar. If you are directly using [LibsSupportFragment] you'll
+     * need to implement + hook up your search UI to [LibsSupportFragment.getFilter]
+     *
+     * @param searchEnabled
+     * @return this
+     */
+    fun withSearchEnabled(searchEnabled: Boolean): LibsBuilder {
+        this.searchEnabled = searchEnabled
         return this
     }
 
@@ -544,6 +558,7 @@ class LibsBuilder : Serializable {
             i.putExtra(Libs.BUNDLE_TITLE, this.activityTitle)
         }
         i.putExtra(Libs.BUNDLE_EDGE_TO_EDGE, this.edgeToEdge)
+        i.putExtra(Libs.BUNDLE_SEARCH_ENABLED, this.searchEnabled)
 
         return i
     }

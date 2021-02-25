@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.fragment.app.Fragment
 import com.mikepenz.aboutlibraries.LibsFragmentCompat
 
@@ -11,7 +13,7 @@ import com.mikepenz.aboutlibraries.LibsFragmentCompat
 /**
  * Created by mikepenz on 04.06.14.
  */
-open class LibsSupportFragment : Fragment() {
+open class LibsSupportFragment : Fragment(), Filterable {
 
     protected val libsFragmentCompat: LibsFragmentCompat = LibsFragmentCompat()
 
@@ -28,4 +30,6 @@ open class LibsSupportFragment : Fragment() {
         libsFragmentCompat.onDestroyView()
         super.onDestroyView()
     }
+
+    override fun getFilter(): Filter = libsFragmentCompat.filter
 }

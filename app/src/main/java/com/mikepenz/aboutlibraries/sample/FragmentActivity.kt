@@ -141,6 +141,7 @@ class FragmentActivity : AppCompatActivity() {
                                 .withEdgeToEdge(true)
                                 .withActivityTitle("Open Source")
                                 .withAboutIconShown(false)
+                                .withSearchEnabled(true)
                                 .start(this@FragmentActivity)
                     }
                     R.id.action_manifestactivity.toLong() -> {
@@ -156,6 +157,7 @@ class FragmentActivity : AppCompatActivity() {
                                 .withListener(libsListener)
                                 .withLibTaskCallback(libTaskCallback)
                                 .withUiListener(libsUIListener)
+                                .withSearchEnabled(true)
                                 .start(this@FragmentActivity)
                     }
                 }
