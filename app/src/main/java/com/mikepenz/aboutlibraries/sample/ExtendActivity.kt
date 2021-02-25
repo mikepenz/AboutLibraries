@@ -17,6 +17,7 @@ class ExtendActivity : LibsActivity() {
                 .withFields(R.string::class.java.fields)
                 .withLibraries("activeandroid", "caldroid")
                 .withEdgeToEdge(true)
+                .withSearchEnabled(true)
                 .intent(this)
         super.onCreate(savedInstanceState)
     }

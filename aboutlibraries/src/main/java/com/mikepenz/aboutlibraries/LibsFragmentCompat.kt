@@ -11,6 +11,8 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -31,7 +33,7 @@ import kotlin.collections.ArrayList
 /**
  * Fragment implementation creating the aboutlibraries UI
  */
-class LibsFragmentCompat {
+class LibsFragmentCompat : Filterable {
     private lateinit var adapter: FastAdapter<IItem<*>>
     private lateinit var itemAdapter: ItemAdapter<IItem<*>>
 
@@ -84,6 +86,28 @@ class LibsFragmentCompat {
 
         recyclerView.doOnApplySystemWindowInsets(Gravity.BOTTOM, Gravity.START, Gravity.END)
 
+        itemAdapter.itemFilter.filterPredicate = fun (item, constraint): Boolean {
+            // Don't do any filtering if constraint is null/blank
+            if (constraint.isNullOrBlank()) {
+                return true
+            }
+
+            val locale = context.resources.configuration.locale ?: Locale.ENGLISH
+            val cleanedConstraint = constraint.toString().toLowerCase(locale)
+
+            return when (item) {
+                is LibraryItem -> {
+                    item.library.libraryName.toLowerCase(locale).contains(cleanedConstraint)
+                }
+                is SimpleLibraryItem -> {
+                    item.library.libraryName.toLowerCase(locale).contains(cleanedConstraint)
+                }
+                else -> {
+                    false
+                }
+            }
+        }
+
         return view
     }
 
@@ -106,13 +130,14 @@ class LibsFragmentCompat {
         }
     }
 
-
     fun onDestroyView() {
         if (libTask != null) {
             libTask?.cancel(true)
             libTask = null
         }
     }
+
+    override fun getFilter(): Filter = itemAdapter.itemFilter
 
     inner class LibraryTask(var ctx: Context) : AsyncTask<String, Unit, Unit>() {
 

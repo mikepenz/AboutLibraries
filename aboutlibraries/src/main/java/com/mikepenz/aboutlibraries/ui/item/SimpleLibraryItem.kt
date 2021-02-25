@@ -19,7 +19,7 @@ import com.mikepenz.fastadapter.items.AbstractItem
 /**
  * Created by mikepenz on 28.12.15.
  */
-class SimpleLibraryItem(private val library: Library, private val libsBuilder: LibsBuilder) : AbstractItem<SimpleLibraryItem.ViewHolder>() {
+class SimpleLibraryItem(internal val library: Library, private val libsBuilder: LibsBuilder) : AbstractItem<SimpleLibraryItem.ViewHolder>() {
     /**
      * defines the type defining this item. must be unique. preferably an id
      *
