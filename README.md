@@ -212,7 +212,7 @@ custom_author_mappings.prop // allows overwriting the authors of a library if th
 custom_exclusion_list.prop // allows excluding libraries by their id at build time
 ```
 
-See the corresponding files here for the format and content: https://github.com/mikepenz/AboutLibraries/tree/develop/library-definitions/src/main/res/raw
+See the corresponding files here for the format and content: https://github.com/mikepenz/AboutLibraries/tree/develop/aboutlibraries-definitions/src/main/res/raw
 
 ### Exclude libraries
 
