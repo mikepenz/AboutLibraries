@@ -63,10 +63,10 @@ compileGroovy {
 }
 
 processResources {
-    from("../../library-definitions/src/main/res/raw/") {
+    from("../../aboutlibraries-definitions/src/main/res/raw/") {
         into 'static'
     }
-    from("../../library-definitions/src/main/res/values/") {
+    from("../../aboutlibraries-definitions/src/main/res/values/") {
         into 'values'
     }
 }
