@@ -382,6 +382,8 @@ Additional dependencies can be provided via this plugins API to extend and provi
 * [LibreAV](https://github.com/projectmatris/antimalwareapp)
 * [Honda RoadSync](https://play.google.com/store/apps/details?id=com.honda.ms.dm.sab)
 * [SimpleSettings Library](https://github.com/marcauberer/simple-settings)
+* [Orna Companion](https://play.google.com/store/apps/details?id=nl.bryanderidder.ornaguide)
+* [School](https://github.com/daannnnn/School)
 
 # Developed By
 
