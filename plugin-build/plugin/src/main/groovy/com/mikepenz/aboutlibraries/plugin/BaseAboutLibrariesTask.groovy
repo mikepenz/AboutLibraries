@@ -3,6 +3,8 @@ package com.mikepenz.aboutlibraries.plugin
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputDirectory
+import org.gradle.api.tasks.PathSensitive
+import org.gradle.api.tasks.PathSensitivity
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
@@ -12,6 +14,7 @@ abstract class BaseAboutLibrariesTask extends DefaultTask {
     private static final Logger LOGGER = LoggerFactory.getLogger(BaseAboutLibrariesTask.class);
 
     @org.gradle.api.tasks.Optional
+    @PathSensitive(value = PathSensitivity.RELATIVE)
     @InputDirectory
     File getConfigPath() {
         final String path = project.extensions.aboutLibraries.configPath
