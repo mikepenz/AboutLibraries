@@ -35,7 +35,7 @@
 
 ## Latest releases 🛠
 
-- Kotlin && Gradle Plugin | [v8.8.4](https://github.com/mikepenz/AboutLibraries/tree/v8.8.4)
+- Kotlin && Gradle Plugin | [v8.8.5](https://github.com/mikepenz/AboutLibraries/tree/v8.8.5)
 - Kotlin | [v7.1.0](https://github.com/mikepenz/AboutLibraries/tree/v7.1.0)
 - Java && AndroidX | [v6.2.3](https://github.com/mikepenz/AboutLibraries/tree/v6.2.3)
 - Java && AppCompat | [v6.1.1](https://github.com/mikepenz/AboutLibraries/tree/v6.1.1)
@@ -323,7 +323,7 @@ In case the plugin fails to detect a library or you're using an embedded library
     <!-- Custom variables section -->
     <string name="library_myLibrary_owner">Owner</string>
     <string name="library_myLibrary_year">2020</string>
-</resources> 
+</resources>
 ```
 
 ## Usage WITHOUT gradle plugin (deprecated)
@@ -382,6 +382,9 @@ Additional dependencies can be provided via this plugins API to extend and provi
 * [LibreAV](https://github.com/projectmatris/antimalwareapp)
 * [Honda RoadSync](https://play.google.com/store/apps/details?id=com.honda.ms.dm.sab)
 * [SimpleSettings Library](https://github.com/marcauberer/simple-settings)
+* [Orna Companion](https://play.google.com/store/apps/details?id=nl.bryanderidder.ornaguide)
+* [School](https://github.com/daannnnn/School)
+* [Secure File Manager](https://play.google.com/store/apps/details?id=com.securefilemanager.app)
 
 # Developed By
 
