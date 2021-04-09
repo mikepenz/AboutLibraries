@@ -1,14 +1,14 @@
 package com.mikepenz.aboutlibraries.plugin
 
-import org.gradle.api.DefaultTask
+
 import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.TaskAction
 
 @CacheableTask
-public class AboutLibrariesIdTask extends DefaultTask {
+public class AboutLibrariesIdTask extends BaseAboutLibrariesTask {
 
     def gatherDependencies(def project) {
-        def libraries = new AboutLibrariesProcessor().gatherDependencies(project)
+        def libraries = new AboutLibrariesProcessor().gatherDependencies(project, configPath, exclusionPatterns, includeAllLicenses, additionalLicenses)
 
         for (final library in libraries) {
             println "${library.libraryName} (${library.libraryVersion}) -> ${library.uniqueId}"

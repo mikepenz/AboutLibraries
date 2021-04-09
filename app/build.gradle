@@ -33,7 +33,8 @@ android {
                 signingConfig signingConfigs.release
             }
             zipAlignEnabled true
-            minifyEnabled false
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         staging {
             if (getSigningFile() != null) {
@@ -82,10 +83,9 @@ aboutLibraries {
 }
 
 dependencies {
-    implementation project(':library')
+    implementation project(':aboutlibraries')
 
     implementation "com.google.android.material:material:${versions.material}"
-    implementation "androidx.appcompat:appcompat:${versions.appcompat}"
     implementation "androidx.recyclerview:recyclerview:${versions.recyclerview}"
     implementation "androidx.cardview:cardview:${versions.cardview}"
 
@@ -106,11 +106,8 @@ dependencies {
     //https://github.com/mikepenz/Android-Iconics
     implementation "com.mikepenz:material-design-iconic-typeface:2.2.0.8-kotlin@aar"
 
-    // kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.kotlin}"
-
     // used only tho showcase multi flavor support
-    stagingImplementation("com.squareup.okhttp3:okhttp:4.9.0")
+    stagingImplementation("com.squareup.okhttp3:okhttp:4.9.1")
 }
 
 configurations.all {

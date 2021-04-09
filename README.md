@@ -1,4 +1,4 @@
-# AboutLibraries [![Status](https://travis-ci.org/mikepenz/AboutLibraries.svg?branch=develop)](https://travis-ci.org/mikepenz/AboutLibraries) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.mikepenz/aboutlibraries/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/com.mikepenz/aboutlibraries)
+# AboutLibraries
 
 .. allows you to easily create an **used open source libraries** fragment/activity within your app. All the library information is automatically collected from the POM information of your dependencies and included during compile time.
 *No runtime overhead.* Strong caching. Any dependency is supported.
@@ -35,7 +35,7 @@
 
 ## Latest releases 🛠
 
-- Kotlin && Gradle Plugin | [v8.6.7](https://github.com/mikepenz/AboutLibraries/tree/v8.6.7)
+- Kotlin && Gradle Plugin | [v8.8.4](https://github.com/mikepenz/AboutLibraries/tree/v8.8.4)
 - Kotlin | [v7.1.0](https://github.com/mikepenz/AboutLibraries/tree/v7.1.0)
 - Java && AndroidX | [v6.2.3](https://github.com/mikepenz/AboutLibraries/tree/v6.2.3)
 - Java && AppCompat | [v6.1.1](https://github.com/mikepenz/AboutLibraries/tree/v6.1.1)
@@ -197,7 +197,7 @@ It is possible to provide custom configurations / adjustments to the automatic d
 
 ```groovy
 aboutLibraries {
-    configPath = "config" // the path to the directory containing configuration files
+    configPath = "config" // the path to the directory relative to the root of the whole project containing configuration files
 }
 ```
 
@@ -212,7 +212,21 @@ custom_author_mappings.prop // allows overwriting the authors of a library if th
 custom_exclusion_list.prop // allows excluding libraries by their id at build time
 ```
 
-See the corresponding files here for the format and content: https://github.com/mikepenz/AboutLibraries/tree/develop/library-definitions/src/main/res/raw
+See the corresponding files here for the format and content: https://github.com/mikepenz/AboutLibraries/tree/develop/aboutlibraries-definitions/src/main/res/raw
+
+### Exclude libraries
+
+> This is mainly meant for internal libraries, or projects. Full attribution to used projects is appreciated.
+
+```groovy
+aboutLibraries {
+    // allows to specify regex patterns to exclude some libraries
+    // preferred for internal libraries, ...
+    // The regex applies onto the uniqueId. E.g.: `com_mikepenz__materialdrawer`
+    // specify with the groovy regex syntax.
+    exclusionPatterns = [~"com_.*", ~/com_mylibrary_.*/]
+}
+```
 
 ### Include undetected licenses
 
@@ -312,9 +326,10 @@ In case the plugin fails to detect a library or you're using an embedded library
 </resources>
 ```
 
-## Usage WITHOUT gradle plugin (not recommended)
+## Usage WITHOUT gradle plugin (deprecated)
 
 If you do not want to use the gradle plugin, you need to add the legacy definition files, which will then be included in the built apk, and resolved via reflection during runtime.
+
 > NOTE: This is not recommended. Please migrate to use the gradle plugin
 
 ```gradle
@@ -322,21 +337,10 @@ implementation "com.mikepenz:aboutlibraries-definitions:${latestAboutLibsRelease
 ```
 
 ## ProGuard
-Exclude `R` from ProGuard to enable the **libraries auto detection**
-```proguard
--keep class .R
--keep class **.R$* {
-    <fields>;
-}
-```
 
-In case you want to minimize your resources as much as possible use the following rules (Thanks to @rubengees and @AllanWang as discussed here: https://github.com/mikepenz/AboutLibraries/issues/331)
-```proguard
--keepclasseswithmembers class **.R$* {
-    public static final int define_*;
-}
-```
-These rules **will** require you to add the libraries manually. (see more in the above linked issue)
+ProGuard / R8 rules are bundled internally with the core module.
+
+> Please check the configuration in regards to passing in the fields `.withFields(R.string::class.java.fields)`
 
 # Disclaimer
 
@@ -378,6 +382,8 @@ Additional dependencies can be provided via this plugins API to extend and provi
 * [LibreAV](https://github.com/projectmatris/antimalwareapp)
 * [Honda RoadSync](https://play.google.com/store/apps/details?id=com.honda.ms.dm.sab)
 * [SimpleSettings Library](https://github.com/marcauberer/simple-settings)
+* [Orna Companion](https://play.google.com/store/apps/details?id=nl.bryanderidder.ornaguide)
+* [School](https://github.com/daannnnn/School)
 * [Secure File Manager](https://play.google.com/store/apps/details?id=com.securefilemanager.app)
 
 # Developed By

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- AboutLibraries pre API 21 divider colors -->
+    <color name="description_divider">#DADADA</color>
+    <color name="opensource_divider">#DADADA</color>
+
+    <!-- AboutLibraries DEFAULT colors -->
+    <color name="about_libraries_card">#FAFAFA</color>
+    <color name="about_libraries_title_openSource">#212121</color>
+    <color name="about_libraries_text_openSource">#727272</color>
+    <color name="about_libraries_special_button_openSource">#212121</color>
+    <color name="about_libraries_dividerDark_openSource">#AAA</color>
+    <color name="about_libraries_dividerLight_openSource">#DADADA</color>
+
+    <!-- Provide colors for immersive bars when going edge to edge-->
+    <color name="immersive_bars">#99FFFFFF</color>
+    <color name="nav_bar">@color/immersive_bars</color>
+
+    <!-- Provide colors for immersive bars when going edge to edge-->
+    <color name="dark_immersive_bars">#99000000</color>
+    <color name="dark_nav_bar">@color/dark_immersive_bars</color>
+</resources>

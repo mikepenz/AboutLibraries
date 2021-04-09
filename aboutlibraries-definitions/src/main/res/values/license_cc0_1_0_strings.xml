@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources translatable="false">
+    <string name="define_license_cc0_1_0" translatable="false"></string>
+    <string name="license_cc0_1_0_licenseName" translatable="false">Creative Commons CC0 1.0 Universal License</string>
+    <string name="license_cc0_1_0_licenseWebsite" translatable="false">https://creativecommons.org/publicdomain/zero/1.0/legalcode</string>
+    <string name="license_cc0_1_0_licenseShortDescription" translatable="false">
+		<![CDATA[
+		<strong>No Copyright</strong>
+		<br /><br />
+		The person who associated a work with this deed has <b>dedicated</b> the work to the public domain by waiving all of his or her rights to the work worldwide under copyright law, including all related and neighboring rights, to the extent allowed by law.
+		<br /><br />
+		You can copy, modify, distribute and perform the work, even for commercial purposes, all without asking permission. See <b>Other Information</b> below.
+		<br /><br />
+		<strong>Other Information</strong>
+		<br /><br />
+		<ul>
+          <li>In no way are the patent or trademark rights of any person affected by CC0, nor are the rights that other persons may have in the work or in how the work is used, such as <b>publicity or privacy</b> rights.</li>
+          <li>Unless expressly stated otherwise, the person who associated a work with this deed makes no warranties about the work, and disclaims liability for all uses of the work, to the fullest extent permitted by applicable law.</li>
+          <li>When using or citing the work, you should not imply <b>endorsement</b> by the author or the affirmer.</li>
+		</ul>
+		]]>
+    </string>
+    <string name="license_cc0_1_0_licenseDescription" translatable="false">raw:license_cc0_1_0</string>
+</resources>

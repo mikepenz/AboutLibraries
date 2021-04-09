@@ -67,10 +67,10 @@ enum class License(val fullName: String, val id: String, val aboutLibsId: String
     Caldera("Caldera License", "Caldera"),
     CATOSL_1_1("Computer Associates Trusted Open Source License 1.1", "CATOSL-1.1"),
     CC_BY_1_0("Creative Commons Attribution 1.0 Generic", "CC-BY-1.0"),
-    CC_BY_2_0("Creative Commons Attribution 2.0 Generic", "CC-BY-2.0"),
+    CC_BY_2_0("Creative Commons Attribution 2.0 Generic", "CC-BY-2.0", "cc_2_0"),
     CC_BY_2_5("Creative Commons Attribution 2.5 Generic", "CC-BY-2.5"),
-    CC_BY_3_0("Creative Commons Attribution 3.0 Unported", "CC-BY-3.0"),
-    CC_BY_4_0("Creative Commons Attribution 4.0 International", "CC-BY-4.0"),
+    CC_BY_3_0("Creative Commons Attribution 3.0 Unported", "CC-BY-3.0", "cc_3_0"),
+    CC_BY_4_0("Creative Commons Attribution 4.0 International", "CC-BY-4.0", "cc_4_0"),
     CC_BY_NC_1_0("Creative Commons Attribution Non Commercial 1.0 Generic", "CC-BY-NC-1.0"),
     CC_BY_NC_2_0("Creative Commons Attribution Non Commercial 2.0 Generic", "CC-BY-NC-2.0"),
     CC_BY_NC_2_5("Creative Commons Attribution Non Commercial 2.5 Generic", "CC-BY-NC-2.5"),
@@ -390,7 +390,7 @@ enum class License(val fullName: String, val id: String, val aboutLibsId: String
     MIT("MIT License", "MIT", "mit", { name, _ ->
         name.contains("MIT", true)
     }),
-    CC0_1_0("Creative Commons Zero v1.0 Universal", "CC0-1.0", "cc0_10", customMatcher = { name, _ ->
+    CC0_1_0("Creative Commons Zero v1.0 Universal", "CC0-1.0", "cc0_1_0", customMatcher = { name, _ ->
         name.equals("CC0", true)
     }),
 

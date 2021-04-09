@@ -16,12 +16,16 @@ import org.gradle.maven.MavenPomArtifact
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
+import java.util.regex.Pattern
+
 class AboutLibrariesProcessor {
     private static final Logger LOGGER = LoggerFactory.getLogger(AboutLibrariesProcessor.class);
 
     private File configFolder
 
-    boolean includeAllLicenses;
+    private List<Pattern> exclusionPatterns
+
+    boolean includeAllLicenses
 
     Set<String> additionalLicenses = new HashSet<String>()
 
@@ -78,18 +82,16 @@ class AboutLibrariesProcessor {
         collectMappingDetails(customExclusionList, 'custom_exclusion_list.prop')
     }
 
-    def gatherDependencies(def project, def variant = null) {
-        def extension = project.extensions.aboutLibraries
-        if (extension.configPath != null) {
-            configFolder = new File(extension.configPath)
-        }
-        if (extension.includeAllLicenses) {
-            includeAllLicenses = extension.includeAllLicenses
+    def gatherDependencies(def project, File configPath, List<Pattern> exclusionPatterns, Boolean includeAllLicenses, HashSet<String> additionalLicenses, def variant = null) {
+        this.configFolder = configPath
+        this.exclusionPatterns = exclusionPatterns
+        if (includeAllLicenses) {
+            this.includeAllLicenses = includeAllLicenses
             LOGGER.debug("Manually requested all licenses")
-        } else if (extension.additionalLicenses != null) {
-            extension.additionalLicenses.all { licenseExt ->
-                LOGGER.debug("Manually requested license: ${licenseExt.name}")
-                additionalLicenses.add(licenseExt.name)
+        } else if (additionalLicenses != null) {
+            this.additionalLicenses = additionalLicenses
+            this.additionalLicenses.each { licenseExt ->
+                LOGGER.error("Manually requested license: ${licenseExt}")
             }
         }
 
@@ -110,7 +112,7 @@ class AboutLibrariesProcessor {
             File file = resolvePomFile(project, group_artifact, versionIdentifier, false)
             if (file != null) {
                 try {
-                    writeDependency(project, librariesList, file)
+                    parseDependency(project, librariesList, file)
                 } catch (Throwable ex) {
                     LOGGER.error("--> Failed to write dependency information for: ${group_artifact}")
                 }
@@ -119,7 +121,7 @@ class AboutLibrariesProcessor {
         return librariesList
     }
 
-    def writeDependency(def project, List<Library> libraries, File artifactFile) {
+    def parseDependency(def project, List<Library> libraries, File artifactFile) {
         def artifactPomText = artifactFile.getText('UTF-8').trim()
         if (artifactPomText.charAt(0) != (char) '<') {
             LOGGER.warn("--> ${artifactFile.path} contains a invalid character at the first position. Applying workaround.")
@@ -137,6 +139,15 @@ class AboutLibrariesProcessor {
         if (customExclusionList.contains(uniqueId)) {
             println "--> Skipping ${uniqueId}"
             return
+        }
+
+        if (exclusionPatterns != null) {
+            for (pattern in exclusionPatterns) {
+                if (pattern.matcher(uniqueId).matches()) {
+                    println "--> Skipping ${uniqueId}, matching exclusion pattern"
+                    return
+                }
+            }
         }
 
         LOGGER.debug(

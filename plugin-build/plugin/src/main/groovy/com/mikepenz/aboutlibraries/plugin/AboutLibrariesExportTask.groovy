@@ -1,12 +1,11 @@
 package com.mikepenz.aboutlibraries.plugin
 
 import com.mikepenz.aboutlibraries.plugin.mapping.License
-import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.TaskAction
 
 @CacheableTask
-public class AboutLibrariesExportTask extends DefaultTask {
+public class AboutLibrariesExportTask extends BaseAboutLibrariesTask {
 
     private String variant = null
     private Set<License> neededLicenses = new HashSet<License>()
@@ -34,7 +33,7 @@ public class AboutLibrariesExportTask extends DefaultTask {
     }
 
     def gatherDependencies(def project) {
-        def libraries = new AboutLibrariesProcessor().gatherDependencies(project, variant)
+        def libraries = new AboutLibrariesProcessor().gatherDependencies(project, configPath, exclusionPatterns, includeAllLicenses, additionalLicenses, variant)
 
         if (variant != null) {
             println ""
