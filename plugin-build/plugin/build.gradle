@@ -1,15 +1,15 @@
 buildscript {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
     dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.31"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.32"
     }
 }
 plugins {
     id 'java'
-    id "com.gradle.plugin-publish" version "0.13.0"
+    id "com.gradle.plugin-publish" version "0.14.0"
     id "java-gradle-plugin"
     id 'maven-publish'
 }
@@ -48,13 +48,13 @@ pluginBundle {
 
 repositories {
     google()
-    jcenter()
+    mavenCentral()
 }
 
 dependencies {
     implementation gradleApi()
     implementation localGroovy()
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.4.31'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.4.32'
 }
 
 compileGroovy {
