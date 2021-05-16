@@ -384,8 +384,9 @@ enum class License(val fullName: String, val id: String, val aboutLibsId: String
     BSD_2_Clause("BSD 2-Clause \"Simplified\" License", "BSD-2-Clause", customMatcher = { name, _ ->
         name.equals("BSD 2-Clause License", true)
     }),
-    BSD_3_Clause("BSD 3-Clause \"New\" or \"Revised\" License", "BSD-3-Clause", customMatcher = { name, _ ->
-        name.equals("New BSD License", true) || name.equals("Modified BSD License", true) || name.equals("BSD 3-clause", true)
+    BSD_3_Clause("BSD 3-Clause \"New\" or \"Revised\" License", "BSD-3-Clause", customMatcher = { name, url ->
+        name.equals("New BSD License", true) || name.equals("Modified BSD License", true) || name.equals("BSD 3-clause", true) ||
+                url.endsWith("opensource.org/licenses/BSD-3-Clause", true)
     }),
     MIT("MIT License", "MIT", "mit", { name, _ ->
         name.contains("MIT", true)
