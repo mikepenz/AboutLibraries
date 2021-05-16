@@ -2,6 +2,7 @@ package com.mikepenz.aboutlibraries.plugin
 
 import com.mikepenz.aboutlibraries.plugin.mapping.License
 import org.gradle.api.tasks.CacheableTask
+import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.TaskAction
 
 @CacheableTask
@@ -16,18 +17,22 @@ public class AboutLibrariesExportTask extends BaseAboutLibrariesTask {
         this.variant = variant
     }
 
+    @Internal
     String getVariant() {
         return variant
     }
 
+    @Internal
     Set<License> getNeededLicenses() {
         return neededLicenses
     }
 
+    @Internal
     Set<String> getLibrariesWithoutLicenses() {
         return librariesWithoutLicenses
     }
 
+    @Internal
     HashMap<String, HashSet<String>> getUnknownLicenses() {
         return unknownLicenses
     }
