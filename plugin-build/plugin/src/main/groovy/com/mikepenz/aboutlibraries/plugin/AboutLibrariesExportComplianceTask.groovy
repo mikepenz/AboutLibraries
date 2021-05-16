@@ -1,6 +1,7 @@
 package com.mikepenz.aboutlibraries.plugin
 
 import com.mikepenz.aboutlibraries.plugin.mapping.License
+import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.TaskAction
 
 import java.nio.file.Files
@@ -17,24 +18,28 @@ public class AboutLibrariesExportComplianceTask extends BaseAboutLibrariesTask {
         this.variant = variant
     }
 
+    @Internal
     String getVariant() {
         return variant
     }
 
+    @Internal
     Set<License> getNeededLicenses() {
         return neededLicenses
     }
 
+    @Internal
     Set<String> getLibrariesWithoutLicenses() {
         return librariesWithoutLicenses
     }
 
+    @Internal
     HashMap<String, HashSet<String>> getUnknownLicenses() {
         return unknownLicenses
     }
 
     def gatherDependencies(def project) {
-        final def exportPath = project.getProperty("exportPath")
+        final def exportPath = project.hasProperty("exportPath") ? project.getProperty("exportPath") : project.rootDir.absolutePath
         final def artifactGroups = project.hasProperty("artifactGroups") ? project.getProperty("artifactGroups") : ""
 
         if (exportPath == null) {
