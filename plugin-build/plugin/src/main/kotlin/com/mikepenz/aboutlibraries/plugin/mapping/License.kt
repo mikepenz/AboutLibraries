@@ -190,7 +190,6 @@ enum class License(val fullName: String, val id: String, val aboutLibsId: String
     ISC("ISC License", "ISC"),
     JasPer_2_0("JasPer License", "JasPer-2.0"),
     JPNIC("Japan Network Information Center License", "JPNIC"),
-    JSON("JSON License", "JSON"),
     LAL_1_2("Licence Art Libre 1.2", "LAL-1.2"),
     LAL_1_3("Licence Art Libre 1.3", "LAL-1.3"),
     Latex2e("Latex2e License", "Latex2e"),
@@ -393,6 +392,9 @@ enum class License(val fullName: String, val id: String, val aboutLibsId: String
     }),
     CC0_1_0("Creative Commons Zero v1.0 Universal", "CC0-1.0", "cc0_1_0", customMatcher = { name, _ ->
         name.equals("CC0", true)
+    }),
+    JSON("JSON License", "JSON", customMatcher = { name, _ ->
+        name.equals("The JSON License", true)
     }),
 
     // Special proprietary libraries section
