@@ -36,13 +36,40 @@ class LibsBuilder : Serializable {
     var showVersion: Boolean = true
     var showLoadingProgress = true
 
+    @Suppress("VariableNaming")
+    internal var _aboutShowIcon: Boolean? = null
     var aboutShowIcon: Boolean = true
+        set(value) {
+            _aboutShowIcon = value
+            field = value
+        }
     var aboutVersionString: String = ""
     var aboutAppName: String? = null
+
+    @Suppress("VariableNaming")
+    internal var _aboutShowVersion: Boolean? = null
     var aboutShowVersion: Boolean = true
+        set(value) {
+            _aboutShowVersion = value
+            field = value
+        }
     var aboutDescription: String? = null
+
+    @Suppress("VariableNaming")
+    internal var _aboutShowVersionName: Boolean? = null
     var aboutShowVersionName: Boolean = true
+        set(value) {
+            _aboutShowVersionName = value
+            field = value
+        }
+
+    @Suppress("VariableNaming")
+    internal var _aboutShowVersionCode: Boolean? = null
     var aboutShowVersionCode: Boolean = true
+        set(value) {
+            _aboutShowVersionCode = value
+            field = value
+        }
 
     var aboutMinimalDesign: Boolean = false
 
@@ -505,7 +532,10 @@ class LibsBuilder : Serializable {
      */
     private fun preCheck() {
         if (fields.isEmpty()) {
-            Log.w("AboutLibraries", "Have you missed to call withFields(R.string.class.getFields())? - autoDetect won't work - https://github.com/mikepenz/AboutLibraries/wiki/HOWTO:-Fragment")
+            Log.w(
+                "AboutLibraries",
+                "Have you missed to call withFields(R.string.class.getFields())? - autoDetect won't work - https://github.com/mikepenz/AboutLibraries/wiki/HOWTO:-Fragment"
+            )
         }
     }
 
