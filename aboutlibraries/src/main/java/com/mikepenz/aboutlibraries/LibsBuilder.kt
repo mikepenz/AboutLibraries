@@ -36,13 +36,33 @@ class LibsBuilder : Serializable {
     var showVersion: Boolean = true
     var showLoadingProgress = true
 
+    internal var _aboutShowIcon: Boolean? = null
     var aboutShowIcon: Boolean = true
+        set(value) {
+            _aboutShowIcon = value
+            field = value
+        }
     var aboutVersionString: String = ""
     var aboutAppName: String? = null
+    internal var _aboutShowVersion: Boolean? = null
     var aboutShowVersion: Boolean = true
+        set(value) {
+            _aboutShowVersion = value
+            field = value
+        }
     var aboutDescription: String? = null
+    internal var _aboutShowVersionName: Boolean? = null
     var aboutShowVersionName: Boolean = true
+        set(value) {
+            _aboutShowVersionName = value
+            field = value
+        }
+    internal var _aboutShowVersionCode: Boolean? = null
     var aboutShowVersionCode: Boolean = true
+        set(value) {
+            _aboutShowVersionCode = value
+            field = value
+        }
 
     var aboutMinimalDesign: Boolean = false
 
