@@ -150,18 +150,19 @@ class LibsFragmentCompat : Filterable {
             }
 
             //fill the builder with the information
-            builder.aboutShowIcon = ctx.extractBooleanBundleOrResource(builder.aboutShowIcon, "aboutLibraries_description_showIcon") ?: false
-            builder.aboutShowVersion = ctx.extractBooleanBundleOrResource(builder.aboutShowVersion, "aboutLibraries_description_showVersion") ?: false
-            builder.aboutShowVersionName = ctx.extractBooleanBundleOrResource(builder.aboutShowVersionName, "aboutLibraries_description_showVersionName")
-                    ?: false
-            builder.aboutShowVersionCode = ctx.extractBooleanBundleOrResource(builder.aboutShowVersionCode, "aboutLibraries_description_showVersionCode")
-                    ?: false
+            builder.aboutShowIcon = ctx.extractBooleanBundleOrResource(builder._aboutShowIcon, "aboutLibraries_description_showIcon") ?: false
+            builder.aboutShowVersion = ctx.extractBooleanBundleOrResource(builder._aboutShowVersion, "aboutLibraries_description_showVersion") ?: false
+            builder.aboutShowVersionName = ctx.extractBooleanBundleOrResource(builder._aboutShowVersionName, "aboutLibraries_description_showVersionName")
+                ?: false
+            builder.aboutShowVersionCode = ctx.extractBooleanBundleOrResource(builder._aboutShowVersionCode, "aboutLibraries_description_showVersionCode")
+                ?: false
 
             builder.aboutAppName = ctx.extractStringBundleOrResource(builder.aboutAppName, "aboutLibraries_description_name") ?: ""
             builder.aboutDescription = ctx.extractStringBundleOrResource(builder.aboutDescription, "aboutLibraries_description_text") ?: ""
 
             builder.aboutAppSpecial1 = ctx.extractStringBundleOrResource(builder.aboutAppSpecial1, "aboutLibraries_description_special1_name")
-            builder.aboutAppSpecial1Description = ctx.extractStringBundleOrResource(builder.aboutAppSpecial1Description, "aboutLibraries_description_special1_text")
+            builder.aboutAppSpecial1Description =
+                ctx.extractStringBundleOrResource(builder.aboutAppSpecial1Description, "aboutLibraries_description_special1_text")
             builder.aboutAppSpecial2 = ctx.extractStringBundleOrResource(builder.aboutAppSpecial2, "aboutLibraries_description_special2_name")
             builder.aboutAppSpecial2Description = ctx.extractStringBundleOrResource(builder.aboutAppSpecial2Description, "aboutLibraries_description_special2_text")
             builder.aboutAppSpecial3 = ctx.extractStringBundleOrResource(builder.aboutAppSpecial3, "aboutLibraries_description_special3_name")
