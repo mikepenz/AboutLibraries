@@ -16,10 +16,11 @@ class AboutLibrariesPlugin implements Plugin<Project> {
         project.extensions.create('aboutLibraries', AboutLibrariesExtension)
 
         // task for cleaning
-        def cleanupTask = project.tasks.create("aboutLibrariesClean", AboutLibrariesCleanTask)
-        cleanupTask.description = "Cleans the generated data from the AboutLibraries plugin"
-        cleanupTask.group = 'Build'
-        cleanupTask.dependencies = project.file("$project.buildDir/generated/aboutlibraries/")
+        project.tasks.register("aboutLibrariesClean", AboutLibrariesCleanTask) {
+            it.description = "Cleans the generated data from the AboutLibraries plugin"
+            it.group = 'Build'
+            it.dependencies = project.file("$project.buildDir/generated/aboutlibraries/")
+        }
         // project.tasks.findByName("clean").dependsOn(cleanupTask)
         // doing a clean will regardless delete the dir containing the files
 
@@ -29,14 +30,16 @@ class AboutLibrariesPlugin implements Plugin<Project> {
         }
 
         // task to output library names with ids for further actions
-        AboutLibrariesIdTask taskId = project.tasks.create("findLibraries", AboutLibrariesIdTask)
-        taskId.description = "Writes the relevant meta data for the AboutLibraries plugin to display dependencies"
-        taskId.group = 'Help'
+        project.tasks.register("findLibraries", AboutLibrariesIdTask) {
+            it.description = "Writes the relevant meta data for the AboutLibraries plugin to display dependencies"
+            it.group = 'Help'
+        }
 
         // task to output libraries, and their license in CSV format to the CLI
-        AboutLibrariesExportTask exportTaskId = project.tasks.create("exportLibraries", AboutLibrariesExportTask)
-        exportTaskId.description = "Writes all libraries and their license in CSV format to the CLI"
-        exportTaskId.group = 'Help'
+        project.tasks.register("exportLibraries", AboutLibrariesExportTask) {
+            it.description = "Writes all libraries and their license in CSV format to the CLI"
+            it.group = 'Help'
+        }
     }
 
     private static void createAboutLibrariesTask(Project project, def variant) {
@@ -74,22 +77,25 @@ class AboutLibrariesPlugin implements Plugin<Project> {
         }
 
         // task to generate libraries, and their license into the build folder (not hooked to the build task)
-        AboutLibrariesTask generateTask = project.tasks.create("generateLibraryDefinitions${variant.name.capitalize()}", AboutLibrariesTask)
-        generateTask.description = "Manually write meta data for the AboutLibraries plugin"
-        generateTask.group = 'Build'
-        generateTask.setDependencies(project.file("$project.buildDir/generated/aboutlibraries/${variant.name}/res/"))
-        generateTask.setVariant(variant.name)
+        project.tasks.register("generateLibraryDefinitions${variant.name.capitalize()}", AboutLibrariesTask) {
+            it.description = "Manually write meta data for the AboutLibraries plugin"
+            it.group = 'Build'
+            it.setDependencies(project.file("$project.buildDir/generated/aboutlibraries/${variant.name}/res/"))
+            it.setVariant(variant.name)
+        }
 
         // task to output libraries, and their license in CSV format to the CLI
-        AboutLibrariesExportTask exportTaskId = project.tasks.create("exportLibraries${variant.name.capitalize()}", AboutLibrariesExportTask)
-        exportTaskId.description = "Writes all libraries and their license in CSV format to the CLI"
-        exportTaskId.group = 'Help'
-        exportTaskId.setVariant(variant.name)
+        project.tasks.register("exportLibraries${variant.name.capitalize()}", AboutLibrariesExportTask) {
+            it.description = "Writes all libraries and their license in CSV format to the CLI"
+            it.group = 'Help'
+            it.setVariant(variant.name)
+        }
 
         // task to output libraries, their license in CSV format and source to a given location
-        AboutLibrariesExportComplianceTask exportComplianceTaskId = project.tasks.create("exportComplianceLibraries${variant.name.capitalize()}", AboutLibrariesExportComplianceTask)
-        exportComplianceTaskId.description = "Writes all libraries with their source and their license in CSV format to the configured directory"
-        exportComplianceTaskId.group = 'Help'
-        exportComplianceTaskId.setVariant(variant.name)
+        project.tasks.register("exportComplianceLibraries${variant.name.capitalize()}", AboutLibrariesExportComplianceTask) {
+            it.description = "Writes all libraries with their source and their license in CSV format to the configured directory"
+            it.group = 'Help'
+            it.setVariant(variant.name)
+        }
     }
 }
