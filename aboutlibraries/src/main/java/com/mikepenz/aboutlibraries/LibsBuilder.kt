@@ -31,9 +31,22 @@ class LibsBuilder : Serializable {
     var sort: Boolean = true
     var libraryComparator: Comparator<Library>? = null
 
+    @Suppress("VariableNaming")
+    internal var _showLicense: Boolean? = null
     var showLicense: Boolean = false
+        set(value) {
+            _showLicense = value
+            field = value
+        }
     var showLicenseDialog: Boolean = true
+
+    @Suppress("VariableNaming")
+    internal var _showVersion: Boolean? = null
     var showVersion: Boolean = true
+        set(value) {
+            _showVersion = value
+            field = value
+        }
     var showLoadingProgress = true
 
     @Suppress("VariableNaming")
