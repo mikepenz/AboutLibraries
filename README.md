@@ -108,7 +108,7 @@ But there are additional commands which may be helpful for various situations.
 ```kotlin
 ./gradlew exportLibraries // exists also per variant
 ```
-Exports all libraries in a CSV format with the name, artifactId, and licenseId. And a seperate list with all licenses used, and a potential list of unmatched libraries / licenses.
+Exports all libraries in a CSV format with the name, artifactId, and licenseId. And a separate list with all licenses used, and a potential list of unmatched libraries / licenses.
 
 ## Find
 
