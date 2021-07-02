@@ -42,7 +42,7 @@ ext.getLocalOrGlobalProperty = { key ->
 /**
  * retrieves a value from the properties or falls back to the default
  */
-ext.getProperyOrDefault = { key, defau ->
+ext.getPropertyOrDefault = { key, defau ->
     def val = null
     try {
         val = project.hasProperty(key) ? project.getProperty(key) : null
