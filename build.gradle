@@ -24,7 +24,7 @@ buildscript {
                 constraintLayout: '2.0.4',
                 navigation      : "2.3.5",
                 iconics         : "5.2.8",
-                detekt          : '1.17.1',
+                detekt          : '1.16.0',
                 fastadapter     : "5.4.1",
                 materialdrawer  : "8.4.0",
                 coreKtx         : "1.5.0"
