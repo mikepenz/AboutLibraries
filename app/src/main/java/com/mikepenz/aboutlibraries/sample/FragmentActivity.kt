@@ -134,7 +134,7 @@ class FragmentActivity : AppCompatActivity() {
                         startActivity(intent)
                     }
                     R.id.action_minimalactivity.toLong() -> {
-                        // create and launch an activity in minmal design without any additional modifications
+                        // create and launch an activity in minimal design without any additional modifications
                         LibsBuilder()
                                 .withFields(R.string::class.java.fields)
                                 .withAboutMinimalDesign(true)

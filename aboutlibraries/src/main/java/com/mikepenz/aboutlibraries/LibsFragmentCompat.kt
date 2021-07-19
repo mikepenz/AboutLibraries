@@ -150,6 +150,9 @@ class LibsFragmentCompat : Filterable {
             }
 
             //fill the builder with the information
+            builder.showLicense = ctx.extractBooleanBundleOrResource(builder._showLicense, "aboutLibraries_showLicense") ?: false
+            builder.showVersion = ctx.extractBooleanBundleOrResource(builder._showVersion, "aboutLibraries_showVersion") ?: true
+
             builder.aboutShowIcon = ctx.extractBooleanBundleOrResource(builder._aboutShowIcon, "aboutLibraries_description_showIcon") ?: false
             builder.aboutShowVersion = ctx.extractBooleanBundleOrResource(builder._aboutShowVersion, "aboutLibraries_description_showVersion") ?: false
             builder.aboutShowVersionName = ctx.extractBooleanBundleOrResource(builder._aboutShowVersionName, "aboutLibraries_description_showVersionName")

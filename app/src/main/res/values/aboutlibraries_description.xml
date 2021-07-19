@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="aboutLibraries_showLicense">false</string>
+    <string name="aboutLibraries_showVersion">true</string>
     <string name="aboutLibraries_description_name">AboutLibraries Sample</string>
     <string name="aboutLibraries_description_showIcon">true</string>
     <string name="aboutLibraries_description_showVersion">true</string>

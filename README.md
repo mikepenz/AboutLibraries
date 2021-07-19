@@ -35,7 +35,7 @@
 
 ## Latest releases 🛠
 
-- Kotlin && Gradle Plugin | [v8.9.0](https://github.com/mikepenz/AboutLibraries/tree/v8.9.0)
+- Kotlin && Gradle Plugin | [v8.9.1](https://github.com/mikepenz/AboutLibraries/tree/v8.9.1)
 - Kotlin | [v7.1.0](https://github.com/mikepenz/AboutLibraries/tree/v7.1.0) - Deprecated
 - Java && AndroidX | [v6.2.3](https://github.com/mikepenz/AboutLibraries/tree/v6.2.3) - Deprecated
 - Java && AppCompat | [v6.1.1](https://github.com/mikepenz/AboutLibraries/tree/v6.1.1) - Deprecated
@@ -108,7 +108,7 @@ But there are additional commands which may be helpful for various situations.
 ```kotlin
 ./gradlew exportLibraries // exists also per variant
 ```
-Exports all libraries in a CSV format with the name, artifactId, and licenseId. And a seperate list with all licenses used, and a potential list of unmatched libraries / licenses.
+Exports all libraries in a CSV format with the name, artifactId, and licenseId. And a separate list with all licenses used, and a potential list of unmatched libraries / licenses.
 
 ## Find
 
