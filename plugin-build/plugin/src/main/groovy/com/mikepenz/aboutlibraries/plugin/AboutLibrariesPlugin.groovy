@@ -25,8 +25,14 @@ class AboutLibrariesPlugin implements Plugin<Project> {
         // doing a clean will regardless delete the dir containing the files
 
         // create tasks for different application variants
-        project.android.applicationVariants.all { variant ->
-            createAboutLibrariesTask(project, variant)
+        if (project.android.hasProperty("applicationVariants")) {
+            project.android.applicationVariants.all { final variant ->
+                createAboutLibrariesTask(project, variant)
+            }
+        } else {
+            project.android.libraryVariants.all { final variant ->
+                createAboutLibrariesTask(project, variant)
+            }
         }
 
         // task to output library names with ids for further actions

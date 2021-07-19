@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: "androidx.navigation.safeargs.kotlin"
+apply plugin: 'com.mikepenz.aboutlibraries.plugin' // has to be applied AFTER android
 
 version release.versionName
 
