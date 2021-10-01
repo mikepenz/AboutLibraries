@@ -107,7 +107,7 @@ dependencies {
     implementation "com.mikepenz:material-design-iconic-typeface:2.2.0.8-kotlin@aar"
 
     // used only tho showcase multi flavor support
-    stagingImplementation("com.squareup.okhttp3:okhttp:4.9.1")
+    stagingImplementation("com.squareup.okhttp3:okhttp:4.9.2")
 }
 
 configurations.all {
