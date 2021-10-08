@@ -25,9 +25,11 @@ class AboutLibrariesProcessor {
 
     private List<Pattern> exclusionPatterns
 
+    boolean fetchRemoteLicense
     boolean includeAllLicenses
 
     Set<String> additionalLicenses = new HashSet<String>()
+    Map<String, String> remoteLicenseCache = new HashMap<String, String>()
 
     Set<String> handledLibraries = new HashSet<String>()
 
@@ -82,9 +84,13 @@ class AboutLibrariesProcessor {
         collectMappingDetails(customExclusionList, 'custom_exclusion_list.prop')
     }
 
-    def gatherDependencies(def project, File configPath, List<Pattern> exclusionPatterns, Boolean includeAllLicenses, HashSet<String> additionalLicenses, def variant = null) {
+    def gatherDependencies(def project, File configPath, List<Pattern> exclusionPatterns, Boolean fetchRemoteLicense, Boolean includeAllLicenses, HashSet<String> additionalLicenses, def variant = null) {
         this.configFolder = configPath
         this.exclusionPatterns = exclusionPatterns
+        this.fetchRemoteLicense = fetchRemoteLicense
+        if (fetchRemoteLicense) {
+            LOGGER.debug("Will fetch remote licenses from repository.")
+        }
         if (includeAllLicenses) {
             this.includeAllLicenses = includeAllLicenses
             LOGGER.debug("Manually requested all licenses")
@@ -294,6 +300,10 @@ class AboutLibrariesProcessor {
 
         // the license year
         def licenseYear = resolveLicenseYear(uniqueId, repositoryLink)
+        def remoteLicense = fetchRemoteLicense(uniqueId, repositoryLink, licenses)
+        if (remoteLicense.isBlank()) {
+            remoteLicense = null
+        }
 
         if (!isNotEmpty(libraryName)) {
             println "Could not get the name for ${uniqueId}, Using ${groupId}:${artifactId}"
@@ -309,11 +319,12 @@ class AboutLibrariesProcessor {
                 libraryDescription,
                 libraryVersion,
                 libraryWebsite,
-                licenses,
                 isOpenSource,
                 repositoryLink,
                 libraryOwner,
+                licenses,
                 licenseYear,
+                remoteLicense,
                 artifactFile?.getParentFile()?.getParentFile() // artifactFile references the pom directly
         )
         LOGGER.debug("Adding library: {}", library)
@@ -461,6 +472,62 @@ class AboutLibrariesProcessor {
         } else {
             return new HashSet<String>()
         }
+    }
+
+    /**
+     * Fetch licenses from either the repository, or from spdx as txt format
+     */
+    def fetchRemoteLicense(String uniqueId, String repositoryLink, HashSet<String> licenses) {
+        def content = ""
+        if (repositoryLink.contains("github")) {
+            // license is usually stored in a file called `LICENSE` on the main or dev branch of the project
+            // https://raw.githubusercontent.com/mikepenz/FastAdapter/develop/LICENSE
+
+            final def variants = ["/raw/develop/LICENSE", "/raw/develop/LICENSE.txt", "/raw/main/LICENSE", "/raw/main/LICENSE.txt", "/raw/master/LICENSE", "/raw/master/LICENSE.txt"]
+            for (final String v : variants) {
+                try {
+                    String url = "${repositoryLink}${v}"
+                    if (remoteLicenseCache.containsKey(url)) {
+                        content = remoteLicenseCache.get(url)
+                    } else {
+                        remoteLicenseCache.put(url, "")
+                        content = new URL(url).getText("UTF-8")
+                        remoteLicenseCache.put(url, content)
+                        content = content + "\n\nYou may find a copy of this license at:\n" + url
+                    }
+                    break
+                } catch (Throwable ignored) {
+                    // ignore
+                }
+            }
+        }
+
+        if (content.isBlank() && !licenses.isEmpty()) {
+            def delimiter = ""
+            licenses.forEach {
+                try {
+                    final def enumLicense = License.valueOf(it)
+                    final String url = enumLicense.getTxtUrl()
+                    def singleLicense
+                    if (remoteLicenseCache.containsKey(url)) {
+                        singleLicense = remoteLicenseCache.get(url)
+                    } else {
+                        remoteLicenseCache.put(url, "")
+                        // did not contain, put null, to not try again
+                        singleLicense = new URL(url).getText("UTF-8")
+                        remoteLicenseCache.put(url, singleLicense)
+                    }
+                    if (!singleLicense.isBlank()) {
+                        content = content + delimiter + singleLicense + "\n\nYou may find a copy of this license at:\n" + url
+                        delimiter = "/n/n/n-----------------------------------/n/n/n"
+                    }
+                } catch (final Throwable ignored) {
+                    // ignore
+                }
+            }
+        }
+
+        return content
     }
 
     def resolveLicenseYear(String uniqueId, String repositoryLink) {

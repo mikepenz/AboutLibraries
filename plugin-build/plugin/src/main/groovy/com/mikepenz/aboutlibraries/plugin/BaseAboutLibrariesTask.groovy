@@ -33,10 +33,19 @@ abstract class BaseAboutLibrariesTask extends DefaultTask {
     }
 
     @Input
+    final Boolean fetchRemoteLicense = project.extensions.aboutLibraries.fetchRemoteLicense
+
+    @Input
+    final Boolean getAsStringResource() {
+        def value = project.extensions.aboutLibraries.asStringResource
+        if (value == null) return true else return value
+    }
+
+    @Input
     final List<Pattern> exclusionPatterns = project.extensions.aboutLibraries.exclusionPatterns ?: new ArrayList<>()
 
     @Input
-    final Boolean includeAllLicenses = project.extensions.aboutLibraries.includeAllLicenses ?: false
+    final Boolean includeAllLicenses = project.extensions.aboutLibraries.includeAllLicenses
 
     @Input
     HashSet<String> getAdditionalLicenses() {
