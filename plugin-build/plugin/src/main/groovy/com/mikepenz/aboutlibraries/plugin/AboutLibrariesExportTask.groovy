@@ -40,7 +40,7 @@ abstract class AboutLibrariesExportTask extends BaseAboutLibrariesTask {
     @TaskAction
     public void action() throws IOException {
         final def collectedDependencies = readInCollectedDependencies()
-        final def processor = new AboutLibrariesProcessor(dependencyHandler, collectedDependencies, configPath, exclusionPatterns, includeAllLicenses, additionalLicenses, variant)
+        final def processor = new AboutLibrariesProcessor(dependencyHandler, collectedDependencies, configPath, exclusionPatterns, fetchRemoteLicense, includeAllLicenses, additionalLicenses, variant)
         final def libraries = processor.gatherDependencies()
 
         if (variant != null) {

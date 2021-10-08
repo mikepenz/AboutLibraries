@@ -176,9 +176,10 @@ class FragmentActivity : AppCompatActivity() {
         */
 
         val fragment = LibsBuilder()
-                .withFields(R.string::class.java.fields)
-                .withVersionShown(false)
-                .withLicenseShown(true)
+            .withFields(R.string::class.java.fields)
+            .withVersionShown(true)
+            .withLicenseShown(true)
+            .withLicenseDialog(true)
                 // find ids via './gradlew findLibraries'
                 .withLibraryModification("androidx_activity__activity", Libs.LibraryFields.LIBRARY_NAME, "Activity Support")
                 .withLibraryEnchantment("com_mikepenz__fastadapter", "fastadapter")
