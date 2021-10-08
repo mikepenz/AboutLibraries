@@ -473,7 +473,7 @@ class Libs(
     ) {
         if (remoteLicense != null) {
             try {
-                val licenseContent = ctx.resources.openRawResource(ctx.getRawResourceId("license_${remoteLicense}")).bufferedReader().use { it.readText() }
+                val licenseContent = ctx.resources.openRawResource(ctx.getRawResourceId("license_$remoteLicense")).bufferedReader().use { it.readText() }
                 val license = License(
                     "",
                     licenseIds.firstOrNull() ?: "",
