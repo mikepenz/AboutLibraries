@@ -46,7 +46,7 @@ public class AboutLibrariesExportComplianceTask extends BaseAboutLibrariesTask {
             throw new IllegalArgumentException("Please specify `exportPath` via the gradle CLI (-PexportPath=...)")
         }
 
-        final def libraries = new AboutLibrariesProcessor().gatherDependencies(project, configPath, exclusionPatterns, includeAllLicenses, additionalLicenses, variant)
+        final def libraries = new AboutLibrariesProcessor().gatherDependencies(project, configPath, exclusionPatterns, fetchRemoteLicense, includeAllLicenses, additionalLicenses, variant)
 
         if (variant != null) {
             println ""

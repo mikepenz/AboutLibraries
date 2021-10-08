@@ -19,9 +19,21 @@ class AboutLibrariesExtension {
     String configPath
 
     /**
+     * Fetch remote licenses
+     *
+     * Will try to fetch the LICENSE from the defined SCM if project is open source
+     */
+    boolean fetchRemoteLicense
+
+    /**
+     * Defines if the generated data should be in the format of string resources, allowing it to be translated
+     */
+    boolean asStringResource
+
+    /**
      * Include all licenses
      *
-     * Useful if you want to include all licenses even if they weren't detected by this plugin
+     * Useful if you want to include all licenses available even if they weren't detected by this plugin
      */
     boolean includeAllLicenses
 

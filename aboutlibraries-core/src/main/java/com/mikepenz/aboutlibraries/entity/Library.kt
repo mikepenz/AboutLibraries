@@ -2,23 +2,23 @@ package com.mikepenz.aboutlibraries.entity
 
 
 data class Library(
-        var definedName: String,
-        var isInternal: Boolean = false,
-        var isPlugin: Boolean = false,
+    var definedName: String,
+    var isInternal: Boolean = false,
+    var isPlugin: Boolean = false,
 
-        var libraryName: String,
-        var author: String = "",
-        var authorWebsite: String = "",
-        var libraryDescription: String = "",
-        var libraryVersion: String = "",
-        var libraryArtifactId: String = "",
-        var libraryWebsite: String = "",
-        var licenses: Set<License>? = null,
+    var libraryName: String,
+    var author: String = "",
+    var authorWebsite: String = "",
+    var libraryDescription: String = "",
+    var libraryVersion: String = "",
+    var libraryArtifactId: String = "",
+    var libraryWebsite: String = "",
+    var licenses: Set<License>? = null,
 
-        var isOpenSource: Boolean = true,
-        var repositoryLink: String = "",
+    var isOpenSource: Boolean = true,
+    var repositoryLink: String = "",
 
-        var classPath: String = ""
+    var classPath: String = ""
 ) : Comparable<Library> {
 
     @Deprecated("Note. AboutLibraries v8.3.0 now supports multiple licenses per Library", ReplaceWith("licenses.firstOrNull()"))
@@ -33,7 +33,7 @@ data class Library(
     }
 
     private fun ifNotEmpty(receiver: String): String? {
-        return if (receiver.isEmpty()) null else receiver
+        return receiver.ifEmpty { null }
     }
 
     /**

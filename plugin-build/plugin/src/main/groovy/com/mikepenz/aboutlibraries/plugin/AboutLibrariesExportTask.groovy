@@ -38,7 +38,7 @@ public class AboutLibrariesExportTask extends BaseAboutLibrariesTask {
     }
 
     def gatherDependencies(def project) {
-        def libraries = new AboutLibrariesProcessor().gatherDependencies(project, configPath, exclusionPatterns, includeAllLicenses, additionalLicenses, variant)
+        def libraries = new AboutLibrariesProcessor().gatherDependencies(project, configPath, exclusionPatterns, fetchRemoteLicense, includeAllLicenses, additionalLicenses, variant)
 
         if (variant != null) {
             println ""

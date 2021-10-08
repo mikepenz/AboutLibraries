@@ -1,4 +1,7 @@
-apply plugin: 'com.android.application'
+plugins {
+    id 'com.android.application'
+    id 'com.google.android.gms.oss-licenses-plugin'
+}
 apply plugin: 'kotlin-android'
 apply plugin: 'com.mikepenz.aboutlibraries.plugin' // has to be applied AFTER android
 
@@ -73,6 +76,8 @@ android {
 // It is possible to define a custom config path with custom mappings
 aboutLibraries {
     configPath = "config"
+    fetchRemoteLicense = true
+    asStringResource = false
 
     // Full license text for license IDs mentioned here
     // will be included, even if no detected dependency uses them.
@@ -92,6 +97,8 @@ dependencies {
     //used to generate the drawer on the left
     //https://github.com/mikepenz/MaterialDrawer
     implementation "com.mikepenz:materialdrawer:${versions.materialdrawer}"
+
+    implementation 'com.google.android.gms:play-services-oss-licenses:17.0.0'
 
     //used to provide different itemAnimators for the RecyclerView
     //https://github.com/mikepenz/ItemAnimators

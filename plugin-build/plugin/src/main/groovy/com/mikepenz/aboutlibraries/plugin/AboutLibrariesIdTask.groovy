@@ -8,7 +8,7 @@ import org.gradle.api.tasks.TaskAction
 public class AboutLibrariesIdTask extends BaseAboutLibrariesTask {
 
     def gatherDependencies(def project) {
-        def libraries = new AboutLibrariesProcessor().gatherDependencies(project, configPath, exclusionPatterns, includeAllLicenses, additionalLicenses)
+        def libraries = new AboutLibrariesProcessor().gatherDependencies(project, configPath, exclusionPatterns, fetchRemoteLicense, includeAllLicenses, additionalLicenses)
 
         for (final library in libraries) {
             println "${library.libraryName} (${library.libraryVersion}) -> ${library.uniqueId}"

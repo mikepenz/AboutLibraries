@@ -403,4 +403,6 @@ enum class License(val fullName: String, val id: String, val aboutLibsId: String
     FSSA("Fabric Software and Services Agreement", "FSSA", "cts");
 
     fun getUrl(): String = "https://spdx.org/licenses/$id.html"
+
+    fun getTxtUrl(): String = "https://spdx.org/licenses/$id.txt"
 }
