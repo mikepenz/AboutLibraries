@@ -1,4 +1,6 @@
-apply plugin: 'com.android.application'
+plugins {
+    id 'com.android.application'
+}
 apply plugin: 'kotlin-android'
 apply plugin: 'com.mikepenz.aboutlibraries.plugin' // has to be applied AFTER android
 
@@ -73,6 +75,8 @@ android {
 // It is possible to define a custom config path with custom mappings
 aboutLibraries {
     configPath = "config"
+    fetchRemoteLicense = true
+    asStringResource = false
 
     // Full license text for license IDs mentioned here
     // will be included, even if no detected dependency uses them.

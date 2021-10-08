@@ -43,6 +43,15 @@ abstract class BaseAboutLibrariesTask extends DefaultTask {
     }
 
     @Input
+    final Boolean fetchRemoteLicense = extension.fetchRemoteLicense
+
+    @Input
+    final Boolean getAsStringResource() {
+        def value = extension.asStringResource
+        if (value == null) return true else return value
+    }
+
+    @Input
     final List<Pattern> exclusionPatterns = extension.exclusionPatterns ?: new ArrayList<>()
 
     @Input

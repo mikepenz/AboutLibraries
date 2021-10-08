@@ -14,10 +14,11 @@ data class Library(
         val libraryDescription: String?,
         val libraryVersion: String?,
         val libraryWebsite: String?,
-        val licenseIds: Set<String> = emptySet(),
         val isOpenSource: Boolean,
         val repositoryLink: String?,
         val libraryOwner: String?,
+        val licenseIds: Set<String> = emptySet(),
         val licenseYear: String?,
+        val remoteLicense: String?,
         val artifactFolder: File? = null
 )

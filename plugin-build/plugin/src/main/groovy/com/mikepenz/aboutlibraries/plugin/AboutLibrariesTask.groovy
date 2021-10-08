@@ -2,6 +2,7 @@ package com.mikepenz.aboutlibraries.plugin
 
 import com.mikepenz.aboutlibraries.plugin.mapping.Library
 import com.mikepenz.aboutlibraries.plugin.mapping.License
+import groovy.json.StreamingJsonBuilder
 import groovy.xml.MarkupBuilder
 import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.Internal
@@ -28,7 +29,11 @@ abstract class AboutLibrariesTask extends BaseAboutLibrariesTask {
     private File outputRawFolder
 
     File getCombinedLibrariesOutputFile() {
-        return new File(outputValuesFolder, "aboutlibraries.xml")
+        if (asStringResource) {
+            return new File(outputValuesFolder, "aboutlibraries.xml")
+        } else {
+            return new File(outputRawFolder, "aboutlibraries.json")
+        }
     }
 
     @OutputDirectory
@@ -85,6 +90,24 @@ abstract class AboutLibrariesTask extends BaseAboutLibrariesTask {
             println("--> License not available: ${licenseId}")
         }
         return false
+    }
+
+    /**
+     * Creates the additional RAW files with remote licenses if available, otherwise inclues the license from the available definitions
+     */
+    def handleLicenses(Library library) {
+        if (library.remoteLicense == null || library.remoteLicense.isBlank()) {
+            if (!library.licenseIds.isEmpty()) {
+                library.licenseIds.each {
+                    neededLicenses.add(it) // remember the license we hit
+                }
+            }
+        } else {
+            def resultFile = new File(getRawFolder(), "license_${library.remoteLicense.md5()}.txt")
+            if (!resultFile.exists()) {
+                resultFile.append(library.remoteLicense, "UTF-8")
+            }
+        }
     }
 
     /**
@@ -164,6 +187,9 @@ abstract class AboutLibrariesTask extends BaseAboutLibrariesTask {
             // note only for backwards compatibility. remove with v9.x.y
             resources.string name: "library_${library.uniqueId}_licenseId", translatable: 'false', "${library.licenseIds.first()}"
         }
+        if (library.remoteLicense != null && !library.remoteLicense.isBlank()) {
+            resources.string name: "library_${library.uniqueId}_remoteLicense", translatable: 'false', "${library.remoteLicense.md5()}"
+        }
         if (library.isOpenSource) {
             resources.string name: "library_${library.uniqueId}_isOpenSource", translatable: 'false', "${library.isOpenSource}"
         }
@@ -194,7 +220,7 @@ abstract class AboutLibrariesTask extends BaseAboutLibrariesTask {
         this.combinedLibrariesOutputFile = getCombinedLibrariesOutputFile()
 
         final def collectedDependencies = readInCollectedDependencies()
-        final def processor = new AboutLibrariesProcessor(dependencyHandler, collectedDependencies, configPath, exclusionPatterns, includeAllLicenses, additionalLicenses)
+        final def processor = new AboutLibrariesProcessor(getDependencyHandler(), collectedDependencies, configPath, exclusionPatterns, fetchRemoteLicense, includeAllLicenses, additionalLicenses, variant)
         final def libraries = processor.gatherDependencies()
 
         if (processor.includeAllLicenses) {
@@ -212,23 +238,46 @@ abstract class AboutLibrariesTask extends BaseAboutLibrariesTask {
             }
         }
 
-        def printWriter = new PrintWriter(new OutputStreamWriter(combinedLibrariesOutputFile.newOutputStream(), StandardCharsets.UTF_8), true)
-        def combinedLibrariesBuilder = new MarkupBuilder(printWriter)
-        combinedLibrariesBuilder.mkp.xmlDeclaration(version: "1.0", encoding: "utf-8")
-        combinedLibrariesBuilder.doubleQuotes = true
-        combinedLibrariesBuilder.resources {
-            for (final library in libraries) {
-                writeDependency(combinedLibrariesBuilder, library)
-
-                if (!library.licenseIds.isEmpty()) {
-                    library.licenseIds.each {
-                        neededLicenses.add(it) // remember the license we hit
-                    }
+        if (asStringResource) {
+            def printWriter = new PrintWriter(new OutputStreamWriter(combinedLibrariesOutputFile.newOutputStream(), StandardCharsets.UTF_8), true)
+            def combinedLibrariesBuilder = new MarkupBuilder(printWriter)
+            combinedLibrariesBuilder.mkp.xmlDeclaration(version: "1.0", encoding: "utf-8")
+            combinedLibrariesBuilder.doubleQuotes = true
+            combinedLibrariesBuilder.resources {
+                for (final library in libraries) {
+                    writeDependency(combinedLibrariesBuilder, library)
+                    handleLicenses(library)
                 }
+                string name: "config_aboutLibraries_plugin", translatable: 'false', "yes"
             }
-            string name: "config_aboutLibraries_plugin", translatable: 'false', "yes"
+            printWriter.close()
+        } else {
+            def printWriter = new PrintWriter(new OutputStreamWriter(combinedLibrariesOutputFile.newOutputStream(), StandardCharsets.UTF_8), true)
+            StreamingJsonBuilder builder = new StreamingJsonBuilder(printWriter)
+
+            builder(libraries) { Library library ->
+                uniqueId library.uniqueId
+                artifactId library.artifactId
+                author library.author
+                authorWebsite library.authorWebsite
+                libraryName library.libraryName
+                libraryDescription library.libraryDescription
+                libraryVersion library.libraryVersion
+                libraryWebsite library.libraryWebsite
+                isOpenSource library.isOpenSource()
+                repositoryLink library.repositoryLink
+                libraryOwner library.libraryOwner
+                licenseIds library.licenseIds
+                licenseYear library.licenseYear
+                remoteLicense library.remoteLicense?.md5()
+            }
+
+            printWriter.close()
+
+            libraries.forEach {
+                handleLicenses(it)
+            }
         }
-        printWriter.close()
 
         processNeededLicenses()
     }

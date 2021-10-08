@@ -8,13 +8,13 @@ import com.mikepenz.aboutlibraries.detector.Detect
 import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.entity.License
 import com.mikepenz.aboutlibraries.util.*
+import org.json.JSONArray
 import java.util.*
-import kotlin.collections.ArrayList
 
 class Libs(
-        context: Context,
-        fields: Array<String> = context.getFields(),
-        libraryEnchantments: Map<String, String> = emptyMap()
+    context: Context,
+    fields: Array<String> = context.getFields(),
+    libraryEnchantments: Map<String, String> = emptyMap()
 ) {
 
     private var usedGradlePlugin = false
@@ -94,6 +94,9 @@ class Libs(
             licenses.add(license)
         }
 
+        // add plugin libs written to the new `aboutlibraries.json`
+        loadRawJsonLibraries(context, libraryEnchantments)
+
         //add plugin libs
         for (pluginLibraryIdentifier in foundPluginLibraryIdentifiers) {
             val library = genLibrary(context, pluginLibraryIdentifier) ?: continue
@@ -136,7 +139,14 @@ class Libs(
      * @param sort                 defines if the array should be sorted
      * @return the summarized list of included Libraries
      */
-    fun prepareLibraries(ctx: Context? = null, internalLibraries: Array<out String> = emptyArray(), excludeLibraries: Array<out String> = emptyArray(), autoDetect: Boolean = true, checkCachedDetection: Boolean = true, sort: Boolean = true): ArrayList<Library> {
+    fun prepareLibraries(
+        ctx: Context? = null,
+        internalLibraries: Array<out String> = emptyArray(),
+        excludeLibraries: Array<out String> = emptyArray(),
+        autoDetect: Boolean = true,
+        checkCachedDetection: Boolean = true,
+        sort: Boolean = true
+    ): ArrayList<Library> {
         val isExcluding = excludeLibraries.isNotEmpty()
         val libraries = HashMap<String, Library>()
         val resultLibraries = ArrayList<Library>()
@@ -200,7 +210,8 @@ class Libs(
 
         if (checkCachedDetection) { //Retrieve from cache if up to date
             if (pi != null && isCacheUpToDate) {
-                val autoDetectedLibraries = sharedPreferences.getString("autoDetectedLibraries", "")?.split(DELIMITER.toRegex())?.dropLastWhile { it.isEmpty() }?.toTypedArray()
+                val autoDetectedLibraries =
+                    sharedPreferences.getString("autoDetectedLibraries", "")?.split(DELIMITER.toRegex())?.dropLastWhile { it.isEmpty() }?.toTypedArray()
 
                 if (autoDetectedLibraries?.isNotEmpty() == true) {
                     val libraries = ArrayList<Library>(autoDetectedLibraries.size)
@@ -222,9 +233,9 @@ class Libs(
             }
 
             sharedPreferences.edit()
-                    .putInt("versionCode", pi.versionCode)
-                    .putString("autoDetectedLibraries", autoDetectedLibrariesPref.toString())
-                    .apply()
+                .putInt("versionCode", pi.versionCode)
+                .putString("autoDetectedLibraries", autoDetectedLibrariesPref.toString())
+                .apply()
         }
 
         return libraries
@@ -347,19 +358,67 @@ class Libs(
         return try {
             var licenseDescription = ctx.getStringResourceByName("license_" + license + "_licenseDescription")
             if (licenseDescription.startsWith("raw:")) {
-                licenseDescription = ctx.resources.openRawResource(ctx.getRawResourceId(licenseDescription.removePrefix("raw:"))).bufferedReader().use { it.readText() }
+                licenseDescription =
+                    ctx.resources.openRawResource(ctx.getRawResourceId(licenseDescription.removePrefix("raw:"))).bufferedReader().use { it.readText() }
             }
 
             License(
-                    license,
-                    ctx.getStringResourceByName("license_" + license + "_licenseName"),
-                    ctx.getStringResourceByName("license_" + license + "_licenseWebsite"),
-                    ctx.getStringResourceByName("license_" + license + "_licenseShortDescription"),
-                    licenseDescription
+                license,
+                ctx.getStringResourceByName("license_" + license + "_licenseName"),
+                ctx.getStringResourceByName("license_" + license + "_licenseWebsite"),
+                ctx.getStringResourceByName("license_" + license + "_licenseShortDescription"),
+                licenseDescription
             )
         } catch (ex: Exception) {
             Log.e("aboutlibraries", "Failed to generateLicense from file: $ex")
             null
+        }
+    }
+
+    private fun loadRawJsonLibraries(ctx: Context, libraryEnchantments: Map<String, String> = emptyMap()) {
+        val librariesJson = try {
+            ctx.resources.openRawResource(ctx.getRawResourceId("aboutlibraries")).bufferedReader().use { it.readText() }
+        } catch (t: Throwable) {
+            return // aboutlibraries.json does not exist
+        }
+        try {
+            val json = JSONArray(librariesJson)
+            for (i in 0 until json.length()) {
+                val jl = json.getJSONObject(i)
+                val library = Library(
+                    jl.getString("uniqueId"),
+                    false,
+                    true,
+                    jl.getString("libraryName"),
+                    jl.optString("author"),
+                    jl.optString("authorWebsite"),
+                    jl.optString("libraryDescription"),
+                    jl.optString("libraryVersion"),
+                    jl.optString("artifactId"),
+                    jl.optString("libraryWebsite"),
+                    null,
+                    jl.optBoolean("isOpenSource"),
+                    jl.optString("repositoryLink"),
+                )
+
+                // Get custom vars to insert into defined areas
+                val customVariables = getCustomVariables(ctx, library.definedName)
+
+                // load and inject the licenses
+                val licenseArray = jl.optJSONArray("licenseIds")?.toStringArray() ?: emptyArray()
+                val remoteLicense = jl.optString("remoteLicense").takeIf { it.isNotBlank() }
+                loadLicensesById(ctx, library, licenseArray, "", remoteLicense, customVariables)
+
+                externLibraries.add(library)
+
+                // enchant library if valid
+                val enchantWithKey = libraryEnchantments[library.definedName] ?: continue
+                val enchantWith = genLibrary(ctx, enchantWithKey) ?: continue
+                library.enchantBy(enchantWith)
+            }
+            usedGradlePlugin = true
+        } catch (t: Throwable) {
+            Log.e("aboutlibraries", "Failed to parse aboutlibraries.json: $t")
         }
     }
 
@@ -385,29 +444,8 @@ class Libs(
 
             val licenseIds = ctx.getStringResourceByName("library_" + name + "_licenseIds")
             val legacyLicenseId = ctx.getStringResourceByName("library_" + name + "_licenseId")
-            if (licenseIds.isBlank() && legacyLicenseId.isBlank()) {
-                val license = License("",
-                        ctx.getStringResourceByName("library_" + name + "_licenseVersion"),
-                        ctx.getStringResourceByName("library_" + name + "_licenseLink"),
-                        insertVariables(ctx.getStringResourceByName("library_" + name + "_licenseContent"), customVariables),
-                        insertVariables(ctx.getStringResourceByName("library_" + name + "_licenseContent"), customVariables)
-                )
-                lib.licenses = setOf(license)
-            } else {
-                val licenses = mutableSetOf<License>()
-                (if (licenseIds.isBlank()) listOf(legacyLicenseId) else licenseIds.split(",")).onEach { licenseId ->
-                    var license = getLicense(licenseId)
-                    if (license != null) {
-                        license = license.copy()
-                        license.licenseShortDescription = insertVariables(license.licenseShortDescription, customVariables)
-                        license.licenseDescription = insertVariables(license.licenseDescription, customVariables)
-                        licenses.add(license)
-                    } else {
-                        licenses.add(License("", licenseId, "", "", ""))
-                    }
-                }
-                lib.licenses = licenses
-            }
+            val remoteLicense = ctx.getStringResourceByName("library_" + name + "_remoteLicense")
+            loadLicensesById(ctx, lib, licenseIds.split(",").toTypedArray(), legacyLicenseId, remoteLicense, customVariables)
 
             lib.isOpenSource = java.lang.Boolean.valueOf(ctx.getStringResourceByName("library_" + name + "_isOpenSource"))
             lib.repositoryLink = ctx.getStringResourceByName("library_" + name + "_repositoryLink")
@@ -425,6 +463,58 @@ class Libs(
         }
     }
 
+    private fun loadLicensesById(
+        ctx: Context,
+        library: Library,
+        licenseIds: Array<String>,
+        legacyLicenseId: String,
+        remoteLicense: String?,
+        customVariables: HashMap<String, String>
+    ) {
+        if (remoteLicense != null) {
+            try {
+                val licenseContent = ctx.resources.openRawResource(ctx.getRawResourceId("license_$remoteLicense")).bufferedReader().use { it.readText() }
+                val license = License(
+                    "",
+                    licenseIds.firstOrNull() ?: "",
+                    licenseContent.lines().last(),
+                    "",
+                    licenseContent.replace("\n", "<br />")
+                )
+                library.licenses = setOf(license)
+            } catch (ignore: Throwable) {
+                //
+            }
+        }
+
+        if (library.licenses?.isEmpty() == true) {
+            if (licenseIds.isEmpty() && legacyLicenseId.isBlank()) {
+                val license = License(
+                    "",
+                    ctx.getStringResourceByName("library_" + library.definedName + "_licenseVersion"),
+                    ctx.getStringResourceByName("library_" + library.definedName + "_licenseLink"),
+                    insertVariables(ctx.getStringResourceByName("library_" + library.definedName + "_licenseContent"), customVariables),
+                    insertVariables(ctx.getStringResourceByName("library_" + library.definedName + "_licenseContent"), customVariables)
+                )
+                library.licenses = setOf(license)
+            } else {
+                val licenses = mutableSetOf<License>()
+                (if (licenseIds.isEmpty()) arrayOf(legacyLicenseId) else licenseIds).onEach { licenseId ->
+                    var license = getLicense(licenseId)
+                    if (license != null) {
+                        license = license.copy()
+                        license.licenseShortDescription = insertVariables(license.licenseShortDescription, customVariables)
+                        license.licenseDescription = insertVariables(license.licenseDescription, customVariables)
+                        licenses.add(license)
+                    } else {
+                        licenses.add(License("", licenseId, "", "", ""))
+                    }
+                }
+                library.licenses = licenses
+            }
+        }
+    }
+
     /**
      * @param libraryName
      * @return
@@ -433,10 +523,10 @@ class Libs(
         val customVariables = HashMap<String, String>()
 
         val customVariablesString = sequenceOf(DEFINE_EXT, DEFINE_INT, DEFINE_PLUGIN)
-                .map { ctx.getStringResourceByName("$it$libraryName") }
-                .filter { it.isNotBlank() }
-                .firstOrNull()
-                ?: ""
+            .map { ctx.getStringResourceByName("$it$libraryName") }
+            .filter { it.isNotBlank() }
+            .firstOrNull()
+            ?: ""
 
         if (customVariablesString.isNotEmpty()) {
             val customVariableArray = customVariablesString.split(";".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
