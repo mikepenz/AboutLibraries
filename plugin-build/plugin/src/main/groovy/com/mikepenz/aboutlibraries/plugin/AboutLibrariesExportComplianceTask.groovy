@@ -9,6 +9,9 @@ import java.nio.file.StandardCopyOption
 
 public class AboutLibrariesExportComplianceTask extends BaseAboutLibrariesTask {
 
+    private def exportPath = project.hasProperty("exportPath") ? project.getProperty("exportPath") : project.rootDir.absolutePath
+    private def artifactGroups = project.hasProperty("artifactGroups") ? project.getProperty("artifactGroups") : ""
+
     private String variant = null
     private Set<License> neededLicenses = new HashSet<License>()
     private Set<String> librariesWithoutLicenses = new HashSet<String>()
@@ -38,15 +41,14 @@ public class AboutLibrariesExportComplianceTask extends BaseAboutLibrariesTask {
         return unknownLicenses
     }
 
-    def gatherDependencies(def project) {
-        final def exportPath = project.hasProperty("exportPath") ? project.getProperty("exportPath") : project.rootDir.absolutePath
-        final def artifactGroups = project.hasProperty("artifactGroups") ? project.getProperty("artifactGroups") : ""
-
+    @TaskAction
+    public void action() throws IOException {
         if (exportPath == null) {
             throw new IllegalArgumentException("Please specify `exportPath` via the gradle CLI (-PexportPath=...)")
         }
 
-        final def libraries = new AboutLibrariesProcessor().gatherDependencies(project, configPath, exclusionPatterns, fetchRemoteLicense, includeAllLicenses, additionalLicenses, variant)
+        final def processor = new AboutLibrariesProcessor(dependencyHandler, filteredConfigurations, configPath, exclusionPatterns, fetchRemoteLicense, includeAllLicenses, additionalLicenses, variant)
+        final def libraries = processor.gatherDependencies()
 
         if (variant != null) {
             println ""
@@ -141,12 +143,5 @@ public class AboutLibrariesExportComplianceTask extends BaseAboutLibrariesTask {
             exportTxt.append("${entry.key}\n")
             exportTxt.append("-- ${entry.value}\n")
         }
-
-
-    }
-
-    @TaskAction
-    public void action() throws IOException {
-        gatherDependencies(project)
     }
 }
