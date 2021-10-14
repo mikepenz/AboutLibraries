@@ -37,8 +37,10 @@ public class AboutLibrariesExportTask extends BaseAboutLibrariesTask {
         return unknownLicenses
     }
 
-    def gatherDependencies(def project) {
-        def libraries = new AboutLibrariesProcessor().gatherDependencies(project, configPath, exclusionPatterns, fetchRemoteLicense, includeAllLicenses, additionalLicenses, variant)
+    @TaskAction
+    public void action() throws IOException {
+        final def processor = new AboutLibrariesProcessor(dependencyHandler, filteredConfigurations, configPath, exclusionPatterns, fetchRemoteLicense, includeAllLicenses, additionalLicenses, variant)
+        final def libraries = processor.gatherDependencies()
 
         if (variant != null) {
             println ""
@@ -90,10 +92,5 @@ public class AboutLibrariesExportTask extends BaseAboutLibrariesTask {
             println "${entry.key}"
             println "-- ${entry.value}"
         }
-    }
-
-    @TaskAction
-    public void action() throws IOException {
-        gatherDependencies(project)
     }
 }

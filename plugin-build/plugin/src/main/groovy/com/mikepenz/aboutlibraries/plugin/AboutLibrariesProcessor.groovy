@@ -1,10 +1,11 @@
 package com.mikepenz.aboutlibraries.plugin
 
-
 import com.mikepenz.aboutlibraries.plugin.mapping.Library
 import com.mikepenz.aboutlibraries.plugin.mapping.License
 import groovy.xml.XmlUtil
+import org.gradle.api.artifacts.Configuration
 import org.gradle.api.artifacts.ModuleVersionIdentifier
+import org.gradle.api.artifacts.dsl.DependencyHandler
 import org.gradle.api.artifacts.result.ArtifactResolutionResult
 import org.gradle.api.artifacts.result.ArtifactResult
 import org.gradle.api.artifacts.result.ComponentArtifactsResult
@@ -19,11 +20,18 @@ import org.slf4j.LoggerFactory
 import java.util.regex.Pattern
 
 class AboutLibrariesProcessor {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(AboutLibrariesProcessor.class);
 
-    private File configFolder
+    private DependencyHandler dependencyHandler
+    private List<Configuration> configurations
 
-    private List<Pattern> exclusionPatterns
+    private File configFolder
+    private List<Pattern> exclusionPatterns;
+    private Boolean fetchRemoteLicense;
+    private Boolean includeAllLicenses;
+    private HashSet<String> additionalLicenses;
+    private def variant = null;
 
     boolean fetchRemoteLicense
     boolean includeAllLicenses
@@ -39,6 +47,33 @@ class AboutLibrariesProcessor {
     Map<String, String> customAuthorMappings = new HashMap<String, String>()
     Map<String, String> customEnchantMapping = new HashMap<String, String>()
     List<String> customExclusionList = new ArrayList<String>()
+
+    AboutLibrariesProcessor(
+            final DependencyHandler dependencyHandler,
+            final List<Configuration> configurations,
+            final File configPath,
+            final List<Pattern> exclusionPatterns,
+            final Boolean fetchRemoteLicense,
+            final Boolean includeAllLicenses,
+            final HashSet<String> additionalLicenses,
+            final def variant = null
+    ) {
+        this.dependencyHandler = dependencyHandler
+        this.configurations = configurations
+        this.configFolder = configPath
+        this.exclusionPatterns = exclusionPatterns
+        this.fetchRemoteLicense = fetchRemoteLicense
+        if (includeAllLicenses) {
+            this.includeAllLicenses = includeAllLicenses
+            LOGGER.debug("Manually requested all licenses")
+        } else if (additionalLicenses != null) {
+            this.additionalLicenses = additionalLicenses
+            this.additionalLicenses.each { final licenseExt ->
+                LOGGER.error("Manually requested license: ${licenseExt}")
+            }
+        }
+        this.variant = variant
+    }
 
     def collectMappingDetails(target, resourceName) {
         def customMappingRef = getClass().getResource("/static/${resourceName}")
@@ -84,25 +119,13 @@ class AboutLibrariesProcessor {
         collectMappingDetails(customExclusionList, 'custom_exclusion_list.prop')
     }
 
-    def gatherDependencies(def project, File configPath, List<Pattern> exclusionPatterns, Boolean fetchRemoteLicense, Boolean includeAllLicenses, HashSet<String> additionalLicenses, def variant = null) {
-        this.configFolder = configPath
-        this.exclusionPatterns = exclusionPatterns
-        this.fetchRemoteLicense = fetchRemoteLicense
+    def gatherDependencies() {
         if (fetchRemoteLicense) {
             LOGGER.debug("Will fetch remote licenses from repository.")
         }
-        if (includeAllLicenses) {
-            this.includeAllLicenses = includeAllLicenses
-            LOGGER.debug("Manually requested all licenses")
-        } else if (additionalLicenses != null) {
-            this.additionalLicenses = additionalLicenses
-            this.additionalLicenses.each { licenseExt ->
-                LOGGER.error("Manually requested license: ${licenseExt}")
-            }
-        }
 
         // get all dependencies
-        Map<String, HashSet<String>> collectedDependencies = new DependencyCollector(variant).collect(project)
+        Map<String, HashSet<String>> collectedDependencies = new DependencyCollector(variant).collect(configurations)
 
         println "All dependencies.size=${collectedDependencies.size()}"
         if (collectedDependencies.size() > 0) {
@@ -115,10 +138,10 @@ class AboutLibrariesProcessor {
             def version = dependency.getValue().first()
 
             ModuleVersionIdentifier versionIdentifier = DefaultModuleVersionIdentifier.newId(group_artifact[0], group_artifact[1], version)
-            File file = resolvePomFile(project, group_artifact, versionIdentifier, false)
+            File file = resolvePomFile(group_artifact, versionIdentifier, false)
             if (file != null) {
                 try {
-                    parseDependency(project, librariesList, file)
+                    parseDependency(librariesList, file)
                 } catch (Throwable ex) {
                     LOGGER.error("--> Failed to write dependency information for: ${group_artifact}")
                 }
@@ -127,7 +150,7 @@ class AboutLibrariesProcessor {
         return librariesList
     }
 
-    def parseDependency(def project, List<Library> libraries, File artifactFile) {
+    def parseDependency(List<Library> libraries, File artifactFile) {
         def artifactPomText = artifactFile.getText('UTF-8').trim()
         if (artifactPomText.charAt(0) != (char) '<') {
             LOGGER.warn("--> ${artifactFile.path} contains a invalid character at the first position. Applying workaround.")
@@ -172,7 +195,7 @@ class AboutLibrariesProcessor {
         handledLibraries.add(uniqueId)
 
         // we also want to check if there are parent POMs with additional information
-        def parentPomFile = resolvePomFile(project, uniqueId, getParentFromPom(artifactPom), true)
+        def parentPomFile = resolvePomFile(uniqueId, getParentFromPom(artifactPom), true)
         def parentPom = null
         def parentProperties = null
         if (parentPomFile != null) {
@@ -582,13 +605,13 @@ class AboutLibrariesProcessor {
      *
      * Logic based on: https://github.com/ben-manes/gradle-versions-plugin
      */
-    File resolvePomFile(project, uniqueId, ModuleVersionIdentifier id, parent) {
+    File resolvePomFile(uniqueId, ModuleVersionIdentifier id, parent) {
         try {
             if (id == null) {
                 return null
             }
             LOGGER.debug("Attempting to resolve POM file for uniqueId={}, ModuleVersionIdentifier id={}", uniqueId, id);
-            ArtifactResolutionResult resolutionResult = project.dependencies.createArtifactResolutionQuery()
+            ArtifactResolutionResult resolutionResult = dependencyHandler.createArtifactResolutionQuery()
                     .forComponents(DefaultModuleComponentIdentifier.newId(id))
                     .withArtifacts(MavenModule, MavenPomArtifact)
                     .execute()
