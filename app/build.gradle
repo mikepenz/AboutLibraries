@@ -1,6 +1,5 @@
 plugins {
     id 'com.android.application'
-    id 'com.google.android.gms.oss-licenses-plugin'
 }
 apply plugin: 'kotlin-android'
 apply plugin: 'com.mikepenz.aboutlibraries.plugin' // has to be applied AFTER android
@@ -18,6 +17,7 @@ android {
         targetSdkVersion setup.targetSdk
         versionCode release.versionCode
         versionName release.versionName
+        multiDexEnabled true
 
         setProperty("archivesBaseName", "AboutLibraries-v$versionName-c$versionCode")
     }
@@ -98,8 +98,6 @@ dependencies {
     //https://github.com/mikepenz/MaterialDrawer
     implementation "com.mikepenz:materialdrawer:${versions.materialdrawer}"
 
-    implementation 'com.google.android.gms:play-services-oss-licenses:17.0.0'
-
     //used to provide different itemAnimators for the RecyclerView
     //https://github.com/mikepenz/ItemAnimators
     implementation 'com.mikepenz:itemanimators:1.1.0'
@@ -110,7 +108,7 @@ dependencies {
     implementation "com.mikepenz:iconics-core:${versions.iconics}"
 
     //used to display the icons in the drawer
-    //https://github.com/mikepenz/Android-Iconics
+    //https://github.com/mikepenz/Android-Iconicsx`
     implementation "com.mikepenz:material-design-iconic-typeface:2.2.0.8-kotlin@aar"
 
     // used only tho showcase multi flavor support
