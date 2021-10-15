@@ -25,4 +25,18 @@
         ]]>
     </string>
     <string name="license_herelicense_licenseDescription" translatable="false">raw:license_here</string>
+
+
+    <string name="define_plu_here_sdk" translatable="false"></string>
+    <string name="library_here_sdk_author" translatable="false">Here Author</string>
+    <string name="library_here_sdk_libraryName" translatable="false">AAA Here SDK</string>
+    <string name="library_here_sdk_libraryDescription" translatable="false">Here SDK</string>
+    <string name="library_here_sdk_libraryVersion" translatable="false">1.1.0</string>
+    <string name="library_here_sdk_libraryArtifactId" translatable="false">xyz</string>
+    <string name="library_here_sdk_libraryWebsite" translatable="false">xyz</string>
+    <string name="library_here_sdk_licenseIds" translatable="false">herelicense</string>
+    <string name="library_here_sdk_licenseId" translatable="false">herelicense</string>
+    <string name="library_here_sdk_isOpenSource" translatable="false">true</string>
+    <string name="library_here_sdk_repositoryLink" translatable="false">http://here.com</string>
+
 </resources>
