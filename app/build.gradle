@@ -17,6 +17,7 @@ android {
         targetSdkVersion setup.targetSdk
         versionCode release.versionCode
         versionName release.versionName
+        multiDexEnabled true
 
         setProperty("archivesBaseName", "AboutLibraries-v$versionName-c$versionCode")
     }
@@ -107,7 +108,7 @@ dependencies {
     implementation "com.mikepenz:iconics-core:${versions.iconics}"
 
     //used to display the icons in the drawer
-    //https://github.com/mikepenz/Android-Iconics
+    //https://github.com/mikepenz/Android-Iconicsx`
     implementation "com.mikepenz:material-design-iconic-typeface:2.2.0.8-kotlin@aar"
 
     // used only tho showcase multi flavor support
