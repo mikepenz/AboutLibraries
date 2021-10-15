@@ -14,4 +14,15 @@
     <string name="action_defined">(Cust) Defined Libraries</string>
 
     <string name="action_opensource">Open Source</string>
+
+    <!-- HereSDK Licence Agreement -->
+    <string name="define_license_herelicense" translatable="false"></string>
+    <string name="license_herelicense_licenseName" translatable="false">Here SDK</string>
+    <string name="license_herelicense_licenseWebsite" translatable="false">https://developer.here.com/products/here-sdk</string>
+    <string name="license_herelicense_licenseShortDescription" translatable="false">
+        <![CDATA[
+            <p>Here SDK is a Location Service to enhance apps with rich maps and location context.</p>
+        ]]>
+    </string>
+    <string name="license_herelicense_licenseDescription" translatable="false">raw:license_here</string>
 </resources>
