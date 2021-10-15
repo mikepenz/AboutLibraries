@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory
 import java.nio.charset.StandardCharsets
 
 @CacheableTask
-public class AboutLibrariesTask extends BaseAboutLibrariesTask {
+abstract class AboutLibrariesTask extends BaseAboutLibrariesTask {
     private static final Logger LOGGER = LoggerFactory.getLogger(AboutLibrariesTask.class);
 
     @Internal
@@ -57,6 +57,7 @@ public class AboutLibrariesTask extends BaseAboutLibrariesTask {
 
     public void setVariant(String variant) {
         this.variant = variant
+        loadCollectedDependencies(variant)
     }
 
     /**
@@ -219,7 +220,8 @@ public class AboutLibrariesTask extends BaseAboutLibrariesTask {
         this.outputRawFolder = getRawFolder()
         this.combinedLibrariesOutputFile = getCombinedLibrariesOutputFile()
 
-        final def processor = new AboutLibrariesProcessor(dependencyHandler, filteredConfigurations, configPath, exclusionPatterns, fetchRemoteLicense, includeAllLicenses, additionalLicenses, variant)
+        loadCollectedDependenciesTask(variant)
+        final def processor = new AboutLibrariesProcessor(getDependencyHandler(), collectedDependencies, configPath, exclusionPatterns, fetchRemoteLicense, includeAllLicenses, additionalLicenses, variant)
         final def libraries = processor.gatherDependencies()
 
         if (processor.includeAllLicenses) {

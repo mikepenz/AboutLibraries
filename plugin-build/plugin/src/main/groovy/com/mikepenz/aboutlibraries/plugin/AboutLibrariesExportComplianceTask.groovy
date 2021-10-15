@@ -7,7 +7,7 @@ import org.gradle.api.tasks.TaskAction
 import java.nio.file.Files
 import java.nio.file.StandardCopyOption
 
-public class AboutLibrariesExportComplianceTask extends BaseAboutLibrariesTask {
+abstract class AboutLibrariesExportComplianceTask extends BaseAboutLibrariesTask {
 
     private def exportPath = project.hasProperty("exportPath") ? project.getProperty("exportPath") : project.rootDir.absolutePath
     private def artifactGroups = project.hasProperty("artifactGroups") ? project.getProperty("artifactGroups") : ""
@@ -19,6 +19,7 @@ public class AboutLibrariesExportComplianceTask extends BaseAboutLibrariesTask {
 
     public void setVariant(String variant) {
         this.variant = variant
+        loadCollectedDependencies()
     }
 
     @Internal
@@ -47,7 +48,8 @@ public class AboutLibrariesExportComplianceTask extends BaseAboutLibrariesTask {
             throw new IllegalArgumentException("Please specify `exportPath` via the gradle CLI (-PexportPath=...)")
         }
 
-        final def processor = new AboutLibrariesProcessor(dependencyHandler, filteredConfigurations, configPath, exclusionPatterns, fetchRemoteLicense, includeAllLicenses, additionalLicenses, variant)
+        loadCollectedDependenciesTask(variant)
+        final def processor = new AboutLibrariesProcessor(dependencyHandler, collectedDependencies, configPath, exclusionPatterns, fetchRemoteLicense, includeAllLicenses, additionalLicenses, variant)
         final def libraries = processor.gatherDependencies()
 
         if (variant != null) {

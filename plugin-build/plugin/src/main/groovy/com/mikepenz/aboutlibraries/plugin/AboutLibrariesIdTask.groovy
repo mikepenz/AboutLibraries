@@ -5,11 +5,16 @@ import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.TaskAction
 
 @CacheableTask
-public class AboutLibrariesIdTask extends BaseAboutLibrariesTask {
+abstract class AboutLibrariesIdTask extends BaseAboutLibrariesTask {
+
+    AboutLibrariesIdTask() {
+        loadCollectedDependencies()
+    }
 
     @TaskAction
     public void action() throws IOException {
-        final def processor = new AboutLibrariesProcessor(dependencyHandler, filteredConfigurations, configPath, exclusionPatterns, fetchRemoteLicense, includeAllLicenses, additionalLicenses)
+        loadCollectedDependenciesTask(variant)
+        final def processor = new AboutLibrariesProcessor(dependencyHandler, collectedDependencies, configPath, exclusionPatterns, fetchRemoteLicense, includeAllLicenses, additionalLicenses)
         final def libraries = processor.gatherDependencies()
 
         for (final library in libraries) {

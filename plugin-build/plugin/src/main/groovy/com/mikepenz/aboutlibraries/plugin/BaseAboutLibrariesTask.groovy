@@ -1,7 +1,6 @@
 package com.mikepenz.aboutlibraries.plugin
 
 import org.gradle.api.DefaultTask
-import org.gradle.api.artifacts.Configuration
 import org.gradle.api.artifacts.dsl.DependencyHandler
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputDirectory
@@ -10,6 +9,7 @@ import org.gradle.api.tasks.PathSensitivity
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
+import javax.inject.Inject
 import java.util.regex.Pattern
 
 abstract class BaseAboutLibrariesTask extends DefaultTask {
@@ -18,12 +18,29 @@ abstract class BaseAboutLibrariesTask extends DefaultTask {
     private def rootDir = project.rootDir
     private def extension = project.extensions.aboutLibraries
 
-    protected DependencyHandler dependencyHandler = project.getDependencies()
-    protected ArrayList<Configuration> filteredConfigurations = new ArrayList<>()
+    private static final Boolean TEST_CONFIG_CACHE = true
 
-    BaseAboutLibrariesTask() {
-        for (final Configuration c : project.configurations) {
-            filteredConfigurations.add(c)
+    @Inject
+    abstract DependencyHandler getDependencyHandler()
+
+    /**
+     * holds the collected set of dependencies
+     */
+    @Input
+    protected Map<String, HashSet<String>> collectedDependencies = new HashMap<>()
+
+    /**
+     * Collect the dependencies via the available configurations for the current project
+     */
+    void loadCollectedDependencies(final String variant = null) {
+        if (TEST_CONFIG_CACHE) {
+            collectedDependencies = new DependencyCollector(variant).collect(project)
+        }
+    }
+
+    void loadCollectedDependenciesTask(final String variant = null) {
+        if (!TEST_CONFIG_CACHE) {
+            collectedDependencies = new DependencyCollector(variant).collect(project)
         }
     }
 

@@ -6,7 +6,7 @@ import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.TaskAction
 
 @CacheableTask
-public class AboutLibrariesExportTask extends BaseAboutLibrariesTask {
+abstract class AboutLibrariesExportTask extends BaseAboutLibrariesTask {
 
     private String variant = null
     private Set<License> neededLicenses = new HashSet<License>()
@@ -15,6 +15,7 @@ public class AboutLibrariesExportTask extends BaseAboutLibrariesTask {
 
     public void setVariant(String variant) {
         this.variant = variant
+        loadCollectedDependencies()
     }
 
     @Internal
@@ -39,7 +40,8 @@ public class AboutLibrariesExportTask extends BaseAboutLibrariesTask {
 
     @TaskAction
     public void action() throws IOException {
-        final def processor = new AboutLibrariesProcessor(dependencyHandler, filteredConfigurations, configPath, exclusionPatterns, fetchRemoteLicense, includeAllLicenses, additionalLicenses, variant)
+        loadCollectedDependenciesTask(variant)
+        final def processor = new AboutLibrariesProcessor(dependencyHandler, collectedDependencies, configPath, exclusionPatterns, fetchRemoteLicense, includeAllLicenses, additionalLicenses, variant)
         final def libraries = processor.gatherDependencies()
 
         if (variant != null) {

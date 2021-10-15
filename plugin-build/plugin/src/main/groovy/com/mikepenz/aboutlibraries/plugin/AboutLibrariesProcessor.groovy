@@ -3,7 +3,6 @@ package com.mikepenz.aboutlibraries.plugin
 import com.mikepenz.aboutlibraries.plugin.mapping.Library
 import com.mikepenz.aboutlibraries.plugin.mapping.License
 import groovy.xml.XmlUtil
-import org.gradle.api.artifacts.Configuration
 import org.gradle.api.artifacts.ModuleVersionIdentifier
 import org.gradle.api.artifacts.dsl.DependencyHandler
 import org.gradle.api.artifacts.result.ArtifactResolutionResult
@@ -24,7 +23,7 @@ class AboutLibrariesProcessor {
     private static final Logger LOGGER = LoggerFactory.getLogger(AboutLibrariesProcessor.class);
 
     private DependencyHandler dependencyHandler
-    private List<Configuration> configurations
+    private Map<String, HashSet<String>> collectedDependencies
 
     private File configFolder
     private List<Pattern> exclusionPatterns;
@@ -50,7 +49,7 @@ class AboutLibrariesProcessor {
 
     AboutLibrariesProcessor(
             final DependencyHandler dependencyHandler,
-            final List<Configuration> configurations,
+            final Map<String, HashSet<String>> collectedDependencies,
             final File configPath,
             final List<Pattern> exclusionPatterns,
             final Boolean fetchRemoteLicense,
@@ -59,7 +58,7 @@ class AboutLibrariesProcessor {
             final def variant = null
     ) {
         this.dependencyHandler = dependencyHandler
-        this.configurations = configurations
+        this.collectedDependencies = collectedDependencies
         this.configFolder = configPath
         this.exclusionPatterns = exclusionPatterns
         this.fetchRemoteLicense = fetchRemoteLicense
@@ -123,9 +122,6 @@ class AboutLibrariesProcessor {
         if (fetchRemoteLicense) {
             LOGGER.debug("Will fetch remote licenses from repository.")
         }
-
-        // get all dependencies
-        Map<String, HashSet<String>> collectedDependencies = new DependencyCollector(variant).collect(configurations)
 
         println "All dependencies.size=${collectedDependencies.size()}"
         if (collectedDependencies.size() > 0) {
