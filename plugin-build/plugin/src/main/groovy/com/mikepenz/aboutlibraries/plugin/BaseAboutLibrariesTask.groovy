@@ -1,11 +1,10 @@
 package com.mikepenz.aboutlibraries.plugin
 
+import com.mikepenz.aboutlibraries.plugin.model.CollectedContainer
+import groovy.json.JsonSlurper
 import org.gradle.api.DefaultTask
 import org.gradle.api.artifacts.dsl.DependencyHandler
-import org.gradle.api.tasks.Input
-import org.gradle.api.tasks.InputDirectory
-import org.gradle.api.tasks.PathSensitive
-import org.gradle.api.tasks.PathSensitivity
+import org.gradle.api.tasks.*
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
@@ -13,36 +12,16 @@ import javax.inject.Inject
 import java.util.regex.Pattern
 
 abstract class BaseAboutLibrariesTask extends DefaultTask {
-    private static final Logger LOGGER = LoggerFactory.getLogger(BaseAboutLibrariesTask.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(BaseAboutLibrariesTask.class);
 
     private def rootDir = project.rootDir
     private def extension = project.extensions.aboutLibraries
 
-    private static final Boolean TEST_CONFIG_CACHE = true
-
     @Inject
     abstract DependencyHandler getDependencyHandler()
 
-    /**
-     * holds the collected set of dependencies
-     */
-    @Input
-    protected Map<String, HashSet<String>> collectedDependencies = new HashMap<>()
-
-    /**
-     * Collect the dependencies via the available configurations for the current project
-     */
-    void loadCollectedDependencies(final String variant = null) {
-        if (TEST_CONFIG_CACHE) {
-            collectedDependencies = new DependencyCollector(variant).collect(project)
-        }
-    }
-
-    void loadCollectedDependenciesTask(final String variant = null) {
-        if (!TEST_CONFIG_CACHE) {
-            collectedDependencies = new DependencyCollector(variant).collect(project)
-        }
-    }
+    @InputFile
+    protected File dependencyCache = new File(project.buildDir, "generated/aboutLibraries/dependency_cache.json")
 
     @org.gradle.api.tasks.Optional
     @PathSensitive(value = PathSensitivity.RELATIVE)
@@ -80,10 +59,19 @@ abstract class BaseAboutLibrariesTask extends DefaultTask {
 
     @Input
     HashSet<String> getAdditionalLicenses() {
-        HashSet<String> licenses = new HashSet<>()
+        final HashSet<String> licenses = new HashSet<>()
         extension.additionalLicenses.all {
             licenses.add(it.name)
         }
         return licenses
+    }
+
+    @Internal
+    protected CollectedContainer readInCollectedDependencies() {
+        try {
+            return CollectedContainer.from(new JsonSlurper().parse(dependencyCache).get("dependencies"))
+        } catch (final Throwable t) {
+            throw new IllegalStateException("Failed to parse the dependencyCache. Try to do a clean build", t)
+        }
     }
 }

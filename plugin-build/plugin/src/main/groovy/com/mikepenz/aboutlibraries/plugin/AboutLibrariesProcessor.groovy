@@ -2,6 +2,7 @@ package com.mikepenz.aboutlibraries.plugin
 
 import com.mikepenz.aboutlibraries.plugin.mapping.Library
 import com.mikepenz.aboutlibraries.plugin.mapping.License
+import com.mikepenz.aboutlibraries.plugin.model.CollectedContainer
 import groovy.xml.XmlUtil
 import org.gradle.api.artifacts.ModuleVersionIdentifier
 import org.gradle.api.artifacts.dsl.DependencyHandler
@@ -23,7 +24,7 @@ class AboutLibrariesProcessor {
     private static final Logger LOGGER = LoggerFactory.getLogger(AboutLibrariesProcessor.class);
 
     private DependencyHandler dependencyHandler
-    private Map<String, HashSet<String>> collectedDependencies
+    private CollectedContainer collectedDependencies
 
     private File configFolder
     private List<Pattern> exclusionPatterns;
@@ -49,7 +50,7 @@ class AboutLibrariesProcessor {
 
     AboutLibrariesProcessor(
             final DependencyHandler dependencyHandler,
-            final Map<String, HashSet<String>> collectedDependencies,
+            final CollectedContainer collectedDependencies,
             final File configPath,
             final List<Pattern> exclusionPatterns,
             final Boolean fetchRemoteLicense,
@@ -118,18 +119,19 @@ class AboutLibrariesProcessor {
         collectMappingDetails(customExclusionList, 'custom_exclusion_list.prop')
     }
 
-    def gatherDependencies() {
+    def ArrayList<Library> gatherDependencies() {
         if (fetchRemoteLicense) {
             LOGGER.debug("Will fetch remote licenses from repository.")
         }
 
-        println "All dependencies.size=${collectedDependencies.size()}"
-        if (collectedDependencies.size() > 0) {
+        final def filteredDependencies = collectedDependencies.dependenciesForVariant(variant)
+        println "All dependencies.size=${filteredDependencies.size()}"
+        if (filteredDependencies.size() > 0) {
             collectMappingDetails()
         }
 
-        def librariesList = new ArrayList<Library>()
-        for (dependency in collectedDependencies) {
+        final def librariesList = new ArrayList<Library>()
+        for (final dependency in filteredDependencies) {
             def group_artifact = dependency.getKey().split(":")
             def version = dependency.getValue().first()
 

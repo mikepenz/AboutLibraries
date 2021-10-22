@@ -15,6 +15,7 @@
  */
 package com.mikepenz.aboutlibraries.plugin
 
+import com.mikepenz.aboutlibraries.plugin.model.CollectedContainer
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Configuration
 import org.gradle.api.artifacts.ResolvedArtifact
@@ -25,45 +26,40 @@ import org.slf4j.LoggerFactory
 /**
  * Based on https://raw.githubusercontent.com/gradle/gradle/master/subprojects/diagnostics/src/main/java/org/gradle/api/reporting/dependencies/internal/JsonProjectDependencyRenderer.java
  */
-class DependencyCollector(
-    private val variant: String? = null
-) {
+class DependencyCollector() {
     /**
      * Generates the project dependency report structure
      *
      * @param project this project
      * @return resolved set of dependencies, and the related versions
      */
-    fun collect(project: Project): Map<String, HashSet<String>> {
+    fun collect(project: Project): CollectedContainer {
         LOGGER.info("Collecting dependencies")
 
-        val collected: MutableMap<String, HashSet<String>> = HashMap()
+        val mutableCollectContainer: MutableMap<String, MutableMap<String, MutableSet<String>>> = mutableMapOf()
+
         project.configurations
             .filterNot { configuration ->
                 configuration.shouldSkip()
             }
-            .filter {
+            .mapNotNull {
                 val cn = it.name
-                if (variant != null) {
-                    if (!(cn.equals("${variant}CompileClasspath", true) || cn.equals("${variant}RuntimeClasspath", true))) {
-                        false
-                    } else {
-                        LOGGER.info("Collecting dependencies for variant $variant from config: ${it.name}")
-                        true
-                    }
-                } else {
-                    LOGGER.info("Collecting dependencies from config: ${it.name}")
-                    true
-                }
-            }
-            .forEach { configuration ->
-                // configuration.allDependencies.forEach {
-                //     val identifier = "${it.group!!.trim()}:${it.name.trim()}"
-                //     val versions = collected.getOrDefault(identifier, HashSet())
-                //     versions.add(it.version!!.trim())
-                //     collected[identifier] = versions
-                // }
+                // collect configurations for the variants we are interested in
 
+                if (cn.endsWith("CompileClasspath", true)) {
+                    val variant = cn.removeSuffix("CompileClasspath")
+                    LOGGER.info("Collecting dependencies for compile time variant $variant from config: ${it.name}")
+                    return@mapNotNull variant to it
+                } else if (cn.endsWith("RuntimeClasspath", true)) {
+                    val variant = cn.removeSuffix("RuntimeClasspath")
+                    LOGGER.info("Collecting dependencies for runtime variant $variant from config: ${it.name}")
+                    return@mapNotNull variant to it
+                }
+
+                null
+            }
+            .forEach { (variant, configuration) ->
+                val variantSet = mutableCollectContainer.getOrPut(variant) { mutableMapOf() }
                 val visitedDependencyNames = mutableSetOf<String>()
                 configuration
                     .resolvedConfiguration
@@ -72,13 +68,11 @@ class DependencyCollector(
                     .getResolvedArtifacts(visitedDependencyNames)
                     .forEach {
                         val identifier = "${it.moduleVersion.id.group.trim()}:${it.name.trim()}"
-                        val versions = collected.getOrDefault(identifier, HashSet())
+                        val versions = variantSet.getOrPut(identifier) { HashSet() }
                         versions.add(it.moduleVersion.id.version.trim())
-                        collected[identifier] = versions
                     }
             }
-
-        return collected
+        return CollectedContainer(mutableCollectContainer)
     }
 
     /**
@@ -112,7 +106,7 @@ class DependencyCollector(
         return resolvedArtifacts
     }
 
-    internal fun Configuration.shouldSkip() =
+    private fun Configuration.shouldSkip() =
         !isCanBeResolved || isTest
 
     /**
@@ -127,7 +121,7 @@ class DependencyCollector(
                     testCompile.any { configurationHierarchy.name.contains(it, ignoreCase = true) }
                 }
 
-    companion object {
+    private companion object {
         private val LOGGER = LoggerFactory.getLogger(DependencyCollector::class.java)!!
     }
 }

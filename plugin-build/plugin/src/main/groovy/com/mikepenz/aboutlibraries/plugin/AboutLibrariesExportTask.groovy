@@ -15,7 +15,6 @@ abstract class AboutLibrariesExportTask extends BaseAboutLibrariesTask {
 
     public void setVariant(String variant) {
         this.variant = variant
-        loadCollectedDependencies()
     }
 
     @Internal
@@ -40,7 +39,7 @@ abstract class AboutLibrariesExportTask extends BaseAboutLibrariesTask {
 
     @TaskAction
     public void action() throws IOException {
-        loadCollectedDependenciesTask(variant)
+        final def collectedDependencies = readInCollectedDependencies()
         final def processor = new AboutLibrariesProcessor(dependencyHandler, collectedDependencies, configPath, exclusionPatterns, fetchRemoteLicense, includeAllLicenses, additionalLicenses, variant)
         final def libraries = processor.gatherDependencies()
 

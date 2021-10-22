@@ -57,7 +57,6 @@ abstract class AboutLibrariesTask extends BaseAboutLibrariesTask {
 
     public void setVariant(String variant) {
         this.variant = variant
-        loadCollectedDependencies(variant)
     }
 
     /**
@@ -220,7 +219,7 @@ abstract class AboutLibrariesTask extends BaseAboutLibrariesTask {
         this.outputRawFolder = getRawFolder()
         this.combinedLibrariesOutputFile = getCombinedLibrariesOutputFile()
 
-        loadCollectedDependenciesTask(variant)
+        final def collectedDependencies = readInCollectedDependencies()
         final def processor = new AboutLibrariesProcessor(getDependencyHandler(), collectedDependencies, configPath, exclusionPatterns, fetchRemoteLicense, includeAllLicenses, additionalLicenses, variant)
         final def libraries = processor.gatherDependencies()
 
