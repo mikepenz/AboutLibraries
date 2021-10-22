@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory
 import java.nio.charset.StandardCharsets
 
 @CacheableTask
-public class AboutLibrariesTask extends BaseAboutLibrariesTask {
+abstract class AboutLibrariesTask extends BaseAboutLibrariesTask {
     private static final Logger LOGGER = LoggerFactory.getLogger(AboutLibrariesTask.class);
 
     @Internal
@@ -52,51 +52,6 @@ public class AboutLibrariesTask extends BaseAboutLibrariesTask {
 
     public void setVariant(String variant) {
         this.variant = variant
-    }
-
-    def gatherDependencies(def project) {
-        // ensure directories exist
-        this.outputValuesFolder = getValuesFolder()
-        this.outputRawFolder = getRawFolder()
-        this.combinedLibrariesOutputFile = getCombinedLibrariesOutputFile()
-
-        final def processor = new AboutLibrariesProcessor()
-        final def libraries = processor.gatherDependencies(project, configPath, exclusionPatterns, includeAllLicenses, additionalLicenses, variant)
-
-        if (processor.includeAllLicenses) {
-            // Include all licenses
-            neededLicenses.addAll(License.values())
-        } else {
-            // Include additional licenses explicitly requested.
-            processor.additionalLicenses.each { final al ->
-                final def foundLicense = License.values().find { final li ->
-                    li.name().equalsIgnoreCase(al) || li.id.equalsIgnoreCase(al)
-                }
-                if (foundLicense != null) {
-                    neededLicenses.add(foundLicense.name())
-                }
-            }
-        }
-
-        def printWriter = new PrintWriter(new OutputStreamWriter(combinedLibrariesOutputFile.newOutputStream(), StandardCharsets.UTF_8), true)
-        def combinedLibrariesBuilder = new MarkupBuilder(printWriter)
-        combinedLibrariesBuilder.mkp.xmlDeclaration(version: "1.0", encoding: "utf-8")
-        combinedLibrariesBuilder.doubleQuotes = true
-        combinedLibrariesBuilder.resources {
-            for (final library in libraries) {
-                writeDependency(combinedLibrariesBuilder, library)
-
-                if (!library.licenseIds.isEmpty()) {
-                    library.licenseIds.each {
-                        neededLicenses.add(it) // remember the license we hit
-                    }
-                }
-            }
-            string name: "config_aboutLibraries_plugin", translatable: 'false', "yes"
-        }
-        printWriter.close()
-
-        processNeededLicenses()
     }
 
     /**
@@ -233,6 +188,48 @@ public class AboutLibrariesTask extends BaseAboutLibrariesTask {
 
     @TaskAction
     public void action() throws IOException {
-        gatherDependencies(project)
+        // ensure directories exist
+        this.outputValuesFolder = getValuesFolder()
+        this.outputRawFolder = getRawFolder()
+        this.combinedLibrariesOutputFile = getCombinedLibrariesOutputFile()
+
+        final def collectedDependencies = readInCollectedDependencies()
+        final def processor = new AboutLibrariesProcessor(dependencyHandler, collectedDependencies, configPath, exclusionPatterns, includeAllLicenses, additionalLicenses)
+        final def libraries = processor.gatherDependencies()
+
+        if (processor.includeAllLicenses) {
+            // Include all licenses
+            neededLicenses.addAll(License.values())
+        } else {
+            // Include additional licenses explicitly requested.
+            processor.additionalLicenses.each { final al ->
+                final def foundLicense = License.values().find { final li ->
+                    li.name().equalsIgnoreCase(al) || li.id.equalsIgnoreCase(al)
+                }
+                if (foundLicense != null) {
+                    neededLicenses.add(foundLicense.name())
+                }
+            }
+        }
+
+        def printWriter = new PrintWriter(new OutputStreamWriter(combinedLibrariesOutputFile.newOutputStream(), StandardCharsets.UTF_8), true)
+        def combinedLibrariesBuilder = new MarkupBuilder(printWriter)
+        combinedLibrariesBuilder.mkp.xmlDeclaration(version: "1.0", encoding: "utf-8")
+        combinedLibrariesBuilder.doubleQuotes = true
+        combinedLibrariesBuilder.resources {
+            for (final library in libraries) {
+                writeDependency(combinedLibrariesBuilder, library)
+
+                if (!library.licenseIds.isEmpty()) {
+                    library.licenseIds.each {
+                        neededLicenses.add(it) // remember the license we hit
+                    }
+                }
+            }
+            string name: "config_aboutLibraries_plugin", translatable: 'false', "yes"
+        }
+        printWriter.close()
+
+        processNeededLicenses()
     }
 }

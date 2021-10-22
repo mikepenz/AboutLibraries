@@ -21,7 +21,7 @@ class AboutLibrariesExtension {
     /**
      * Include all licenses
      *
-     * Useful if you want to include all licenses even if they weren't detected by this plugin
+     * Useful if you want to include all licenses available even if they weren't detected by this plugin
      */
     boolean includeAllLicenses
 
