@@ -74,16 +74,12 @@ class Libs(
      */
     init {
         val foundLicenseIdentifiers = ArrayList<String>()
-        val foundInternalLibraryIdentifiers = ArrayList<String>()
-        val foundExternalLibraryIdentifiers = ArrayList<String>()
         val foundPluginLibraryIdentifiers = ArrayList<String>()
 
         for (field in fields) {
             when {
                 field.startsWith(DEFINE_LICENSE) -> foundLicenseIdentifiers.add(field.replace(DEFINE_LICENSE, ""))
-                field.startsWith(DEFINE_INT) -> foundInternalLibraryIdentifiers.add(field.replace(DEFINE_INT, ""))
                 field.startsWith(DEFINE_PLUGIN) -> foundPluginLibraryIdentifiers.add(field.replace(DEFINE_PLUGIN, ""))
-                field.startsWith(DEFINE_EXT) -> foundExternalLibraryIdentifiers.add(field.replace(DEFINE_EXT, ""))
             }
         }
 
@@ -96,36 +92,6 @@ class Libs(
 
         // add plugin libs written to the new `aboutlibraries.json`
         loadRawJsonLibraries(context, libraryEnchantments)
-
-        //add plugin libs
-        for (pluginLibraryIdentifier in foundPluginLibraryIdentifiers) {
-            val library = genLibrary(context, pluginLibraryIdentifier) ?: continue
-            library.isInternal = false
-            library.isPlugin = true
-            externLibraries.add(library)
-            usedGradlePlugin = true
-
-            val enchantWithKey = libraryEnchantments[pluginLibraryIdentifier] ?: continue
-            val enchantWith = genLibrary(context, enchantWithKey) ?: continue
-            library.enchantBy(enchantWith)
-        }
-
-        // if we used the gradle plugin to resolve libraries, only use those
-        if (foundPluginLibraryIdentifiers.isEmpty()) {
-            //add internal libs
-            for (internalIdentifier in foundInternalLibraryIdentifiers) {
-                val library = genLibrary(context, internalIdentifier) ?: continue
-                library.isInternal = true
-                internLibraries.add(library)
-            }
-
-            //add external libs
-            for (externalIdentifier in foundExternalLibraryIdentifiers) {
-                val library = genLibrary(context, externalIdentifier) ?: continue
-                library.isInternal = false
-                externLibraries.add(library)
-            }
-        }
     }
 
     /**
@@ -385,8 +351,40 @@ class Libs(
             val json = JSONArray(librariesJson)
             for (i in 0 until json.length()) {
                 val jl = json.getJSONObject(i)
+
+                val libraryDefinedName = jl.getString("uniqueId")
+                val jlics = jl.optJSONArray("licenses")
+                val licenses = mutableSetOf<License>()
+
+                for (il in 0 until jlics.length()) {
+                    val jlic = jlics.getJSONObject(il)
+
+                    val remoteLicense = jlic.optString("remoteLicense").takeIf { it.isNotEmpty() }?.let {
+                        try {
+                            ctx.resources.openRawResource(ctx.getRawResourceId("license_$it")).bufferedReader().use { it.readText() }
+                        } catch (t: Throwable) {
+                            Log.e("aboutlibraries", "Unable to read the license: $it")
+                            null
+                        }
+                    }
+
+
+                    // Get custom vars to insert into defined areas
+                    val customVariables = getCustomVariables(ctx, libraryDefinedName)
+
+                    licenses.add(
+                        License(
+                            "",
+                            jlic.getString("name"),
+                            jlic.optString("url"),
+                            "",
+                            remoteLicense?.let { insertVariables(it, customVariables) } ?: ""
+                        )
+                    )
+                }
+
                 val library = Library(
-                    jl.getString("uniqueId"),
+                    libraryDefinedName,
                     false,
                     true,
                     jl.getString("libraryName"),
@@ -396,70 +394,18 @@ class Libs(
                     jl.optString("libraryVersion"),
                     jl.optString("artifactId"),
                     jl.optString("libraryWebsite"),
-                    null,
+                    licenses,
                     jl.optBoolean("isOpenSource"),
                     jl.optString("repositoryLink"),
                 )
-
-                // Get custom vars to insert into defined areas
-                val customVariables = getCustomVariables(ctx, library.definedName)
-
-                // load and inject the licenses
-                val licenseArray = jl.optJSONArray("licenseIds")?.toStringArray() ?: emptyArray()
-                val remoteLicense = jl.optString("remoteLicense").takeIf { it.isNotBlank() }
-                loadLicensesById(ctx, library, licenseArray, "", remoteLicense, customVariables)
-
                 externLibraries.add(library)
 
                 // enchant library if valid
-                val enchantWithKey = libraryEnchantments[library.definedName] ?: continue
-                val enchantWith = genLibrary(ctx, enchantWithKey) ?: continue
-                library.enchantBy(enchantWith)
+                // TODO ability to enhance values fetched by manual additions
             }
             usedGradlePlugin = true
         } catch (t: Throwable) {
             Log.e("aboutlibraries", "Failed to parse aboutlibraries.json: $t")
-        }
-    }
-
-    /**
-     * @param libraryName
-     * @return
-     */
-    private fun genLibrary(ctx: Context, libraryName: String): Library? {
-        val name = libraryName.replace("-", "_")
-
-        try {
-            val lib = Library(definedName = name, libraryName = ctx.getStringResourceByName("library_" + name + "_libraryName"))
-
-            //Get custom vars to insert into defined areas
-            val customVariables = getCustomVariables(ctx, name)
-
-            lib.author = ctx.getStringResourceByName("library_" + name + "_author")
-            lib.authorWebsite = ctx.getStringResourceByName("library_" + name + "_authorWebsite")
-            lib.libraryDescription = insertVariables(ctx.getStringResourceByName("library_" + name + "_libraryDescription"), customVariables)
-            lib.libraryVersion = ctx.getStringResourceByName("library_" + name + "_libraryVersion")
-            lib.libraryArtifactId = ctx.getStringResourceByName("library_" + name + "_libraryArtifactId")
-            lib.libraryWebsite = ctx.getStringResourceByName("library_" + name + "_libraryWebsite")
-
-            val licenseIds = ctx.getStringResourceByName("library_" + name + "_licenseIds")
-            val legacyLicenseId = ctx.getStringResourceByName("library_" + name + "_licenseId")
-            val remoteLicense = ctx.getStringResourceByName("library_" + name + "_remoteLicense")
-            loadLicensesById(ctx, lib, licenseIds.split(",").toTypedArray(), legacyLicenseId, remoteLicense, customVariables)
-
-            lib.isOpenSource = java.lang.Boolean.valueOf(ctx.getStringResourceByName("library_" + name + "_isOpenSource"))
-            lib.repositoryLink = ctx.getStringResourceByName("library_" + name + "_repositoryLink")
-
-            lib.classPath = ctx.getStringResourceByName("library_" + name + "_classPath")
-
-            return if (lib.libraryName.isBlank() && lib.libraryDescription.isBlank()) {
-                null
-            } else {
-                lib
-            }
-        } catch (ex: Exception) {
-            Log.e("aboutlibraries", "Failed to generateLibrary from file: $ex")
-            return null
         }
     }
 
@@ -543,7 +489,7 @@ class Libs(
         return customVariables
     }
 
-    fun insertVariables(insertIntoVar: String, variables: HashMap<String, String>): String {
+    private fun insertVariables(insertIntoVar: String, variables: HashMap<String, String>): String {
         var insertInto = insertIntoVar
         for ((key, value) in variables) {
             if (value.isNotEmpty()) {

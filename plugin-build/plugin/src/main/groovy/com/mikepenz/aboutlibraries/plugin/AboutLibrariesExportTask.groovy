@@ -1,6 +1,6 @@
 package com.mikepenz.aboutlibraries.plugin
 
-import com.mikepenz.aboutlibraries.plugin.mapping.License
+import com.mikepenz.aboutlibraries.plugin.mapping.SpdxLicense
 import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.TaskAction
@@ -9,7 +9,7 @@ import org.gradle.api.tasks.TaskAction
 abstract class AboutLibrariesExportTask extends BaseAboutLibrariesTask {
 
     private String variant = null
-    private Set<License> neededLicenses = new HashSet<License>()
+    private Set<SpdxLicense> neededLicenses = new HashSet<SpdxLicense>()
     private Set<String> librariesWithoutLicenses = new HashSet<String>()
     private HashMap<String, HashSet<String>> unknownLicenses = new HashMap<String, HashSet<String>>()
 
@@ -23,7 +23,7 @@ abstract class AboutLibrariesExportTask extends BaseAboutLibrariesTask {
     }
 
     @Internal
-    Set<License> getNeededLicenses() {
+    Set<SpdxLicense> getNeededLicenses() {
         return neededLicenses
     }
 
@@ -56,7 +56,7 @@ abstract class AboutLibrariesExportTask extends BaseAboutLibrariesTask {
         for (final library in libraries) {
             library.licenseIds.each { licenseId ->
                 try {
-                    neededLicenses.add(License.valueOf(licenseId))
+                    neededLicenses.add(SpdxLicense.valueOf(licenseId))
                 } catch (Exception ex) {
                     if (licenseId != null && licenseId != "") {
                         HashSet<String> libsWithMissing = unknownLicenses.getOrDefault(licenseId, new HashSet<String>())

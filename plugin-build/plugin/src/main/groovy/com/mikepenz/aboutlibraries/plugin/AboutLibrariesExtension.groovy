@@ -2,7 +2,6 @@ package com.mikepenz.aboutlibraries.plugin
 
 import org.gradle.api.NamedDomainObjectCollection
 import org.gradle.api.model.ObjectFactory
-import org.gradle.api.tasks.Optional
 
 import javax.inject.Inject
 import java.util.regex.Pattern
@@ -25,12 +24,6 @@ class AboutLibrariesExtension {
      * Will try to fetch the LICENSE from the defined SCM if project is open source
      */
     boolean fetchRemoteLicense
-
-    /**
-     * Defines if the generated data should be in the format of string resources, allowing it to be translated
-     */
-    @Optional
-    Boolean asStringResource
 
     /**
      * Include all licenses

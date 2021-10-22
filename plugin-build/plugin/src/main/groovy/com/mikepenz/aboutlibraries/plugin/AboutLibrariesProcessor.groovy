@@ -2,6 +2,7 @@ package com.mikepenz.aboutlibraries.plugin
 
 import com.mikepenz.aboutlibraries.plugin.mapping.Library
 import com.mikepenz.aboutlibraries.plugin.mapping.License
+import com.mikepenz.aboutlibraries.plugin.mapping.SpdxLicense
 import com.mikepenz.aboutlibraries.plugin.model.CollectedContainer
 import groovy.xml.XmlUtil
 import org.gradle.api.artifacts.ModuleVersionIdentifier
@@ -141,7 +142,7 @@ class AboutLibrariesProcessor {
                 try {
                     parseDependency(librariesList, file)
                 } catch (Throwable ex) {
-                    LOGGER.error("--> Failed to write dependency information for: ${group_artifact}")
+                    LOGGER.error("--> Failed to write dependency information for: ${group_artifact}", ex)
                 }
             }
         }
@@ -296,16 +297,13 @@ class AboutLibrariesProcessor {
 
         if (licenses.isEmpty()) {
             artifactPom.licenses.each { l ->
-                def licenseId = resolveLicenseId(fixString(l.license.name), fixString(l.license.url))
-                if (isNotEmpty(licenseId)) {
-                    licenses.add(licenseId)
-                }
+                licenses.add(resolveLicenseId(fixString(l.license.name), fixString(l.license.url), fixString(l.license.distribution)))
             }
             if (parentPom != null) { // also read parent licenses if available
                 parentPom.licenses.each { l ->
-                    def licenseId = resolveLicenseId(fixString(l.license.name), fixString(l.license.url))
-                    if (isNotEmpty(licenseId)) {
-                        if (licenses.add(licenseId)) {
+                    def lic = resolveLicenseId(fixString(l.license.name), fixString(l.license.url), fixString(l.license.distribution))
+                    if (lic != null) {
+                        if (licenses.add(lic)) {
                             println("----> Found license from parent for: ${uniqueId} -- result: ${licenseId}")
                         }
                     }
@@ -321,10 +319,14 @@ class AboutLibrariesProcessor {
 
         // the license year
         def licenseYear = resolveLicenseYear(uniqueId, repositoryLink)
-        def remoteLicense = fetchRemoteLicense(uniqueId, repositoryLink, licenses)
-        if (remoteLicense.isBlank()) {
-            remoteLicense = null
+        if (!licenseYear.isEmpty()) {
+            licenses.each {
+                if (it.year == null) {
+                    it.year = licenseYear
+                }
+            }
         }
+        fetchRemoteLicense(uniqueId, repositoryLink, licenses)
 
         if (!isNotEmpty(libraryName)) {
             println "Could not get the name for ${uniqueId}, Using ${groupId}:${artifactId}"
@@ -334,18 +336,16 @@ class AboutLibrariesProcessor {
         def library = new Library(
                 uniqueId,
                 "${groupId}:${artifactId}:${libraryVersion}",
-                author,
-                authorWebsite,
-                libraryName,
-                libraryDescription,
-                libraryVersion,
-                libraryWebsite,
+                nonEmptyString(author),
+                nonEmptyString(authorWebsite),
+                nonEmptyString(libraryName),
+                nonEmptyString(libraryDescription),
+                nonEmptyString(libraryVersion),
+                nonEmptyString(libraryWebsite),
                 isOpenSource,
-                repositoryLink,
-                libraryOwner,
+                nonEmptyString(repositoryLink),
+                nonEmptyString(libraryOwner),
                 licenses,
-                licenseYear,
-                remoteLicense,
                 artifactFile?.getParentFile()?.getParentFile() // artifactFile references the pom directly
         )
         LOGGER.debug("Adding library: {}", library)
@@ -405,17 +405,19 @@ class AboutLibrariesProcessor {
     /**
      * Ensures all characters necessary are escaped
      */
-    static def fixString(Object value) {
+    static String fixString(Object value) {
         if (value != null) {
             return value.toString()
-                    .replace("\\", "")
-                    .replace("\"", "\\\"")
-                    .replace("'", "\\'")
-                    .replace("&", "&amp;")
-                    .replace("<", "&lt;")
-                    .replace(">", "&gt;")
         } else {
             return ""
+        }
+    }
+
+    static String nonEmptyString(String value) {
+        if (value == null || value.isEmpty()) {
+            return null
+        } else {
+            return value
         }
     }
 
@@ -467,14 +469,14 @@ class AboutLibrariesProcessor {
     /**
      * Ensures and applies fixes to the library names (shorten, ...)
      */
-    def resolveLicenseId(String name, String url) {
-        for (License l : License.values()) {
-            def matcher = l.customMatcher
-            if (l.id.equalsIgnoreCase(name) || l.name().equalsIgnoreCase(name) || l.fullName.equalsIgnoreCase(name) || (matcher != null && matcher.invoke(name, url))) {
-                return l.name()
-            }
-        }
-        return name
+    License resolveLicenseId(final String name, final String url, final String distribution) {
+        // for (final SpdxLicense l : SpdxLicense.values()) {
+        //     def matcher = l.customMatcher
+        //     if (l.id.equalsIgnoreCase(name) || l.name().equalsIgnoreCase(name) || l.fullName.equalsIgnoreCase(name) || (matcher != null && matcher.invoke(name, url))) {
+        //         return l
+        //     }
+        // }
+        return new License(name, url, null, distribution, null, null)
     }
 
     /**
@@ -485,21 +487,20 @@ class AboutLibrariesProcessor {
             def customMapping = customLicenseMappings.get(uniqueId)
             println("--> Had to resolve license from custom mapping for: ${uniqueId} as ${customMapping}")
 
-            def licensesSet = new HashSet<String>()
-            customMapping.split(",").each {
-                licensesSet.add(it)
-            }
+            def licensesSet = new HashSet<License>()
+            // TODO customMapping.split(",").each {
+            // TODO     licensesSet.add(it)
+            // TODO }
             return licensesSet
         } else {
-            return new HashSet<String>()
+            return new HashSet<License>()
         }
     }
 
     /**
      * Fetch licenses from either the repository, or from spdx as txt format
      */
-    def fetchRemoteLicense(String uniqueId, String repositoryLink, HashSet<String> licenses) {
-        def content = ""
+    def fetchRemoteLicense(String uniqueId, String repositoryLink, HashSet<License> licenses) {
         if (repositoryLink.contains("github")) {
             // license is usually stored in a file called `LICENSE` on the main or dev branch of the project
             // https://raw.githubusercontent.com/mikepenz/FastAdapter/develop/LICENSE
@@ -507,6 +508,7 @@ class AboutLibrariesProcessor {
             final def variants = ["/raw/develop/LICENSE", "/raw/develop/LICENSE.txt", "/raw/main/LICENSE", "/raw/main/LICENSE.txt", "/raw/master/LICENSE", "/raw/master/LICENSE.txt"]
             for (final String v : variants) {
                 try {
+                    String content
                     String url = "${repositoryLink}${v}"
                     if (remoteLicenseCache.containsKey(url)) {
                         content = remoteLicenseCache.get(url)
@@ -514,7 +516,9 @@ class AboutLibrariesProcessor {
                         remoteLicenseCache.put(url, "")
                         content = new URL(url).getText("UTF-8")
                         remoteLicenseCache.put(url, content)
-                        content = content + "\n\nYou may find a copy of this license at:\n" + url
+                    }
+                    if (!content.isBlank()) {
+                        licenses.add(new License("Repo", url, null, "REPO", content, null))
                     }
                     break
                 } catch (Throwable ignored) {
@@ -523,32 +527,31 @@ class AboutLibrariesProcessor {
             }
         }
 
-        if (content.isBlank() && !licenses.isEmpty()) {
-            def delimiter = ""
+        if (!licenses.isEmpty()) {
             licenses.forEach {
                 try {
-                    final def enumLicense = License.valueOf(it)
-                    final String url = enumLicense.getTxtUrl()
-                    def singleLicense
-                    if (remoteLicenseCache.containsKey(url)) {
-                        singleLicense = remoteLicenseCache.get(url)
-                    } else {
-                        remoteLicenseCache.put(url, "")
-                        // did not contain, put null, to not try again
-                        singleLicense = new URL(url).getText("UTF-8")
-                        remoteLicenseCache.put(url, singleLicense)
-                    }
-                    if (!singleLicense.isBlank()) {
-                        content = content + delimiter + singleLicense + "\n\nYou may find a copy of this license at:\n" + url
-                        delimiter = "/n/n/n-----------------------------------/n/n/n"
+                    if (it.spdxId != null) {
+                        final def enumLicense = SpdxLicense.valueOf(it.spdxId)
+                        final String url = enumLicense.getTxtUrl()
+                        def singleLicense
+                        if (remoteLicenseCache.containsKey(url)) {
+                            singleLicense = remoteLicenseCache.get(url)
+                        } else {
+                            remoteLicenseCache.put(url, "")
+                            // did not contain, put null, to not try again
+                            singleLicense = new URL(url).getText("UTF-8")
+                            remoteLicenseCache.put(url, singleLicense)
+                        }
+                        if (!singleLicense.isBlank()) {
+                            it.url = url
+                            it.remoteLicense = singleLicense
+                        }
                     }
                 } catch (final Throwable ignored) {
                     // ignore
                 }
             }
         }
-
-        return content
     }
 
     def resolveLicenseYear(String uniqueId, String repositoryLink) {

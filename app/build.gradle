@@ -77,7 +77,6 @@ android {
 aboutLibraries {
     configPath = "config"
     fetchRemoteLicense = true
-    asStringResource = false
 
     // Full license text for license IDs mentioned here
     // will be included, even if no detected dependency uses them.
