@@ -4,10 +4,12 @@ package com.mikepenz.aboutlibraries
 
 import android.content.Context
 import android.util.Log
-import com.mikepenz.aboutlibraries.detector.Detect
 import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.entity.License
-import com.mikepenz.aboutlibraries.util.*
+import com.mikepenz.aboutlibraries.util.getFields
+import com.mikepenz.aboutlibraries.util.getRawResourceId
+import com.mikepenz.aboutlibraries.util.getStringResourceByName
+import com.mikepenz.aboutlibraries.util.toStringArray
 import org.json.JSONArray
 import java.util.*
 
@@ -17,7 +19,6 @@ class Libs(
     libraryEnchantments: Map<String, String> = emptyMap()
 ) {
 
-    private var usedGradlePlugin = false
     private val internLibraries = mutableListOf<Library>()
     private val externLibraries = mutableListOf<Library>()
     private val licenses = mutableListOf<License>()
@@ -117,17 +118,6 @@ class Libs(
         val libraries = HashMap<String, Library>()
         val resultLibraries = ArrayList<Library>()
 
-        if (!usedGradlePlugin && autoDetect && ctx != null) {
-            val autoDetected = getAutoDetectedLibraries(ctx, checkCachedDetection)
-            resultLibraries.addAll(autoDetected)
-
-            if (isExcluding) {
-                for (lib in autoDetected) {
-                    libraries[lib.definedName] = lib
-                }
-            }
-        }
-
         //Add all external libraries
         val extern = getExternLibraries()
         resultLibraries.addAll(extern)
@@ -159,52 +149,6 @@ class Libs(
             resultLibraries.sort()
         }
         return resultLibraries
-    }
-
-    /**
-     * Get all autoDetected Libraries
-     *
-     * @param ctx                  the current context
-     * @param checkCachedDetection defines if we should check the cached autodetected libraries (per version) (default: enabled)
-     * @return an ArrayList Library with all found libs by their classpath
-     */
-    fun getAutoDetectedLibraries(ctx: Context, checkCachedDetection: Boolean): List<Library> {
-        val pi = ctx.getPackageInfo()
-        val sharedPreferences = ctx.getSharedPreferences("aboutLibraries", Context.MODE_PRIVATE)
-        val lastCacheVersion = sharedPreferences.getInt("versionCode", -1)
-        val isCacheUpToDate = pi != null && lastCacheVersion == pi.versionCode
-
-        if (checkCachedDetection) { //Retrieve from cache if up to date
-            if (pi != null && isCacheUpToDate) {
-                val autoDetectedLibraries =
-                    sharedPreferences.getString("autoDetectedLibraries", "")?.split(DELIMITER.toRegex())?.dropLastWhile { it.isEmpty() }?.toTypedArray()
-
-                if (autoDetectedLibraries?.isNotEmpty() == true) {
-                    val libraries = ArrayList<Library>(autoDetectedLibraries.size)
-                    for (autoDetectedLibrary in autoDetectedLibraries) {
-                        val lib = getLibrary(autoDetectedLibrary) ?: continue
-                        libraries.add(lib)
-                    }
-                    return libraries
-                }
-            }
-        }
-
-        val libraries = Detect.detect(ctx, libraries)
-        if (pi != null && !isCacheUpToDate) { //Update cache
-            val autoDetectedLibrariesPref = StringBuilder()
-
-            for (lib in libraries) {
-                autoDetectedLibrariesPref.append(DELIMITER).append(lib.definedName)
-            }
-
-            sharedPreferences.edit()
-                .putInt("versionCode", pi.versionCode)
-                .putString("autoDetectedLibraries", autoDetectedLibrariesPref.toString())
-                .apply()
-        }
-
-        return libraries
     }
 
     /**
@@ -403,7 +347,6 @@ class Libs(
                 // enchant library if valid
                 // TODO ability to enhance values fetched by manual additions
             }
-            usedGradlePlugin = true
         } catch (t: Throwable) {
             Log.e("aboutlibraries", "Failed to parse aboutlibraries.json: $t")
         }
