@@ -9,8 +9,9 @@ import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
-import com.mikepenz.aboutlibraries.Libs
-import com.mikepenz.aboutlibraries.Libs.Companion.BUNDLE_EDGE_TO_EDGE
+import com.mikepenz.aboutlibraries.LibsBuilder.Companion.BUNDLE_EDGE_TO_EDGE
+import com.mikepenz.aboutlibraries.LibsBuilder.Companion.BUNDLE_SEARCH_ENABLED
+import com.mikepenz.aboutlibraries.LibsBuilder.Companion.BUNDLE_TITLE
 import com.mikepenz.aboutlibraries.R
 import com.mikepenz.aboutlibraries.util.applyEdgeSystemUi
 import com.mikepenz.aboutlibraries.util.doOnApplySystemWindowInsets
@@ -37,7 +38,7 @@ open class LibsActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         setContentView(R.layout.activity_opensource)
         var title = ""
         if (bundle != null) {
-            title = bundle.getString(Libs.BUNDLE_TITLE, "")
+            title = bundle.getString(BUNDLE_TITLE, "")
         }
 
         fragment = LibsSupportFragment().apply {
@@ -64,7 +65,7 @@ open class LibsActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val searchEnabled = intent.getBooleanExtra(Libs.BUNDLE_SEARCH_ENABLED, false)
+        val searchEnabled = intent.getBooleanExtra(BUNDLE_SEARCH_ENABLED, false)
         if (menu != null && searchEnabled) {
             menuInflater.inflate(R.menu.menu_aboutlibs, menu)
             val searchView = menu.findItem(R.id.action_menu_search).actionView as? SearchView

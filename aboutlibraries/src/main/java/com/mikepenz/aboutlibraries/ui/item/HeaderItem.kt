@@ -10,7 +10,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
-import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.LibsBuilder
 import com.mikepenz.aboutlibraries.LibsConfiguration
 import com.mikepenz.aboutlibraries.R
@@ -110,8 +109,8 @@ class HeaderItem(var libsBuilder: LibsBuilder) : AbstractItem<HeaderItem.ViewHol
             LibsConfiguration.postTextAction?.invoke(holder.aboutSpecial1)
             holder.aboutSpecial1.visibility = View.VISIBLE
             holder.aboutSpecial1.setOnClickListener { v ->
-                val consumed = LibsConfiguration.listener?.onExtraClicked(v, Libs.SpecialButton.SPECIAL1)
-                        ?: false
+                val consumed = LibsConfiguration.listener?.onExtraClicked(v, LibsBuilder.SpecialButton.SPECIAL1)
+                    ?: false
 
                 if (!consumed && !TextUtils.isEmpty(libsBuilder.aboutAppSpecial1Description)) {
                     try {
@@ -135,8 +134,8 @@ class HeaderItem(var libsBuilder: LibsBuilder) : AbstractItem<HeaderItem.ViewHol
             LibsConfiguration.postTextAction?.invoke(holder.aboutSpecial2)
             holder.aboutSpecial2.visibility = View.VISIBLE
             holder.aboutSpecial2.setOnClickListener { v ->
-                val consumed = LibsConfiguration.listener?.onExtraClicked(v, Libs.SpecialButton.SPECIAL2)
-                        ?: false
+                val consumed = LibsConfiguration.listener?.onExtraClicked(v, LibsBuilder.SpecialButton.SPECIAL2)
+                    ?: false
                 if (!consumed && !TextUtils.isEmpty(libsBuilder.aboutAppSpecial2Description)) {
                     try {
                         val alert = AlertDialog.Builder(ctx)
@@ -159,8 +158,8 @@ class HeaderItem(var libsBuilder: LibsBuilder) : AbstractItem<HeaderItem.ViewHol
             LibsConfiguration.postTextAction?.invoke(holder.aboutSpecial3)
             holder.aboutSpecial3.visibility = View.VISIBLE
             holder.aboutSpecial3.setOnClickListener { v ->
-                val consumed = LibsConfiguration.listener?.onExtraClicked(v, Libs.SpecialButton.SPECIAL3)
-                        ?: false
+                val consumed = LibsConfiguration.listener?.onExtraClicked(v, LibsBuilder.SpecialButton.SPECIAL3)
+                    ?: false
 
                 if (!consumed && !TextUtils.isEmpty(libsBuilder.aboutAppSpecial3Description)) {
                     try {

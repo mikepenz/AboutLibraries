@@ -1,0 +1,16 @@
+apply plugin: "com.vanniktech.maven.publish"
+apply plugin: "org.jetbrains.dokka"
+
+mavenPublish {
+    releaseSigningEnabled = true
+    androidVariantToPublish = "release"
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "installLocally"
+            url = "${rootProject.buildDir}/localMaven"
+        }
+    }
+}

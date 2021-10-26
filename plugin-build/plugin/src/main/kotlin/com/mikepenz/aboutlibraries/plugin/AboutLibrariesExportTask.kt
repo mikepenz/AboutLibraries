@@ -22,7 +22,7 @@ abstract class AboutLibrariesExportTask : BaseAboutLibrariesTask() {
     fun action() {
         val collectedDependencies = readInCollectedDependencies()
         val processor = LibrariesProcessor(getDependencyHandler(), collectedDependencies, getConfigPath(), exclusionPatterns, fetchRemoteLicense, variant)
-        val libraries = processor.gatherDependencies()
+        val result = processor.gatherDependencies()
 
         if (variant != null) {
             println("")
@@ -34,8 +34,9 @@ abstract class AboutLibrariesExportTask : BaseAboutLibrariesTask() {
         println("")
         println("LIBRARIES:")
 
-        for (library in libraries) {
-            library.licenses.map { it.spdxId ?: it.name }.forEach { licenseId ->
+        for (library in result.libraries) {
+            val fullLicenses = library.licenses.mapNotNull { result.licenses[it] }
+            fullLicenses.map { it.spdxId ?: it.name }.forEach { licenseId ->
                 try {
                     neededLicenses.add(SpdxLicense.valueOf(licenseId))
                 } catch (ex: Throwable) {
@@ -49,7 +50,7 @@ abstract class AboutLibrariesExportTask : BaseAboutLibrariesTask() {
                 }
             }
 
-            println("${library.name};${library.artifactId};${library.licenses.joinToString(",") { it.spdxId ?: it.name }}")
+            println("${library.name};${library.artifactId};${fullLicenses.joinToString(",") { it.spdxId ?: it.name }}")
         }
 
         println("")

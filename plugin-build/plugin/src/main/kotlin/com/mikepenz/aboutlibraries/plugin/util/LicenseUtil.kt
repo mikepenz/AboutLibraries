@@ -64,7 +64,7 @@ object LicenseUtil {
                         }
                         if (singleLicense?.isNotBlank() == true) {
                             it.url = url
-                            it.remoteLicense = singleLicense
+                            it.content = singleLicense
                         }
                     }
                 } catch (ignored: Throwable) {

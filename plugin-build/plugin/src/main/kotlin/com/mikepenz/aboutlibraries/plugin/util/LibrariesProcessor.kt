@@ -3,9 +3,10 @@ package com.mikepenz.aboutlibraries.plugin.util
 import com.mikepenz.aboutlibraries.plugin.mapping.Library
 import com.mikepenz.aboutlibraries.plugin.mapping.License
 import com.mikepenz.aboutlibraries.plugin.model.CollectedContainer
-import com.mikepenz.aboutlibraries.plugin.parser.m2.PomReader
+import com.mikepenz.aboutlibraries.plugin.model.ResultContainer
 import com.mikepenz.aboutlibraries.plugin.util.LicenseUtil.fetchRemoteLicense
 import com.mikepenz.aboutlibraries.plugin.util.PomLoader.resolvePomFile
+import com.mikepenz.aboutlibraries.plugin.util.parser.PomReader
 import org.gradle.api.artifacts.dsl.DependencyHandler
 import org.gradle.api.internal.artifacts.DefaultModuleVersionIdentifier
 import org.slf4j.Logger
@@ -24,7 +25,7 @@ class LibrariesProcessor(
 
     private val handledLibraries = HashSet<String>()
 
-    fun gatherDependencies(): ArrayList<Library> {
+    fun gatherDependencies(): ResultContainer {
         if (fetchRemoteLicense) {
             LOGGER.debug("Will fetch remote licenses from repository.")
         }
@@ -33,6 +34,7 @@ class LibrariesProcessor(
         println("All dependencies.size=${collectedDependencies.size}")
 
         val librariesList = ArrayList<Library>()
+        val licensesList = HashSet<License>()
         for (dependency in collectedDependencies) {
             val groupArtifact = dependency.key.split(":")
             val version = dependency.value.first()
@@ -40,16 +42,21 @@ class LibrariesProcessor(
             val file = dependencyHandler.resolvePomFile(groupArtifact[0], versionIdentifier, false)
             if (file != null) {
                 try {
-                    parseDependency(librariesList, file)
+                    parseDependency(file)?.let {
+                        val (lib, licenses) = it
+                        librariesList.add(lib)
+                        licensesList.addAll(licenses)
+
+                    }
                 } catch (ex: Throwable) {
                     LOGGER.error("--> Failed to write dependency information for: $groupArtifact", ex)
                 }
             }
         }
-        return librariesList
+        return ResultContainer(librariesList, licensesList.associateBy { it.hash })
     }
 
-    private fun parseDependency(libraries: MutableList<Library>, artifactFile: File) {
+    private fun parseDependency(artifactFile: File): Pair<Library, Set<License>>? {
         var artifactPomText = artifactFile.readText().trim()
         if (artifactPomText[0] != '<') {
             LOGGER.warn("--> ${artifactFile.path} contains a invalid character at the first position. Applying workaround.")
@@ -62,7 +69,7 @@ class LibrariesProcessor(
         for (pattern in exclusionPatterns) {
             if (pattern.matcher(uniqueId).matches()) {
                 println("--> Skipping ${uniqueId}, matching exclusion pattern")
-                return
+                return null
             }
         }
 
@@ -75,7 +82,7 @@ class LibrariesProcessor(
 
         // check if we shall skip this specific uniqueId
         if (shouldSkip(uniqueId)) {
-            return
+            return null
         }
 
         // remember that we handled the library
@@ -118,6 +125,7 @@ class LibrariesProcessor(
         val licenses = (pomReader.licenses.takeIf { it.isNotEmpty() } ?: parentPomReader?.licenses)?.map {
             License(it.name, it.url, year = resolveLicenseYear(uniqueId, it.url))
         }?.toHashSet()
+
         if (licenses != null) {
             fetchRemoteLicense(uniqueId, pomReader.scm ?: parentPomReader?.scm, licenses)
         }
@@ -136,12 +144,12 @@ class LibrariesProcessor(
             pomReader.developers.takeIf { it.isNotEmpty() } ?: parentPomReader?.developers ?: emptyList(),
             pomReader.organization ?: parentPomReader?.organization,
             pomReader.scm ?: parentPomReader?.scm,
-            licenses ?: emptySet(),
+            licenses?.map { it.hash }?.toSet() ?: emptySet(),
             artifactFile.parentFile?.parentFile // artifactFile references the pom directly
         )
 
         LOGGER.debug("Adding library: {}", library)
-        libraries.add(library)
+        return library to (licenses ?: emptySet())
     }
 
     /**

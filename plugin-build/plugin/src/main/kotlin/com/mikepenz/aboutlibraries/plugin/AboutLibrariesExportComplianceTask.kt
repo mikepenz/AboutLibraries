@@ -32,7 +32,7 @@ abstract class AboutLibrariesExportComplianceTask : BaseAboutLibrariesTask() {
 
         val collectedDependencies = readInCollectedDependencies()
         val processor = LibrariesProcessor(getDependencyHandler(), collectedDependencies, getConfigPath(), exclusionPatterns, fetchRemoteLicense, variant)
-        val libraries = processor.gatherDependencies()
+        val result = processor.gatherDependencies()
 
         if (variant != null) {
             println("")
@@ -52,7 +52,7 @@ abstract class AboutLibrariesExportComplianceTask : BaseAboutLibrariesTask() {
         dependenciesFolder.deleteRecursively()
 
         val ungroupedKey = "zzzzz_ungrouped"
-        val groupSorted = libraries.groupBy {
+        val groupSorted = result.libraries.groupBy {
             for (group in groups) {
                 if (it.artifactId.startsWith(group)) {
                     return@groupBy group
@@ -71,7 +71,8 @@ abstract class AboutLibrariesExportComplianceTask : BaseAboutLibrariesTask() {
             exportTxt.appendText("${group}\n")
 
             for (library in entry.value) {
-                library.licenses.map { it.spdxId ?: it.name }.forEach { licenseId ->
+                val fullLicenses = library.licenses.mapNotNull { result.licenses[it] }
+                fullLicenses.map { it.spdxId ?: it.name }.forEach { licenseId ->
                     try {
                         neededLicenses.add(SpdxLicense.valueOf(licenseId))
                     } catch (ex: Exception) {
@@ -85,8 +86,8 @@ abstract class AboutLibrariesExportComplianceTask : BaseAboutLibrariesTask() {
                     }
                 }
 
-                exportCsv.appendText("${library.name};${library.artifactId};${library.licenses.joinToString(",") { it.spdxId ?: it.name }};${library.website}\n")
-                exportTxt.appendText("${library.name};${library.artifactId};${library.licenses.joinToString(",") { it.spdxId ?: it.name }}\n")
+                exportCsv.appendText("${library.name};${library.artifactId};${fullLicenses.joinToString(",") { it.spdxId ?: it.name }};${library.website}\n")
+                exportTxt.appendText("${library.name};${library.artifactId};${fullLicenses.joinToString(",") { it.spdxId ?: it.name }}\n")
 
                 var targetFolder = "${library.artifactId}"
                 if (!ungrouped) {

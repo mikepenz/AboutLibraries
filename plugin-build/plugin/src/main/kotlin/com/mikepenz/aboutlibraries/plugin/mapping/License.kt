@@ -9,10 +9,10 @@ data class License(
     val name: String,
     var url: String?,
     var year: String? = null,
-    var remoteLicense: String? = null
+    var content: String? = null
 ) {
-    val remoteLicenseHash: String?
-        get() = remoteLicense?.toMD5()
+    val hash: String
+        get() = "$name,$url,$year,$spdxId,$content".toMD5()
 
     val spdxId: String?
         get() = resolveLicenseId(name, url)

@@ -11,8 +11,8 @@ abstract class AboutLibrariesIdTask : BaseAboutLibrariesTask() {
     fun action() {
         val collectedDependencies = readInCollectedDependencies()
         val processor = LibrariesProcessor(getDependencyHandler(), collectedDependencies, getConfigPath(), exclusionPatterns, fetchRemoteLicense)
-        val libraries = processor.gatherDependencies()
-        for (library in libraries) {
+        val result = processor.gatherDependencies()
+        for (library in result.libraries) {
             println("${library.name} (${library.artifactVersion}) -> ${library.uniqueId}")
         }
     }

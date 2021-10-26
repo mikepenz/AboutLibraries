@@ -113,7 +113,7 @@ object LibsConfiguration {
          * @param specialButton
          * @return true if consumed and no further action is required
          */
-        fun onExtraClicked(v: View, specialButton: Libs.SpecialButton): Boolean
+        fun onExtraClicked(v: View, specialButton: LibsBuilder.SpecialButton): Boolean
 
         /**
          * onClick listener if the icon of the AboutAppSection is clicked

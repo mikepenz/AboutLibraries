@@ -3,7 +3,6 @@ rootProject.name = "AboutLibraries"
 include ':app'
 include ':aboutlibraries-core'
 include ':aboutlibraries'
-include ':aboutlibraries-definitions'
 
 includeBuild("plugin-build") {
     dependencySubstitution {

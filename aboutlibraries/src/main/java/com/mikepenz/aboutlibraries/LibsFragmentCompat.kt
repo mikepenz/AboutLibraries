@@ -22,13 +22,11 @@ import com.mikepenz.aboutlibraries.ui.item.LibraryItem
 import com.mikepenz.aboutlibraries.ui.item.LoaderItem
 import com.mikepenz.aboutlibraries.ui.item.SimpleLibraryItem
 import com.mikepenz.aboutlibraries.util.doOnApplySystemWindowInsets
-import com.mikepenz.aboutlibraries.util.extractBooleanBundleOrResource
-import com.mikepenz.aboutlibraries.util.extractStringBundleOrResource
+import com.mikepenz.aboutlibraries.util.withContext
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.IItem
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import java.util.*
-import kotlin.collections.ArrayList
 
 /**
  * Fragment implementation creating the aboutlibraries UI
@@ -38,7 +36,7 @@ class LibsFragmentCompat : Filterable {
     private lateinit var itemAdapter: ItemAdapter<IItem<*>>
 
     private lateinit var builder: LibsBuilder
-    private var libraries: ArrayList<Library> = ArrayList()
+    private var libraries: List<Library> = ArrayList()
     private var comparator: Comparator<Library>? = null
     private var libTask: LibraryTask? = null
 
@@ -86,15 +84,15 @@ class LibsFragmentCompat : Filterable {
 
         recyclerView.doOnApplySystemWindowInsets(Gravity.BOTTOM, Gravity.START, Gravity.END)
 
-        itemAdapter.itemFilter.filterPredicate = fun (item, constraint): Boolean {
+        itemAdapter.itemFilter.filterPredicate = fun(item, constraint): Boolean {
             // Don't do any filtering if constraint is null/blank
             if (constraint.isNullOrBlank()) {
                 return true
             }
 
             return when (item) {
-                is LibraryItem -> item.library.libraryName.contains(constraint, ignoreCase = true)
-                is SimpleLibraryItem -> item.library.libraryName.contains(constraint, ignoreCase = true)
+                is LibraryItem -> item.library.name.contains(constraint, ignoreCase = true)
+                is SimpleLibraryItem -> item.library.name.contains(constraint, ignoreCase = true)
                 else -> false
             }
         }
@@ -113,11 +111,12 @@ class LibsFragmentCompat : Filterable {
 
     protected fun executeLibTask(libraryTask: LibraryTask?) {
         if (libraryTask != null && ::builder.isInitialized) {
-            when (builder.libTaskExecutor) {
-                LibTaskExecutor.THREAD_POOL_EXECUTOR -> libraryTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
-                LibTaskExecutor.SERIAL_EXECUTOR -> libraryTask.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR)
-                LibTaskExecutor.DEFAULT_EXECUTOR -> libraryTask.execute()
-            }
+            //when (builder.libTaskExecutor) {
+            //    LibTaskExecutor.THREAD_POOL_EXECUTOR -> libraryTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
+            //    LibTaskExecutor.SERIAL_EXECUTOR -> libraryTask.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR)
+            //    LibTaskExecutor.DEFAULT_EXECUTOR -> libraryTask.execute()
+            //}
+            libraryTask.execute()
         }
     }
 
@@ -143,41 +142,38 @@ class LibsFragmentCompat : Filterable {
 
         override fun doInBackground(vararg strings: String) {
             //init the Libs instance with fields if they were set
-            val libs: Libs = if (builder.fields.isEmpty()) {
-                Libs(ctx, libraryEnchantments = builder.libraryEnchantment)
-            } else {
-                Libs(ctx, builder.fields, builder.libraryEnchantment)
-            }
+            val libs: Libs = Libs.Builder().withContext(ctx).build()
 
             //fill the builder with the information
-            builder.showLicense = ctx.extractBooleanBundleOrResource(builder._showLicense, "aboutLibraries_showLicense") ?: false
-            builder.showVersion = ctx.extractBooleanBundleOrResource(builder._showVersion, "aboutLibraries_showVersion") ?: true
+            //  builder.showLicense = ctx.extractBooleanBundleOrResource(builder._showLicense, "aboutLibraries_showLicense") ?: false
+            //  builder.showVersion = ctx.extractBooleanBundleOrResource(builder._showVersion, "aboutLibraries_showVersion") ?: true
 
-            builder.aboutShowIcon = ctx.extractBooleanBundleOrResource(builder._aboutShowIcon, "aboutLibraries_description_showIcon") ?: false
-            builder.aboutShowVersion = ctx.extractBooleanBundleOrResource(builder._aboutShowVersion, "aboutLibraries_description_showVersion") ?: false
-            builder.aboutShowVersionName = ctx.extractBooleanBundleOrResource(builder._aboutShowVersionName, "aboutLibraries_description_showVersionName")
-                ?: false
-            builder.aboutShowVersionCode = ctx.extractBooleanBundleOrResource(builder._aboutShowVersionCode, "aboutLibraries_description_showVersionCode")
-                ?: false
+            //  builder.aboutShowIcon = ctx.extractBooleanBundleOrResource(builder._aboutShowIcon, "aboutLibraries_description_showIcon") ?: false
+            //  builder.aboutShowVersion = ctx.extractBooleanBundleOrResource(builder._aboutShowVersion, "aboutLibraries_description_showVersion") ?: false
+            //  builder.aboutShowVersionName = ctx.extractBooleanBundleOrResource(builder._aboutShowVersionName, "aboutLibraries_description_showVersionName")
+            //      ?: false
+            //  builder.aboutShowVersionCode = ctx.extractBooleanBundleOrResource(builder._aboutShowVersionCode, "aboutLibraries_description_showVersionCode")
+            //      ?: false
 
-            builder.aboutAppName = ctx.extractStringBundleOrResource(builder.aboutAppName, "aboutLibraries_description_name") ?: ""
-            builder.aboutDescription = ctx.extractStringBundleOrResource(builder.aboutDescription, "aboutLibraries_description_text") ?: ""
+            //  builder.aboutAppName = ctx.extractStringBundleOrResource(builder.aboutAppName, "aboutLibraries_description_name") ?: ""
+            //  builder.aboutDescription = ctx.extractStringBundleOrResource(builder.aboutDescription, "aboutLibraries_description_text") ?: ""
 
-            builder.aboutAppSpecial1 = ctx.extractStringBundleOrResource(builder.aboutAppSpecial1, "aboutLibraries_description_special1_name")
-            builder.aboutAppSpecial1Description =
-                ctx.extractStringBundleOrResource(builder.aboutAppSpecial1Description, "aboutLibraries_description_special1_text")
-            builder.aboutAppSpecial2 = ctx.extractStringBundleOrResource(builder.aboutAppSpecial2, "aboutLibraries_description_special2_name")
-            builder.aboutAppSpecial2Description = ctx.extractStringBundleOrResource(builder.aboutAppSpecial2Description, "aboutLibraries_description_special2_text")
-            builder.aboutAppSpecial3 = ctx.extractStringBundleOrResource(builder.aboutAppSpecial3, "aboutLibraries_description_special3_name")
-            builder.aboutAppSpecial3Description = ctx.extractStringBundleOrResource(builder.aboutAppSpecial3Description, "aboutLibraries_description_special3_text")
+            //  builder.aboutAppSpecial1 = ctx.extractStringBundleOrResource(builder.aboutAppSpecial1, "aboutLibraries_description_special1_name")
+            //  builder.aboutAppSpecial1Description =
+            //      ctx.extractStringBundleOrResource(builder.aboutAppSpecial1Description, "aboutLibraries_description_special1_text")
+            //  builder.aboutAppSpecial2 = ctx.extractStringBundleOrResource(builder.aboutAppSpecial2, "aboutLibraries_description_special2_name")
+            //  builder.aboutAppSpecial2Description = ctx.extractStringBundleOrResource(builder.aboutAppSpecial2Description, "aboutLibraries_description_special2_text")
+            //  builder.aboutAppSpecial3 = ctx.extractStringBundleOrResource(builder.aboutAppSpecial3, "aboutLibraries_description_special3_name")
+            //  builder.aboutAppSpecial3Description = ctx.extractStringBundleOrResource(builder.aboutAppSpecial3Description, "aboutLibraries_description_special3_text")
 
             //apply modifications
-            libs.modifyLibraries(builder.libraryModification)
+            // libs.modifyLibraries(builder.libraryModification)
 
             //fetch the libraries and sort if a comparator was set
             val doDefaultSort = builder.sort && null == builder.libraryComparator && null == comparator
 
-            libraries = libs.prepareLibraries(ctx, builder.internalLibraries, builder.excludeLibraries, builder.autoDetect, builder.checkCachedDetection, doDefaultSort)
+            libraries =
+                libs.libraries //libs.prepareLibraries(ctx, builder.internalLibraries, builder.excludeLibraries, builder.autoDetect, builder.checkCachedDetection, doDefaultSort)
 
             if (comparator != null) {
                 Collections.sort(libraries, comparator)

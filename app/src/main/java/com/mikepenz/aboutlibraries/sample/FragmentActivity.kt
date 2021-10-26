@@ -17,7 +17,7 @@ import com.mikepenz.aboutlibraries.LibsBuilder
 import com.mikepenz.aboutlibraries.LibsConfiguration
 import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.sample.databinding.ActivityFragmentBinding
-import com.mikepenz.aboutlibraries.util.toStringArray
+import com.mikepenz.aboutlibraries.util.withContext
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.withIdentifier
@@ -69,7 +69,7 @@ class FragmentActivity : AppCompatActivity() {
             return false
         }
 
-        override fun onExtraClicked(v: View, specialButton: Libs.SpecialButton): Boolean {
+        override fun onExtraClicked(v: View, specialButton: LibsBuilder.SpecialButton): Boolean {
             return false
         }
 
@@ -109,12 +109,12 @@ class FragmentActivity : AppCompatActivity() {
 
         binding.slider.apply {
             itemAdapter.add(
-                    PrimaryDrawerItem().withName("Home"),
-                    PrimaryDrawerItem().withName(R.string.action_manifestactivity).withIdentifier(R.id.action_manifestactivity.toLong()).withSelectable(false),
-                    PrimaryDrawerItem().withName(R.string.action_minimalactivity).withIdentifier(R.id.action_minimalactivity.toLong()).withSelectable(false),
-                    PrimaryDrawerItem().withName(R.string.action_extendactivity).withIdentifier(R.id.action_extendedactivity.toLong()).withSelectable(false),
-                    PrimaryDrawerItem().withName(R.string.action_customsortactivity).withIdentifier(R.id.action_customsortactivity.toLong()).withSelectable(false),
-                    PrimaryDrawerItem().withName(R.string.action_opensource).withIdentifier(R.id.action_opensource.toLong()).withSelectable(false)
+                PrimaryDrawerItem().withName("Home"),
+                PrimaryDrawerItem().withName(R.string.action_manifestactivity).withIdentifier(R.id.action_manifestactivity.toLong()).withSelectable(false),
+                PrimaryDrawerItem().withName(R.string.action_minimalactivity).withIdentifier(R.id.action_minimalactivity.toLong()).withSelectable(false),
+                PrimaryDrawerItem().withName(R.string.action_extendactivity).withIdentifier(R.id.action_extendedactivity.toLong()).withSelectable(false),
+                PrimaryDrawerItem().withName(R.string.action_customsortactivity).withIdentifier(R.id.action_customsortactivity.toLong()).withSelectable(false),
+                PrimaryDrawerItem().withName(R.string.action_opensource).withIdentifier(R.id.action_opensource.toLong()).withSelectable(false)
             )
             onDrawerItemClickListener = { _, drawerItem, _ ->
                 // Handle action bar item clicks here. The action bar will
@@ -136,29 +136,29 @@ class FragmentActivity : AppCompatActivity() {
                     R.id.action_minimalactivity.toLong() -> {
                         // create and launch an activity in minimal design without any additional modifications
                         LibsBuilder()
-                                .withFields(R.string::class.java.fields)
-                                .withAboutMinimalDesign(true)
-                                .withEdgeToEdge(true)
-                                .withActivityTitle("Open Source")
-                                .withAboutIconShown(false)
-                                .withSearchEnabled(true)
-                                .start(this@FragmentActivity)
+                            .withFields(R.string::class.java.fields)
+                            .withAboutMinimalDesign(true)
+                            .withEdgeToEdge(true)
+                            .withActivityTitle("Open Source")
+                            .withAboutIconShown(false)
+                            .withSearchEnabled(true)
+                            .start(this@FragmentActivity)
                     }
                     R.id.action_manifestactivity.toLong() -> {
                         // create and launch an activity in full design, with various configurations and adjustments
                         LibsBuilder()
-                                .withFields(R.string::class.java.fields)
-                                .withLibraries("crouton", "actionbarsherlock", "showcaseview", "glide")
-                                .withAutoDetect(false)
-                                .withLicenseShown(true)
-                                .withVersionShown(true)
-                                .withActivityTitle("Open Source")
-                                .withEdgeToEdge(true)
-                                .withListener(libsListener)
-                                .withLibTaskCallback(libTaskCallback)
-                                .withUiListener(libsUIListener)
-                                .withSearchEnabled(true)
-                                .start(this@FragmentActivity)
+                            .withFields(R.string::class.java.fields)
+                            .withLibraries("crouton", "actionbarsherlock", "showcaseview", "glide")
+                            .withAutoDetect(false)
+                            .withLicenseShown(true)
+                            .withVersionShown(true)
+                            .withActivityTitle("Open Source")
+                            .withEdgeToEdge(true)
+                            .withListener(libsListener)
+                            .withLibTaskCallback(libTaskCallback)
+                            .withUiListener(libsUIListener)
+                            .withSearchEnabled(true)
+                            .start(this@FragmentActivity)
                     }
                 }
                 false
@@ -166,34 +166,24 @@ class FragmentActivity : AppCompatActivity() {
             selectedItemPosition = 0
         }
 
-        /*
-        //NOTE: This is how you can modify a specific library definition during runtime
-        HashMap<String, HashMap<String, String>> libsModification = new HashMap<String, HashMap<String, String>>();
-        HashMap<String, String> modifyAboutLibraries = new HashMap<String, String>();
-        modifyAboutLibraries.put("name", "_AboutLibraries");
-        libsModification.put("aboutlibraries", modifyAboutLibraries);
-        .withLibraryModification(libsModification);
-        */
-
         val fragment = LibsBuilder()
             .withFields(R.string::class.java.fields)
             .withVersionShown(true)
             .withLicenseShown(true)
             .withLicenseDialog(true)
-                // find ids via './gradlew findLibraries'
-                .withLibraryModification("androidx_activity__activity", Libs.LibraryFields.LIBRARY_NAME, "Activity Support")
-                .withLibraryEnchantment("com_mikepenz__fastadapter", "fastadapter")
-                .supportFragment()
+            // find ids via './gradlew findLibraries'
+            //.withLibraryModification("androidx_activity__activity", Libs.LibraryFields.LIBRARY_NAME, "Activity Support")
+            .withLibraryEnchantment("com_mikepenz__fastadapter", "fastadapter")
+            .supportFragment()
 
         val fragmentManager = supportFragmentManager
         fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit()
 
         // Showcase to use the library meta information without the UI module
-        Libs(this, R.string::class.java.fields.toStringArray())
-                .prepareLibraries()
-                .forEach {
-                    Log.d("AboutLibraries", it.libraryName)
-                }
+        Libs.Builder().withContext(this).build().libraries
+            .forEach {
+                Log.d("AboutLibraries", it.name)
+            }
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {

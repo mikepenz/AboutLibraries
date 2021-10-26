@@ -12,6 +12,7 @@ import com.mikepenz.aboutlibraries.LibsBuilder
 import com.mikepenz.aboutlibraries.LibsConfiguration
 import com.mikepenz.aboutlibraries.R
 import com.mikepenz.aboutlibraries.entity.Library
+import com.mikepenz.aboutlibraries.util.license
 import com.mikepenz.aboutlibraries.util.resolveStyledValue
 import com.mikepenz.fastadapter.items.AbstractItem
 
@@ -52,12 +53,12 @@ class SimpleLibraryItem(internal val library: Library, private val libsBuilder: 
         val ctx = holder.itemView.context
 
         //Set texts
-        holder.libraryName.text = library.libraryName
+        holder.libraryName.text = library.name
 
-        if (library.license != null && (library.license?.licenseWebsite?.isNotEmpty() == true || libsBuilder.showLicenseDialog)) {
+        if (library.license != null && (library.license?.url?.isNotEmpty() == true || libsBuilder.showLicenseDialog)) {
             holder.itemView.setOnClickListener { view ->
                 val consumed = LibsConfiguration.listener?.onLibraryBottomClicked(view, library)
-                        ?: false
+                    ?: false
                 if (!consumed) {
                     openLicense(ctx, libsBuilder, library)
                 }
@@ -78,12 +79,12 @@ class SimpleLibraryItem(internal val library: Library, private val libsBuilder: 
      */
     private fun openLicense(ctx: Context, libsBuilder: LibsBuilder, library: Library) {
         try {
-            if (libsBuilder.showLicenseDialog && library.license?.licenseDescription?.isNotEmpty() == true) {
+            if (libsBuilder.showLicenseDialog && library.license?.licenseContent?.isNotEmpty() == true) {
                 val builder = AlertDialog.Builder(ctx)
-                builder.setMessage(Html.fromHtml(library.license?.licenseDescription))
+                builder.setMessage(Html.fromHtml(library.license?.licenseContent))
                 builder.create().show()
             } else {
-                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(library.license?.licenseWebsite))
+                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(library.license?.url))
                 ctx.startActivity(browserIntent)
             }
         } catch (ignored: Exception) {

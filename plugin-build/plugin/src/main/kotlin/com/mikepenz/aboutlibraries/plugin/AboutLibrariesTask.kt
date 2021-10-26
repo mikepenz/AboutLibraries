@@ -3,7 +3,7 @@ package com.mikepenz.aboutlibraries.plugin
 
 import com.mikepenz.aboutlibraries.plugin.mapping.License
 import com.mikepenz.aboutlibraries.plugin.mapping.SpdxLicense
-import com.mikepenz.aboutlibraries.plugin.mapping.writeToDisk
+import com.mikepenz.aboutlibraries.plugin.model.writeToDisk
 import com.mikepenz.aboutlibraries.plugin.util.LibrariesProcessor
 import com.mikepenz.aboutlibraries.plugin.util.toMD5
 import org.gradle.api.tasks.CacheableTask
@@ -23,16 +23,10 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
 
     @Internal
     private lateinit var combinedLibrariesOutputFile: File
-    private lateinit var outputValuesFolder: File
     private lateinit var outputRawFolder: File
 
     fun getCombinedLibrariesOutputFile(): File {
         return File(outputRawFolder, "aboutlibraries.json")
-    }
-
-    @OutputDirectory
-    public fun getValuesFolder(): File {
-        return File(dependencies, "values")
     }
 
     @OutputDirectory
@@ -48,7 +42,7 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
         try {
             LOGGER.debug("--> Try load library with ID {}", licenseId)
             var successfulXml = false
-            var resultFile = File(outputValuesFolder, "license_${licenseId}_strings.xml")
+            var resultFile = File("") //File(outputValuesFolder, "license_${licenseId}_strings.xml")
             resultFile.delete()
             javaClass.getResourceAsStream("/values/license_${licenseId}_strings.xml")?.use {
                 resultFile.appendBytes(it.readBytes())
@@ -74,7 +68,7 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
      * Creates the additional RAW files with remote licenses if available, otherwise inclues the license from the available definitions
      */
     private fun handleLicenses(license: License) {
-        val rl = license.remoteLicense
+        val rl = license.content
         if (rl == null || rl.isBlank()) {
             val spdx = license.spdxId
             if (spdx != null) {
@@ -130,7 +124,6 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
     @TaskAction
     public fun action() {
         // ensure directories exist
-        this.outputValuesFolder = getValuesFolder()
         this.outputRawFolder = getRawFolder()
         this.combinedLibrariesOutputFile = getCombinedLibrariesOutputFile()
 
@@ -155,13 +148,8 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
 
         // write to disk
         libraries.writeToDisk(combinedLibrariesOutputFile)
-        libraries.forEach { lib ->
-            lib.licenses.forEach { lic ->
-                handleLicenses(lic)
-            }
-        }
 
-        processNeededLicenses()
+        //processNeededLicenses()
     }
 
     companion object {

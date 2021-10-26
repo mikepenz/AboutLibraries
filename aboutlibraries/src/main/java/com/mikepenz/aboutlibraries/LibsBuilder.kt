@@ -9,17 +9,15 @@ import android.util.Log
 import android.view.animation.LayoutAnimationController
 import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.ui.LibsActivity
-import com.mikepenz.aboutlibraries.ui.LibsFragment
 import com.mikepenz.aboutlibraries.ui.LibsSupportFragment
 import com.mikepenz.aboutlibraries.ui.item.LibraryItem
-import com.mikepenz.aboutlibraries.util.toStringArray
+import com.mikepenz.aboutlibraries.util.withContext
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.IItem
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import java.io.Serializable
 import java.lang.reflect.Field
 import java.util.*
-import kotlin.collections.HashMap
 
 class LibsBuilder : Serializable {
     var fields: Array<String> = emptyArray()
@@ -97,7 +95,7 @@ class LibsBuilder : Serializable {
     var edgeToEdge: Boolean = false
     var searchEnabled: Boolean = false
 
-    var libTaskExecutor = LibTaskExecutor.DEFAULT_EXECUTOR
+    //var libTaskExecutor = LibTaskExecutor.DEFAULT_EXECUTOR
 
     val libraryModification: HashMap<String, HashMap<String, String>> = HashMap()
     val libraryEnchantment: HashMap<String, String> = HashMap()
@@ -123,7 +121,7 @@ class LibsBuilder : Serializable {
      */
 
     fun withFields(fields: Array<Field>): LibsBuilder {
-        return withFields(fields.toStringArray())
+        return this // withFields(fields.toStringArray())
     }
 
     /**
@@ -436,14 +434,14 @@ class LibsBuilder : Serializable {
      * @param modificationValue the value for the specific modification
      * @return this
      */
-    fun withLibraryModification(library: String, modificationKey: Libs.LibraryFields, modificationValue: String): LibsBuilder {
-        if (!libraryModification.containsKey(library)) {
-            libraryModification[library] = HashMap()
-        }
-        libraryModification[library]?.set(modificationKey.name, modificationValue)
-
-        return this
-    }
+    // fun withLibraryModification(library: String, modificationKey: Libs.LibraryFields, modificationValue: String): LibsBuilder {
+    //     if (!libraryModification.containsKey(library)) {
+    //         libraryModification[library] = HashMap()
+    //     }
+    //     libraryModification[library]?.set(modificationKey.name, modificationValue)
+//
+    //     return this
+    // }
 
     /**
      * Builder method to set the LibsListener for the AboutLibraries actions
@@ -496,12 +494,12 @@ class LibsBuilder : Serializable {
      * @param libTaskExecutor
      * @return this
      */
-    fun withLibTaskExecutor(libTaskExecutor: LibTaskExecutor?): LibsBuilder {
-        if (libTaskExecutor != null) {
-            this.libTaskExecutor = libTaskExecutor
-        }
-        return this
-    }
+    //fun withLibTaskExecutor(libTaskExecutor: LibTaskExecutor?): LibsBuilder {
+    //    if (libTaskExecutor != null) {
+    //        //this.libTaskExecutor = libTaskExecutor
+    //    }
+    //    return this
+    //}
 
     /**
      * Builder method to define a custom callback which is invoked every time the LibraryTask gets executed.
@@ -559,17 +557,14 @@ class LibsBuilder : Serializable {
      * @return a LibsRecyclerViewAdapter with the libraries
      */
     fun adapter(context: Context): FastAdapter<*> {
-        val libs: Libs = if (fields.isEmpty()) {
-            Libs(context, libraryEnchantments = libraryEnchantment)
-        } else {
-            Libs(context, fields, libraryEnchantment)
-        }
+        val libs: Libs = Libs.Builder().withContext(context).build()
 
         //apply modifications
-        libs.modifyLibraries(libraryModification)
+        //libs.modifyLibraries(libraryModification)
 
         //fetch the libraries and sort if a comparator was set
-        val libraries = libs.prepareLibraries(context, internalLibraries, excludeLibraries, autoDetect, checkCachedDetection, sort)
+        val libraries = libs.libraries
+        //libs.prepareLibraries(context, internalLibraries, excludeLibraries, autoDetect, checkCachedDetection, sort)
 
         //prepare adapter
         val itemAdapter = ItemAdapter<IItem<*>>()
@@ -598,10 +593,10 @@ class LibsBuilder : Serializable {
         i.putExtra("data", this)
 
         if (this.activityTitle != null) {
-            i.putExtra(Libs.BUNDLE_TITLE, this.activityTitle)
+            i.putExtra(BUNDLE_TITLE, this.activityTitle)
         }
-        i.putExtra(Libs.BUNDLE_EDGE_TO_EDGE, this.edgeToEdge)
-        i.putExtra(Libs.BUNDLE_SEARCH_ENABLED, this.searchEnabled)
+        i.putExtra(BUNDLE_EDGE_TO_EDGE, this.edgeToEdge)
+        i.putExtra(BUNDLE_SEARCH_ENABLED, this.searchEnabled)
 
         return i
     }
@@ -641,27 +636,18 @@ class LibsBuilder : Serializable {
         return fragment
     }
 
-    /**
-     * supportFragment() method to build and create the fragment with the set params
-     *
-     * @return the fragment to set in your application
-     */
-    fun fragment(): LibsFragment {
-        if (libraryComparator != null) {
-            throw IllegalArgumentException("Can not use a 'libraryComparator' with the fragment")
-        }
+    companion object {
 
-        val bundle = Bundle()
-        bundle.putSerializable("data", this)
+        const val BUNDLE_TITLE = "ABOUT_LIBRARIES_TITLE"
+        const val BUNDLE_EDGE_TO_EDGE = "ABOUT_LIBRARIES_EDGE_TO_EDGE"
+        const val BUNDLE_SEARCH_ENABLED = "ABOUT_LIBRARIES_SEARCH_ENABLED"
 
-        val fragment = LibsFragment()
-        fragment.arguments = bundle
-
-        return fragment
     }
+
+    enum class SpecialButton {
+        SPECIAL1,
+        SPECIAL2,
+        SPECIAL3
+    }
+
 }
-/**
- * intent() method to build and create the intent with the set params
- *
- * @return the intent to start the activity
- */
