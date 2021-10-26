@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory
 import java.io.File
 import java.util.regex.Pattern
 
-class AboutLibrariesProcessor(
+class LibrariesProcessor(
     private val dependencyHandler: DependencyHandler,
     private val collectedDependencies: CollectedContainer,
     private val configFolder: File?,
@@ -178,6 +178,6 @@ class AboutLibrariesProcessor(
     }
 
     companion object {
-        private val LOGGER: Logger = LoggerFactory.getLogger(AboutLibrariesProcessor::class.java)
+        private val LOGGER: Logger = LoggerFactory.getLogger(LibrariesProcessor::class.java)
     }
 }

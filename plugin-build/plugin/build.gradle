@@ -54,8 +54,13 @@ repositories {
 dependencies {
     implementation gradleApi()
     implementation localGroovy()
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.5.31'
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.5.31")
+
+    // parser the pom.xml files
     implementation("org.apache.ivy:ivy:2.5.0")
+
+    // add better android support
+    compileOnly("com.android.tools.build:gradle:7.0.3")
 }
 
 compileGroovy {
