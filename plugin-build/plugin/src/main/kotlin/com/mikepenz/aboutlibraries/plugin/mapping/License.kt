@@ -6,7 +6,7 @@ import com.mikepenz.aboutlibraries.plugin.util.toMD5
  * License class describing a license and its information
  */
 data class License(
-    val name: String,
+    var name: String,
     var url: String?,
     var year: String? = null,
     var content: String? = null
@@ -14,8 +14,14 @@ data class License(
     val hash: String
         get() = "$name,$url,$year,$spdxId,$content".toMD5()
 
-    val spdxId: String?
-        get() = resolveLicenseId(name, url)
+    var spdxId: String? = null
+        get() = if (field == null) {
+            resolveLicenseId(name, url).also {
+                field = it
+            }
+        } else {
+            field
+        }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

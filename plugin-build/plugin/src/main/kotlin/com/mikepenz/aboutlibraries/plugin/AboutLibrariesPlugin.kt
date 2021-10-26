@@ -67,14 +67,6 @@ class AboutLibrariesPlugin : Plugin<Project> {
             it.dependsOn(collectTask)
         }
 
-        // This is necessary for backwards compatibility with versions of gradle that do not support
-        // this new API.
-        try {
-            variant.preBuildProvider.configure { it.dependsOn(task) }
-        } catch (t: Throwable) {
-            //noinspection GrDeprecatedAPIUsage
-            variant.preBuild.dependsOn(task)
-        }
 
         // This is necessary for backwards compatibility with versions of gradle that do not support
         // this new API.
