@@ -8,7 +8,7 @@ enum class SpdxLicense(
     val fullName: String,
     val id: String,
     val aboutLibsId: String? = null,
-    val customMatcher: ((name: String, url: String) -> Boolean)? = null
+    val customMatcher: ((name: String, url: String?) -> Boolean)? = null
 ) {
     _0BSD("BSD Zero Clause License", "0BSD"),
     AAL("Attribution Assurance License", "AAL"),
@@ -383,14 +383,14 @@ enum class SpdxLicense(
 
     // Special handling section
     Apache_2_0("Apache License 2.0", "Apache-2.0", "apache_2_0", { name, url ->
-        name.contains("Apache", true) || url.endsWith("LICENSE-2.0.txt")
+        name.contains("Apache", true) || url?.endsWith("LICENSE-2.0.txt") == true
     }),
     BSD_2_Clause("BSD 2-Clause \"Simplified\" License", "BSD-2-Clause", customMatcher = { name, url ->
-        name.equals("BSD 2-Clause License", true) || url.endsWith("opensource.org/licenses/BSD-2-Clause", true)
+        name.equals("BSD 2-Clause License", true) || url?.endsWith("opensource.org/licenses/BSD-2-Clause", true) == true
     }),
     BSD_3_Clause("BSD 3-Clause \"New\" or \"Revised\" License", "BSD-3-Clause", customMatcher = { name, url ->
         name.equals("New BSD License", true) || name.equals("Modified BSD License", true) || name.equals("BSD 3-clause", true) ||
-                url.endsWith("opensource.org/licenses/BSD-3-Clause", true)
+                url?.endsWith("opensource.org/licenses/BSD-3-Clause", true) == true
     }),
     MIT("MIT License", "MIT", "mit", { name, _ ->
         name.contains("MIT", true)

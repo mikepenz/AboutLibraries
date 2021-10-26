@@ -1,6 +1,7 @@
 package com.mikepenz.aboutlibraries.plugin
 
 import com.mikepenz.aboutlibraries.plugin.mapping.SpdxLicense
+import com.mikepenz.aboutlibraries.plugin.util.AboutLibrariesProcessor
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.TaskAction
 
@@ -48,7 +49,7 @@ abstract class AboutLibrariesExportComplianceTask extends BaseAboutLibrariesTask
         }
 
         final def collectedDependencies = readInCollectedDependencies()
-        final def processor = new AboutLibrariesProcessor(dependencyHandler, collectedDependencies, configPath, exclusionPatterns, fetchRemoteLicense, includeAllLicenses, additionalLicenses, variant)
+        final def processor = new AboutLibrariesProcessor(dependencyHandler, collectedDependencies, configPath, exclusionPatterns, fetchRemoteLicense, variant)
         final def libraries = processor.gatherDependencies()
 
         if (variant != null) {

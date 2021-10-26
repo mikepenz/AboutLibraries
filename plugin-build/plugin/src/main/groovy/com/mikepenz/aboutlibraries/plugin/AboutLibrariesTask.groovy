@@ -3,6 +3,7 @@ package com.mikepenz.aboutlibraries.plugin
 
 import com.mikepenz.aboutlibraries.plugin.mapping.License
 import com.mikepenz.aboutlibraries.plugin.mapping.SpdxLicense
+import com.mikepenz.aboutlibraries.plugin.util.AboutLibrariesProcessor
 import groovy.json.JsonGenerator
 import groovy.xml.MarkupBuilder
 import org.gradle.api.tasks.CacheableTask
@@ -160,15 +161,15 @@ abstract class AboutLibrariesTask extends BaseAboutLibrariesTask {
         this.combinedLibrariesOutputFile = getCombinedLibrariesOutputFile()
 
         final def collectedDependencies = readInCollectedDependencies()
-        final def processor = new AboutLibrariesProcessor(getDependencyHandler(), collectedDependencies, configPath, exclusionPatterns, fetchRemoteLicense, includeAllLicenses, additionalLicenses, variant)
+        final def processor = new AboutLibrariesProcessor(getDependencyHandler(), collectedDependencies, configPath, exclusionPatterns, fetchRemoteLicense, variant)
         final def libraries = processor.gatherDependencies()
 
-        if (processor.includeAllLicenses) {
+        if (includeAllLicenses) {
             // Include all licenses
             neededLicenses.addAll(SpdxLicense.values())
         } else {
             // Include additional licenses explicitly requested.
-            processor.additionalLicenses.each { final al ->
+            additionalLicenses.each { final al ->
                 final def foundLicense = SpdxLicense.values().find { final li ->
                     li.name().equalsIgnoreCase(al) || li.id.equalsIgnoreCase(al)
                 }
@@ -178,7 +179,7 @@ abstract class AboutLibrariesTask extends BaseAboutLibrariesTask {
             }
         }
 
-        final JsonGenerator jsonGenerator = new JsonGenerator.Options().excludeNulls().excludeFieldsByName("artifactFolder").build();
+        final JsonGenerator jsonGenerator = new JsonGenerator.Options().excludeNulls().excludeFieldsByName("artifactFolder", "remoteLicense").build();
         final def printWriter = new PrintWriter(new OutputStreamWriter(combinedLibrariesOutputFile.newOutputStream(), StandardCharsets.UTF_8), true)
         printWriter.write(jsonGenerator.toJson(libraries))
         printWriter.close()

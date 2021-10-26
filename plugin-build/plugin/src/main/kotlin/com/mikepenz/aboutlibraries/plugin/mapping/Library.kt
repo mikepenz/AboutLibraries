@@ -7,17 +7,16 @@ import java.io.File
  */
 data class Library(
     val uniqueId: String,
-    val artifactId: String,
-    val author: String?,
-    val authorWebsite: String?,
-    val libraryName: String?,
-    val libraryDescription: String?,
-    val libraryVersion: String?,
-    val libraryWebsite: String?,
-    val isOpenSource: Boolean,
-    val repositoryLink: String?,
-    val libraryOwner: String?,
+    val artifactVersion: String?,
+    val name: String?,
+    val description: String?,
+    val website: String?,
+    val developer: List<Developer>,
+    val organization: Organization?,
+    val scm: Scm?,
     val licenses: Set<License> = emptySet(),
-    @Transient
     val artifactFolder: File? = null
-)
+) {
+    val openSource: Boolean
+        get() = scm?.url?.isNotBlank() == true
+}
