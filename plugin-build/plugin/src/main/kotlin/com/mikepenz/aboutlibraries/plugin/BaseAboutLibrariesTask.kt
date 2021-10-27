@@ -1,6 +1,7 @@
 package com.mikepenz.aboutlibraries.plugin
 
 import com.mikepenz.aboutlibraries.plugin.model.CollectedContainer
+import com.mikepenz.aboutlibraries.plugin.util.LibrariesProcessor
 import groovy.json.JsonSlurper
 import org.gradle.api.DefaultTask
 import org.gradle.api.artifacts.dsl.DependencyHandler
@@ -48,10 +49,13 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     val fetchRemoteLicense = extension.fetchRemoteLicense ?: false
 
     @Input
-    val exclusionPatterns = extension.exclusionPatterns ?: emptyList()
+    val exclusionPatterns = extension.exclusionPatterns
 
     @Input
     val includeAllLicenses = extension.includeAllLicenses ?: false
+
+    @Input
+    val gitHubApiToken = extension.gitHubApiToken
 
     @Input
     fun getAdditionalLicenses(): HashSet<String> {
@@ -59,11 +63,25 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     }
 
     @Internal
+    @Suppress("UNCHECKED_CAST")
     protected fun readInCollectedDependencies(): CollectedContainer {
         try {
             return CollectedContainer.from((JsonSlurper().parse(dependencyCache) as Map<String, *>)["dependencies"] as Map<String, Map<String, List<String>>>)
         } catch (t: Throwable) {
             throw IllegalStateException("Failed to parse the dependencyCache. Try to do a clean build", t)
         }
+    }
+
+    @Internal
+    protected fun createLibraryProcessor(): LibrariesProcessor {
+        return LibrariesProcessor(
+            getDependencyHandler(),
+            readInCollectedDependencies(),
+            getConfigPath(),
+            exclusionPatterns,
+            fetchRemoteLicense,
+            variant,
+            gitHubApiToken
+        )
     }
 }

@@ -1,7 +1,6 @@
 package com.mikepenz.aboutlibraries.plugin
 
 import com.mikepenz.aboutlibraries.plugin.mapping.SpdxLicense
-import com.mikepenz.aboutlibraries.plugin.util.LibrariesProcessor
 import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.TaskAction
@@ -20,10 +19,7 @@ abstract class AboutLibrariesExportTask : BaseAboutLibrariesTask() {
 
     @TaskAction
     fun action() {
-        val collectedDependencies = readInCollectedDependencies()
-        val processor = LibrariesProcessor(getDependencyHandler(), collectedDependencies, getConfigPath(), exclusionPatterns, fetchRemoteLicense, variant)
-        val result = processor.gatherDependencies()
-
+        val result = createLibraryProcessor().gatherDependencies()
         if (variant != null) {
             println("")
             println("")

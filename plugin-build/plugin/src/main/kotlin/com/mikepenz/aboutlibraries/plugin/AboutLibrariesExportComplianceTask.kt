@@ -1,11 +1,9 @@
 package com.mikepenz.aboutlibraries.plugin
 
 import com.mikepenz.aboutlibraries.plugin.mapping.SpdxLicense
-import com.mikepenz.aboutlibraries.plugin.util.LibrariesProcessor
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.TaskAction
 import java.io.File
-
 import java.nio.file.Files
 import java.nio.file.StandardCopyOption
 
@@ -26,18 +24,11 @@ abstract class AboutLibrariesExportComplianceTask : BaseAboutLibrariesTask() {
 
     @TaskAction
     fun action() {
-        if (exportPath == null) {
-            throw  IllegalArgumentException("Please specify `exportPath` via the gradle CLI (-PexportPath=...)")
-        }
-
-        val collectedDependencies = readInCollectedDependencies()
-        val processor = LibrariesProcessor(getDependencyHandler(), collectedDependencies, getConfigPath(), exclusionPatterns, fetchRemoteLicense, variant)
-        val result = processor.gatherDependencies()
-
+        val result = createLibraryProcessor().gatherDependencies()
         if (variant != null) {
             println("")
             println("")
-            println("Variant: ${variant}")
+            println("Variant: $variant")
         }
 
         val groups = artifactGroups.split(";")

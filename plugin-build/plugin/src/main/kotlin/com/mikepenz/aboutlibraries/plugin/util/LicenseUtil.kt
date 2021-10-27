@@ -28,48 +28,32 @@ object LicenseUtil {
         }
     }
 
+    /** check if there is still available rate quota for the gitHub API */
+    @Suppress("UNCHECKED_CAST")
+    fun availableGitHubRateLimit(gitHubToken: String? = null): Int {
+        return try {
+            val connection = URL("https://api.github.com/rate_limit").openConnection()
+            if (gitHubToken?.isNotBlank() == true) {
+                connection.setRequestProperty("Authorization", "token $gitHubToken")
+            }
+            val rateLimit = JsonSlurper().parse(connection.getInputStream().readBytes()) as Map<String, *>
+            (rateLimit["rate"] as Map<String, String>)["remaining"]?.toIntOrNull() ?: 0
+        } catch (t: Throwable) {
+            0
+        }
+    }
+
     /**
      * Fetch licenses from either the repository, or from spdx as txt format
      */
-    fun fetchRemoteLicense(uniqueId: String, repositoryLink: Scm?, licenses: HashSet<License>) {
+    @Suppress("UNCHECKED_CAST")
+    fun fetchRemoteLicense(uniqueId: String, repositoryLink: Scm?, licenses: HashSet<License>, gitHubApiRateLimit: Int, gitHubToken: String? = null): Int {
         val url = repositoryLink?.url
-        if (url?.contains("github") == true) {
-            // license is usually stored in a file called `LICENSE` on the main or dev branch of the project
-            // https://raw.githubusercontent.com/mikepenz/FastAdapter/develop/LICENSE
-
-            //https://api.github.com/repos/mikepenz/AboutLibraries/license
-            fun discoverBase(url: String): Pair<String, String>? {
-                val parts = url.split("/").filter { it.isNotBlank() }
-                if (parts.size > 3) {
-                    if (parts[parts.size - 3].contains("github")) {
-                        return parts[parts.size - 2] to parts[parts.size - 1]
-                    }
-                }
-                return null
-            }
-
-            discoverBase(url)?.let { base ->
-                val (user, project) = base
-
-                // TODO offer ability to provide PAT
-                val licenseApi = "https://api.github.com/repos/$user/$project/license"
-                try {
-                    val licensesApiResult = JsonSlurper().parse(URL(licenseApi).readBytes()) as Map<String, *>
-                    val rawLicense = licensesApiResult["download_url"] as String
-                    val licenseInformation = licensesApiResult["license"] as Map<String, String>
-                    val content: String? = loadLicenseCached(rawLicense)
-
-                    if (content?.isNotBlank() == true) {
-                        licenses.add(License(licenseInformation["name"]!!, url, null, content).also {
-                            it.spdxId = licenseInformation["spdx_id"]
-                        })
-                    }
-                } catch (ignored: Throwable) {
-                    // ignore
-                }
-            }
+        var calledGitHub = false
+        if (gitHubApiRateLimit > 0 && url?.contains("github") == true) {
+            LOGGER.debug("Remaining GitHub rate limit: $gitHubApiRateLimit")
+            calledGitHub = getLicenseFromGitHubAPI(url, licenses, gitHubToken)
         }
-
         if (licenses.isNotEmpty()) {
             licenses.forEach {
                 try {
@@ -91,5 +75,62 @@ object LicenseUtil {
         } else {
             LOGGER.info("Retrieved license (${licenses.firstOrNull()?.name}) via GitHub license API")
         }
+
+        return if (calledGitHub) {
+            gitHubApiRateLimit - 1
+        } else {
+            gitHubApiRateLimit
+        }
     }
+
+    /**
+     * Call the GitHub API to retrieve the license of a project
+     */
+    @Suppress("UNCHECKED_CAST")
+    private fun getLicenseFromGitHubAPI(url: String, licenses: HashSet<License>, gitHubToken: String? = null): Boolean {
+        // license is usually stored in a file called `LICENSE` on the main or dev branch of the project
+        // https://raw.githubusercontent.com/mikepenz/FastAdapter/develop/LICENSE
+
+        var calledGitHub = false
+
+        //https://api.github.com/repos/mikepenz/AboutLibraries/license
+        fun discoverBase(url: String): Pair<String, String>? {
+            val parts = url.split("/").filter { it.isNotBlank() }
+            if (parts.size > 3) {
+                if (parts[parts.size - 3].contains("github")) {
+                    return parts[parts.size - 2] to parts[parts.size - 1]
+                }
+            }
+            return null
+        }
+
+        discoverBase(url)?.let { base ->
+            val (user, project) = base
+
+            // TODO offer ability to provide PAT
+            val licenseApi = "https://api.github.com/repos/$user/$project/license"
+            try {
+                val connection = URL(licenseApi).openConnection()
+                if (!gitHubToken.isNullOrBlank()) {
+                    connection.setRequestProperty("Authorization", "token $gitHubToken")
+                }
+                val licensesApiResult = JsonSlurper().parse(connection.getInputStream().readBytes()) as Map<String, *>
+                calledGitHub = true
+
+                val rawLicense = licensesApiResult["download_url"] as String
+                val licenseInformation = licensesApiResult["license"] as Map<String, String>
+                val content: String? = loadLicenseCached(rawLicense)
+
+                if (content?.isNotBlank() == true) {
+                    licenses.add(License(licenseInformation["name"]!!, rawLicense, null, content).also {
+                        it.spdxId = licenseInformation["spdx_id"]
+                    })
+                }
+            } catch (ignored: Throwable) {
+                // ignore
+            }
+        }
+        return calledGitHub
+    }
+
 }

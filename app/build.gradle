@@ -77,6 +77,7 @@ android {
 aboutLibraries {
     configPath = "config"
     fetchRemoteLicense = true
+    gitHubApiToken = getLocalOrGlobalProperty("github.pat")
 
     // Full license text for license IDs mentioned here
     // will be included, even if no detected dependency uses them.

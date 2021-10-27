@@ -39,6 +39,12 @@ abstract class AboutLibrariesExtension @Inject constructor(objectFactory: Object
      */
     var additionalLicenses: NamedDomainObjectCollection<AboutLibrariesLicenseExtension>
 
+    /**
+     * An optional GitHub API token used to access the `license` endpoint provided by GitHub
+     * - https://api.github.com/repos/mikepenz/AboutLibraries/license
+     */
+    var gitHubApiToken: String? = null
+
     init {
         additionalLicenses = objectFactory.domainObjectContainer(AboutLibrariesLicenseExtension::class.java)
     }

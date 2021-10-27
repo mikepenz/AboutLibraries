@@ -4,7 +4,6 @@ package com.mikepenz.aboutlibraries.plugin
 import com.mikepenz.aboutlibraries.plugin.mapping.License
 import com.mikepenz.aboutlibraries.plugin.mapping.SpdxLicense
 import com.mikepenz.aboutlibraries.plugin.model.writeToDisk
-import com.mikepenz.aboutlibraries.plugin.util.LibrariesProcessor
 import com.mikepenz.aboutlibraries.plugin.util.toMD5
 import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.Internal
@@ -127,10 +126,7 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
         this.outputRawFolder = getRawFolder()
         this.combinedLibrariesOutputFile = getCombinedLibrariesOutputFile()
 
-        val collectedDependencies = readInCollectedDependencies()
-        val processor = LibrariesProcessor(getDependencyHandler(), collectedDependencies, getConfigPath(), exclusionPatterns, fetchRemoteLicense, variant)
-        val libraries = processor.gatherDependencies()
-
+        val libraries = createLibraryProcessor().gatherDependencies()
         if (includeAllLicenses) {
             // Include all licenses
             neededLicenses.addAll(SpdxLicense.values().map { it.id })

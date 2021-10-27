@@ -45,22 +45,22 @@ class PomReader(inputStream: InputStream) {
     }
 
     val groupId: String?
-        get() = getProjectFirstText(GROUP_ID)
+        get() = getFirstChildText(projectElement, GROUP_ID).replaceProps()
 
     val parentGroupId: String?
-        get() = getParentFirstText(GROUP_ID)
+        get() = getFirstChildText(parentElement, GROUP_ID).replaceProps()
 
     val artifactId: String?
-        get() = getProjectFirstText(ARTIFACT_ID)
+        get() = getFirstChildText(projectElement, ARTIFACT_ID).replaceProps()
 
     val parentArtifactId: String?
-        get() = getParentFirstText(ARTIFACT_ID)
+        get() = getFirstChildText(parentElement, ARTIFACT_ID).replaceProps()
 
     val version: String?
-        get() = getProjectFirstText(VERSION)
+        get() = getFirstChildText(projectElement, VERSION).replaceProps()
 
     val parentVersion: String?
-        get() = getParentFirstText(VERSION)
+        get() = getFirstChildText(parentElement, VERSION).replaceProps()
 
     val packaging: String
         get() = getFirstChildText(projectElement, PACKAGING) ?: "jar"
@@ -69,10 +69,10 @@ class PomReader(inputStream: InputStream) {
         get() = getFirstChildText(projectElement, HOMEPAGE)
 
     val name: String
-        get() = getFirstChildText(projectElement, NAME)?.trim() ?: ""
+        get() = getFirstChildText(projectElement, NAME).replaceProps()?.trim() ?: ""
 
     val description: String
-        get() = getFirstChildText(projectElement, DESCRIPTION)?.trim() ?: ""
+        get() = getFirstChildText(projectElement, DESCRIPTION).replaceProps()?.trim() ?: ""
 
     val licenses: Array<License>
         get() {
@@ -229,14 +229,6 @@ class PomReader(inputStream: InputStream) {
             return pomProperties
         }
 
-    private fun getProjectFirstText(name: String): String? {
-        return (getFirstChildText(projectElement, name) ?: getFirstChildText(parentElement, name)).replaceProps()
-    }
-
-    private fun getParentFirstText(name: String): String? {
-        return (getFirstChildText(parentElement, name) ?: getFirstChildText(projectElement, name)).replaceProps()
-    }
-
     private fun String?.replaceProps(): String? {
         return if (this == null) null else IvyPatternHelper.substituteVariables(this, properties).trim { it <= ' ' }
     }
@@ -319,7 +311,7 @@ class PomReader(inputStream: InputStream) {
         private const val DEPENDENCIES = "dependencies"
         private const val DEPENDENCY_MGT = "dependencyManagement"
         private const val DEVELOPER = "developer"
-        private const val DEVELOPERS = "dependencies"
+        private const val DEVELOPERS = "developers"
         private const val DEVELOPER_ORG_URL = "organizationUrl"
         private const val PROJECT = "project"
         private const val MODEL = "model"

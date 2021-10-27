@@ -94,7 +94,6 @@ class DependencyCollector() {
                             resolvedDependency.children.getResolvedArtifacts(
                                 visitedDependencyNames = visitedDependencyNames
                             )
-
                         else -> resolvedDependency.allModuleArtifacts
                     }
                 } catch (e: AmbiguousVariantSelectionException) {

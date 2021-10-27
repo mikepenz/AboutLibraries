@@ -11,8 +11,11 @@ data class License(
     var year: String? = null,
     var content: String? = null
 ) {
+    /** internal to describe custom licenses */
+    var internalHash: String? = null
+
     val hash: String
-        get() = "$name,$url,$year,$spdxId,$content".toMD5()
+        get() = internalHash ?: "$name,$url,$year,$spdxId,$content".toMD5()
 
     var spdxId: String? = null
         get() = if (field == null) {
