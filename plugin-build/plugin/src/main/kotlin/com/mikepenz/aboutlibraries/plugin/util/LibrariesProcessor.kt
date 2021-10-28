@@ -1,5 +1,6 @@
 package com.mikepenz.aboutlibraries.plugin.util
 
+import com.mikepenz.aboutlibraries.plugin.mapping.Developer
 import com.mikepenz.aboutlibraries.plugin.mapping.Library
 import com.mikepenz.aboutlibraries.plugin.mapping.License
 import com.mikepenz.aboutlibraries.plugin.model.CollectedContainer
@@ -60,17 +61,44 @@ class LibrariesProcessor(
         }
 
         if (configFolder != null) {
-            LicenseReader.readLicenses(configFolder).forEach {
-                // overlapping hash ?!
-                licensesMap[it.hash] = it
+            LicenseReader.readLicenses(configFolder).forEach { lic ->
+                if (licensesMap.containsKey(lic.hash)) {
+                    licensesMap[lic.hash]?.also { orgLic ->
+                        lic.name.takeIf { it.isNotBlank() }?.also { orgLic.name = it }
+                        lic.url?.takeIf { it.isNotBlank() }?.also { orgLic.url = it }
+                        lic.year?.takeIf { it.isNotBlank() }?.also { orgLic.year = it }
+                        lic.content?.takeIf { it.isNotBlank() }?.also { orgLic.content = it }
+                    }
+                } else {
+                    licensesMap[lic.hash] = lic
+                }
             }
 
-            LibraryReader.readLibraries(configFolder).forEach {
-                LOGGER.error("Found custom: $it")
-                librariesList.add(it) // merge with existing libraries!
+            LibraryReader.readLibraries(configFolder).takeIf { it.isNotEmpty() }?.also { customLibs ->
+                val librariesMap = librariesList.associateBy { it.uniqueId }
+                customLibs.forEach { lib ->
+                    if (librariesMap.containsKey(lib.uniqueId)) {
+                        librariesMap[lib.uniqueId]?.also { orgLib ->
+                            lib.name?.takeIf { it.isNotBlank() }?.also { orgLib.name = it }
+                            lib.description?.takeIf { it.isNotBlank() }?.also { orgLib.description = it }
+                            lib.website?.takeIf { it.isNotBlank() }?.also { orgLib.website = it }
+                            lib.organization?.also { orgLib.organization = it }
+                            lib.scm?.also { orgLib.scm = it }
+                            orgLib.developers = mutableListOf<Developer>().also {
+                                it.addAll(lib.developers)
+                                it.addAll(orgLib.developers)
+                            }
+                            orgLib.licenses = mutableSetOf<String>().also {
+                                it.addAll(lib.licenses)
+                                it.addAll(orgLib.licenses)
+                            }
+                        }
+                    } else {
+                        librariesList.add(lib)
+                    }
+                }
             }
         }
-
 
         return ResultContainer(librariesList, licensesMap)
     }

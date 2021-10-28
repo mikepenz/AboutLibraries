@@ -6,16 +6,16 @@ import java.io.File
  * Library class describing a library and its information
  */
 data class Library(
-    val uniqueId: String,
-    val artifactVersion: String?,
-    val name: String?,
-    val description: String?,
-    val website: String?,
-    val developers: List<Developer>,
-    val organization: Organization?,
-    val scm: Scm?,
-    val licenses: Set<String> = emptySet(),
-    val artifactFolder: File? = null
+    var uniqueId: String,
+    var artifactVersion: String?,
+    var name: String?,
+    var description: String?,
+    var website: String?,
+    var developers: List<Developer>,
+    var organization: Organization?,
+    var scm: Scm?,
+    var licenses: Set<String> = emptySet(),
+    var artifactFolder: File? = null
 ) {
     val artifactId: String
         get() = "${uniqueId}:${artifactVersion ?: ""}"

@@ -37,7 +37,7 @@ object LicenseUtil {
                 connection.setRequestProperty("Authorization", "token $gitHubToken")
             }
             val rateLimit = JsonSlurper().parse(connection.getInputStream().readBytes()) as Map<String, *>
-            (rateLimit["rate"] as Map<String, String>)["remaining"]?.toIntOrNull() ?: 0
+            (rateLimit["rate"] as Map<String, *>)["remaining"] as Int
         } catch (t: Throwable) {
             0
         }
