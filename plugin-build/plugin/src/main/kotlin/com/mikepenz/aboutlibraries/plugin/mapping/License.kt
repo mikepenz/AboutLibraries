@@ -19,7 +19,7 @@ data class License(
 
     var spdxId: String? = null
         get() = if (field == null) {
-            resolveLicenseId(name, url).also {
+            resolveLicenseId(name, url)?.also {
                 field = it
             }
         } else {
@@ -37,6 +37,7 @@ data class License(
 
         return true
     }
+
 
     override fun hashCode(): Int {
         var result = name.hashCode()

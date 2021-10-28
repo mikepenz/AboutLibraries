@@ -410,4 +410,15 @@ enum class SpdxLicense(
     fun getUrl(): String = "https://spdx.org/licenses/$id.html"
 
     fun getTxtUrl(): String = "https://spdx.org/licenses/$id.txt"
+
+    companion object {
+        internal fun find(key: String): SpdxLicense? {
+            for (l: SpdxLicense in SpdxLicense.values()) {
+                if (l.id.equals(key, true) || l.name.equals(key, true) || l.fullName.equals(key, true)) {
+                    return l
+                }
+            }
+            return null
+        }
+    }
 }

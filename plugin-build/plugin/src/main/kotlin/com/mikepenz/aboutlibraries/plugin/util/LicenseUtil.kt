@@ -56,20 +56,8 @@ object LicenseUtil {
         }
         if (licenses.isNotEmpty()) {
             licenses.forEach {
-                try {
-                    val spdxId = it.spdxId
-                    if (spdxId != null) {
-                        val enumLicense = SpdxLicense.valueOf(spdxId)
-                        val licUrl = enumLicense.getTxtUrl()
-                        val singleLicense: String? = loadLicenseCached(licUrl)
-                        if (singleLicense?.isNotBlank() == true) {
-                            it.name = enumLicense.fullName // TODO re-evaluate
-                            it.url = licUrl
-                            it.content = singleLicense
-                        }
-                    }
-                } catch (ignored: Throwable) {
-                    // ignore
+                if (it.spdxId != null && it.content == null) {
+                    it.loadSpdxLicense()
                 }
             }
         } else {
@@ -80,6 +68,26 @@ object LicenseUtil {
             gitHubApiRateLimit - 1
         } else {
             gitHubApiRateLimit
+        }
+    }
+
+    fun License.loadSpdxLicense() {
+        val spdxId = spdxId ?: return
+        try {
+            val enumLicense = SpdxLicense.find(spdxId)
+            if (enumLicense != null) {
+                val licUrl = enumLicense.getTxtUrl()
+                val singleLicense: String? = loadLicenseCached(licUrl)
+                if (singleLicense?.isNotBlank() == true) {
+                    name = enumLicense.fullName
+                    url = enumLicense.getUrl()
+                    content = singleLicense
+                }
+            } else {
+                LOGGER.info("`spdxId` did not match any known SpdxLicense: $spdxId")
+            }
+        } catch (t: Throwable) {
+            LOGGER.debug("Could not load the license content", t)
         }
     }
 

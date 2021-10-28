@@ -20,13 +20,6 @@ abstract class AboutLibrariesExtension @Inject constructor(objectFactory: Object
     var fetchRemoteLicense: Boolean? = null
 
     /**
-     * Include all licenses
-     *
-     * Useful if you want to include all licenses available even if they weren't detected by this plugin
-     */
-    var includeAllLicenses: Boolean? = null
-
-    /**
      * A list of patterns (matching on the library id) to exclude libraries.
      * This is helpful to exclude internal libraries or submodules.
      */

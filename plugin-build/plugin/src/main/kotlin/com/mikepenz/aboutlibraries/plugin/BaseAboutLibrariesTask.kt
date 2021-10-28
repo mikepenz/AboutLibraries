@@ -52,9 +52,6 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     val exclusionPatterns = extension.exclusionPatterns
 
     @Input
-    val includeAllLicenses = extension.includeAllLicenses ?: false
-
-    @Input
     val gitHubApiToken = extension.gitHubApiToken
 
     @Input
@@ -80,6 +77,7 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
             getConfigPath(),
             exclusionPatterns,
             fetchRemoteLicense,
+            getAdditionalLicenses(),
             variant,
             gitHubApiToken
         )

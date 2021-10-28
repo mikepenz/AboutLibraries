@@ -3,9 +3,11 @@ package com.mikepenz.aboutlibraries.plugin.util
 import com.mikepenz.aboutlibraries.plugin.mapping.Developer
 import com.mikepenz.aboutlibraries.plugin.mapping.Library
 import com.mikepenz.aboutlibraries.plugin.mapping.License
+import com.mikepenz.aboutlibraries.plugin.mapping.SpdxLicense
 import com.mikepenz.aboutlibraries.plugin.model.CollectedContainer
 import com.mikepenz.aboutlibraries.plugin.model.ResultContainer
 import com.mikepenz.aboutlibraries.plugin.util.LicenseUtil.fetchRemoteLicense
+import com.mikepenz.aboutlibraries.plugin.util.LicenseUtil.loadSpdxLicense
 import com.mikepenz.aboutlibraries.plugin.util.PomLoader.resolvePomFile
 import com.mikepenz.aboutlibraries.plugin.util.parser.LibraryReader
 import com.mikepenz.aboutlibraries.plugin.util.parser.LicenseReader
@@ -23,6 +25,7 @@ class LibrariesProcessor(
     private val configFolder: File?,
     private val exclusionPatterns: List<Pattern>,
     private val fetchRemoteLicense: Boolean,
+    private val additionalLicenses: HashSet<String>,
     private var variant: String? = null,
     private var gitHubToken: String? = null
 ) {
@@ -36,7 +39,7 @@ class LibrariesProcessor(
         }
 
         val collectedDependencies = collectedDependencies.dependenciesForVariant(variant)
-        println("All dependencies.size=${collectedDependencies.size}")
+        println("All dependencies.size = ${collectedDependencies.size}")
 
         val librariesList = ArrayList<Library>()
         val licensesMap = HashMap<String, License>()
@@ -93,10 +96,33 @@ class LibrariesProcessor(
                                 it.addAll(orgLib.licenses)
                             }
                         }
+
+                        // TODO verify if any libraries are missing
                     } else {
                         librariesList.add(lib)
                     }
                 }
+            }
+        }
+
+        if (additionalLicenses.isNotEmpty()) {
+            // Include additional licenses explicitly requested.
+            additionalLicenses.forEach { al ->
+                val foundLicense = SpdxLicense.find(al)
+                if (foundLicense != null && !licensesMap.containsKey(foundLicense.id)) {
+                    licensesMap[foundLicense.id] = License(
+                        foundLicense.fullName,
+                        foundLicense.getUrl(),
+                        null
+                    )
+                }
+            }
+        }
+
+        // Download content for all licenses missing the content
+        licensesMap.values.forEach {
+            if (it.content.isNullOrBlank()) {
+                it.loadSpdxLicense()
             }
         }
 
@@ -174,11 +200,13 @@ class LibrariesProcessor(
 
         // the list of licenses a lib may have
         val licenses = (chooseValue(uniqueId, "licenses", pomReader.licenses) { parentPomReader?.licenses })?.map {
-            License(it.name, it.url, year = resolveLicenseYear(uniqueId, it.url))
+            License(it.name, it.url, year = resolveLicenseYear(uniqueId, it.url)).also { lic ->
+                lic.internalHash = lic.spdxId // in case this can be tracked back to a spdx id use according hash
+            }
         }?.toHashSet()
 
         val scm = chooseValue(uniqueId, "scm", pomReader.scm) { parentPomReader?.scm }
-        if (licenses != null) {
+        if (licenses != null && fetchRemoteLicense) {
             rateLimit = fetchRemoteLicense(uniqueId, scm, licenses, rateLimit, gitHubToken)
         }
 
