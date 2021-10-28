@@ -13,10 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mikepenz.aboutlibraries.LibsBuilder
 import com.mikepenz.aboutlibraries.LibsConfiguration
 import com.mikepenz.aboutlibraries.R
-import com.mikepenz.aboutlibraries.util.MovementCheck
-import com.mikepenz.aboutlibraries.util.getSupportColor
-import com.mikepenz.aboutlibraries.util.getThemeColor
-import com.mikepenz.aboutlibraries.util.resolveStyledValue
+import com.mikepenz.aboutlibraries.util.*
 import com.mikepenz.fastadapter.items.AbstractItem
 
 /**
@@ -106,17 +103,16 @@ class HeaderItem(var libsBuilder: LibsBuilder) : AbstractItem<HeaderItem.ViewHol
         // set the values for the special fields
         if (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial1) && (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial1Description) || LibsConfiguration.listener != null)) {
             holder.aboutSpecial1.text = libsBuilder.aboutAppSpecial1
-            LibsConfiguration.postTextAction?.invoke(holder.aboutSpecial1)
             holder.aboutSpecial1.visibility = View.VISIBLE
             holder.aboutSpecial1.setOnClickListener { v ->
-                val consumed = LibsConfiguration.listener?.onExtraClicked(v, LibsBuilder.SpecialButton.SPECIAL1)
+                val consumed = LibsConfiguration.listener?.onExtraClicked(v, SpecialButton.SPECIAL1)
                     ?: false
 
                 if (!consumed && !TextUtils.isEmpty(libsBuilder.aboutAppSpecial1Description)) {
                     try {
                         val alert = AlertDialog.Builder(ctx)
-                                .setMessage(Html.fromHtml(libsBuilder.aboutAppSpecial1Description))
-                                .create()
+                            .setMessage(Html.fromHtml(libsBuilder.aboutAppSpecial1Description))
+                            .create()
                         alert.show()
                         val alertText = alert.findViewById<View>(android.R.id.message) as TextView?
                         if (alertText != null) {
@@ -131,16 +127,15 @@ class HeaderItem(var libsBuilder: LibsBuilder) : AbstractItem<HeaderItem.ViewHol
         }
         if (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial2) && (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial2Description) || LibsConfiguration.listener != null)) {
             holder.aboutSpecial2.text = libsBuilder.aboutAppSpecial2
-            LibsConfiguration.postTextAction?.invoke(holder.aboutSpecial2)
             holder.aboutSpecial2.visibility = View.VISIBLE
             holder.aboutSpecial2.setOnClickListener { v ->
-                val consumed = LibsConfiguration.listener?.onExtraClicked(v, LibsBuilder.SpecialButton.SPECIAL2)
+                val consumed = LibsConfiguration.listener?.onExtraClicked(v, SpecialButton.SPECIAL2)
                     ?: false
                 if (!consumed && !TextUtils.isEmpty(libsBuilder.aboutAppSpecial2Description)) {
                     try {
                         val alert = AlertDialog.Builder(ctx)
-                                .setMessage(Html.fromHtml(libsBuilder.aboutAppSpecial2Description))
-                                .create()
+                            .setMessage(Html.fromHtml(libsBuilder.aboutAppSpecial2Description))
+                            .create()
                         alert.show()
                         val alertText = alert.findViewById<View>(android.R.id.message) as TextView?
                         if (alertText != null) {
@@ -155,17 +150,16 @@ class HeaderItem(var libsBuilder: LibsBuilder) : AbstractItem<HeaderItem.ViewHol
         }
         if (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial3) && (!TextUtils.isEmpty(libsBuilder.aboutAppSpecial3Description) || LibsConfiguration.listener != null)) {
             holder.aboutSpecial3.text = libsBuilder.aboutAppSpecial3
-            LibsConfiguration.postTextAction?.invoke(holder.aboutSpecial3)
             holder.aboutSpecial3.visibility = View.VISIBLE
             holder.aboutSpecial3.setOnClickListener { v ->
-                val consumed = LibsConfiguration.listener?.onExtraClicked(v, LibsBuilder.SpecialButton.SPECIAL3)
+                val consumed = LibsConfiguration.listener?.onExtraClicked(v, SpecialButton.SPECIAL3)
                     ?: false
 
                 if (!consumed && !TextUtils.isEmpty(libsBuilder.aboutAppSpecial3Description)) {
                     try {
                         val alert = AlertDialog.Builder(ctx)
-                                .setMessage(Html.fromHtml(libsBuilder.aboutAppSpecial3Description))
-                                .create()
+                            .setMessage(Html.fromHtml(libsBuilder.aboutAppSpecial3Description))
+                            .create()
                         alert.show()
                         val alertText = alert.findViewById<View>(android.R.id.message) as TextView?
                         if (alertText != null) {
@@ -197,7 +191,6 @@ class HeaderItem(var libsBuilder: LibsBuilder) : AbstractItem<HeaderItem.ViewHol
         //Set the description or hide it
         if (!libsBuilder.aboutDescription.isNullOrEmpty()) {
             holder.aboutAppDescription.text = Html.fromHtml(libsBuilder.aboutDescription)
-            LibsConfiguration.postTextAction?.invoke(holder.aboutAppDescription)
             holder.aboutAppDescription.movementMethod = MovementCheck.instance
         } else {
             holder.aboutAppDescription.visibility = View.GONE
@@ -236,7 +229,12 @@ class HeaderItem(var libsBuilder: LibsBuilder) : AbstractItem<HeaderItem.ViewHol
                 aboutAppName.setTextColor(it.getColorStateList(R.styleable.AboutLibraries_aboutLibrariesDescriptionTitle))
                 aboutVersion.setTextColor(it.getColorStateList(R.styleable.AboutLibraries_aboutLibrariesDescriptionText))
                 aboutAppDescription.setTextColor(it.getColorStateList(R.styleable.AboutLibraries_aboutLibrariesDescriptionText))
-                aboutDivider.setBackgroundColor(it.getColor(R.styleable.AboutLibraries_aboutLibrariesDescriptionDivider, ctx.getThemeColor(R.attr.aboutLibrariesDescriptionDivider, ctx.getSupportColor(R.color.about_libraries_dividerLight_openSource))))
+                aboutDivider.setBackgroundColor(
+                    it.getColor(
+                        R.styleable.AboutLibraries_aboutLibrariesDescriptionDivider,
+                        ctx.getThemeColor(R.attr.aboutLibrariesDescriptionDivider, ctx.getSupportColor(R.color.about_libraries_dividerLight_openSource))
+                    )
+                )
                 aboutSpecial1.setTextColor(it.getColorStateList(R.styleable.AboutLibraries_aboutLibrariesSpecialButtonText))
                 aboutSpecial2.setTextColor(it.getColorStateList(R.styleable.AboutLibraries_aboutLibrariesSpecialButtonText))
                 aboutSpecial3.setTextColor(it.getColorStateList(R.styleable.AboutLibraries_aboutLibrariesSpecialButtonText))

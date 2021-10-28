@@ -40,7 +40,6 @@ kotlin {
         publishAllLibraryVariants()
     }
 
-
     sourceSets {
         jvmTest {
             dependencies {

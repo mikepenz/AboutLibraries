@@ -53,7 +53,7 @@ private fun resolveLicenseId(name: String, url: String?): String? {
     for (l: SpdxLicense in SpdxLicense.values()) {
         val matcher = l.customMatcher
         if (l.id.equals(name, true) || l.name.equals(name, true) || l.fullName.equals(name, true) || (matcher != null && matcher.invoke(name, url))) {
-            return l.name
+            return l.id
         }
     }
     return null

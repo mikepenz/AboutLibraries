@@ -111,11 +111,6 @@ class LibsFragmentCompat : Filterable {
 
     protected fun executeLibTask(libraryTask: LibraryTask?) {
         if (libraryTask != null && ::builder.isInitialized) {
-            //when (builder.libTaskExecutor) {
-            //    LibTaskExecutor.THREAD_POOL_EXECUTOR -> libraryTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
-            //    LibTaskExecutor.SERIAL_EXECUTOR -> libraryTask.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR)
-            //    LibTaskExecutor.DEFAULT_EXECUTOR -> libraryTask.execute()
-            //}
             libraryTask.execute()
         }
     }
@@ -134,11 +129,6 @@ class LibsFragmentCompat : Filterable {
         private var versionName: String? = null
         private var versionCode: Int? = null
         internal var icon: Drawable? = null
-
-        override fun onPreExecute() {
-            //started loading
-            LibsConfiguration.libTaskCallback?.onLibTaskStarted()
-        }
 
         override fun doInBackground(vararg strings: String) {
             //init the Libs instance with fields if they were set
@@ -165,9 +155,6 @@ class LibsFragmentCompat : Filterable {
             //  builder.aboutAppSpecial2Description = ctx.extractStringBundleOrResource(builder.aboutAppSpecial2Description, "aboutLibraries_description_special2_text")
             //  builder.aboutAppSpecial3 = ctx.extractStringBundleOrResource(builder.aboutAppSpecial3, "aboutLibraries_description_special3_name")
             //  builder.aboutAppSpecial3Description = ctx.extractStringBundleOrResource(builder.aboutAppSpecial3Description, "aboutLibraries_description_special3_text")
-
-            //apply modifications
-            // libs.modifyLibraries(builder.libraryModification)
 
             //fetch the libraries and sort if a comparator was set
             val doDefaultSort = builder.sort && null == builder.libraryComparator && null == comparator
@@ -226,26 +213,15 @@ class LibsFragmentCompat : Filterable {
 
             //add the libs
             val libraryItems = ArrayList<IItem<*>>()
-            val interceptor = LibsConfiguration.libsItemInterceptor
             for (library in libraries) {
                 when {
-                    interceptor != null -> {
-                        libraryItems.add(interceptor(library, builder))
-                    }
-                    builder.aboutMinimalDesign -> {
-                        libraryItems.add(SimpleLibraryItem(library, builder))
-                    }
-                    else -> {
-                        libraryItems.add(LibraryItem(library, builder))
-                    }
+                    builder.aboutMinimalDesign -> libraryItems.add(SimpleLibraryItem(library, builder))
+                    else -> libraryItems.add(LibraryItem(library, builder))
                 }
             }
             itemAdapter.add(libraryItems)
 
             super.onPostExecute(nothing)
-
-            //finished loading
-            LibsConfiguration.libTaskCallback?.onLibTaskFinished(itemAdapter)
         }
     }
 }

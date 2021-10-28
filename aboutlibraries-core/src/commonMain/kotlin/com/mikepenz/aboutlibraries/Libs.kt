@@ -34,7 +34,7 @@ class Libs internal constructor(
             throw IllegalStateException("Please provide the data via the provided APIs")
         }
 
-        _libraries.addAll(libraries)
+        _libraries.addAll(libraries.sortedBy { it.name })
         _licenses.addAll(licenses)
     }
 

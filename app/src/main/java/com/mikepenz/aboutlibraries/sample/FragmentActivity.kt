@@ -11,14 +11,13 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import com.mikepenz.aboutlibraries.LibTaskCallback
 import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.LibsBuilder
 import com.mikepenz.aboutlibraries.LibsConfiguration
 import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.sample.databinding.ActivityFragmentBinding
+import com.mikepenz.aboutlibraries.util.SpecialButton
 import com.mikepenz.aboutlibraries.util.withContext
-import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.withIdentifier
 import com.mikepenz.materialdrawer.model.interfaces.withName
@@ -31,16 +30,6 @@ class FragmentActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFragmentBinding
 
     private lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
-
-    internal var libTaskCallback: LibTaskCallback = object : LibTaskCallback {
-        override fun onLibTaskStarted() {
-            Log.e("AboutLibraries", "started")
-        }
-
-        override fun onLibTaskFinished(fastItemAdapter: ItemAdapter<*>) {
-            Log.e("AboutLibraries", "finished")
-        }
-    }
 
     internal var libsUIListener: LibsConfiguration.LibsUIListener = object : LibsConfiguration.LibsUIListener {
         override fun preOnCreateView(view: View): View {
@@ -69,7 +58,7 @@ class FragmentActivity : AppCompatActivity() {
             return false
         }
 
-        override fun onExtraClicked(v: View, specialButton: LibsBuilder.SpecialButton): Boolean {
+        override fun onExtraClicked(v: View, specialButton: SpecialButton): Boolean {
             return false
         }
 
@@ -136,7 +125,6 @@ class FragmentActivity : AppCompatActivity() {
                     R.id.action_minimalactivity.toLong() -> {
                         // create and launch an activity in minimal design without any additional modifications
                         LibsBuilder()
-                            .withFields(R.string::class.java.fields)
                             .withAboutMinimalDesign(true)
                             .withEdgeToEdge(true)
                             .withActivityTitle("Open Source")
@@ -147,15 +135,11 @@ class FragmentActivity : AppCompatActivity() {
                     R.id.action_manifestactivity.toLong() -> {
                         // create and launch an activity in full design, with various configurations and adjustments
                         LibsBuilder()
-                            .withFields(R.string::class.java.fields)
-                            .withLibraries("crouton", "actionbarsherlock", "showcaseview", "glide")
-                            .withAutoDetect(false)
                             .withLicenseShown(true)
                             .withVersionShown(true)
                             .withActivityTitle("Open Source")
                             .withEdgeToEdge(true)
                             .withListener(libsListener)
-                            .withLibTaskCallback(libTaskCallback)
                             .withUiListener(libsUIListener)
                             .withSearchEnabled(true)
                             .start(this@FragmentActivity)
@@ -167,13 +151,9 @@ class FragmentActivity : AppCompatActivity() {
         }
 
         val fragment = LibsBuilder()
-            .withFields(R.string::class.java.fields)
             .withVersionShown(true)
             .withLicenseShown(true)
             .withLicenseDialog(true)
-            // find ids via './gradlew findLibraries'
-            //.withLibraryModification("androidx_activity__activity", Libs.LibraryFields.LIBRARY_NAME, "Activity Support")
-            .withLibraryEnchantment("com_mikepenz__fastadapter", "fastadapter")
             .supportFragment()
 
         val fragmentManager = supportFragmentManager

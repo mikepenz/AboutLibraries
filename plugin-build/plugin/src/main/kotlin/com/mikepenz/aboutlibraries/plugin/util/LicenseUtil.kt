@@ -122,8 +122,16 @@ object LicenseUtil {
                 val content: String? = loadLicenseCached(rawLicense)
 
                 if (content?.isNotBlank() == true) {
+                    val spdxId = licenseInformation["spdx_id"]
+                    if (!spdxId.isNullOrBlank()) {
+                        val hasSame = licenses.findSameSpdx(spdxId)
+                        if (hasSame != null) {
+                            licenses.remove(hasSame)
+                            LOGGER.debug("Replace POM license with REPO library")
+                        }
+                    }
                     licenses.add(License(licenseInformation["name"]!!, rawLicense, null, content).also {
-                        it.spdxId = licenseInformation["spdx_id"]
+                        it.spdxId = spdxId
                     })
                 }
             } catch (ignored: Throwable) {
@@ -133,4 +141,8 @@ object LicenseUtil {
         return calledGitHub
     }
 
+    fun HashSet<License>.findSameSpdx(spdxId: String?): License? {
+        spdxId ?: return null
+        return firstOrNull { it.spdxId == spdxId }
+    }
 }

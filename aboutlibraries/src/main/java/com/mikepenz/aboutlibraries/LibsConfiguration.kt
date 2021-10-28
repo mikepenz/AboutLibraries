@@ -3,12 +3,10 @@
 package com.mikepenz.aboutlibraries
 
 import android.view.View
-import android.view.animation.LayoutAnimationController
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.ui.item.HeaderItem
-import com.mikepenz.fastadapter.IItem
+import com.mikepenz.aboutlibraries.util.SpecialButton
 
 /**
  * Util class to modify behavior of the
@@ -20,19 +18,9 @@ object LibsConfiguration {
     /** Intercept the UI and allow to modify it */
     var uiListener: LibsUIListener? = null
 
-    /** Interceptor allowing creating custom items for the list */
-    var libsItemInterceptor: ((Library, LibsBuilder) -> IItem<*>)? = null
-
     var libsRecyclerViewListener: LibsRecyclerViewListener? = null
 
-    var layoutAnimationController: LayoutAnimationController? = null
-
     var itemAnimator: RecyclerView.ItemAnimator? = null
-
-    var libTaskCallback: LibTaskCallback? = null
-
-    /** Allow to adjust text manually, format to HTML, ...*/
-    var postTextAction: ((TextView) -> Unit)? = null
 
     interface LibsUIListener {
         /**
@@ -113,7 +101,7 @@ object LibsConfiguration {
          * @param specialButton
          * @return true if consumed and no further action is required
          */
-        fun onExtraClicked(v: View, specialButton: LibsBuilder.SpecialButton): Boolean
+        fun onExtraClicked(v: View, specialButton: SpecialButton): Boolean
 
         /**
          * onClick listener if the icon of the AboutAppSection is clicked

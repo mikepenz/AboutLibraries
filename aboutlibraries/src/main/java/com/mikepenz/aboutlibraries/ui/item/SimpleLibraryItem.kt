@@ -12,8 +12,8 @@ import com.mikepenz.aboutlibraries.LibsBuilder
 import com.mikepenz.aboutlibraries.LibsConfiguration
 import com.mikepenz.aboutlibraries.R
 import com.mikepenz.aboutlibraries.entity.Library
+import com.mikepenz.aboutlibraries.util.*
 import com.mikepenz.aboutlibraries.util.license
-import com.mikepenz.aboutlibraries.util.resolveStyledValue
 import com.mikepenz.fastadapter.items.AbstractItem
 
 
@@ -81,7 +81,7 @@ class SimpleLibraryItem(internal val library: Library, private val libsBuilder: 
         try {
             if (libsBuilder.showLicenseDialog && library.license?.licenseContent?.isNotEmpty() == true) {
                 val builder = AlertDialog.Builder(ctx)
-                builder.setMessage(Html.fromHtml(library.license?.licenseContent))
+                builder.setMessage(Html.fromHtml(library.license?.htmlReadyLicenseContent))
                 builder.create().show()
             } else {
                 val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(library.license?.url))
