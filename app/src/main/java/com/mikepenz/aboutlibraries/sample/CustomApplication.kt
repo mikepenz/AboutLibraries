@@ -1,6 +1,7 @@
 package com.mikepenz.aboutlibraries.sample
 
 import android.app.Application
+import com.google.android.material.color.DynamicColors
 
 import com.mikepenz.aboutlibraries.LibsConfiguration
 import com.mikepenz.iconics.Iconics
@@ -12,6 +13,8 @@ import com.mikepenz.itemanimators.SlideDownAlphaAnimator
  */
 class CustomApplication : Application() {
     override fun onCreate() {
+        DynamicColors.applyToActivitiesIfAvailable(this)
+
         //define an itemAnimator for our AboutLibs
         LibsConfiguration.itemAnimator = SlideDownAlphaAnimator()
 
