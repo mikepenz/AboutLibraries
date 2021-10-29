@@ -5,7 +5,6 @@ package com.mikepenz.aboutlibraries
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.mikepenz.aboutlibraries.entity.Library
-import com.mikepenz.aboutlibraries.ui.item.HeaderItem
 import com.mikepenz.aboutlibraries.util.SpecialButton
 
 /**
@@ -17,8 +16,6 @@ object LibsConfiguration {
 
     /** Intercept the UI and allow to modify it */
     var uiListener: LibsUIListener? = null
-
-    var libsRecyclerViewListener: LibsRecyclerViewListener? = null
 
     var itemAnimator: RecyclerView.ItemAnimator? = null
 
@@ -38,22 +35,6 @@ object LibsConfiguration {
          * @return
          */
         fun postOnCreateView(view: View): View
-    }
-
-    interface LibsRecyclerViewListener {
-        /**
-         * OnBindHeaderViewHolder called after the headerView was filled inside the recyclerViews onBindViewHolder method
-         *
-         * @param headerViewHolder
-         */
-        fun onBindViewHolder(headerViewHolder: HeaderItem.ViewHolder)
-
-        /**
-         * onBindViewHolder called after the item view was filled inside the recyclerViews onBindViewHolder method
-         *
-         * @param viewHolder
-         */
-        fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder)
     }
 
     interface LibsListener {

@@ -14,5 +14,5 @@
     android:paddingTop="20dp"
     android:paddingEnd="16dp"
     android:paddingBottom="20dp"
-    android:textAppearance="?textAppearanceSubtitle1"
+    android:textAppearance="?textAppearanceHeadline6"
     tools:text="Library name" />

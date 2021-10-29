@@ -3,17 +3,18 @@ package com.mikepenz.aboutlibraries.ui.item
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.text.Html
 import android.view.View
 import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
+import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.mikepenz.aboutlibraries.LibsBuilder
 import com.mikepenz.aboutlibraries.LibsConfiguration
 import com.mikepenz.aboutlibraries.R
 import com.mikepenz.aboutlibraries.entity.Library
-import com.mikepenz.aboutlibraries.util.*
+import com.mikepenz.aboutlibraries.util.htmlReadyLicenseContent
 import com.mikepenz.aboutlibraries.util.license
+import com.mikepenz.aboutlibraries.util.resolveStyledValue
 import com.mikepenz.fastadapter.items.AbstractItem
 
 
@@ -64,9 +65,6 @@ class SimpleLibraryItem(internal val library: Library, private val libsBuilder: 
                 }
             }
         }
-
-        //notify the libsRecyclerViewListener to allow modifications
-        LibsConfiguration.libsRecyclerViewListener?.onBindViewHolder(holder)
     }
 
 
@@ -80,8 +78,8 @@ class SimpleLibraryItem(internal val library: Library, private val libsBuilder: 
     private fun openLicense(ctx: Context, libsBuilder: LibsBuilder, library: Library) {
         try {
             if (libsBuilder.showLicenseDialog && library.license?.licenseContent?.isNotEmpty() == true) {
-                val builder = AlertDialog.Builder(ctx)
-                builder.setMessage(Html.fromHtml(library.license?.htmlReadyLicenseContent))
+                val builder = MaterialAlertDialogBuilder(ctx)
+                builder.setMessage(HtmlCompat.fromHtml(library.license?.htmlReadyLicenseContent ?: "", HtmlCompat.FROM_HTML_MODE_LEGACY))
                 builder.create().show()
             } else {
                 val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(library.license?.url))

@@ -18,7 +18,7 @@ import com.mikepenz.aboutlibraries.util.doOnApplySystemWindowInsets
 
 
 /**
- * Created by mikepenz on 04.06.14.
+ * Container [AppCompatActivity] to host the [LibsSupportFragment]
  */
 open class LibsActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 

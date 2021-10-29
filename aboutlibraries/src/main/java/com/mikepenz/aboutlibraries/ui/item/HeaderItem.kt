@@ -1,15 +1,15 @@
 package com.mikepenz.aboutlibraries.ui.item
 
 import android.graphics.drawable.Drawable
-import android.text.Html
 import android.text.TextUtils
 import android.text.method.LinkMovementMethod
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
+import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.mikepenz.aboutlibraries.LibsBuilder
 import com.mikepenz.aboutlibraries.LibsConfiguration
 import com.mikepenz.aboutlibraries.R
@@ -17,7 +17,9 @@ import com.mikepenz.aboutlibraries.util.*
 import com.mikepenz.fastadapter.items.AbstractItem
 
 /**
- * Created by mikepenz on 28.12.15.
+ * Header item shown in the [RecyclerView] along the libraries.
+ *
+ * Highly customizable allowing to show additional information about the current application, and also allowing to pass additional actions.
  */
 class HeaderItem(var libsBuilder: LibsBuilder) : AbstractItem<HeaderItem.ViewHolder>() {
     private var aboutVersionCode: Int? = null
@@ -110,8 +112,8 @@ class HeaderItem(var libsBuilder: LibsBuilder) : AbstractItem<HeaderItem.ViewHol
 
                 if (!consumed && !TextUtils.isEmpty(libsBuilder.aboutAppSpecial1Description)) {
                     try {
-                        val alert = AlertDialog.Builder(ctx)
-                            .setMessage(Html.fromHtml(libsBuilder.aboutAppSpecial1Description))
+                        val alert = MaterialAlertDialogBuilder(ctx)
+                            .setMessage(HtmlCompat.fromHtml(libsBuilder.aboutAppSpecial1Description ?: "", HtmlCompat.FROM_HTML_MODE_LEGACY))
                             .create()
                         alert.show()
                         val alertText = alert.findViewById<View>(android.R.id.message) as TextView?
@@ -133,8 +135,8 @@ class HeaderItem(var libsBuilder: LibsBuilder) : AbstractItem<HeaderItem.ViewHol
                     ?: false
                 if (!consumed && !TextUtils.isEmpty(libsBuilder.aboutAppSpecial2Description)) {
                     try {
-                        val alert = AlertDialog.Builder(ctx)
-                            .setMessage(Html.fromHtml(libsBuilder.aboutAppSpecial2Description))
+                        val alert = MaterialAlertDialogBuilder(ctx)
+                            .setMessage(HtmlCompat.fromHtml(libsBuilder.aboutAppSpecial2Description ?: "", HtmlCompat.FROM_HTML_MODE_LEGACY))
                             .create()
                         alert.show()
                         val alertText = alert.findViewById<View>(android.R.id.message) as TextView?
@@ -157,8 +159,8 @@ class HeaderItem(var libsBuilder: LibsBuilder) : AbstractItem<HeaderItem.ViewHol
 
                 if (!consumed && !TextUtils.isEmpty(libsBuilder.aboutAppSpecial3Description)) {
                     try {
-                        val alert = AlertDialog.Builder(ctx)
-                            .setMessage(Html.fromHtml(libsBuilder.aboutAppSpecial3Description))
+                        val alert = MaterialAlertDialogBuilder(ctx)
+                            .setMessage(HtmlCompat.fromHtml(libsBuilder.aboutAppSpecial3Description ?: "", HtmlCompat.FROM_HTML_MODE_LEGACY))
                             .create()
                         alert.show()
                         val alertText = alert.findViewById<View>(android.R.id.message) as TextView?
@@ -190,7 +192,7 @@ class HeaderItem(var libsBuilder: LibsBuilder) : AbstractItem<HeaderItem.ViewHol
 
         //Set the description or hide it
         if (!libsBuilder.aboutDescription.isNullOrEmpty()) {
-            holder.aboutAppDescription.text = Html.fromHtml(libsBuilder.aboutDescription)
+            holder.aboutAppDescription.text = HtmlCompat.fromHtml(libsBuilder.aboutDescription ?: "", HtmlCompat.FROM_HTML_MODE_LEGACY)
             holder.aboutAppDescription.movementMethod = MovementCheck.instance
         } else {
             holder.aboutAppDescription.visibility = View.GONE
@@ -200,9 +202,6 @@ class HeaderItem(var libsBuilder: LibsBuilder) : AbstractItem<HeaderItem.ViewHol
         if ((!libsBuilder.aboutShowIcon) && (!libsBuilder.aboutShowVersion) || TextUtils.isEmpty(libsBuilder.aboutDescription)) {
             holder.aboutDivider.visibility = View.GONE
         }
-
-        //notify the libsRecyclerViewListener to allow modifications
-        LibsConfiguration.libsRecyclerViewListener?.onBindViewHolder(holder)
     }
 
     override fun getViewHolder(v: View): ViewHolder {

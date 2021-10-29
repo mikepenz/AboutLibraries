@@ -8,11 +8,12 @@ import android.net.Uri
 import android.text.TextUtils
 import android.view.View
 import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
 import androidx.core.text.HtmlCompat
 import androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY
+import androidx.core.view.updatePadding
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.mikepenz.aboutlibraries.LibsBuilder
 import com.mikepenz.aboutlibraries.LibsConfiguration
 import com.mikepenz.aboutlibraries.R
@@ -22,7 +23,7 @@ import com.mikepenz.fastadapter.items.AbstractItem
 
 
 /**
- * Created by mikepenz on 28.12.15.
+ *  [RecyclerView] describing a single library with its license information used in the current project.
  */
 class LibraryItem(internal val library: Library, private val libsBuilder: LibsBuilder) : AbstractItem<LibraryItem.ViewHolder>() {
     /**
@@ -74,27 +75,23 @@ class LibraryItem(internal val library: Library, private val libsBuilder: LibsBu
             holder.libraryDescription.text = HtmlCompat.fromHtml(library.description ?: "", FROM_HTML_MODE_LEGACY)
         }
 
-        //Set License or Version Text
-        val showVersionOrLicense = libsBuilder.showVersion || libsBuilder.showLicense
-        if (library.artifactVersion?.isEmpty() == true && library.license?.name?.isEmpty() == true || !showVersionOrLicense) {
+        if (library.artifactVersion?.isNotEmpty() == true && libsBuilder.showVersion) {
+            holder.libraryVersion.text = library.artifactVersion
+        } else {
+            holder.libraryVersion.text = ""
+        }
+
+        //Set License Text
+        val showLicense = libsBuilder.showLicense
+        if (library.license?.name?.isEmpty() == true || !showLicense) {
             holder.libraryBottomDivider.visibility = View.GONE
-            holder.libraryVersion.visibility = View.GONE
             holder.libraryLicense.visibility = View.GONE
+            holder.content.updatePadding(bottom = ctx.resources.getDimensionPixelSize(R.dimen.aboutLibraries_card_inner_padding))
         } else {
             holder.libraryBottomDivider.visibility = View.VISIBLE
-            holder.libraryVersion.visibility = View.VISIBLE
             holder.libraryLicense.visibility = View.VISIBLE
-
-            if (library.artifactVersion?.isNotEmpty() == true && libsBuilder.showVersion) {
-                holder.libraryVersion.text = library.artifactVersion
-            } else {
-                holder.libraryVersion.text = ""
-            }
-            if (library.license != null && library.license?.name?.isNotEmpty() == true && libsBuilder.showLicense) {
-                holder.libraryLicense.text = library.license?.name
-            } else {
-                holder.libraryLicense.text = ""
-            }
+            holder.libraryLicense.text = library.license?.name ?: ""
+            holder.content.updatePadding(bottom = 0)
         }
 
         //Define onClickListener
@@ -177,9 +174,6 @@ class LibraryItem(internal val library: Library, private val libsBuilder: LibsBu
             holder.libraryLicense.setOnClickListener(null)
             holder.libraryLicense.setOnLongClickListener(null)
         }
-
-        //notify the libsRecyclerViewListener to allow modifications
-        LibsConfiguration.libsRecyclerViewListener?.onBindViewHolder(holder)
     }
 
     /**
@@ -222,7 +216,7 @@ class LibraryItem(internal val library: Library, private val libsBuilder: LibsBu
     private fun openLicense(ctx: Context, libsBuilder: LibsBuilder, library: Library) {
         try {
             if (libsBuilder.showLicenseDialog && library.license?.licenseContent?.isNotEmpty() == true) {
-                val builder = AlertDialog.Builder(ctx)
+                val builder = MaterialAlertDialogBuilder(ctx)
                 builder.setMessage(HtmlCompat.fromHtml(library.license?.htmlReadyLicenseContent ?: "", FROM_HTML_MODE_LEGACY))
                 builder.create().show()
             } else {
@@ -245,6 +239,7 @@ class LibraryItem(internal val library: Library, private val libsBuilder: LibsBu
         internal var card: MaterialCardView = itemView as MaterialCardView
         internal var defaultRippleColor: ColorStateList? = null
 
+        internal var content: View = itemView.findViewById(R.id.content) as View
         internal var libraryName: TextView = itemView.findViewById(R.id.libraryName) as TextView
         internal var libraryCreator: TextView = itemView.findViewById(R.id.libraryCreator) as TextView
         internal var libraryDescriptionDivider: View = itemView.findViewById(R.id.libraryDescriptionDivider)

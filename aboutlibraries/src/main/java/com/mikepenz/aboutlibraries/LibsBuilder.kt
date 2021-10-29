@@ -17,7 +17,7 @@ class LibsBuilder : Serializable {
 
     @Suppress("VariableNaming")
     internal var _showLicense: Boolean? = null
-    var showLicense: Boolean = false
+    var showLicense: Boolean = true
         set(value) {
             _showLicense = value
             field = value
@@ -314,18 +314,6 @@ class LibsBuilder : Serializable {
         LibsConfiguration.listener = libsListener
         return this
     }
-
-    /**
-     * Builder method to set the LibsRecyclerViewListener for the AboutLibraries recyclerView elements
-     *
-     * @param recyclerViewListener
-     * @return this
-     */
-    fun withLibsRecyclerViewListener(recyclerViewListener: LibsConfiguration.LibsRecyclerViewListener): LibsBuilder {
-        LibsConfiguration.libsRecyclerViewListener = recyclerViewListener
-        return this
-    }
-
 
     /**
      * Builder method to set the LibsUIListener for the AboutLibraries view to hook into the view creation

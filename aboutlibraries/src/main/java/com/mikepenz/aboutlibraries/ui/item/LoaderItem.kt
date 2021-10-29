@@ -7,7 +7,7 @@ import com.mikepenz.fastadapter.items.AbstractItem
 
 
 /**
- * Created by mikepenz on 28.12.15.
+ * Placeholder item while the libraries are loading.
  */
 class LoaderItem : AbstractItem<LoaderItem.ViewHolder>() {
 
