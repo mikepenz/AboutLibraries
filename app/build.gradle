@@ -79,12 +79,14 @@ aboutLibraries {
     fetchRemoteLicense = true
     gitHubApiToken = getLocalOrGlobalProperty("github.pat")
 
-    // Full license text for license IDs mentioned here
-    // will be included, even if no detected dependency uses them.
-    additionalLicenses {
+    // Full license text for license IDs mentioned here will be included, even if no detected dependency uses them.
+    /*additionalLicenses {
         mit
         mpl_2_0
-    }
+    }*/
+
+    strictMode = com.mikepenz.aboutlibraries.plugin.AboutLibrariesExtension.StrictMode.FAIL
+    allowedLicenses = ["Apache-2.0", "asdkl"]
 }
 
 dependencies {

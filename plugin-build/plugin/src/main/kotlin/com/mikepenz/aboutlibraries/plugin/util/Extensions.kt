@@ -1,5 +1,7 @@
 package com.mikepenz.aboutlibraries.plugin.util
 
+import com.mikepenz.aboutlibraries.plugin.mapping.Library
+import com.mikepenz.aboutlibraries.plugin.mapping.License
 import java.security.MessageDigest
 
 internal fun String.toMD5(): String {
@@ -9,6 +11,10 @@ internal fun String.toMD5(): String {
 
 internal fun ByteArray.toHex(): String {
     return joinToString("") { "%02x".format(it) }
+}
+
+internal fun List<Library>.forLicense(license: License): List<Library> {
+    return filter { it.licenses.contains(license.hash) }
 }
 
 internal fun <T> chooseValue(uniqueId: String, key: String, value: T?, block: () -> T?): T? {

@@ -46,10 +46,16 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     }
 
     @Input
-    val fetchRemoteLicense = extension.fetchRemoteLicense ?: false
+    val exclusionPatterns = extension.exclusionPatterns
 
     @Input
-    val exclusionPatterns = extension.exclusionPatterns
+    val strictMode = extension.strictMode
+
+    @Input
+    val allowedLicenses = extension.allowedLicenses
+
+    @Input
+    val fetchRemoteLicense = extension.fetchRemoteLicense ?: false
 
     @Input
     val gitHubApiToken = extension.gitHubApiToken

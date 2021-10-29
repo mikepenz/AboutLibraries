@@ -25,7 +25,7 @@ buildscript {
                 kotlinCoroutines    : "1.5.2",
                 constraintLayout    : '2.1.1',
                 navigation          : "2.3.5",
-                iconics             : "5.3.1",
+                iconics             : "5.3.2",
                 detekt              : '1.16.0',
                 fastadapter         : "5.5.1",
                 materialdrawer      : "9.0.0-a01",

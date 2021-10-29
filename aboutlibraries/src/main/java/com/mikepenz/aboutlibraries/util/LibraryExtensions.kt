@@ -6,7 +6,7 @@ import com.mikepenz.aboutlibraries.entity.License
 internal val Library.license: License?
     get() = licenses.firstOrNull()
 
-internal val Library.author: String
+val Library.author: String
     get() = developers.takeIf { it.isNotEmpty() }?.map { it.name }?.joinToString(", ") ?: organization?.name ?: ""
 
 internal val License.htmlReadyLicenseContent: String?

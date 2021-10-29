@@ -190,7 +190,7 @@ class LibrariesProcessor(
         // get the url for the author
         var libraryName = fixLibraryName(uniqueId, chooseValue(uniqueId, "name", pomReader.name) { parentPomReader?.name } ?: "") // get name of the library
         val libraryDescription =
-            fixLibraryDescription(uniqueId, chooseValue(uniqueId, "description", pomReader.description) { parentPomReader?.description } ?: "")
+            fixLibraryDescription(chooseValue(uniqueId, "description", pomReader.description) { parentPomReader?.description } ?: "")
 
         val artifactVersion = chooseValue(uniqueId, "version", pomReader.version) { parentPomReader?.version } // get the version of the library
         if (artifactVersion.isNullOrBlank()) {
@@ -200,7 +200,7 @@ class LibrariesProcessor(
 
         // the list of licenses a lib may have
         val licenses = (chooseValue(uniqueId, "licenses", pomReader.licenses) { parentPomReader?.licenses })?.map {
-            License(it.name, it.url, year = resolveLicenseYear(uniqueId, it.url)).also { lic ->
+            License(it.name, it.url).also { lic ->
                 lic.internalHash = lic.spdxId // in case this can be tracked back to a spdx id use according hash
             }
         }?.toHashSet()
@@ -253,12 +253,8 @@ class LibrariesProcessor(
     /**
      * Ensures and applies fixes to the library descriptions (remove 'null', ...)
      */
-    private fun fixLibraryDescription(uniqueId: String, value: String): String {
+    private fun fixLibraryDescription(value: String): String {
         return value.takeIf { it != "null" } ?: ""
-    }
-
-    private fun resolveLicenseYear(uniqueId: String, repositoryLink: String?): String? {
-        return null
     }
 
     /**

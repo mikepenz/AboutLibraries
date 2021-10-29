@@ -8,7 +8,9 @@ import org.gradle.api.Project
 import org.gradle.api.tasks.TaskProvider
 import org.gradle.util.GradleVersion
 import org.slf4j.LoggerFactory
+import java.util.*
 
+@Suppress("unused") // Public API for Gradle build scripts.
 class AboutLibrariesPlugin : Plugin<Project> {
 
     override fun apply(project: Project) {
@@ -57,9 +59,10 @@ class AboutLibrariesPlugin : Plugin<Project> {
         }
     }
 
+    @Suppress("DEPRECATION")
     private fun createAboutLibrariesAndroidTasks(project: Project, variant: BaseVariant, collectTask: TaskProvider<*>) {
         // task to write the general definitions information
-        val task = project.tasks.create("prepareLibraryDefinitions${variant.name.capitalize()}", AboutLibrariesTask::class.java) {
+        val task = project.tasks.create("prepareLibraryDefinitions${variant.name.capitalize(Locale.ENGLISH)}", AboutLibrariesTask::class.java) {
             it.description = "Writes the relevant meta data for the AboutLibraries plugin to display dependencies"
             it.group = "Build"
             it.dependencies = project.file("${project.buildDir}/generated/aboutlibraries/${variant.name}/res/")
@@ -72,20 +75,19 @@ class AboutLibrariesPlugin : Plugin<Project> {
         // this new API.
         try {
             variant.registerGeneratedResFolders(project.files(task.dependencies).builtBy(task))
-
             try {
                 variant.mergeResourcesProvider.configure { it.dependsOn(task) }
             } catch (t: Throwable) {
-                //noinspection GrDeprecatedAPIUsage
+                @Suppress("DEPRECATION")
                 variant.mergeResources.dependsOn(task)
             }
         } catch (t: Throwable) {
-            //noinspection GrDeprecatedAPIUsage
+            @Suppress("DEPRECATION")
             variant.registerResGeneratingTask(task, task.dependencies)
         }
 
         // task to generate libraries, and their license into the build folder (not hooked to the build task)
-        project.tasks.register("generateLibraryDefinitions${variant.name.capitalize()}", AboutLibrariesTask::class.java) {
+        project.tasks.register("generateLibraryDefinitions${variant.name.capitalize(Locale.ENGLISH)}", AboutLibrariesTask::class.java) {
             it.description = "Manually write meta data for the AboutLibraries plugin"
             it.group = "Build"
             it.dependencies = project.file("${project.buildDir}/generated/aboutlibraries/${variant.name}/res/")
@@ -94,7 +96,7 @@ class AboutLibrariesPlugin : Plugin<Project> {
         }
 
         // task to output libraries, and their license in CSV format to the CLI
-        project.tasks.register("exportLibraries${variant.name.capitalize()}", AboutLibrariesExportTask::class.java) {
+        project.tasks.register("exportLibraries${variant.name.capitalize(Locale.ENGLISH)}", AboutLibrariesExportTask::class.java) {
             it.description = "Writes all libraries and their license in CSV format to the CLI"
             it.group = "Help"
             it.variant = variant.name
@@ -102,7 +104,7 @@ class AboutLibrariesPlugin : Plugin<Project> {
         }
 
         // task to output libraries, their license in CSV format and source to a given location
-        project.tasks.register("exportComplianceLibraries${variant.name.capitalize()}", AboutLibrariesExportComplianceTask::class.java) {
+        project.tasks.register("exportComplianceLibraries${variant.name.capitalize(Locale.ENGLISH)}", AboutLibrariesExportComplianceTask::class.java) {
             it.description = "Writes all libraries with their source and their license in CSV format to the configured directory"
             it.group = "Help"
             it.variant = variant.name
