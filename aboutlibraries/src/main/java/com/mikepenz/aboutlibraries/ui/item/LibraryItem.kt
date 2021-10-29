@@ -58,7 +58,13 @@ class LibraryItem(internal val library: Library, private val libsBuilder: LibsBu
 
         //Set texts
         holder.libraryName.text = library.name
-        holder.libraryCreator.text = library.developers.firstOrNull()?.name
+        val creators = library.developers.firstOrNull()?.name
+        if (TextUtils.isEmpty(creators)) {
+            holder.libraryCreator.visibility = View.GONE
+        } else {
+            holder.libraryCreator.visibility = View.VISIBLE
+            holder.libraryCreator.text = creators
+        }
         if (TextUtils.isEmpty(library.description)) {
             holder.libraryDescription.visibility = View.GONE
             holder.libraryDescriptionDivider.visibility = View.GONE
