@@ -39,15 +39,19 @@ buildscript {
         mavenLocal()
         mavenCentral()
         google()
+        maven {
+            setUrl("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+        }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.3'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
-        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:${versions.navigation}"
-        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:${versions.detekt}"
-        classpath "org.jetbrains.dokka:dokka-gradle-plugin:${setup.dokka}"
-        classpath "com.vanniktech:gradle-maven-publish-plugin:0.18.0"
-        classpath "com.mikepenz.aboutlibraries.plugin:aboutlibraries-plugin"
+        classpath("com.android.tools.build:gradle:7.0.3")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}")
+        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:${versions.navigation}")
+        classpath("io.gitlab.arturbosch.detekt:detekt-gradle-plugin:${versions.detekt}")
+        classpath("org.jetbrains.dokka:dokka-gradle-plugin:${setup.dokka}")
+        classpath("com.vanniktech:gradle-maven-publish-plugin:0.18.0")
+        classpath("com.mikepenz.aboutlibraries.plugin:aboutlibraries-plugin")
+        classpath("org.jetbrains.compose:compose-gradle-plugin:1.0.0-beta5")
     }
 }
 
@@ -63,6 +67,9 @@ allprojects {
             // (mp) remove when available on maven center
             url "https://maven.pkg.jetbrains.space/public/p/kotlinx-html/maven"
             content { includeGroup "org.jetbrains.kotlinx" }
+        }
+        maven {
+            setUrl("https://maven.pkg.jetbrains.space/public/p/compose/dev")
         }
     }
 }
