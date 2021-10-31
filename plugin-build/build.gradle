@@ -21,6 +21,6 @@ allprojects {
     if (propFile.canRead()) {
         props.load(new FileInputStream(propFile))
 
-        setProperty("version", props['VERSION'])
+        setProperty("version", props['VERSION_NAME'])
     }
 }

@@ -1,6 +1,5 @@
 package com.mikepenz.aboutlibraries.plugin
 
-
 import com.mikepenz.aboutlibraries.plugin.AboutLibrariesExtension.StrictMode
 import com.mikepenz.aboutlibraries.plugin.mapping.License
 import com.mikepenz.aboutlibraries.plugin.model.writeToDisk
@@ -17,25 +16,31 @@ import java.util.*
 abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
 
     @OutputDirectory
-    lateinit var dependencies: File
+    var resultDirectory: File = project.file("${project.buildDir}/generated/aboutlibraries/res/")
+
+    @Internal
+    override var variant: String? = null
+        get() = super.variant
+        set(value) {
+            resultDirectory = project.file("${project.buildDir}/generated/aboutlibraries/${value}/res/")
+            field = value
+        }
 
     @Internal
     private lateinit var combinedLibrariesOutputFile: File
-    private lateinit var outputRawFolder: File
 
     fun getCombinedLibrariesOutputFile(): File {
-        return File(outputRawFolder, "aboutlibraries.json")
+        return File(getRawFolder(), "aboutlibraries.json")
     }
 
     @OutputDirectory
     public fun getRawFolder(): File {
-        return File(dependencies, "raw")
+        return File(resultDirectory, "raw")
     }
 
     @TaskAction
     public fun action() {
         // ensure directories exist
-        this.outputRawFolder = getRawFolder()
         this.combinedLibrariesOutputFile = getCombinedLibrariesOutputFile()
 
         val result = createLibraryProcessor().gatherDependencies()

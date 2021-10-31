@@ -45,7 +45,7 @@ class PomReader(inputStream: InputStream) {
     }
 
     val groupId: String?
-        get() = getFirstChildText(projectElement, GROUP_ID).replaceProps()
+        get() = getFirstChildText(projectElement, GROUP_ID).replaceProps() ?: parentGroupId
 
     val parentGroupId: String?
         get() = getFirstChildText(parentElement, GROUP_ID).replaceProps()

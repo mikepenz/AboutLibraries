@@ -17,7 +17,7 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     private val extension = project.extensions.getByName("aboutLibraries") as AboutLibrariesExtension
 
     @Internal
-    var variant: String? = null
+    open var variant: String? = null
 
     @Inject
     abstract fun getDependencyHandler(): DependencyHandler
@@ -58,6 +58,7 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     val fetchRemoteLicense = extension.fetchRemoteLicense ?: false
 
     @Input
+    @org.gradle.api.tasks.Optional
     val gitHubApiToken = extension.gitHubApiToken
 
     @Input

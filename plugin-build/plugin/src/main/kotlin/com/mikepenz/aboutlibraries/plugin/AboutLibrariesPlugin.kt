@@ -65,7 +65,6 @@ class AboutLibrariesPlugin : Plugin<Project> {
         val task = project.tasks.create("prepareLibraryDefinitions${variant.name.capitalize(Locale.ENGLISH)}", AboutLibrariesTask::class.java) {
             it.description = "Writes the relevant meta data for the AboutLibraries plugin to display dependencies"
             it.group = "Build"
-            it.dependencies = project.file("${project.buildDir}/generated/aboutlibraries/${variant.name}/res/")
             it.variant = variant.name
             it.dependsOn(collectTask)
         }
@@ -74,7 +73,7 @@ class AboutLibrariesPlugin : Plugin<Project> {
         // This is necessary for backwards compatibility with versions of gradle that do not support
         // this new API.
         try {
-            variant.registerGeneratedResFolders(project.files(task.dependencies).builtBy(task))
+            variant.registerGeneratedResFolders(project.files(task.resultDirectory).builtBy(task))
             try {
                 variant.mergeResourcesProvider.configure { it.dependsOn(task) }
             } catch (t: Throwable) {
@@ -83,14 +82,13 @@ class AboutLibrariesPlugin : Plugin<Project> {
             }
         } catch (t: Throwable) {
             @Suppress("DEPRECATION")
-            variant.registerResGeneratingTask(task, task.dependencies)
+            variant.registerResGeneratingTask(task, task.resultDirectory)
         }
 
         // task to generate libraries, and their license into the build folder (not hooked to the build task)
         project.tasks.register("generateLibraryDefinitions${variant.name.capitalize(Locale.ENGLISH)}", AboutLibrariesTask::class.java) {
             it.description = "Manually write meta data for the AboutLibraries plugin"
             it.group = "Build"
-            it.dependencies = project.file("${project.buildDir}/generated/aboutlibraries/${variant.name}/res/")
             it.variant = variant.name
             it.dependsOn(collectTask)
         }
