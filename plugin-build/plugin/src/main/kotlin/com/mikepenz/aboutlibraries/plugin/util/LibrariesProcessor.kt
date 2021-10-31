@@ -85,19 +85,53 @@ class LibrariesProcessor(
                             lib.name?.takeIf { it.isNotBlank() }?.also { orgLib.name = it }
                             lib.description?.takeIf { it.isNotBlank() }?.also { orgLib.description = it }
                             lib.website?.takeIf { it.isNotBlank() }?.also { orgLib.website = it }
-                            lib.organization?.also { orgLib.organization = it }
-                            lib.scm?.also { orgLib.scm = it }
-                            orgLib.developers = mutableListOf<Developer>().also {
-                                it.addAll(lib.developers)
-                                it.addAll(orgLib.developers)
+
+                            // merge custom data with original data
+                            val origOrganization = orgLib.organization
+                            val newOrganization = lib.organization
+                            if (origOrganization == null) {
+                                orgLib.organization = newOrganization
+                            } else if (newOrganization != null) {
+                                newOrganization.name?.let { origOrganization.name }
+                                newOrganization.url?.let { origOrganization.url }
                             }
+
+                            // merge custom scm data with original data
+                            val origScm = orgLib.scm
+                            val newScm = lib.scm
+                            if (origScm == null) {
+                                orgLib.scm = newScm
+                            } else if (newScm != null) {
+                                newScm.connection?.let { origScm.connection }
+                                newScm.developerConnection?.let { origScm.developerConnection }
+                                newScm.url?.let { origScm.url }
+                            }
+
+                            // merge developers, based on name (ensure we don't duplicate names)
+                            val developers = mutableListOf<Developer>().also { it.addAll(orgLib.developers) }
+                            lib.developers.forEach { dev ->
+                                val existing = developers.firstOrNull { it.name == dev.name }
+                                if (existing != null) {
+                                    existing.organisationUrl = dev.organisationUrl
+                                } else {
+                                    developers.add(dev)
+                                }
+                            }
+                            orgLib.developers = developers
+
+                            // merge licenses
                             orgLib.licenses = mutableSetOf<String>().also {
                                 it.addAll(lib.licenses)
                                 it.addAll(orgLib.licenses)
                             }
-                        }
 
-                        // TODO verify if any libraries are missing
+                            // make sure we fetch any additionally needed licenses
+                            orgLib.licenses.forEach {
+                                if (!licensesMap.containsKey(it)) {
+                                    additionalLicenses.add(it)
+                                }
+                            }
+                        }
                     } else {
                         librariesList.add(lib)
                     }
