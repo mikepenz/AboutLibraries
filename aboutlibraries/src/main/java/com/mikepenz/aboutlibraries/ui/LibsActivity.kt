@@ -64,7 +64,7 @@ open class LibsActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         supportFragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val searchEnabled = intent.getBooleanExtra(BUNDLE_SEARCH_ENABLED, false)
         if (menu != null && searchEnabled) {
             menuInflater.inflate(R.menu.menu_aboutlibs, menu)

@@ -50,8 +50,8 @@ dependencies {
     api project(':aboutlibraries-core')
 
     implementation "androidx.core:core-ktx:${versions.coreKtx}"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.0"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.4.0"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:${versions.viewModel}"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:${versions.viewModel}"
     implementation "androidx.cardview:cardview:${versions.cardview}"
     implementation "androidx.recyclerview:recyclerview:${versions.recyclerview}"
     implementation "com.google.android.material:material:${versions.material}"

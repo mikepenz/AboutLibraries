@@ -1,6 +1,11 @@
 apply plugin: "com.vanniktech.maven.publish"
 apply plugin: "org.jetbrains.dokka"
 
+task javadocJar(type: Jar, dependsOn: dokkaJavadoc) {
+    classifier = 'javadoc'
+    from "$buildDir/javadoc"
+}
+
 mavenPublish {
     releaseSigningEnabled = true
     androidVariantToPublish = "release"

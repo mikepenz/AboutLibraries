@@ -114,6 +114,7 @@ jobs:
           ./gradlew build -x test -x lint
           ./gradlew aboutlibraries-core:publishReleasePublicationToSonatypeRepository -Plibrary_core_only --no-configure-on-demand --no-parallel
           ./gradlew aboutlibraries:publishReleasePublicationToSonatypeRepository -x test -x lint -Plibrary_only --no-configure-on-demand --no-parallel
+          ./gradlew aboutlibraries-compose:publishReleasePublicationToSonatypeRepository -x test -x lint -Plibrary_compose_only --no-configure-on-demand --no-parallel
         env:
           NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
           NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}

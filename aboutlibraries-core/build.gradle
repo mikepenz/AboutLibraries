@@ -71,11 +71,6 @@ dokkaHtml.configure {
     }
 }
 
-task javadocJar(type: Jar, dependsOn: dokkaJavadoc) {
-    classifier = 'javadoc'
-    from "$buildDir/javadoc"
-}
-
 if (project.hasProperty('pushall') || project.hasProperty('library_core_only')) {
     apply from: "$rootDir/gradle/gradle-mvn-push.gradle"
 }

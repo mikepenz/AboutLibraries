@@ -100,6 +100,13 @@ class FragmentActivity : AppCompatActivity() {
             itemAdapter.add(
                 PrimaryDrawerItem().apply { nameText = "Home" },
                 PrimaryDrawerItem().apply {
+                    nameRes = R.string.action_composeactivity; isSelectable = false
+                    onDrawerItemClickListener = { _, _, _ ->
+                        startActivity(Intent(applicationContext, ComposeActivity::class.java))
+                        false
+                    }
+                },
+                PrimaryDrawerItem().apply {
                     nameRes = R.string.action_manifestactivity; identifier = R.id.action_manifestactivity.toLong(); isSelectable = false
                 },
                 PrimaryDrawerItem().apply {

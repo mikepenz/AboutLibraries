@@ -1,18 +1,19 @@
-import org.jetbrains.compose.compose
-
 plugins {
-    kotlin("multiplatform")
+    kotlin("android")
     id("com.android.library")
     id("org.jetbrains.compose")
     id("org.jetbrains.dokka")
     id("com.vanniktech.maven.publish")
 }
 
+val viewModel = "2.4.0"
+val composeVersion = "1.1.0-beta01"
+
 android {
     compileSdk = 31
 
     defaultConfig {
-        minSdk = 24
+        minSdk = 21
         targetSdk = 30
     }
 
@@ -30,35 +31,21 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.1.0-beta01"
-    }
-}
-
-kotlin {
-    jvm()
-
-    android {
-        publishLibraryVariants("release")
+        kotlinCompilerExtensionVersion = composeVersion
     }
 }
 
 dependencies {
-    commonMainImplementation(project(":aboutlibraries-core"))
-    commonMainCompileOnly(compose.runtime)
-    commonMainCompileOnly(compose.ui)
-    commonMainCompileOnly(compose.foundation)
-    commonMainCompileOnly(compose.material)
+    implementation(project(":aboutlibraries-core"))
 
-    val compose_version = "1.1.0-beta01"
-    "androidMainImplementation"("androidx.compose.runtime:runtime:$compose_version")
-    "androidMainImplementation"("androidx.compose.ui:ui:$compose_version")
-    "androidMainImplementation"("androidx.compose.foundation:foundation-layout:$compose_version")
-    "androidMainImplementation"("androidx.compose.material:material:$compose_version")
-    "androidMainImplementation"("androidx.compose.material:material-icons-extended:$compose_version")
-    "androidMainImplementation"("androidx.compose.foundation:foundation:$compose_version")
-    "androidMainImplementation"("androidx.compose.animation:animation:$compose_version")
-    "androidMainImplementation"("androidx.compose.ui:ui-tooling:$compose_version")
-    "androidMainImplementation"("androidx.compose.runtime:runtime-livedata:$compose_version")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$viewModel")
+
+    implementation("androidx.compose.runtime:runtime:$composeVersion")
+    implementation("androidx.compose.ui:ui:$composeVersion")
+    implementation("androidx.compose.foundation:foundation-layout:$composeVersion")
+    implementation("androidx.compose.material:material:$composeVersion")
+    implementation("androidx.compose.foundation:foundation:$composeVersion")
+    implementation("androidx.compose.ui:ui-tooling:$composeVersion")
 }
 
 tasks.dokkaHtml.configure {
@@ -69,22 +56,6 @@ tasks.dokkaHtml.configure {
     }
 }
 
-tasks.create<Jar>("javadocJar") {
-    dependsOn("dokkaJavadoc")
-    classifier = "javadoc"
-    from("$buildDir/javadoc")
+if (project.hasProperty("pushall") || project.hasProperty("library_compose_only")) {
+    apply(from = "$rootDir/gradle/gradle-mvn-push.gradle")
 }
-
-//mavenPublish {
-//    releaseSigningEnabled = true
-//    androidVariantToPublish = "release"
-//}
-
-//publishing {
-//    repositories {
-//        maven {
-//            name = "installLocally"
-//            setUrl("${rootProject.buildDir}/localMaven")
-//        }
-//    }
-//}

@@ -10,16 +10,20 @@ buildscript {
         setup = [
                 compileSdk: 31,
                 buildTools: "31.0.0",
-                minSdk    : 16,
+                minSdk    : 21,
                 targetSdk : 30,
                 dokka     : "1.5.31"
         ]
 
         versions = [
                 androidX            : '1.0.0',
+                activityCompose     : '1.4.0',
+                accompanist         : "0.21.0-beta",
                 cardview            : '1.0.0',
+                compose             : "1.1.0-beta01",
                 appcompat           : '1.3.1',
                 recyclerview        : '1.2.1',
+                viewModel           : "2.4.0",
                 material            : '1.5.0-alpha05',
                 kotlin              : "1.5.31",
                 kotlinCoroutines    : "1.5.2",
