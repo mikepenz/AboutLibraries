@@ -72,5 +72,5 @@ dependencies {
 }
 
 if (project.hasProperty('pushall') || project.hasProperty('library_only')) {
-    apply from: '../gradle-release.gradle'
+    apply from: "$rootDir/gradle/gradle-mvn-push.gradle"
 }
