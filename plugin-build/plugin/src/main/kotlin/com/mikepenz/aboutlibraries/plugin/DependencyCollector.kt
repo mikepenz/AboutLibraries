@@ -15,97 +15,113 @@
  */
 package com.mikepenz.aboutlibraries.plugin
 
+import com.mikepenz.aboutlibraries.plugin.model.CollectedContainer
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Configuration
-import org.gradle.api.artifacts.component.ModuleComponentIdentifier
-import org.gradle.api.tasks.diagnostics.internal.graph.nodes.RenderableDependency
-import org.gradle.api.tasks.diagnostics.internal.graph.nodes.RenderableModuleResult
+import org.gradle.api.artifacts.ResolvedArtifact
+import org.gradle.api.artifacts.ResolvedDependency
+import org.gradle.internal.component.AmbiguousVariantSelectionException
 import org.slf4j.LoggerFactory
-import java.util.*
 
 /**
  * Based on https://raw.githubusercontent.com/gradle/gradle/master/subprojects/diagnostics/src/main/java/org/gradle/api/reporting/dependencies/internal/JsonProjectDependencyRenderer.java
  */
-class DependencyCollector(
-        private val variant: String? = null
-) {
-
-    private val processedDependency = mutableSetOf<Any>()
-
+class DependencyCollector() {
     /**
      * Generates the project dependency report structure
      *
-     * @param project the project for which the report must be generated
-     * @return the generated JSON, as a String
+     * @param project this project
+     * @return resolved set of dependencies, and the related versions
      */
-    fun collect(project: Project): Map<String, HashSet<String>> {
+    fun collect(project: Project): CollectedContainer {
         LOGGER.info("Collecting dependencies")
-        return createConfigurations(project)
+
+        val mutableCollectContainer: MutableMap<String, MutableMap<String, MutableSet<String>>> = mutableMapOf()
+
+        project.configurations
+            .filterNot { configuration ->
+                configuration.shouldSkip()
+            }
+            .mapNotNull {
+                val cn = it.name
+                // collect configurations for the variants we are interested in
+
+                if (cn.endsWith("CompileClasspath", true)) {
+                    val variant = cn.removeSuffix("CompileClasspath")
+                    LOGGER.info("Collecting dependencies for compile time variant $variant from config: ${it.name}")
+                    return@mapNotNull variant to it
+                } else if (cn.endsWith("RuntimeClasspath", true)) {
+                    val variant = cn.removeSuffix("RuntimeClasspath")
+                    LOGGER.info("Collecting dependencies for runtime variant $variant from config: ${it.name}")
+                    return@mapNotNull variant to it
+                }
+
+                null
+            }
+            .forEach { (variant, configuration) ->
+                val variantSet = mutableCollectContainer.getOrPut(variant) { mutableMapOf() }
+                val visitedDependencyNames = mutableSetOf<String>()
+                configuration
+                    .resolvedConfiguration
+                    .lenientConfiguration
+                    .allModuleDependencies
+                    .getResolvedArtifacts(visitedDependencyNames)
+                    .forEach {
+                        val identifier = "${it.moduleVersion.id.group.trim()}:${it.name.trim()}"
+                        val versions = variantSet.getOrPut(identifier) { HashSet() }
+                        versions.add(it.moduleVersion.id.version.trim())
+                    }
+            }
+        return CollectedContainer(mutableCollectContainer)
     }
 
-    private fun createConfigurations(project: Project): Map<String, HashSet<String>> {
-        val collected: MutableMap<String, HashSet<String>> = HashMap()
-        val configurations: Iterable<Configuration> = getNonDeprecatedConfigurations(project)
-        for (configuration in configurations) {
-            if (canBeResolved(configuration)) {
-                val cn = configuration.name
-                if (!(cn.endsWith("CompileClasspath", true) || cn.endsWith("RuntimeClasspath", true))) {
-                    // we are not keen to include compile time and runtime entries
-                    continue
-                }
-
-                if (variant != null) {
-                    if (!(cn.equals("${variant}CompileClasspath", true) || cn.equals("${variant}RuntimeClasspath", true))) {
-                        // we are not keen to include compile time and runtime entries
-                        continue
-                    }
-
-                    LOGGER.info("Collecting dependencies for variant $variant from config: ${configuration.name}")
-                } else {
-                    LOGGER.info("Collecting dependencies from config: ${configuration.name}")
-                }
-
-                val result = configuration.incoming.resolutionResult
-                val root: RenderableDependency = RenderableModuleResult(result.root)
+    /**
+     * Based on the gist by @eygraber https://gist.github.com/eygraber/482e9942d5812e9efa5ace016aac4197
+     * Via https://github.com/google/play-services-plugins/blob/master/oss-licenses-plugin/src/main/groovy/com/google/android/gms/oss/licenses/plugin/LicensesTask.groovy
+     */
+    private fun Set<ResolvedDependency>.getResolvedArtifacts(
+        visitedDependencyNames: MutableSet<String>
+    ): Set<ResolvedArtifact> {
+        val resolvedArtifacts = mutableSetOf<ResolvedArtifact>()
+        for (resolvedDependency in this) {
+            val name = resolvedDependency.name
+            if (name !in visitedDependencyNames) {
+                visitedDependencyNames += name
 
                 try {
-                    addChildDependencies(root.children, collected, configuration.name)
-                } catch (ex: Throwable) {
-                    LOGGER.error("Problem occurred while adding child dependencies", ex)
+                    resolvedArtifacts += when (resolvedDependency.moduleVersion) {
+                        "unspecified" ->
+                            resolvedDependency.children.getResolvedArtifacts(
+                                visitedDependencyNames = visitedDependencyNames
+                            )
+
+                        else -> resolvedDependency.allModuleArtifacts
+                    }
+                } catch (e: AmbiguousVariantSelectionException) {
+                    LOGGER.info("Found ambiguous variant", e)
                 }
             }
         }
-        return collected
+
+        return resolvedArtifacts
     }
 
-    private fun addChildDependencies(childDependencies: Set<RenderableDependency>?, collected: MutableMap<String, HashSet<String>>, configurationName: String?) {
-        childDependencies ?: return
-        for (childDependency in childDependencies) {
-            processedDependency.add(childDependency.id)
-            if (childDependency.id is ModuleComponentIdentifier) {
-                val id = childDependency.id as ModuleComponentIdentifier
-                val versions = collected.getOrDefault(id.group + ":" + id.module, HashSet())
-                versions.add(id.version)
-                collected[id.group + ":" + id.module] = versions
-            }
-            // check children, but filter out references we already processed.
-            addChildDependencies(childDependency.children.filter { !processedDependency.contains(it.id) }.toSet(), collected, configurationName)
-        }
-    }
+    private fun Configuration.shouldSkip() =
+        !isCanBeResolved || isTest
 
-    private fun getNonDeprecatedConfigurations(project: Project): List<Configuration> {
-        val filteredConfigurations: MutableList<Configuration> = ArrayList()
-        for (configuration in project.configurations) {
-            filteredConfigurations.add(configuration)
-        }
-        return filteredConfigurations
-    }
+    /**
+     * Based on the gist by @eygraber https://gist.github.com/eygraber/482e9942d5812e9efa5ace016aac4197
+     * Via https://github.com/google/play-services-plugins/blob/master/oss-licenses-plugin/src/main/groovy/com/google/android/gms/oss/licenses/plugin/LicensesTask.groovy
+     */
+    private val testCompile = setOf("testCompile", "androidTestCompile")
+    private val Configuration.isTest
+        get() = name.contains("test", ignoreCase = true) ||
+                name.contains("androidTest", ignoreCase = true) ||
+                hierarchy.any { configurationHierarchy ->
+                    testCompile.any { configurationHierarchy.name.contains(it, ignoreCase = true) }
+                }
 
-    private fun canBeResolved(configuration: Configuration): Boolean {
-        return configuration.isCanBeResolved
-    }
-
-    companion object {
+    private companion object {
         private val LOGGER = LoggerFactory.getLogger(DependencyCollector::class.java)!!
     }
 }

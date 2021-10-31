@@ -21,6 +21,7 @@
 	- name, description, creator, license, version, ...
 - **about this app** section (optional)
 - autodetect libraries (via the gradle dependencies)
+  - configuration and build caching support
 - many included library details
 - automatic created fragment/activity
 - feature rich builder to simply create and start the fragment / activities

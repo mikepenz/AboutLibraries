@@ -15,23 +15,19 @@ class AboutLibrariesPlugin implements Plugin<Project> {
         // create the config possible
         project.extensions.create('aboutLibraries', AboutLibrariesExtension)
 
-        // task for cleaning
-        project.tasks.register("aboutLibrariesClean", AboutLibrariesCleanTask) {
-            it.description = "Cleans the generated data from the AboutLibraries plugin"
-            it.group = 'Build'
-            it.dependencies = project.file("$project.buildDir/generated/aboutlibraries/")
+        // task to output library names with ids for further actions
+        final def collectTask = project.tasks.register("collectDependencies", AboutLibrariesCollectorTask) {
+            it.description = "Collects dependencies to be used by the different AboutLibraries tasks"
+            it.configure()
         }
-        // project.tasks.findByName("clean").dependsOn(cleanupTask)
-        // doing a clean will regardless delete the dir containing the files
 
-        // create tasks for different application variants
         if (project.android.hasProperty("applicationVariants")) {
-            project.android.applicationVariants.all { final variant ->
-                createAboutLibrariesTask(project, variant)
+            project.android.applicationVariants.all {
+                createAboutLibrariesTask(project, it, collectTask)
             }
-        } else {
-            project.android.libraryVariants.all { final variant ->
-                createAboutLibrariesTask(project, variant)
+        } else if (project.android.hasProperty("libraryVariants")) {
+            project.android.libraryVariants.all {
+                createAboutLibrariesTask(project, it, collectTask)
             }
         }
 
@@ -39,22 +35,26 @@ class AboutLibrariesPlugin implements Plugin<Project> {
         project.tasks.register("findLibraries", AboutLibrariesIdTask) {
             it.description = "Writes the relevant meta data for the AboutLibraries plugin to display dependencies"
             it.group = 'Help'
+            it.dependsOn(collectTask)
         }
 
         // task to output libraries, and their license in CSV format to the CLI
         project.tasks.register("exportLibraries", AboutLibrariesExportTask) {
             it.description = "Writes all libraries and their license in CSV format to the CLI"
             it.group = 'Help'
+            it.dependsOn(collectTask)
         }
     }
 
-    private static void createAboutLibrariesTask(Project project, def variant) {
+    private static void createAboutLibrariesTask(Project project, def variant, def collectTask) {
         // task to write the general definitions information
-        AboutLibrariesTask task = project.tasks.create("prepareLibraryDefinitions${variant.name.capitalize()}", AboutLibrariesTask)
-        task.description = "Writes the relevant meta data for the AboutLibraries plugin to display dependencies"
-        task.group = 'Build'
-        task.setDependencies(project.file("$project.buildDir/generated/aboutlibraries/${variant.name}/res/"))
-        task.setVariant(variant.name)
+        final AboutLibrariesTask task = project.tasks.create("prepareLibraryDefinitions${variant.name.capitalize()}", AboutLibrariesTask) {
+            it.description = "Writes the relevant meta data for the AboutLibraries plugin to display dependencies"
+            it.group = 'Build'
+            it.setDependencies(project.file("$project.buildDir/generated/aboutlibraries/${variant.name}/res/"))
+            it.setVariant(variant.name)
+            it.dependsOn(collectTask)
+        }
 
         // This is necessary for backwards compatibility with versions of gradle that do not support
         // this new API.
@@ -88,6 +88,7 @@ class AboutLibrariesPlugin implements Plugin<Project> {
             it.group = 'Build'
             it.setDependencies(project.file("$project.buildDir/generated/aboutlibraries/${variant.name}/res/"))
             it.setVariant(variant.name)
+            it.dependsOn(collectTask)
         }
 
         // task to output libraries, and their license in CSV format to the CLI
@@ -95,6 +96,7 @@ class AboutLibrariesPlugin implements Plugin<Project> {
             it.description = "Writes all libraries and their license in CSV format to the CLI"
             it.group = 'Help'
             it.setVariant(variant.name)
+            it.dependsOn(collectTask)
         }
 
         // task to output libraries, their license in CSV format and source to a given location
@@ -102,6 +104,7 @@ class AboutLibrariesPlugin implements Plugin<Project> {
             it.description = "Writes all libraries with their source and their license in CSV format to the configured directory"
             it.group = 'Help'
             it.setVariant(variant.name)
+            it.dependsOn(collectTask)
         }
     }
 }
