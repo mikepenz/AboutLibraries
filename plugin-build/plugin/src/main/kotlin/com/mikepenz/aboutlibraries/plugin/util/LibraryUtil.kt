@@ -12,7 +12,8 @@ fun List<Library>.processDuplicates(
     fun mappedLibs(): Map<String, List<Library>> {
         return this.groupBy {
             when (duplicateRule) {
-                DuplicateRule.SIMPLE -> it.groupId //+ it.name
+                DuplicateRule.GROUP -> it.groupId + it.licenses.joinToString(",")
+                DuplicateRule.SIMPLE -> it.groupId + it.name
                 DuplicateRule.EXACT -> it.groupId + it.name + it.description?.toMD5()
             }
         }

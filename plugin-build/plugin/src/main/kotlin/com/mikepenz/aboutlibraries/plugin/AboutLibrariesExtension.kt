@@ -153,6 +153,9 @@ enum class StrictMode {
 }
 
 enum class DuplicateRule {
+    /** groupId and license are equal */
+    GROUP,
+
     /** groupId and title are equal */
     SIMPLE,
 
