@@ -19,4 +19,10 @@ data class Library(
 ) {
     val artifactId: String
         get() = "${uniqueId}:${artifactVersion ?: ""}"
+
+    val groupId: String
+        get() = uniqueId.split(":").first()
+
+    /** references all associated libraries, matched by the duplicateRule */
+    var associated: List<String>? = null
 }

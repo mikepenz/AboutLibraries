@@ -93,7 +93,10 @@ aboutLibraries {
         mpl_2_0
     }*/
 
-    strictMode = com.mikepenz.aboutlibraries.plugin.AboutLibrariesExtension.StrictMode.FAIL
+    strictMode = com.mikepenz.aboutlibraries.plugin.StrictMode.FAIL
+
+    duplicationMode = com.mikepenz.aboutlibraries.plugin.DuplicateMode.LINK
+
     allowedLicenses = ["Apache-2.0", "asdkl"]
 }
 

@@ -86,7 +86,7 @@ class AboutLibrariesPlugin : Plugin<Project> {
         // This is necessary for backwards compatibility with versions of gradle that do not support
         // this new API.
         try {
-            variant.registerGeneratedResFolders(project.files(task.resultDirectory).builtBy(task))
+            variant.registerGeneratedResFolders(project.files(task.resultDirectory.parentFile).builtBy(task))
             try {
                 variant.mergeResourcesProvider.configure { it.dependsOn(task) }
             } catch (t: Throwable) {
@@ -95,7 +95,7 @@ class AboutLibrariesPlugin : Plugin<Project> {
             }
         } catch (t: Throwable) {
             @Suppress("DEPRECATION")
-            variant.registerResGeneratingTask(task, task.resultDirectory)
+            variant.registerResGeneratingTask(task, task.resultDirectory.parentFile)
         }
 
         // task to generate libraries, and their license into the build folder (not hooked to the build task)

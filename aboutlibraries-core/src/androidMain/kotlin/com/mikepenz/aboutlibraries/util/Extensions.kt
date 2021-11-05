@@ -7,7 +7,11 @@ import org.json.JSONObject
 
 
 fun Libs.Builder.withContext(ctx: Context): Libs.Builder {
-    _stringData = ctx.resources.openRawResource(ctx.getRawResourceId("aboutlibraries")).bufferedReader().use { it.readText() }
+    try {
+        _stringData = ctx.resources.openRawResource(ctx.getRawResourceId("aboutlibraries")).bufferedReader().use { it.readText() }
+    } catch (t: Throwable) {
+        println("Could not retrieve libraries")
+    }
     return this
 }
 

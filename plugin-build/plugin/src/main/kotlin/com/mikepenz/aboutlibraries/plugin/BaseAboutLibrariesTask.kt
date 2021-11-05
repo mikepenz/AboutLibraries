@@ -14,7 +14,9 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     private val LOGGER = LoggerFactory.getLogger(BaseAboutLibrariesTask::class.java)!!
 
     private val rootDir = project.rootDir
-    private val extension = project.extensions.getByName("aboutLibraries") as AboutLibrariesExtension
+
+    @Internal
+    protected val extension = project.extensions.getByName("aboutLibraries") as AboutLibrariesExtension
 
     @Internal
     open var variant: String? = null
@@ -49,7 +51,10 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     val exclusionPatterns = extension.exclusionPatterns
 
     @Input
-    val strictMode = extension.strictMode
+    val duplicationMode = extension.duplicationMode
+
+    @Input
+    val duplicationRule = extension.duplicationRule
 
     @Input
     val allowedLicenses = extension.allowedLicenses
@@ -85,6 +90,8 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
             exclusionPatterns,
             fetchRemoteLicense,
             getAdditionalLicenses(),
+            duplicationMode,
+            duplicationRule,
             variant,
             gitHubApiToken
         )

@@ -1,6 +1,7 @@
 package com.mikepenz.aboutlibraries.plugin.util
 
-import com.mikepenz.aboutlibraries.plugin.mapping.Developer
+import com.mikepenz.aboutlibraries.plugin.DuplicateMode
+import com.mikepenz.aboutlibraries.plugin.DuplicateRule
 import com.mikepenz.aboutlibraries.plugin.mapping.Library
 import com.mikepenz.aboutlibraries.plugin.mapping.License
 import com.mikepenz.aboutlibraries.plugin.mapping.SpdxLicense
@@ -26,8 +27,10 @@ class LibrariesProcessor(
     private val exclusionPatterns: List<Pattern>,
     private val fetchRemoteLicense: Boolean,
     private val additionalLicenses: HashSet<String>,
+    private val duplicationMode: DuplicateMode,
+    private val duplicationRule: DuplicateRule,
     private var variant: String? = null,
-    private var gitHubToken: String? = null
+    private var gitHubToken: String? = null,
 ) {
     private val handledLibraries = HashSet<String>()
     private var rateLimit = 0
@@ -39,7 +42,7 @@ class LibrariesProcessor(
         }
 
         val collectedDependencies = collectedDependencies.dependenciesForVariant(variant)
-        println("All dependencies.size = ${collectedDependencies.size}")
+        LOGGER.info("All dependencies.size = ${collectedDependencies.size}")
 
         val librariesList = ArrayList<Library>()
         val licensesMap = HashMap<String, License>()
@@ -66,12 +69,7 @@ class LibrariesProcessor(
         if (configFolder != null) {
             LicenseReader.readLicenses(configFolder).forEach { lic ->
                 if (licensesMap.containsKey(lic.hash)) {
-                    licensesMap[lic.hash]?.also { orgLic ->
-                        lic.name.takeIf { it.isNotBlank() }?.also { orgLic.name = it }
-                        lic.url?.takeIf { it.isNotBlank() }?.also { orgLic.url = it }
-                        lic.year?.takeIf { it.isNotBlank() }?.also { orgLic.year = it }
-                        lic.content?.takeIf { it.isNotBlank() }?.also { orgLic.content = it }
-                    }
+                    licensesMap[lic.hash]?.also { orgLic -> orgLic.merge(lic) }
                 } else {
                     licensesMap[lic.hash] = lic
                 }
@@ -82,48 +80,7 @@ class LibrariesProcessor(
                 customLibs.forEach { lib ->
                     if (librariesMap.containsKey(lib.uniqueId)) {
                         librariesMap[lib.uniqueId]?.also { orgLib ->
-                            lib.name?.takeIf { it.isNotBlank() }?.also { orgLib.name = it }
-                            lib.description?.takeIf { it.isNotBlank() }?.also { orgLib.description = it }
-                            lib.website?.takeIf { it.isNotBlank() }?.also { orgLib.website = it }
-
-                            // merge custom data with original data
-                            val origOrganization = orgLib.organization
-                            val newOrganization = lib.organization
-                            if (origOrganization == null) {
-                                orgLib.organization = newOrganization
-                            } else if (newOrganization != null) {
-                                newOrganization.name?.let { origOrganization.name }
-                                newOrganization.url?.let { origOrganization.url }
-                            }
-
-                            // merge custom scm data with original data
-                            val origScm = orgLib.scm
-                            val newScm = lib.scm
-                            if (origScm == null) {
-                                orgLib.scm = newScm
-                            } else if (newScm != null) {
-                                newScm.connection?.let { origScm.connection }
-                                newScm.developerConnection?.let { origScm.developerConnection }
-                                newScm.url?.let { origScm.url }
-                            }
-
-                            // merge developers, based on name (ensure we don't duplicate names)
-                            val developers = mutableListOf<Developer>().also { it.addAll(orgLib.developers) }
-                            lib.developers.forEach { dev ->
-                                val existing = developers.firstOrNull { it.name == dev.name }
-                                if (existing != null) {
-                                    existing.organisationUrl = dev.organisationUrl
-                                } else {
-                                    developers.add(dev)
-                                }
-                            }
-                            orgLib.developers = developers
-
-                            // merge licenses
-                            orgLib.licenses = mutableSetOf<String>().also {
-                                it.addAll(lib.licenses)
-                                it.addAll(orgLib.licenses)
-                            }
+                            orgLib.merge(lib)
 
                             // make sure we fetch any additionally needed licenses
                             orgLib.licenses.forEach {
@@ -160,7 +117,7 @@ class LibrariesProcessor(
             }
         }
 
-        return ResultContainer(librariesList, licensesMap)
+        return ResultContainer(librariesList.processDuplicates(duplicationMode, duplicationRule), licensesMap)
     }
 
     private fun parseDependency(artifactFile: File): Pair<Library, Set<License>>? {

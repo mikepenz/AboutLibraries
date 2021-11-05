@@ -154,3 +154,11 @@ object LicenseUtil {
         return firstOrNull { it.spdxId == spdxId }
     }
 }
+
+fun License.merge(with: License) {
+    val orgLic = this
+    with.name.takeIf { it.isNotBlank() }?.also { orgLic.name = it }
+    with.url?.takeIf { it.isNotBlank() }?.also { orgLic.url = it }
+    with.year?.takeIf { it.isNotBlank() }?.also { orgLic.year = it }
+    with.content?.takeIf { it.isNotBlank() }?.also { orgLic.content = it }
+}

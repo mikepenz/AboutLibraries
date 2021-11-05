@@ -1,13 +1,9 @@
 package com.mikepenz.aboutlibraries.plugin
 
-import com.mikepenz.aboutlibraries.plugin.AboutLibrariesExtension.StrictMode
 import com.mikepenz.aboutlibraries.plugin.mapping.License
 import com.mikepenz.aboutlibraries.plugin.model.writeToDisk
 import com.mikepenz.aboutlibraries.plugin.util.forLicense
-import org.gradle.api.tasks.CacheableTask
-import org.gradle.api.tasks.Internal
-import org.gradle.api.tasks.OutputDirectory
-import org.gradle.api.tasks.TaskAction
+import org.gradle.api.tasks.*
 import org.slf4j.LoggerFactory
 import java.io.File
 import java.util.*
@@ -20,6 +16,9 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
 
     @Internal
     private lateinit var combinedLibrariesOutputFile: File
+
+    @Input
+    val strictMode = extension.strictMode
 
     fun getCombinedLibrariesOutputFile(): File {
         return File(resultDirectory, "aboutlibraries.json")

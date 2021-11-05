@@ -76,6 +76,43 @@ abstract class AboutLibrariesExtension @Inject constructor(objectFactory: Object
     var allowedLicenses: List<String> = emptyList()
 
     /**
+     * Defines the plugins behavior in case of duplicates.
+     * By default duplicates are kept, no duplicate discovery enabled.
+     * Please check [duplicationRule] on the discovery rule.
+     *
+     * - [DuplicateMode.KEEP]
+     * - [DuplicateMode.LINK]
+     * - [DuplicateMode.MERGE]
+     *
+     * ```
+     * aboutLibraries {
+     *   duplicationRule = DuplicateMode.KEEP
+     * }
+     * ```
+     *
+     * @see duplicationRule
+     */
+    var duplicationMode = DuplicateMode.KEEP
+
+    /**
+     * Specifies which approach the plugin takes on detecting duplicates.
+     *
+     * - [DuplicateRule.EXACT]
+     * - [DuplicateRule.SIMPLE]
+     *
+     * Please check [duplicationMode] on the mode for handling of duplicates.
+     *
+     * ```
+     * aboutLibraries {
+     *   duplicationRule = DuplicateRule.SIMPLE
+     * }
+     * ```
+     *
+     * @see duplicationMode
+     */
+    var duplicationRule = DuplicateRule.SIMPLE
+
+    /**
      * Enable fetching of remote licenses.
      * This will use the GitHub license API to fetch the defined library as specified in the projects repository.
      *
@@ -102,11 +139,34 @@ abstract class AboutLibrariesExtension @Inject constructor(objectFactory: Object
     init {
         additionalLicenses = objectFactory.domainObjectContainer(AboutLibrariesLicenseExtension::class.java)
     }
+}
 
+enum class StrictMode {
+    /** fails the build if a non allowed license is found */
+    FAIL,
 
-    enum class StrictMode {
-        FAIL,
-        WARN,
-        IGNORE,
-    }
+    /** writes a warning message to the log */
+    WARN,
+
+    /** no action */
+    IGNORE,
+}
+
+enum class DuplicateRule {
+    /** groupId and title are equal */
+    SIMPLE,
+
+    /** groupId, title and description are equal */
+    EXACT,
+}
+
+enum class DuplicateMode {
+    /** no action, no duplicate checking */
+    KEEP,
+
+    /** duplicates are being merged */
+    MERGE,
+
+    /** duplicates get linked to each other */
+    LINK,
 }

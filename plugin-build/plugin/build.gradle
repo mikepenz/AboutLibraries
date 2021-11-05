@@ -1,20 +1,9 @@
-buildscript {
-    repositories {
-        google()
-        mavenCentral()
-    }
-    dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.31"
-    }
-}
 plugins {
-    id 'java'
+    id "org.jetbrains.kotlin.jvm"
     id "com.gradle.plugin-publish" version "0.16.0"
     id "java-gradle-plugin"
     id 'maven-publish'
 }
-apply plugin: 'groovy'
-apply plugin: "org.jetbrains.kotlin.jvm"
 
 group = "com.mikepenz.aboutlibraries.plugin"
 version = rootProject.properties["version"]
@@ -63,22 +52,11 @@ dependencies {
     compileOnly("com.android.tools.build:gradle:7.0.3")
 }
 
-compileGroovy {
-    dependsOn tasks.getByPath('compileKotlin')
-    classpath += files(compileKotlin.destinationDir)
-}
-
 // generate zip file for android maven release tool
 task packageFiles(type: Zip, dependsOn: 'uploadArchives') {
     def groupDir = rootProject.group.replaceAll('\\.', '/')
     from("../repo/$groupDir/$rootProject.name/$rootProject.version/")
 }
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
-}
-
 
 task sourcesJar(type: Jar) {
     classifier = 'sources'

@@ -15,7 +15,7 @@ data class ResultContainer(
 
 fun ResultContainer.writeToDisk(outputFile: File) {
     val jsonGenerator = JsonGenerator.Options().excludeNulls().excludeFieldsByName(
-        "artifactId", "artifactFolder"
+        "artifactId", "groupId", "artifactFolder"
     ).build()
     PrintWriter(OutputStreamWriter(outputFile.outputStream(), StandardCharsets.UTF_8), true).use {
         it.write(jsonGenerator.toJson(this))
