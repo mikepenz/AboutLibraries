@@ -77,10 +77,10 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     }
 
     @Internal
-    protected fun createLibraryProcessor(): LibrariesProcessor {
+    protected fun createLibraryProcessor(collectedContainer: CollectedContainer = readInCollectedDependencies()): LibrariesProcessor {
         return LibrariesProcessor(
             getDependencyHandler(),
-            readInCollectedDependencies(),
+            collectedContainer,
             getConfigPath(),
             exclusionPatterns,
             fetchRemoteLicense,

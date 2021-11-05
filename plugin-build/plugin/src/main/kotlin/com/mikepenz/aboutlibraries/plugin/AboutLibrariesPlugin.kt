@@ -28,22 +28,6 @@ class AboutLibrariesPlugin : Plugin<Project> {
             it.configure()
         }
 
-        try {
-            val app = project.extensions.findByType(AppExtension::class.java)
-            if (app != null) {
-                app.applicationVariants.all {
-                    createAboutLibrariesAndroidTasks(project, it, collectTask)
-                }
-            } else {
-                val lib = project.extensions.findByType(LibraryExtension::class.java)
-                lib?.libraryVariants?.all {
-                    createAboutLibrariesAndroidTasks(project, it, collectTask)
-                }
-            }
-        } catch (t: Throwable) {
-            LOGGER.info("Couldn't register Android related plugin tasks")
-        }
-
         // task to output library names with ids for further actions
         project.tasks.register("findLibraries", AboutLibrariesIdTask::class.java) {
             it.description = "Writes the relevant meta data for the AboutLibraries plugin to display dependencies"
@@ -57,6 +41,35 @@ class AboutLibrariesPlugin : Plugin<Project> {
             it.group = "Help"
             it.dependsOn(collectTask)
         }
+
+        // register a global task to generate library definitions
+        project.tasks.create("exportLibraryDefinitions", AboutLibrariesTask::class.java) {
+            it.description = "Writes the relevant meta data for the AboutLibraries plugin to display dependencies"
+            it.group = "Build"
+            it.variant = if (project.hasProperty("exportVariant")) project.property("exportVariant").toString() else null
+            it.resultDirectory = if (project.hasProperty("exportPath")) project.file(
+                project.property("exportPath").toString()
+            ) else project.file("${project.buildDir}/generated/aboutlibraries/")
+            it.dependsOn(collectTask)
+        }
+
+        project.afterEvaluate {
+            try {
+                val app = project.extensions.findByType(AppExtension::class.java)
+                if (app != null) {
+                    app.applicationVariants.all {
+                        createAboutLibrariesAndroidTasks(project, it, collectTask)
+                    }
+                } else {
+                    val lib = project.extensions.findByType(LibraryExtension::class.java)
+                    lib?.libraryVariants?.all {
+                        createAboutLibrariesAndroidTasks(project, it, collectTask)
+                    }
+                }
+            } catch (t: Throwable) {
+                LOGGER.info("Couldn't register Android related plugin tasks")
+            }
+        }
     }
 
     @Suppress("DEPRECATION")
@@ -66,9 +79,9 @@ class AboutLibrariesPlugin : Plugin<Project> {
             it.description = "Writes the relevant meta data for the AboutLibraries plugin to display dependencies"
             it.group = "Build"
             it.variant = variant.name
+            it.resultDirectory = project.file("${project.buildDir}/generated/aboutlibraries/${variant.name}/res/raw/")
             it.dependsOn(collectTask)
         }
-
 
         // This is necessary for backwards compatibility with versions of gradle that do not support
         // this new API.
@@ -90,6 +103,7 @@ class AboutLibrariesPlugin : Plugin<Project> {
             it.description = "Manually write meta data for the AboutLibraries plugin"
             it.group = "Build"
             it.variant = variant.name
+            it.resultDirectory = project.file("${project.buildDir}/generated/aboutlibraries/${variant.name}/res/raw/")
             it.dependsOn(collectTask)
         }
 

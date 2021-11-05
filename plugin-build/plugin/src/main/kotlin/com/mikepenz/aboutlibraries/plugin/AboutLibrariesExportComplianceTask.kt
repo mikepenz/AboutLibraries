@@ -1,16 +1,22 @@
 package com.mikepenz.aboutlibraries.plugin
 
 import com.mikepenz.aboutlibraries.plugin.mapping.SpdxLicense
-import org.gradle.api.tasks.Internal
-import org.gradle.api.tasks.TaskAction
+import org.gradle.api.tasks.*
 import java.io.File
 import java.nio.file.Files
 import java.nio.file.StandardCopyOption
 
 abstract class AboutLibrariesExportComplianceTask : BaseAboutLibrariesTask() {
 
-    private val exportPath: String = if (project.hasProperty("exportPath")) project.property("exportPath").toString() else project.rootDir.absolutePath
-    private val artifactGroups: String = if (project.hasProperty("artifactGroups")) project.property("artifactGroups").toString() else ""
+    @Input
+    @Optional
+    val inputExportPath: String? = if (project.hasProperty("exportPath")) project.property("exportPath").toString() else null
+
+    @OutputDirectory
+    val exportPath: String = inputExportPath ?: project.rootDir.absolutePath
+
+    @Input
+    val artifactGroups: String = if (project.hasProperty("artifactGroups")) project.property("artifactGroups").toString() else ""
 
     @Internal
     var neededLicenses = HashSet<SpdxLicense>()
@@ -18,9 +24,7 @@ abstract class AboutLibrariesExportComplianceTask : BaseAboutLibrariesTask() {
     @Internal
     var librariesWithoutLicenses = HashSet<String>()
 
-    @Internal
     private var unknownLicenses = HashMap<String, HashSet<String>>()
-
 
     @TaskAction
     fun action() {
@@ -90,11 +94,13 @@ abstract class AboutLibrariesExportComplianceTask : BaseAboutLibrariesTask() {
 
                 try {
                     val source = library.artifactFolder?.toPath()
-                    Files.walk(source).forEach { s ->
-                        val targetPath = libraryTargetFolder.toPath()
-                        val fn = s.fileName.toString()
-                        if (!Files.isDirectory(s) && (fn.endsWith(".aar") || fn.endsWith(".jar") || fn.endsWith(".pom")) && !fn.endsWith("-javadoc.jar")) {
-                            Files.copy(s, targetPath.resolve(fn), StandardCopyOption.REPLACE_EXISTING)
+                    if (source != null) {
+                        Files.walk(source).forEach { s ->
+                            val targetPath = libraryTargetFolder.toPath()
+                            val fn = s.fileName.toString()
+                            if (!Files.isDirectory(s) && (fn.endsWith(".aar") || fn.endsWith(".jar") || fn.endsWith(".pom")) && !fn.endsWith("-javadoc.jar")) {
+                                Files.copy(s, targetPath.resolve(fn), StandardCopyOption.REPLACE_EXISTING)
+                            }
                         }
                     }
                 } catch (ex: Exception) {

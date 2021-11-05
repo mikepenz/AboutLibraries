@@ -19,23 +19,10 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
     var resultDirectory: File = project.file("${project.buildDir}/generated/aboutlibraries/res/")
 
     @Internal
-    override var variant: String? = null
-        get() = super.variant
-        set(value) {
-            resultDirectory = project.file("${project.buildDir}/generated/aboutlibraries/${value}/res/")
-            field = value
-        }
-
-    @Internal
     private lateinit var combinedLibrariesOutputFile: File
 
     fun getCombinedLibrariesOutputFile(): File {
-        return File(getRawFolder(), "aboutlibraries.json")
-    }
-
-    @OutputDirectory
-    public fun getRawFolder(): File {
-        return File(resultDirectory, "raw")
+        return File(resultDirectory, "aboutlibraries.json")
     }
 
     @TaskAction

@@ -14,7 +14,6 @@ abstract class AboutLibrariesExportTask : BaseAboutLibrariesTask() {
     @Internal
     var librariesWithoutLicenses = HashSet<String>()
 
-    @Internal
     private var unknownLicenses = HashMap<String, HashSet<String>>()
 
     @TaskAction

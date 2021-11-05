@@ -8,7 +8,13 @@ abstract class AboutLibrariesIdTask : BaseAboutLibrariesTask() {
 
     @TaskAction
     fun action() {
-        val result = createLibraryProcessor().gatherDependencies()
+        val collectedDeps = readInCollectedDependencies()
+        collectedDeps.dependencies.keys.forEach {
+            println("variant: $it")
+        }
+        println("")
+        println("")
+        val result = createLibraryProcessor(collectedDeps).gatherDependencies()
         for (library in result.libraries) {
             println("${library.name} (${library.artifactVersion}) -> ${library.uniqueId}")
         }
