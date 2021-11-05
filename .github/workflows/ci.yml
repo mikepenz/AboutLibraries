@@ -103,6 +103,8 @@ jobs:
           echo "signing.keyId=${{ secrets.SONATYPE_GPG_KEY }}" >> ~/.gradle/gradle.properties
           echo "signing.password=${{ secrets.SONATYPE_GPG_PASS }}" >> ~/.gradle/gradle.properties
           echo "signing.secretKeyRingFile=$HOME/.gradle/opensource.gpg" >> ~/.gradle/gradle.properties
+          echo "mavenCentralUsername=${{ secrets.NEXUS_USERNAME }}" >> ~/.gradle/gradle.properties
+          echo "mavenCentralPassword=${{ secrets.NEXUS_PASSWORD }}" >> ~/.gradle/gradle.properties
 
       - name: Release Sonatype
         if: startsWith(github.ref, 'refs/tags/')
@@ -111,11 +113,6 @@ jobs:
           ./gradlew aboutlibraries-core:publishAllPublicationsToMavenCentralRepository -Plibrary_core_only --no-configure-on-demand --no-parallel
           ./gradlew aboutlibraries:publishAllPublicationsToMavenCentralRepository -x test -x lint -Plibrary_only --no-configure-on-demand --no-parallel
           ./gradlew aboutlibraries-compose:publishAllPublicationsToMavenCentralRepository -x test -x lint -Plibrary_compose_only --no-configure-on-demand --no-parallel
-        env:
-          NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
-          NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
-          mavenCentralUsername: ${{ secrets.NEXUS_USERNAME }}
-          mavenCentralPassword: ${{ secrets.NEXUS_PASSWORD }}
 
       - name: Collect artifacts
         run: |
