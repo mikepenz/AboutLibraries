@@ -54,20 +54,23 @@ class AboutLibrariesPlugin : Plugin<Project> {
         }
 
         project.afterEvaluate {
-            try {
-                val app = project.extensions.findByType(AppExtension::class.java)
-                if (app != null) {
-                    app.applicationVariants.all {
-                        createAboutLibrariesAndroidTasks(project, it, collectTask)
+            val extension = project.extensions.getByName("aboutLibraries") as AboutLibrariesExtension
+            if (extension.registerAndroidTasks) {
+                try {
+                    val app = project.extensions.findByType(AppExtension::class.java)
+                    if (app != null) {
+                        app.applicationVariants.all {
+                            createAboutLibrariesAndroidTasks(project, it, collectTask)
+                        }
+                    } else {
+                        val lib = project.extensions.findByType(LibraryExtension::class.java)
+                        lib?.libraryVariants?.all {
+                            createAboutLibrariesAndroidTasks(project, it, collectTask)
+                        }
                     }
-                } else {
-                    val lib = project.extensions.findByType(LibraryExtension::class.java)
-                    lib?.libraryVariants?.all {
-                        createAboutLibrariesAndroidTasks(project, it, collectTask)
-                    }
+                } catch (t: Throwable) {
+                    LOGGER.info("Couldn't register Android related plugin tasks")
                 }
-            } catch (t: Throwable) {
-                LOGGER.info("Couldn't register Android related plugin tasks")
             }
         }
     }

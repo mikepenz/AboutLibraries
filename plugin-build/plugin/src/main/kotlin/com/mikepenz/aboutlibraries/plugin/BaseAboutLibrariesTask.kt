@@ -60,7 +60,7 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     val allowedLicenses = extension.allowedLicenses
 
     @Input
-    val fetchRemoteLicense = extension.fetchRemoteLicense ?: false
+    val fetchRemoteLicense = extension.fetchRemoteLicense
 
     @Input
     @org.gradle.api.tasks.Optional

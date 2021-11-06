@@ -9,6 +9,18 @@ import javax.inject.Inject
 abstract class AboutLibrariesExtension @Inject constructor(objectFactory: ObjectFactory) {
 
     /**
+     * Configures the creation and registration of the Android related tasks. Will automatically hook into the build process and create the `aboutlibraries.json` during build time.
+     * If disabled use `exportLibraryDefinitions` manually to create the `.json` output.
+     *
+     * ```
+     * aboutLibraries {
+     *   registerAndroidTasks = true
+     * }
+     * ```
+     */
+    var registerAndroidTasks: Boolean = true
+
+    /**
      * The path to your directory containing additional libraries, and licenses to include in the generated data.
      * These can also be used to update library data, as identified by the `uniqueId`
      *
@@ -122,7 +134,7 @@ abstract class AboutLibrariesExtension @Inject constructor(objectFactory: Object
      * }
      * ```
      */
-    var fetchRemoteLicense: Boolean? = null
+    var fetchRemoteLicense: Boolean = false
 
     /**
      * An optional GitHub API token used to access the `license` endpoint provided by GitHub
