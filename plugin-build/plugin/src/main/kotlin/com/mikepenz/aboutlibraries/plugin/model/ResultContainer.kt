@@ -7,10 +7,21 @@ import java.io.File
 import java.io.OutputStreamWriter
 import java.io.PrintWriter
 import java.nio.charset.StandardCharsets
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 data class ResultContainer(
     val libraries: List<Library>,
     val licenses: Map<String, License>
+) {
+    val metadata: MetaData = MetaData()
+}
+
+class MetaData(
+    val generated: String = DateTimeFormatter.ISO_DATE_TIME
+        .withZone(ZoneOffset.UTC)
+        .format(Calendar.getInstance().toInstant())
 )
 
 fun ResultContainer.writeToDisk(outputFile: File) {
