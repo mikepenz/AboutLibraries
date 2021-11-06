@@ -33,3 +33,5 @@ jobs:
         with:
           branch: gh-pages
           folder: build/dokka/htmlMultiModule
+          target-folder: docs/10.x/
+          clean: true
