@@ -83,8 +83,11 @@ android {
 
 // It is possible to define a custom config path with custom mappings
 aboutLibraries {
+    // define the path configuration files are located in. E.g. additional libraries, licenses to add to the target .json
     configPath = "config"
+    // enable fetching of "remote" licenses. Uses the GitHub API
     fetchRemoteLicense = true
+    // (optional) GitHub token to raise API request limit to allow fetching more licenses
     gitHubApiToken = getLocalOrGlobalProperty("github.pat")
 
     // Full license text for license IDs mentioned here will be included, even if no detected dependency uses them.
@@ -93,11 +96,16 @@ aboutLibraries {
         mpl_2_0
     }*/
 
+    // Define the strict mode, will fail if the project uses licenses not allowed
+    // - This will only automatically fail for Android projects which have `registerAndroidTasks` enabled
+    // For non Android projects, execute `exportLibraryDefinitions`
     strictMode = com.mikepenz.aboutlibraries.plugin.StrictMode.FAIL
-
-    duplicationMode = com.mikepenz.aboutlibraries.plugin.DuplicateMode.LINK
-
+    // Allowed set of licenses, this project will be able to use without build failure
     allowedLicenses = ["Apache-2.0", "asdkl"]
+    // Enable the duplication mode, allows to merge, or link dependencies which relate
+    duplicationMode = com.mikepenz.aboutlibraries.plugin.DuplicateMode.LINK
+    // Configure the duplication rule, to match "duplicates" with
+    duplicationRule = com.mikepenz.aboutlibraries.plugin.DuplicateRule.SIMPLE
 }
 
 dependencies {
