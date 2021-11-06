@@ -1,6 +1,5 @@
 package com.mikepenz.aboutlibraries.sample
 
-import LibrariesContainer
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -12,6 +11,7 @@ import androidx.compose.ui.Modifier
 import com.google.accompanist.insets.LocalWindowInsets
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.insets.rememberInsetsPaddingValues
+import com.mikepenz.aboutlibraries.ui.compose.LibrariesContainer
 
 class ComposeActivity : ComponentActivity() {
 
