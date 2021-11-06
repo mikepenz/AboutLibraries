@@ -97,17 +97,8 @@ kotlin {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.kotlin}"
-
     // kotlinx Serialize
     multiplatformMainImplementation "org.jetbrains.kotlinx:kotlinx-serialization-json:${versions.kotlinxSerialization}"
-}
-
-configurations.configureEach {
-    // We forcefully exclude AppCompat + MDC from any transitive dependencies. This is a Kotlin Multiplatform module, so there's no need for these
-    // https://github.com/chrisbanes/tivi/blob/5e7586465337d326a1f1e40e0b412ecd2779bb5c/build.gradle#L72
-    exclude group: 'androidx.appcompat'
-    exclude group: 'com.google.android.material', module: 'material'
 }
 
 dokkaHtml.configure {
