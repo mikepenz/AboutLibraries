@@ -19,13 +19,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.entity.Library
-import com.mikepenz.aboutlibraries.ui.compose.data.fakeData
 import com.mikepenz.aboutlibraries.ui.compose.util.author
 import com.mikepenz.aboutlibraries.util.withContext
 
@@ -113,7 +111,6 @@ fun Libraries(
     }
 }
 
-
 @Composable
 private fun Library(
     library: Library,
@@ -178,11 +175,10 @@ private fun Library(
                 }
             }
         }
-
     }
 }
 
-
+/*
 @Preview("Library items (Default)")
 @Composable
 fun PreviewLibraries() {
@@ -217,3 +213,4 @@ fun PreviewLibrary() {
         }
     }
 }
+ */

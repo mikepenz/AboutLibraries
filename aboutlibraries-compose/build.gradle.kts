@@ -1,5 +1,5 @@
 plugins {
-    kotlin("android")
+    kotlin("multiplatform")
     id("com.android.library")
     id("org.jetbrains.compose")
     id("org.jetbrains.dokka")
@@ -38,16 +38,23 @@ android {
         isAbortOnError = false
     }
 }
+kotlin {
+    jvm()
+
+    android {
+        publishLibraryVariants("release")
+    }
+}
 
 dependencies {
-    implementation(project(":aboutlibraries-core"))
+    commonMainImplementation(project(":aboutlibraries-core"))
 
-    implementation("androidx.compose.runtime:runtime:$composeVersion")
-    implementation("androidx.compose.ui:ui:$composeVersion")
-    implementation("androidx.compose.foundation:foundation-layout:$composeVersion")
-    implementation("androidx.compose.material:material:$composeVersion")
-    implementation("androidx.compose.foundation:foundation:$composeVersion")
-    implementation("androidx.compose.ui:ui-tooling:$composeVersion")
+    commonMainCompileOnly(compose.runtime)
+    commonMainCompileOnly(compose.ui)
+    commonMainCompileOnly(compose.foundation)
+    commonMainCompileOnly(compose.material)
+
+    //"androidMainImplementation"("androidx.compose.ui:ui-tooling:$composeVersion")
 }
 
 configurations.configureEach {
