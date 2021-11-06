@@ -85,5 +85,6 @@ allprojects {
 apply plugin: "org.jetbrains.dokka"
 
 tasks.dokkaHtmlMultiModule.configure {
-
+    // dependsOn gradle.includedBuild('plugin-build').task(':plugin:dokkaHtmlPartial')
+    // addSubprojectChildTasks(":plugin-build:build:dokkaHtmlPartial")
 }
