@@ -2,6 +2,7 @@ package com.mikepenz.aboutlibraries.viewmodel
 
 import android.content.Context
 import android.content.pm.PackageInfo
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.LibsBuilder
@@ -80,7 +81,15 @@ class LibsViewModel(
         }
 
         withContext(Dispatchers.IO) {
-            val builtLibs = libsBuilder.build()
+            val builtLibs = try {
+                libsBuilder.build()
+            } catch (t: Throwable) {
+                Log.e("AboutLibraries", "Unable to read the library information", t)
+                withContext(Dispatchers.Main) {
+                    emit(emptyList<GenericItem>())
+                }
+                return@withContext
+            }
 
             if (builder.libraryComparator != null) {
                 Collections.sort(builtLibs.libraries, builder.libraryComparator)
