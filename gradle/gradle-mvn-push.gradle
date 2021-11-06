@@ -1,7 +1,7 @@
 apply plugin: "com.vanniktech.maven.publish"
 apply plugin: "org.jetbrains.dokka"
 
-task javadocJar(type: Jar, dependsOn: dokkaJavadoc) {
+task javadocJar(type: Jar, dependsOn: dokkaHtml) {
     classifier = 'javadoc'
     from "$buildDir/javadoc"
 }

@@ -81,3 +81,9 @@ allprojects {
         }
     }
 }
+
+apply plugin: "org.jetbrains.dokka"
+
+tasks.dokkaHtmlMultiModule.configure {
+
+}

@@ -2,7 +2,8 @@ plugins {
     id "org.jetbrains.kotlin.jvm"
     id "com.gradle.plugin-publish" version "0.17.0"
     id "java-gradle-plugin"
-    id 'maven-publish'
+    id "maven-publish"
+    id "org.jetbrains.dokka"
 }
 
 group = "com.mikepenz.aboutlibraries.plugin"
@@ -63,9 +64,9 @@ task sourcesJar(type: Jar) {
     from sourceSets.main.allSource
 }
 
-task javadocJar(type: Jar) {
+task javadocJar(type: Jar, dependsOn: dokkaHtml) {
     classifier = 'javadoc'
-    from javadoc
+    from "$buildDir/javadoc"
 }
 
 publishing {
@@ -83,4 +84,9 @@ publishing {
 artifacts {
     archives sourcesJar
     archives javadocJar
+}
+
+dokkaHtml.configure {
+    dokkaSourceSets {
+    }
 }

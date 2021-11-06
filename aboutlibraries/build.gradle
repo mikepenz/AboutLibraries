@@ -1,6 +1,7 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
+apply plugin: "com.android.library"
+apply plugin: "kotlin-android"
 apply plugin: "androidx.navigation.safeargs.kotlin"
+apply plugin: "org.jetbrains.dokka"
 
 version release.versionName
 
