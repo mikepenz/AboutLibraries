@@ -124,6 +124,7 @@ dependencies {
     implementation "androidx.cardview:cardview:${versions.cardview}"
 
     implementation("com.google.accompanist:accompanist-insets-ui:${versions.accompanist}")
+    implementation("com.google.accompanist:accompanist-systemuicontroller:${versions.accompanist}")
 
     implementation("androidx.compose.runtime:runtime:${versions.compose}")
     implementation("androidx.compose.ui:ui:${versions.compose}")
