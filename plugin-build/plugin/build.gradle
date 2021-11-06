@@ -25,7 +25,7 @@ pluginBundle {
     plugins {
         aboutlibsPlugin {
             displayName = 'AboutLibraries Library Gradle Plugin'
-            tags = ['gradle', 'plugin', 'android']
+            tags = ['libraries', 'licenses', 'android']
         }
     }
 
