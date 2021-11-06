@@ -4,10 +4,6 @@ import android.util.Log
 import com.mikepenz.aboutlibraries.entity.*
 import org.json.JSONObject
 
-actual fun parseData(byteArray: ByteArray): Result {
-    return parseData(byteArray.toString(Charsets.UTF_8))
-}
-
 actual fun parseData(json: String): Result {
     try {
         val metaData = JSONObject(json)

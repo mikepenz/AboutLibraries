@@ -5,10 +5,17 @@ import com.mikepenz.aboutlibraries.Libs
 import org.json.JSONArray
 import org.json.JSONObject
 
+fun Libs.Builder.withJson(byteArray: ByteArray): Libs.Builder {
+    return withJson(byteArray.toString(kotlin.text.Charsets.UTF_8))
+}
 
 fun Libs.Builder.withContext(ctx: Context): Libs.Builder {
+    return withJson(ctx, ctx.getRawResourceId("aboutlibraries"))
+}
+
+fun Libs.Builder.withJson(ctx: Context, rawResId: Int): Libs.Builder {
     try {
-        _stringData = ctx.resources.openRawResource(ctx.getRawResourceId("aboutlibraries")).bufferedReader().use { it.readText() }
+        withJson(ctx.resources.openRawResource(rawResId).bufferedReader().use { it.readText() })
     } catch (t: Throwable) {
         println("Could not retrieve libraries")
     }

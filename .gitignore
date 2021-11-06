@@ -11,3 +11,4 @@ functiongraphic.psd
 .vscode/
 bin/
 captures/
+*.podspec

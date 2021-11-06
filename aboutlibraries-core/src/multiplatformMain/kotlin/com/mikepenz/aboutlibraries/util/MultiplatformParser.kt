@@ -4,10 +4,6 @@ import com.mikepenz.aboutlibraries.entity.*
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonObject
 
-actual fun parseData(byteArray: ByteArray): Result {
-    return parseData(byteArray.toString(Charsets.UTF_8))
-}
-
 actual fun parseData(json: String): Result {
     try {
         val metaData = Json.parseToJsonElement(json).jsonObject

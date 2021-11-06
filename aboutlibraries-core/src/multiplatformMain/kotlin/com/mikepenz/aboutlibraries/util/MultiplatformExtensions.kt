@@ -6,7 +6,6 @@ internal fun JsonObject.getJSONObject(key: String): JsonObject {
     return getValue(key).jsonObject
 }
 
-
 internal fun JsonObject.optJSONObject(key: String): JsonObject? {
     return get(key)?.jsonObject
 }

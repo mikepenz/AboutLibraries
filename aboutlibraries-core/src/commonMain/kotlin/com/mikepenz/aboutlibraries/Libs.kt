@@ -5,8 +5,7 @@ import com.mikepenz.aboutlibraries.entity.License
 import com.mikepenz.aboutlibraries.util.parseData
 
 class Libs internal constructor(
-    stringData: String? = null,
-    byteArrayData: ByteArray? = null
+    stringData: String? = null
 ) {
 
     private val _libraries = mutableListOf<Library>()
@@ -28,8 +27,6 @@ class Libs internal constructor(
     init {
         val (libraries, licenses) = if (stringData != null) {
             parseData(stringData)
-        } else if (byteArrayData != null) {
-            parseData(byteArrayData)
         } else {
             throw IllegalStateException("Please provide the data via the provided APIs")
         }
@@ -39,21 +36,15 @@ class Libs internal constructor(
     }
 
     class Builder() {
-        internal var _stringData: String? = null
-        internal var _byteArrayData: ByteArray? = null
+        private var _stringData: String? = null
 
         fun withJson(stringData: String): Builder {
             _stringData = stringData
             return this
         }
 
-        fun withJson(byteArrayData: ByteArray): Builder {
-            _byteArrayData = byteArrayData
-            return this
-        }
-
         fun build(): Libs {
-            return Libs(_stringData, _byteArrayData)
+            return Libs(_stringData)
         }
     }
 }

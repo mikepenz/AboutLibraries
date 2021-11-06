@@ -1,13 +1,13 @@
 apply plugin: "com.android.library"
 apply plugin: "kotlin-multiplatform"
+apply plugin: "org.jetbrains.kotlin.native.cocoapods"
 apply plugin: "org.jetbrains.dokka"
 
 version = release.versionName
 archivesBaseName = POM_ARTIFACT_ID
 
 android {
-    compileSdkVersion setup.compileSdk
-    buildToolsVersion setup.buildTools
+    compileSdk = setup.compileSdk
 
     defaultConfig {
         minSdkVersion setup.minSdk
@@ -26,40 +26,81 @@ android {
     lintOptions {
         abortOnError false
     }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
 }
 
 kotlin {
     jvm()
 
+    js {
+        nodejs {}
+        browser {}
+        compilations.all {
+            kotlinOptions {
+                moduleKind = "umd"
+                sourceMap = true
+                sourceMapEmbedSources = null
+            }
+        }
+    }
+
+    iosX64()
+    iosArm32()
+    iosArm64()
+    tvosX64()
+    tvosArm64()
+    watchosX86()
+    watchosX64()
+    watchosArm32()
+    watchosArm64()
+    macosX64()
+    macosArm64()
+    mingwX64()
+    linuxX64()
+
     android {
         publishAllLibraryVariants()
     }
 
+    cocoapods {
+        summary = "AboutLibraries automatically detects all dependencies of a project and collects their information including the license."
+        homepage = "https://github.com/mikepenz/AboutLibraries"
+        authors = "Mike Penz"
+        license = "Apache 2.0"
+    }
+
     sourceSets {
+        multiplatformMain { dependsOn(commonMain) }
+        jvmMain { dependsOn(multiplatformMain) }
+        jsMain { dependsOn(multiplatformMain) }
+        desktopMain { dependsOn(multiplatformMain) }
+        linuxX64Main { dependsOn(desktopMain) }
+        mingwX64Main { dependsOn(desktopMain) }
+        macosX64Main { dependsOn(desktopMain) }
+        macosArm64Main { dependsOn(desktopMain) }
+        iosMain { dependsOn(multiplatformMain) }
+        iosArm64Main { dependsOn(iosMain) }
+        iosArm32Main { dependsOn(iosMain) }
+        iosX64Main { dependsOn(iosMain) }
+        tvosArm64Main { dependsOn(iosMain) }
+        tvosX64Main { dependsOn(iosMain) }
+        watchosArm32Main { dependsOn(iosMain) }
+        watchosArm64Main { dependsOn(iosMain) }
+        watchosX86Main { dependsOn(iosMain) }
+        watchosX64Main { dependsOn(iosMain) }
+
         jvmTest {
             dependencies {
                 implementation kotlin('test-junit')
             }
         }
     }
-
-    //kotlinOptions {
-    //    jvmTarget = "1.8"
-    //    // specify the artifactId as module-name for kotlin
-    //    freeCompilerArgs += ["-module-name", POM_ARTIFACT_ID]
-    //}
 }
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.kotlin}"
 
     // kotlinx Serialize
-    jvmMainImplementation "org.jetbrains.kotlinx:kotlinx-serialization-json:${versions.kotlinxSerialization}"
+    multiplatformMainImplementation "org.jetbrains.kotlinx:kotlinx-serialization-json:${versions.kotlinxSerialization}"
 }
 
 configurations.configureEach {

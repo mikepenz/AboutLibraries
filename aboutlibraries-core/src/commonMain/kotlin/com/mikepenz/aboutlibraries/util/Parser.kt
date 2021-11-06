@@ -3,8 +3,6 @@ package com.mikepenz.aboutlibraries.util
 import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.entity.License
 
-expect fun parseData(byteArray: ByteArray): Result
-
 expect fun parseData(json: String): Result
 
 class Result(
