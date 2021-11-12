@@ -3,7 +3,7 @@
 ### Generate Dependency Information
 
 ```bash
-./gradlew compose-desktop:exportLibraryDefinitions -PexportPath=src/main/resources/
+./gradlew app-desktop:exportLibraryDefinitions -PexportPath=src/main/resources/
 ```
 
 ### Run Desktop app
