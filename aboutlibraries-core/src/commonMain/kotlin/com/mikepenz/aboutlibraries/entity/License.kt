@@ -1,7 +1,15 @@
 package com.mikepenz.aboutlibraries.entity
 
 /**
- * License class describing a license and its information
+ * Describes a complete [License] element.
+ * Either retrieved from spdx or downloaded from the artifacts repo
+ *
+ * @param name of the given license
+ * @param url linking to the hosted form of this license
+ * @param year if available for this license (not contained in the `pom.xml`)
+ * @param spdxId for this library, if it is a standard library available
+ * @param licenseContent contains the whole license content as downloaded from the server
+ * @param hash usually calculated to identify if a license is re-used and can be used for multiple artifacts
  */
 data class License(
     val name: String,

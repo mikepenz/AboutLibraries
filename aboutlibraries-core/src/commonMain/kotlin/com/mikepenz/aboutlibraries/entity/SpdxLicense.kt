@@ -1,6 +1,9 @@
 package com.mikepenz.aboutlibraries.entity
 
 /**
+ * [SpdxLicense] includes all known licenses according to `spdx.org`
+ * Licenses found in the `pom.xml` are tried to be mapped against the spdx form for a consistet representation.
+ *
  * LICENSE LIST THANKS TO: https://spdx.org/licenses/
  */
 @Suppress("EnumNaming", "EnumEntryName", "unused")

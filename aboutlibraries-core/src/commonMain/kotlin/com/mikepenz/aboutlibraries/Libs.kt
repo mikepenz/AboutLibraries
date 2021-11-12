@@ -4,6 +4,10 @@ import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.entity.License
 import com.mikepenz.aboutlibraries.util.parseData
 
+/**
+ * The [Libs] class is the main access point to the generated data of the plugin.
+ * Provides accessors for the [Library] and [License] lists, containing all the dependency information for the module.
+ */
 class Libs internal constructor(
     stringData: String? = null
 ) {
@@ -35,14 +39,23 @@ class Libs internal constructor(
         _licenses.addAll(licenses)
     }
 
-    class Builder() {
+    /**
+     * Builder used to automatically parse and interpret the generated library data from the plugin.
+     */
+    class Builder {
         private var _stringData: String? = null
 
+        /**
+         * Provide the generated library data as [String]
+         */
         fun withJson(stringData: String): Builder {
             _stringData = stringData
             return this
         }
 
+        /**
+         * Build the [Libs] instance with the applied configuration.
+         */
         fun build(): Libs {
             return Libs(_stringData)
         }
