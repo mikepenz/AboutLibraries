@@ -85,7 +85,7 @@ aboutLibraries {
     // - if the automatic registered android tasks are disabled, a similar thing can be achieved manually
     // - `./gradlew app:exportLibraryDefinitions -PexportPath=src/main/res/raw`
     // - the resulting file can for example be added as part of the SCM
-    // registerAndroidTasks = false
+    registerAndroidTasks = false
 
     // define the path configuration files are located in. E.g. additional libraries, licenses to add to the target .json
     configPath = "config"

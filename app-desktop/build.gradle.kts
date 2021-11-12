@@ -27,3 +27,7 @@ tasks.withType<KotlinCompile> {
 application {
     mainClass.set("MainKt")
 }
+
+aboutLibraries {
+    registerAndroidTasks = false
+}
