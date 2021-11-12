@@ -26,7 +26,7 @@ jobs:
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
 
       - name: Build Documentation
-        run: ./gradlew dokkaHtmlMultiModule
+        run: ./gradlew dokkaHtmlMultiModule --no-parallel
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.5
