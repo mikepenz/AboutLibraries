@@ -22,38 +22,38 @@ class AboutLibrariesPlugin : Plugin<Project> {
         // create the config possible
         project.extensions.create("aboutLibraries", AboutLibrariesExtension::class.java)
 
-        // task to output library names with ids for further actions
-        val collectTask = project.tasks.register("collectDependencies", AboutLibrariesCollectorTask::class.java) {
-            it.description = "Collects dependencies to be used by the different AboutLibraries tasks"
-            it.configure()
-        }
-
-        // task to output library names with ids for further actions
-        project.tasks.register("findLibraries", AboutLibrariesIdTask::class.java) {
-            it.description = "Writes the relevant meta data for the AboutLibraries plugin to display dependencies"
-            it.group = "Help"
-            it.dependsOn(collectTask)
-        }
-
-        // task to output libraries, and their license in CSV format to the CLI
-        project.tasks.register("exportLibraries", AboutLibrariesExportTask::class.java) {
-            it.description = "Writes all libraries and their license in CSV format to the CLI"
-            it.group = "Help"
-            it.dependsOn(collectTask)
-        }
-
-        // register a global task to generate library definitions
-        project.tasks.create("exportLibraryDefinitions", AboutLibrariesTask::class.java) {
-            it.description = "Writes the relevant meta data for the AboutLibraries plugin to display dependencies"
-            it.group = "Build"
-            it.variant = if (project.hasProperty("exportVariant")) project.property("exportVariant").toString() else null
-            it.resultDirectory = if (project.hasProperty("exportPath")) project.file(
-                project.property("exportPath").toString()
-            ) else project.file("${project.buildDir}/generated/aboutlibraries/")
-            it.dependsOn(collectTask)
-        }
-
         project.afterEvaluate {
+            // task to output library names with ids for further actions
+            val collectTask = project.tasks.register("collectDependencies", AboutLibrariesCollectorTask::class.java) {
+                it.description = "Collects dependencies to be used by the different AboutLibraries tasks"
+                it.configure()
+            }
+
+            // task to output library names with ids for further actions
+            project.tasks.register("findLibraries", AboutLibrariesIdTask::class.java) {
+                it.description = "Writes the relevant meta data for the AboutLibraries plugin to display dependencies"
+                it.group = "Help"
+                it.dependsOn(collectTask)
+            }
+
+            // task to output libraries, and their license in CSV format to the CLI
+            project.tasks.register("exportLibraries", AboutLibrariesExportTask::class.java) {
+                it.description = "Writes all libraries and their license in CSV format to the CLI"
+                it.group = "Help"
+                it.dependsOn(collectTask)
+            }
+
+            // register a global task to generate library definitions
+            project.tasks.create("exportLibraryDefinitions", AboutLibrariesTask::class.java) {
+                it.description = "Writes the relevant meta data for the AboutLibraries plugin to display dependencies"
+                it.group = "Build"
+                it.variant = if (project.hasProperty("exportVariant")) project.property("exportVariant").toString() else null
+                it.resultDirectory = if (project.hasProperty("exportPath")) project.file(
+                    project.property("exportPath").toString()
+                ) else project.file("${project.buildDir}/generated/aboutlibraries/")
+                it.dependsOn(collectTask)
+            }
+
             val extension = project.extensions.getByName("aboutLibraries") as AboutLibrariesExtension
             if (extension.registerAndroidTasks) {
                 try {
