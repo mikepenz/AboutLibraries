@@ -1,8 +1,8 @@
 package com.mikepenz.aboutlibraries.plugin
 
 import com.mikepenz.aboutlibraries.plugin.model.CollectedContainer
+import com.mikepenz.aboutlibraries.plugin.util.DependencyCollector
 import com.mikepenz.aboutlibraries.plugin.util.LibrariesProcessor
-import groovy.json.JsonSlurper
 import org.gradle.api.DefaultTask
 import org.gradle.api.artifacts.dsl.DependencyHandler
 import org.gradle.api.tasks.*
@@ -15,6 +15,10 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
 
     private val rootDir = project.rootDir
 
+    /** holds the collected set of dependencies*/
+    @Internal
+    protected lateinit var collectedDependencies: CollectedContainer
+
     @Internal
     protected val extension = project.extensions.getByName("aboutLibraries") as AboutLibrariesExtension
 
@@ -23,10 +27,6 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
 
     @Inject
     abstract fun getDependencyHandler(): DependencyHandler
-
-    @InputFile
-    @PathSensitive(value = PathSensitivity.RELATIVE)
-    protected val dependencyCache = File(project.buildDir, "generated/aboutLibraries/dependency_cache.json")
 
     @org.gradle.api.tasks.Optional
     @PathSensitive(value = PathSensitivity.RELATIVE)
@@ -74,11 +74,15 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     @Internal
     @Suppress("UNCHECKED_CAST")
     protected fun readInCollectedDependencies(): CollectedContainer {
-        try {
-            return CollectedContainer.from((JsonSlurper().parse(dependencyCache) as Map<String, *>)["dependencies"] as Map<String, Map<String, List<String>>>)
-        } catch (t: Throwable) {
-            throw IllegalStateException("Failed to parse the dependencyCache. Try to do a clean build", t)
+        if (!::collectedDependencies.isInitialized) {
+            configure()
         }
+        return collectedDependencies
+        //try {
+        //    return CollectedContainer.from((JsonSlurper().parse(dependencyCache) as Map<String, *>)["dependencies"] as Map<String, Map<String, List<String>>>)
+        //} catch (t: Throwable) {
+        //    throw IllegalStateException("Failed to parse the dependencyCache. Try to do a clean build", t)
+        //}
     }
 
     @Internal
@@ -95,5 +99,13 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
             variant,
             gitHubApiToken
         )
+    }
+
+    /**
+     * Collect the dependencies via the available configurations for the current project
+     */
+    @Internal
+    fun configure() {
+        collectedDependencies = DependencyCollector().collect(project)
     }
 }

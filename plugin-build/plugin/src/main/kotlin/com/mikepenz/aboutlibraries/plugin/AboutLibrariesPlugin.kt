@@ -24,25 +24,29 @@ class AboutLibrariesPlugin : Plugin<Project> {
 
         project.afterEvaluate {
             // task to output library names with ids for further actions
-            val collectTask = project.tasks.register("collectDependencies", AboutLibrariesCollectorTask::class.java) {
-                it.description = "Collects dependencies to be used by the different AboutLibraries tasks"
-                if (project.experimentalCache) {
-                    it.configure()
-                }
-            }
+            // val collectTask = project.tasks.register("collectDependencies", AboutLibrariesCollectorTask::class.java) {
+            //     it.description = "Collects dependencies to be used by the different AboutLibraries tasks"
+            //     if (project.experimentalCache) {
+            //         it.configure()
+            //     }
+            // }
 
             // task to output library names with ids for further actions
             project.tasks.register("findLibraries", AboutLibrariesIdTask::class.java) {
                 it.description = "Writes the relevant meta data for the AboutLibraries plugin to display dependencies"
                 it.group = "Help"
-                it.dependsOn(collectTask)
+                if (project.experimentalCache) {
+                    it.configure()
+                }
             }
 
             // task to output libraries, and their license in CSV format to the CLI
             project.tasks.register("exportLibraries", AboutLibrariesExportTask::class.java) {
                 it.description = "Writes all libraries and their license in CSV format to the CLI"
                 it.group = "Help"
-                it.dependsOn(collectTask)
+                if (project.experimentalCache) {
+                    it.configure()
+                }
             }
 
             // register a global task to generate library definitions
@@ -53,7 +57,9 @@ class AboutLibrariesPlugin : Plugin<Project> {
                 it.resultDirectory = if (project.hasProperty("exportPath")) project.file(
                     project.property("exportPath").toString()
                 ) else project.file("${project.buildDir}/generated/aboutlibraries/")
-                it.dependsOn(collectTask)
+                if (project.experimentalCache) {
+                    it.configure()
+                }
             }
 
             val extension = project.extensions.getByName("aboutLibraries") as AboutLibrariesExtension
@@ -62,12 +68,12 @@ class AboutLibrariesPlugin : Plugin<Project> {
                     val app = project.extensions.findByType(AppExtension::class.java)
                     if (app != null) {
                         app.applicationVariants.all {
-                            createAboutLibrariesAndroidTasks(project, it, collectTask)
+                            createAboutLibrariesAndroidTasks(project, it)
                         }
                     } else {
                         val lib = project.extensions.findByType(LibraryExtension::class.java)
                         lib?.libraryVariants?.all {
-                            createAboutLibrariesAndroidTasks(project, it, collectTask)
+                            createAboutLibrariesAndroidTasks(project, it)
                         }
                     }
                 } catch (t: Throwable) {
@@ -78,14 +84,16 @@ class AboutLibrariesPlugin : Plugin<Project> {
     }
 
     @Suppress("DEPRECATION")
-    private fun createAboutLibrariesAndroidTasks(project: Project, variant: BaseVariant, collectTask: TaskProvider<*>) {
+    private fun createAboutLibrariesAndroidTasks(project: Project, variant: BaseVariant) {
         // task to write the general definitions information
         val task = project.tasks.create("prepareLibraryDefinitions${variant.name.capitalize(Locale.ENGLISH)}", AboutLibrariesTask::class.java) {
             it.description = "Writes the relevant meta data for the AboutLibraries plugin to display dependencies"
             it.group = "Build"
             it.variant = variant.name
             it.resultDirectory = project.file("${project.buildDir}/generated/aboutlibraries/${variant.name}/res/raw/")
-            it.dependsOn(collectTask)
+            if (project.experimentalCache) {
+                it.configure()
+            }
         }
 
         // This is necessary for backwards compatibility with versions of gradle that do not support
@@ -109,7 +117,9 @@ class AboutLibrariesPlugin : Plugin<Project> {
             it.group = "Build"
             it.variant = variant.name
             it.resultDirectory = project.file("${project.buildDir}/generated/aboutlibraries/${variant.name}/res/raw/")
-            it.dependsOn(collectTask)
+            if (project.experimentalCache) {
+                it.configure()
+            }
         }
 
         // task to output libraries, and their license in CSV format to the CLI
@@ -117,7 +127,9 @@ class AboutLibrariesPlugin : Plugin<Project> {
             it.description = "Writes all libraries and their license in CSV format to the CLI"
             it.group = "Help"
             it.variant = variant.name
-            it.dependsOn(collectTask)
+            if (project.experimentalCache) {
+                it.configure()
+            }
         }
 
         // task to output libraries, their license in CSV format and source to a given location
@@ -125,7 +137,9 @@ class AboutLibrariesPlugin : Plugin<Project> {
             it.description = "Writes all libraries with their source and their license in CSV format to the configured directory"
             it.group = "Help"
             it.variant = variant.name
-            it.dependsOn(collectTask)
+            if (project.experimentalCache) {
+                it.configure()
+            }
         }
     }
 
