@@ -71,7 +71,6 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
         return extension.additionalLicenses.map { it.name }.toHashSet()
     }
 
-    @Internal
     @Suppress("UNCHECKED_CAST")
     protected fun readInCollectedDependencies(): CollectedContainer {
         try {
@@ -81,7 +80,6 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
         }
     }
 
-    @Internal
     protected fun createLibraryProcessor(collectedContainer: CollectedContainer = readInCollectedDependencies()): LibrariesProcessor {
         return LibrariesProcessor(
             getDependencyHandler(),
