@@ -26,7 +26,9 @@ class AboutLibrariesPlugin : Plugin<Project> {
             // task to output library names with ids for further actions
             val collectTask = project.tasks.register("collectDependencies", AboutLibrariesCollectorTask::class.java) {
                 it.description = "Collects dependencies to be used by the different AboutLibraries tasks"
-                it.configure()
+                if (project.experimentalCache) {
+                    it.configure()
+                }
             }
 
             // task to output library names with ids for further actions
@@ -126,6 +128,11 @@ class AboutLibrariesPlugin : Plugin<Project> {
             it.dependsOn(collectTask)
         }
     }
+
+    private val Project.experimentalCache: Boolean
+        get() = hasProperty("org.gradle.unsafe.configuration-cache") &&
+                property("org.gradle.unsafe.configuration-cache") == "true"
+
 
     companion object {
         private val LOGGER = LoggerFactory.getLogger(AboutLibrariesPlugin::class.java)

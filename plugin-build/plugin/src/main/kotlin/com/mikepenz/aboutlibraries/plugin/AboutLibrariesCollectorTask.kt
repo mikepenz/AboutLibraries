@@ -4,7 +4,7 @@ import com.mikepenz.aboutlibraries.plugin.model.CollectedContainer
 import com.mikepenz.aboutlibraries.plugin.util.DependencyCollector
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.CacheableTask
-import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
 import java.io.File
@@ -13,7 +13,7 @@ import java.io.File
 abstract class AboutLibrariesCollectorTask : DefaultTask() {
 
     /** holds the collected set of dependencies*/
-    @Input
+    @Internal
     protected lateinit var collectedDependencies: CollectedContainer
 
     /**
@@ -28,6 +28,9 @@ abstract class AboutLibrariesCollectorTask : DefaultTask() {
 
     @TaskAction
     fun action() {
+        if (!::collectedDependencies.isInitialized) {
+            configure()
+        }
         dependencyCache.writeText(groovy.json.JsonOutput.toJson(collectedDependencies))
     }
 }
