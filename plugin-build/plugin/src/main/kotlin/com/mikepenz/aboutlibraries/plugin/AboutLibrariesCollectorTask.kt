@@ -23,8 +23,14 @@ abstract class AboutLibrariesCollectorTask : DefaultTask() {
         collectedDependencies = DependencyCollector().collect(project)
     }
 
-    @OutputFile
-    protected val dependencyCache = File(project.buildDir, "generated/aboutLibraries/dependency_cache.json")
+    val dependencyCache: File
+        @OutputFile
+        get() {
+            val folder = File(project.buildDir, "generated/aboutLibraries/").also {
+                it.mkdirs()
+            }
+            return File(folder, "dependency_cache.json")
+        }
 
     @TaskAction
     fun action() {
