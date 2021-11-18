@@ -38,7 +38,8 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
             val missing = mutableListOf<License>()
             result.licenses.values.forEach {
                 val id = it.spdxId?.lowercase(Locale.ENGLISH) ?: it.hash.lowercase(Locale.ENGLISH)
-                if (!allowedLicenses.contains(id)) {
+                val name = it.name.lowercase(Locale.ENGLISH)
+                if (!(allowedLicenses.contains(id) || allowedLicenses.contains(name))) {
                     missing.add(it)
                 }
             }
