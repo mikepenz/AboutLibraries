@@ -20,14 +20,14 @@ buildscript {
                 activityCompose     : '1.4.0',
                 accompanist         : "0.21.2-beta",
                 cardview            : '1.0.0',
-                compose             : "1.1.0-beta02",
+                compose             : "1.1.0-beta03",
                 appcompat           : '1.3.1',
                 recyclerview        : '1.2.1',
                 viewModel           : "2.4.0",
                 material            : '1.5.0-beta01',
                 kotlin              : "1.5.31",
                 kotlinCoroutines    : "1.5.2",
-                constraintLayout    : '2.1.1',
+                constraintLayout    : '2.1.2',
                 navigation          : "2.3.5",
                 iconics             : "5.3.2",
                 fastadapter         : "5.5.1",
@@ -53,7 +53,7 @@ buildscript {
         classpath("org.jetbrains.dokka:dokka-gradle-plugin:${setup.dokka}")
         classpath("com.vanniktech:gradle-maven-publish-plugin:0.18.0")
         classpath("com.mikepenz.aboutlibraries.plugin:aboutlibraries-plugin")
-        classpath("org.jetbrains.compose:compose-gradle-plugin:1.0.0-beta6-dev455")
+        classpath("org.jetbrains.compose:compose-gradle-plugin:1.0.0-beta6-dev464")
     }
 }
 
