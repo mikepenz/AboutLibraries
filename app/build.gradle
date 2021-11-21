@@ -1,4 +1,6 @@
-apply plugin: 'com.android.application'
+plugins {
+    id 'com.android.application'
+}
 apply plugin: 'kotlin-android'
 apply plugin: 'com.mikepenz.aboutlibraries.plugin' // has to be applied AFTER android
 
@@ -8,13 +10,13 @@ if (getSigningFile() != null) {
 
 android {
     compileSdkVersion setup.compileSdk
-    buildToolsVersion setup.buildTools
 
     defaultConfig {
         minSdkVersion setup.minSdk
         targetSdkVersion setup.targetSdk
         versionCode release.versionCode
         versionName release.versionName
+        multiDexEnabled true
 
         setProperty("archivesBaseName", "AboutLibraries-v$versionName-c$versionCode")
     }
@@ -64,6 +66,14 @@ android {
         jvmTarget = "1.8"
     }
 
+    buildFeatures {
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = versions.compose
+    }
+
     packagingOptions {
         exclude 'META-INF/library-core_release.kotlin_module'
         exclude 'META-INF/library_release.kotlin_module'
@@ -72,22 +82,56 @@ android {
 
 // It is possible to define a custom config path with custom mappings
 aboutLibraries {
-    configPath = "config"
+    // - if the automatic registered android tasks are disabled, a similar thing can be achieved manually
+    // - `./gradlew app:exportLibraryDefinitions -PexportPath=src/main/res/raw`
+    // - the resulting file can for example be added as part of the SCM
+    // registerAndroidTasks = false
 
-    // Full license text for license IDs mentioned here
-    // will be included, even if no detected dependency uses them.
-    additionalLicenses {
+    // define the path configuration files are located in. E.g. additional libraries, licenses to add to the target .json
+    configPath = "config"
+    // enable fetching of "remote" licenses. Uses the GitHub API
+    fetchRemoteLicense = true
+    // (optional) GitHub token to raise API request limit to allow fetching more licenses
+    gitHubApiToken = getLocalOrGlobalProperty("github.pat")
+
+    // Full license text for license IDs mentioned here will be included, even if no detected dependency uses them.
+    /*additionalLicenses {
         mit
         mpl_2_0
-    }
+    }*/
+
+    // Define the strict mode, will fail if the project uses licenses not allowed
+    // - This will only automatically fail for Android projects which have `registerAndroidTasks` enabled
+    // For non Android projects, execute `exportLibraryDefinitions`
+    strictMode = com.mikepenz.aboutlibraries.plugin.StrictMode.FAIL
+    // Allowed set of licenses, this project will be able to use without build failure
+    allowedLicenses = ["Apache-2.0", "asdkl"]
+    // Enable the duplication mode, allows to merge, or link dependencies which relate
+    duplicationMode = com.mikepenz.aboutlibraries.plugin.DuplicateMode.LINK
+    // Configure the duplication rule, to match "duplicates" with
+    duplicationRule = com.mikepenz.aboutlibraries.plugin.DuplicateRule.SIMPLE
 }
 
 dependencies {
+    implementation project(':aboutlibraries-core')
     implementation project(':aboutlibraries')
+    implementation project(':aboutlibraries-compose')
 
+    implementation "androidx.activity:activity-compose:${versions.activityCompose}"
     implementation "com.google.android.material:material:${versions.material}"
     implementation "androidx.recyclerview:recyclerview:${versions.recyclerview}"
     implementation "androidx.cardview:cardview:${versions.cardview}"
+
+    implementation("com.google.accompanist:accompanist-insets-ui:${versions.accompanist}")
+    implementation("com.google.accompanist:accompanist-systemuicontroller:${versions.accompanist}")
+
+    implementation("androidx.compose.runtime:runtime:${versions.compose}")
+    implementation("androidx.compose.ui:ui:${versions.compose}")
+    implementation("androidx.compose.foundation:foundation-layout:${versions.compose}")
+    implementation("androidx.compose.material:material:${versions.compose}")
+    implementation("androidx.compose.foundation:foundation:${versions.compose}")
+    implementation("androidx.compose.ui:ui-tooling:${versions.compose}")
+    implementation("androidx.compose.runtime:runtime-livedata:${versions.compose}")
 
     //used to generate the drawer on the left
     //https://github.com/mikepenz/MaterialDrawer
@@ -103,7 +147,7 @@ dependencies {
     implementation "com.mikepenz:iconics-core:${versions.iconics}"
 
     //used to display the icons in the drawer
-    //https://github.com/mikepenz/Android-Iconics
+    //https://github.com/mikepenz/Android-Iconicsx`
     implementation "com.mikepenz:material-design-iconic-typeface:2.2.0.8-kotlin@aar"
 
     // used only tho showcase multi flavor support

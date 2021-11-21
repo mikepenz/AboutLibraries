@@ -3,31 +3,37 @@ buildscript {
 
     ext {
         release = [
-                versionName: "$VERSION",
-                versionCode: Integer.parseInt(rootProject.properties["VERSION_CODE"])
+                versionName: VERSION_NAME,
+                versionCode: Integer.parseInt(VERSION_CODE)
         ]
 
         setup = [
                 compileSdk: 31,
                 buildTools: "31.0.0",
-                minSdk    : 16,
-                targetSdk : 30
+                minSdk    : 21,
+                targetSdk : 30,
+                dokka     : "1.5.31"
         ]
 
         versions = [
-                androidX        : '1.0.0',
-                cardview        : '1.0.0',
-                appcompat       : '1.3.1',
-                recyclerview    : '1.2.1',
-                material        : '1.4.0',
-                kotlin          : "1.5.31",
-                constraintLayout: '2.1.1',
-                navigation      : "2.3.5",
-                iconics         : "5.3.1",
-                detekt          : '1.16.0',
-                fastadapter     : "5.4.1",
-                materialdrawer  : "8.4.3",
-                coreKtx         : "1.6.0"
+                androidX            : '1.0.0',
+                activityCompose     : '1.4.0',
+                accompanist         : "0.21.2-beta",
+                cardview            : '1.0.0',
+                compose             : "1.1.0-beta03",
+                appcompat           : '1.3.1',
+                recyclerview        : '1.2.1',
+                viewModel           : "2.4.0",
+                material            : '1.5.0-beta01',
+                kotlin              : "1.5.31",
+                kotlinCoroutines    : "1.5.2",
+                constraintLayout    : '2.1.2',
+                navigation          : "2.3.5",
+                iconics             : "5.3.2",
+                fastadapter         : "5.5.1",
+                materialdrawer      : "9.0.0-a02",
+                coreKtx             : "1.7.0",
+                kotlinxSerialization: "1.3.1",
         ]
     }
 
@@ -36,18 +42,24 @@ buildscript {
         mavenLocal()
         mavenCentral()
         google()
+        maven {
+            setUrl("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+        }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.2'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
-        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:${versions.navigation}"
-        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:${versions.detekt}"
-        classpath "com.mikepenz.aboutlibraries.plugin:aboutlibraries-plugin"
+        classpath("com.android.tools.build:gradle:7.0.3")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}")
+        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:${versions.navigation}")
+        classpath("org.jetbrains.dokka:dokka-gradle-plugin:${setup.dokka}")
+        classpath("com.vanniktech:gradle-maven-publish-plugin:0.18.0")
+        classpath("com.mikepenz.aboutlibraries.plugin:aboutlibraries-plugin")
+        classpath("org.jetbrains.compose:compose-gradle-plugin:1.0.0-beta6-dev464")
     }
 }
 
 allprojects {
-    group "com.mikepenz"
+    group = GROUP
+    version = VERSION_NAME
 
     repositories {
         mavenLocal()
@@ -58,18 +70,21 @@ allprojects {
             url "https://maven.pkg.jetbrains.space/public/p/kotlinx-html/maven"
             content { includeGroup "org.jetbrains.kotlinx" }
         }
+        maven {
+            setUrl("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+        }
     }
 
-    configurations.all {
-        resolutionStrategy.force "org.jetbrains.kotlinx:kotlinx-html-jvm:0.7.3"
-        // (mp) remove when available on maven center
+    plugins.withId("com.vanniktech.maven.publish") {
+        mavenPublish {
+            sonatypeHost = "S01"
+        }
     }
 }
 
-subprojects {
-    apply from: "$rootDir/detekt.gradle"
+apply plugin: "org.jetbrains.dokka"
 
-    dependencies {
-        detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:${versions.detekt}"
-    }
+tasks.dokkaHtmlMultiModule.configure {
+    // dependsOn gradle.includedBuild('plugin-build').task(':plugin:dokkaHtmlPartial')
+    // addSubprojectChildTasks(":plugin-build:build:dokkaHtmlPartial")
 }

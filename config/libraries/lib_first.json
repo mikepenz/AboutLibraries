@@ -1,0 +1,10 @@
+{
+  "uniqueId": "androidx.jetpack.library:custom",
+  "developers": [],
+  "artifactVersion": "42.0",
+  "description": "",
+  "name": "ABC Custom Jetpack library",
+  "licenses": [
+    "asdkl"
+  ]
+}

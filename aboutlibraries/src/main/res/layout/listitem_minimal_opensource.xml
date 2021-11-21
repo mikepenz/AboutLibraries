@@ -14,6 +14,5 @@
     android:paddingTop="20dp"
     android:paddingEnd="16dp"
     android:paddingBottom="20dp"
-    android:textSize="@dimen/textSizeLarge_openSource"
-    android:textStyle="normal"
+    android:textAppearance="?textAppearanceHeadline6"
     tools:text="Library name" />

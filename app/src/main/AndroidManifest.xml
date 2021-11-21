@@ -28,6 +28,10 @@
             android:name="com.mikepenz.aboutlibraries.sample.CustomSortActivity"
             android:label="@string/app_name"
             android:theme="@style/SampleApp.DayNight" />
+        <activity
+            android:name="com.mikepenz.aboutlibraries.sample.ComposeActivity"
+            android:label="@string/app_name"
+            android:theme="@style/SampleApp.DayNight" />
     </application>
 
 </manifest>

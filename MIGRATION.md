@@ -1,5 +1,12 @@
 ### Upgrade Notes
 
+#### v10.x.y
+* v10 includes a major rewrite of the `Gradle Plugin`. The old `xml` string resource format definitions are no longer supported.
+  * All meta information is now written to a single json file
+  * Old `enchant` config files are no longer supported
+* The UI module dropped a major amount of configurations to lower complexity.
+* TODO
+
 #### v7.0.1
 * in case your project has custom licenses, check out the new feature to allow the license description be included as raw file. This helps to solve the potential STRING_TOO_LARGE issue.
 

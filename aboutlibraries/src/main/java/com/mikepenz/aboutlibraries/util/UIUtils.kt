@@ -212,7 +212,12 @@ internal fun View.requestApplyInsetsWhenAttached() {
     }
 }
 
-internal fun <T> Context.resolveStyledValue(attrs: IntArray = R.styleable.AboutLibraries, defStyleAttr: Int = R.attr.aboutLibrariesStyle, defStyleRes: Int = R.style.AboutLibrariesStyle, resolver: (typedArray: TypedArray) -> T): T {
+internal fun <T> Context.resolveStyledValue(
+    attrs: IntArray = R.styleable.AboutLibraries,
+    defStyleAttr: Int = R.attr.aboutLibrariesStyle,
+    defStyleRes: Int = R.style.AboutLibrariesStyle,
+    resolver: (typedArray: TypedArray) -> T
+): T {
     val a = obtainStyledAttributes(null, attrs, defStyleAttr, defStyleRes)
     val value = resolver.invoke(a)
     a.recycle()
@@ -225,7 +230,7 @@ internal fun <T> Context.resolveStyledValue(attrs: IntArray = R.styleable.AboutL
  * @hide
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-fun Context.getThemeColor(@AttrRes attr: Int, @ColorInt def: Int = 0): Int {
+internal fun Context.getThemeColor(@AttrRes attr: Int, @ColorInt def: Int = 0): Int {
     val tv = TypedValue()
     return if (theme.resolveAttribute(attr, tv, true)) {
         if (tv.resourceId != 0) ResourcesCompat.getColor(resources, tv.resourceId, theme) else tv.data

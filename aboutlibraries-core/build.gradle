@@ -1,21 +1,19 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
+apply plugin: "com.android.library"
+apply plugin: "kotlin-multiplatform"
+apply plugin: "org.jetbrains.kotlin.native.cocoapods"
+apply plugin: "org.jetbrains.dokka"
 
-version release.versionName
+version = release.versionName
+archivesBaseName = POM_ARTIFACT_ID
 
 android {
-    compileSdkVersion setup.compileSdk
-    buildToolsVersion setup.buildTools
+    compileSdk = setup.compileSdk
 
     defaultConfig {
         minSdkVersion setup.minSdk
         targetSdkVersion setup.targetSdk
         versionCode release.versionCode
         versionName release.versionName
-
-        consumerProguardFiles 'consumer-proguard-rules.pro'
-
-        resValue "string", "aboutlibrary_lib_version", "${versionName}"
     }
 
     buildTypes {
@@ -24,33 +22,93 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
-    productFlavors {
-    }
 
     lintOptions {
         abortOnError false
     }
+}
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+kotlin {
+    jvm()
+
+    js {
+        nodejs {}
+        browser {}
+        compilations.all {
+            kotlinOptions {
+                moduleKind = "umd"
+                sourceMap = true
+                sourceMapEmbedSources = null
+            }
+        }
     }
 
-    kotlinOptions {
-        jvmTarget = "1.8"
+    iosX64()
+    iosArm32()
+    iosArm64()
+    tvosX64()
+    tvosArm64()
+    watchosX86()
+    watchosX64()
+    watchosArm32()
+    watchosArm64()
+    macosX64()
+    macosArm64()
+    mingwX64()
+    linuxX64()
+
+    android {
+        publishAllLibraryVariants()
     }
 
-    // specify the artifactId as module-name for kotlin
-    kotlinOptions.freeCompilerArgs += ["-module-name", POM_ARTIFACT_ID]
+    cocoapods {
+        summary = "AboutLibraries automatically detects all dependencies of a project and collects their information including the license."
+        homepage = "https://github.com/mikepenz/AboutLibraries"
+        authors = "Mike Penz"
+        license = "Apache 2.0"
+    }
+
+    sourceSets {
+        multiplatformMain { dependsOn(commonMain) }
+        jvmMain { dependsOn(multiplatformMain) }
+        jsMain { dependsOn(multiplatformMain) }
+        desktopMain { dependsOn(multiplatformMain) }
+        linuxX64Main { dependsOn(desktopMain) }
+        mingwX64Main { dependsOn(desktopMain) }
+        macosX64Main { dependsOn(desktopMain) }
+        macosArm64Main { dependsOn(desktopMain) }
+        iosMain { dependsOn(multiplatformMain) }
+        iosArm64Main { dependsOn(iosMain) }
+        iosArm32Main { dependsOn(iosMain) }
+        iosX64Main { dependsOn(iosMain) }
+        tvosArm64Main { dependsOn(iosMain) }
+        tvosX64Main { dependsOn(iosMain) }
+        watchosArm32Main { dependsOn(iosMain) }
+        watchosArm64Main { dependsOn(iosMain) }
+        watchosX86Main { dependsOn(iosMain) }
+        watchosX64Main { dependsOn(iosMain) }
+
+        jvmTest {
+            dependencies {
+                implementation kotlin('test-junit')
+            }
+        }
+    }
 }
 
 dependencies {
-    api "androidx.appcompat:appcompat:${versions.appcompat}"
+    // kotlinx Serialize
+    multiplatformMainImplementation "org.jetbrains.kotlinx:kotlinx-serialization-json:${versions.kotlinxSerialization}"
+}
 
-    // kotlin
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.kotlin}"
+dokkaHtml.configure {
+    dokkaSourceSets {
+        configureEach {
+            noAndroidSdkLink.set(false)
+        }
+    }
 }
 
 if (project.hasProperty('pushall') || project.hasProperty('library_core_only')) {
-    apply from: '../gradle-release.gradle'
+    apply from: "$rootDir/gradle/gradle-mvn-push.gradle"
 }
