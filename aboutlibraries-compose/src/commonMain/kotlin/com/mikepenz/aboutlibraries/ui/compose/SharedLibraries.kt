@@ -42,10 +42,11 @@ internal fun Library(
         ) {
             Text(
                 text = library.name,
-                style = typography.h6,
                 modifier = Modifier
                     .padding(top = 4.dp)
                     .weight(1f),
+                style = typography.h6,
+                color = MaterialTheme.colors.onBackground,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
@@ -55,6 +56,7 @@ internal fun Library(
                     version,
                     modifier = Modifier.padding(start = 8.dp),
                     style = typography.body2,
+                    color = MaterialTheme.colors.onBackground,
                     textAlign = TextAlign.Center
                 )
             }
@@ -64,6 +66,7 @@ internal fun Library(
             Text(
                 text = author,
                 style = typography.body2,
+                color = MaterialTheme.colors.onBackground
             )
         }
         if (showLicenseBadges && library.licenses.isNotEmpty()) {
@@ -71,6 +74,7 @@ internal fun Library(
                 library.licenses.forEach {
                     Badge(
                         modifier = Modifier.padding(end = 4.dp),
+                        contentColor = MaterialTheme.colors.onPrimary,
                         backgroundColor = MaterialTheme.colors.primary
                     ) {
                         Text(text = it.name)
