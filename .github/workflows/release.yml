@@ -10,6 +10,7 @@ jobs:
   build:
     name: Release
     runs-on: ubuntu-latest
+    if: ${{ false }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -27,7 +28,6 @@ jobs:
 
       - name: Build Documentation
         run: |
-          ./gradlew assembleDebug
           ./gradlew dokkaHtmlMultiModule --no-parallel --stacktrace
 
       - name: Deploy
