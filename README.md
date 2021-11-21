@@ -8,9 +8,8 @@
 <p align="center">
     <a href="#whats-included-">What's included 🚀</a> &bull;
     <a href="#setup">Setup 🛠️</a> &bull;
+    <a href="#gradle-api">Gradle API️</a> &bull;
     <a href="MIGRATION.md">Migration Guide 🧬</a> &bull;
-    <a href="https://github.com/mikepenz/AboutLibraries/wiki">WIKI 📖</a> &bull;
-    <a href="#used-by">Used by</a> &bull;
     <a href="https://play.google.com/store/apps/details?id=com.mikepenz.aboutlibraries.sample">Sample App</a>
 </p>
 
@@ -53,7 +52,7 @@ classpath "com.mikepenz.aboutlibraries.plugin:aboutlibraries-plugin:${latestAbou
 apply plugin: 'com.mikepenz.aboutlibraries.plugin'
 ```
 
-<details open><summary><b>Configuration</b></summary>
+<details><summary><b>Configuration</b></summary>
 <p>
 
 ## Gradle Plugin Configuration
@@ -136,18 +135,15 @@ Provide additional or modify existing licenses via a `.json` file per license.
 </p>
 </details>
 
-
-## Using Maven
+## Core-module
 
 > The AboutLibraries Library is pushed to [Maven Central](http://search.maven.org/#search|ga|1|g%3A%22com.mikepenz%22).
-
-## CORE module
 
 ```gradle
 implementation "com.mikepenz:aboutlibraries-core:${latestAboutLibsRelease}"
 ```
 
-<details open><summary><b>(Advanced) Usage</b></summary>
+<details><summary><b>(Advanced) Usage</b></summary>
 <p>
 
 ## Access generated library details
@@ -168,7 +164,7 @@ for (lib in libraries) {
 </p>
 </details>
 
-## UI module
+## UI-module
 
 ```gradle
 implementation "com.mikepenz:aboutlibraries-compose:${latestAboutLibsRelease}"
@@ -188,13 +184,13 @@ LibrariesContainer(useResource("aboutlibraries.json") {
 }, Modifier.fillMaxSize())
 ```
 
-## (Legacy) UI module
+## (Legacy) UI-module
 
 ```gradle
 implementation "com.mikepenz:aboutlibraries:${latestAboutLibsRelease}"
 ```
 
-<details open><summary><b>Usage</b></summary>
+<details><summary><b>Usage</b></summary>
 <p>
 
 ### Usage
