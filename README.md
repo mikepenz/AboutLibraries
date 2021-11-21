@@ -265,19 +265,19 @@ Create your custom style. If you don't need a custom theme see the next section,
 By default the gradle plugin automatically is executed for Android projects, generating the library metadata where it's automatically discovered by the `ui` modules.
 For other environments or for more advanced usages the plugin offers additional APIs.
 
-```kotlin
-// Manually generate the dependency metaData in the provided location. Allows to commit it in SCM
-// Exports the metaData in `src/main/resources/` relative to the module root, for the `release` variant
+```bash
+# Manually generate the dependency metaData in the provided location. Allows to commit it in SCM
+# Exports the metaData in `src/main/resources/` relative to the module root, for the `release` variant
 ./gradlew app-desktop:exportLibraryDefinitions -PexportPath=src/main/resources/ -PexportVariant=release
 
-// Export dependencies as CSV
+# Export dependencies as CSV
 ./gradlew exportLibraries
 ./gradlew exportLibraries${Variant}
 
-// Outputs all dependencies with name, version and their identifier
+# Outputs all dependencies with name, version and their identifier
 ./gradlew findLibraries
 
-// Export all dependencies in a format helpful for compliance reports
+# Export all dependencies in a format helpful for compliance reports
 ./exportComplianceLibraries${Variant}
 ```
 
