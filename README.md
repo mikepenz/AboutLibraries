@@ -29,7 +29,8 @@
 - Simple and fast integration
 
 # Screenshots
-![Image](https://raw.githubusercontent.com/mikepenz/AboutLibraries/develop/DEV/screenshots/screenshots.jpg)
+
+![Screenshots](https://raw.githubusercontent.com/mikepenz/AboutLibraries/develop/DEV/screenshots/screenshots.jpg)
 
 # Setup
 
@@ -184,6 +185,31 @@ LibrariesContainer(useResource("aboutlibraries.json") {
 }, Modifier.fillMaxSize())
 ```
 
+<details><summary><b>Compose-jb</b></summary>
+<p>
+
+The core module and the compose module are Kotlin-Multiplatform projects.
+Find a sample application as the `app-desktop` module. It showcases the usage to manually generate the dependency meta information and include as part of the SCM.
+
+### Generate Dependency Information
+
+```bash
+./gradlew app-desktop:exportLibraryDefinitions -PexportPath=src/main/resources/
+```
+
+### Run Desktop app
+
+```
+./gradlew :app-desktop:run
+```
+
+### Screenshot
+
+![Compose-jb Screenshot](https://raw.githubusercontent.com/mikepenz/AboutLibraries/develop/DEV/screenshots/compose-jb.png)
+
+</p>
+</details>
+
 ## (Legacy) UI-module
 
 ```gradle
@@ -215,26 +241,27 @@ val fragment = LibsBuilder()
 ```
 
 #### About this App UI
-You can also use the AboutLibraries activity as an "about this app" screen.
-Add the following .xml file (or just the strings - the key must be the same) to your project.
+The `AboutLibraries` library also offers the ability to create an `About this app` screen.
+Add the following .xml file (or just the strings - the key must be the same) to the project.
 
 ```xml
 <resources>
     <string name="aboutLibraries_description_showIcon">true</string>
     <string name="aboutLibraries_description_showVersion">true</string>
-    <string name="aboutLibraries_description_text">Place your description here :D</string>
+    <string name="aboutLibraries_description_text">Place the description here :D</string>
 </resources>
 ```
 or use the builder and add following:
 ```kotlin
 .withAboutIconShown(true)
 .withAboutVersionShown(true)
-.withAboutDescription("This is a small sample which can be set in the about my app description file.<br /><b>You can style this with html markup :D</b>")
+.withAboutDescription("This is a small sample which can be set in the about my app description file.<br /><b>Style this with html markup :D</b>")
 ```
 
 #### Style the AboutLibraries 🖌️
 
-Create your custom style. If you don't need a custom theme see the next section, how you can set the colors just by overwriting the original colors.
+Create a custom style for the AboutLibraries UI.
+
 ```xml
 // define a custom style
 <style name="CustomAboutLibrariesStyle" parent="">
@@ -262,7 +289,7 @@ Create your custom style. If you don't need a custom theme see the next section,
 
 # Gradle API
 
-By default the gradle plugin automatically is executed for Android projects, generating the library metadata where it's automatically discovered by the `ui` modules.
+By default, the gradle plugin is automatically executed for Android projects, generating the library metadata where it's automatically discovered by the `ui` modules.
 For other environments or for more advanced usages the plugin offers additional APIs.
 
 ```bash
@@ -283,14 +310,14 @@ For other environments or for more advanced usages the plugin offers additional 
 
 # Disclaimer
 
-This library uses all compile time dependencies (and their sub dependencies) as defined in your `build.gradle` file,
-this could lead to dependencies which are only used during compilation (and not actually distributed in your app) to be listed or missing in the attribution screen.
+This library uses all compile time dependencies (and their sub dependencies) as defined in the `build.gradle` file.
+This could lead to dependencies which are only used during compilation (and not actually distributed in the app) to be listed or missing in the attribution screen.
 It might also fail to identify licenses if the dependencies do not define it properly in their pom.xml file.
 
 Careful optimisation and review of all licenses is recommended to really include all required dependencies. The use of the gradle commands like `findLibraries` can help doing this.
 
 It is also important that native sub dependencies can *not* be resolved automatically as they are not included via gradle.
-Additional dependencies can be provided via this plugins API to extend and provide any additional details.
+Additional dependencies can be provided via the plugins API to extend and provide any additional details.
 
 # Developed By
 
