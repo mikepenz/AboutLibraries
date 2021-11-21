@@ -4,8 +4,11 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.darkColors
+import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
@@ -39,7 +42,9 @@ class ComposeActivity : ComponentActivity() {
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun MainLayout() {
-    MaterialTheme {
+    MaterialTheme(
+        colors = if (isSystemInDarkTheme()) darkColors() else lightColors()
+    ) {
         ProvideWindowInsets {
             LibrariesContainer(
                 Modifier.fillMaxSize(),
