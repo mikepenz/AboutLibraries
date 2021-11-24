@@ -12,3 +12,6 @@ functiongraphic.psd
 bin/
 captures/
 *.podspec
+
+# docs
+docs

@@ -99,20 +99,6 @@ jobs:
           ./gradlew aboutlibraries:publishAllPublicationsToMavenCentralRepository -x test -x lint -Plibrary_only --no-configure-on-demand --no-parallel
           ./gradlew aboutlibraries-compose:publishAllPublicationsToMavenCentralRepository -x test -x lint -Plibrary_compose_only --no-configure-on-demand --no-parallel
 
-      - name: Build Documentation
-        if: ${{ false }}
-        run: |
-          ./gradlew dokkaHtmlMultiModule --no-parallel --stacktrace
-
-      - name: Deploy Documentation
-        uses: JamesIves/github-pages-deploy-action@4.1.5
-        if: ${{ false }}
-        with:
-          branch: gh-pages
-          folder: build/dokka/htmlMultiModule
-          target-folder: docs/10.x/
-          clean: true
-
   build:
     name: Build
     runs-on: ubuntu-latest
