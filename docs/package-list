@@ -1,0 +1,18 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+$dokka.location:com.mikepenz.aboutlibraries.ui.compose//Libraries/#kotlin.collections.List[com.mikepenz.aboutlibraries.entity.Library]#androidx.compose.ui.Modifier#androidx.compose.foundation.layout.PaddingValues#kotlin.Boolean#kotlin.Boolean#kotlin.Boolean/PointingToDeclaration/aboutlibraries-compose/com.mikepenz.aboutlibraries.ui.compose/[jvm]-libraries.html
+$dokka.location:com.mikepenz.aboutlibraries.util//withJson/com.mikepenz.aboutlibraries.Libs.Builder#kotlin.ByteArray/PointingToDeclaration/aboutlibraries-core/com.mikepenz.aboutlibraries.util/[jvm]with-json.html
+module:aboutlibraries
+com.mikepenz.aboutlibraries
+com.mikepenz.aboutlibraries.ui
+com.mikepenz.aboutlibraries.ui.item
+com.mikepenz.aboutlibraries.util
+com.mikepenz.aboutlibraries.viewmodel
+module:aboutlibraries-compose
+com.mikepenz.aboutlibraries.ui.compose
+com.mikepenz.aboutlibraries.ui.compose.data
+com.mikepenz.aboutlibraries.ui.compose.util
+module:aboutlibraries-core
+com.mikepenz.aboutlibraries
+com.mikepenz.aboutlibraries.entity
+com.mikepenz.aboutlibraries.util
