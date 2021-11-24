@@ -9,6 +9,8 @@
     <a href="#whats-included-">What's included 🚀</a> &bull;
     <a href="#setup">Setup 🛠️</a> &bull;
     <a href="#gradle-api">Gradle API️</a> &bull;
+    <a href="https://mikepenz.github.io/AboutLibraries/index.html">SDK Docs 📖 </a> &bull;
+    <a href="https://mikepenz.github.io/AboutLibraries/plugin/index.html">Plugin Docs 📖</a> &bull;
     <a href="MIGRATION.md">Migration Guide 🧬</a> &bull;
     <a href="https://play.google.com/store/apps/details?id=com.mikepenz.aboutlibraries.sample">Sample App</a>
 </p>
