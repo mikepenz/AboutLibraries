@@ -7,14 +7,14 @@ plugins {
 }
 
 val viewModel = "2.4.0"
-val composeVersion = "1.1.0-beta02"
+val composeVersion = "1.1.0-beta04"
 
 android {
     compileSdk = 31
 
     defaultConfig {
         minSdk = 21
-        targetSdk = 30
+        targetSdk = 31
     }
 
     buildTypes {
@@ -35,7 +35,7 @@ android {
     }
 
     lint {
-        isAbortOnError = false
+        //isAbortOnError = false
     }
 }
 kotlin {
@@ -53,8 +53,6 @@ dependencies {
     commonMainCompileOnly(compose.ui)
     commonMainCompileOnly(compose.foundation)
     commonMainCompileOnly(compose.material)
-
-    //"androidMainImplementation"("androidx.compose.ui:ui-tooling:$composeVersion")
 }
 
 configurations.configureEach {

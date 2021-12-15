@@ -18,15 +18,15 @@ buildscript {
         versions = [
                 androidX            : '1.0.0',
                 activityCompose     : '1.4.0',
-                accompanist         : "0.21.3-beta",
+                accompanist         : "0.21.4-beta",
                 cardview            : '1.0.0',
-                compose             : "1.1.0-beta03",
+                compose             : "1.1.0-beta04",
                 appcompat           : '1.3.1',
                 recyclerview        : '1.2.1',
                 viewModel           : "2.4.0",
-                material            : '1.5.0-beta01',
-                kotlin              : "1.5.31",
-                kotlinCoroutines    : "1.5.2",
+                material            : '1.5.0-rc01',
+                kotlin              : "1.6.10",
+                kotlinCoroutines    : "1.6.0-RC2",
                 constraintLayout    : '2.1.2',
                 navigation          : "2.3.5",
                 iconics             : "5.3.3",
@@ -47,13 +47,13 @@ buildscript {
         }
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:7.0.3")
+        classpath("com.android.tools.build:gradle:7.0.4")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}")
         classpath("androidx.navigation:navigation-safe-args-gradle-plugin:${versions.navigation}")
         classpath("org.jetbrains.dokka:dokka-gradle-plugin:${setup.dokka}")
         classpath("com.vanniktech:gradle-maven-publish-plugin:0.18.0")
         classpath("com.mikepenz.aboutlibraries.plugin:aboutlibraries-plugin")
-        classpath("org.jetbrains.compose:compose-gradle-plugin:1.0.0")
+        classpath("org.jetbrains.compose:compose-gradle-plugin:1.0.1-rc2")
     }
 }
 
