@@ -11,6 +11,8 @@ import java.net.URL
 object LicenseUtil {
     private val LOGGER: Logger = LoggerFactory.getLogger(LicenseUtil::class.java)
 
+    private const val GITHUB_API = "https://api.github.com/"
+
     private val remoteLicenseCache = HashMap<String, String>()
 
     private fun loadLicenseCached(url: String): String? {
@@ -32,7 +34,7 @@ object LicenseUtil {
     @Suppress("UNCHECKED_CAST")
     fun availableGitHubRateLimit(gitHubToken: String? = null): Int {
         return try {
-            val connection = URL("https://api.github.com/rate_limit").openConnection()
+            val connection = URL("${GITHUB_API}rate_limit").openConnection()
             if (gitHubToken?.isNotBlank() == true) {
                 connection.setRequestProperty("Authorization", "token $gitHubToken")
             }
@@ -114,9 +116,7 @@ object LicenseUtil {
 
         discoverBase(url)?.let { base ->
             val (user, project) = base
-
-            // TODO offer ability to provide PAT
-            val licenseApi = "https://api.github.com/repos/$user/$project/license"
+            val licenseApi = "${GITHUB_API}repos/$user/$project/license"
             try {
                 val connection = URL(licenseApi).openConnection()
                 if (!gitHubToken.isNullOrBlank()) {

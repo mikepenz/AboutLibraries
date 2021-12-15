@@ -9,6 +9,19 @@ import javax.inject.Inject
 abstract class AboutLibrariesExtension @Inject constructor(objectFactory: ObjectFactory) {
 
     /**
+     * Disables any remote checking of licenses.
+     * Please note that this will also disable the download of the LICENSE text from `https://spdx.org/licenses/`.
+     * It will be required to provide license content manually.
+     *
+     * ```
+     * aboutLibraries {
+     *   offlineMode = false
+     * }
+     * ```
+     */
+    var offlineMode: Boolean = false
+
+    /**
      * Configures the creation and registration of the Android related tasks. Will automatically hook into the build process and create the `aboutlibraries.json` during build time.
      * If disabled use `exportLibraryDefinitions` manually to create the `.json` output.
      *
