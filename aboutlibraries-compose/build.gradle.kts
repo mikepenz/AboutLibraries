@@ -6,15 +6,12 @@ plugins {
     id("com.vanniktech.maven.publish")
 }
 
-val viewModel = "2.4.0"
-val composeVersion = "1.1.0-beta04"
-
 android {
-    compileSdk = 31
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = 21
-        targetSdk = 31
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
     }
 
     buildTypes {
@@ -31,11 +28,11 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = composeVersion
+        kotlinCompilerExtensionVersion = libs.versions.compose.get()
     }
 
     lint {
-        //isAbortOnError = false
+        isAbortOnError = false
     }
 }
 kotlin {
