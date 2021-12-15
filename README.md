@@ -38,7 +38,7 @@
 
 ## Latest releases 🛠
 
-- (NEW) Kotlin | [v10.0.0-b03](https://github.com/mikepenz/AboutLibraries/tree/v10.0.0-b03)
+- (NEW) Kotlin | [v10.0.0-b04](https://github.com/mikepenz/AboutLibraries/tree/v10.0.0-b04)
 - Kotlin && Gradle Plugin | [v8.9.4](https://github.com/mikepenz/AboutLibraries/tree/v8.9.4)
 
 ## Gradle Plugin
