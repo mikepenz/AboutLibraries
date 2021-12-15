@@ -60,7 +60,10 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     val allowedLicenses = extension.allowedLicenses
 
     @Input
-    val fetchRemoteLicense = extension.fetchRemoteLicense
+    val offlineMode = extension.offlineMode
+
+    @Input
+    val fetchRemoteLicense = extension.fetchRemoteLicense && !offlineMode
 
     @Input
     @org.gradle.api.tasks.Optional
@@ -86,6 +89,7 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
             collectedContainer,
             getConfigPath(),
             exclusionPatterns,
+            offlineMode,
             fetchRemoteLicense,
             getAdditionalLicenses(),
             duplicationMode,

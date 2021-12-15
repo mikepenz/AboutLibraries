@@ -71,6 +71,8 @@ aboutLibraries {
 
     // define the path configuration files are located in. E.g. additional libraries, licenses to add to the target .json
     configPath = "config"
+    // allow to enable "offline mode", will disable any network check of the plugin (including [fetchRemoteLicense] or pulling spdx license texts)
+    offlineMode = false
     // enable fetching of "remote" licenses. Uses the GitHub API
     fetchRemoteLicense = true
     // (optional) GitHub token to raise API request limit to allow fetching more licenses

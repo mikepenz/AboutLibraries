@@ -25,6 +25,7 @@ class LibrariesProcessor(
     private val collectedDependencies: CollectedContainer,
     private val configFolder: File?,
     private val exclusionPatterns: List<Pattern>,
+    private val offlineMode: Boolean,
     private val fetchRemoteLicense: Boolean,
     private val additionalLicenses: HashSet<String>,
     private val duplicationMode: DuplicateMode,
@@ -113,7 +114,11 @@ class LibrariesProcessor(
         // Download content for all licenses missing the content
         licensesMap.values.forEach {
             if (it.content.isNullOrBlank()) {
-                it.loadSpdxLicense()
+                if (!offlineMode) {
+                    it.loadSpdxLicense()
+                } else {
+                    LOGGER.warn("--> `${it.name}` does not contain the license text and configuration is in OFFLINE MODE. Please provide manually with `name`: `${it.name}` and `hash`: `${it.hash}`")
+                }
             }
         }
 
