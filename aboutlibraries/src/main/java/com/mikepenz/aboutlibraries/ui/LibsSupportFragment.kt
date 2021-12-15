@@ -30,6 +30,7 @@ import com.mikepenz.fastadapter.GenericItem
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -93,7 +94,7 @@ open class LibsSupportFragment : Fragment(), Filterable {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.whenStarted {
                 withContext(Dispatchers.Main) {
-                    viewModel.listItems.flowOn(Dispatchers.Main).collect {
+                    viewModel.listItems.flowOn(Dispatchers.Main).collectLatest {
                         itemAdapter.set(it)
                     }
                 }

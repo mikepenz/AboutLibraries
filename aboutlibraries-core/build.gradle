@@ -1,19 +1,19 @@
-apply plugin: "com.android.library"
 apply plugin: "kotlin-multiplatform"
+apply plugin: "com.android.library"
 apply plugin: "org.jetbrains.kotlin.native.cocoapods"
 apply plugin: "org.jetbrains.dokka"
 
-version = release.versionName
+version = VERSION_NAME
 archivesBaseName = POM_ARTIFACT_ID
 
 android {
-    compileSdk = setup.compileSdk
+    compileSdk = libs.versions.compileSdk.get().toInteger()
 
     defaultConfig {
-        minSdkVersion setup.minSdk
-        targetSdkVersion setup.targetSdk
-        versionCode release.versionCode
-        versionName release.versionName
+        minSdk = libs.versions.minSdk.get().toInteger()
+        targetSdk = libs.versions.targetSdk.get().toInteger()
+        versionName VERSION_NAME
+        versionCode Integer.parseInt(VERSION_CODE)
     }
 
     buildTypes {
@@ -98,7 +98,7 @@ kotlin {
 
 dependencies {
     // kotlinx Serialize
-    multiplatformMainImplementation "org.jetbrains.kotlinx:kotlinx-serialization-json:${versions.kotlinxSerialization}"
+    multiplatformMainImplementation(libs.kotlinx.serialization)
 }
 
 dokkaHtml.configure {
