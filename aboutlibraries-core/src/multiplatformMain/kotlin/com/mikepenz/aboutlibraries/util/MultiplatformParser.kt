@@ -30,6 +30,9 @@ actual fun parseData(json: String): Result {
             val scm = optJSONObject("scm")?.let {
                 Scm(it.optString("connection"), it.optString("developerConnection"), it.optString("url"))
             }
+            val funding = optJSONArray("funding").forEachObject {
+                Funding(getString("platform"), getString("url"))
+            }.toSet()
 
             Library(
                 getString("uniqueId"),
@@ -40,7 +43,8 @@ actual fun parseData(json: String): Result {
                 developers,
                 organization,
                 scm,
-                libLicenses
+                libLicenses,
+                funding
             )
         }
         return Result(libraries, licenses)

@@ -15,6 +15,7 @@ data class Library(
     var organization: Organization?,
     var scm: Scm?,
     var licenses: Set<String> = emptySet(),
+    var funding: Set<Funding> = emptySet(),
     var artifactFolder: File? = null
 ) {
     val artifactId: String

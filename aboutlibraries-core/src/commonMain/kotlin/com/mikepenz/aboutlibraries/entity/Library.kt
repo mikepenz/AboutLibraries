@@ -12,6 +12,7 @@ package com.mikepenz.aboutlibraries.entity
  * @param organization describing the creating org of for the dependency
  * @param scm information, linking to the repository hosting the source
  * @param licenses all identified licenses for this artifact
+ * @param funding all identified funding opportunities for this artifact
  */
 data class Library(
     val uniqueId: String,
@@ -22,7 +23,8 @@ data class Library(
     val developers: List<Developer>,
     val organization: Organization?,
     val scm: Scm?,
-    val licenses: Set<License> = emptySet()
+    val licenses: Set<License> = emptySet(),
+    val funding: Set<Funding> = emptySet()
 ) {
     /**
      * defines the [uniqueId]:[artifactVersion] combined

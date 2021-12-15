@@ -1,9 +1,6 @@
 package com.mikepenz.aboutlibraries.plugin.util.parser
 
-import com.mikepenz.aboutlibraries.plugin.mapping.Developer
-import com.mikepenz.aboutlibraries.plugin.mapping.Library
-import com.mikepenz.aboutlibraries.plugin.mapping.Organization
-import com.mikepenz.aboutlibraries.plugin.mapping.Scm
+import com.mikepenz.aboutlibraries.plugin.mapping.*
 import groovy.json.JsonSlurper
 import org.slf4j.LoggerFactory
 import java.io.File
@@ -43,6 +40,11 @@ object LibraryReader {
 
             val licenses = (c["licenses"] as? List<String>)?.toSet() ?: emptySet()
 
+            val funding = mutableSetOf<Funding>()
+            (c["funding"] as? List<Map<String, String>>)?.forEach {
+                funding.add(Funding(it["platform"] ?: "", it["url"] ?: ""))
+            }
+
             Library(
                 c["uniqueId"] as String,
                 c["artifactVersion"] as? String,
@@ -52,7 +54,8 @@ object LibraryReader {
                 developers,
                 organization,
                 scm,
-                licenses
+                licenses,
+                funding
             )
         } catch (t: Throwable) {
             LOGGER.error("Could not read the license ($name)", t)

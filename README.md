@@ -73,8 +73,12 @@ aboutLibraries {
     configPath = "config"
     // allow to enable "offline mode", will disable any network check of the plugin (including [fetchRemoteLicense] or pulling spdx license texts)
     offlineMode = false
-    // enable fetching of "remote" licenses. Uses the GitHub API
+    // enable fetching of "remote" licenses.  Uses the API of supported source hosts
+    // See https://github.com/mikepenz/AboutLibraries#special-repository-support
     fetchRemoteLicense = true
+    // enables fetching of "remote" funding information. Uses the API of supported source hosts
+    // See https://github.com/mikepenz/AboutLibraries#special-repository-support
+    fetchRemoteFunding = true
     // (optional) GitHub token to raise API request limit to allow fetching more licenses
     gitHubApiToken = getLocalOrGlobalProperty("github.pat")
 
@@ -311,6 +315,11 @@ For other environments or for more advanced usages the plugin offers additional 
 # Export all dependencies in a format helpful for compliance reports
 ./exportComplianceLibraries${Variant}
 ```
+
+# Special repository support
+|Host|License|Funding|
+|---|---|---|
+|[GitHub](https://github.com/)|x|x|
 
 # Disclaimer
 
