@@ -24,7 +24,8 @@ fun LibrariesContainer(
     contentPadding: PaddingValues = PaddingValues(0.dp),
     showAuthor: Boolean = true,
     showVersion: Boolean = true,
-    showLicenseBadges: Boolean = true
+    showLicenseBadges: Boolean = true,
+    onLibraryClick: ((Library) -> Unit)? = null
 ) {
     val libraries = remember { mutableStateOf<Libs?>(null) }
     LaunchedEffect(libraries) {
@@ -39,7 +40,8 @@ fun LibrariesContainer(
             contentPadding,
             showAuthor,
             showVersion,
-            showLicenseBadges
+            showLicenseBadges,
+            onLibraryClick
         )
     }
 }
@@ -56,10 +58,13 @@ fun Libraries(
     showAuthor: Boolean = true,
     showVersion: Boolean = true,
     showLicenseBadges: Boolean = true,
+    onLibraryClick: ((Library) -> Unit)? = null
 ) {
     LazyColumn(modifier, contentPadding = contentPadding) {
         items(libraries) { library ->
-            Library(library, showAuthor, showVersion, showLicenseBadges) {}
+            Library(library, showAuthor, showVersion, showLicenseBadges) {
+                onLibraryClick?.invoke(library)
+            }
         }
     }
 }

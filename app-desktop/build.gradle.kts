@@ -17,6 +17,7 @@ dependencies {
     implementation(compose.desktop.currentOs)
     implementation(compose.foundation)
     implementation(compose.material)
+    implementation(project(":aboutlibraries-core"))
     implementation(project(":aboutlibraries-compose"))
 }
 

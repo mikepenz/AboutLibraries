@@ -32,7 +32,8 @@ fun LibrariesContainer(
     contentPadding: PaddingValues = PaddingValues(0.dp),
     showAuthor: Boolean = true,
     showVersion: Boolean = true,
-    showLicenseBadges: Boolean = true
+    showLicenseBadges: Boolean = true,
+    onLibraryClick: ((Library) -> Unit)? = null
 ) {
     val libraries = remember { mutableStateOf<Libs?>(null) }
     val context = LocalContext.current
@@ -48,7 +49,8 @@ fun LibrariesContainer(
             contentPadding,
             showAuthor,
             showVersion,
-            showLicenseBadges
+            showLicenseBadges,
+            onLibraryClick
         )
     }
 }
@@ -65,13 +67,18 @@ fun Libraries(
     showAuthor: Boolean = true,
     showVersion: Boolean = true,
     showLicenseBadges: Boolean = true,
+    onLibraryClick: ((Library) -> Unit)? = null
 ) {
     LazyColumn(modifier, contentPadding = contentPadding) {
         items(libraries) { library ->
             val openDialog = remember { mutableStateOf(false) }
 
             Library(library, showAuthor, showVersion, showLicenseBadges) {
-                openDialog.value = true
+                if (onLibraryClick != null) {
+                    onLibraryClick.invoke(library)
+                } else {
+                    openDialog.value = true
+                }
             }
 
             if (openDialog.value) {
