@@ -142,15 +142,32 @@ abstract class AboutLibrariesExtension @Inject constructor(objectFactory: Object
 
     /**
      * Enable fetching of remote licenses.
-     * This will use the GitHub license API to fetch the defined library as specified in the projects repository.
+     *
+     * This will use the API for (supported) repository source hosts to fetch the source license information.
+     *
+     * Find special source hosts supported for this here: https://github.com/mikepenz/AboutLibraries#special-repository-support
      *
      * ```
      * aboutLibraries {
-     *   fetchRemoteLicense = true
+     *   fetchRemoteLicense = false
      * }
      * ```
      */
     var fetchRemoteLicense: Boolean = false
+
+    /**
+     * Enable fetching of remote funding information.
+     * This will use the API for (supported) repository source hosts to fetch the funding information via the API.
+     *
+     * Find special source hosts supported for this here: https://github.com/mikepenz/AboutLibraries#special-repository-support
+     *
+     * ```
+     * aboutLibraries {
+     *   fetchRemoteFunding = false
+     * }
+     * ```
+     */
+    var fetchRemoteFunding: Boolean = false
 
     /**
      * An optional GitHub API token used to access the `license` endpoint provided by GitHub

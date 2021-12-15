@@ -43,11 +43,14 @@ internal fun Context.getRawResourceId(aString: String): Int {
     return resources.getIdentifier(aString, "raw", packageName)
 }
 
-internal fun <T> JSONArray?.forEachObject(block: JSONObject.() -> T): List<T> {
+internal fun <T> JSONArray?.forEachObject(block: JSONObject.() -> T?): List<T> {
     this ?: return emptyList()
     val targetList = mutableListOf<T>()
     for (il in 0 until length()) {
-        targetList.add(block.invoke(getJSONObject(il)))
+        val obj = block.invoke(getJSONObject(il))
+        if (obj != null) {
+            targetList.add(obj)
+        }
     }
     return targetList
 }

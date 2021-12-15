@@ -26,11 +26,14 @@ internal fun JsonObject.optString(key: String): String? {
     return get(key)?.jsonPrimitive?.contentOrNull
 }
 
-internal fun <T> JsonArray?.forEachObject(block: JsonObject.() -> T): List<T> {
+internal fun <T> JsonArray?.forEachObject(block: JsonObject.() -> T?): List<T> {
     this ?: return emptyList()
     val targetList = mutableListOf<T>()
     for (il in 0 until size) {
-        targetList.add(block.invoke(get(il).jsonObject))
+        val obj = block.invoke(get(il).jsonObject)
+        if (obj != null) {
+            targetList.add(obj)
+        }
     }
     return targetList
 }

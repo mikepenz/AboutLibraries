@@ -66,6 +66,9 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     val fetchRemoteLicense = extension.fetchRemoteLicense && !offlineMode
 
     @Input
+    val fetchRemoteFunding = extension.fetchRemoteFunding && !offlineMode
+
+    @Input
     @org.gradle.api.tasks.Optional
     val gitHubApiToken = extension.gitHubApiToken
 
@@ -91,6 +94,7 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
             exclusionPatterns,
             offlineMode,
             fetchRemoteLicense,
+            fetchRemoteFunding,
             getAdditionalLicenses(),
             duplicationMode,
             duplicationRule,

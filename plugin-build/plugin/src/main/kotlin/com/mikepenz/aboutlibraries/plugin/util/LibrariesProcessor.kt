@@ -2,12 +2,13 @@ package com.mikepenz.aboutlibraries.plugin.util
 
 import com.mikepenz.aboutlibraries.plugin.DuplicateMode
 import com.mikepenz.aboutlibraries.plugin.DuplicateRule
+import com.mikepenz.aboutlibraries.plugin.api.Api
+import com.mikepenz.aboutlibraries.plugin.mapping.Funding
 import com.mikepenz.aboutlibraries.plugin.mapping.Library
 import com.mikepenz.aboutlibraries.plugin.mapping.License
 import com.mikepenz.aboutlibraries.plugin.mapping.SpdxLicense
 import com.mikepenz.aboutlibraries.plugin.model.CollectedContainer
 import com.mikepenz.aboutlibraries.plugin.model.ResultContainer
-import com.mikepenz.aboutlibraries.plugin.util.LicenseUtil.fetchRemoteLicense
 import com.mikepenz.aboutlibraries.plugin.util.LicenseUtil.loadSpdxLicense
 import com.mikepenz.aboutlibraries.plugin.util.PomLoader.resolvePomFile
 import com.mikepenz.aboutlibraries.plugin.util.parser.LibraryReader
@@ -27,21 +28,18 @@ class LibrariesProcessor(
     private val exclusionPatterns: List<Pattern>,
     private val offlineMode: Boolean,
     private val fetchRemoteLicense: Boolean,
+    private val fetchRemoteFunding: Boolean,
     private val additionalLicenses: HashSet<String>,
     private val duplicationMode: DuplicateMode,
     private val duplicationRule: DuplicateRule,
     private var variant: String? = null,
-    private var gitHubToken: String? = null,
+    gitHubToken: String? = null,
 ) {
     private val handledLibraries = HashSet<String>()
-    private var rateLimit = 0
+
+    private val api = Api(gitHubToken)
 
     fun gatherDependencies(): ResultContainer {
-        if (fetchRemoteLicense) {
-            LOGGER.debug("Will fetch remote licenses from repository.")
-            rateLimit = LicenseUtil.availableGitHubRateLimit(gitHubToken)
-        }
-
         val collectedDependencies = collectedDependencies.dependenciesForVariant(variant)
         LOGGER.info("All dependencies.size = ${collectedDependencies.size}")
 
@@ -199,11 +197,16 @@ class LibrariesProcessor(
             License(it.name, it.url).also { lic ->
                 lic.internalHash = lic.spdxId // in case this can be tracked back to a spdx id use according hash
             }
-        }?.toHashSet()
+        }?.toHashSet() ?: hashSetOf()
 
         val scm = chooseValue(uniqueId, "scm", pomReader.scm) { parentPomReader?.scm }
-        if (licenses != null && fetchRemoteLicense) {
-            rateLimit = fetchRemoteLicense(uniqueId, scm, licenses, rateLimit, gitHubToken)
+        if (fetchRemoteLicense) {
+            api.fetchRemoteLicense(uniqueId, scm, licenses)
+        }
+
+        val funding = mutableSetOf<Funding>()
+        if (fetchRemoteFunding) {
+            api.fetchFunding(uniqueId, scm, funding)
         }
 
         if (libraryName.isBlank()) {
@@ -223,12 +226,13 @@ class LibrariesProcessor(
             developers,
             organization,
             scm,
-            licenses?.map { it.hash }?.toSet() ?: emptySet(),
+            licenses.map { it.hash }.toSet(),
+            funding,
             artifactFile.parentFile?.parentFile // artifactFile references the pom directly
         )
 
         LOGGER.debug("Adding library: {}", library)
-        return library to (licenses ?: emptySet())
+        return library to licenses
     }
 
     /**
