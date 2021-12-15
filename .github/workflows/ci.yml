@@ -69,7 +69,18 @@ jobs:
           ORG_GRADLE_PROJECT_signingInMemoryKeyId: ${{ secrets.SIGNING_KEY_ID }}
           ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.SIGNING_PRIVATE_KEY }}
           ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGNING_PASSWORD }}
-        run: ./gradlew aboutlibraries-core:publishAllPublicationsToMavenCentralRepository --no-daemon -Plibrary_core_only --no-configure-on-demand --no-parallel
+        run: |
+          ./gradlew aboutlibraries-core:publishIosArm32PublicationToMavenCentralRepository --no-daemon -Plibrary_core_only --no-configure-on-demand --no-parallel
+          ./gradlew aboutlibraries-core:publishIosArm64PublicationToMavenCentralRepository --no-daemon -Plibrary_core_only --no-configure-on-demand --no-parallel
+          ./gradlew aboutlibraries-core:publishIosX64PublicationToMavenCentralRepository --no-daemon -Plibrary_core_only --no-configure-on-demand --no-parallel
+          ./gradlew aboutlibraries-core:publishMacosArm64PublicationToMavenCentralRepository --no-daemon -Plibrary_core_only --no-configure-on-demand --no-parallel
+          ./gradlew aboutlibraries-core:publishMacosX64PublicationToMavenCentralRepository --no-daemon -Plibrary_core_only --no-configure-on-demand --no-parallel
+          ./gradlew aboutlibraries-core:publishTvosArm64PublicationToMavenCentralRepository --no-daemon -Plibrary_core_only --no-configure-on-demand --no-parallel
+          ./gradlew aboutlibraries-core:publishTvosX64PublicationToMavenCentralRepository --no-daemon -Plibrary_core_only --no-configure-on-demand --no-parallel
+          ./gradlew aboutlibraries-core:publishWatchosArm32PublicationToMavenCentralRepository --no-daemon -Plibrary_core_only --no-configure-on-demand --no-parallel
+          ./gradlew aboutlibraries-core:publishWatchosArm64PublicationToMavenCentralRepository --no-daemon -Plibrary_core_only --no-configure-on-demand --no-parallel
+          ./gradlew aboutlibraries-core:publishWatchosX64PublicationToMavenCentralRepository --no-daemon -Plibrary_core_only --no-configure-on-demand --no-parallel
+          ./gradlew aboutlibraries-core:publishWatchosX86PublicationToMavenCentralRepository --no-daemon -Plibrary_core_only --no-configure-on-demand --no-parallel
 
       - name: Publish the windows artifact
         if: matrix.os == 'windows-latest'
@@ -90,7 +101,7 @@ jobs:
           ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.SIGNING_PRIVATE_KEY }}
           ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGNING_PASSWORD }}
         run: |
-          ./gradlew aboutlibraries-core:publishLinuxX64PublicationToMavenCentralRepository -Plibrary_core_only --no-configure-on-demand --no-parallel
+          ./gradlew aboutlibraries-core:publishAllPublicationsToMavenCentralRepository -Plibrary_core_only --no-configure-on-demand --no-parallel
           ./gradlew aboutlibraries:publishAllPublicationsToMavenCentralRepository -x test -x lint -Plibrary_only --no-configure-on-demand --no-parallel
           ./gradlew aboutlibraries-compose:publishAllPublicationsToMavenCentralRepository -x test -x lint -Plibrary_compose_only --no-configure-on-demand --no-parallel
 
