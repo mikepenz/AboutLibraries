@@ -11,7 +11,7 @@ class LibsViewModelFactory(
     private val builder: LibsBuilder, // ui module
     private val libsBuilder: Libs.Builder
 ) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return LibsViewModel(context, builder, libsBuilder) as T
     }
 }
