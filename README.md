@@ -27,6 +27,7 @@
 - Gradle Plugin
   - Generating dependency / license metadata
   - Different exports, compliance report
+  - Identify possible project funding
   - License *strict mode*
 - Simple and fast integration
 
@@ -313,7 +314,10 @@ For other environments or for more advanced usages the plugin offers additional 
 ./gradlew findLibraries
 
 # Export all dependencies in a format helpful for compliance reports
-./exportComplianceLibraries${Variant}
+./gradlew exportComplianceLibraries${Variant}
+
+# List all funding options for included projects (as identified via the e.g.: GitHub API)
+./gradlew fundLibraries
 ```
 
 # Special repository support

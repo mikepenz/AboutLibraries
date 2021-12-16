@@ -31,6 +31,13 @@ class AboutLibrariesPlugin : Plugin<Project> {
                 }
             }
 
+            // task to output funding options for included libraries
+            project.tasks.register("fundLibraries", AboutLibrariesFundingTask::class.java) {
+                it.description = "Outputs the funding options for used dependencies"
+                it.group = "Help"
+                it.dependsOn(collectTask)
+            }
+
             // task to output library names with ids for further actions
             project.tasks.register("findLibraries", AboutLibrariesIdTask::class.java) {
                 it.description = "Writes the relevant meta data for the AboutLibraries plugin to display dependencies"
