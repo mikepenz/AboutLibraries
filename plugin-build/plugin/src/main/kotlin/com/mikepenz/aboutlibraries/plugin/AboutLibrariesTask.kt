@@ -12,7 +12,7 @@ import java.util.*
 abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
 
     @OutputDirectory
-    var resultDirectory: File = project.file("${project.buildDir}/generated/aboutlibraries/res/")
+    var resultDirectory: File = project.file("${project.buildDir}/generated/aboutLibraries/res/")
 
     @Internal
     private lateinit var combinedLibrariesOutputFile: File
