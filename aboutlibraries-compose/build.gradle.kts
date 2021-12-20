@@ -51,6 +51,9 @@ dependencies {
     commonMainCompileOnly(compose.ui)
     commonMainCompileOnly(compose.foundation)
     commonMainCompileOnly(compose.material)
+    commonMainCompileOnly(compose.uiTooling)
+
+    "androidMainImplementation"(libs.androidx.core.ktx)
 }
 
 configurations.configureEach {

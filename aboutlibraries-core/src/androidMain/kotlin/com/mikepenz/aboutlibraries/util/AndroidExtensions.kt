@@ -11,7 +11,7 @@ import org.json.JSONObject
  * @param byteArray containing the information
  */
 fun Libs.Builder.withJson(byteArray: ByteArray): Libs.Builder {
-    return withJson(byteArray.toString(kotlin.text.Charsets.UTF_8))
+    return withJson(byteArray.toString(Charsets.UTF_8))
 }
 
 /**
@@ -43,7 +43,7 @@ internal fun Context.getRawResourceId(aString: String): Int {
     return resources.getIdentifier(aString, "raw", packageName)
 }
 
-internal fun <T> JSONArray?.forEachObject(block: JSONObject.() -> T?): List<T> {
+internal fun <T> JSONArray?.forEachObject(block: JSONObject.() -> T): List<T> {
     this ?: return emptyList()
     val targetList = mutableListOf<T>()
     for (il in 0 until length()) {
