@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import com.mikepenz.aboutlibraries.ui.compose.LibrariesContainer
+import com.mikepenz.aboutlibraries.ui.compose.util.strippedLicenseContent
 
 fun main() = application {
     Window(title = "AboutLibraries Sample", onCloseRequest = ::exitApplication) {
@@ -25,7 +26,7 @@ fun main() = application {
                 LibrariesContainer(useResource("aboutlibraries.json") {
                     it.bufferedReader().readText()
                 }, Modifier.fillMaxSize()) {
-                    openDialog.value = it.licenses.firstOrNull()?.licenseContent ?: ""
+                    openDialog.value = it.licenses.firstOrNull()?.strippedLicenseContent ?: ""
                 }
 
                 if (openDialog.value != null) {
