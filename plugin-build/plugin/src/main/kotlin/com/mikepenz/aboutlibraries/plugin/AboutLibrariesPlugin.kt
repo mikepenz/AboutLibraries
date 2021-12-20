@@ -59,7 +59,7 @@ class AboutLibrariesPlugin : Plugin<Project> {
                 it.variant = if (project.hasProperty("exportVariant")) project.property("exportVariant").toString() else null
                 it.resultDirectory = if (project.hasProperty("exportPath")) project.file(
                     project.property("exportPath").toString()
-                ) else project.file("${project.buildDir}/generated/aboutlibraries/")
+                ) else project.file("${project.buildDir}/generated/aboutLibraries/")
                 it.dependsOn(collectTask)
             }
 
@@ -91,7 +91,7 @@ class AboutLibrariesPlugin : Plugin<Project> {
             it.description = "Writes the relevant meta data for the AboutLibraries plugin to display dependencies"
             it.group = "Build"
             it.variant = variant.name
-            it.resultDirectory = project.file("${project.buildDir}/generated/aboutlibraries/${variant.name}/res/raw/")
+            it.resultDirectory = project.file("${project.buildDir}/generated/aboutLibraries/${variant.name}/res/raw/")
             it.dependsOn(collectTask)
         }
 
@@ -115,7 +115,7 @@ class AboutLibrariesPlugin : Plugin<Project> {
             it.description = "Manually write meta data for the AboutLibraries plugin"
             it.group = "Build"
             it.variant = variant.name
-            it.resultDirectory = project.file("${project.buildDir}/generated/aboutlibraries/${variant.name}/res/raw/")
+            it.resultDirectory = project.file("${project.buildDir}/generated/aboutLibraries/${variant.name}/res/raw/")
             it.dependsOn(collectTask)
         }
 
