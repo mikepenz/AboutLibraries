@@ -9,10 +9,11 @@ buildTools = "31.0.0"
 # kotlin
 dokka = "1.6.0"
 kotlinCore = { require = "1.6.10" }
-kotlinCoroutines = { require = "1.6.0-RC2" }
+kotlinCoroutines = { require = "1.6.0-RC3" }
 kotlinxSerialization = "1.3.1"
 # compose
 compose = "1.1.0-rc01"
+composeCompiler = "1.1.0-rc02"
 composejb = "1.0.1-rc2"
 # androidx
 activity = "1.4.0"
