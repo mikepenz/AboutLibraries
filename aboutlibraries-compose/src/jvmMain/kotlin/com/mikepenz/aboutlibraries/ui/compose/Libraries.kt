@@ -27,9 +27,28 @@ fun LibrariesContainer(
     showLicenseBadges: Boolean = true,
     onLibraryClick: ((Library) -> Unit)? = null
 ) {
+    LibrariesContainer({
+        Libs.Builder().withJson(aboutLibsJson).build()
+    }, modifier, contentPadding, showAuthor, showVersion, showLicenseBadges, onLibraryClick)
+}
+
+/**
+ * Displays all provided libraries in a simple list.
+ */
+@OptIn(ExperimentalComposeUiApi::class)
+@Composable
+fun LibrariesContainer(
+    librariesBlock: () -> Libs,
+    modifier: Modifier = Modifier,
+    contentPadding: PaddingValues = PaddingValues(0.dp),
+    showAuthor: Boolean = true,
+    showVersion: Boolean = true,
+    showLicenseBadges: Boolean = true,
+    onLibraryClick: ((Library) -> Unit)? = null
+) {
     val libraries = remember { mutableStateOf<Libs?>(null) }
     LaunchedEffect(libraries) {
-        libraries.value = Libs.Builder().withJson(aboutLibsJson).build()
+        libraries.value = librariesBlock.invoke()
     }
 
     val libs = libraries.value?.libraries
