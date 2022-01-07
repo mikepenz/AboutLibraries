@@ -15,7 +15,7 @@ buildscript {
         classpath(libs.kotlin.plug)
         classpath(libs.androidx.navigation.plug)
         classpath(libs.dokka.plug)
-        classpath(libs.gradleMvnPlublish.plug)
+        classpath(libs.gradleMvnPublish.plug)
         classpath(libs.compose.jb.plug)
         classpath("com.mikepenz.aboutlibraries.plugin:aboutlibraries-plugin")
     }
