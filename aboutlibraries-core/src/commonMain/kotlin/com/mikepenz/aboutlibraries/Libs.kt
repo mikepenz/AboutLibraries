@@ -32,7 +32,14 @@ class Libs internal constructor(
         val (libraries, licenses) = if (stringData != null) {
             parseData(stringData)
         } else {
-            throw IllegalStateException("Please provide the data via the provided APIs")
+            throw IllegalStateException(
+                """
+                    Please provide the required library data via the available APIs.
+                    Depending on the platform this can be done for example via `LibsBuilder().withJson()`.
+                    For Android there exists an `LibsBuilder.withContext()`, automatically loading the `aboutlibraries.json` file from the `raw` resources folder.
+                    When using compose or other parent modules, please check their corresponding APIs.
+                """.trimIndent()
+            )
         }
 
         _libraries.addAll(libraries.sortedBy { it.name })
