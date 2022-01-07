@@ -1,6 +1,6 @@
 package com.mikepenz.aboutlibraries.ui.compose
 
-import android.text.Html
+import android.content.Context
 import android.widget.TextView
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -37,15 +37,19 @@ import com.mikepenz.aboutlibraries.util.withContext
 fun LibrariesContainer(
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(0.dp),
+    librariesBlock: (Context) -> Libs = { context ->
+        Libs.Builder().withContext(context).build()
+    },
     showAuthor: Boolean = true,
     showVersion: Boolean = true,
     showLicenseBadges: Boolean = true,
     onLibraryClick: ((Library) -> Unit)? = null
 ) {
     val libraries = remember { mutableStateOf<Libs?>(null) }
+
     val context = LocalContext.current
     LaunchedEffect(libraries) {
-        libraries.value = Libs.Builder().withContext(context).build()
+        libraries.value = librariesBlock.invoke(context)
     }
 
     val libs = libraries.value?.libraries
