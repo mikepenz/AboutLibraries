@@ -42,7 +42,7 @@ class Libs internal constructor(
             )
         }
 
-        _libraries.addAll(libraries.sortedBy { it.name })
+        _libraries.addAll(libraries.sortedBy { it.name.lowercase() })
         _licenses.addAll(licenses)
     }
 
