@@ -37,7 +37,7 @@ class LibrariesProcessor(
 ) {
     private val handledLibraries = HashSet<String>()
 
-    private val api = Api(gitHubToken)
+    private val api = Api.create(offlineMode, gitHubToken)
 
     fun gatherDependencies(): ResultContainer {
         val collectedDependencies = collectedDependencies.dependenciesForVariant(variant)

@@ -30,9 +30,13 @@ internal class GitHubApi(
                 connection.setRequestProperty("Authorization", "token $gitHubToken")
             }
             val rateLimit = JsonSlurper().parse(connection.getInputStream().readBytes()) as Map<String, *>
-            (rateLimit["rate"] as Map<String, *>)["remaining"] as Int
+            val limit = (rateLimit["rate"] as Map<String, *>)["remaining"] as Int
+            if (limit == 0) {
+                LOGGER.warn("GitHub `rate_limit` exhausted. Won't be able to use the GitHub API. Please check if the token is provided, or enable `offlineMode`.")
+            }
+            limit
         } catch (t: Throwable) {
-            LOGGER.error("Could not retrieve `rate_limit`. Please check the token if provided.")
+            LOGGER.error("Could not retrieve `rate_limit`. Please check if the token is provided.")
             0
         }
     }
@@ -43,23 +47,25 @@ internal class GitHubApi(
     @Suppress("UNCHECKED_CAST")
     override fun fetchRemoteLicense(uniqueId: String, repositoryLink: Scm?, licenses: HashSet<License>) {
         val url = repositoryLink?.url
-        var calledGitHub = false
         if (rateLimit > 0 && url?.contains("github") == true) {
             LOGGER.debug("Remaining GitHub rate limit: $rateLimit")
-            calledGitHub = getLicenseFromGitHubAPI(uniqueId, url, licenses)
-        }
-        if (licenses.isNotEmpty()) {
-            licenses.forEach {
-                if (it.spdxId != null && it.content == null) {
-                    it.loadSpdxLicense()
-                }
-            }
-        } else {
-            LOGGER.info("Retrieved license (${licenses.firstOrNull()?.name}) via GitHub license API")
-        }
+            val calledGitHub = getLicenseFromGitHubAPI(uniqueId, url, licenses)
 
-        // update remaining rate limit
-        rateLimit = if (calledGitHub) rateLimit - 1 else rateLimit
+            if (licenses.isNotEmpty()) {
+                licenses.forEach {
+                    if (it.spdxId != null && it.content == null) {
+                        it.loadSpdxLicense()
+                    }
+                }
+            } else {
+                LOGGER.info("Retrieved license (${licenses.firstOrNull()?.name}) via GitHub license API")
+            }
+
+            if (calledGitHub) {
+                // update remaining rate limit
+                updateAndCheckRateLimit()
+            }
+        }
     }
 
     /**
@@ -127,6 +133,10 @@ internal class GitHubApi(
                 return
             }
 
+            if (rateLimit <= 0) {
+                return
+            }
+
             try {
                 val connection = URL("${GITHUB_API}graphql").openConnection()
                 if (!gitHubToken.isNullOrBlank()) {
@@ -157,13 +167,15 @@ internal class GitHubApi(
                 // store in cache
                 remoteFundingCache[cacheKey] = localFunding
                 funding.addAll(localFunding)
+
+                // update rate limit
+                updateAndCheckRateLimit()
             } catch (t: Throwable) {
                 LOGGER.warn("Could not fetch funding for $user/$project - ($uniqueId)", t)
             }
         }
 
     }
-
 
     /**
      * Retrieves username (or org) and repository from the repository url
@@ -178,6 +190,17 @@ internal class GitHubApi(
             }
         }
         return null
+    }
+
+    /**
+     * Updates the [rateLimit] and logs error in case of the limit being exhausted.
+     */
+    private fun updateAndCheckRateLimit() {
+        // update remaining rate limit
+        rateLimit -= 1
+        if (rateLimit <= 0) {
+            LOGGER.warn("GitHub `rate_limit` exhausted. The plugin be able to use the GitHub API.")
+        }
     }
 
     private companion object {
