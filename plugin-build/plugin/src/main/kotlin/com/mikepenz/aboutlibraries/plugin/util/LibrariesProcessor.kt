@@ -77,19 +77,31 @@ class LibrariesProcessor(
             LibraryReader.readLibraries(configFolder).takeIf { it.isNotEmpty() }?.also { customLibs ->
                 val librariesMap = librariesList.associateBy { it.uniqueId }
                 customLibs.forEach { lib ->
-                    if (librariesMap.containsKey(lib.uniqueId)) {
-                        librariesMap[lib.uniqueId]?.also { orgLib ->
-                            orgLib.merge(lib)
-
-                            // make sure we fetch any additionally needed licenses
-                            orgLib.licenses.forEach {
-                                if (!licensesMap.containsKey(it)) {
-                                    additionalLicenses.add(it)
-                                }
+                    /**
+                     * Merges this [Library] with the provided other [Library]
+                     */
+                    fun Library.mergeWithCustom() {
+                        this.merge(lib)
+                        // make sure we fetch any additionally needed licenses
+                        this.licenses.forEach {
+                            if (!licensesMap.containsKey(it)) {
+                                additionalLicenses.add(it)
                             }
                         }
+                    }
+
+                    if (lib.uniqueId.endsWith("::regex")) {
+                        val matchRegex = lib.uniqueId.replace("::regex", "").toRegex()
+                        val matchedLibraries = librariesMap.filterKeys {
+                            it.contains(matchRegex)
+                        }
+                        matchedLibraries.values.forEach { it.mergeWithCustom() }
                     } else {
-                        librariesList.add(lib)
+                        if (librariesMap.containsKey(lib.uniqueId)) {
+                            librariesMap[lib.uniqueId]?.mergeWithCustom()
+                        } else {
+                            librariesList.add(lib)
+                        }
                     }
                 }
             }
