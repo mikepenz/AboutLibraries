@@ -386,7 +386,9 @@ enum class SpdxLicense(
         name.contains("Apache", true) || url?.endsWith("LICENSE-2.0.txt") == true
     }),
     BSD_2_Clause("BSD 2-Clause \"Simplified\" License", "BSD-2-Clause", customMatcher = { name, url ->
-        name.equals("BSD 2-Clause License", true) || url?.endsWith("opensource.org/licenses/BSD-2-Clause", true) == true
+        name.equals("BSD 2-Clause License", true)
+                || url?.endsWith("opensource.org/licenses/BSD-2-Clause", true) == true
+                || url?.endsWith("opensource.org/licenses/bsd-license", true) == true
     }),
     BSD_3_Clause("BSD 3-Clause \"New\" or \"Revised\" License", "BSD-3-Clause", customMatcher = { name, url ->
         name.equals("New BSD License", true) || name.equals("Modified BSD License", true) || name.equals("BSD 3-clause", true) ||
