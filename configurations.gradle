@@ -20,7 +20,7 @@ import java.text.SimpleDateFormat
  */
 ext.getLocalProps = {
     Properties localProperties = new Properties()
-    localProperties.load(new File('local.properties').newDataInputStream())
+    localProperties.load(new File(project.rootDir, 'local.properties').newDataInputStream())
     return localProperties
 }
 
