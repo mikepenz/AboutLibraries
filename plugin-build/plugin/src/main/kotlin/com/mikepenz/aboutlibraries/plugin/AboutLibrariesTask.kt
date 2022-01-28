@@ -39,7 +39,11 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
             result.licenses.values.forEach {
                 val id = it.spdxId?.lowercase(Locale.ENGLISH) ?: it.hash.lowercase(Locale.ENGLISH)
                 val name = it.name.lowercase(Locale.ENGLISH)
-                if (!(allowedLicenses.contains(id) || allowedLicenses.contains(name))) {
+                val url = it.url?.lowercase(Locale.ENGLISH)
+                if (!(allowedLicenses.contains(id)
+                            || allowedLicenses.contains(name)
+                            || (url?.isNotEmpty() == true && allowedLicenses.contains(url)))
+                ) {
                     missing.add(it)
                 }
             }
@@ -53,7 +57,7 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
                 }
                 message.appendLine("Detected usage of not allowed licenses!")
                 missing.forEach {
-                    message.appendLine("-> License: ${it.name} (${it.url}), used by:")
+                    message.appendLine("-> License: ${it.name} | ${it.spdxId ?: "-"} (${it.url}), used by:")
                     result.libraries.forLicense(it).forEach { lib ->
                         message.appendLine("    ${lib.uniqueId}")
                     }
