@@ -67,7 +67,7 @@ dependencies {
     implementation(libs.fastAdapter.core)
 
     // navigation
-    implementation(libs.androidx.navigation.ktx)
+    implementation(libs.androidx.navigation)
 }
 
 if (project.hasProperty('pushall') || project.hasProperty('library_only')) {
