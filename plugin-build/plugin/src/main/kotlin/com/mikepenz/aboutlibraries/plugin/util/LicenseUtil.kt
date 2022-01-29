@@ -18,7 +18,7 @@ object LicenseUtil {
             } else {
                 remoteLicenseCache[url] = ""
                 URL(url).readText().also {
-                    remoteLicenseCache[url] = it
+                    remoteLicenseCache[url] = it.trimIndent() // cleanup empty lines before and after, and any indent.
                 }
             }
         } catch (t: Throwable) {
