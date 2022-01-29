@@ -74,7 +74,7 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
 
     @Input
     fun getAdditionalLicenses(): HashSet<String> {
-        return extension.additionalLicenses.map { it.name }.toHashSet()
+        return extension.additionalLicenses.toHashSet()
     }
 
     @Suppress("UNCHECKED_CAST")

@@ -97,10 +97,7 @@ aboutLibraries {
     gitHubApiToken = getLocalOrGlobalProperty("github.pat")
 
     // Full license text for license IDs mentioned here will be included, even if no detected dependency uses them.
-    /*additionalLicenses {
-        mit
-        mpl_2_0
-    }*/
+    /* additionalLicenses = ["mit", "mpl_2_0"] */
 
     // Define the strict mode, will fail if the project uses licenses not allowed
     // - This will only automatically fail for Android projects which have `registerAndroidTasks` enabled
