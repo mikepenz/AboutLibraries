@@ -240,6 +240,7 @@ class LibrariesProcessor(
             scm,
             licenses.map { it.hash }.toSet(),
             funding,
+            null,
             artifactFile.parentFile?.parentFile // artifactFile references the pom directly
         )
 

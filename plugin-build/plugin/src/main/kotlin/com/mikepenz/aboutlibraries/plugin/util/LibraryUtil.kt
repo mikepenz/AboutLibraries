@@ -58,6 +58,7 @@ fun Library.merge(with: Library) {
     with.name?.takeIf { it.isNotBlank() }?.also { orgLib.name = it }
     with.description?.takeIf { it.isNotBlank() }?.also { orgLib.description = it }
     with.website?.takeIf { it.isNotBlank() }?.also { orgLib.website = it }
+    with.tag?.takeIf { it.isNotBlank() }?.also { orgLib.tag = it }
 
     // merge custom data with original data
     val origOrganization = orgLib.organization

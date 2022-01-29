@@ -16,7 +16,8 @@ data class Library(
     var scm: Scm?,
     var licenses: Set<String> = emptySet(),
     var funding: Set<Funding> = emptySet(),
-    var artifactFolder: File? = null
+    var tag: String? = null,
+    var artifactFolder: File? = null,
 ) {
     val artifactId: String
         get() = "${uniqueId}:${artifactVersion ?: ""}"
