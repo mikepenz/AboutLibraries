@@ -68,8 +68,7 @@ aboutLibraries {
     // - if the automatic registered android tasks are disabled, a similar thing can be achieved manually
     // - `./gradlew app:exportLibraryDefinitions -PexportPath=src/main/res/raw`
     // - the resulting file can for example be added as part of the SCM
-    // registerAndroidTasks = false
-
+    registerAndroidTasks = false
     // define the path configuration files are located in. E.g. additional libraries, licenses to add to the target .json
     configPath = "config"
     // allow to enable "offline mode", will disable any network check of the plugin (including [fetchRemoteLicense] or pulling spdx license texts)
@@ -82,13 +81,8 @@ aboutLibraries {
     fetchRemoteFunding = true
     // (optional) GitHub token to raise API request limit to allow fetching more licenses
     gitHubApiToken = getLocalOrGlobalProperty("github.pat")
-
     // Full license text for license IDs mentioned here will be included, even if no detected dependency uses them.
-    /*additionalLicenses {
-        mit
-        mpl_2_0
-    }*/
-
+    additionalLicenses = ["mit", "mpl_2_0"]
     // Define the strict mode, will fail if the project uses licenses not allowed
     // - This will only automatically fail for Android projects which have `registerAndroidTasks` enabled
     // For non Android projects, execute `exportLibraryDefinitions`

@@ -6,7 +6,7 @@ import java.util.regex.Pattern
 import javax.inject.Inject
 
 @Suppress("unused") // Public API for Gradle build scripts.
-abstract class AboutLibrariesExtension @Inject constructor(objectFactory: ObjectFactory) {
+abstract class AboutLibrariesExtension constructor() {
 
     /**
      * Disables any remote checking of licenses.
@@ -68,16 +68,13 @@ abstract class AboutLibrariesExtension @Inject constructor(objectFactory: Object
      *
      * ```
      * aboutLibraries {
-     *   additionalLicenses {
-     *      mit
-     *      mpl_2_0
-     *   }
+     *   additionalLicenses = arrayOf("mit", "mpl_2_0")
      * }
      * ```
      *
      * This API requires spdxId's to be provided. A full list is available here: https://spdx.org/licenses/
      */
-    var additionalLicenses: NamedDomainObjectCollection<AboutLibrariesLicenseExtension>
+    var additionalLicenses: List<String> = emptyList()
 
     /**
      * Enables an exceptional strictMode which will either log or crash the build in case non allowed licenses are detected.
@@ -180,10 +177,6 @@ abstract class AboutLibrariesExtension @Inject constructor(objectFactory: Object
      * ```
      */
     var gitHubApiToken: String? = null
-
-    init {
-        additionalLicenses = objectFactory.domainObjectContainer(AboutLibrariesLicenseExtension::class.java)
-    }
 }
 
 enum class StrictMode {
