@@ -10,7 +10,7 @@ android {
     compileSdk = libs.versions.compileSdk.get().toInteger()
 
     defaultConfig {
-        minSdk = libs.versions.minSdk.get().toInteger()
+        minSdk = libs.versions.coreMinSdk.get().toInteger()
         targetSdk = libs.versions.targetSdk.get().toInteger()
         versionName VERSION_NAME
         versionCode Integer.parseInt(VERSION_CODE)
