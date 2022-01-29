@@ -17,8 +17,10 @@ object LicenseUtil {
                 remoteLicenseCache[url]
             } else {
                 remoteLicenseCache[url] = ""
-                URL(url).readText().also {
-                    remoteLicenseCache[url] = it
+                URL(url).readText().let {
+                    val trimmed = it.trimIndent() // cleanup empty lines before and after, and any indent.
+                    remoteLicenseCache[url] = trimmed
+                    trimmed
                 }
             }
         } catch (t: Throwable) {

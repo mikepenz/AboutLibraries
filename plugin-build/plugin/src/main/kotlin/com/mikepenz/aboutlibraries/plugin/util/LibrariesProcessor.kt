@@ -252,7 +252,7 @@ class LibrariesProcessor(
      * Ensures and applies fixes to the library names (shorten, ...)
      */
     private fun fixLibraryName(uniqueId: String, value: String): String {
-        return if (value.startsWith("Android Support Library")) {
+        return (if (value.startsWith("Android Support Library")) {
             value.replace("Android Support Library", "Support")
         } else if (value.startsWith("Android Support")) {
             value.replace("Android Support", "Support")
@@ -260,14 +260,14 @@ class LibrariesProcessor(
             value.replace("org.jetbrains.kotlin:", "")
         } else {
             value
-        }
+        }).trimIndent()
     }
 
     /**
      * Ensures and applies fixes to the library descriptions (remove 'null', ...)
      */
     private fun fixLibraryDescription(value: String): String {
-        return value.takeIf { it != "null" } ?: ""
+        return value.takeIf { it != "null" }?.trimIndent() ?: ""
     }
 
     /**
