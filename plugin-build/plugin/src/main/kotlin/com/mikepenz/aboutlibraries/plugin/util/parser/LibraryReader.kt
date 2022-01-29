@@ -55,24 +55,14 @@ object LibraryReader {
                 organization,
                 scm,
                 licenses,
-                funding
+                funding,
+                c["tag"] as? String
             )
         } catch (t: Throwable) {
             LOGGER.error("Could not read the license ($name)", t)
             null
         }
     }
-
-    /**
-    "uniqueId": "androidx.jetpack.library:custom",
-    "developers": [],
-    "artifactVersion": "42.0",
-    "description": "",
-    "name": "ABC Custom Jetpack library",
-    "licenses": [
-    "asdkl"
-    ]
-     */
 
     private val LOGGER = LoggerFactory.getLogger(LibraryReader::class.java)!!
     private const val LIBRARIES_DIR = "libraries"

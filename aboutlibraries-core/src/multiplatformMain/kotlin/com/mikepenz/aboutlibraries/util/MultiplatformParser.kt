@@ -44,12 +44,13 @@ actual fun parseData(json: String): Result {
                 organization,
                 scm,
                 libLicenses,
-                funding
+                funding,
+                optString("tag")
             )
         }
         return Result(libraries, licenses)
     } catch (t: Throwable) {
-        println("Failed to parse aboutlibraries.json: $t")
+        println("Failed to parse the meta data *.json file: $t")
     }
     return Result(emptyList(), emptyList())
 }

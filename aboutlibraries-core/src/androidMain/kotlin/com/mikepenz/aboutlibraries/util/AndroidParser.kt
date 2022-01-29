@@ -43,12 +43,13 @@ actual fun parseData(json: String): Result {
                 organization,
                 scm,
                 libLicenses,
-                funding
+                funding,
+                optString("tag")
             )
         }
         return Result(libraries, licenses)
     } catch (t: Throwable) {
-        Log.e("aboutlibraries", "Failed to parse aboutlibraries.json: $t")
+        Log.e("AboutLibraries", "Failed to parse the meta data *.json file: $t")
     }
     return Result(emptyList(), emptyList())
 }

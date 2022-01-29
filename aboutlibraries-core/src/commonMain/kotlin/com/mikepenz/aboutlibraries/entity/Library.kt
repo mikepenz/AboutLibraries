@@ -24,7 +24,8 @@ data class Library(
     val organization: Organization?,
     val scm: Scm?,
     val licenses: Set<License> = emptySet(),
-    val funding: Set<Funding> = emptySet()
+    val funding: Set<Funding> = emptySet(),
+    val tag: String? = null,
 ) {
     /**
      * defines the [uniqueId]:[artifactVersion] combined
