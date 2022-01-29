@@ -24,10 +24,11 @@ class MetaData(
         .format(Calendar.getInstance().toInstant())
 )
 
-fun ResultContainer.writeToDisk(outputFile: File) {
-    val jsonGenerator = JsonGenerator.Options().excludeNulls().excludeFieldsByName(
-        "artifactId", "groupId", "artifactFolder"
-    ).build()
+fun ResultContainer.writeToDisk(outputFile: File, excludeFields: Array<String>) {
+    val fieldNames = mutableListOf("artifactId", "groupId", "artifactFolder").also {
+        it.addAll(excludeFields)
+    }
+    val jsonGenerator = JsonGenerator.Options().excludeNulls().excludeFieldsByName(fieldNames).build()
     PrintWriter(OutputStreamWriter(outputFile.outputStream(), StandardCharsets.UTF_8), true).use {
         it.write(jsonGenerator.toJson(this))
     }
