@@ -6,7 +6,20 @@ import java.util.regex.Pattern
 import javax.inject.Inject
 
 @Suppress("unused") // Public API for Gradle build scripts.
-abstract class AboutLibrariesExtension constructor() {
+abstract class AboutLibrariesExtension {
+
+    /**
+     * Adjusts the output file name for the generated meta data file.
+     * Adjusting the file name will break the automatic discovery for supported platforms.
+     * Ensure to use the respective APIs of the core module.
+     *
+     * ```
+     * aboutLibraries {
+     *   outputFileName = "aboutlibraries.json"
+     * }
+     * ```
+     */
+    var outputFileName: String = "aboutlibraries.json"
 
     /**
      * Disables any remote checking of licenses.

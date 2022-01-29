@@ -20,8 +20,11 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
     @Input
     val strictMode = extension.strictMode
 
+    @Input
+    val outputFileName = extension.outputFileName
+
     fun getCombinedLibrariesOutputFile(): File {
-        return File(resultDirectory, "aboutlibraries.json")
+        return File(resultDirectory, outputFileName)
     }
 
     @TaskAction
