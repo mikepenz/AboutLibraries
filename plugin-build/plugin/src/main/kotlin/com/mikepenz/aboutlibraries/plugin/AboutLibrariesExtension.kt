@@ -74,7 +74,7 @@ abstract class AboutLibrariesExtension constructor() {
      *
      * This API requires spdxId's to be provided. A full list is available here: https://spdx.org/licenses/
      */
-    var additionalLicenses: List<String> = emptyList()
+    var additionalLicenses: Array<String> = emptyArray()
 
     /**
      * Enables an exceptional strictMode which will either log or crash the build in case non allowed licenses are detected.
@@ -98,7 +98,7 @@ abstract class AboutLibrariesExtension constructor() {
      *
      * This API requires spdxId's to be provided. A full list is available here: https://spdx.org/licenses/
      */
-    var allowedLicenses: List<String> = emptyList()
+    var allowedLicenses: Array<String> = emptyArray()
 
     /**
      * Defines the plugins behavior in case of duplicates.
@@ -177,6 +177,18 @@ abstract class AboutLibrariesExtension constructor() {
      * ```
      */
     var gitHubApiToken: String? = null
+
+    /**
+     * Defines fields which will be excluded during the serialisation of the metadata output file.
+     *
+     * Any field as included in the [com.mikepenz.aboutlibraries.plugin.mapping.Library] can theoretically be excluded.
+     * ```
+     * aboutLibraries {
+     *   excludeFields = arrayOf("description", "tag")
+     * }
+     * ```
+     */
+    var excludeFields: Array<String> = emptyArray()
 }
 
 enum class StrictMode {

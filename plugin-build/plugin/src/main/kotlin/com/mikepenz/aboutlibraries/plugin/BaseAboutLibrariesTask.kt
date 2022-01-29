@@ -69,13 +69,14 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     val fetchRemoteFunding = extension.fetchRemoteFunding && !offlineMode
 
     @Input
+    val additionalLicenses = extension.additionalLicenses.toHashSet()
+
+    @Input
     @org.gradle.api.tasks.Optional
     val gitHubApiToken = extension.gitHubApiToken
 
     @Input
-    fun getAdditionalLicenses(): HashSet<String> {
-        return extension.additionalLicenses.toHashSet()
-    }
+    val excludeFields = extension.excludeFields
 
     @Suppress("UNCHECKED_CAST")
     protected fun readInCollectedDependencies(): CollectedContainer {
@@ -95,7 +96,7 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
             offlineMode,
             fetchRemoteLicense,
             fetchRemoteFunding,
-            getAdditionalLicenses(),
+            additionalLicenses,
             duplicationMode,
             duplicationRule,
             variant,
