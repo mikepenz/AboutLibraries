@@ -5,7 +5,7 @@ coreMinSdk = "19"
 minSdk = "21"
 targetSdk = "31"
 # build
-gradleBuild = "7.0.4"
+gradleBuild = "7.1.1"
 buildTools = "32.0.0"
 # kotlin
 dokka = "1.6.10"
@@ -13,21 +13,21 @@ kotlinCore = { require = "1.6.10" }
 kotlinCoroutines = { require = "1.6.0" }
 kotlinxSerialization = "1.3.2"
 # compose
-compose = "1.1.0-rc03"
-composeCompiler = "1.1.0-rc03"
+compose = "1.1.0"
+composeCompiler = "1.1.0"
 composejb = "1.0.1"
 # androidx
 activity = "1.4.0"
 cardview = "1.0.0"
 constraintLayout = "2.1.3"
 core = "1.7.0"
-lifecycle = { require = "2.4.0" }
-navigation = "2.4.0"
+lifecycle = { require = "2.4.1" }
+navigation = "2.4.1"
 recyclerView = "1.2.1"
 # google
 material = "1.5.0"
 # other
-accompanist = "0.22.1-rc"
+accompanist = "0.23.0"
 fastAdapter = "5.6.0"
 gradleMvnPublish = "0.18.0"
 iconics = "5.3.3"

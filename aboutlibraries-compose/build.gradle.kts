@@ -32,8 +32,7 @@ android {
     }
 
     lint {
-        isAbortOnError = false
-        //abortOnError = false
+        abortOnError = false
     }
 }
 kotlin {
