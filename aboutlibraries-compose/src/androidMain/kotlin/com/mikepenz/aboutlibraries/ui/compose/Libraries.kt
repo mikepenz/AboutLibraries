@@ -12,7 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment.Companion.End
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -20,7 +20,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
-import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.core.text.HtmlCompat
 import com.mikepenz.aboutlibraries.Libs
@@ -82,7 +81,7 @@ fun Libraries(
 ) {
     LazyColumn(modifier, contentPadding = contentPadding) {
         items(libraries) { library ->
-            val openDialog = remember { mutableStateOf(false) }
+            val openDialog = rememberSaveable { mutableStateOf(false) }
 
             Library(library, showAuthor, showVersion, showLicenseBadges) {
                 if (onLibraryClick != null) {
@@ -94,34 +93,27 @@ fun Libraries(
 
             if (openDialog.value) {
                 val scrollState = rememberScrollState()
-                Dialog(
+                AlertDialog(
                     onDismissRequest = {
                         openDialog.value = false
                     },
-                    properties = DialogProperties(usePlatformDefaultWidth = false)
-                ) {
-                    Surface(
-                        modifier = Modifier
-                            .padding(8.dp)
-                            .verticalScroll(scrollState)
-                            .fillMaxSize(),
-                        shape = MaterialTheme.shapes.medium,
-                        color = MaterialTheme.colors.surface,
-                        contentColor = contentColorFor(MaterialTheme.colors.surface),
-                    ) {
-                        Column(modifier = Modifier.padding(8.dp)) {
-                            HtmlText(
-                                library.licenses.firstOrNull()?.htmlReadyLicenseContent ?: ""
-                            )
-                            TextButton(
-                                onClick = { openDialog.value = false },
-                                modifier = Modifier.align(End)
-                            ) {
-                                Text(stringResource(id = R.string.aboutlibs_ok))
-                            }
+                    confirmButton = {
+                        TextButton(onClick = { openDialog.value = false }) {
+                            Text(stringResource(id = R.string.aboutlibs_ok))
                         }
-                    }
-                }
+                    },
+                    text = {
+                        Column(
+                            modifier = Modifier.verticalScroll(scrollState),
+                        ) {
+                            HtmlText(
+                                library.licenses.firstOrNull()?.htmlReadyLicenseContent.orEmpty(),
+                            )
+                        }
+                    },
+                    modifier = Modifier.padding(16.dp),
+                    properties = DialogProperties(usePlatformDefaultWidth = false),
+                )
             }
         }
     }
