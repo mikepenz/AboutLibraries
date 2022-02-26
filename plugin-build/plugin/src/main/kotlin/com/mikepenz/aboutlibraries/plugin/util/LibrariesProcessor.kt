@@ -101,6 +101,12 @@ class LibrariesProcessor(
                             librariesMap[lib.uniqueId]?.mergeWithCustom()
                         } else {
                             librariesList.add(lib)
+                            // make sure we fetch any additionally needed licenses
+                            lib.licenses.forEach {
+                                if (!licensesMap.containsKey(it)) {
+                                    additionalLicenses.add(it)
+                                }
+                            }
                         }
                     }
                 }
