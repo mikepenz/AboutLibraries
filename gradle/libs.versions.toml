@@ -29,7 +29,7 @@ material = "1.5.0"
 # other
 accompanist = "0.23.1"
 fastAdapter = "5.6.0"
-gradleMvnPublish = "0.18.0"
+gradleMvnPublish = "0.19.0"
 iconics = "5.3.3"
 itemAnimators = "1.1.0"
 ivy = "2.5.0"
