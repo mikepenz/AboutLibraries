@@ -77,17 +77,19 @@ class LibrariesProcessor(
             LibraryReader.readLibraries(configFolder).takeIf { it.isNotEmpty() }?.also { customLibs ->
                 val librariesMap = librariesList.associateBy { it.uniqueId }
                 customLibs.forEach { lib ->
-                    /**
-                     * Merges this [Library] with the provided other [Library]
-                     */
-                    fun Library.mergeWithCustom() {
-                        this.merge(lib)
-                        // make sure we fetch any additionally needed licenses
+                    /** Make sure we fetch any additional needed licenses */
+                    fun Library.handleLicenses() {
                         this.licenses.forEach {
                             if (!licensesMap.containsKey(it)) {
                                 additionalLicenses.add(it)
                             }
                         }
+                    }
+
+                    /** Merges this [Library] with the provided other [Library] */
+                    fun Library.mergeWithCustom() {
+                        this.merge(lib)
+                        this.handleLicenses()
                     }
 
                     if (lib.uniqueId.endsWith("::regex")) {
@@ -100,6 +102,7 @@ class LibrariesProcessor(
                         if (librariesMap.containsKey(lib.uniqueId)) {
                             librariesMap[lib.uniqueId]?.mergeWithCustom()
                         } else {
+                            lib.handleLicenses()
                             librariesList.add(lib)
                         }
                     }
