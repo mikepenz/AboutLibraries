@@ -1,4 +1,6 @@
-apply plugin: 'com.android.application'
+plugins {
+    id 'com.android.application'
+}
 apply plugin: 'kotlin-android'
 apply plugin: 'com.mikepenz.aboutlibraries.plugin' // has to be applied AFTER android
 
@@ -7,14 +9,14 @@ if (getSigningFile() != null) {
 }
 
 android {
-    compileSdkVersion setup.compileSdk
-    buildToolsVersion setup.buildTools
+    compileSdk = libs.versions.compileSdk.get().toInteger()
 
     defaultConfig {
-        minSdkVersion setup.minSdk
-        targetSdkVersion setup.targetSdk
-        versionCode release.versionCode
-        versionName release.versionName
+        minSdk = libs.versions.minSdk.get().toInteger()
+        targetSdk = libs.versions.targetSdk.get().toInteger()
+        versionName VERSION_NAME
+        versionCode Integer.parseInt(VERSION_CODE)
+        multiDexEnabled true
 
         setProperty("archivesBaseName", "AboutLibraries-v$versionName-c$versionCode")
     }
@@ -64,6 +66,14 @@ android {
         jvmTarget = "1.8"
     }
 
+    buildFeatures {
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
+    }
+
     packagingOptions {
         exclude 'META-INF/library-core_release.kotlin_module'
         exclude 'META-INF/library_release.kotlin_module'
@@ -72,45 +82,75 @@ android {
 
 // It is possible to define a custom config path with custom mappings
 aboutLibraries {
-    configPath = "config"
+    // - if the automatic registered android tasks are disabled, a similar thing can be achieved manually
+    // - `./gradlew app:exportLibraryDefinitions -PexportPath=src/main/res/raw`
+    // - the resulting file can for example be added as part of the SCM
+    // registerAndroidTasks = false
 
-    // Full license text for license IDs mentioned here
-    // will be included, even if no detected dependency uses them.
-    additionalLicenses {
-        mit
-        mpl_2_0
-    }
+    // define the path configuration files are located in. E.g. additional libraries, licenses to add to the target .json
+    configPath = "config"
+    // allow to enable "offline mode", will disable any network check of the plugin (including [fetchRemoteLicense] or pulling spdx license texts)
+    offlineMode = false
+    // enable fetching of "remote" licenses. Uses the GitHub API
+    fetchRemoteLicense = true
+    // (optional) GitHub token to raise API request limit to allow fetching more licenses
+    gitHubApiToken = getLocalOrGlobalProperty("github.pat")
+
+    // Full license text for license IDs mentioned here will be included, even if no detected dependency uses them.
+    // additionalLicenses = ["mit", "mpl_2_0"]
+
+    // Allows to exclude some fields from the generated meta data field.
+    // excludeFields = ["developers", "funding"]
+
+    // Define the strict mode, will fail if the project uses licenses not allowed
+    // - This will only automatically fail for Android projects which have `registerAndroidTasks` enabled
+    // For non Android projects, execute `exportLibraryDefinitions`
+    strictMode = com.mikepenz.aboutlibraries.plugin.StrictMode.FAIL
+    // Allowed set of licenses, this project will be able to use without build failure
+    allowedLicenses = ["Apache-2.0", "asdkl"]
+    // Enable the duplication mode, allows to merge, or link dependencies which relate
+    duplicationMode = com.mikepenz.aboutlibraries.plugin.DuplicateMode.LINK
+    // Configure the duplication rule, to match "duplicates" with
+    duplicationRule = com.mikepenz.aboutlibraries.plugin.DuplicateRule.SIMPLE
 }
 
 dependencies {
+    implementation project(':aboutlibraries-core')
     implementation project(':aboutlibraries')
+    implementation project(':aboutlibraries-compose')
 
-    implementation "com.google.android.material:material:${versions.material}"
-    implementation "androidx.recyclerview:recyclerview:${versions.recyclerview}"
-    implementation "androidx.cardview:cardview:${versions.cardview}"
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.cardView)
+    implementation(libs.androidx.recyclerView)
+
+    implementation(libs.google.material)
+
+    implementation(libs.bundles.accompanist)
+
+    implementation(libs.bundles.compose.androidx)
 
     //used to generate the drawer on the left
     //https://github.com/mikepenz/MaterialDrawer
-    implementation "com.mikepenz:materialdrawer:${versions.materialdrawer}"
+    implementation(libs.materialDrawer.core)
 
     //used to provide different itemAnimators for the RecyclerView
     //https://github.com/mikepenz/ItemAnimators
-    implementation 'com.mikepenz:itemanimators:1.1.0'
+    implementation(libs.itemAnimators.core)
 
     // used to provide out of the box icon font support. simplifies development,
     // and provides scalable icons. the core is very very light
     // https://github.com/mikepenz/Android-Iconics
-    implementation "com.mikepenz:iconics-core:${versions.iconics}"
+    implementation(libs.iconics.core)
 
     //used to display the icons in the drawer
-    //https://github.com/mikepenz/Android-Iconics
-    implementation "com.mikepenz:material-design-iconic-typeface:2.2.0.8-kotlin@aar"
+    //https://github.com/mikepenz/Android-Iconicsx`
+    implementation("com.mikepenz:material-design-iconic-typeface:2.2.0.8-kotlin@aar")
 
     // used only tho showcase multi flavor support
-    stagingImplementation("com.squareup.okhttp3:okhttp:4.9.2")
+    stagingImplementation(libs.okhttp.core)
 }
 
 configurations.all {
-    resolutionStrategy.force "com.mikepenz:fastadapter:${versions.fastadapter}"
-    resolutionStrategy.force "com.mikepenz:iconics-core:${versions.iconics}"
+    resolutionStrategy.force(libs.fastAdapter.core)
+    resolutionStrategy.force(libs.iconics.core)
 }

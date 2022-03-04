@@ -1,0 +1,21 @@
+apply plugin: "com.vanniktech.maven.publish"
+apply plugin: "org.jetbrains.dokka"
+
+task javadocJar(type: Jar, dependsOn: dokkaHtml) {
+    classifier = 'javadoc'
+    from "$buildDir/javadoc"
+}
+
+mavenPublish {
+    releaseSigningEnabled = true
+    androidVariantToPublish = "release"
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "installLocally"
+            url = "${rootProject.buildDir}/localMaven"
+        }
+    }
+}

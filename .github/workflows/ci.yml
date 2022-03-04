@@ -8,6 +8,92 @@ on:
   pull_request:
 
 jobs:
+  publish_archives:
+    name: Publish Archives
+    if: startsWith(github.ref, 'refs/tags/')
+
+    strategy:
+      matrix:
+        os: [macOS-latest, ubuntu-latest, windows-latest]
+
+    runs-on: ${{matrix.os}}
+
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+
+      - uses: actions/setup-java@v2
+        with:
+          distribution: 'zulu'
+          java-version: '15'
+
+      - name: Copy CI gradle.properties
+        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+
+      - name: Checkout Gradle Build Cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+            !~/.gradle/wrapper/dists/**/gradle*.zip
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            gradle-${{ runner.os }}-
+
+      - name: Cache konan
+        uses: actions/cache@v2
+        with:
+          path: ~/.konan
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            gradle-${{ runner.os }}-
+
+      - name: Prepare Gradle Publish properties
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          echo "gradle.publish.key=${{ secrets.GRADLE_PUBLISH_KEY }}" >> ~/.gradle/gradle.properties
+          echo "gradle.publish.secret=${{ secrets.GRADLE_PUBLISH_SECRET }}" >> ~/.gradle/gradle.properties
+
+      - name: Release Plugin
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          cd plugin-build
+          ./gradlew publishPlugins | true
+
+      - name: Publish the macOS artifacts
+        if: matrix.os == 'macOS-latest'
+        env:
+          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.NEXUS_USERNAME }}
+          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.NEXUS_PASSWORD }}
+          ORG_GRADLE_PROJECT_signingInMemoryKeyId: ${{ secrets.SIGNING_KEY_ID }}
+          ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.SIGNING_PRIVATE_KEY }}
+          ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGNING_PASSWORD }}
+        run: ./gradlew aboutlibraries-core:publishAllPublicationsToMavenCentralRepository --no-daemon -Plibrary_core_only --no-configure-on-demand --no-parallel
+
+      - name: Publish the windows artifact
+        if: matrix.os == 'windows-latest'
+        env:
+          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.NEXUS_USERNAME }}
+          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.NEXUS_PASSWORD }}
+          ORG_GRADLE_PROJECT_signingInMemoryKeyId: ${{ secrets.SIGNING_KEY_ID }}
+          ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.SIGNING_PRIVATE_KEY }}
+          ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGNING_PASSWORD }}
+        run: ./gradlew aboutlibraries-core:publishMingwX64PublicationToMavenCentralRepository -Plibrary_core_only --no-configure-on-demand --no-parallel
+
+      - name: Publish the linux artifact
+        if: matrix.os == 'ubuntu-latest'
+        env:
+          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.NEXUS_USERNAME }}
+          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.NEXUS_PASSWORD }}
+          ORG_GRADLE_PROJECT_signingInMemoryKeyId: ${{ secrets.SIGNING_KEY_ID }}
+          ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.SIGNING_PRIVATE_KEY }}
+          ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGNING_PASSWORD }}
+        run: |
+          ./gradlew aboutlibraries-core:publishLinuxX64PublicationToMavenCentralRepository -Plibrary_core_only --no-configure-on-demand --no-parallel
+          ./gradlew aboutlibraries:publishAllPublicationsToMavenCentralRepository -x test -x lint -Plibrary_only --no-configure-on-demand --no-parallel
+          ./gradlew aboutlibraries-compose:publishAllPublicationsToMavenCentralRepository -x test -x lint -Plibrary_compose_only --no-configure-on-demand --no-parallel
+
   build:
     name: Build
     runs-on: ubuntu-latest
@@ -17,10 +103,10 @@ jobs:
         with:
           fetch-depth: 100
 
-      - uses: actions/setup-java@v1
+      - uses: actions/setup-java@v2
         with:
-          java-version: '11'
-          java-package: jdk
+          distribution: 'zulu'
+          java-version: '15'
 
       - name: Validate gradle wrapper
         uses: gradle/wrapper-validation-action@v1
@@ -29,7 +115,6 @@ jobs:
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
 
       - name: Checkout Gradle Build Cache
-        if: ${{ steps.self_hosted.outputs.FLAG != 'self-hosted' }}
         uses: actions/cache@v2
         with:
           path: |
@@ -51,10 +136,6 @@ jobs:
       - name: Run Lint
         if: github.event_name  == 'pull_request'
         run: ./gradlew lintDebug
-
-      - name: Detekt
-        if: github.event_name  == 'pull_request'
-        run: ./gradlew detekt
 
       - name: Setup Ruby
         if: github.event_name  == 'pull_request'
@@ -84,44 +165,13 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         run: ./gradlew app:assembleStaging app:assembleRelease app:bundleRelease
 
-      - name: Prepare Gradle Publish properties
-        if: startsWith(github.ref, 'refs/tags/')
-        run: |
-          echo "gradle.publish.key=${{ secrets.GRADLE_PUBLISH_KEY }}" >> ~/.gradle/gradle.properties
-          echo "gradle.publish.secret=${{ secrets.GRADLE_PUBLISH_SECRET }}" >> ~/.gradle/gradle.properties
-
-      - name: Release Plugin
-        if: startsWith(github.ref, 'refs/tags/')
-        run: |
-          cd plugin-build
-          ./gradlew publishPlugins | true
-
-      - name: Prepare Sonatype Gradle properties
-        if: startsWith(github.ref, 'refs/tags/')
-        run: |
-          echo "${{ secrets.SONATYPE_GPG_FILE }}" > opensource.gpg.asc
-          gpg -d --passphrase "${{ secrets.KEYSTORE_PASSPHRASE }}" --batch "opensource.gpg.asc" > "$HOME/.gradle/opensource.gpg"
-          echo "sonatype.gpg.key=${{ secrets.SONATYPE_GPG_KEY }}" >> ~/.gradle/gradle.properties
-          echo "sonatype.gpg.password=${{ secrets.SONATYPE_GPG_PASS }}" >> ~/.gradle/gradle.properties
-          echo "sonatype.gpg.secretKeyRingFile=$HOME/.gradle/opensource.gpg" >> ~/.gradle/gradle.properties
-
-      - name: Release Sonatype
-        if: startsWith(github.ref, 'refs/tags/')
-        run: |
-          ./gradlew build -x test -x lint
-          ./gradlew aboutlibraries-core:publishReleasePublicationToSonatypeRepository -Plibrary_core_only --no-configure-on-demand --no-parallel
-          ./gradlew aboutlibraries:publishReleasePublicationToSonatypeRepository -x test -x lint -Plibrary_only --no-configure-on-demand --no-parallel
-          ./gradlew aboutlibraries-definitions:publishReleasePublicationToSonatypeRepository -x test -x lint -Plibrary_definitions_only --no-configure-on-demand --no-parallel
-        env:
-          NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
-          NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
-
       - name: Collect artifacts
         run: |
           COLLECT_PWD=${PWD}
           mkdir -p "artifacts"
-          find . -name "*.apk" -type f -exec cp {} "artifacts" \;
-          find . -name "*.aab" -type f -exec cp {} "artifacts" \;
+          find . -name "*-staging.apk" -type f -exec cp {} "artifacts" \;
+          find . -name "*-release.apk" -type f -exec cp {} "artifacts" \;
+          find . -name "*-release.aab" -type f -exec cp {} "artifacts" \;
 
       - name: Archive Artifacts
         uses: actions/upload-artifact@v2

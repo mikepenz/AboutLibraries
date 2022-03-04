@@ -4,18 +4,16 @@ import android.os.Bundle
 import com.mikepenz.aboutlibraries.LibsBuilder
 import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.ui.LibsActivity
+import com.mikepenz.aboutlibraries.util.author
 import java.io.Serializable
-import java.util.*
 
 
 class CustomSortActivity : LibsActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         val builder = LibsBuilder()
-                .withFields(R.string::class.java.fields)
-                .withLibraries("crouton, actionbarsherlock", "showcaseview")
-                .withLibraryComparator(LibraryComparator())
-                .withSearchEnabled(true)
+            .withLibraryComparator(LibraryComparator())
+            .withSearchEnabled(true)
 
         intent = builder.intent(this)
         super.onCreate(savedInstanceState)
@@ -29,7 +27,7 @@ class CustomSortActivity : LibsActivity() {
             var result = lhs.author.compareTo(rhs.author)
             if (result == 0) {
                 // Backwards sort by lib name.
-                result = rhs.libraryName.compareTo(lhs.libraryName)
+                result = rhs.name.compareTo(lhs.name)
             }
             return result
         }

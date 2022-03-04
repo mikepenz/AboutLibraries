@@ -5,35 +5,19 @@ package com.mikepenz.aboutlibraries
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.animation.LayoutAnimationController
 import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.ui.LibsActivity
-import com.mikepenz.aboutlibraries.ui.LibsFragment
 import com.mikepenz.aboutlibraries.ui.LibsSupportFragment
-import com.mikepenz.aboutlibraries.ui.item.LibraryItem
-import com.mikepenz.aboutlibraries.util.toStringArray
-import com.mikepenz.fastadapter.FastAdapter
-import com.mikepenz.fastadapter.IItem
-import com.mikepenz.fastadapter.adapters.ItemAdapter
 import java.io.Serializable
-import java.lang.reflect.Field
 import java.util.*
-import kotlin.collections.HashMap
 
 class LibsBuilder : Serializable {
-    var fields: Array<String> = emptyArray()
-    var internalLibraries: Array<out String> = emptyArray()
-    var excludeLibraries: Array<out String> = emptyArray()
-
-    var autoDetect: Boolean = true
-    var checkCachedDetection: Boolean = true
     var sort: Boolean = true
     var libraryComparator: Comparator<Library>? = null
 
     @Suppress("VariableNaming")
     internal var _showLicense: Boolean? = null
-    var showLicense: Boolean = false
+    var showLicense: Boolean = true
         set(value) {
             _showLicense = value
             field = value
@@ -96,90 +80,6 @@ class LibsBuilder : Serializable {
     var activityTitle: String? = null
     var edgeToEdge: Boolean = false
     var searchEnabled: Boolean = false
-
-    var libTaskExecutor = LibTaskExecutor.DEFAULT_EXECUTOR
-
-    val libraryModification: HashMap<String, HashMap<String, String>> = HashMap()
-    val libraryEnchantment: HashMap<String, String> = HashMap()
-
-    var ownLibsActivityClass: Class<*> = LibsActivity::class.java
-
-    /**
-     * Builder method to pass a custom LibsActivity.
-     *
-     * @param clazz Class
-     * @return this
-     */
-    fun withOwnLibsActivityClass(clazz: Class<*>): LibsBuilder {
-        this.ownLibsActivityClass = clazz
-        return this
-    }
-
-    /**
-     * Builder method to pass the R.string.class.getFields() array to the fragment/activity so we can also include all resources which are within libraries or your app.
-     *
-     * @param fields R.string.class.getFields()
-     * @return this
-     */
-
-    fun withFields(fields: Array<Field>): LibsBuilder {
-        return withFields(fields.toStringArray())
-    }
-
-    /**
-     * Builder method to pass the Libs.toStringArray(R.string.class.getFields()) array to the fragment/activity so we can also include all resources which are within libraries or your app.
-     *
-     * @param fields Libs.toStringArray(R.string.class.getFields())
-     * @return this
-     */
-    fun withFields(fields: Array<String>): LibsBuilder {
-        this.fields = fields
-        return this
-    }
-
-    /**
-     * Builder method to pass manual libraries (libs which are not autoDetected)
-     *
-     * @param libraries the identifiers of the manual added libraries
-     * @return this
-     */
-    fun withLibraries(vararg libraries: String): LibsBuilder {
-        this.internalLibraries = libraries
-        return this
-    }
-
-    /**
-     * Builder method to exclude specific libraries
-     *
-     * @param excludeLibraries the identifiers of the libraries which should be excluded
-     * @return this
-     */
-    fun withExcludedLibraries(vararg excludeLibraries: String): LibsBuilder {
-        this.excludeLibraries = excludeLibraries
-        return this
-    }
-
-    /**
-     * Builder method to disable autoDetect (default: enabled)
-     *
-     * @param autoDetect enabled or disabled
-     * @return this
-     */
-    fun withAutoDetect(autoDetect: Boolean): LibsBuilder {
-        this.autoDetect = autoDetect
-        return this
-    }
-
-    /**
-     * Builder method to disable checking the cached autodetected libraries (per version) (default: enabled)
-     *
-     * @param checkCachedDetection enabled or disabled
-     * @return this
-     */
-    fun withCheckCachedDetection(checkCachedDetection: Boolean): LibsBuilder {
-        this.checkCachedDetection = checkCachedDetection
-        return this
-    }
 
     /**
      * Builder method to disable sort (default: enabled)
@@ -405,47 +305,6 @@ class LibsBuilder : Serializable {
     }
 
     /**
-     * Builder method to enchant specific libraries. NOTE: This will overwrite the original values
-     *
-     * @param library           the library to be modified
-     * @param enchantWith       the library id to use for enchanting the library id
-     * @return this
-     */
-    fun withLibraryEnchantment(library: String, enchantWith: String): LibsBuilder {
-        this.libraryEnchantment[library] = enchantWith
-        return this
-    }
-
-    /**
-     * Builder method to modify specific libraries. NOTE: This will overwrite any modifications with the helper methods
-     *
-     * @param libraryModification an HashMap identified by libraryID containing an HashMap with the modifications identified by elementID.
-     * @return this
-     */
-    fun withLibraryModification(libraryModification: HashMap<String, HashMap<String, String>>): LibsBuilder {
-        this.libraryModification.clear()
-        this.libraryModification.putAll(libraryModification)
-        return this
-    }
-
-    /**
-     * Builder helper method to set modifications for specific libraries
-     *
-     * @param library           the library to be modified
-     * @param modificationKey   the identifier for the specific modification
-     * @param modificationValue the value for the specific modification
-     * @return this
-     */
-    fun withLibraryModification(library: String, modificationKey: Libs.LibraryFields, modificationValue: String): LibsBuilder {
-        if (!libraryModification.containsKey(library)) {
-            libraryModification[library] = HashMap()
-        }
-        libraryModification[library]?.set(modificationKey.name, modificationValue)
-
-        return this
-    }
-
-    /**
      * Builder method to set the LibsListener for the AboutLibraries actions
      *
      * @param libsListener the listener to be notified
@@ -457,18 +316,6 @@ class LibsBuilder : Serializable {
     }
 
     /**
-     * Builder method to set the LibsRecyclerViewListener for the AboutLibraries recyclerView elements
-     *
-     * @param recyclerViewListener
-     * @return this
-     */
-    fun withLibsRecyclerViewListener(recyclerViewListener: LibsConfiguration.LibsRecyclerViewListener): LibsBuilder {
-        LibsConfiguration.libsRecyclerViewListener = recyclerViewListener
-        return this
-    }
-
-
-    /**
      * Builder method to set the LibsUIListener for the AboutLibraries view to hook into the view creation
      *
      * @param uiListener
@@ -476,43 +323,6 @@ class LibsBuilder : Serializable {
      */
     fun withUiListener(uiListener: LibsConfiguration.LibsUIListener): LibsBuilder {
         LibsConfiguration.uiListener = uiListener
-        return this
-    }
-
-    /**
-     * Builder method to set the LayoutAnimationController for the RecyclerView
-     *
-     * @param layoutAnimationController
-     * @return this
-     */
-    fun withLayoutAnimationController(layoutAnimationController: LayoutAnimationController): LibsBuilder {
-        LibsConfiguration.layoutAnimationController = layoutAnimationController
-        return this
-    }
-
-    /**
-     * Builder method to define a custom Thread Executor for asynchronous operations
-     *
-     * @param libTaskExecutor
-     * @return this
-     */
-    fun withLibTaskExecutor(libTaskExecutor: LibTaskExecutor?): LibsBuilder {
-        if (libTaskExecutor != null) {
-            this.libTaskExecutor = libTaskExecutor
-        }
-        return this
-    }
-
-    /**
-     * Builder method to define a custom callback which is invoked every time the LibraryTask gets executed.
-     * This interface is called on a LibraryTask's start and end. Make sure the class which implements the
-     * LibTaskCallback is Serializable.
-     *
-     * @param libTaskCallback
-     * @return this
-     */
-    fun withLibTaskCallback(libTaskCallback: LibTaskCallback): LibsBuilder {
-        LibsConfiguration.libTaskCallback = libTaskCallback
         return this
     }
 
@@ -540,68 +350,21 @@ class LibsBuilder : Serializable {
         return this
     }
 
-    /*
-     * START OF THE FINAL METHODS
-     */
-    private fun preCheck() {
-        if (fields.isEmpty()) {
-            Log.w(
-                "AboutLibraries",
-                "Have you missed to call withFields(R.string.class.getFields())? - autoDetect won't work - https://github.com/mikepenz/AboutLibraries/wiki/HOWTO:-Fragment"
-            )
-        }
-    }
-
-    /**
-     * builder to build an adapter out of the given information ;D
-     *
-     * @param context the current context
-     * @return a LibsRecyclerViewAdapter with the libraries
-     */
-    fun adapter(context: Context): FastAdapter<*> {
-        val libs: Libs = if (fields.isEmpty()) {
-            Libs(context, libraryEnchantments = libraryEnchantment)
-        } else {
-            Libs(context, fields, libraryEnchantment)
-        }
-
-        //apply modifications
-        libs.modifyLibraries(libraryModification)
-
-        //fetch the libraries and sort if a comparator was set
-        val libraries = libs.prepareLibraries(context, internalLibraries, excludeLibraries, autoDetect, checkCachedDetection, sort)
-
-        //prepare adapter
-        val itemAdapter = ItemAdapter<IItem<*>>()
-        val libraryItems = ArrayList<IItem<*>>()
-        for (library in libraries) {
-            libraryItems.add(LibraryItem(library, this))
-        }
-
-        val fastAdapter = FastAdapter.with(itemAdapter)
-
-        itemAdapter.add(libraryItems)
-
-        return fastAdapter
-    }
 
     /**
      * intent() method to build and create the intent with the set params
      *
      * @return the intent to start the activity
      */
-    @JvmOverloads
-    fun intent(ctx: Context, clazz: Class<*> = ownLibsActivityClass): Intent {
-        preCheck()
-
-        val i = Intent(ctx, clazz)
+    fun intent(ctx: Context): Intent {
+        val i = Intent(ctx, LibsActivity::class.java)
         i.putExtra("data", this)
 
         if (this.activityTitle != null) {
-            i.putExtra(Libs.BUNDLE_TITLE, this.activityTitle)
+            i.putExtra(BUNDLE_TITLE, this.activityTitle)
         }
-        i.putExtra(Libs.BUNDLE_EDGE_TO_EDGE, this.edgeToEdge)
-        i.putExtra(Libs.BUNDLE_SEARCH_ENABLED, this.searchEnabled)
+        i.putExtra(BUNDLE_EDGE_TO_EDGE, this.edgeToEdge)
+        i.putExtra(BUNDLE_SEARCH_ENABLED, this.searchEnabled)
 
         return i
     }
@@ -641,27 +404,9 @@ class LibsBuilder : Serializable {
         return fragment
     }
 
-    /**
-     * supportFragment() method to build and create the fragment with the set params
-     *
-     * @return the fragment to set in your application
-     */
-    fun fragment(): LibsFragment {
-        if (libraryComparator != null) {
-            throw IllegalArgumentException("Can not use a 'libraryComparator' with the fragment")
-        }
-
-        val bundle = Bundle()
-        bundle.putSerializable("data", this)
-
-        val fragment = LibsFragment()
-        fragment.arguments = bundle
-
-        return fragment
+    companion object {
+        const val BUNDLE_TITLE = "ABOUT_LIBRARIES_TITLE"
+        const val BUNDLE_EDGE_TO_EDGE = "ABOUT_LIBRARIES_EDGE_TO_EDGE"
+        const val BUNDLE_SEARCH_ENABLED = "ABOUT_LIBRARIES_SEARCH_ENABLED"
     }
 }
-/**
- * intent() method to build and create the intent with the set params
- *
- * @return the intent to start the activity
- */

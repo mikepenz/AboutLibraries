@@ -1,20 +1,10 @@
-buildscript {
-    repositories {
-        google()
-        mavenCentral()
-    }
-    dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.10"
-    }
-}
 plugins {
-    id 'java'
-    id "com.gradle.plugin-publish" version "0.15.0"
+    id "org.jetbrains.kotlin.jvm"
+    id "com.gradle.plugin-publish" version "0.20.0"
     id "java-gradle-plugin"
-    id 'maven-publish'
+    id "maven-publish"
+    id "org.jetbrains.dokka"
 }
-apply plugin: 'groovy'
-apply plugin: "org.jetbrains.kotlin.jvm"
 
 group = "com.mikepenz.aboutlibraries.plugin"
 version = rootProject.properties["version"]
@@ -31,12 +21,12 @@ gradlePlugin {
 pluginBundle {
     website = 'https://github.com/mikepenz/AboutLibraries'
     vcsUrl = 'https://github.com/mikepenz/AboutLibraries'
-    description = 'Plugin to resolve all libraries used in an app for the AboutLibraries library to offer relevant information of used libraries.'
+    description = 'Resolve all dependencies used in a gradle module, with associated license and further information.'
 
     plugins {
         aboutlibsPlugin {
             displayName = 'AboutLibraries Library Gradle Plugin'
-            tags = ['gradle', 'plugin', 'android']
+            tags = ['libraries', 'licenses', 'android']
         }
     }
 
@@ -54,21 +44,13 @@ repositories {
 dependencies {
     implementation gradleApi()
     implementation localGroovy()
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.5.10'
-}
+    implementation(libs.kotlin.stdlib)
 
-compileGroovy {
-    dependsOn tasks.getByPath('compileKotlin')
-    classpath += files(compileKotlin.destinationDir)
-}
+    // parser the pom.xml files
+    implementation(libs.ivy.core)
 
-processResources {
-    from("../../aboutlibraries-definitions/src/main/res/raw/") {
-        into 'static'
-    }
-    from("../../aboutlibraries-definitions/src/main/res/values/") {
-        into 'values'
-    }
+    // add better android support
+    compileOnly(libs.gradle.build)
 }
 
 // generate zip file for android maven release tool
@@ -77,20 +59,14 @@ task packageFiles(type: Zip, dependsOn: 'uploadArchives') {
     from("../repo/$groupDir/$rootProject.name/$rootProject.version/")
 }
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
-}
-
-
 task sourcesJar(type: Jar) {
     classifier = 'sources'
     from sourceSets.main.allSource
 }
 
-task javadocJar(type: Jar) {
+task javadocJar(type: Jar, dependsOn: dokkaHtml) {
     classifier = 'javadoc'
-    from javadoc
+    from "$buildDir/javadoc"
 }
 
 publishing {
@@ -108,4 +84,9 @@ publishing {
 artifacts {
     archives sourcesJar
     archives javadocJar
+}
+
+dokkaHtml.configure {
+    dokkaSourceSets {
+    }
 }

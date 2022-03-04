@@ -1,13 +1,20 @@
 rootProject.name = "AboutLibraries"
 
-include ':app'
 include ':aboutlibraries-core'
 include ':aboutlibraries'
-include ':aboutlibraries-definitions'
+include ':aboutlibraries-compose'
+
+include ':app'
+include ':app-desktop'
 
 includeBuild("plugin-build") {
     dependencySubstitution {
         // Set up substitution so :app uses the plugin/libs from the composite build.
-        substitute(module("com.mikepenz.aboutlibraries.plugin:aboutlibraries-plugin")).with(project(":plugin"))
+        substitute(module("com.mikepenz.aboutlibraries.plugin:aboutlibraries-plugin")).using(project(":plugin"))
     }
 }
+
+/**
+ * Configure gradle features
+ */
+enableFeaturePreview("VERSION_CATALOGS")

@@ -1,18 +1,18 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
+apply plugin: "com.android.library"
+apply plugin: "kotlin-android"
 apply plugin: "androidx.navigation.safeargs.kotlin"
+apply plugin: "org.jetbrains.dokka"
 
-version release.versionName
+version VERSION_NAME
 
 android {
-    compileSdkVersion setup.compileSdk
-    buildToolsVersion setup.buildTools
+    compileSdk = libs.versions.compileSdk.get().toInteger()
 
     defaultConfig {
-        minSdkVersion setup.minSdk
-        targetSdkVersion setup.targetSdk
-        versionCode release.versionCode
-        versionName release.versionName
+        minSdk = libs.versions.minSdk.get().toInteger()
+        targetSdk = libs.versions.targetSdk.get().toInteger()
+        versionName VERSION_NAME
+        versionCode Integer.parseInt(VERSION_CODE)
     }
 
     buildTypes {
@@ -49,23 +49,27 @@ android {
 dependencies {
     api project(':aboutlibraries-core')
 
-    implementation "androidx.core:core-ktx:${versions.coreKtx}"
-    implementation "androidx.cardview:cardview:${versions.cardview}"
-    implementation "androidx.recyclerview:recyclerview:${versions.recyclerview}"
-    implementation "com.google.android.material:material:${versions.material}"
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.bundles.androidx.lifecycle)
+    implementation(libs.androidx.cardView)
+    implementation(libs.androidx.recyclerView)
+    implementation(libs.google.material)
+
+    // Coroutines
+    implementation(libs.kotlin.coroutines.core)
 
     // add the constraintLayout used to create the items and headers
-    implementation "androidx.constraintlayout:constraintlayout:${versions.constraintLayout}"
+    implementation(libs.androidx.constraintLayout)
 
     // used to fill the RecyclerView with the items
     // and provides single and multi selection, expandable items
     // https://github.com/mikepenz/FastAdapter
-    implementation "com.mikepenz:fastadapter:${versions.fastadapter}"
+    implementation(libs.fastAdapter.core)
 
     // navigation
-    implementation "androidx.navigation:navigation-fragment-ktx:${versions.navigation}"
+    implementation(libs.androidx.navigation)
 }
 
 if (project.hasProperty('pushall') || project.hasProperty('library_only')) {
-    apply from: '../gradle-release.gradle'
+    apply from: "$rootDir/gradle/gradle-mvn-push.gradle"
 }

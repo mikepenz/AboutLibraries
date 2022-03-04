@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="SampleApp.DayNight" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- ...and here we setting appcompat’s color theming attrs -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-
+    <style name="SampleApp.DayNight" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="aboutLibrariesStyle">@style/AboutLibrariesStyle</item>
 
         <item name="android:windowTranslucentStatus">true</item>
@@ -21,7 +16,7 @@
         <item name="colorControlNormal">@android:color/white</item>
     </style>
 
-    <style name="CustomToolbarStyle" parent="Widget.AppCompat.Toolbar">
+    <style name="CustomToolbarStyle" parent="Widget.Material3.Toolbar">
         <item name="android:background">?colorPrimary</item>
         <item name="titleTextAppearance">@style/CustomTitleTextAppearance</item>
         <item name="subtitleTextAppearance">@style/CustomSubTitleTextAppearance</item>
