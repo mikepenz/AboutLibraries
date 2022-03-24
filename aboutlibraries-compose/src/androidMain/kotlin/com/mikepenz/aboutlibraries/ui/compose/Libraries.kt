@@ -15,6 +15,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -42,6 +43,10 @@ fun LibrariesContainer(
     showAuthor: Boolean = true,
     showVersion: Boolean = true,
     showLicenseBadges: Boolean = true,
+    backgroundColor: Color = MaterialTheme.colors.background,
+    contentColor: Color = contentColorFor(backgroundColor),
+    badgeBackgroundColor: Color = MaterialTheme.colors.primary,
+    badgeContentColor: Color = contentColorFor(badgeBackgroundColor),
     onLibraryClick: ((Library) -> Unit)? = null
 ) {
     val libraries = remember { mutableStateOf<Libs?>(null) }
@@ -60,6 +65,10 @@ fun LibrariesContainer(
             showAuthor,
             showVersion,
             showLicenseBadges,
+            backgroundColor,
+            contentColor,
+            badgeBackgroundColor,
+            badgeContentColor,
             onLibraryClick
         )
     }
@@ -77,13 +86,26 @@ fun Libraries(
     showAuthor: Boolean = true,
     showVersion: Boolean = true,
     showLicenseBadges: Boolean = true,
+    backgroundColor: Color = MaterialTheme.colors.background,
+    contentColor: Color = contentColorFor(backgroundColor),
+    badgeBackgroundColor: Color = MaterialTheme.colors.primary,
+    badgeContentColor: Color = contentColorFor(badgeBackgroundColor),
     onLibraryClick: ((Library) -> Unit)? = null
 ) {
     LazyColumn(modifier, contentPadding = contentPadding) {
         items(libraries) { library ->
             val openDialog = rememberSaveable { mutableStateOf(false) }
 
-            Library(library, showAuthor, showVersion, showLicenseBadges) {
+            Library(
+                library,
+                showAuthor,
+                showVersion,
+                showLicenseBadges,
+                backgroundColor,
+                contentColor,
+                badgeBackgroundColor,
+                badgeContentColor,
+            ) {
                 if (onLibraryClick != null) {
                     onLibraryClick.invoke(library)
                 } else {

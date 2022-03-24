@@ -1,13 +1,16 @@
 package com.mikepenz.aboutlibraries.ui.compose
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Badge
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -20,12 +23,17 @@ internal fun Library(
     showAuthor: Boolean = true,
     showVersion: Boolean = true,
     showLicenseBadges: Boolean = true,
+    backgroundColor: Color = MaterialTheme.colors.background,
+    contentColor: Color = contentColorFor(backgroundColor),
+    badgeBackgroundColor: Color = MaterialTheme.colors.primary,
+    badgeContentColor: Color = contentColorFor(badgeBackgroundColor),
     onClick: () -> Unit
 ) {
     val typography = MaterialTheme.typography
     Column(
         modifier = Modifier
             .fillMaxWidth()
+            .background(backgroundColor)
             .clickable {
                 onClick.invoke()
             }
@@ -46,7 +54,7 @@ internal fun Library(
                     .padding(top = 4.dp)
                     .weight(1f),
                 style = typography.h6,
-                color = MaterialTheme.colors.onBackground,
+                color = contentColor,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
@@ -56,7 +64,7 @@ internal fun Library(
                     version,
                     modifier = Modifier.padding(start = 8.dp),
                     style = typography.body2,
-                    color = MaterialTheme.colors.onBackground,
+                    color = contentColor,
                     textAlign = TextAlign.Center
                 )
             }
@@ -66,7 +74,7 @@ internal fun Library(
             Text(
                 text = author,
                 style = typography.body2,
-                color = MaterialTheme.colors.onBackground
+                color = contentColor
             )
         }
         if (showLicenseBadges && library.licenses.isNotEmpty()) {
@@ -74,8 +82,8 @@ internal fun Library(
                 library.licenses.forEach {
                     Badge(
                         modifier = Modifier.padding(end = 4.dp),
-                        contentColor = MaterialTheme.colors.onPrimary,
-                        backgroundColor = MaterialTheme.colors.primary
+                        contentColor = badgeContentColor,
+                        backgroundColor = badgeBackgroundColor
                     ) {
                         Text(text = it.name)
                     }
