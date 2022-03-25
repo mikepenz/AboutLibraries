@@ -2,7 +2,9 @@ package com.mikepenz.aboutlibraries.ui.compose
 
 import android.content.Context
 import android.widget.TextView
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
@@ -42,7 +44,9 @@ fun LibrariesContainer(
     showAuthor: Boolean = true,
     showVersion: Boolean = true,
     showLicenseBadges: Boolean = true,
-    onLibraryClick: ((Library) -> Unit)? = null
+    colors: LibraryColors = LibraryDefaults.libraryColors(),
+    itemContentPadding: PaddingValues = LibraryDefaults.ContentPadding,
+    onLibraryClick: ((Library) -> Unit)? = null,
 ) {
     val libraries = remember { mutableStateOf<Libs?>(null) }
 
@@ -60,6 +64,8 @@ fun LibrariesContainer(
             showAuthor,
             showVersion,
             showLicenseBadges,
+            colors,
+            itemContentPadding,
             onLibraryClick
         )
     }
@@ -77,13 +83,15 @@ fun Libraries(
     showAuthor: Boolean = true,
     showVersion: Boolean = true,
     showLicenseBadges: Boolean = true,
-    onLibraryClick: ((Library) -> Unit)? = null
+    colors: LibraryColors = LibraryDefaults.libraryColors(),
+    itemContentPadding: PaddingValues = LibraryDefaults.ContentPadding,
+    onLibraryClick: ((Library) -> Unit)? = null,
 ) {
     LazyColumn(modifier, contentPadding = contentPadding) {
         items(libraries) { library ->
             val openDialog = rememberSaveable { mutableStateOf(false) }
 
-            Library(library, showAuthor, showVersion, showLicenseBadges) {
+            Library(library, showAuthor, showVersion, showLicenseBadges, colors, itemContentPadding) {
                 if (onLibraryClick != null) {
                     onLibraryClick.invoke(library)
                 } else {

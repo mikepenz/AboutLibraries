@@ -261,6 +261,8 @@ class LibrariesProcessor(
             value.replace("Android Support", "Support")
         } else if (value.startsWith("org.jetbrains.kotlin:")) {
             value.replace("org.jetbrains.kotlin:", "")
+        } else if (value == "\${project.groupId}:\${project.artifactId}") {
+            uniqueId
         } else {
             value
         }).trimIndent()
