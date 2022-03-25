@@ -25,11 +25,19 @@ fun LibrariesContainer(
     showAuthor: Boolean = true,
     showVersion: Boolean = true,
     showLicenseBadges: Boolean = true,
-    onLibraryClick: ((Library) -> Unit)? = null
+    colors: LibraryColors = LibraryDefaults.libraryColors(),
+    itemContentPadding: PaddingValues = LibraryDefaults.ContentPadding,
+    onLibraryClick: ((Library) -> Unit)? = null,
 ) {
-    LibrariesContainer({
-        Libs.Builder().withJson(aboutLibsJson).build()
-    }, modifier, contentPadding, showAuthor, showVersion, showLicenseBadges, onLibraryClick)
+    LibrariesContainer({ Libs.Builder().withJson(aboutLibsJson).build() },
+        modifier,
+        contentPadding,
+        showAuthor,
+        showVersion,
+        showLicenseBadges,
+        colors,
+        itemContentPadding,
+        onLibraryClick)
 }
 
 /**
@@ -44,7 +52,9 @@ fun LibrariesContainer(
     showAuthor: Boolean = true,
     showVersion: Boolean = true,
     showLicenseBadges: Boolean = true,
-    onLibraryClick: ((Library) -> Unit)? = null
+    colors: LibraryColors = LibraryDefaults.libraryColors(),
+    itemContentPadding: PaddingValues = LibraryDefaults.ContentPadding,
+    onLibraryClick: ((Library) -> Unit)? = null,
 ) {
     val libraries = remember { mutableStateOf<Libs?>(null) }
     LaunchedEffect(libraries) {
@@ -60,6 +70,8 @@ fun LibrariesContainer(
             showAuthor,
             showVersion,
             showLicenseBadges,
+            colors,
+            itemContentPadding,
             onLibraryClick
         )
     }
@@ -77,11 +89,13 @@ fun Libraries(
     showAuthor: Boolean = true,
     showVersion: Boolean = true,
     showLicenseBadges: Boolean = true,
-    onLibraryClick: ((Library) -> Unit)? = null
+    colors: LibraryColors = LibraryDefaults.libraryColors(),
+    itemContentPadding: PaddingValues = LibraryDefaults.ContentPadding,
+    onLibraryClick: ((Library) -> Unit)? = null,
 ) {
     LazyColumn(modifier, contentPadding = contentPadding) {
         items(libraries) { library ->
-            Library(library, showAuthor, showVersion, showLicenseBadges) {
+            Library(library, showAuthor, showVersion, showLicenseBadges, colors, itemContentPadding) {
                 onLibraryClick?.invoke(library)
             }
         }
