@@ -2,7 +2,9 @@ package com.mikepenz.aboutlibraries.ui.compose
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
@@ -21,6 +23,7 @@ import com.mikepenz.aboutlibraries.entity.Library
 fun LibrariesContainer(
     aboutLibsJson: String,
     modifier: Modifier = Modifier,
+    lazyListState: LazyListState = rememberLazyListState(),
     contentPadding: PaddingValues = PaddingValues(0.dp),
     showAuthor: Boolean = true,
     showVersion: Boolean = true,
@@ -31,6 +34,7 @@ fun LibrariesContainer(
 ) {
     LibrariesContainer({ Libs.Builder().withJson(aboutLibsJson).build() },
         modifier,
+        lazyListState,
         contentPadding,
         showAuthor,
         showVersion,
@@ -48,6 +52,7 @@ fun LibrariesContainer(
 fun LibrariesContainer(
     librariesBlock: () -> Libs,
     modifier: Modifier = Modifier,
+    lazyListState: LazyListState = rememberLazyListState(),
     contentPadding: PaddingValues = PaddingValues(0.dp),
     showAuthor: Boolean = true,
     showVersion: Boolean = true,
@@ -66,6 +71,7 @@ fun LibrariesContainer(
         Libraries(
             libraries = libs,
             modifier,
+            lazyListState,
             contentPadding,
             showAuthor,
             showVersion,
@@ -85,6 +91,7 @@ fun LibrariesContainer(
 fun Libraries(
     libraries: List<Library>,
     modifier: Modifier = Modifier,
+    lazyListState: LazyListState = rememberLazyListState(),
     contentPadding: PaddingValues = PaddingValues(0.dp),
     showAuthor: Boolean = true,
     showVersion: Boolean = true,
@@ -93,7 +100,7 @@ fun Libraries(
     itemContentPadding: PaddingValues = LibraryDefaults.ContentPadding,
     onLibraryClick: ((Library) -> Unit)? = null,
 ) {
-    LazyColumn(modifier, contentPadding = contentPadding) {
+    LazyColumn(modifier, state = lazyListState, contentPadding = contentPadding) {
         items(libraries) { library ->
             Library(library, showAuthor, showVersion, showLicenseBadges, colors, itemContentPadding) {
                 onLibraryClick?.invoke(library)
