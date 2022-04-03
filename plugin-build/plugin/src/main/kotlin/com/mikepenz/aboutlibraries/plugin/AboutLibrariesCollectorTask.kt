@@ -13,14 +13,10 @@ abstract class AboutLibrariesCollectorTask : DefaultTask() {
     @Internal
     protected lateinit var collectedDependencies: CollectedContainer
 
-    val dependencyCache: File
-        @OutputFile
-        get() {
-            val folder = File(project.buildDir, "generated/aboutLibraries/").also {
-                it.mkdirs()
-            }
-            return File(folder, "dependency_cache.json")
-        }
+    @OutputFile
+    val dependencyCache: File = File(File(project.buildDir, "generated/aboutLibraries/").also {
+        it.mkdirs()
+    }, "dependency_cache.json")
 
     /**
      * Collect the dependencies via the available configurations for the current project
@@ -31,6 +27,7 @@ abstract class AboutLibrariesCollectorTask : DefaultTask() {
 
     @TaskAction
     fun action() {
+        project.evaluationDependsOnChildren()
         if (!::collectedDependencies.isInitialized) {
             configure()
         }
