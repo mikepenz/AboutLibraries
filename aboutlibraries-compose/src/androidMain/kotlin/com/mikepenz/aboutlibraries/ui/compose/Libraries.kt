@@ -6,7 +6,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
@@ -37,6 +39,7 @@ import com.mikepenz.aboutlibraries.util.withContext
 @Composable
 fun LibrariesContainer(
     modifier: Modifier = Modifier,
+    lazyListState: LazyListState = rememberLazyListState(),
     contentPadding: PaddingValues = PaddingValues(0.dp),
     librariesBlock: (Context) -> Libs = { context ->
         Libs.Builder().withContext(context).build()
@@ -60,6 +63,7 @@ fun LibrariesContainer(
         Libraries(
             libraries = libs,
             modifier,
+            lazyListState,
             contentPadding,
             showAuthor,
             showVersion,
@@ -79,6 +83,7 @@ fun LibrariesContainer(
 fun Libraries(
     libraries: List<Library>,
     modifier: Modifier = Modifier,
+    lazyListState: LazyListState = rememberLazyListState(),
     contentPadding: PaddingValues = PaddingValues(0.dp),
     showAuthor: Boolean = true,
     showVersion: Boolean = true,
@@ -87,7 +92,7 @@ fun Libraries(
     itemContentPadding: PaddingValues = LibraryDefaults.ContentPadding,
     onLibraryClick: ((Library) -> Unit)? = null,
 ) {
-    LazyColumn(modifier, contentPadding = contentPadding) {
+    LazyColumn(modifier, state = lazyListState, contentPadding = contentPadding) {
         items(libraries) { library ->
             val openDialog = rememberSaveable { mutableStateOf(false) }
 
