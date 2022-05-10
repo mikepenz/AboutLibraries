@@ -136,7 +136,7 @@ fun Libraries(
 }
 
 @Composable
-fun HtmlText(html: String, modifier: Modifier = Modifier, color: Color) {
+fun HtmlText(html: String, modifier: Modifier = Modifier, color: Color = Color.Black) {
     AndroidView(
         modifier = modifier,
         factory = { context -> TextView(context).apply { setTextColor(color.toArgb()) } },
