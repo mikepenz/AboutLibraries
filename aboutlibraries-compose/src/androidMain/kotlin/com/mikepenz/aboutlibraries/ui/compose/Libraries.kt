@@ -19,6 +19,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -120,7 +122,8 @@ fun Libraries(
                             modifier = Modifier.verticalScroll(scrollState),
                         ) {
                             HtmlText(
-                                library.licenses.firstOrNull()?.htmlReadyLicenseContent.orEmpty(),
+                                html = library.licenses.firstOrNull()?.htmlReadyLicenseContent.orEmpty(),
+                                color = colors.contentColor,
                             )
                         }
                     },
@@ -133,10 +136,10 @@ fun Libraries(
 }
 
 @Composable
-fun HtmlText(html: String, modifier: Modifier = Modifier) {
+fun HtmlText(html: String, modifier: Modifier = Modifier, color: Color = Color.Black) {
     AndroidView(
         modifier = modifier,
-        factory = { context -> TextView(context) },
+        factory = { context -> TextView(context).apply { setTextColor(color.toArgb()) } },
         update = { it.text = HtmlCompat.fromHtml(html, HtmlCompat.FROM_HTML_MODE_COMPACT) }
     )
 }
