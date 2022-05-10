@@ -122,7 +122,7 @@ fun Libraries(
                         ) {
                             HtmlText(
                                 library.licenses.firstOrNull()?.htmlReadyLicenseContent.orEmpty(),
-                                colors.contentColor.toArgb(),
+                                colors.contentColor,
                             )
                         }
                     },
@@ -135,10 +135,10 @@ fun Libraries(
 }
 
 @Composable
-fun HtmlText(html: String, color: Int, modifier: Modifier = Modifier) {
+fun HtmlText(html: String, color: Color, modifier: Modifier = Modifier) {
     AndroidView(
         modifier = modifier,
-        factory = { context -> TextView(context).apply { setTextColor(color) } },
+        factory = { context -> TextView(context).apply { setTextColor(color.toArgb()) } },
         update = { it.text = HtmlCompat.fromHtml(html, HtmlCompat.FROM_HTML_MODE_COMPACT) }
     )
 }
