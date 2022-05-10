@@ -122,8 +122,8 @@ fun Libraries(
                             modifier = Modifier.verticalScroll(scrollState),
                         ) {
                             HtmlText(
-                                library.licenses.firstOrNull()?.htmlReadyLicenseContent.orEmpty(),
-                                colors.contentColor,
+                                html = library.licenses.firstOrNull()?.htmlReadyLicenseContent.orEmpty(),
+                                color = colors.contentColor,
                             )
                         }
                     },
@@ -136,7 +136,7 @@ fun Libraries(
 }
 
 @Composable
-fun HtmlText(html: String, color: Color, modifier: Modifier = Modifier) {
+fun HtmlText(html: String, modifier: Modifier = Modifier, color: Color) {
     AndroidView(
         modifier = modifier,
         factory = { context -> TextView(context).apply { setTextColor(color.toArgb()) } },
