@@ -19,6 +19,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -48,6 +50,7 @@ fun LibrariesContainer(
     showVersion: Boolean = true,
     showLicenseBadges: Boolean = true,
     colors: LibraryColors = LibraryDefaults.libraryColors(),
+    padding: LibraryPadding = LibraryDefaults.libraryPadding(),
     itemContentPadding: PaddingValues = LibraryDefaults.ContentPadding,
     onLibraryClick: ((Library) -> Unit)? = null,
 ) {
@@ -69,6 +72,7 @@ fun LibrariesContainer(
             showVersion,
             showLicenseBadges,
             colors,
+            padding,
             itemContentPadding,
             onLibraryClick
         )
@@ -89,6 +93,7 @@ fun Libraries(
     showVersion: Boolean = true,
     showLicenseBadges: Boolean = true,
     colors: LibraryColors = LibraryDefaults.libraryColors(),
+    padding: LibraryPadding = LibraryDefaults.libraryPadding(),
     itemContentPadding: PaddingValues = LibraryDefaults.ContentPadding,
     onLibraryClick: ((Library) -> Unit)? = null,
 ) {
@@ -96,7 +101,7 @@ fun Libraries(
         items(libraries) { library ->
             val openDialog = rememberSaveable { mutableStateOf(false) }
 
-            Library(library, showAuthor, showVersion, showLicenseBadges, colors, itemContentPadding) {
+            Library(library, showAuthor, showVersion, showLicenseBadges, colors, padding, itemContentPadding) {
                 if (onLibraryClick != null) {
                     onLibraryClick.invoke(library)
                 } else {
@@ -107,6 +112,8 @@ fun Libraries(
             if (openDialog.value) {
                 val scrollState = rememberScrollState()
                 AlertDialog(
+                    backgroundColor = colors.backgroundColor,
+                    contentColor = colors.contentColor,
                     onDismissRequest = {
                         openDialog.value = false
                     },
@@ -120,7 +127,8 @@ fun Libraries(
                             modifier = Modifier.verticalScroll(scrollState),
                         ) {
                             HtmlText(
-                                library.licenses.firstOrNull()?.htmlReadyLicenseContent.orEmpty(),
+                                html = library.licenses.firstOrNull()?.htmlReadyLicenseContent.orEmpty(),
+                                color = colors.contentColor,
                             )
                         }
                     },
@@ -133,12 +141,12 @@ fun Libraries(
 }
 
 @Composable
-fun HtmlText(html: String, modifier: Modifier = Modifier) {
-    AndroidView(
-        modifier = modifier,
-        factory = { context -> TextView(context) },
-        update = { it.text = HtmlCompat.fromHtml(html, HtmlCompat.FROM_HTML_MODE_COMPACT) }
-    )
+fun HtmlText(html: String, modifier: Modifier = Modifier, color: Color = Color.Black) {
+    AndroidView(modifier = modifier, factory = { context ->
+        TextView(context).apply {
+            setTextColor(color.toArgb())
+        }
+    }, update = { it.text = HtmlCompat.fromHtml(html, HtmlCompat.FROM_HTML_MODE_COMPACT) })
 }
 
 @Preview("Library items (Default)")

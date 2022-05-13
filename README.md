@@ -39,7 +39,7 @@
 
 ## Latest releases 🛠
 
-- (Next Gen) Kotlin && Multiplatform && Plugin | [v10.1.0](https://github.com/mikepenz/AboutLibraries/tree/v10.1.0)
+- (Next Gen) Kotlin && Multiplatform && Plugin | [v10.2.0](https://github.com/mikepenz/AboutLibraries/tree/v10.2.0)
 - Kotlin && Gradle Plugin | [v8.9.4](https://github.com/mikepenz/AboutLibraries/tree/v8.9.4)
 
 ## Gradle Plugin
@@ -145,7 +145,7 @@ Provide additional or modify existing licenses via a `.json` file per license.
 
 ## Core-module
 
-> The AboutLibraries Library is pushed to [Maven Central](http://search.maven.org/#search|ga|1|g%3A%22com.mikepenz%22).
+> The AboutLibraries Library is pushed to [Maven Central](https://search.maven.org/artifact/com.mikepenz/aboutlibraries-core).
 
 ```gradle
 implementation "com.mikepenz:aboutlibraries-core:${latestAboutLibsRelease}"
@@ -294,7 +294,36 @@ Create a custom style for the AboutLibraries UI.
 </p>
 </details>
 
-# Gradle API
+
+## Enterprise
+
+Since v10 of the AboutLibraries plugin it is possible to disable the automatic registration of the plugin task as part of the build system.
+```
+aboutLibraries {
+    registerAndroidTasks = false
+}
+```
+
+This is especially beneficial for enterprise environments where it is required to be in full control of the included `aboutlibraries.json`.
+After disabling the integration it is possible to manually update the definitions, or do it on your CI environment.
+```
+./gradlew app:exportLibraryDefinitions -PexportPath=src/main/res/raw/ -PexportVariant=release
+```
+This generated file can be either included in your SCM, and every build will use this exact verified and approved state.
+Additionally this helps to ensure no issues occur during the apps delivery phase, as the respective file is already generated and included.
+
+The library offers complete customisation for this behavior and location or name for the generated files can be adjusted as needed.
+A full compose code example providing the `Libs` manually:
+
+```kotlin
+LibrariesContainer(
+    librariesBlock = { ctx ->
+        Libs.Builder().withJson(ctx, R.raw.aboutlibraries).build()
+    }
+)
+```
+
+## Gradle API
 
 By default, the gradle plugin is automatically executed for Android projects, generating the library metadata where it's automatically discovered by the `ui` modules.
 For other environments or for more advanced usages the plugin offers additional APIs.

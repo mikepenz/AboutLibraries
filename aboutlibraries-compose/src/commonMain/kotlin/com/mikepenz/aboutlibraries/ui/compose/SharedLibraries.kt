@@ -26,6 +26,7 @@ internal fun Library(
     showVersion: Boolean = true,
     showLicenseBadges: Boolean = true,
     colors: LibraryColors = LibraryDefaults.libraryColors(),
+    padding: LibraryPadding = LibraryDefaults.libraryPadding(),
     contentPadding: PaddingValues = LibraryDefaults.ContentPadding,
     onClick: () -> Unit,
 ) {
@@ -44,7 +45,7 @@ internal fun Library(
             Text(
                 text = library.name,
                 modifier = Modifier
-                    .padding(top = LibraryDefaults.LibraryNamePaddingTop)
+                    .padding(padding.namePadding)
                     .weight(1f),
                 style = typography.h6,
                 color = colors.contentColor,
@@ -55,7 +56,7 @@ internal fun Library(
             if (version != null && showVersion) {
                 Text(
                     version,
-                    modifier = Modifier.padding(start = LibraryDefaults.LibraryVersionPaddingStart),
+                    modifier = Modifier.padding(padding.versionPadding),
                     style = typography.body2,
                     color = colors.contentColor,
                     textAlign = TextAlign.Center
@@ -71,14 +72,14 @@ internal fun Library(
             )
         }
         if (showLicenseBadges && library.licenses.isNotEmpty()) {
-            Row(modifier = Modifier.padding(top = LibraryDefaults.LibraryBadgePaddingTop)) {
+            Row {
                 library.licenses.forEach {
                     Badge(
-                        modifier = Modifier.padding(end = LibraryDefaults.LibraryBadgePaddingEnd),
+                        modifier = Modifier.padding(padding.badgePadding),
                         contentColor = colors.badgeContentColor,
                         backgroundColor = colors.badgeBackgroundColor
                     ) {
-                        Text(text = it.name)
+                        Text(modifier = Modifier.padding(padding.badgeContentPadding), text = it.name)
                     }
                 }
             }
@@ -92,10 +93,10 @@ internal fun Library(
  */
 object LibraryDefaults {
     private val LibraryItemPadding = 16.dp
-    internal val LibraryNamePaddingTop = 4.dp
-    internal val LibraryVersionPaddingStart = 8.dp
-    internal val LibraryBadgePaddingTop = 8.dp
-    internal val LibraryBadgePaddingEnd = 4.dp
+    private val LibraryNamePaddingTop = 4.dp
+    private val LibraryVersionPaddingStart = 8.dp
+    private val LibraryBadgePaddingTop = 8.dp
+    private val LibraryBadgePaddingEnd = 4.dp
 
     /**
      * The default content padding used by [Library]
@@ -122,6 +123,27 @@ object LibraryDefaults {
         contentColor = contentColor,
         badgeBackgroundColor = badgeBackgroundColor,
         badgeContentColor = badgeContentColor
+    )
+
+    /**
+     * Creates a [LibraryPadding] that represents the default paddings used in a [Library]
+     *
+     * @param namePadding the padding around the name shown as part of a [Library]
+     * @param versionPadding the padding around the version shown as part of a [Library]
+     * @param badgePadding the padding around a badge element shown as part of a [Library]
+     * @param badgeContentPadding the padding around the content of a badge element shown as part of a [Library]
+     */
+    @Composable
+    fun libraryPadding(
+        namePadding: PaddingValues = PaddingValues(top = LibraryNamePaddingTop),
+        versionPadding: PaddingValues = PaddingValues(start = LibraryVersionPaddingStart),
+        badgePadding: PaddingValues = PaddingValues(top = LibraryBadgePaddingTop, end = LibraryBadgePaddingEnd),
+        badgeContentPadding: PaddingValues = PaddingValues(0.dp),
+    ): LibraryPadding = DefaultLibraryPadding(
+        namePadding = namePadding,
+        versionPadding = versionPadding,
+        badgePadding = badgePadding,
+        badgeContentPadding = badgeContentPadding
     )
 }
 
@@ -153,3 +175,33 @@ private class DefaultLibraryColors(
     override val badgeBackgroundColor: Color,
     override val badgeContentColor: Color,
 ) : LibraryColors
+
+
+/**
+ * Represents the padding values used in a library.
+ */
+@Stable
+interface LibraryPadding {
+    /** Represents the padding around the name shown as part of a [Library] */
+    val namePadding: PaddingValues
+
+    /** Represents the padding around the version shown as part of a [Library] */
+    val versionPadding: PaddingValues
+
+    /** Represents the padding around a badge element shown as part of a [Library] */
+    val badgePadding: PaddingValues
+
+    /** Represents the padding around the content of a badge element shown as part of a [Library] */
+    val badgeContentPadding: PaddingValues
+}
+
+/**
+ * Default [LibraryPadding].
+ */
+@Immutable
+private class DefaultLibraryPadding(
+    override val namePadding: PaddingValues,
+    override val versionPadding: PaddingValues,
+    override val badgePadding: PaddingValues,
+    override val badgeContentPadding: PaddingValues,
+) : LibraryPadding
