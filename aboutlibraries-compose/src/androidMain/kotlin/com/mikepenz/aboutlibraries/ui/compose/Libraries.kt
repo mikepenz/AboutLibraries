@@ -109,6 +109,8 @@ fun Libraries(
             if (openDialog.value) {
                 val scrollState = rememberScrollState()
                 AlertDialog(
+                    backgroundColor = colors.backgroundColor,
+                    contentColor = colors.contentColor,
                     onDismissRequest = {
                         openDialog.value = false
                     },
@@ -139,7 +141,9 @@ fun Libraries(
 fun HtmlText(html: String, modifier: Modifier = Modifier, color: Color = Color.Black) {
     AndroidView(
         modifier = modifier,
-        factory = { context -> TextView(context).apply { setTextColor(color.toArgb()) } },
+        factory = { context -> TextView(context).apply {
+            setTextColor(color.toArgb())
+        } },
         update = { it.text = HtmlCompat.fromHtml(html, HtmlCompat.FROM_HTML_MODE_COMPACT) }
     )
 }
