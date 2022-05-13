@@ -29,6 +29,7 @@ fun LibrariesContainer(
     showVersion: Boolean = true,
     showLicenseBadges: Boolean = true,
     colors: LibraryColors = LibraryDefaults.libraryColors(),
+    padding: LibraryPadding = LibraryDefaults.libraryPadding(),
     itemContentPadding: PaddingValues = LibraryDefaults.ContentPadding,
     onLibraryClick: ((Library) -> Unit)? = null,
 ) {
@@ -40,6 +41,7 @@ fun LibrariesContainer(
         showVersion,
         showLicenseBadges,
         colors,
+        padding,
         itemContentPadding,
         onLibraryClick)
 }
@@ -58,6 +60,7 @@ fun LibrariesContainer(
     showVersion: Boolean = true,
     showLicenseBadges: Boolean = true,
     colors: LibraryColors = LibraryDefaults.libraryColors(),
+    padding: LibraryPadding = LibraryDefaults.libraryPadding(),
     itemContentPadding: PaddingValues = LibraryDefaults.ContentPadding,
     onLibraryClick: ((Library) -> Unit)? = null,
 ) {
@@ -77,6 +80,7 @@ fun LibrariesContainer(
             showVersion,
             showLicenseBadges,
             colors,
+            padding,
             itemContentPadding,
             onLibraryClick
         )
@@ -97,12 +101,13 @@ fun Libraries(
     showVersion: Boolean = true,
     showLicenseBadges: Boolean = true,
     colors: LibraryColors = LibraryDefaults.libraryColors(),
+    padding: LibraryPadding = LibraryDefaults.libraryPadding(),
     itemContentPadding: PaddingValues = LibraryDefaults.ContentPadding,
     onLibraryClick: ((Library) -> Unit)? = null,
 ) {
     LazyColumn(modifier, state = lazyListState, contentPadding = contentPadding) {
         items(libraries) { library ->
-            Library(library, showAuthor, showVersion, showLicenseBadges, colors, itemContentPadding) {
+            Library(library, showAuthor, showVersion, showLicenseBadges, colors, padding, itemContentPadding) {
                 onLibraryClick?.invoke(library)
             }
         }
