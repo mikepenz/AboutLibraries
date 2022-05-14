@@ -83,6 +83,9 @@ fun MainLayout() {
                     Modifier
                         .fillMaxSize()
                         .padding(top = contentPadding.calculateTopPadding()),
+                    contentPadding = rememberInsetsPaddingValues(
+                        insets = LocalWindowInsets.current.systemBars,
+                    ),
                     showAuthor = showAuthor,
                     showVersion = showVersion,
                     showLicenseBadges = showLicenseBadges,
@@ -101,3 +104,8 @@ fun MainLayout() {
         }
     }
 }
+
+/*
+  Modifier
+                        .fillMaxSize()
+ */
