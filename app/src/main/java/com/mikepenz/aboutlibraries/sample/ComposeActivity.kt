@@ -3,18 +3,23 @@ package com.mikepenz.aboutlibraries.sample
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Build
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
 import com.google.accompanist.insets.LocalWindowInsets
 import com.google.accompanist.insets.ProvideWindowInsets
@@ -43,7 +48,7 @@ class ComposeActivity : ComponentActivity() {
     }
 }
 
-@OptIn(ExperimentalAnimationApi::class)
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun MainLayout() {
     MaterialTheme(
@@ -75,16 +80,22 @@ fun MainLayout() {
                 },
             ) { contentPadding ->
                 LibrariesContainer(
-                    Modifier.fillMaxSize(),
-                    contentPadding = rememberInsetsPaddingValues(
-                        insets = LocalWindowInsets.current.systemBars,
-                        additionalTop = contentPadding.calculateTopPadding(),
-                        applyTop = false,
-                        applyBottom = true
-                    ),
+                    Modifier
+                        .fillMaxSize()
+                        .padding(top = contentPadding.calculateTopPadding()),
                     showAuthor = showAuthor,
                     showVersion = showVersion,
-                    showLicenseBadges = showLicenseBadges
+                    showLicenseBadges = showLicenseBadges,
+                    header = {
+                        stickyHeader {
+                            Column(
+                                modifier = Modifier.fillMaxWidth().background(MaterialTheme.colors.surface).padding(vertical = 25.dp),
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                            ) {
+                                Text("ExampleHeader")
+                            }
+                        }
+                    }
                 )
             }
         }
