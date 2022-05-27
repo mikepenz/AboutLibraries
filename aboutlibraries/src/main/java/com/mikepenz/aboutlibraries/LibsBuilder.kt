@@ -9,7 +9,6 @@ import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.ui.LibsActivity
 import com.mikepenz.aboutlibraries.ui.LibsSupportFragment
 import java.io.Serializable
-import java.util.*
 
 class LibsBuilder : Serializable {
     var sort: Boolean = true
@@ -68,6 +67,8 @@ class LibsBuilder : Serializable {
             field = value
         }
 
+
+    var libs: Libs? = null
     var aboutMinimalDesign: Boolean = false
 
     var aboutAppSpecial1: String? = null
@@ -80,6 +81,18 @@ class LibsBuilder : Serializable {
     var activityTitle: String? = null
     var edgeToEdge: Boolean = false
     var searchEnabled: Boolean = false
+
+    /**
+     * Builder method to provide the library information via libs.
+     * This call is optional. By default the default definitions are loaded.
+     *
+     * @param libs the [Libs] entity with the library and license information
+     * @return this
+     */
+    fun withLibs(libs: Libs): LibsBuilder {
+        this.libs = libs
+        return this
+    }
 
     /**
      * Builder method to disable sort (default: enabled)
