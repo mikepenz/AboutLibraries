@@ -6,9 +6,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -38,7 +37,6 @@ import com.mikepenz.aboutlibraries.util.withContext
 /**
  * Displays all provided libraries in a simple list.
  */
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun LibrariesContainer(
     modifier: Modifier = Modifier,
@@ -85,7 +83,6 @@ fun LibrariesContainer(
 /**
  * Displays all provided libraries in a simple list.
  */
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun Libraries(
     libraries: List<Library>,
@@ -101,52 +98,67 @@ fun Libraries(
     header: (LazyListScope.() -> Unit)? = null,
     onLibraryClick: ((Library) -> Unit)? = null,
 ) {
+    val openDialog = rememberSaveable { mutableStateOf<Library?>(null) }
+
     LazyColumn(modifier, state = lazyListState, contentPadding = contentPadding) {
-
-        if(header != null) {
-            header()
-        }
-
-        items(libraries) { library ->
-            val openDialog = rememberSaveable { mutableStateOf(false) }
-
-            Library(library, showAuthor, showVersion, showLicenseBadges, colors, padding, itemContentPadding) {
-                if (onLibraryClick != null) {
-                    onLibraryClick.invoke(library)
-                } else if (!library.licenses.firstOrNull()?.htmlReadyLicenseContent.isNullOrBlank()) {
-                    openDialog.value = true
-                }
-            }
-
-            if (openDialog.value) {
-                val scrollState = rememberScrollState()
-                AlertDialog(
-                    backgroundColor = colors.backgroundColor,
-                    contentColor = colors.contentColor,
-                    onDismissRequest = {
-                        openDialog.value = false
-                    },
-                    confirmButton = {
-                        TextButton(onClick = { openDialog.value = false }) {
-                            Text(stringResource(id = R.string.aboutlibs_ok))
-                        }
-                    },
-                    text = {
-                        Column(
-                            modifier = Modifier.verticalScroll(scrollState),
-                        ) {
-                            HtmlText(
-                                html = library.licenses.firstOrNull()?.htmlReadyLicenseContent.orEmpty(),
-                                color = colors.contentColor,
-                            )
-                        }
-                    },
-                    modifier = Modifier.padding(16.dp),
-                    properties = DialogProperties(usePlatformDefaultWidth = false),
-                )
+        header?.invoke(this)
+        libraryItems(
+            libraries,
+            showAuthor,
+            showVersion,
+            showLicenseBadges,
+            colors,
+            padding,
+            itemContentPadding
+        ) { library ->
+            if (onLibraryClick != null) {
+                onLibraryClick(library)
+            } else if (!library.licenses.firstOrNull()?.htmlReadyLicenseContent.isNullOrBlank()) {
+                openDialog.value = library
             }
         }
     }
+
+    val library = openDialog.value
+    if (library != null) {
+        LicenseDialog(library = library, colors) {
+            openDialog.value = null
+        }
+    }
+}
+
+@OptIn(ExperimentalComposeUiApi::class)
+@Composable
+fun LicenseDialog(
+    library: Library,
+    colors: LibraryColors = LibraryDefaults.libraryColors(),
+    onDismiss: () -> Unit,
+) {
+    val scrollState = rememberScrollState()
+    AlertDialog(
+        backgroundColor = colors.backgroundColor,
+        contentColor = colors.contentColor,
+        onDismissRequest = {
+            onDismiss()
+        },
+        confirmButton = {
+            TextButton(onClick = { onDismiss() }) {
+                Text(stringResource(id = R.string.aboutlibs_ok))
+            }
+        },
+        text = {
+            Column(
+                modifier = Modifier.verticalScroll(scrollState),
+            ) {
+                HtmlText(
+                    html = library.licenses.firstOrNull()?.htmlReadyLicenseContent.orEmpty(),
+                    color = colors.contentColor,
+                )
+            }
+        },
+        modifier = Modifier.padding(16.dp),
+        properties = DialogProperties(usePlatformDefaultWidth = false),
+    )
 }
 
 @Composable

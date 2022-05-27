@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Build
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.*
@@ -58,6 +59,7 @@ fun MainLayout() {
             var showAuthor by remember { mutableStateOf(true) }
             var showVersion by remember { mutableStateOf(true) }
             var showLicenseBadges by remember { mutableStateOf(true) }
+            var showHeader by remember { mutableStateOf(false) }
 
             Scaffold(
                 topBar = {
@@ -72,9 +74,19 @@ fun MainLayout() {
                         ),
                         modifier = Modifier.fillMaxWidth(),
                         actions = {
-                            IconButton(onClick = { showAuthor = !showAuthor }) { Icon(Icons.Default.Person, "Author") }
-                            IconButton(onClick = { showVersion = !showVersion }) { Icon(Icons.Default.Build, "Version") }
-                            IconButton(onClick = { showLicenseBadges = !showLicenseBadges }) { Icon(Icons.Default.List, "Licenses") }
+                            IconButton(onClick = {
+                                showAuthor = !showAuthor
+                            }) { Icon(Icons.Default.Person, "Author") }
+                            IconButton(onClick = {
+                                showVersion = !showVersion
+                            }) { Icon(Icons.Default.Build, "Version") }
+                            IconButton(onClick = { showLicenseBadges = !showLicenseBadges }) {
+                                Icon(Icons.Default.List,
+                                    "Licenses")
+                            }
+                            IconButton(onClick = {
+                                showHeader = !showHeader
+                            }) { Icon(Icons.Default.Info, "Header") }
                         }
                     )
                 },
@@ -90,12 +102,17 @@ fun MainLayout() {
                     showVersion = showVersion,
                     showLicenseBadges = showLicenseBadges,
                     header = {
-                        stickyHeader {
-                            Column(
-                                modifier = Modifier.fillMaxWidth().background(MaterialTheme.colors.surface).padding(vertical = 25.dp),
-                                horizontalAlignment = Alignment.CenterHorizontally,
-                            ) {
-                                Text("ExampleHeader")
+                        if (showHeader) {
+                            stickyHeader {
+                                Column(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .background(MaterialTheme.colors.surface)
+                                        .padding(vertical = 25.dp),
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                ) {
+                                    Text("ExampleHeader")
+                                }
                             }
                         }
                     }
@@ -104,8 +121,3 @@ fun MainLayout() {
         }
     }
 }
-
-/*
-  Modifier
-                        .fillMaxSize()
- */
