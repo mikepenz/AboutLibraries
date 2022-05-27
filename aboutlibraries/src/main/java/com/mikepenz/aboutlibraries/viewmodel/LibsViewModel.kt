@@ -82,7 +82,7 @@ class LibsViewModel(
 
         withContext(Dispatchers.IO) {
             val builtLibs = try {
-                libsBuilder.build()
+                builder.libs ?: libsBuilder.build()
             } catch (t: Throwable) {
                 Log.e("AboutLibraries", "Unable to read the library information", t)
                 withContext(Dispatchers.Main) {

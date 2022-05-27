@@ -3,6 +3,8 @@ package com.mikepenz.aboutlibraries.ui.compose
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Badge
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -18,6 +20,31 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.ui.compose.util.author
+
+internal inline fun LazyListScope.libraryItems(
+    libraries: List<Library>,
+    showAuthor: Boolean = true,
+    showVersion: Boolean = true,
+    showLicenseBadges: Boolean = true,
+    colors: LibraryColors,
+    padding: LibraryPadding,
+    itemContentPadding: PaddingValues = LibraryDefaults.ContentPadding,
+    crossinline onLibraryClick: ((Library) -> Unit),
+) {
+    items(libraries) { library ->
+        Library(
+            library,
+            showAuthor,
+            showVersion,
+            showLicenseBadges,
+            colors,
+            padding,
+            itemContentPadding
+        ) {
+            onLibraryClick.invoke(library)
+        }
+    }
+}
 
 @Composable
 internal fun Library(
@@ -79,7 +106,8 @@ internal fun Library(
                         contentColor = colors.badgeContentColor,
                         backgroundColor = colors.badgeBackgroundColor
                     ) {
-                        Text(modifier = Modifier.padding(padding.badgeContentPadding), text = it.name)
+                        Text(modifier = Modifier.padding(padding.badgeContentPadding),
+                            text = it.name)
                     }
                 }
             }
@@ -137,7 +165,8 @@ object LibraryDefaults {
     fun libraryPadding(
         namePadding: PaddingValues = PaddingValues(top = LibraryNamePaddingTop),
         versionPadding: PaddingValues = PaddingValues(start = LibraryVersionPaddingStart),
-        badgePadding: PaddingValues = PaddingValues(top = LibraryBadgePaddingTop, end = LibraryBadgePaddingEnd),
+        badgePadding: PaddingValues = PaddingValues(top = LibraryBadgePaddingTop,
+            end = LibraryBadgePaddingEnd),
         badgeContentPadding: PaddingValues = PaddingValues(0.dp),
     ): LibraryPadding = DefaultLibraryPadding(
         namePadding = namePadding,
