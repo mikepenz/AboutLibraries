@@ -2,14 +2,13 @@ package com.mikepenz.aboutlibraries.ui.compose
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.mikepenz.aboutlibraries.Libs
@@ -18,7 +17,6 @@ import com.mikepenz.aboutlibraries.entity.Library
 /**
  * Displays all provided libraries in a simple list.
  */
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun LibrariesContainer(
     aboutLibsJson: String,
@@ -31,9 +29,11 @@ fun LibrariesContainer(
     colors: LibraryColors = LibraryDefaults.libraryColors(),
     padding: LibraryPadding = LibraryDefaults.libraryPadding(),
     itemContentPadding: PaddingValues = LibraryDefaults.ContentPadding,
+    header: (LazyListScope.() -> Unit)? = null,
     onLibraryClick: ((Library) -> Unit)? = null,
 ) {
-    LibrariesContainer({ Libs.Builder().withJson(aboutLibsJson).build() },
+    LibrariesContainer(
+        { Libs.Builder().withJson(aboutLibsJson).build() },
         modifier,
         lazyListState,
         contentPadding,
@@ -43,13 +43,14 @@ fun LibrariesContainer(
         colors,
         padding,
         itemContentPadding,
-        onLibraryClick)
+        header,
+        onLibraryClick
+    )
 }
 
 /**
  * Displays all provided libraries in a simple list.
  */
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun LibrariesContainer(
     librariesBlock: () -> Libs,
@@ -62,6 +63,7 @@ fun LibrariesContainer(
     colors: LibraryColors = LibraryDefaults.libraryColors(),
     padding: LibraryPadding = LibraryDefaults.libraryPadding(),
     itemContentPadding: PaddingValues = LibraryDefaults.ContentPadding,
+    header: (LazyListScope.() -> Unit)? = null,
     onLibraryClick: ((Library) -> Unit)? = null,
 ) {
     val libraries = remember { mutableStateOf<Libs?>(null) }
@@ -82,6 +84,7 @@ fun LibrariesContainer(
             colors,
             padding,
             itemContentPadding,
+            header,
             onLibraryClick
         )
     }
@@ -90,7 +93,6 @@ fun LibrariesContainer(
 /**
  * Displays all provided libraries in a simple list.
  */
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun Libraries(
     libraries: List<Library>,
@@ -103,13 +105,20 @@ fun Libraries(
     colors: LibraryColors = LibraryDefaults.libraryColors(),
     padding: LibraryPadding = LibraryDefaults.libraryPadding(),
     itemContentPadding: PaddingValues = LibraryDefaults.ContentPadding,
+    header: (LazyListScope.() -> Unit)? = null,
     onLibraryClick: ((Library) -> Unit)? = null,
 ) {
     LazyColumn(modifier, state = lazyListState, contentPadding = contentPadding) {
-        items(libraries) { library ->
-            Library(library, showAuthor, showVersion, showLicenseBadges, colors, padding, itemContentPadding) {
-                onLibraryClick?.invoke(library)
-            }
+        header?.invoke(this)
+        libraryItems(
+            libraries,
+            showAuthor,
+            showVersion,
+            showLicenseBadges,
+            colors,
+            padding,
+            itemContentPadding) {
+            onLibraryClick?.invoke(it)
         }
     }
 }
