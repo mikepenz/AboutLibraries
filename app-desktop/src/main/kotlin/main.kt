@@ -29,7 +29,7 @@ fun main() = application {
                     openDialog.value = it.licenses.firstOrNull()?.strippedLicenseContent ?: ""
                 }
 
-                if (openDialog.value != null) {
+                if (!openDialog.value.isNullOrBlank()) {
                     val scrollState = rememberScrollState()
                     Surface(
                         modifier = Modifier

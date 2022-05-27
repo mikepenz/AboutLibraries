@@ -104,7 +104,7 @@ fun Libraries(
             Library(library, showAuthor, showVersion, showLicenseBadges, colors, padding, itemContentPadding) {
                 if (onLibraryClick != null) {
                     onLibraryClick.invoke(library)
-                } else {
+                } else if (!library.licenses.firstOrNull()?.htmlReadyLicenseContent.isNullOrBlank()) {
                     openDialog.value = true
                 }
             }
