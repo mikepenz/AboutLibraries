@@ -60,7 +60,7 @@ kotlin {
     mingwX64()
     linuxX64()
     linuxArm64()
-    wasm32()
+    // wasm32()
 
     android {
         publishAllLibraryVariants()
@@ -96,7 +96,7 @@ kotlin {
         watchosSimulatorArm64Main { dependsOn(iosMain) }
         watchosX86Main { dependsOn(iosMain) }
         watchosX64Main { dependsOn(iosMain) }
-        wasm32Main { dependsOn(multiplatformMain) }
+        // wasm32Main { dependsOn(multiplatformMain) }
 
         jvmTest {
             dependencies {
