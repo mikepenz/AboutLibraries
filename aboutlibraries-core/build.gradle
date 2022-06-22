@@ -82,21 +82,21 @@ kotlin {
         mingwX64Main { dependsOn(desktopMain) }
         macosX64Main { dependsOn(desktopMain) }
         macosArm64Main { dependsOn(desktopMain) }
-        linuxArm64 { dependsOn(desktopMain) }
+        linuxArm64Main { dependsOn(desktopMain) }
         iosMain { dependsOn(multiplatformMain) }
         iosArm32Main { dependsOn(iosMain) }
         iosArm64Main { dependsOn(iosMain) }
-        iosSimulatorArm64 { dependsOn(iosMain) }
+        iosSimulatorArm64Main { dependsOn(iosMain) }
         iosX64Main { dependsOn(iosMain) }
         tvosArm64Main { dependsOn(iosMain) }
-        tvosSimulatorArm64 { dependsOn(iosMain) }
+        tvosSimulatorArm64Main { dependsOn(iosMain) }
         tvosX64Main { dependsOn(iosMain) }
         watchosArm32Main { dependsOn(iosMain) }
         watchosArm64Main { dependsOn(iosMain) }
-        watchosSimulatorArm64 { dependsOn(iosMain) }
+        watchosSimulatorArm64Main { dependsOn(iosMain) }
         watchosX86Main { dependsOn(iosMain) }
         watchosX64Main { dependsOn(iosMain) }
-        wasm32 { dependsOn(multiplatformMain) }
+        wasm32Main { dependsOn(multiplatformMain) }
 
         jvmTest {
             dependencies {
