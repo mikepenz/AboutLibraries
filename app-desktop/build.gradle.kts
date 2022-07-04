@@ -19,6 +19,9 @@ dependencies {
     implementation(compose.material)
     implementation(project(":aboutlibraries-core"))
     implementation(project(":aboutlibraries-compose"))
+
+    // Coroutines
+    implementation(libs.kotlin.coroutines.core)
 }
 
 tasks.withType<KotlinCompile> {
