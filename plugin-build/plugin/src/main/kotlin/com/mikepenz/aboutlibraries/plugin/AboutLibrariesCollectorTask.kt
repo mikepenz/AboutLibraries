@@ -22,12 +22,12 @@ abstract class AboutLibrariesCollectorTask : DefaultTask() {
      * Collect the dependencies via the available configurations for the current project
      */
     fun configure() {
+        project.evaluationDependsOnChildren()
         collectedDependencies = DependencyCollector().collect(project)
     }
 
     @TaskAction
     fun action() {
-        project.evaluationDependsOnChildren()
         if (!::collectedDependencies.isInitialized) {
             configure()
         }
