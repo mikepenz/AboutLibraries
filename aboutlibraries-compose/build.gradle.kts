@@ -59,7 +59,8 @@ dependencies {
     commonMainCompileOnly(compose.ui)
     commonMainCompileOnly(compose.foundation)
     commonMainCompileOnly(compose.material)
-    commonMainCompileOnly(compose.uiTooling)
+    commonMainCompileOnly(compose.preview)
+    debugCompileOnly(compose.uiTooling)
 
     "androidMainImplementation"(libs.androidx.core.ktx)
 }
