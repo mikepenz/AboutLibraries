@@ -8,7 +8,7 @@ import com.mikepenz.aboutlibraries.util.parseData
  * The [Libs] class is the main access point to the generated data of the plugin.
  * Provides accessors for the [Library] and [License] lists, containing all the dependency information for the module.
  */
-data class Libs internal constructor(
+data class Libs constructor(
     val libraries: List<Library>,
     val licenses: Set<License>,
 ) {
