@@ -8,14 +8,14 @@ targetSdk = "31"
 gradleBuild = "7.2.1"
 buildTools = "33.0.0"
 # kotlin
-dokka = "1.7.0"
+dokka = "1.7.10"
 kotlinCore = { require = "1.7.0" }
-kotlinCoroutines = { require = "1.6.3" }
+kotlinCoroutines = { require = "1.6.4" }
 kotlinxSerialization = "1.3.2"
 # compose
 compose = "1.1.1"
 composeCompiler = "1.2.0"
-composejb = "0.0.0-release1.2-integration-dev736"
+composejb = "1.2.0-alpha01-dev745"
 # androidx
 activity = "1.5.0"
 cardview = "1.0.0"
