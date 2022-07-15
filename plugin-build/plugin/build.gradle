@@ -1,6 +1,6 @@
 plugins {
     id "org.jetbrains.kotlin.jvm"
-    id "com.gradle.plugin-publish" version "1.0.0"
+    id "com.gradle.plugin-publish" version "0.20.0"
     id "java-gradle-plugin"
     id "maven-publish"
     id "org.jetbrains.dokka"
@@ -12,7 +12,6 @@ version = rootProject.properties["version"]
 gradlePlugin {
     plugins {
         aboutlibsPlugin {
-            displayName = 'AboutLibraries Library Gradle Plugin'
             id = "${project.group}"
             implementationClass = "${project.group}.AboutLibrariesPlugin"
         }
@@ -23,7 +22,18 @@ pluginBundle {
     website = 'https://github.com/mikepenz/AboutLibraries'
     vcsUrl = 'https://github.com/mikepenz/AboutLibraries'
     description = 'Resolve all dependencies used in a gradle module, with associated license and further information.'
-    tags = ['libraries', 'licenses', 'android']
+
+    plugins {
+        aboutlibsPlugin {
+            displayName = 'AboutLibraries Library Gradle Plugin'
+            tags = ['libraries', 'licenses', 'android']
+        }
+    }
+
+    mavenCoordinates {
+        groupId = "${project.group}"
+        artifactId = "aboutlibraries-plugin"
+    }
 }
 
 repositories {
