@@ -5,6 +5,7 @@ plugins {
     // kotlin("native.cocoapods")
     id("com.android.library")
     id("org.jetbrains.dokka")
+    id("com.mikepenz.aboutlibraries.plugin")
 }
 
 android {
@@ -126,9 +127,15 @@ kotlin {
     }
 }
 
+aboutLibraries {
+    includePlatform = true
+}
+
 dependencies {
     // kotlinx Serialize
     "multiplatformMainImplementation"(libs.kotlinx.serialization)
+
+    "androidMainImplementation"(platform("com.google.firebase:firebase-bom:30.1.0"))
 }
 
 tasks.dokkaHtml.configure {
