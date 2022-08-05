@@ -23,6 +23,15 @@ android {
         }
     }
 
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
+
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+        kotlinOptions.jvmTarget = "11"
+    }
+
     buildFeatures {
         compose = true
     }
@@ -50,7 +59,8 @@ dependencies {
     commonMainCompileOnly(compose.ui)
     commonMainCompileOnly(compose.foundation)
     commonMainCompileOnly(compose.material)
-    commonMainCompileOnly(compose.uiTooling)
+    commonMainCompileOnly(compose.preview)
+    debugCompileOnly(compose.uiTooling)
 
     "androidMainImplementation"(libs.androidx.core.ktx)
 }

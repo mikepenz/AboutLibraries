@@ -39,7 +39,7 @@
 
 ## Latest releases 🛠
 
-- (Next Gen) Kotlin && Multiplatform && Plugin | [v10.3.1](https://github.com/mikepenz/AboutLibraries/tree/v10.3.1)
+- (Next Gen) Kotlin && Multiplatform && Plugin | [v10.4.0](https://github.com/mikepenz/AboutLibraries/tree/v10.4.0)
 - Kotlin && Gradle Plugin | [v8.9.4](https://github.com/mikepenz/AboutLibraries/tree/v8.9.4)
 
 ## Gradle Plugin
@@ -87,6 +87,8 @@ aboutLibraries {
     additionalLicenses = ["mit", "mpl_2_0"]
     // Allows to exclude some fields from the generated meta data field.
     excludeFields = ["developers", "funding"]
+    // Enable inclusion of `platform` dependencies in the library report
+    includePlatform = true
     // Define the strict mode, will fail if the project uses licenses not allowed
     // - This will only automatically fail for Android projects which have `registerAndroidTasks` enabled
     // For non Android projects, execute `exportLibraryDefinitions`
@@ -230,7 +232,7 @@ implementation "com.mikepenz:aboutlibraries:${latestAboutLibsRelease}"
 
 Use this library in a few different ways. Create a custom activity, including a custom style or just use its generated information. Or simply use the built-in Activity or Fragment and just pass the libs to include.
 
-> Note: The new version requires the new Material3 theme as base.
+> **Note**: The new version requires the new Material3 theme as base.
 
 #### Activity
 
@@ -310,7 +312,7 @@ After disabling the integration it is possible to manually update the definition
 ./gradlew app:exportLibraryDefinitions -PexportPath=src/main/res/raw/ -PexportVariant=release
 ```
 This generated file can be either included in your SCM, and every build will use this exact verified and approved state.
-Additionally this helps to ensure no issues occur during the apps delivery phase, as the respective file is already generated and included.
+Additionally, this helps to ensure no issues occur during the apps delivery phase, as the respective file is already generated and included.
 
 The library offers complete customisation for this behavior and location or name for the generated files can be adjusted as needed.
 A full compose code example providing the `Libs` manually:
@@ -330,7 +332,9 @@ For other environments or for more advanced usages the plugin offers additional 
 
 ```bash
 # Manually generate the dependency metaData in the provided location. Allows to commit it in SCM
-# Exports the metaData in `src/main/resources/` relative to the module root, for the `release` variant
+# Exports the metaData in `src/main/resources/` relative to the module root
+./gradlew app-desktop:exportLibraryDefinitions -PexportPath=src/main/resources/
+# Export only for a specific variant: `release`
 ./gradlew app-desktop:exportLibraryDefinitions -PexportPath=src/main/resources/ -PexportVariant=release
 
 # Export dependencies as CSV
@@ -348,9 +352,9 @@ For other environments or for more advanced usages the plugin offers additional 
 ```
 
 # Special repository support
-|Host|License|Funding|
-|---|---|---|
-|[GitHub](https://github.com/)|x|x|
+| Host                          | License | Funding |
+|-------------------------------|---------|---------|
+| [GitHub](https://github.com/) | x       | x       |
 
 # Disclaimer
 

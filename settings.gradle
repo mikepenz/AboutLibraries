@@ -13,8 +13,3 @@ includeBuild("plugin-build") {
         substitute(module("com.mikepenz.aboutlibraries.plugin:aboutlibraries-plugin")).using(project(":plugin"))
     }
 }
-
-/**
- * Configure gradle features
- */
-enableFeaturePreview("VERSION_CATALOGS")

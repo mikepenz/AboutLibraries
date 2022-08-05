@@ -8,6 +8,9 @@ import android.os.Bundle
 import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.ui.LibsActivity
 import com.mikepenz.aboutlibraries.ui.LibsSupportFragment
+import com.mikepenz.aboutlibraries.util.SerializableLibs
+import com.mikepenz.aboutlibraries.util.toLibs
+import com.mikepenz.aboutlibraries.util.toSerializeable
 import java.io.Serializable
 
 class LibsBuilder : Serializable {
@@ -67,8 +70,15 @@ class LibsBuilder : Serializable {
             field = value
         }
 
+    internal var _libs: SerializableLibs? = null
 
+    @Transient
     var libs: Libs? = null
+        get() = field ?: _libs?.toLibs()
+        set(value) {
+            _libs = value?.toSerializeable()
+        }
+
     var aboutMinimalDesign: Boolean = false
 
     var aboutAppSpecial1: String? = null
