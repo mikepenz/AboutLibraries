@@ -75,6 +75,20 @@ abstract class AboutLibrariesExtension {
     var exclusionPatterns: List<Pattern> = emptyList()
 
     /**
+     * Enable the inclusion of platform dependencies in the report.
+     * By default `platform` level `bom` specifications will be included in the report.
+     *
+     * > Gradle provides support for importing bill of materials (BOM) files, which are effectively .pom files that use <dependencyManagement> to control the dependency versions of direct and transitive dependencies. The BOM support in Gradle works similar to using <scope>import</scope> when depending on a BOM in Maven.
+     *
+     * ```
+     * aboutLibraries {
+     *      includePlatform = false
+     * }
+     * ```
+     */
+    var includePlatform: Boolean = true
+
+    /**
      * Additional license descriptors to include in the generated `aboutlibs.json` file.
      *
      * Useful in case e.g. there's a license only used in an explicitly-added library.

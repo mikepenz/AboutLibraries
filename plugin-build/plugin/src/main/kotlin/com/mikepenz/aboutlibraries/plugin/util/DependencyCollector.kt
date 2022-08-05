@@ -26,7 +26,9 @@ import org.slf4j.LoggerFactory
 /**
  * Based on https://raw.githubusercontent.com/gradle/gradle/master/subprojects/diagnostics/src/main/java/org/gradle/api/reporting/dependencies/internal/JsonProjectDependencyRenderer.java
  */
-class DependencyCollector() {
+class DependencyCollector(
+    private val includePlatform: Boolean = false,
+) {
     /**
      * Generates the project dependency report structure
      *
@@ -66,10 +68,10 @@ class DependencyCollector() {
                     .lenientConfiguration
                     .allModuleDependencies
                     .getResolvedArtifacts(visitedDependencyNames)
-                    .forEach {
-                        val identifier = "${it.moduleVersion.id.group.trim()}:${it.name.trim()}"
+                    .forEach { resArtifact ->
+                        val identifier = "${resArtifact.moduleVersion.id.group.trim()}:${resArtifact.name.trim()}"
                         val versions = variantSet.getOrPut(identifier) { HashSet() }
-                        versions.add(it.moduleVersion.id.version.trim())
+                        versions.add(resArtifact.moduleVersion.id.version.trim())
                     }
             }
         return CollectedContainer(mutableCollectContainer)
@@ -80,7 +82,7 @@ class DependencyCollector() {
      * Via https://github.com/google/play-services-plugins/blob/master/oss-licenses-plugin/src/main/groovy/com/google/android/gms/oss/licenses/plugin/LicensesTask.groovy
      */
     private fun Set<ResolvedDependency>.getResolvedArtifacts(
-        visitedDependencyNames: MutableSet<String>
+        visitedDependencyNames: MutableSet<String>,
     ): Set<ResolvedArtifact> {
         val resolvedArtifacts = mutableSetOf<ResolvedArtifact>()
         for (resolvedDependency in this) {
@@ -89,15 +91,21 @@ class DependencyCollector() {
                 visitedDependencyNames += name
 
                 try {
-                    resolvedArtifacts += when (resolvedDependency.moduleVersion) {
-                        "unspecified" ->
+                    resolvedArtifacts += when {
+                        resolvedDependency.moduleVersion == "unspecified" -> {
                             resolvedDependency.children.getResolvedArtifacts(
                                 visitedDependencyNames = visitedDependencyNames
                             )
+                        }
+
+                        includePlatform && resolvedDependency.isPlatform -> {
+                            setOf(resolvedDependency.toResolvedBomArtifact())
+                        }
+
                         else -> resolvedDependency.allModuleArtifacts
                     }
                 } catch (e: AmbiguousVariantSelectionException) {
-                    LOGGER.info("Found ambiguous variant", e)
+                    LOGGER.info("Found ambiguous variant - $resolvedDependency", e)
                 }
             }
         }
@@ -119,6 +127,11 @@ class DependencyCollector() {
                 hierarchy.any { configurationHierarchy ->
                     testCompile.any { configurationHierarchy.name.contains(it, ignoreCase = true) }
                 }
+
+    private val platform = "platform"
+
+    private val ResolvedDependency.isPlatform
+        get() = configuration.contains(platform)
 
     private companion object {
         private val LOGGER = LoggerFactory.getLogger(DependencyCollector::class.java)!!
