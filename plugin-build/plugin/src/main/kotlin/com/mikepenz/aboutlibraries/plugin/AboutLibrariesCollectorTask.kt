@@ -9,6 +9,12 @@ import java.io.File
 @CacheableTask
 abstract class AboutLibrariesCollectorTask : DefaultTask() {
 
+    @Internal
+    protected val extension = project.extensions.getByName("aboutLibraries") as AboutLibrariesExtension
+
+    @Input
+    val includePlatform = extension.includePlatform
+
     /** holds the collected set of dependencies*/
     @Internal
     protected lateinit var collectedDependencies: CollectedContainer
@@ -23,7 +29,7 @@ abstract class AboutLibrariesCollectorTask : DefaultTask() {
      */
     fun configure() {
         project.evaluationDependsOnChildren()
-        collectedDependencies = DependencyCollector().collect(project)
+        collectedDependencies = DependencyCollector(includePlatform).collect(project)
     }
 
     @TaskAction

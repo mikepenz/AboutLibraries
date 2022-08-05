@@ -87,6 +87,8 @@ aboutLibraries {
     additionalLicenses = ["mit", "mpl_2_0"]
     // Allows to exclude some fields from the generated meta data field.
     excludeFields = ["developers", "funding"]
+    // Enable inclusion of `platform` dependencies in the library report
+    includePlatform = true
     // Define the strict mode, will fail if the project uses licenses not allowed
     // - This will only automatically fail for Android projects which have `registerAndroidTasks` enabled
     // For non Android projects, execute `exportLibraryDefinitions`
@@ -350,9 +352,9 @@ For other environments or for more advanced usages the plugin offers additional 
 ```
 
 # Special repository support
-|Host|License|Funding|
-|---|---|---|
-|[GitHub](https://github.com/)|x|x|
+| Host                          | License | Funding |
+|-------------------------------|---------|---------|
+| [GitHub](https://github.com/) | x       | x       |
 
 # Disclaimer
 
