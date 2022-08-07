@@ -48,6 +48,25 @@ AboutLibraries v10 includes a completely redone plugin, with build cache support
 
 > The gradle plugin is hosted via [Gradle Plugins](https://plugins.gradle.org/plugin/com.mikepenz.aboutlibraries.plugin).
 
+Using the plugins DSL (for whole project):
+
+```gradle
+// Root build.gradle
+id 'com.mikepenz.aboutlibraries.plugin' version "${latestAboutLibsRelease}"
+```
+
+Using the plugins DSL (for single modules):
+
+```gradle
+// Root build.gradle
+id 'com.mikepenz.aboutlibraries.plugin' version "${latestAboutLibsRelease}" apply false
+
+// App build.gradle
+id 'com.mikepenz.aboutlibraries.plugin'
+```
+
+Using legacy plugin application:
+
 ```gradle
 // Root build.gradle
 classpath "com.mikepenz.aboutlibraries.plugin:aboutlibraries-plugin:${latestAboutLibsRelease}"
