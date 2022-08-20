@@ -38,5 +38,7 @@ jobs:
           gradle-build-module: |-
             :app
             :app-desktop
-          gradle-build-configuration: debugCompileClasspath
+          gradle-build-configuration: |-
+            debugCompileClasspath
+            compileClasspath
           sub-module-mode: INDIVIDUAL
