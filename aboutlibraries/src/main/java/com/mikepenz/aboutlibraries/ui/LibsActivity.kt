@@ -15,6 +15,7 @@ import com.mikepenz.aboutlibraries.LibsBuilder.Companion.BUNDLE_TITLE
 import com.mikepenz.aboutlibraries.R
 import com.mikepenz.aboutlibraries.util.applyEdgeSystemUi
 import com.mikepenz.aboutlibraries.util.doOnApplySystemWindowInsets
+import com.mikepenz.aboutlibraries.util.getThemeColor
 
 
 /**
@@ -70,8 +71,10 @@ open class LibsActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
             menuInflater.inflate(R.menu.menu_aboutlibs, menu)
             val searchView = menu.findItem(R.id.action_menu_search).actionView as? SearchView
             val editText = searchView?.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
-            editText?.setTextColor(Color.WHITE)
-            editText?.setHintTextColor(Color.WHITE)
+
+            editText?.setTextColor(searchView.context.getThemeColor(R.attr.colorControlNormal))
+            editText?.setHintTextColor(searchView.context.getThemeColor(R.attr.colorControlNormal))
+
             searchView?.maxWidth = Int.MAX_VALUE
             searchView?.setOnQueryTextListener(this)
         }

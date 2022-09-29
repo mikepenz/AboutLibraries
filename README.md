@@ -39,7 +39,7 @@
 
 ## Latest releases 🛠
 
-- (Next Gen) Kotlin && Multiplatform && Plugin | [v10.4.0](https://github.com/mikepenz/AboutLibraries/tree/v10.4.0)
+- (Next Gen) Kotlin && Multiplatform && Plugin | [v10.5.0](https://github.com/mikepenz/AboutLibraries/tree/v10.5.0)
 - Kotlin && Gradle Plugin | [v8.9.4](https://github.com/mikepenz/AboutLibraries/tree/v8.9.4)
 
 ## Gradle Plugin
@@ -47,6 +47,35 @@
 AboutLibraries v10 includes a completely redone plugin, with build cache support. It includes all dependencies as found based on the gradle configuration.
 
 > The gradle plugin is hosted via [Gradle Plugins](https://plugins.gradle.org/plugin/com.mikepenz.aboutlibraries.plugin).
+
+<details open><summary><b>Using the plugins DSL (for single modules)</b></summary>
+<p>
+
+
+```gradle
+// Root build.gradle
+id 'com.mikepenz.aboutlibraries.plugin' version "${latestAboutLibsRelease}" apply false
+
+// App build.gradle
+id 'com.mikepenz.aboutlibraries.plugin'
+```
+
+</p>
+</details>
+
+<details><summary><b>Using the plugins DSL (for whole project)</b></summary>
+<p>
+
+```gradle
+// Root build.gradle
+id 'com.mikepenz.aboutlibraries.plugin' version "${latestAboutLibsRelease}"
+```
+
+</p>
+</details>
+
+<details><summary><b>Using legacy plugin application</b></summary>
+<p>
 
 ```gradle
 // Root build.gradle
@@ -56,7 +85,10 @@ classpath "com.mikepenz.aboutlibraries.plugin:aboutlibraries-plugin:${latestAbou
 apply plugin: 'com.mikepenz.aboutlibraries.plugin'
 ```
 
-<details><summary><b>Configuration</b></summary>
+</p>
+</details>
+
+<details><summary><b>Gradle Plugin Configuration</b></summary>
 <p>
 
 ## Gradle Plugin Configuration
@@ -66,7 +98,7 @@ It is possible to provide custom configurations / adjustments to the automatic d
 ```groovy
 aboutLibraries {
     // - If the automatic registered android tasks are disabled, a similar thing can be achieved manually
-    // - `./gradlew app:exportLibraryDefinitions -PexportPath=src/main/res/raw`
+    // - `./gradlew app:exportLibraryDefinitions -PaboutLibraries.exportPath=src/main/res/raw`
     // - the resulting file can for example be added as part of the SCM
     registerAndroidTasks = false
     // Define the output file name. Modifying this will disable the automatic meta data discovery for supported platforms.
@@ -203,7 +235,7 @@ Find a sample application as the `app-desktop` module. It showcases the usage to
 ### Generate Dependency Information
 
 ```bash
-./gradlew app-desktop:exportLibraryDefinitions -PexportPath=src/main/resources/
+./gradlew app-desktop:exportLibraryDefinitions -PaboutLibraries.exportPath=src/main/resources/
 ```
 
 ### Run Desktop app
@@ -309,7 +341,7 @@ aboutLibraries {
 This is especially beneficial for enterprise environments where it is required to be in full control of the included `aboutlibraries.json`.
 After disabling the integration it is possible to manually update the definitions, or do it on your CI environment.
 ```
-./gradlew app:exportLibraryDefinitions -PexportPath=src/main/res/raw/ -PexportVariant=release
+./gradlew app:exportLibraryDefinitions -PaboutLibraries.exportPath=src/main/res/raw/ -PaboutLibraries.exportVariant=release
 ```
 This generated file can be either included in your SCM, and every build will use this exact verified and approved state.
 Additionally, this helps to ensure no issues occur during the apps delivery phase, as the respective file is already generated and included.
@@ -333,9 +365,9 @@ For other environments or for more advanced usages the plugin offers additional 
 ```bash
 # Manually generate the dependency metaData in the provided location. Allows to commit it in SCM
 # Exports the metaData in `src/main/resources/` relative to the module root
-./gradlew app-desktop:exportLibraryDefinitions -PexportPath=src/main/resources/
+./gradlew app-desktop:exportLibraryDefinitions -PaboutLibraries.exportPath=src/main/resources/
 # Export only for a specific variant: `release`
-./gradlew app-desktop:exportLibraryDefinitions -PexportPath=src/main/resources/ -PexportVariant=release
+./gradlew app-desktop:exportLibraryDefinitions -PaboutLibraries.exportPath=src/main/resources/ -PaboutLibraries.exportVariant=release
 
 # Export dependencies as CSV
 ./gradlew exportLibraries

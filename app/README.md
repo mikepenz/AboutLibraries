@@ -3,6 +3,6 @@
  ### Generate Dependency Information
 
  ```bash
- ./gradlew app:exportLibraryDefinitions -PexportPath=src/main/res/raw -PexportVariant=release
+ ./gradlew app:exportLibraryDefinitions -PaboutLibraries.exportPath=src/main/res/raw -PaboutLibraries.exportVariant=release
  ```
 

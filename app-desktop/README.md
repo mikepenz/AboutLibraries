@@ -3,7 +3,7 @@
 ### Generate Dependency Information
 
 ```bash
-./gradlew app-desktop:exportLibraryDefinitions -PexportPath=src/main/resources/
+./gradlew app-desktop:exportLibraryDefinitions -PaboutLibraries.exportPath=src/main/resources/
 ```
 
 ### Run Desktop app

@@ -44,7 +44,7 @@ abstract class AboutLibrariesExtension {
      * }
      * ```
      *
-     * For Android projects `./gradlew app:exportLibraryDefinitions -PexportPath=src/main/res/raw` leads to a similar manual output.
+     * For Android projects `./gradlew app:exportLibraryDefinitions -PaboutLibraries.exportPath=src/main/res/raw` leads to a similar manual output.
      * The resulting file can for example be added as part of the SCM.
      */
     var registerAndroidTasks: Boolean = true
