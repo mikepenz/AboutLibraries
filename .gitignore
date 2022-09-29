@@ -15,3 +15,6 @@ captures/
 
 # docs
 docs
+
+/.bundle/
+/vendor/*
