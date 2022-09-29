@@ -1,5 +1,6 @@
 package com.mikepenz.aboutlibraries.plugin
 
+import com.mikepenz.aboutlibraries.plugin.util.safeProp
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.util.GradleVersion
@@ -52,11 +53,11 @@ class AboutLibrariesPlugin : Plugin<Project> {
             project.tasks.create("exportLibraryDefinitions", AboutLibrariesTask::class.java) {
                 it.description = "Writes the relevant meta data for the AboutLibraries plugin to display dependencies"
                 it.group = "Build"
-                it.variant =
-                    if (project.hasProperty("exportVariant")) project.property("exportVariant").toString() else null
-                it.resultDirectory = if (project.hasProperty("exportPath")) project.file(
-                    project.property("exportPath").toString()
-                ) else project.file("${project.buildDir}/generated/aboutLibraries/")
+                it.variant = project.safeProp("aboutLibraries.exportVariant") ?: project.safeProp("exportVariant")
+                it.resultDirectory = project.file(
+                    project.safeProp("aboutLibraries.exportPath") ?: project.safeProp("exportPath")
+                    ?: "${project.buildDir}/generated/aboutLibraries/"
+                )
                 it.dependsOn(collectTask)
             }
 

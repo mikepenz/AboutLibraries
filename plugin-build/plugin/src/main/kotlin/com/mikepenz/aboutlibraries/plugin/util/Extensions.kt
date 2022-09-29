@@ -2,6 +2,7 @@ package com.mikepenz.aboutlibraries.plugin.util
 
 import com.mikepenz.aboutlibraries.plugin.mapping.Library
 import com.mikepenz.aboutlibraries.plugin.mapping.License
+import org.gradle.api.Project
 import org.gradle.api.artifacts.ModuleIdentifier
 import org.gradle.api.artifacts.ResolvedArtifact
 import org.gradle.api.artifacts.ResolvedDependency
@@ -10,6 +11,12 @@ import org.gradle.api.artifacts.component.ComponentArtifactIdentifier
 import org.gradle.api.artifacts.component.ModuleComponentIdentifier
 import java.io.File
 import java.security.MessageDigest
+
+internal fun Project.safeProp(key: String): String? = if (hasProperty(key)) {
+    property(key).toString()
+} else {
+    null
+}
 
 internal fun String.toMD5(): String {
     val bytes = MessageDigest.getInstance("MD5").digest(this.toByteArray())
