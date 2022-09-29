@@ -16,7 +16,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -98,7 +97,7 @@ fun Libraries(
     header: (LazyListScope.() -> Unit)? = null,
     onLibraryClick: ((Library) -> Unit)? = null,
 ) {
-    val openDialog = rememberSaveable { mutableStateOf<Library?>(null) }
+    val openDialog = remember { mutableStateOf<Library?>(null) }
 
     LazyColumn(modifier, state = lazyListState, contentPadding = contentPadding) {
         header?.invoke(this)
