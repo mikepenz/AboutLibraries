@@ -1,6 +1,7 @@
 package com.mikepenz.aboutlibraries.plugin
 
 import com.mikepenz.aboutlibraries.plugin.mapping.SpdxLicense
+import com.mikepenz.aboutlibraries.plugin.util.safeProp
 import org.gradle.api.tasks.*
 import java.io.File
 import java.nio.file.Files
@@ -10,13 +11,14 @@ abstract class AboutLibrariesExportComplianceTask : BaseAboutLibrariesTask() {
 
     @Input
     @Optional
-    val inputExportPath: String? = if (project.hasProperty("exportPath")) project.property("exportPath").toString() else null
+    val inputExportPath: String? = project.safeProp("aboutLibraries.exportPath") ?: project.safeProp("exportPath")
 
     @OutputDirectory
     val exportPath: String = inputExportPath ?: project.rootDir.absolutePath
 
     @Input
-    val artifactGroups: String = if (project.hasProperty("artifactGroups")) project.property("artifactGroups").toString() else ""
+    val artifactGroups: String =
+        project.safeProp("aboutLibraries.artifactGroups") ?: project.safeProp("artifactGroups") ?: ""
 
     @Internal
     var neededLicenses = HashSet<SpdxLicense>()
@@ -98,7 +100,10 @@ abstract class AboutLibrariesExportComplianceTask : BaseAboutLibrariesTask() {
                         Files.walk(source).forEach { s ->
                             val targetPath = libraryTargetFolder.toPath()
                             val fn = s.fileName.toString()
-                            if (!Files.isDirectory(s) && (fn.endsWith(".aar") || fn.endsWith(".jar") || fn.endsWith(".pom")) && !fn.endsWith("-javadoc.jar")) {
+                            if (!Files.isDirectory(s) && (fn.endsWith(".aar") || fn.endsWith(".jar") || fn.endsWith(".pom")) && !fn.endsWith(
+                                    "-javadoc.jar"
+                                )
+                            ) {
                                 Files.copy(s, targetPath.resolve(fn), StandardCopyOption.REPLACE_EXISTING)
                             }
                         }
