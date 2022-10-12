@@ -1,4 +1,3 @@
-import org.jetbrains.compose.compose
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -22,6 +21,10 @@ dependencies {
 
     // Coroutines
     implementation(libs.kotlin.coroutines.core)
+}
+
+compose {
+    kotlinCompilerPlugin.set(libs.versions.composeCompiler.get())
 }
 
 tasks.withType<KotlinCompile> {
