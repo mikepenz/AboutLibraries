@@ -98,7 +98,7 @@ It is possible to provide custom configurations / adjustments to the automatic d
 ```groovy
 aboutLibraries {
     // - If the automatic registered android tasks are disabled, a similar thing can be achieved manually
-    // - `./gradlew app:exportLibraryDefinitions -PaboutLibraries.exportPath=src/main/res/raw`
+    // - `./gradlew app:exportLibraryDefinitions -P aboutLibraries.exportPath=src/main/res/raw`
     // - the resulting file can for example be added as part of the SCM
     registerAndroidTasks = false
     // Define the output file name. Modifying this will disable the automatic meta data discovery for supported platforms.
@@ -235,7 +235,7 @@ Find a sample application as the `app-desktop` module. It showcases the usage to
 ### Generate Dependency Information
 
 ```bash
-./gradlew app-desktop:exportLibraryDefinitions -PaboutLibraries.exportPath=src/main/resources/
+./gradlew app-desktop:exportLibraryDefinitions -P aboutLibraries.exportPath=src/main/resources/
 ```
 
 ### Run Desktop app
@@ -341,7 +341,7 @@ aboutLibraries {
 This is especially beneficial for enterprise environments where it is required to be in full control of the included `aboutlibraries.json`.
 After disabling the integration it is possible to manually update the definitions, or do it on your CI environment.
 ```
-./gradlew app:exportLibraryDefinitions -PaboutLibraries.exportPath=src/main/res/raw/ -PaboutLibraries.exportVariant=release
+./gradlew app:exportLibraryDefinitions -P aboutLibraries.exportPath=src/main/res/raw/ -P aboutLibraries.exportVariant=release
 ```
 This generated file can be either included in your SCM, and every build will use this exact verified and approved state.
 Additionally, this helps to ensure no issues occur during the apps delivery phase, as the respective file is already generated and included.
@@ -365,9 +365,9 @@ For other environments or for more advanced usages the plugin offers additional 
 ```bash
 # Manually generate the dependency metaData in the provided location. Allows to commit it in SCM
 # Exports the metaData in `src/main/resources/` relative to the module root
-./gradlew app-desktop:exportLibraryDefinitions -PaboutLibraries.exportPath=src/main/resources/
+./gradlew app-desktop:exportLibraryDefinitions -P aboutLibraries.exportPath=src/main/resources/
 # Export only for a specific variant: `release`
-./gradlew app-desktop:exportLibraryDefinitions -PaboutLibraries.exportPath=src/main/resources/ -PaboutLibraries.exportVariant=release
+./gradlew app-desktop:exportLibraryDefinitions -P aboutLibraries.exportPath=src/main/resources/ -P aboutLibraries.exportVariant=release
 
 # Export dependencies as CSV
 ./gradlew exportLibraries
