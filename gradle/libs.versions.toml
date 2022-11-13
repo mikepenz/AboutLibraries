@@ -13,9 +13,9 @@ kotlinCore = { require = "1.7.20" }
 kotlinCoroutines = { require = "1.6.4" }
 kotlinxSerialization = "1.4.0"
 # compose
-compose = "1.3.0"
+compose = "1.2.1"
 composeCompiler = "1.3.2"
-composejb = "1.3.0-alpha01-dev831"
+composejb = "1.2.1"
 # androidx
 activity = "1.6.1"
 cardview = "1.0.0"

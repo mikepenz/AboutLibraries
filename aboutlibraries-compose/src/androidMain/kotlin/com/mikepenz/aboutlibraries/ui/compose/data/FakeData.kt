@@ -2,7 +2,7 @@ package com.mikepenz.aboutlibraries.ui.compose.data
 
 import com.mikepenz.aboutlibraries.Libs
 
-val fakeData: Libs
+internal val fakeData: Libs
     get() = Libs.Builder().withJson(
         """
             {
