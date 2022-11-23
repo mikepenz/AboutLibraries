@@ -155,7 +155,11 @@ fun LicenseDialog(
 }
 
 @Composable
-fun HtmlText(html: String, modifier: Modifier = Modifier, color: Color = Color.Black) {
+fun HtmlText(
+    html: String,
+    modifier: Modifier = Modifier,
+    color: Color = LibraryDefaults.libraryColors().contentColor
+) {
     AndroidView(modifier = modifier, factory = { context ->
         TextView(context).apply {
             setTextColor(color.toArgb())
