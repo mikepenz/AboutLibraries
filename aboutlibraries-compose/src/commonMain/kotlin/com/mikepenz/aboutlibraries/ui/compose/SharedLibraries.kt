@@ -3,8 +3,11 @@ package com.mikepenz.aboutlibraries.ui.compose
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Badge
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -20,6 +23,40 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.ui.compose.util.author
+
+/**
+ * Displays all provided libraries in a simple list.
+ */
+@Composable
+fun Libraries(
+    libraries: List<Library>,
+    modifier: Modifier = Modifier,
+    lazyListState: LazyListState = rememberLazyListState(),
+    contentPadding: PaddingValues = PaddingValues(0.dp),
+    showAuthor: Boolean = true,
+    showVersion: Boolean = true,
+    showLicenseBadges: Boolean = true,
+    colors: LibraryColors = LibraryDefaults.libraryColors(),
+    padding: LibraryPadding = LibraryDefaults.libraryPadding(),
+    itemContentPadding: PaddingValues = LibraryDefaults.ContentPadding,
+    header: (LazyListScope.() -> Unit)? = null,
+    onLibraryClick: ((Library) -> Unit)? = null,
+) {
+    LazyColumn(modifier, state = lazyListState, contentPadding = contentPadding) {
+        header?.invoke(this)
+        libraryItems(
+            libraries,
+            showAuthor,
+            showVersion,
+            showLicenseBadges,
+            colors,
+            padding,
+            itemContentPadding
+        ) {
+            onLibraryClick?.invoke(it)
+        }
+    }
+}
 
 internal inline fun LazyListScope.libraryItems(
     libraries: List<Library>,
