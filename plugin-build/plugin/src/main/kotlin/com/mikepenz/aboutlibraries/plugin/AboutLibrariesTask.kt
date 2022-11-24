@@ -77,7 +77,7 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
         }
 
         // write to disk
-        result.writeToDisk(combinedLibrariesOutputFile, excludeFields)
+        result.writeToDisk(combinedLibrariesOutputFile, excludeFields, extension.prettyPrint)
     }
 
     companion object {

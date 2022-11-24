@@ -37,4 +37,5 @@ application {
 
 aboutLibraries {
     registerAndroidTasks = false
+    prettyPrint = true
 }

@@ -39,7 +39,7 @@
 
 ## Latest releases 🛠
 
-- (Next Gen) Kotlin && Multiplatform && Plugin | [v10.5.1](https://github.com/mikepenz/AboutLibraries/tree/v10.5.1)
+- (Next Gen) Kotlin && Multiplatform && Plugin | [v10.5.2](https://github.com/mikepenz/AboutLibraries/tree/v10.5.2)
 - Kotlin && Gradle Plugin | [v8.9.4](https://github.com/mikepenz/AboutLibraries/tree/v8.9.4)
 
 ## Gradle Plugin
@@ -131,6 +131,8 @@ aboutLibraries {
     duplicationMode = com.mikepenz.aboutlibraries.plugin.DuplicateMode.LINK
     // Configure the duplication rule, to match "duplicates" with
     duplicationRule = com.mikepenz.aboutlibraries.plugin.DuplicateRule.SIMPLE
+    // Enable pretty printing for the generated JSON file
+    prettyPrint = false
 }
 ```
 
