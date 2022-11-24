@@ -10,7 +10,7 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
@@ -131,8 +131,10 @@ fun LicenseDialog(
 ) {
     val scrollState = rememberScrollState()
     AlertDialog(
-        backgroundColor = colors.backgroundColor,
-        contentColor = colors.contentColor,
+        containerColor = colors.backgroundColor,
+        titleContentColor = colors.contentColor,
+        textContentColor = colors.contentColor,
+        iconContentColor = colors.contentColor,
         onDismissRequest = {
             onDismiss()
         },
@@ -158,7 +160,7 @@ fun LicenseDialog(
 fun HtmlText(
     html: String,
     modifier: Modifier = Modifier,
-    color: Color = LibraryDefaults.libraryColors().contentColor
+    color: Color = LibraryDefaults.libraryColors().contentColor,
 ) {
     AndroidView(modifier = modifier, factory = { context ->
         TextView(context).apply {

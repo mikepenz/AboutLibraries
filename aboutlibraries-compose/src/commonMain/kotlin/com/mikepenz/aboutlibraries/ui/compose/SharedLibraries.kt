@@ -5,10 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Badge
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.contentColorFor
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
@@ -46,6 +43,7 @@ internal inline fun LazyListScope.libraryItems(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun Library(
     library: Library,
@@ -74,7 +72,7 @@ internal fun Library(
                 modifier = Modifier
                     .padding(padding.namePadding)
                     .weight(1f),
-                style = typography.h6,
+                style = typography.titleMedium,
                 color = colors.contentColor,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
@@ -84,7 +82,7 @@ internal fun Library(
                 Text(
                     version,
                     modifier = Modifier.padding(padding.versionPadding),
-                    style = typography.body2,
+                    style = typography.bodyMedium,
                     color = colors.contentColor,
                     textAlign = TextAlign.Center
                 )
@@ -94,7 +92,7 @@ internal fun Library(
         if (showAuthor && author.isNotBlank()) {
             Text(
                 text = author,
-                style = typography.body2,
+                style = typography.bodyMedium,
                 color = colors.contentColor
             )
         }
@@ -104,7 +102,7 @@ internal fun Library(
                     Badge(
                         modifier = Modifier.padding(padding.badgePadding),
                         contentColor = colors.badgeContentColor,
-                        backgroundColor = colors.badgeBackgroundColor
+                        containerColor = colors.badgeBackgroundColor
                     ) {
                         Text(modifier = Modifier.padding(padding.badgeContentPadding),
                             text = it.name)
@@ -142,9 +140,9 @@ object LibraryDefaults {
      */
     @Composable
     fun libraryColors(
-        backgroundColor: Color = MaterialTheme.colors.background,
+        backgroundColor: Color = MaterialTheme.colorScheme.background,
         contentColor: Color = contentColorFor(backgroundColor),
-        badgeBackgroundColor: Color = MaterialTheme.colors.primary,
+        badgeBackgroundColor: Color = MaterialTheme.colorScheme.primary,
         badgeContentColor: Color = contentColorFor(badgeBackgroundColor),
     ): LibraryColors = DefaultLibraryColors(
         backgroundColor = backgroundColor,

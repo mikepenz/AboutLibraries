@@ -1,3 +1,4 @@
+import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -15,7 +16,8 @@ repositories {
 dependencies {
     implementation(compose.desktop.currentOs)
     implementation(compose.foundation)
-    implementation(compose.material)
+    @OptIn(ExperimentalComposeLibrary::class)
+    implementation(compose.material3)
     implementation(project(":aboutlibraries-core"))
     implementation(project(":aboutlibraries-compose"))
 

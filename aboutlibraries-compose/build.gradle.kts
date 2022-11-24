@@ -1,3 +1,5 @@
+import org.jetbrains.compose.ExperimentalComposeLibrary
+
 plugins {
     kotlin("multiplatform")
     id("com.android.library")
@@ -58,6 +60,8 @@ dependencies {
     commonMainCompileOnly(compose.runtime)
     commonMainCompileOnly(compose.ui)
     commonMainCompileOnly(compose.foundation)
+    @OptIn(ExperimentalComposeLibrary::class)
+    commonMainCompileOnly(compose.material3)
     commonMainCompileOnly(compose.material)
     commonMainCompileOnly(compose.preview)
     debugCompileOnly(compose.uiTooling)

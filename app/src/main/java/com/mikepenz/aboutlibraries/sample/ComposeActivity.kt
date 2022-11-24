@@ -10,7 +10,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Build
 import androidx.compose.material.icons.filled.Info
@@ -53,7 +53,7 @@ class ComposeActivity : ComponentActivity() {
 @Composable
 fun MainLayout() {
     MaterialTheme(
-        colors = if (isSystemInDarkTheme()) darkColors() else lightColors()
+        colorScheme = if (isSystemInDarkTheme()) darkColorScheme() else lightColorScheme()
     ) {
         ProvideWindowInsets {
             var showAuthor by remember { mutableStateOf(true) }
@@ -67,7 +67,7 @@ fun MainLayout() {
                     // content padding matching the system bars insets.
                     TopAppBar(
                         title = { Text("Compose Sample") },
-                        backgroundColor = MaterialTheme.colors.surface.copy(alpha = 0.9f),
+                        backgroundColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.9f),
                         contentPadding = rememberInsetsPaddingValues(
                             LocalWindowInsets.current.statusBars,
                             applyBottom = false,
@@ -107,7 +107,7 @@ fun MainLayout() {
                                 Column(
                                     modifier = Modifier
                                         .fillMaxWidth()
-                                        .background(MaterialTheme.colors.surface)
+                                        .background(MaterialTheme.colorScheme.surface)
                                         .padding(vertical = 25.dp),
                                     horizontalAlignment = Alignment.CenterHorizontally,
                                 ) {
