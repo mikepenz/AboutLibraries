@@ -122,8 +122,8 @@ class DependencyCollector(
      */
     private val testCompile = setOf("testCompile", "androidTestCompile")
     private val Configuration.isTest
-        get() = name.contains("test", ignoreCase = true) ||
-                name.contains("androidTest", ignoreCase = true) ||
+        get() = name.startsWith("test", ignoreCase = true) ||
+                name.startsWith("androidTest", ignoreCase = true) ||
                 hierarchy.any { configurationHierarchy ->
                     testCompile.any { configurationHierarchy.name.contains(it, ignoreCase = true) }
                 }
