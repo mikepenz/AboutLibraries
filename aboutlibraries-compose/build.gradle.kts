@@ -50,17 +50,46 @@ kotlin {
     android {
         publishLibraryVariants("release")
     }
+
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
+    macosX64()
+    macosArm64()
+
+    sourceSets {
+        val commonMain by getting
+        val commonTest by getting
+        val nonAndroidMain by creating {
+            dependsOn(commonMain)
+        }
+        val nonAndroidTest by creating {
+            dependsOn(commonTest)
+        }
+
+        listOf(
+            "jvm",
+            "iosX64",
+            "iosArm64",
+            "iosSimulatorArm64",
+            "macosX64",
+            "macosArm64"
+        ).forEach {
+            getByName(it + "Main").dependsOn(nonAndroidMain)
+            getByName(it + "Test").dependsOn(nonAndroidTest)
+        }
+    }
 }
 
 dependencies {
     commonMainImplementation(project(":aboutlibraries-core"))
 
-    commonMainCompileOnly(compose.runtime)
-    commonMainCompileOnly(compose.ui)
-    commonMainCompileOnly(compose.foundation)
-    commonMainCompileOnly(compose.material)
-    commonMainCompileOnly(compose.preview)
-    debugCompileOnly(compose.uiTooling)
+    commonMainApi(compose.runtime)
+    commonMainApi(compose.ui)
+    commonMainApi(compose.foundation)
+    commonMainApi(compose.material)
+    //commonMainApi(compose.preview)
+    debugApi(compose.uiTooling)
 
     "androidMainImplementation"(libs.androidx.core.ktx)
 }
