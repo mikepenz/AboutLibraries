@@ -131,6 +131,8 @@ aboutLibraries {
     duplicationMode = com.mikepenz.aboutlibraries.plugin.DuplicateMode.LINK
     // Configure the duplication rule, to match "duplicates" with
     duplicationRule = com.mikepenz.aboutlibraries.plugin.DuplicateRule.SIMPLE
+    // Enable pretty printing for the generated JSON file
+    prettyPrint = false
 }
 ```
 
