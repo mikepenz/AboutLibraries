@@ -39,7 +39,7 @@
 
 ## Latest releases 🛠
 
-- (Next Gen) Kotlin && Multiplatform && Plugin | [v10.5.2](https://github.com/mikepenz/AboutLibraries/tree/v10.5.2)
+- (Next Gen) Kotlin && Multiplatform && Plugin | [v10.5.2](https://github.com/mikepenz/AboutLibraries/tree/v10.5.2) | [v10.6.0-b01](https://github.com/mikepenz/AboutLibraries/tree/v10.6.0-b01)
 - Kotlin && Gradle Plugin | [v8.9.4](https://github.com/mikepenz/AboutLibraries/tree/v8.9.4)
 
 ## Gradle Plugin
