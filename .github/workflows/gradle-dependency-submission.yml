@@ -33,7 +33,7 @@ jobs:
             gradle-${{ runner.os }}-
 
       - name: Submit Dependency Graph
-        uses: mikepenz/gradle-dependency-submission@v0.7.0
+        uses: mikepenz/gradle-dependency-submission@v0.8.3
         with:
           gradle-build-module: |-
             :app
