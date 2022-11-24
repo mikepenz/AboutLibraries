@@ -216,6 +216,17 @@ abstract class AboutLibrariesExtension {
      * ```
      */
     var excludeFields: Array<String> = emptyArray()
+
+    /**
+     * Enable pretty printing for the generated JSON metadata.
+     *
+     * ```
+     * aboutLibraries {
+     *   prettyPrint = true
+     * }
+     * ```
+     */
+    var prettyPrint: Boolean = false
 }
 
 enum class StrictMode {
