@@ -60,6 +60,7 @@ kotlin {
     sourceSets {
         val commonMain by getting
         val commonTest by getting
+
         val nonAndroidMain by creating {
             dependsOn(commonMain)
         }
@@ -84,12 +85,13 @@ kotlin {
 dependencies {
     commonMainImplementation(project(":aboutlibraries-core"))
 
-    commonMainApi(compose.runtime)
-    commonMainApi(compose.ui)
-    commonMainApi(compose.foundation)
-    commonMainApi(compose.material)
-    //commonMainApi(compose.preview)
-    debugApi(compose.uiTooling)
+    commonMainImplementation(compose.runtime)
+    commonMainImplementation(compose.ui)
+    commonMainImplementation(compose.foundation)
+    commonMainImplementation(compose.material)
+
+    debugImplementation(compose.uiTooling)
+    "androidMainImplementation"(compose.preview)
 
     "androidMainImplementation"(libs.androidx.core.ktx)
 }
