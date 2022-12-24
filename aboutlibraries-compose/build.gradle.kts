@@ -83,7 +83,7 @@ kotlin {
 }
 
 dependencies {
-    commonMainImplementation(project(":aboutlibraries-core"))
+    commonMainApi(project(":aboutlibraries-core"))
 
     commonMainImplementation(compose.runtime)
     commonMainImplementation(compose.ui)
