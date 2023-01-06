@@ -2,6 +2,7 @@ package com.mikepenz.aboutlibraries.plugin.util
 
 import com.mikepenz.aboutlibraries.plugin.mapping.Library
 import com.mikepenz.aboutlibraries.plugin.mapping.License
+import com.mikepenz.aboutlibraries.plugin.util.parser.PomReader
 import org.gradle.api.Project
 import org.gradle.api.artifacts.ModuleIdentifier
 import org.gradle.api.artifacts.ResolvedArtifact
@@ -11,6 +12,17 @@ import org.gradle.api.artifacts.component.ComponentArtifactIdentifier
 import org.gradle.api.artifacts.component.ModuleComponentIdentifier
 import java.io.File
 import java.security.MessageDigest
+
+internal infix fun <T> List<PomReader>?.first(read: PomReader.() -> T?): T? {
+    this ?: return null
+    for (reader in this) {
+        val value = read(reader)
+        if (value != null) {
+            return value
+        }
+    }
+    return null
+}
 
 internal fun Project.safeProp(key: String): String? = if (hasProperty(key)) {
     property(key).toString()

@@ -68,11 +68,11 @@ class PomReader(inputStream: InputStream) {
     val homePage: String?
         get() = getFirstChildText(projectElement, HOMEPAGE)
 
-    val name: String
-        get() = getFirstChildText(projectElement, NAME).replaceProps()?.trim() ?: ""
+    val name: String?
+        get() = getFirstChildText(projectElement, NAME).replaceProps()?.trim()
 
-    val description: String
-        get() = getFirstChildText(projectElement, DESCRIPTION).replaceProps()?.trim() ?: ""
+    val description: String?
+        get() = getFirstChildText(projectElement, DESCRIPTION).replaceProps()?.trim()
 
     val licenses: Array<License>
         get() {
