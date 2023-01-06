@@ -21,6 +21,9 @@ dependencies {
 
     // Coroutines
     implementation(libs.kotlin.coroutines.core)
+
+    // example for parent via a prent
+    // implementation("org.apache.commons:commons-csv:1.9.0")
 }
 
 compose {
