@@ -62,7 +62,7 @@ internal fun <T> chooseValue(uniqueId: String, key: String, value: Array<T>?, bl
  * Required to handle `platform` dependencies.
  */
 internal fun ResolvedDependency.toResolvedBomArtifact() = object : ResolvedArtifact {
-    override fun getFile(): File? = null
+    override fun getFile(): File = File("")
     override fun getModuleVersion(): ResolvedModuleVersion = module
     override fun getName(): String = this@toResolvedBomArtifact.moduleName
     override fun getType(): String = "platform"
