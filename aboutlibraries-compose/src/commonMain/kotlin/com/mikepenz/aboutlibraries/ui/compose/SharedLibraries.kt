@@ -92,9 +92,9 @@ internal fun Library(
     colors: LibraryColors = LibraryDefaults.libraryColors(),
     padding: LibraryPadding = LibraryDefaults.libraryPadding(),
     contentPadding: PaddingValues = LibraryDefaults.ContentPadding,
+    typography: Typography = MaterialTheme.typography,
     onClick: () -> Unit,
 ) {
-    val typography = MaterialTheme.typography
     Column(
         modifier = Modifier
             .fillMaxWidth()
