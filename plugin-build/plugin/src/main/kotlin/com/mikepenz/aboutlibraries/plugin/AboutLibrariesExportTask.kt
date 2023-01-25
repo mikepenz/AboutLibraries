@@ -33,7 +33,7 @@ abstract class AboutLibrariesExportTask : BaseAboutLibrariesTask() {
             val fullLicenses = library.licenses.mapNotNull { result.licenses[it] }
             fullLicenses.map { it.spdxId ?: it.name }.forEach { licenseId ->
                 try {
-                    neededLicenses.add(SpdxLicense.valueOf(licenseId))
+                    neededLicenses.add(SpdxLicense.getById(licenseId))
                 } catch (ex: Throwable) {
                     if (licenseId != "") {
                         val libsWithMissing = unknownLicenses.getOrDefault(licenseId, HashSet())
