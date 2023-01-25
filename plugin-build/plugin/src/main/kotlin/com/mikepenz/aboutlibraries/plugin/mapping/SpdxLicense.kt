@@ -422,5 +422,9 @@ enum class SpdxLicense(
             }
             return null
         }
+
+        internal fun getById(id: String): SpdxLicense {
+            return SpdxLicense.values().first { it.id.equals(id, true) }
+        }
     }
 }
