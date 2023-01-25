@@ -27,7 +27,7 @@ dependencies {
 }
 
 compose {
-    kotlinCompilerPlugin.set(libs.versions.composeCompiler.get())
+    kotlinCompilerPlugin.set(libs.versions.composeCompilerJb.get())
 }
 
 tasks.withType<KotlinCompile> {
