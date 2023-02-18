@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.ui.compose.util.author
@@ -32,10 +33,16 @@ fun Libraries(
     colors: LibraryColors = LibraryDefaults.libraryColors(),
     padding: LibraryPadding = LibraryDefaults.libraryPadding(),
     itemContentPadding: PaddingValues = LibraryDefaults.ContentPadding,
+    itemSpacing: Dp = LibraryDefaults.LibraryItemSpacing,
     header: (LazyListScope.() -> Unit)? = null,
     onLibraryClick: ((Library) -> Unit)? = null,
 ) {
-    LazyColumn(modifier, state = lazyListState, contentPadding = contentPadding) {
+    LazyColumn(
+        modifier,
+        verticalArrangement = Arrangement.spacedBy(itemSpacing),
+        state = lazyListState,
+        contentPadding = contentPadding
+    ) {
         header?.invoke(this)
         libraryItems(
             libraries,
@@ -157,6 +164,7 @@ object LibraryDefaults {
     private val LibraryVersionPaddingStart = 8.dp
     private val LibraryBadgePaddingTop = 8.dp
     private val LibraryBadgePaddingEnd = 4.dp
+    internal val LibraryItemSpacing = 0.dp
 
     /**
      * The default content padding used by [Library]
@@ -206,7 +214,7 @@ object LibraryDefaults {
         namePadding = namePadding,
         versionPadding = versionPadding,
         badgePadding = badgePadding,
-        badgeContentPadding = badgeContentPadding
+        badgeContentPadding = badgeContentPadding,
     )
 }
 

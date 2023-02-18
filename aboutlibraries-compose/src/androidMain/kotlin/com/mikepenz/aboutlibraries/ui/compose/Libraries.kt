@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.text.HtmlCompat
@@ -48,6 +49,7 @@ fun LibrariesContainer(
     colors: LibraryColors = LibraryDefaults.libraryColors(),
     padding: LibraryPadding = LibraryDefaults.libraryPadding(),
     itemContentPadding: PaddingValues = LibraryDefaults.ContentPadding,
+    itemSpacing: Dp = LibraryDefaults.LibraryItemSpacing,
     header: (LazyListScope.() -> Unit)? = null,
     onLibraryClick: ((Library) -> Unit)? = null,
 ) {
@@ -73,6 +75,7 @@ fun LibrariesContainer(
             colors = colors,
             padding = padding,
             itemContentPadding = itemContentPadding,
+            itemSpacing = itemSpacing,
             header = header,
             onLibraryClick = { library ->
                 if (onLibraryClick != null) {
