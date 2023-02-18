@@ -1,3 +1,5 @@
+import com.vanniktech.maven.publish.SonatypeHost
+
 plugins {
     kotlin("multiplatform")
     id("com.android.library")
@@ -111,6 +113,11 @@ tasks.dokkaHtml.configure {
     }
 }
 
+
+
 if (project.hasProperty("pushall") || project.hasProperty("library_compose_only")) {
-    apply(from = "$rootDir/gradle/gradle-mvn-push.gradle")
+    mavenPublishing {
+        publishToMavenCentral(SonatypeHost.S01)
+        signAllPublications()
+    }
 }

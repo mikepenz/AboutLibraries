@@ -24,14 +24,14 @@ cardview = "1.0.0"
 constraintLayout = "2.1.4"
 core = "1.9.0"
 lifecycle = { require = "2.5.1" }
-navigation = "2.5.2"
+navigation = "2.5.3"
 recyclerView = "1.2.1"
 # google
 material = "1.8.0"
 # other
 accompanist = "0.28.0"
 fastAdapter = "5.7.0"
-gradleMvnPublish = "0.18.0"
+gradleMvnPublish = "0.24.0"
 iconics = "5.3.3"
 itemAnimators = "1.1.0"
 ivy = "2.5.1"
