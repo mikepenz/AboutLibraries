@@ -5,17 +5,19 @@ coreMinSdk = "19"
 minSdk = "21"
 targetSdk = "33"
 # build
-gradleBuild = "7.3.1"
-buildTools = "33.0.0"
+gradleBuild = "7.4.1"
+buildTools = "33.0.2"
 # kotlin
 dokka = "1.7.20"
-kotlinCore = { require = "1.7.20" }
+kotlinCore = { require = "1.8.0" }
 kotlinCoroutines = { require = "1.6.4" }
-kotlinxSerialization = "1.4.0"
+kotlinxSerialization = "1.4.1"
 # compose
-compose = "1.3.1"
-composeCompiler = "1.3.2"
-composejb = "1.3.0-beta03"
+compose = "1.3.3"
+composeUi = "1.3.1" # foundation / materila
+composeCompiler = "1.4.1"
+composejb = "1.3.0"
+composeCompilerJb = "1.4.0"
 # androidx
 activity = "1.6.1"
 cardview = "1.0.0"
@@ -25,14 +27,14 @@ lifecycle = { require = "2.5.1" }
 navigation = "2.5.2"
 recyclerView = "1.2.1"
 # google
-material = "1.7.0"
+material = "1.8.0"
 # other
-accompanist = "0.27.1"
+accompanist = "0.28.0"
 fastAdapter = "5.7.0"
 gradleMvnPublish = "0.18.0"
 iconics = "5.3.3"
 itemAnimators = "1.1.0"
-ivy = "2.5.0"
+ivy = "2.5.1"
 materialDrawer = "9.0.1"
 okhttp = "4.10.0"
 
@@ -51,9 +53,9 @@ compose-androidx-runtime-core = { module = "androidx.compose.runtime:runtime", v
 compose-androidx-runtime-livedata = { module = "androidx.compose.runtime:runtime-livedata", version.ref = "compose" }
 compose-androidx-ui-core = { module = "androidx.compose.ui:ui", version.ref = "compose" }
 compose-androidx-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
-compose-androidx-foundation-core = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
-compose-androidx-foundation-layout = { module = "androidx.compose.foundation:foundation-layout", version.ref = "compose" }
-compose-androidx-material = { module = "androidx.compose.material:material", version.ref = "compose" }
+compose-androidx-foundation-core = { module = "androidx.compose.foundation:foundation", version.ref = "composeUi" }
+compose-androidx-foundation-layout = { module = "androidx.compose.foundation:foundation-layout", version.ref = "composeUi" }
+compose-androidx-material = { module = "androidx.compose.material:material", version.ref = "composeUi" }
 compose-jb-plug = { module = "org.jetbrains.compose:compose-gradle-plugin", version.ref = "composejb" }
 # androidx
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity" }
@@ -68,7 +70,6 @@ androidx-recyclerView = { module = "androidx.recyclerview:recyclerview", version
 # google
 google-material = { module = "com.google.android.material:material", version.ref = "material" }
 # other
-accompanist-insets-ui = { module = "com.google.accompanist:accompanist-insets-ui", version.ref = "accompanist" }
 accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }
 fastAdapter-core = { module = "com.mikepenz:fastadapter", version.ref = "fastAdapter" }
 gradleMvnPublish-plug = { module = "com.vanniktech:gradle-maven-publish-plugin", version.ref = "gradleMvnPublish" }
@@ -79,6 +80,6 @@ materialDrawer-core = { module = "com.mikepenz:materialdrawer", version.ref = "m
 okhttp-core = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
 
 [bundles]
-accompanist = ["accompanist-insets-ui", "accompanist-systemuicontroller"]
+accompanist = ["accompanist-systemuicontroller"]
 androidx-lifecycle = ["androidx-lifecycle-livedata-ktx", "androidx-lifecycle-viewmodel-ktx"]
 compose-androidx = ["compose-androidx-runtime-core", "compose-androidx-runtime-livedata", "compose-androidx-ui-core", "compose-androidx-ui-tooling", "compose-androidx-foundation-core", "compose-androidx-foundation-layout", "compose-androidx-material"]

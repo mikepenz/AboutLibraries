@@ -165,56 +165,48 @@ class LibrariesProcessor(
         // remember that we handled the library
         handledLibraries.add(uniqueId)
 
-        // we also want to check if there are parent POMs with additional information
-        var parentPomReader: PomReader? = null
-        if (pomReader.hasParent()) {
-            val parentGroupId = pomReader.parentGroupId
-            val parentArtifactId = pomReader.parentArtifactId
-            val parentVersion = pomReader.parentVersion
-
-            if (parentGroupId != null && parentArtifactId != null && parentVersion != null) {
-                val parentPomFile = dependencyHandler.resolvePomFile(
-                    uniqueId,
-                    DefaultModuleVersionIdentifier.newId(parentGroupId, parentArtifactId, parentVersion),
-                    true
-                )
-                if (parentPomFile != null) {
-                    val parentPomText = parentPomFile.readText()
-                    LOGGER.debug("--> ArtifactPom ParentPom for [{}:{}]:\n{}\n\n", pomReader.groupId, pomReader.artifactId, parentPomText)
-                    parentPomReader = PomReader(parentPomFile.inputStream())
-                } else {
-                    LOGGER.warn(
-                        "--> ArtifactPom reports ParentPom for [{}:{}] but couldn't resolve it",
-                        pomReader.groupId,
-                        pomReader.artifactId
-                    )
-                }
-            } else {
-                LOGGER.info("--> Has parent pom, but misses info [{}:{}:{}]", parentGroupId, parentArtifactId, parentVersion)
-            }
-        } else {
-            LOGGER.debug("--> No Artifact Parent Pom found for [{}:{}]", pomReader.groupId, pomReader.artifactId)
-        }
+        // retrieve all parents for the current pom
+        val parentPomReaders = pomReader.retrieveParents(uniqueId)
 
         // get the url for the author
-        var libraryName = fixLibraryName(uniqueId, chooseValue(uniqueId, "name", pomReader.name) { parentPomReader?.name } ?: "") // get name of the library
+        var libraryName = fixLibraryName(
+            uniqueId,
+            chooseValue(uniqueId, "name", pomReader.name) { parentPomReaders first { name } }
+                ?: "") // get name of the library
         val libraryDescription =
-            fixLibraryDescription(chooseValue(uniqueId, "description", pomReader.description) { parentPomReader?.description } ?: "")
+            fixLibraryDescription(
+                chooseValue(
+                    uniqueId,
+                    "description",
+                    pomReader.description
+                ) { parentPomReaders first { description } } ?: "")
 
-        val artifactVersion = chooseValue(uniqueId, "version", pomReader.version) { parentPomReader?.version } // get the version of the library
+        val artifactVersion = chooseValue(
+            uniqueId,
+            "version",
+            pomReader.version
+        ) { parentPomReaders first { version } } // get the version of the library
         if (artifactVersion.isNullOrBlank()) {
             LOGGER.info("----> Failed to identify version for: $uniqueId")
         }
-        val libraryWebsite = chooseValue(uniqueId, "homePage", pomReader.homePage) { parentPomReader?.homePage } // get the url to the library
+        val libraryWebsite = chooseValue(
+            uniqueId,
+            "homePage",
+            pomReader.homePage
+        ) { parentPomReaders first { homePage } } // get the url to the library
 
         // the list of licenses a lib may have
-        val licenses = (chooseValue(uniqueId, "licenses", pomReader.licenses) { parentPomReader?.licenses })?.map {
+        val licenses = (chooseValue(
+            uniqueId,
+            "licenses",
+            pomReader.licenses
+        ) { parentPomReaders first { licenses.takeIf { it.isNotEmpty() } } })?.map {
             License(it.name, it.url).also { lic ->
                 lic.internalHash = lic.spdxId // in case this can be tracked back to a spdx id use according hash
             }
         }?.toHashSet() ?: hashSetOf()
 
-        val scm = chooseValue(uniqueId, "scm", pomReader.scm) { parentPomReader?.scm }
+        val scm = chooseValue(uniqueId, "scm", pomReader.scm) { parentPomReaders first { scm } }
         if (fetchRemoteLicense) {
             api.fetchRemoteLicense(uniqueId, scm, licenses)
         }
@@ -229,8 +221,14 @@ class LibrariesProcessor(
             libraryName = uniqueId
         }
 
-        val developers = chooseValue(uniqueId, "developers", pomReader.developers) { parentPomReader?.developers } ?: emptyList()
-        val organization = chooseValue(uniqueId, "organization", pomReader.organization) { parentPomReader?.organization }
+        val developers =
+            chooseValue(
+                uniqueId,
+                "developers",
+                pomReader.developers
+            ) { parentPomReaders first { developers.takeIf { it.isNotEmpty() } } } ?: emptyList()
+        val organization =
+            chooseValue(uniqueId, "organization", pomReader.organization) { parentPomReaders first { organization } }
 
         val library = Library(
             uniqueId,
@@ -249,6 +247,62 @@ class LibrariesProcessor(
 
         LOGGER.debug("Adding library: {}", library)
         return library to licenses
+    }
+
+    /**
+     * Retrieves parent [PomReader]s for a given [PomReader]. With the last reader in the list being the topmost parent.
+     */
+    private fun PomReader.retrieveParents(
+        uniqueId: String,
+        parents: MutableList<PomReader>? = null,
+    ): MutableList<PomReader>? {
+        val prefix = "--".repeat(parents?.size ?: 0)
+        val pomReader = this
+        // we also want to check if there are parent POMs with additional information
+        if (pomReader.hasParent()) {
+            val parentGroupId = pomReader.parentGroupId
+            val parentArtifactId = pomReader.parentArtifactId
+            val parentVersion = pomReader.parentVersion
+
+            if (parentGroupId != null && parentArtifactId != null && parentVersion != null) {
+                val parentPomFile = dependencyHandler.resolvePomFile(
+                    uniqueId,
+                    DefaultModuleVersionIdentifier.newId(parentGroupId, parentArtifactId, parentVersion),
+                    true,
+                    prefix
+                )
+                if (parentPomFile != null) {
+                    val parentPomText = parentPomFile.readText()
+                    LOGGER.debug(
+                        "${prefix}--> ArtifactPom ParentPom for [{}:{}]:\n{}\n\n",
+                        pomReader.groupId,
+                        pomReader.artifactId,
+                        parentPomText
+                    )
+
+                    val parentPomReader = PomReader(parentPomFile.inputStream())
+                    val innerParents = (parents?.also { it.add(parentPomReader) } ?: mutableListOf(parentPomReader))
+                    parentPomReader.retrieveParents(uniqueId, innerParents)
+                    return innerParents
+                } else {
+                    LOGGER.warn(
+                        "${prefix}--> ArtifactPom reports ParentPom for [{}:{}] but couldn't resolve it",
+                        pomReader.groupId,
+                        pomReader.artifactId
+                    )
+                }
+            } else {
+                LOGGER.info(
+                    "${prefix}--> Has parent pom, but misses info [{}:{}:{}]",
+                    parentGroupId,
+                    parentArtifactId,
+                    parentVersion
+                )
+            }
+        } else if (LOGGER.isDebugEnabled) {
+            LOGGER.debug("--> No Artifact Parent Pom found for [{}:{}]", pomReader.groupId, pomReader.artifactId)
+        }
+        return null
     }
 
     /**

@@ -3,12 +3,8 @@ package com.mikepenz.aboutlibraries.ui.compose
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Badge
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.contentColorFor
+import androidx.compose.foundation.lazy.*
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
@@ -17,9 +13,50 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.ui.compose.util.author
+
+/**
+ * Displays all provided libraries in a simple list.
+ */
+@Composable
+fun Libraries(
+    libraries: List<Library>,
+    modifier: Modifier = Modifier,
+    lazyListState: LazyListState = rememberLazyListState(),
+    contentPadding: PaddingValues = PaddingValues(0.dp),
+    showAuthor: Boolean = true,
+    showVersion: Boolean = true,
+    showLicenseBadges: Boolean = true,
+    colors: LibraryColors = LibraryDefaults.libraryColors(),
+    padding: LibraryPadding = LibraryDefaults.libraryPadding(),
+    itemContentPadding: PaddingValues = LibraryDefaults.ContentPadding,
+    itemSpacing: Dp = LibraryDefaults.LibraryItemSpacing,
+    header: (LazyListScope.() -> Unit)? = null,
+    onLibraryClick: ((Library) -> Unit)? = null,
+) {
+    LazyColumn(
+        modifier,
+        verticalArrangement = Arrangement.spacedBy(itemSpacing),
+        state = lazyListState,
+        contentPadding = contentPadding
+    ) {
+        header?.invoke(this)
+        libraryItems(
+            libraries,
+            showAuthor,
+            showVersion,
+            showLicenseBadges,
+            colors,
+            padding,
+            itemContentPadding
+        ) {
+            onLibraryClick?.invoke(it)
+        }
+    }
+}
 
 internal inline fun LazyListScope.libraryItems(
     libraries: List<Library>,
@@ -55,9 +92,9 @@ internal fun Library(
     colors: LibraryColors = LibraryDefaults.libraryColors(),
     padding: LibraryPadding = LibraryDefaults.libraryPadding(),
     contentPadding: PaddingValues = LibraryDefaults.ContentPadding,
+    typography: Typography = MaterialTheme.typography,
     onClick: () -> Unit,
 ) {
-    val typography = MaterialTheme.typography
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -106,8 +143,10 @@ internal fun Library(
                         contentColor = colors.badgeContentColor,
                         backgroundColor = colors.badgeBackgroundColor
                     ) {
-                        Text(modifier = Modifier.padding(padding.badgeContentPadding),
-                            text = it.name)
+                        Text(
+                            modifier = Modifier.padding(padding.badgeContentPadding),
+                            text = it.name
+                        )
                     }
                 }
             }
@@ -125,6 +164,7 @@ object LibraryDefaults {
     private val LibraryVersionPaddingStart = 8.dp
     private val LibraryBadgePaddingTop = 8.dp
     private val LibraryBadgePaddingEnd = 4.dp
+    internal val LibraryItemSpacing = 0.dp
 
     /**
      * The default content padding used by [Library]
@@ -165,14 +205,16 @@ object LibraryDefaults {
     fun libraryPadding(
         namePadding: PaddingValues = PaddingValues(top = LibraryNamePaddingTop),
         versionPadding: PaddingValues = PaddingValues(start = LibraryVersionPaddingStart),
-        badgePadding: PaddingValues = PaddingValues(top = LibraryBadgePaddingTop,
-            end = LibraryBadgePaddingEnd),
+        badgePadding: PaddingValues = PaddingValues(
+            top = LibraryBadgePaddingTop,
+            end = LibraryBadgePaddingEnd
+        ),
         badgeContentPadding: PaddingValues = PaddingValues(0.dp),
     ): LibraryPadding = DefaultLibraryPadding(
         namePadding = namePadding,
         versionPadding = versionPadding,
         badgePadding = badgePadding,
-        badgeContentPadding = badgeContentPadding
+        badgeContentPadding = badgeContentPadding,
     )
 }
 

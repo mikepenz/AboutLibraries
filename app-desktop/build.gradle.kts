@@ -21,10 +21,13 @@ dependencies {
 
     // Coroutines
     implementation(libs.kotlin.coroutines.core)
+
+    // example for parent via a prent
+    // implementation("org.apache.commons:commons-csv:1.9.0")
 }
 
 compose {
-    kotlinCompilerPlugin.set(libs.versions.composeCompiler.get())
+    kotlinCompilerPlugin.set(libs.versions.composeCompilerJb.get())
 }
 
 tasks.withType<KotlinCompile> {
