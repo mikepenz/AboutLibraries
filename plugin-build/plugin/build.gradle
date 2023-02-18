@@ -60,12 +60,12 @@ task packageFiles(type: Zip, dependsOn: 'uploadArchives') {
 }
 
 task sourcesJar(type: Jar) {
-    classifier = 'sources'
+    archiveClassifier = 'sources'
     from sourceSets.main.allSource
 }
 
 task javadocJar(type: Jar, dependsOn: dokkaHtml) {
-    classifier = 'javadoc'
+    archiveClassifier = 'javadoc'
     from "$buildDir/javadoc"
 }
 
