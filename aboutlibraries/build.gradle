@@ -2,6 +2,7 @@ apply plugin: "com.android.library"
 apply plugin: "kotlin-android"
 apply plugin: "androidx.navigation.safeargs.kotlin"
 apply plugin: "org.jetbrains.dokka"
+apply plugin: "com.vanniktech.maven.publish"
 
 version VERSION_NAME
 
@@ -70,6 +71,10 @@ dependencies {
     implementation(libs.androidx.navigation)
 }
 
+import com.vanniktech.maven.publish.SonatypeHost
 if (project.hasProperty('pushall') || project.hasProperty('library_only')) {
-    apply from: "$rootDir/gradle/gradle-mvn-push.gradle"
+    mavenPublishing {
+        publishToMavenCentral(SonatypeHost.S01)
+        signAllPublications()
+    }
 }
