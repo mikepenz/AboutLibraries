@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.produceState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.entity.Library
@@ -28,22 +29,24 @@ fun LibrariesContainer(
     colors: LibraryColors = LibraryDefaults.libraryColors(),
     padding: LibraryPadding = LibraryDefaults.libraryPadding(),
     itemContentPadding: PaddingValues = LibraryDefaults.ContentPadding,
+    itemSpacing: Dp = LibraryDefaults.LibraryItemSpacing,
     header: (LazyListScope.() -> Unit)? = null,
     onLibraryClick: ((Library) -> Unit)? = null,
 ) {
     LibrariesContainer(
         { Libs.Builder().withJson(aboutLibsJson).build() },
-        modifier,
-        lazyListState,
-        contentPadding,
-        showAuthor,
-        showVersion,
-        showLicenseBadges,
-        colors,
-        padding,
-        itemContentPadding,
-        header,
-        onLibraryClick
+        modifier = modifier,
+        lazyListState = lazyListState,
+        contentPadding = contentPadding,
+        showAuthor = showAuthor,
+        showVersion = showVersion,
+        showLicenseBadges = showLicenseBadges,
+        colors = colors,
+        padding = padding,
+        itemContentPadding = itemContentPadding,
+        itemSpacing = itemSpacing,
+        header = header,
+        onLibraryClick = onLibraryClick
     )
 }
 
@@ -62,6 +65,7 @@ fun LibrariesContainer(
     colors: LibraryColors = LibraryDefaults.libraryColors(),
     padding: LibraryPadding = LibraryDefaults.libraryPadding(),
     itemContentPadding: PaddingValues = LibraryDefaults.ContentPadding,
+    itemSpacing: Dp = LibraryDefaults.LibraryItemSpacing,
     header: (LazyListScope.() -> Unit)? = null,
     onLibraryClick: ((Library) -> Unit)? = null,
 ) {
@@ -75,17 +79,18 @@ fun LibrariesContainer(
     if (libs != null) {
         Libraries(
             libraries = libs,
-            modifier,
-            lazyListState,
-            contentPadding,
-            showAuthor,
-            showVersion,
-            showLicenseBadges,
-            colors,
-            padding,
-            itemContentPadding,
-            header,
-            onLibraryClick
+            modifier = modifier,
+            lazyListState = lazyListState,
+            contentPadding = contentPadding,
+            showAuthor = showAuthor,
+            showVersion = showVersion,
+            showLicenseBadges = showLicenseBadges,
+            colors = colors,
+            padding = padding,
+            itemContentPadding = itemContentPadding,
+            itemSpacing = itemSpacing,
+            header = header,
+            onLibraryClick = onLibraryClick
         )
     }
 }
