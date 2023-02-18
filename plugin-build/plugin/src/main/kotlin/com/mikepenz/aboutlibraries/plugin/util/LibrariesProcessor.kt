@@ -281,9 +281,9 @@ class LibrariesProcessor(
                     )
 
                     val parentPomReader = PomReader(parentPomFile.inputStream())
-                    val parents = (parents?.also { it.add(parentPomReader) } ?: mutableListOf(parentPomReader))
-                    parentPomReader.retrieveParents(uniqueId, parents)
-                    return parents
+                    val innerParents = (parents?.also { it.add(parentPomReader) } ?: mutableListOf(parentPomReader))
+                    parentPomReader.retrieveParents(uniqueId, innerParents)
+                    return innerParents
                 } else {
                     LOGGER.warn(
                         "${prefix}--> ArtifactPom reports ParentPom for [{}:{}] but couldn't resolve it",

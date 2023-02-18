@@ -41,7 +41,7 @@ android {
 kotlin {
     jvm()
 
-    js {
+    js(IR) {
         nodejs {}
         browser {}
         compilations.all {
