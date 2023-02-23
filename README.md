@@ -371,7 +371,7 @@ For other environments or for more advanced usages the plugin offers additional 
 # Export only for a specific variant: `release`
 ./gradlew app-desktop:exportLibraryDefinitions -PaboutLibraries.exportPath=src/main/resources/ -PaboutLibraries.exportVariant=release
 
-# Export dependencies as CSV
+# Export dependencies to CLI in CSV format
 ./gradlew exportLibraries
 ./gradlew exportLibraries${Variant}
 
