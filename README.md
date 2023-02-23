@@ -378,7 +378,8 @@ For other environments or for more advanced usages the plugin offers additional 
 # Outputs all dependencies with name, version and their identifier
 ./gradlew findLibraries
 
-# Export all dependencies in a format helpful for compliance reports
+# Exports all dependencies in a format helpful for compliance reports.
+# By default writes `export.csv` and `export.txt` and `dependencies` folder in the root of the project.
 ./gradlew exportComplianceLibraries${Variant}
 
 # List all funding options for included projects (as identified via the e.g.: GitHub API)
