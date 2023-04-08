@@ -44,7 +44,7 @@ class LibrariesProcessor(
         LOGGER.info("All dependencies.size = ${collectedDependencies.size}")
 
         val librariesList = ArrayList<Library>()
-        val licensesMap = HashMap<String, License>()
+        val licensesMap = sortedMapOf<String, License>(compareBy { it })
         for (dependency in collectedDependencies) {
             val groupArtifact = dependency.key.split(":")
             val version = dependency.value.first()
@@ -135,7 +135,10 @@ class LibrariesProcessor(
             }
         }
 
-        return ResultContainer(librariesList.processDuplicates(duplicationMode, duplicationRule), licensesMap)
+        return ResultContainer(
+            librariesList.processDuplicates(duplicationMode, duplicationRule).sortedBy { it.uniqueId },
+            licensesMap
+        )
     }
 
     private fun parseDependency(artifactFile: File): Pair<Library, Set<License>>? {
