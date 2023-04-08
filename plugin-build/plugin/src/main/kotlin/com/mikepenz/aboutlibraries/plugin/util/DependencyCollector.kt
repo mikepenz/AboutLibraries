@@ -39,7 +39,8 @@ class DependencyCollector(
     fun collect(project: Project): CollectedContainer {
         LOGGER.info("Collecting dependencies")
 
-        val mutableCollectContainer: MutableMap<String, MutableMap<String, MutableSet<String>>> = mutableMapOf()
+        val mutableCollectContainer: MutableMap<String, MutableMap<String, MutableSet<String>>> =
+            sortedMapOf(compareBy<String> { it })
 
         project.configurations
             .filterNot { configuration ->
@@ -70,7 +71,7 @@ class DependencyCollector(
                 null
             }
             .forEach { (variant, configuration) ->
-                val variantSet = mutableCollectContainer.getOrPut(variant) { mutableMapOf() }
+                val variantSet = mutableCollectContainer.getOrPut(variant) { sortedMapOf(compareBy<String> { it }) }
                 val visitedDependencyNames = mutableSetOf<String>()
                 configuration
                     .resolvedConfiguration
@@ -79,9 +80,10 @@ class DependencyCollector(
                     .getResolvedArtifacts(visitedDependencyNames)
                     .forEach { resArtifact ->
                         val identifier = "${resArtifact.moduleVersion.id.group.trim()}:${resArtifact.name.trim()}"
-                        val versions = variantSet.getOrPut(identifier) { HashSet() }
+                        val versions = variantSet.getOrPut(identifier) { LinkedHashSet() }
                         versions.add(resArtifact.moduleVersion.id.version.trim())
                     }
+
             }
         return CollectedContainer(mutableCollectContainer)
     }
