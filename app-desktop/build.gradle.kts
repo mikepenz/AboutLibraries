@@ -30,6 +30,11 @@ compose {
     kotlinCompilerPlugin.set(libs.versions.composeCompilerJb.get())
 }
 
+tasks.withType<JavaCompile> {
+    sourceCompatibility = "11"
+    targetCompatibility = "11"
+}
+
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "11"
 }
