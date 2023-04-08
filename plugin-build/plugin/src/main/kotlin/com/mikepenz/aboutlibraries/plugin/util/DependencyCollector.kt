@@ -28,6 +28,7 @@ import org.slf4j.LoggerFactory
  */
 class DependencyCollector(
     private val includePlatform: Boolean = false,
+    private val filterVariants: Array<String> = emptyArray(),
 ) {
     /**
      * Generates the project dependency report structure
@@ -38,7 +39,8 @@ class DependencyCollector(
     fun collect(project: Project): CollectedContainer {
         LOGGER.info("Collecting dependencies")
 
-        val mutableCollectContainer: MutableMap<String, MutableMap<String, MutableSet<String>>> = mutableMapOf()
+        val mutableCollectContainer: MutableMap<String, MutableMap<String, MutableSet<String>>> =
+            sortedMapOf(compareBy<String> { it })
 
         project.configurations
             .filterNot { configuration ->
@@ -50,18 +52,26 @@ class DependencyCollector(
 
                 if (cn.endsWith("CompileClasspath", true)) {
                     val variant = cn.removeSuffix("CompileClasspath")
-                    LOGGER.info("Collecting dependencies for compile time variant $variant from config: ${it.name}")
-                    return@mapNotNull variant to it
+                    if (filterVariants.isEmpty() || filterVariants.contains(variant)) {
+                        LOGGER.info("Collecting dependencies for compile time variant $variant from config: ${it.name}")
+                        return@mapNotNull variant to it
+                    } else {
+                        LOGGER.info("Skipping compile time variant $variant from config: ${it.name}")
+                    }
                 } else if (cn.endsWith("RuntimeClasspath", true)) {
                     val variant = cn.removeSuffix("RuntimeClasspath")
-                    LOGGER.info("Collecting dependencies for runtime variant $variant from config: ${it.name}")
-                    return@mapNotNull variant to it
+                    if (filterVariants.isEmpty() || filterVariants.contains(variant)) {
+                        LOGGER.info("Collecting dependencies for runtime variant $variant from config: ${it.name}")
+                        return@mapNotNull variant to it
+                    } else {
+                        LOGGER.info("Skipping compile time variant $variant from config: ${it.name}")
+                    }
                 }
 
                 null
             }
             .forEach { (variant, configuration) ->
-                val variantSet = mutableCollectContainer.getOrPut(variant) { mutableMapOf() }
+                val variantSet = mutableCollectContainer.getOrPut(variant) { sortedMapOf(compareBy<String> { it }) }
                 val visitedDependencyNames = mutableSetOf<String>()
                 configuration
                     .resolvedConfiguration
@@ -70,9 +80,10 @@ class DependencyCollector(
                     .getResolvedArtifacts(visitedDependencyNames)
                     .forEach { resArtifact ->
                         val identifier = "${resArtifact.moduleVersion.id.group.trim()}:${resArtifact.name.trim()}"
-                        val versions = variantSet.getOrPut(identifier) { HashSet() }
+                        val versions = variantSet.getOrPut(identifier) { LinkedHashSet() }
                         versions.add(resArtifact.moduleVersion.id.version.trim())
                     }
+
             }
         return CollectedContainer(mutableCollectContainer)
     }

@@ -39,7 +39,7 @@
 
 ## Latest releases 🛠
 
-- (Next Gen) Kotlin && Multiplatform && Plugin | [v10.6.1](https://github.com/mikepenz/AboutLibraries/tree/v10.6.1)
+- (Next Gen) Kotlin && Multiplatform && Plugin | [v10.6.2](https://github.com/mikepenz/AboutLibraries/tree/v10.6.2)
 - Kotlin && Gradle Plugin | [v8.9.4](https://github.com/mikepenz/AboutLibraries/tree/v8.9.4)
 
 ## Gradle Plugin
@@ -133,6 +133,8 @@ aboutLibraries {
     duplicationRule = com.mikepenz.aboutlibraries.plugin.DuplicateRule.SIMPLE
     // Enable pretty printing for the generated JSON file
     prettyPrint = false
+    // Allows to only collect dependencies of specific variants during the `collectDependencies` step.
+    filterVariants = ["debug", "release"]
 }
 ```
 
@@ -371,14 +373,15 @@ For other environments or for more advanced usages the plugin offers additional 
 # Export only for a specific variant: `release`
 ./gradlew app-desktop:exportLibraryDefinitions -PaboutLibraries.exportPath=src/main/resources/ -PaboutLibraries.exportVariant=release
 
-# Export dependencies as CSV
+# Export dependencies to CLI in CSV format
 ./gradlew exportLibraries
 ./gradlew exportLibraries${Variant}
 
 # Outputs all dependencies with name, version and their identifier
 ./gradlew findLibraries
 
-# Export all dependencies in a format helpful for compliance reports
+# Exports all dependencies in a format helpful for compliance reports.
+# By default writes `export.csv` and `export.txt` and `dependencies` folder in the root of the project.
 ./gradlew exportComplianceLibraries${Variant}
 
 # List all funding options for included projects (as identified via the e.g.: GitHub API)

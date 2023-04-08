@@ -227,6 +227,17 @@ abstract class AboutLibrariesExtension {
      * ```
      */
     var prettyPrint: Boolean = false
+
+    /**
+     * Defines the variants to keep during the "collectDependencies" step.
+     *
+     * ```
+     * aboutLibraries {
+     *   filterVariants = arrayOf("debug")
+     * }
+     * ```
+     */
+    var filterVariants: Array<String> = emptyArray()
 }
 
 enum class StrictMode {
