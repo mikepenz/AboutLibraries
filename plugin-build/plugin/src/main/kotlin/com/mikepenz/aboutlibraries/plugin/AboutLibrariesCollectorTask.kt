@@ -15,6 +15,9 @@ abstract class AboutLibrariesCollectorTask : DefaultTask() {
     @Input
     val includePlatform = extension.includePlatform
 
+    @Input
+    val filterVariants = extension.filterVariants
+
     /** holds the collected set of dependencies*/
     @Internal
     protected lateinit var collectedDependencies: CollectedContainer
@@ -29,7 +32,7 @@ abstract class AboutLibrariesCollectorTask : DefaultTask() {
      */
     fun configure() {
         project.evaluationDependsOnChildren()
-        collectedDependencies = DependencyCollector(includePlatform).collect(project)
+        collectedDependencies = DependencyCollector(includePlatform, filterVariants).collect(project)
     }
 
     @TaskAction

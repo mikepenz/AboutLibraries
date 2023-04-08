@@ -133,6 +133,8 @@ aboutLibraries {
     duplicationRule = com.mikepenz.aboutlibraries.plugin.DuplicateRule.SIMPLE
     // Enable pretty printing for the generated JSON file
     prettyPrint = false
+    // Allows to only collect dependencies of specific variants during the `collectDependencies` step.
+    filterVariants = ["debug", "release"]
 }
 ```
 
