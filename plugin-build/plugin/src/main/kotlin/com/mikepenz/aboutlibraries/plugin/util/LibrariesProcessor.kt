@@ -153,7 +153,7 @@ class LibrariesProcessor(
 
         for (pattern in exclusionPatterns) {
             if (pattern.matcher(uniqueId).matches()) {
-                println("--> Skipping ${uniqueId}, matching exclusion pattern")
+                LOGGER.info("--> Skipping ${uniqueId}, matching exclusion pattern")
                 return null
             }
         }
