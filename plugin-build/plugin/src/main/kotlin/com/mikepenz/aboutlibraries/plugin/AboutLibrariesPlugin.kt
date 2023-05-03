@@ -5,7 +5,6 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.util.GradleVersion
 import org.slf4j.LoggerFactory
-import java.util.*
 
 @Suppress("unused") // Public API for Gradle build scripts.
 class AboutLibrariesPlugin : Plugin<Project> {
@@ -70,7 +69,9 @@ class AboutLibrariesPlugin : Plugin<Project> {
 
     private val Project.experimentalCache: Boolean
         get() = hasProperty("org.gradle.unsafe.configuration-cache") &&
-                property("org.gradle.unsafe.configuration-cache") == "true"
+                property("org.gradle.unsafe.configuration-cache") == "true" ||
+                hasProperty("org.gradle.configuration-cache") &&
+                property("org.gradle.configuration-cache") == "true"
 
 
     companion object {
