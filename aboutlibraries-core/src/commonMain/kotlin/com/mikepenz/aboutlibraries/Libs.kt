@@ -17,6 +17,7 @@ data class Libs constructor(
      */
     class Builder {
         private var _stringData: String? = null
+        private var recoverable: Boolean = false
 
         /**
          * Provide the generated library data as [String]
@@ -27,12 +28,22 @@ data class Libs constructor(
         }
 
         /**
+         * Don't crash on missing library data. Instead fill in:
+         * [Library.name] = use [Library.uniqueId]
+         * [Library.developers] = use [emptyList]
+         */
+        fun recoverableMissingData(recoverable: Boolean): Builder {
+            this.recoverable = recoverable
+            return this
+        }
+
+        /**
          * Build the [Libs] instance with the applied configuration.
          */
         fun build(): Libs {
             val data = _stringData
             val (libraries, licenses) = if (data != null) {
-                parseData(data)
+                parseData(data, recoverable)
             } else {
                 throw IllegalStateException(
                     """

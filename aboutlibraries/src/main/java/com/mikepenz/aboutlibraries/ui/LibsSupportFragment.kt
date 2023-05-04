@@ -29,7 +29,6 @@ import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.GenericItem
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -52,7 +51,9 @@ open class LibsSupportFragment : Fragment(), Filterable {
                 Log.i("AboutLibraries", "Fallback to default configuration, due to missing argument")
                 LibsBuilder()
             },
-            Libs.Builder().withContext(requireContext())
+            Libs.Builder()
+                .withContext(requireContext())
+                .recoverableMissingData(recoverable = true)
         )
     }
 

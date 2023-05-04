@@ -3,7 +3,7 @@ package com.mikepenz.aboutlibraries.util
 import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.entity.License
 
-expect fun parseData(json: String): Result
+expect fun parseData(json: String, recoverable: Boolean = false): Result
 
 class Result(
     val libraries: List<Library>,

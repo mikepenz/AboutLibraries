@@ -170,7 +170,10 @@ class FragmentActivity : AppCompatActivity() {
         fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit()
 
         // Showcase to use the library meta information without the UI module
-        Libs.Builder().withContext(this).build().libraries
+        Libs.Builder()
+            .withContext(this)
+            .recoverableMissingData(recoverable = true)
+            .build().libraries
             .forEach {
                 Log.d("AboutLibraries", it.name)
             }

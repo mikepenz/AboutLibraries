@@ -4,9 +4,12 @@ import android.util.Log
 import com.mikepenz.aboutlibraries.entity.*
 import org.json.JSONObject
 
-actual fun parseData(json: String): Result {
+actual fun parseData(json: String, recoverable: Boolean): Result {
     try {
         val metaData = JSONObject(json)
+        val firstItem: JSONObject = metaData.getJSONArray("libraries")[0] as JSONObject
+        firstItem.remove("name")
+        firstItem.remove("developers")
 
         val licenses = metaData.getJSONObject("licenses").forEachObject { key ->
             License(
@@ -21,9 +24,9 @@ actual fun parseData(json: String): Result {
         val mappedLicenses = licenses.associateBy { it.hash }
         val libraries = metaData.getJSONArray("libraries").forEachObject {
             val libLicenses = optJSONArray("licenses").forEachString { mappedLicenses[this] }.mapNotNull { it }.toHashSet()
-            val developers = optJSONArray("developers").forEachObject {
+            val developers = optJSONArray("developers")?.forEachObject {
                 Developer(optString("name"), optString("organisationUrl"))
-            }
+            } ?: emptyList()
             val organization = optJSONObject("organization")?.let {
                 Organization(it.getString("name"), it.optString("url"))
             }
@@ -33,10 +36,11 @@ actual fun parseData(json: String): Result {
             val funding = optJSONArray("funding").forEachObject {
                 Funding(getString("platform"), getString("url"))
             }.toSet()
+            val id = getString("uniqueId")
             Library(
-                getString("uniqueId"),
+                id,
                 optString("artifactVersion"),
-                getString("name"),
+                if (recoverable) optString("name", id) else getString("name"),
                 optString("description"),
                 optString("website"),
                 developers,
@@ -53,4 +57,3 @@ actual fun parseData(json: String): Result {
     }
     return Result(emptyList(), emptyList())
 }
-
