@@ -7,7 +7,8 @@ package com.mikepenz.aboutlibraries.plugin.mapping
 enum class SpdxLicense(
     val fullName: String,
     val id: String,
-    val aboutLibsId: String? = null,
+    val customUrl: String? = null,
+    val customTxtUrl: String? = null,
     val customMatcher: ((name: String, url: String?) -> Boolean)? = null
 ) {
     _0BSD("BSD Zero Clause License", "0BSD"),
@@ -142,7 +143,7 @@ enum class SpdxLicense(
     eGenix("eGenix.com Public License 1.1.0", "eGenix"),
     Entessa("Entessa Public License v1.0", "Entessa"),
     EPL_1_0("Eclipse Public License 1.0", "EPL-1.0"),
-    EPL_2_0("Eclipse Public License 2.0", "EPL-2.0", "epl_2_0", { _, url ->
+    EPL_2_0("Eclipse Public License 2.0", "EPL-2.0", "epl_2_0", customMatcher = { _, url ->
         url == "https://www.eclipse.org/legal/epl-v20.html"
     }),
     ErlPL_1_1("Erlang Public License v1.1", "ErlPL-1.1"),
@@ -382,7 +383,7 @@ enum class SpdxLicense(
     ZPL_2_1("Zope Public License 2.1", "ZPL-2.1"),
 
     // Special handling section
-    Apache_2_0("Apache License 2.0", "Apache-2.0", "apache_2_0", { name, url ->
+    Apache_2_0("Apache License 2.0", "Apache-2.0", "apache_2_0", customMatcher = { name, url ->
         name.contains("Apache", true) || url?.endsWith("LICENSE-2.0.txt") == true
     }),
     BSD_2_Clause("BSD 2-Clause \"Simplified\" License", "BSD-2-Clause", customMatcher = { name, url ->
@@ -394,7 +395,7 @@ enum class SpdxLicense(
         name.equals("New BSD License", true) || name.equals("Modified BSD License", true) || name.equals("BSD 3-clause", true) ||
                 url?.endsWith("opensource.org/licenses/BSD-3-Clause", true) == true
     }),
-    MIT("MIT License", "MIT", "mit", { name, _ ->
+    MIT("MIT License", "MIT", "mit", customMatcher = { name, _ ->
         name.contains("MIT", true)
     }),
     CC0_1_0("Creative Commons Zero v1.0 Universal", "CC0-1.0", "cc0_1_0", customMatcher = { name, _ ->
@@ -405,13 +406,14 @@ enum class SpdxLicense(
     }),
 
     // Special proprietary libraries section
-    ASDKL("Android Software Development Kit License", "ASDKL", "asdkl"),
-    CTS("Crashlytics Terms of Service", "CTS", "cts"),
-    FSSA("Fabric Software and Services Agreement", "FSSA", "cts");
+    ASDKL("Android Software Development Kit License", "ASDKL"),
+    CTS("Crashlytics Terms of Service", "CTS"),
+    FSSA("Fabric Software and Services Agreement", "FSSA"),
+    GPL_2_0_CPE("GNU General Public License, version 2, with the Classpath Exception", "GPL-2.0-CPE", customUrl = "https://openjdk.org/legal/gplv2+ce.html");
 
-    fun getUrl(): String = "https://spdx.org/licenses/$id.html"
+    fun getUrl(): String = customUrl ?: "https://spdx.org/licenses/$id.html"
 
-    fun getTxtUrl(): String = "https://spdx.org/licenses/$id.txt"
+    fun getTxtUrl(): String = customTxtUrl ?: "https://spdx.org/licenses/$id.txt"
 
     companion object {
         internal fun find(key: String): SpdxLicense? {
