@@ -46,6 +46,13 @@ android {
         abortOnError = false
     }
 }
+
+
+compose {
+    kotlinCompilerPlugin.set(libs.versions.composeCompilerJb.get())
+    kotlinCompilerPluginArgs.add("suppressKotlinVersionCompatibilityCheck=${libs.versions.kotlinCore.get()}")
+}
+
 kotlin {
     jvm()
 
