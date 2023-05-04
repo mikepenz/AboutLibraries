@@ -10,10 +10,10 @@ plugins {
 
 android {
     compileSdk = libs.versions.compileSdk.get().toInt()
+    namespace = "com.mikepenz.aboutlibraries.core"
 
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
-        targetSdk = libs.versions.targetSdk.get().toInt()
     }
 
     buildTypes {
@@ -74,7 +74,7 @@ kotlin {
     mingwX64()
     linuxX64()
     linuxArm64()
-    // wasm32()
+    // wasm()
 
     android {
         publishAllLibraryVariants()
@@ -117,7 +117,7 @@ kotlin {
         val watchosSimulatorArm64Main by sourceSets.getting { dependsOn(iosMain) }
         val watchosX86Main by sourceSets.getting { dependsOn(iosMain) }
         val watchosX64Main by sourceSets.getting { dependsOn(iosMain) }
-        // val wasm32Main by sourceSets.creating { dependsOn(multiplatformMain) }
+        // val wasmMain by sourceSets.getting { dependsOn(multiplatformMain) }
 
         val jvmTest by getting {
             dependencies {

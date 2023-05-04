@@ -10,6 +10,7 @@ if (getSigningFile() != null) {
 
 android {
     compileSdk = libs.versions.compileSdk.get().toInteger()
+    namespace = "com.mikepenz.aboutlibraries.sample"
 
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInteger()
