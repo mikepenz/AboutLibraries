@@ -10,10 +10,10 @@ plugins {
 
 android {
     compileSdk = libs.versions.compileSdk.get().toInt()
+    namespace = "com.mikepenz.aboutlibraries.ui.compose"
 
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
-        targetSdk = libs.versions.targetSdk.get().toInt()
     }
 
     buildTypes {
@@ -46,6 +46,13 @@ android {
         abortOnError = false
     }
 }
+
+
+compose {
+    kotlinCompilerPlugin.set(libs.versions.composeCompilerJb.get())
+    kotlinCompilerPluginArgs.add("suppressKotlinVersionCompatibilityCheck=${libs.versions.kotlinCore.get()}")
+}
+
 kotlin {
     jvm()
 
