@@ -4,12 +4,9 @@ import android.util.Log
 import com.mikepenz.aboutlibraries.entity.*
 import org.json.JSONObject
 
-actual fun parseData(json: String, recoverable: Boolean): Result {
+actual fun parseData(json: String): Result {
     try {
         val metaData = JSONObject(json)
-        val firstItem: JSONObject = metaData.getJSONArray("libraries")[0] as JSONObject
-        firstItem.remove("name")
-        firstItem.remove("developers")
 
         val licenses = metaData.getJSONObject("licenses").forEachObject { key ->
             License(
@@ -40,7 +37,7 @@ actual fun parseData(json: String, recoverable: Boolean): Result {
             Library(
                 id,
                 optString("artifactVersion"),
-                if (recoverable) optString("name", id) else getString("name"),
+                optString("name", id),
                 optString("description"),
                 optString("website"),
                 developers,

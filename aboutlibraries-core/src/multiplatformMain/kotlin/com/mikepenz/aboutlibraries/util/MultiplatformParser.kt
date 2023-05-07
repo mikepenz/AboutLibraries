@@ -4,7 +4,7 @@ import com.mikepenz.aboutlibraries.entity.*
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonObject
 
-actual fun parseData(json: String, recoverable: Boolean): Result {
+actual fun parseData(json: String): Result {
     try {
         val metaData = Json.parseToJsonElement(json).jsonObject
 
@@ -38,7 +38,7 @@ actual fun parseData(json: String, recoverable: Boolean): Result {
             Library(
                 id,
                 optString("artifactVersion"),
-                if (recoverable) optString("name") ?: id else getString("name"),
+                optString("name") ?: id,
                 optString("description"),
                 optString("website"),
                 developers,

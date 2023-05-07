@@ -51,9 +51,7 @@ open class LibsSupportFragment : Fragment(), Filterable {
                 Log.i("AboutLibraries", "Fallback to default configuration, due to missing argument")
                 LibsBuilder()
             },
-            Libs.Builder()
-                .withContext(requireContext())
-                .recoverableMissingData(recoverable = true)
+            Libs.Builder().withContext(requireContext())
         )
     }
 
