@@ -47,8 +47,8 @@ internal fun Activity?.applyLightSystemUi(view: View? = null, additionalFlags: I
             window.decorView.systemUiVisibility = flags
         }
 
-        val lightCtx = ContextThemeWrapper(this, R.style.Theme_MaterialComponents_Light)
-        this.window.statusBarColor = lightCtx.getThemeColor(R.attr.colorSurface)
+        val lightCtx = ContextThemeWrapper(this, com.google.android.material.R.style.Theme_MaterialComponents_Light)
+        this.window.statusBarColor = lightCtx.getThemeColor(com.google.android.material.R.attr.colorSurface)
         this.window.navigationBarColor = lightCtx.getThemeColor(android.R.attr.colorBackground)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             this.window.navigationBarDividerColor = lightCtx.getThemeColor(android.R.attr.colorControlHighlight)
@@ -71,8 +71,8 @@ internal fun Activity?.applyDarkSystemUi(view: View? = null, additionalFlags: In
             window.decorView.systemUiVisibility = flags
         }
 
-        val darkCtx = ContextThemeWrapper(this, R.style.Theme_MaterialComponents)
-        this.window.statusBarColor = darkCtx.getThemeColor(R.attr.colorSurface)
+        val darkCtx = ContextThemeWrapper(this, com.google.android.material.R.style.Theme_MaterialComponents)
+        this.window.statusBarColor = darkCtx.getThemeColor(com.google.android.material.R.attr.colorSurface)
         this.window.navigationBarColor = darkCtx.getThemeColor(android.R.attr.colorBackground)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             this.window.navigationBarDividerColor = darkCtx.getThemeColor(android.R.attr.colorControlHighlight)

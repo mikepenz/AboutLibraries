@@ -94,7 +94,7 @@ class FragmentActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
 
-        actionBarDrawerToggle = ActionBarDrawerToggle(this, binding.root, toolbar, R.string.material_drawer_open, R.string.material_drawer_close)
+        actionBarDrawerToggle = ActionBarDrawerToggle(this, binding.root, toolbar, com.mikepenz.materialdrawer.R.string.material_drawer_open, com.mikepenz.materialdrawer.R.string.material_drawer_close)
 
         binding.slider.apply {
             itemAdapter.add(
