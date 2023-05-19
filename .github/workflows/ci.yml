@@ -25,7 +25,10 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
-          java-version: '17'
+          java-version: |
+            11
+            15
+            17
 
       - name: Copy CI gradle.properties
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
@@ -107,7 +110,10 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
-          java-version: '17'
+          java-version: |
+            11
+            15
+            17
 
       - name: Validate gradle wrapper
         uses: gradle/wrapper-validation-action@v1
