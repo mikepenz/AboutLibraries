@@ -8,10 +8,11 @@ version VERSION_NAME
 
 android {
     compileSdk = libs.versions.compileSdk.get().toInteger()
+    namespace = "com.mikepenz.aboutlibraries"
 
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInteger()
-        targetSdk = libs.versions.targetSdk.get().toInteger()
+
         versionName VERSION_NAME
         versionCode Integer.parseInt(VERSION_CODE)
     }

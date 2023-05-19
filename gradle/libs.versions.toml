@@ -5,38 +5,38 @@ coreMinSdk = "19"
 minSdk = "21"
 targetSdk = "33"
 # build
-gradleBuild = "7.4.2"
+gradleBuild = "8.0.1"
 buildTools = "33.0.2"
 # kotlin
 dokka = "1.8.10"
-kotlinCore = { require = "1.8.10" }
-kotlinCoroutines = { require = "1.6.4" }
-kotlinxSerialization = "1.5.0"
+kotlinCore = { require = "1.8.21" }
+kotlinCoroutines = { require = "1.7.1" }
+kotlinxSerialization = "1.5.1"
 # compose
-compose = "1.4.1"
-composeUi = "1.4.1" # foundation / materila
-composeCompiler = "1.4.4"
-composejb = "1.3.1"
-composeCompilerJb = "1.4.2"
+compose = "1.4.3"
+composeUi = "1.4.3" # foundation / material
+composeCompiler = "1.4.7"
+composejb = "1.4.0"
+composeCompilerJb = "1.4.5"
 # androidx
-activity = "1.7.0"
+activity = "1.7.1"
 cardview = "1.0.0"
 constraintLayout = "2.1.4"
-core = "1.10.0"
+core = "1.10.1"
 lifecycle = { require = "2.6.1" }
 navigation = "2.5.3"
 recyclerView = "1.3.0"
 # google
-material = "1.8.0"
+material = "1.9.0"
 # other
 accompanist = "0.30.1"
 fastAdapter = "5.7.0"
-gradleMvnPublish = "0.25.1"
+gradleMvnPublish = "0.25.2"
 iconics = "5.3.3"
 itemAnimators = "1.1.0"
 ivy = "2.5.1"
 materialDrawer = "9.0.1"
-okhttp = "4.10.0"
+okhttp = "4.11.0"
 
 [libraries]
 # build

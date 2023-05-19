@@ -21,9 +21,9 @@ actual fun parseData(json: String): Result {
         val mappedLicenses = licenses.associateBy { it.hash }
         val libraries = metaData.getJSONArray("libraries").forEachObject {
             val libLicenses = optJSONArray("licenses").forEachString { mappedLicenses[this] }.mapNotNull { it }.toHashSet()
-            val developers = optJSONArray("developers").forEachObject {
+            val developers = optJSONArray("developers")?.forEachObject {
                 Developer(optString("name"), optString("organisationUrl"))
-            }
+            } ?: emptyList()
             val organization = optJSONObject("organization")?.let {
                 Organization(it.getString("name"), it.optString("url"))
             }
@@ -34,10 +34,11 @@ actual fun parseData(json: String): Result {
                 Funding(getString("platform"), getString("url"))
             }.toSet()
 
+            val id = getString("uniqueId")
             Library(
-                getString("uniqueId"),
+                id,
                 optString("artifactVersion"),
-                getString("name"),
+                optString("name") ?: id,
                 optString("description"),
                 optString("website"),
                 developers,
@@ -54,4 +55,3 @@ actual fun parseData(json: String): Result {
     }
     return Result(emptyList(), emptyList())
 }
-
