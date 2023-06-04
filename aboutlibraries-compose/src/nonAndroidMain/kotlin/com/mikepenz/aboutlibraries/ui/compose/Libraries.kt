@@ -30,7 +30,7 @@ fun LibrariesContainer(
     padding: LibraryPadding = LibraryDefaults.libraryPadding(),
     itemContentPadding: PaddingValues = LibraryDefaults.ContentPadding,
     itemSpacing: Dp = LibraryDefaults.LibraryItemSpacing,
-    header: (LazyListScope.() -> Unit)? = null,
+    header: @Composable (LazyListScope.() -> Unit)? = null,
     onLibraryClick: ((Library) -> Unit)? = null,
 ) {
     LibrariesContainer(
@@ -66,7 +66,7 @@ fun LibrariesContainer(
     padding: LibraryPadding = LibraryDefaults.libraryPadding(),
     itemContentPadding: PaddingValues = LibraryDefaults.ContentPadding,
     itemSpacing: Dp = LibraryDefaults.LibraryItemSpacing,
-    header: (LazyListScope.() -> Unit)? = null,
+    header: @Composable (LazyListScope.() -> Unit)? = null,
     onLibraryClick: ((Library) -> Unit)? = null,
 ) {
     val libraries = produceState<Libs?>(null) {
