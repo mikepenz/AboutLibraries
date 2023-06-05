@@ -43,7 +43,9 @@ fun Libraries(
         state = lazyListState,
         contentPadding = contentPadding
     ) {
-        header?.invoke(this)
+        item {
+            header?.invoke(this)
+        }
         libraryItems(
             libraries,
             showAuthor,
