@@ -9,7 +9,7 @@ gradleBuild = "8.0.2"
 buildTools = "33.0.2"
 # kotlin
 dokka = "1.8.20"
-kotlinCore = { require = "1.8.22" }
+kotlinCore = { require = "1.8.21" }
 kotlinCoroutines = { require = "1.7.1" }
 kotlinxSerialization = "1.5.1"
 # compose
