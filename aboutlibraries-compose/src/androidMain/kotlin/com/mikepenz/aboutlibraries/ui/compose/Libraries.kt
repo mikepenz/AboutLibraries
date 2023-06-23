@@ -9,7 +9,11 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.*
+import androidx.compose.material.AlertDialog
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.produceState
@@ -63,7 +67,6 @@ fun LibrariesContainer(
     val libs = libraries.value?.libraries
     if (libs != null) {
         val openDialog = remember { mutableStateOf<Library?>(null) }
-
         Libraries(
             libraries = libs,
             modifier = modifier,
@@ -78,9 +81,10 @@ fun LibrariesContainer(
             itemSpacing = itemSpacing,
             header = header,
             onLibraryClick = { library ->
+                val license = library.licenses.firstOrNull()
                 if (onLibraryClick != null) {
                     onLibraryClick(library)
-                } else if (!library.licenses.firstOrNull()?.htmlReadyLicenseContent.isNullOrBlank()) {
+                } else if (!license?.htmlReadyLicenseContent.isNullOrBlank()) {
                     openDialog.value = library
                 }
             },
@@ -128,7 +132,7 @@ fun LicenseDialog(
 fun HtmlText(
     html: String,
     modifier: Modifier = Modifier,
-    color: Color = LibraryDefaults.libraryColors().contentColor
+    color: Color = LibraryDefaults.libraryColors().contentColor,
 ) {
     AndroidView(modifier = modifier, factory = { context ->
         TextView(context).apply {
