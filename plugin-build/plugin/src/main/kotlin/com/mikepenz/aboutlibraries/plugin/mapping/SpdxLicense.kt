@@ -175,7 +175,6 @@ enum class SpdxLicense(
     GPL_1_0_or_later("GNU General Public License v1.0 or later", "GPL-1.0-or-later"),
     GPL_2_0_only("GNU General Public License v2.0 only", "GPL-2.0-only"),
     GPL_2_0_or_later("GNU General Public License v2.0 or later", "GPL-2.0-or-later"),
-    GPL_3_0_only("GNU General Public License v3.0 only", "GPL-3.0-only"),
     GPL_3_0_or_later("GNU General Public License v3.0 or later", "GPL-3.0-or-later"),
     gSOAP_1_3b("gSOAP Public License v1.3b", "gSOAP-1.3b"),
     HaskellReport("Haskell Language Report License", "HaskellReport"),
@@ -403,6 +402,9 @@ enum class SpdxLicense(
     }),
     JSON("JSON License", "JSON", customMatcher = { name, _ ->
         name.equals("The JSON License", true)
+    }),
+    GPL_3_0_only("GNU General Public License v3.0 only", "GPL-3.0-only", customMatcher = { name, _ ->
+        name.equals("GNU General Public License v3.0", true)
     }),
 
     // Special proprietary libraries section

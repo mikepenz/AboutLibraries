@@ -49,7 +49,7 @@ class AboutLibrariesPlugin : Plugin<Project> {
             }
 
             // register a global task to generate library definitions
-            project.tasks.create("exportLibraryDefinitions", AboutLibrariesTask::class.java) {
+            project.tasks.register("exportLibraryDefinitions", AboutLibrariesTask::class.java) {
                 it.description = "Writes the relevant meta data for the AboutLibraries plugin to display dependencies"
                 it.group = "Build"
                 it.variant = project.safeProp("aboutLibraries.exportVariant") ?: project.safeProp("exportVariant")
