@@ -6,18 +6,18 @@ minSdk = "21"
 targetSdk = "33"
 # build
 gradleBuild = "8.0.2"
-buildTools = "33.0.2"
+buildTools = "34.0.0"
 # kotlin
 dokka = "1.8.20"
-kotlinCore = { require = "1.8.21" }
-kotlinCoroutines = { require = "1.7.1" }
+kotlinCore = { require = "1.8.22" }
+kotlinCoroutines = { require = "1.7.2" }
 kotlinxSerialization = "1.5.1"
 # compose
 compose = "1.4.3"
 composeUi = "1.4.3" # foundation / material
-composeCompiler = "1.4.7"
-composejb = "1.4.0"
-composeCompilerJb = "1.4.5"
+composeCompiler = "1.4.8"
+composejb = "1.4.1"
+composeCompilerJb = "1.4.8"
 # androidx
 activity = "1.7.2"
 cardview = "1.0.0"
