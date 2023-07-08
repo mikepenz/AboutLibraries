@@ -1,5 +1,6 @@
 package com.mikepenz.aboutlibraries.plugin
 
+import com.mikepenz.aboutlibraries.plugin.util.DependencyReportCollector
 import com.mikepenz.aboutlibraries.plugin.util.safeProp
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -22,9 +23,7 @@ class AboutLibrariesPlugin : Plugin<Project> {
             // task to output library names with ids for further actions
             val collectTask = project.tasks.register("collectDependencies", AboutLibrariesCollectorTask::class.java) {
                 it.description = "Collects dependencies to be used by the different AboutLibraries tasks"
-                if (project.experimentalCache) {
-                    it.configure()
-                }
+                it.setRenderer(DependencyReportCollector())
             }
 
             // task to output funding options for included libraries
