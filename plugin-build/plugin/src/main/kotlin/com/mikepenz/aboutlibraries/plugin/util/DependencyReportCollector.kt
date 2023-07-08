@@ -17,7 +17,6 @@ class DependencyReportCollector : DependencyReportRenderer {
     var includePlatform: Boolean = false
     var filterVariants: Array<String> = emptyArray()
 
-
     private val mutableCollectContainer: MutableMap<String, MutableMap<String, MutableSet<String>>> =
         sortedMapOf(compareBy<String> { it })
 
@@ -84,6 +83,7 @@ class DependencyReportCollector : DependencyReportRenderer {
 
         if (configuration.isCanBeResolved) {
             val result = configuration.resolutionResultRoot!!.get()
+
             val root = RenderableModuleResult(result)
             root.renderNow(variant)
         } else {
@@ -117,7 +117,7 @@ class DependencyReportCollector : DependencyReportRenderer {
         children.onEach {
             if (!visitedDependencyNames.contains(it.id)) {
                 visitedDependencyNames.add(it.id)
-                
+
                 val id = it.id
                 if (id is ModuleComponentIdentifier) {
                     val identifier = "${id.group.trim()}:${id.module.trim()}"
