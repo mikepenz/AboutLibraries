@@ -9,11 +9,7 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.AlertDialog
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.produceState
@@ -22,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -58,6 +55,8 @@ fun LibrariesContainer(
     onLibraryClick: ((Library) -> Unit)? = null,
 ) {
     val context = LocalContext.current
+    val uriHandler = LocalUriHandler.current
+
     val libraries = produceState<Libs?>(null) {
         value = withContext(Dispatchers.IO) {
             librariesBlock(context)
@@ -86,6 +85,8 @@ fun LibrariesContainer(
                     onLibraryClick(library)
                 } else if (!license?.htmlReadyLicenseContent.isNullOrBlank()) {
                     openDialog.value = library
+                } else if (!license?.url.isNullOrBlank()) {
+                    license?.url?.also { uriHandler.openUri(it) }
                 }
             },
         )

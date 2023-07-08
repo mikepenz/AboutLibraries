@@ -10,28 +10,20 @@ import java.util.*
 
 @CacheableTask
 abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
-
-    @OutputDirectory
-    var resultDirectory: File = project.file("${project.buildDir}/generated/aboutLibraries/res/")
-
-    @Internal
-    private lateinit var combinedLibrariesOutputFile: File
-
     @Input
     val strictMode = extension.strictMode
 
     @Input
     val outputFileName = extension.outputFileName
 
-    fun getCombinedLibrariesOutputFile(): File {
-        return File(resultDirectory, outputFileName)
-    }
+    @OutputDirectory
+    var resultDirectory: File = project.file("${project.buildDir}/generated/aboutLibraries/res/")
+
+    @OutputFile
+    var combinedLibrariesOutputFile = File(resultDirectory, outputFileName)
 
     @TaskAction
     public fun action() {
-        // ensure directories exist
-        this.combinedLibrariesOutputFile = getCombinedLibrariesOutputFile()
-
         val result = createLibraryProcessor().gatherDependencies()
 
         // validate found licenses match expectation
