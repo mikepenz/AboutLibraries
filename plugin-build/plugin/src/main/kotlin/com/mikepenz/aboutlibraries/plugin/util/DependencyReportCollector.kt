@@ -55,29 +55,23 @@ class DependencyReportCollector : DependencyReportRenderer {
         val variant: String
         if (cn.endsWith("CompileClasspath", true)) {
             variant = cn.removeSuffix("CompileClasspath")
-            if (filterVariants.isEmpty() || filterVariants.contains(variant)) {
-
-            } else {
-                LOGGER.error("SKIP VARIANT // ${configuration.name}")
+            if (!(filterVariants.isEmpty() || filterVariants.contains(variant))) {
+                LOGGER.info("SKIP VARIANT // ${configuration.name}")
                 return
             }
-            //
         } else if (configuration.name.endsWith("RuntimeClasspath", true)) {
             variant = cn.removeSuffix("RuntimeClasspath")
-            if (filterVariants.isEmpty() || filterVariants.contains(variant)) {
-
-            } else {
-                LOGGER.error("SKIP VARIANT // ${configuration.name}")
+            if (!(filterVariants.isEmpty() || filterVariants.contains(variant))) {
+                LOGGER.info("SKIP VARIANT // ${configuration.name}")
                 return
             }
-            //
         } else {
-            LOGGER.error("IGNORE // ${configuration.name}")
+            LOGGER.debug("IGNORE // ${configuration.name}")
             return
         }
 
         if (configuration.isTest) {
-            LOGGER.error("IGNORE isTest // ${configuration.name}")
+            LOGGER.debug("IGNORE isTest // ${configuration.name}")
             return
         }
 
@@ -124,7 +118,7 @@ class DependencyReportCollector : DependencyReportRenderer {
                     val versions = variantSet.getOrPut(identifier) { LinkedHashSet() }
                     versions.add(id.version.trim())
                 } else {
-                    LOGGER.error("${it.id} // ${it.name}")
+                    LOGGER.debug("-- Not a ModuleComponentIdentifier ({} // {})", it.id, it.name)
                 }
                 it.renderNow(variantSet, visitedDependencyNames)
             }
