@@ -66,13 +66,6 @@ class AboutLibrariesPlugin : Plugin<Project> {
         }
     }
 
-    private val Project.experimentalCache: Boolean
-        get() = hasProperty("org.gradle.unsafe.configuration-cache") &&
-                property("org.gradle.unsafe.configuration-cache") == "true" ||
-                hasProperty("org.gradle.configuration-cache") &&
-                property("org.gradle.configuration-cache") == "true"
-
-
     companion object {
         private val LOGGER = LoggerFactory.getLogger(AboutLibrariesPlugin::class.java)
     }
