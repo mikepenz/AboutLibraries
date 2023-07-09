@@ -18,6 +18,10 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
 
     @OutputDirectory
     var resultDirectory: File = project.file("${project.buildDir}/generated/aboutLibraries/res/")
+        set(value) {
+            field = value
+            combinedLibrariesOutputFile = File(resultDirectory, outputFileName)
+        }
 
     @OutputFile
     var combinedLibrariesOutputFile = File(resultDirectory, outputFileName)
