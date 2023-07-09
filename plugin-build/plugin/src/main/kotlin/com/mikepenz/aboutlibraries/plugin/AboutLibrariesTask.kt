@@ -16,14 +16,22 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
     @Input
     val outputFileName = extension.outputFileName
 
-    @OutputDirectory
+    @Internal
     var resultDirectory: File = project.file("${project.buildDir}/generated/aboutLibraries/res/")
+        set(value) {
+            field = value
+            combinedLibrariesOutputFile = File(resultDirectory, outputFileName)
+        }
 
     @OutputFile
     var combinedLibrariesOutputFile = File(resultDirectory, outputFileName)
 
     @TaskAction
     public fun action() {
+        if (!resultDirectory.exists()) {
+            resultDirectory.mkdirs() // verify output exists
+        }
+
         val result = createLibraryProcessor().gatherDependencies()
 
         // validate found licenses match expectation
