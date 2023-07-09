@@ -28,6 +28,10 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
 
     @TaskAction
     public fun action() {
+        if (!resultDirectory.exists()) {
+            resultDirectory.mkdirs() // verify output exists
+        }
+
         val result = createLibraryProcessor().gatherDependencies()
 
         // validate found licenses match expectation
