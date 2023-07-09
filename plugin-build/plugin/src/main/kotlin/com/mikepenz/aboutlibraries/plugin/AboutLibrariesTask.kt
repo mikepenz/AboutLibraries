@@ -16,7 +16,7 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
     @Input
     val outputFileName = extension.outputFileName
 
-    @OutputDirectory
+    @Internal
     var resultDirectory: File = project.file("${project.buildDir}/generated/aboutLibraries/res/")
         set(value) {
             field = value
