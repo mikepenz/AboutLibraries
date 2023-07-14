@@ -32,6 +32,21 @@ android {
 
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
         kotlinOptions.jvmTarget = "11"
+
+        kotlinOptions {
+            if (project.findProperty("composeCompilerReports") == "true") {
+                freeCompilerArgs += listOf(
+                    "-P",
+                    "plugin:androidx.compose.compiler.plugins.kotlin:reportsDestination=${project.buildDir.absolutePath}/compose_compiler"
+                )
+            }
+            if (project.findProperty("composeCompilerMetrics") == "true") {
+                freeCompilerArgs += listOf(
+                    "-P",
+                    "plugin:androidx.compose.compiler.plugins.kotlin:metricsDestination=${project.buildDir.absolutePath}/compose_compiler"
+                )
+            }
+        }
     }
 
     buildFeatures {
@@ -98,6 +113,7 @@ dependencies {
     commonMainImplementation(compose.ui)
     commonMainImplementation(compose.foundation)
     commonMainImplementation(compose.material)
+    commonMainImplementation(libs.kotlinx.collections)
 
     debugImplementation(compose.uiTooling)
     "androidMainImplementation"(compose.preview)
