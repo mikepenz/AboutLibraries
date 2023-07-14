@@ -28,7 +28,9 @@ import androidx.core.text.HtmlCompat
 import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.ui.compose.data.fakeData
+import com.mikepenz.aboutlibraries.ui.compose.util.StableLibrary
 import com.mikepenz.aboutlibraries.ui.compose.util.htmlReadyLicenseContent
+import com.mikepenz.aboutlibraries.ui.compose.util.stable
 import com.mikepenz.aboutlibraries.util.withContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -63,7 +65,7 @@ fun LibrariesContainer(
         }
     }
 
-    val libs = libraries.value?.libraries
+    val libs = libraries.value?.libraries?.stable
     if (libs != null) {
         val openDialog = remember { mutableStateOf<Library?>(null) }
         Libraries(
@@ -93,7 +95,7 @@ fun LibrariesContainer(
 
         val library = openDialog.value
         if (library != null) {
-            LicenseDialog(library = library, colors) {
+            LicenseDialog(library = library.stable, colors) {
                 openDialog.value = null
             }
         }
@@ -102,7 +104,7 @@ fun LibrariesContainer(
 
 @Composable
 fun LicenseDialog(
-    library: Library,
+    library: StableLibrary,
     colors: LibraryColors = LibraryDefaults.libraryColors(),
     onDismiss: () -> Unit,
 ) {
@@ -121,7 +123,7 @@ fun LicenseDialog(
                 modifier = Modifier.verticalScroll(scrollState),
             ) {
                 HtmlText(
-                    html = library.licenses.firstOrNull()?.htmlReadyLicenseContent.orEmpty(),
+                    html = library.library.licenses.firstOrNull()?.htmlReadyLicenseContent.orEmpty(),
                     color = colors.contentColor,
                 )
             }
@@ -147,7 +149,7 @@ fun HtmlText(
 fun PreviewLibraries() {
     MaterialTheme {
         Surface {
-            Libraries(fakeData.libraries)
+            Libraries(fakeData.libraries.stable)
         }
     }
 }
@@ -158,7 +160,7 @@ fun PreviewLibraries() {
 fun PreviewLibrariesOff() {
     MaterialTheme {
         Surface {
-            Libraries(fakeData.libraries, showAuthor = false, showLicenseBadges = false)
+            Libraries(fakeData.libraries.stable, showAuthor = false, showLicenseBadges = false)
         }
     }
 }
@@ -169,7 +171,7 @@ fun PreviewLibrary() {
     MaterialTheme {
         Surface {
             Library(
-                fakeData.libraries.first()
+                fakeData.libraries.first().stable
             ) {
                 // on-click
             }

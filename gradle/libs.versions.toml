@@ -12,6 +12,7 @@ dokka = "1.8.20"
 kotlinCore = { require = "1.8.22" }
 kotlinCoroutines = { require = "1.7.2" }
 kotlinxSerialization = "1.5.1"
+kotlinxCollections = "0.3.5"
 # compose
 compose = "1.4.3"
 composeUi = "1.4.3" # foundation / material
@@ -48,6 +49,7 @@ kotlin-plug = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.re
 kotlin-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinCoroutines" }
 kotlin-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinCoroutines" }
 kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
+kotlinx-collections = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "kotlinxCollections" }
 # compose
 compose-androidx-runtime-core = { module = "androidx.compose.runtime:runtime", version.ref = "compose" }
 compose-androidx-runtime-livedata = { module = "androidx.compose.runtime:runtime-livedata", version.ref = "compose" }
