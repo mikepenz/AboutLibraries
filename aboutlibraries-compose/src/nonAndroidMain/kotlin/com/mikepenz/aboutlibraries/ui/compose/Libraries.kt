@@ -11,6 +11,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.entity.Library
+import com.mikepenz.aboutlibraries.ui.compose.util.stable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -75,7 +76,7 @@ fun LibrariesContainer(
         }
     }
 
-    val libs = libraries.value?.libraries
+    val libs = libraries.value?.libraries?.stable
     if (libs != null) {
         Libraries(
             libraries = libs,

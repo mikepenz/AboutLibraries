@@ -2,22 +2,9 @@ package com.mikepenz.aboutlibraries.ui.compose
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.Badge
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.Typography
-import androidx.compose.material.contentColorFor
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.*
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
@@ -30,14 +17,16 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.mikepenz.aboutlibraries.entity.Library
+import com.mikepenz.aboutlibraries.ui.compose.util.StableLibrary
 import com.mikepenz.aboutlibraries.ui.compose.util.author
+import kotlinx.collections.immutable.ImmutableList
 
 /**
  * Displays all provided libraries in a simple list.
  */
 @Composable
 fun Libraries(
-    libraries: List<Library>,
+    libraries: ImmutableList<StableLibrary>,
     modifier: Modifier = Modifier,
     lazyListState: LazyListState = rememberLazyListState(),
     contentPadding: PaddingValues = PaddingValues(0.dp),
@@ -80,7 +69,7 @@ fun Libraries(
 }
 
 internal inline fun LazyListScope.libraryItems(
-    libraries: List<Library>,
+    libraries: ImmutableList<StableLibrary>,
     showAuthor: Boolean = true,
     showVersion: Boolean = true,
     showLicenseBadges: Boolean = true,
@@ -99,14 +88,14 @@ internal inline fun LazyListScope.libraryItems(
             padding,
             itemContentPadding
         ) {
-            onLibraryClick.invoke(library)
+            onLibraryClick.invoke(library.library)
         }
     }
 }
 
 @Composable
 internal fun Library(
-    library: Library,
+    library: StableLibrary,
     showAuthor: Boolean = true,
     showVersion: Boolean = true,
     showLicenseBadges: Boolean = true,
@@ -128,7 +117,7 @@ internal fun Library(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
-                text = library.name,
+                text = library.library.name,
                 modifier = Modifier
                     .padding(padding.namePadding)
                     .weight(1f),
@@ -137,7 +126,7 @@ internal fun Library(
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
-            val version = library.artifactVersion
+            val version = library.library.artifactVersion
             if (version != null && showVersion) {
                 Text(
                     version,
@@ -148,7 +137,7 @@ internal fun Library(
                 )
             }
         }
-        val author = library.author
+        val author = library.library.author
         if (showAuthor && author.isNotBlank()) {
             Text(
                 text = author,
@@ -156,9 +145,9 @@ internal fun Library(
                 color = colors.contentColor
             )
         }
-        if (showLicenseBadges && library.licenses.isNotEmpty()) {
+        if (showLicenseBadges && library.library.licenses.isNotEmpty()) {
             Row {
-                library.licenses.forEach {
+                library.library.licenses.forEach {
                     Badge(
                         modifier = Modifier.padding(padding.badgePadding),
                         contentColor = colors.badgeContentColor,
