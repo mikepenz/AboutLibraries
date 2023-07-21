@@ -12,12 +12,12 @@ dokka = "1.9.10"
 kotlinCore = { require = "1.9.20" }
 kotlinCoroutines = { require = "1.7.3" }
 kotlinxSerialization = "1.6.0"
-kotlinxCollections = "0.3.6"
+kotlinxCollections = "0.4-wasm1"
 # compose
 compose = "1.5.4"
 composeUi = "1.5.4" # foundation / material
 composeCompiler = "1.5.4-dev-k1.9.20-50f08dfa4b4"
-composejb = "1.5.10" # "1.4.0-dev-wasm09"
+composejb = "1.5.10-dev-wasm02" # "1.4.0-dev-wasm09"
 composeCompilerJb = "1.5.3"
 # androidx
 activity = "1.8.0"

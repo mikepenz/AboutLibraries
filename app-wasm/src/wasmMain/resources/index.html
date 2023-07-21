@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- http://localhost:80 -->
+    <meta http-equiv="origin-trial" content="AjytAe1FWUIWH/RzqsOWlXYw7kGwt11ejbvR/ArmAU4QbXIPg69wzpniDhPByiOZ9pdNqsdMsXsoxggVtfGhwwMAAABOeyJvcmlnaW4iOiJodHRwOi8vbG9jYWxob3N0OjgwIiwiZmVhdHVyZSI6IldlYkFzc2VtYmx5R0MiLCJleHBpcnkiOjE2OTg5Njk1OTl9">
+    <!-- http://localhost:8080 -->
+    <meta http-equiv="origin-trial" content="AtSRFRWKTCcQHDFUUQL1VaVz9mjmsK1xm5k0S8etkmvMLa5TsiNeQsle/eDgdZVkm1PM1WmrSMx52kI8yAP2UgEAAABQeyJvcmlnaW4iOiJodHRwOi8vbG9jYWxob3N0OjgwODAiLCJmZWF0dXJlIjoiV2ViQXNzZW1ibHlHQyIsImV4cGlyeSI6MTY5ODk2OTU5OX0=">
+    <!-- http://localhost:8081 -->
+    <meta http-equiv="origin-trial" content="AspyK9xe4tO2aIvJWnr5HTRT9GqpGJID2qZjj+0OvhKHp9JrUP+92PF+Rt11Tyi7cKSEB7OFFGdeVs7Ns5TMhAUAAABQeyJvcmlnaW4iOiJodHRwOi8vbG9jYWxob3N0OjgwODEiLCJmZWF0dXJlIjoiV2ViQXNzZW1ibHlHQyIsImV4cGlyeSI6MTY5ODk2OTU5OX0=">
+    <!-- http://localhost:8082 -->
+    <meta http-equiv="origin-trial" content="AoPGqwBGEQW3twSDYvXt1JHz5zg7Z4o+Orwr8NxdVoXJ68zjwOi2C8/0w4xFYW6UUH8w97eIjykGOa/+jIBfTQMAAABQeyJvcmlnaW4iOiJodHRwOi8vbG9jYWxob3N0OjgwODIiLCJmZWF0dXJlIjoiV2ViQXNzZW1ibHlHQyIsImV4cGlyeSI6MTY5ODk2OTU5OX0=">
+    <!-- http://localhost:8083 -->
+    <meta http-equiv="origin-trial" content="AvV2HYiHMw7lpIVcmGMSVmm6xC0Gzu4W5xBnZExmfHtE5zyNKFszcyNGm5IfCFQ6swnMotbn16lS1ozkJ0QzEAEAAABQeyJvcmlnaW4iOiJodHRwOi8vbG9jYWxob3N0OjgwODMiLCJmZWF0dXJlIjoiV2ViQXNzZW1ibHlHQyIsImV4cGlyeSI6MTY5ODk2OTU5OX0=">
+
+    <title>Image Viewer (Kotlin/Wasm)</title>
+    <script type="application/javascript" src="skiko.js"></script>
+    <script type="module" src="load.mjs"></script>
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+            overflow: hidden;
+        }
+
+        #warning {
+            position: absolute;
+            top: 100px;
+            left: 100px;
+            z-index: 100;
+        }
+        #warning li {
+            padding-bottom: 15px;
+        }
+
+        #warning span.code {
+            font-family: monospace;
+        }
+
+        ul {
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        #footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: white;
+        }
+
+        #close {
+            position: absolute;
+            top: 0;
+            right: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<canvas id="ComposeTarget"></canvas>
+
+<div id="warning">
+    ⚠️ This page using <b>experimental Kotlin/Wasm</b> which requires enabling experimental features in your browser.
+    <ul>
+        <li>For <b>Chrome</b> 110 or newer:
+            <ol>
+                <li>Open <span class="code">chrome://flags/#enable-webassembly-garbage-collection</span> in the browser.</li>
+                <li>Enable <strong>WebAssembly Garbage Collection</strong>.</li>
+                <li>Relaunch the browser.</li>
+            </ol>
+            or with Chrome 109 or newer, run the browser with the <span class="code">--js-flags=--experimental-wasm-gc</span> command line argument.</li>
+        <li>For <b>Edge</b> 109 or newer: run the browser with the <span class="code">--js-flags=--experimental-wasm-gc</span> command line argument.</li>
+        <li>For <b>Firefox Nightly</b> 112 or newer:
+            <ol>
+                <li>Open <span class="code">about:config</span> in the browser.</li>
+                <li>Enable <strong>javascript.options.wasm_function_references</strong> and <strong>javascript.options.wasm_gc</strong>.</li>
+                <li>Refresh this page.</li>
+            </ol>
+        </li>
+    </ul>
+</div>
+<div id="footer">
+    <div style="float: left; width: 50%; padding-right: 5px">
+        <span style="padding-left: 20px">Don't hesitate to share your feedback and ask questions:</span>
+        <ul style="">
+            <li>In the Kotlin Slack <code><a href="https://slack-chats.kotlinlang.org/c/compose-web">#compose-web</a></code> channel (if you’re not a member, <a href="https://kotl.in/slack">apply here</a>).</li>
+            <li>In <a href="https://twitter.com/bashorov/status/1646487415043792897">the original Twitter thread</a></li>
+        </ul>
+    </div>
+    <div style="float: left; width: 45%;">
+        <span style="padding-left: 20px;">For future news</span>
+        <ul>
+            <li>Join <code><a href="https://slack-chats.kotlinlang.org/c/webassembly">#webassembly</a> & <a href="https://slack-chats.kotlinlang.org/c/compose-web">#compose-web</a></code> channels in Kotlin Slack (if you’re not a member, <a href="https://kotl.in/slack">apply here</a>).</li>
+            <li>Follow <a href="https://twitter.com/bashorov/">@bashorov</a> on Twitter</li>
+        </ul>
+    </div>
+    <div id="close" onclick="document.getElementById('footer').style.display='none'">ⓧ</div>
+</div>
+</body>
+</html>
