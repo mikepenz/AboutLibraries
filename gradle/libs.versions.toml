@@ -1,9 +1,9 @@
 [versions]
 # android sdk versions
-compileSdk = "33"
+compileSdk = "34"
 coreMinSdk = "19"
 minSdk = "21"
-targetSdk = "33"
+targetSdk = "34"
 # build
 gradleBuild = "8.0.2"
 buildTools = "34.0.0"
