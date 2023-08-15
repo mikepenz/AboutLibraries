@@ -73,7 +73,7 @@ kotlin {
     linuxArm64()
     // wasm()
 
-    android {
+    androidTarget {
         publishAllLibraryVariants()
     }
 
@@ -127,6 +127,7 @@ kotlin {
 dependencies {
     // kotlinx Serialize
     "multiplatformMainImplementation"(libs.kotlinx.serialization)
+
 }
 
 tasks.dokkaHtml.configure {

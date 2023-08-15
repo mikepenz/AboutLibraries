@@ -14,10 +14,10 @@ kotlinCoroutines = { require = "1.7.3" }
 kotlinxSerialization = "1.5.1"
 kotlinxCollections = "0.3.5"
 # compose
-compose = "1.5.0-rc01"
-composeUi = "1.5.0-rc01" # foundation / material
+compose = "1.5.0"
+composeUi = "1.5.0" # foundation / material
 composeCompiler = "1.5.1"
-composejb = "1.5.0-dev1136" # "1.4.0-dev-wasm09" # "1.5.0-dev1114"
+composejb = "1.5.0-beta02" # "1.4.0-dev-wasm09" # "1.5.0-dev1114"
 composeCompilerJb = "1.5.0"
 # androidx
 activity = "1.7.2"
