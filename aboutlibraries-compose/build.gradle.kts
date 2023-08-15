@@ -71,7 +71,7 @@ compose {
 kotlin {
     jvm()
 
-    android {
+    androidTarget {
         publishLibraryVariants("release")
     }
 

@@ -4,16 +4,14 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.produceState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.mikepenz.aboutlibraries.Libs
-import com.mikepenz.aboutlibraries.entity.Library
+import com.mikepenz.aboutlibraries.ui.compose.util.StableLibrary
 import com.mikepenz.aboutlibraries.ui.compose.util.stable
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 /**
  * Displays all provided libraries in a simple list.
@@ -32,10 +30,11 @@ fun LibrariesContainer(
     itemContentPadding: PaddingValues = LibraryDefaults.ContentPadding,
     itemSpacing: Dp = LibraryDefaults.LibraryItemSpacing,
     header: (LazyListScope.() -> Unit)? = null,
-    onLibraryClick: ((Library) -> Unit)? = null,
+    onLibraryClick: ((StableLibrary) -> Unit)? = null,
 ) {
+    val libs = Libs.Builder().withJson(aboutLibsJson).build().stable
     LibrariesContainer(
-        { Libs.Builder().withJson(aboutLibsJson).build() },
+        libs,
         modifier = modifier,
         lazyListState = lazyListState,
         contentPadding = contentPadding,
@@ -47,7 +46,10 @@ fun LibrariesContainer(
         itemContentPadding = itemContentPadding,
         itemSpacing = itemSpacing,
         header = header,
-        onLibraryClick = onLibraryClick
+        onLibraryClick = onLibraryClick,
+        licenseDialogBody = { library ->
+            Text(library.library.licenses.firstOrNull()?.licenseContent ?: "")
+        }
     )
 }
 
@@ -68,30 +70,27 @@ fun LibrariesContainer(
     itemContentPadding: PaddingValues = LibraryDefaults.ContentPadding,
     itemSpacing: Dp = LibraryDefaults.LibraryItemSpacing,
     header: (LazyListScope.() -> Unit)? = null,
-    onLibraryClick: ((Library) -> Unit)? = null,
+    onLibraryClick: ((StableLibrary) -> Unit)? = null,
 ) {
-    val libraries = produceState<Libs?>(null) {
-        value = withContext(Dispatchers.Default) {
-            librariesBlock()
-        }
-    }
+    val libs = librariesBlock().stable
 
-    val libs = libraries.value?.libraries?.stable
-    if (libs != null) {
-        Libraries(
-            libraries = libs,
-            modifier = modifier,
-            lazyListState = lazyListState,
-            contentPadding = contentPadding,
-            showAuthor = showAuthor,
-            showVersion = showVersion,
-            showLicenseBadges = showLicenseBadges,
-            colors = colors,
-            padding = padding,
-            itemContentPadding = itemContentPadding,
-            itemSpacing = itemSpacing,
-            header = header,
-            onLibraryClick = onLibraryClick
-        )
-    }
+    LibrariesContainer(
+        libs,
+        modifier,
+        lazyListState,
+        contentPadding,
+        showAuthor,
+        showVersion,
+        showLicenseBadges,
+        colors,
+        padding,
+        itemContentPadding,
+        itemSpacing,
+        header,
+        onLibraryClick,
+        licenseDialogBody = { library ->
+            Text(library.library.licenses.firstOrNull()?.licenseContent ?: "")
+        }
+    )
+
 }

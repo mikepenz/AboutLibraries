@@ -38,7 +38,6 @@ android {
 
 kotlin {
     jvm()
-
     js(IR) {
         nodejs {}
         browser {}
@@ -50,32 +49,41 @@ kotlin {
             }
         }
     }
+    androidTarget {
+        publishAllLibraryVariants()
+    }
+    // wasm()
 
-    ios()
-    iosX64()
-    iosArm32()
-    iosArm64()
+    // tier 1
+    linuxX64()
+    macosX64()
+    macosArm64()
     iosSimulatorArm64()
-    tvos()
-    tvosX64()
-    tvosArm64()
-    tvosSimulatorArm64()
-    watchos()
-    watchosX86()
+    iosX64()
+
+    // tier 2
+    linuxArm64()
+    watchosSimulatorArm64()
     watchosX64()
     watchosArm32()
     watchosArm64()
-    watchosSimulatorArm64()
-    macosX64()
-    macosArm64()
-    mingwX64()
-    linuxX64()
-    linuxArm64()
-    // wasm()
+    tvosSimulatorArm64()
+    tvosX64()
+    tvosArm64()
+    iosArm64()
 
-    android {
-        publishAllLibraryVariants()
-    }
+    // tier 3
+    // androidNativeArm32()
+    // androidNativeArm64()
+    // androidNativeX86()
+    // androidNativeX64()
+    mingwX64()
+    watchosDeviceArm64()
+
+    // common sets
+    ios()
+    tvos()
+    watchos()
 
     /*
     cocoapods {
@@ -102,7 +110,6 @@ kotlin {
         val macosArm64Main by sourceSets.getting { dependsOn(desktopMain) }
         val linuxArm64Main by sourceSets.getting { dependsOn(desktopMain) }
         val iosMain by sourceSets.getting { dependsOn(multiplatformMain) }
-        val iosArm32Main by sourceSets.getting { dependsOn(iosMain) }
         val iosArm64Main by sourceSets.getting { dependsOn(iosMain) }
         val iosSimulatorArm64Main by sourceSets.getting { dependsOn(iosMain) }
         val iosX64Main by sourceSets.getting { dependsOn(iosMain) }
@@ -112,8 +119,8 @@ kotlin {
         val watchosArm32Main by sourceSets.getting { dependsOn(iosMain) }
         val watchosArm64Main by sourceSets.getting { dependsOn(iosMain) }
         val watchosSimulatorArm64Main by sourceSets.getting { dependsOn(iosMain) }
-        val watchosX86Main by sourceSets.getting { dependsOn(iosMain) }
         val watchosX64Main by sourceSets.getting { dependsOn(iosMain) }
+        val watchosDeviceArm64Main by sourceSets.getting { dependsOn(iosMain) }
         // val wasmMain by sourceSets.getting { dependsOn(multiplatformMain) }
 
         val jvmTest by getting {
@@ -127,6 +134,7 @@ kotlin {
 dependencies {
     // kotlinx Serialize
     "multiplatformMainImplementation"(libs.kotlinx.serialization)
+
 }
 
 tasks.dokkaHtml.configure {
