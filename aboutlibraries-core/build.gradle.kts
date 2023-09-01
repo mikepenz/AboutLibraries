@@ -37,6 +37,8 @@ android {
 }
 
 kotlin {
+    targetHierarchy.default()
+
     jvm()
     js(IR) {
         nodejs {}
@@ -99,29 +101,24 @@ kotlin {
      */
 
     sourceSets {
-        val commonMain by sourceSets.getting
-        val multiplatformMain by sourceSets.creating { dependsOn(commonMain) }
-        val jvmMain by sourceSets.getting { dependsOn(multiplatformMain) }
-        val jsMain by sourceSets.getting { dependsOn(multiplatformMain) }
-        val desktopMain by sourceSets.creating { dependsOn(multiplatformMain) }
-        val linuxX64Main by sourceSets.getting { dependsOn(desktopMain) }
-        val mingwX64Main by sourceSets.getting { dependsOn(desktopMain) }
-        val macosX64Main by sourceSets.getting { dependsOn(desktopMain) }
-        val macosArm64Main by sourceSets.getting { dependsOn(desktopMain) }
-        val linuxArm64Main by sourceSets.getting { dependsOn(desktopMain) }
-        val iosMain by sourceSets.getting { dependsOn(multiplatformMain) }
-        val iosArm64Main by sourceSets.getting { dependsOn(iosMain) }
-        val iosSimulatorArm64Main by sourceSets.getting { dependsOn(iosMain) }
-        val iosX64Main by sourceSets.getting { dependsOn(iosMain) }
-        val tvosArm64Main by sourceSets.getting { dependsOn(iosMain) }
-        val tvosSimulatorArm64Main by sourceSets.getting { dependsOn(iosMain) }
-        val tvosX64Main by sourceSets.getting { dependsOn(iosMain) }
-        val watchosArm32Main by sourceSets.getting { dependsOn(iosMain) }
-        val watchosArm64Main by sourceSets.getting { dependsOn(iosMain) }
-        val watchosSimulatorArm64Main by sourceSets.getting { dependsOn(iosMain) }
-        val watchosX64Main by sourceSets.getting { dependsOn(iosMain) }
-        val watchosDeviceArm64Main by sourceSets.getting { dependsOn(iosMain) }
-        // val wasmMain by sourceSets.getting { dependsOn(multiplatformMain) }
+        val commonMain by getting
+
+        val multiplatformMain by creating {
+            dependsOn(commonMain)
+        }
+
+        val jvmMain by getting {
+            dependsOn(multiplatformMain)
+        }
+        val nativeMain by getting {
+            dependsOn(multiplatformMain)
+        }
+        val jsMain by getting {
+            dependsOn(multiplatformMain)
+        }
+        val androidMain by getting {
+            dependsOn(commonMain)
+        }
 
         val jvmTest by getting {
             dependencies {
@@ -133,8 +130,7 @@ kotlin {
 
 dependencies {
     // kotlinx Serialize
-    "multiplatformMainImplementation"(libs.kotlinx.serialization)
-
+    "commonMainImplementation"(libs.kotlinx.serialization)
 }
 
 tasks.dokkaHtml.configure {
