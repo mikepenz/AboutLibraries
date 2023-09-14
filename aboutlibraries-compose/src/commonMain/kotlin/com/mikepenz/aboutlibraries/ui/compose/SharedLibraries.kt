@@ -23,6 +23,7 @@ import com.mikepenz.aboutlibraries.ui.compose.util.StableLibrary
 import com.mikepenz.aboutlibraries.ui.compose.util.StableLibs
 import com.mikepenz.aboutlibraries.ui.compose.util.author
 import com.mikepenz.aboutlibraries.ui.compose.util.htmlReadyLicenseContent
+import com.mikepenz.aboutlibraries.ui.compose.util.stable
 import kotlinx.collections.immutable.ImmutableList
 
 
@@ -49,40 +50,38 @@ fun LibrariesContainer(
 ) {
     val uriHandler = LocalUriHandler.current
 
-    val libs = libraries?.libraries
-    if (libs != null) {
-        val openDialog = remember { mutableStateOf<StableLibrary?>(null) }
+    val libs = libraries?.libraries ?: emptyList<Library>().stable
+    val openDialog = remember { mutableStateOf<StableLibrary?>(null) }
 
-        Libraries(
-            libraries = libs,
-            modifier = modifier,
-            lazyListState = lazyListState,
-            contentPadding = contentPadding,
-            showAuthor = showAuthor,
-            showVersion = showVersion,
-            showLicenseBadges = showLicenseBadges,
-            colors = colors,
-            padding = padding,
-            itemContentPadding = itemContentPadding,
-            itemSpacing = itemSpacing,
-            header = header,
-            onLibraryClick = { library ->
-                val license = library.library.licenses.firstOrNull()
-                if (onLibraryClick != null) {
-                    onLibraryClick(library)
-                } else if (!license?.htmlReadyLicenseContent.isNullOrBlank()) {
-                    openDialog.value = library
-                } else if (!license?.url.isNullOrBlank()) {
-                    license?.url?.also { uriHandler.openUri(it) }
-                }
-            },
-        )
-
-        val library = openDialog.value
-        if (library != null && licenseDialogBody != null) {
-            LicenseDialog(library, colors, licenseDialogConfirmText, body = licenseDialogBody) {
-                openDialog.value = null
+    Libraries(
+        libraries = libs,
+        modifier = modifier,
+        lazyListState = lazyListState,
+        contentPadding = contentPadding,
+        showAuthor = showAuthor,
+        showVersion = showVersion,
+        showLicenseBadges = showLicenseBadges,
+        colors = colors,
+        padding = padding,
+        itemContentPadding = itemContentPadding,
+        itemSpacing = itemSpacing,
+        header = header,
+        onLibraryClick = { library ->
+            val license = library.library.licenses.firstOrNull()
+            if (onLibraryClick != null) {
+                onLibraryClick(library)
+            } else if (!license?.htmlReadyLicenseContent.isNullOrBlank()) {
+                openDialog.value = library
+            } else if (!license?.url.isNullOrBlank()) {
+                license?.url?.also { uriHandler.openUri(it) }
             }
+        },
+    )
+
+    val library = openDialog.value
+    if (library != null && licenseDialogBody != null) {
+        LicenseDialog(library, colors, licenseDialogConfirmText, body = licenseDialogBody) {
+            openDialog.value = null
         }
     }
 }
