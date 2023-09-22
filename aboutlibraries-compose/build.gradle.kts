@@ -64,14 +64,16 @@ android {
 
 
 compose {
-    kotlinCompilerPlugin.set(libs.versions.composeCompilerJb.get())
+    //kotlinCompilerPlugin.set("androidx.compose.compiler:compiler")
     kotlinCompilerPluginArgs.add("suppressKotlinVersionCompatibilityCheck=${libs.versions.kotlinCore.get()}")
 }
 
 kotlin {
+    targetHierarchy.default()
+
     jvm()
 
-    android {
+    androidTarget {
         publishLibraryVariants("release")
     }
 
@@ -84,25 +86,6 @@ kotlin {
     sourceSets {
         val commonMain by getting
         val commonTest by getting
-
-        val nonAndroidMain by creating {
-            dependsOn(commonMain)
-        }
-        val nonAndroidTest by creating {
-            dependsOn(commonTest)
-        }
-
-        listOf(
-            "jvm",
-            "iosX64",
-            "iosArm64",
-            "iosSimulatorArm64",
-            "macosX64",
-            "macosArm64"
-        ).forEach {
-            getByName(it + "Main").dependsOn(nonAndroidMain)
-            getByName(it + "Test").dependsOn(nonAndroidTest)
-        }
     }
 }
 

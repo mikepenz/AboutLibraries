@@ -59,9 +59,11 @@ fun MainLayout() {
                 TopAppBar(
                     title = { Text("Compose Sample") },
                     backgroundColor = MaterialTheme.colors.surface.copy(alpha = 0.9f),
-                    modifier = Modifier.fillMaxWidth().padding(
-                        WindowInsets.statusBars.asPaddingValues()
-                    ),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(
+                            WindowInsets.statusBars.asPaddingValues()
+                        ),
                     actions = {
                         IconButton(onClick = {
                             showAuthor = !showAuthor
@@ -83,7 +85,7 @@ fun MainLayout() {
             },
         ) { contentPadding ->
             LibrariesContainer(
-                Modifier
+                modifier = Modifier
                     .fillMaxSize()
                     .padding(top = contentPadding.calculateTopPadding()),
                 contentPadding = WindowInsets.navigationBars.asPaddingValues(),

@@ -4,10 +4,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Immutable
-import androidx.compose.runtime.Stable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -16,10 +16,116 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.ui.compose.util.StableLibrary
+import com.mikepenz.aboutlibraries.ui.compose.util.StableLibs
 import com.mikepenz.aboutlibraries.ui.compose.util.author
+import com.mikepenz.aboutlibraries.ui.compose.util.htmlReadyLicenseContent
+import com.mikepenz.aboutlibraries.ui.compose.util.stable
 import kotlinx.collections.immutable.ImmutableList
+
+
+/**
+ * Displays all provided libraries in a simple list.
+ */
+@Composable
+fun LibrariesContainer(
+    libraries: StableLibs?,
+    modifier: Modifier = Modifier,
+    lazyListState: LazyListState = rememberLazyListState(),
+    contentPadding: PaddingValues = PaddingValues(0.dp),
+    showAuthor: Boolean = true,
+    showVersion: Boolean = true,
+    showLicenseBadges: Boolean = true,
+    colors: LibraryColors = LibraryDefaults.libraryColors(),
+    padding: LibraryPadding = LibraryDefaults.libraryPadding(),
+    itemContentPadding: PaddingValues = LibraryDefaults.ContentPadding,
+    itemSpacing: Dp = LibraryDefaults.LibraryItemSpacing,
+    header: (LazyListScope.() -> Unit)? = null,
+    onLibraryClick: ((StableLibrary) -> Unit)? = null,
+    licenseDialogBody: (@Composable (StableLibrary) -> Unit)? = null,
+    licenseDialogConfirmText: String = "OK",
+) {
+    val uriHandler = LocalUriHandler.current
+
+    val libs = libraries?.libraries ?: emptyList<Library>().stable
+    val openDialog = remember { mutableStateOf<StableLibrary?>(null) }
+
+    Libraries(
+        libraries = libs,
+        modifier = modifier,
+        lazyListState = lazyListState,
+        contentPadding = contentPadding,
+        showAuthor = showAuthor,
+        showVersion = showVersion,
+        showLicenseBadges = showLicenseBadges,
+        colors = colors,
+        padding = padding,
+        itemContentPadding = itemContentPadding,
+        itemSpacing = itemSpacing,
+        header = header,
+        onLibraryClick = { library ->
+            val license = library.library.licenses.firstOrNull()
+            if (onLibraryClick != null) {
+                onLibraryClick(library)
+            } else if (!license?.htmlReadyLicenseContent.isNullOrBlank()) {
+                openDialog.value = library
+            } else if (!license?.url.isNullOrBlank()) {
+                license?.url?.also { uriHandler.openUri(it) }
+            }
+        },
+    )
+
+    val library = openDialog.value
+    if (library != null && licenseDialogBody != null) {
+        LicenseDialog(library, colors, licenseDialogConfirmText, body = licenseDialogBody) {
+            openDialog.value = null
+        }
+    }
+}
+
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+fun LicenseDialog(
+    library: StableLibrary,
+    colors: LibraryColors = LibraryDefaults.libraryColors(),
+    confirmText: String = "OK",
+    body: @Composable (StableLibrary) -> Unit,
+    onDismiss: () -> Unit,
+) {
+    val scrollState = rememberScrollState()
+    
+    Dialog(
+        onDismissRequest = onDismiss,
+        properties = DialogProperties(),
+        content = {
+            Surface(
+                shape = MaterialTheme.shapes.medium,
+                color = colors.backgroundColor,
+                contentColor = colors.contentColor
+            ) {
+                Column {
+                    FlowRow(
+                        modifier = Modifier.verticalScroll(scrollState).padding(8.dp).weight(1f)
+                    ) {
+                        body(library)
+                    }
+                    FlowRow(
+                        modifier = Modifier
+                            .align(Alignment.End)
+                            .padding(horizontal = 8.dp, vertical = 2.dp)
+                    ) {
+                        TextButton(onClick = onDismiss) {
+                            Text(confirmText)
+                        }
+                    }
+                }
+            }
+        },
+    )
+}
 
 /**
  * Displays all provided libraries in a simple list.
@@ -38,7 +144,7 @@ fun Libraries(
     itemContentPadding: PaddingValues = LibraryDefaults.ContentPadding,
     itemSpacing: Dp = LibraryDefaults.LibraryItemSpacing,
     header: (LazyListScope.() -> Unit)? = null,
-    onLibraryClick: ((Library) -> Unit)? = null,
+    onLibraryClick: ((StableLibrary) -> Unit)? = null,
 ) {
     val uriHandler = LocalUriHandler.current
 
@@ -58,7 +164,7 @@ fun Libraries(
             padding,
             itemContentPadding
         ) { library ->
-            val license = library.licenses.firstOrNull()
+            val license = library.library.licenses.firstOrNull()
             if (onLibraryClick != null) {
                 onLibraryClick.invoke(library)
             } else if (!license?.url.isNullOrBlank()) {
@@ -76,7 +182,7 @@ internal inline fun LazyListScope.libraryItems(
     colors: LibraryColors,
     padding: LibraryPadding,
     itemContentPadding: PaddingValues = LibraryDefaults.ContentPadding,
-    crossinline onLibraryClick: ((Library) -> Unit),
+    crossinline onLibraryClick: ((StableLibrary) -> Unit),
 ) {
     items(libraries) { library ->
         Library(
@@ -88,7 +194,7 @@ internal inline fun LazyListScope.libraryItems(
             padding,
             itemContentPadding
         ) {
-            onLibraryClick.invoke(library.library)
+            onLibraryClick.invoke(library)
         }
     }
 }
