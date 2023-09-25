@@ -20,7 +20,6 @@ import org.gradle.api.Project
 import org.gradle.api.artifacts.Configuration
 import org.gradle.api.artifacts.ResolvedArtifact
 import org.gradle.api.artifacts.ResolvedDependency
-import org.gradle.internal.component.AmbiguousVariantSelectionException
 import org.slf4j.LoggerFactory
 
 /**
@@ -73,6 +72,9 @@ class DependencyCollector(
             .forEach { (variant, configuration) ->
                 val variantSet = mutableCollectContainer.getOrPut(variant) { sortedMapOf(compareBy<String> { it }) }
                 val visitedDependencyNames = mutableSetOf<String>()
+
+                LOGGER.debug("Pre-fetching dependencies for $variant")
+
                 configuration
                     .resolvedConfiguration
                     .lenientConfiguration
@@ -80,9 +82,14 @@ class DependencyCollector(
                     .getResolvedArtifacts(visitedDependencyNames)
                     .forEach { resArtifact ->
                         val identifier = "${resArtifact.moduleVersion.id.group.trim()}:${resArtifact.name.trim()}"
+
+                        LOGGER.debug("Retrieved for $variant :: $identifier")
+
                         val versions = variantSet.getOrPut(identifier) { LinkedHashSet() }
                         versions.add(resArtifact.moduleVersion.id.version.trim())
                     }
+
+                LOGGER.debug("Completed-fetching dependencies for $variant")
 
             }
         return CollectedContainer(mutableCollectContainer)
@@ -101,21 +108,30 @@ class DependencyCollector(
             if (name !in visitedDependencyNames) {
                 visitedDependencyNames += name
 
+                LOGGER.debug("getResolvedArtifacts 1 :: $name")
+
                 try {
                     resolvedArtifacts += when {
                         resolvedDependency.moduleVersion == "unspecified" -> {
+                            LOGGER.debug("getResolvedArtifacts 2 :: unspecified branch")
+
                             resolvedDependency.children.getResolvedArtifacts(
                                 visitedDependencyNames = visitedDependencyNames
                             )
                         }
 
                         includePlatform && resolvedDependency.isPlatform -> {
+                            LOGGER.debug("getResolvedArtifacts 3 :: platform branch")
+
                             setOf(resolvedDependency.toResolvedBomArtifact())
                         }
 
-                        else -> resolvedDependency.allModuleArtifacts
+                        else -> {
+                            LOGGER.debug("getResolvedArtifacts 4 :: allModuleArtifacts")
+                            resolvedDependency.allModuleArtifacts
+                        }
                     }
-                } catch (e: AmbiguousVariantSelectionException) {
+                } catch (e: Throwable) {
                     LOGGER.info("Found ambiguous variant - $resolvedDependency", e)
                 }
             }
