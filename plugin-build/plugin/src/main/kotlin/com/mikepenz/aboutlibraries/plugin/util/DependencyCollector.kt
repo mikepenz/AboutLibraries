@@ -73,8 +73,7 @@ class DependencyCollector(
                 val variantSet = mutableCollectContainer.getOrPut(variant) { sortedMapOf(compareBy<String> { it }) }
                 val visitedDependencyNames = mutableSetOf<String>()
 
-                LOGGER.debug("Pre-fetching dependencies for $variant")
-
+                if (LOGGER.isDebugEnabled) LOGGER.debug("Pre-fetching dependencies for $variant")
                 configuration
                     .resolvedConfiguration
                     .lenientConfiguration
@@ -82,15 +81,12 @@ class DependencyCollector(
                     .getResolvedArtifacts(visitedDependencyNames)
                     .forEach { resArtifact ->
                         val identifier = "${resArtifact.moduleVersion.id.group.trim()}:${resArtifact.name.trim()}"
-
-                        LOGGER.debug("Retrieved for $variant :: $identifier")
-
+                        if (LOGGER.isDebugEnabled) LOGGER.debug("Retrieved for $variant :: $identifier")
                         val versions = variantSet.getOrPut(identifier) { LinkedHashSet() }
                         versions.add(resArtifact.moduleVersion.id.version.trim())
                     }
 
-                LOGGER.debug("Completed-fetching dependencies for $variant")
-
+                if (LOGGER.isDebugEnabled) LOGGER.debug("Completed-fetching dependencies for $variant")
             }
         return CollectedContainer(mutableCollectContainer)
     }
@@ -108,31 +104,29 @@ class DependencyCollector(
             if (name !in visitedDependencyNames) {
                 visitedDependencyNames += name
 
-                LOGGER.debug("getResolvedArtifacts 1 :: $name")
+                if (LOGGER.isDebugEnabled) LOGGER.debug("handling resolved artifact :: $name")
 
                 try {
                     resolvedArtifacts += when {
                         resolvedDependency.moduleVersion == "unspecified" -> {
-                            LOGGER.debug("getResolvedArtifacts 2 :: unspecified branch")
-
+                            if (LOGGER.isDebugEnabled) LOGGER.debug("artifact has unspecified version")
                             resolvedDependency.children.getResolvedArtifacts(
                                 visitedDependencyNames = visitedDependencyNames
                             )
                         }
 
                         includePlatform && resolvedDependency.isPlatform -> {
-                            LOGGER.debug("getResolvedArtifacts 3 :: platform branch")
-
+                            if (LOGGER.isDebugEnabled) LOGGER.debug("artifact is platform")
                             setOf(resolvedDependency.toResolvedBomArtifact())
                         }
 
                         else -> {
-                            LOGGER.debug("getResolvedArtifacts 4 :: allModuleArtifacts")
+                            if (LOGGER.isDebugEnabled) LOGGER.debug("retrieve allModuleArtifacts from artifact")
                             resolvedDependency.allModuleArtifacts
                         }
                     }
                 } catch (e: Throwable) {
-                    LOGGER.info("Found ambiguous variant - $resolvedDependency", e)
+                    LOGGER.warn("Found ambiguous variant - $resolvedDependency", e)
                 }
             }
         }
