@@ -117,7 +117,12 @@ fun LicenseDialog(
                             .align(Alignment.End)
                             .padding(horizontal = 8.dp, vertical = 2.dp)
                     ) {
-                        TextButton(onClick = onDismiss) {
+                        TextButton(
+                            onClick = onDismiss,
+                            colors = ButtonDefaults.textButtonColors(
+                                contentColor = colors.dialogConfirmButtonColor,
+                            )
+                        ) {
                             Text(confirmText)
                         }
                     }
@@ -295,6 +300,7 @@ object LibraryDefaults {
      * @param contentColor the content color of this [Library]
      * @param badgeBackgroundColor the badge background color of this [Library]
      * @param badgeContentColor the badge content color of this [Library]
+     * @param dialogConfirmButtonColor the dialog's confirm button color of this [Library]
      */
     @Composable
     fun libraryColors(
@@ -302,11 +308,13 @@ object LibraryDefaults {
         contentColor: Color = contentColorFor(backgroundColor),
         badgeBackgroundColor: Color = MaterialTheme.colors.primary,
         badgeContentColor: Color = contentColorFor(badgeBackgroundColor),
+        dialogConfirmButtonColor: Color = MaterialTheme.colors.primary,
     ): LibraryColors = DefaultLibraryColors(
         backgroundColor = backgroundColor,
         contentColor = contentColor,
         badgeBackgroundColor = badgeBackgroundColor,
-        badgeContentColor = badgeContentColor
+        badgeContentColor = badgeContentColor,
+        dialogConfirmButtonColor = dialogConfirmButtonColor,
     )
 
     /**
@@ -350,6 +358,9 @@ interface LibraryColors {
 
     /** Represents the badge content color for this library item. */
     val badgeContentColor: Color
+
+    /** Represents the text color of the dialog's confirm button  */
+    val dialogConfirmButtonColor: Color
 }
 
 /**
@@ -361,6 +372,7 @@ private class DefaultLibraryColors(
     override val contentColor: Color,
     override val badgeBackgroundColor: Color,
     override val badgeContentColor: Color,
+    override val dialogConfirmButtonColor: Color,
 ) : LibraryColors
 
 
