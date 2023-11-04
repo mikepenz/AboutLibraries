@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 plugins {
     kotlin("multiplatform")
     id("org.jetbrains.compose")
+    id("com.mikepenz.aboutlibraries.plugin")
 }
 
 // val copyWasmResources = tasks.create("copyWasmResourcesWorkaround", Copy::class.java) {
@@ -15,16 +16,22 @@ plugins {
 // }
 
 kotlin {
-    wasm {
+    wasmJs {
         moduleName = "aboutlibraries"
         browser {
             commonWebpackConfig {
                 devServer = (devServer ?: KotlinWebpackConfig.DevServer()).copy(
+                    open = mapOf(
+                        "app" to mapOf(
+                            "name" to "google chrome canary",
+                            "arguments" to listOf("--js-flags=--experimental-wasm-gc ")
+                        )
+                    ),
                     static = (devServer?.static ?: mutableListOf()).apply {
                         add(project.rootDir.path)
-                        add(project.rootDir.path + "/shared/")
+                        add(project.rootDir.path + "/common/")
                         add(project.rootDir.path + "/nonAndroidMain/")
-                        add(project.rootDir.path + "/webApp/")
+                        add(project.rootDir.path + "/web/")
                     },
                 )
             }
@@ -41,6 +48,9 @@ kotlin {
                 implementation(compose.material)
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
+
+                implementation(project(":aboutlibraries-core"))
+                implementation(project(":aboutlibraries-compose"))
             }
         }
     }

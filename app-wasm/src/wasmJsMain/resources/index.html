@@ -13,7 +13,7 @@
     <!-- http://localhost:8083 -->
     <meta http-equiv="origin-trial" content="AvV2HYiHMw7lpIVcmGMSVmm6xC0Gzu4W5xBnZExmfHtE5zyNKFszcyNGm5IfCFQ6swnMotbn16lS1ozkJ0QzEAEAAABQeyJvcmlnaW4iOiJodHRwOi8vbG9jYWxob3N0OjgwODMiLCJmZWF0dXJlIjoiV2ViQXNzZW1ibHlHQyIsImV4cGlyeSI6MTY5ODk2OTU5OX0=">
 
-    <title>Image Viewer (Kotlin/Wasm)</title>
+    <title>JetSnack with Kotlin/Wasm</title>
     <script type="application/javascript" src="skiko.js"></script>
     <script type="module" src="load.mjs"></script>
     <style>
@@ -61,44 +61,6 @@
     </style>
 </head>
 <body>
-<canvas id="ComposeTarget"></canvas>
-
-<div id="warning">
-    ⚠️ This page using <b>experimental Kotlin/Wasm</b> which requires enabling experimental features in your browser.
-    <ul>
-        <li>For <b>Chrome</b> 110 or newer:
-            <ol>
-                <li>Open <span class="code">chrome://flags/#enable-webassembly-garbage-collection</span> in the browser.</li>
-                <li>Enable <strong>WebAssembly Garbage Collection</strong>.</li>
-                <li>Relaunch the browser.</li>
-            </ol>
-            or with Chrome 109 or newer, run the browser with the <span class="code">--js-flags=--experimental-wasm-gc</span> command line argument.</li>
-        <li>For <b>Edge</b> 109 or newer: run the browser with the <span class="code">--js-flags=--experimental-wasm-gc</span> command line argument.</li>
-        <li>For <b>Firefox Nightly</b> 112 or newer:
-            <ol>
-                <li>Open <span class="code">about:config</span> in the browser.</li>
-                <li>Enable <strong>javascript.options.wasm_function_references</strong> and <strong>javascript.options.wasm_gc</strong>.</li>
-                <li>Refresh this page.</li>
-            </ol>
-        </li>
-    </ul>
-</div>
-<div id="footer">
-    <div style="float: left; width: 50%; padding-right: 5px">
-        <span style="padding-left: 20px">Don't hesitate to share your feedback and ask questions:</span>
-        <ul style="">
-            <li>In the Kotlin Slack <code><a href="https://slack-chats.kotlinlang.org/c/compose-web">#compose-web</a></code> channel (if you’re not a member, <a href="https://kotl.in/slack">apply here</a>).</li>
-            <li>In <a href="https://twitter.com/bashorov/status/1646487415043792897">the original Twitter thread</a></li>
-        </ul>
-    </div>
-    <div style="float: left; width: 45%;">
-        <span style="padding-left: 20px;">For future news</span>
-        <ul>
-            <li>Join <code><a href="https://slack-chats.kotlinlang.org/c/webassembly">#webassembly</a> & <a href="https://slack-chats.kotlinlang.org/c/compose-web">#compose-web</a></code> channels in Kotlin Slack (if you’re not a member, <a href="https://kotl.in/slack">apply here</a>).</li>
-            <li>Follow <a href="https://twitter.com/bashorov/">@bashorov</a> on Twitter</li>
-        </ul>
-    </div>
-    <div id="close" onclick="document.getElementById('footer').style.display='none'">ⓧ</div>
-</div>
+<canvas id="aboutLibsCanvas"></canvas>
 </body>
 </html>
