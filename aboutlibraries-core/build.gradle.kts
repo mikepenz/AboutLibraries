@@ -54,7 +54,9 @@ kotlin {
     androidTarget {
         publishAllLibraryVariants()
     }
-    // wasm()
+    wasm {
+        nodejs()
+    }
 
     // tier 1
     linuxX64()
@@ -118,6 +120,13 @@ kotlin {
         }
         val androidMain by getting {
             dependsOn(commonMain)
+        }
+
+        val wasmJsMain by getting {
+            dependsOn(multiplatformMain)
+            dependencies {
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.1-wasm1")
+            }
         }
 
         val jvmTest by getting {
