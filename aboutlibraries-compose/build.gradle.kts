@@ -65,7 +65,7 @@ android {
 
 compose {
     //kotlinCompilerPlugin.set("androidx.compose.compiler:compiler")
-    kotlinCompilerPluginArgs.add("suppressKotlinVersionCompatibilityCheck=${libs.versions.kotlinCore.get()}")
+    //kotlinCompilerPluginArgs.add("suppressKotlinVersionCompatibilityCheck=${libs.versions.kotlinCore.get()}")
 }
 
 kotlin {
