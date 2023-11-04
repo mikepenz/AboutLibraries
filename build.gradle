@@ -21,10 +21,6 @@ buildscript {
     }
 }
 
-
-import com.vanniktech.maven.publish.AndroidSingleVariantLibrary
-import com.vanniktech.maven.publish.SonatypeHost
-
 allprojects {
     group = GROUP
     version = VERSION_NAME
@@ -33,14 +29,10 @@ allprojects {
         mavenLocal()
         mavenCentral()
         google()
-        maven {
-            // (mp) remove when available on maven center
-            url "https://maven.pkg.jetbrains.space/public/p/kotlinx-html/maven"
-            content { includeGroup "org.jetbrains.kotlinx" }
-        }
-        maven {
-            setUrl("https://maven.pkg.jetbrains.space/public/p/compose/dev")
-        }
+        maven { setUrl("https://androidx.dev/storage/compose-compiler/repository") }
+        // maven { setUrl("https://maven.pkg.jetbrains.space/public/p/compose/dev") }
+        maven { setUrl("https://maven.pkg.jetbrains.space/kotlin/p/wasm/experimental") }
+        // maven { setUrl("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/dev") }
     }
 }
 

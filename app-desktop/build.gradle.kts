@@ -28,7 +28,7 @@ dependencies {
 
 compose {
     kotlinCompilerPlugin.set(libs.versions.composeCompilerJb.get())
-    kotlinCompilerPluginArgs.add("suppressKotlinVersionCompatibilityCheck=${libs.versions.kotlinCore.get()}")
+    //kotlinCompilerPluginArgs.add("suppressKotlinVersionCompatibilityCheck=${libs.versions.kotlinCore.get()}")
 }
 
 tasks.withType<JavaCompile> {
