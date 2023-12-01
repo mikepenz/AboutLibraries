@@ -1,4 +1,5 @@
 import com.vanniktech.maven.publish.SonatypeHost
+import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 
 plugins {
     kotlin("multiplatform")
@@ -69,12 +70,16 @@ compose {
 }
 
 kotlin {
-    targetHierarchy.default()
+    applyDefaultHierarchyTemplate()
 
     jvm()
 
     androidTarget {
         publishLibraryVariants("release")
+    }
+
+    js(IR) {
+        browser()
     }
 
     iosX64()
