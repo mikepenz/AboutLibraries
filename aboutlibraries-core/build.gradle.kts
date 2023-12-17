@@ -37,7 +37,7 @@ android {
 }
 
 kotlin {
-    targetHierarchy.default()
+    applyDefaultHierarchyTemplate()
 
     jvm()
     js(IR) {
@@ -54,7 +54,7 @@ kotlin {
     androidTarget {
         publishAllLibraryVariants()
     }
-    wasm {
+    wasmJs {
         nodejs()
     }
 

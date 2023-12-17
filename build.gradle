@@ -6,9 +6,8 @@ buildscript {
         mavenLocal()
         mavenCentral()
         google()
-        maven {
-            setUrl("https://maven.pkg.jetbrains.space/public/p/compose/dev")
-        }
+        maven { setUrl("https://maven.pkg.jetbrains.space/public/p/compose/dev") }
+        maven { setUrl("https://maven.pkg.jetbrains.space/kotlin/p/wasm/experimental") }
     }
     dependencies {
         classpath(libs.gradle.build)
@@ -30,7 +29,7 @@ allprojects {
         mavenCentral()
         google()
         maven { setUrl("https://androidx.dev/storage/compose-compiler/repository") }
-        // maven { setUrl("https://maven.pkg.jetbrains.space/public/p/compose/dev") }
+        maven { setUrl("https://maven.pkg.jetbrains.space/public/p/compose/dev") }
         maven { setUrl("https://maven.pkg.jetbrains.space/kotlin/p/wasm/experimental") }
         // maven { setUrl("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/dev") }
     }
