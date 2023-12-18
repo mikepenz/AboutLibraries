@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalWasmDsl::class)
+
 import com.vanniktech.maven.publish.SonatypeHost
 import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 
@@ -38,13 +40,13 @@ android {
             if (project.findProperty("composeCompilerReports") == "true") {
                 freeCompilerArgs += listOf(
                     "-P",
-                    "plugin:androidx.compose.compiler.plugins.kotlin:reportsDestination=${project.buildDir.absolutePath}/compose_compiler"
+                    "plugin:androidx.compose.compiler.plugins.kotlin:reportsDestination=${project.layout.buildDirectory.asFile.get().absolutePath}/compose_compiler"
                 )
             }
             if (project.findProperty("composeCompilerMetrics") == "true") {
                 freeCompilerArgs += listOf(
                     "-P",
-                    "plugin:androidx.compose.compiler.plugins.kotlin:metricsDestination=${project.buildDir.absolutePath}/compose_compiler"
+                    "plugin:androidx.compose.compiler.plugins.kotlin:metricsDestination=${project.layout.buildDirectory.asFile.get().absolutePath}/compose_compiler"
                 )
             }
         }
@@ -87,21 +89,26 @@ kotlin {
     iosSimulatorArm64()
     macosX64()
     macosArm64()
+    wasmJs {
+        nodejs()
+    }
 
     sourceSets {
-        val commonMain by getting
+        val commonMain by getting {
+            dependencies {
+                implementation(compose.runtime)
+                implementation(compose.ui)
+                implementation(compose.foundation)
+                implementation(compose.material)
+                implementation(libs.kotlinx.collections)
+            }
+        }
         val commonTest by getting
     }
 }
 
 dependencies {
     commonMainApi(project(":aboutlibraries-core"))
-
-    commonMainImplementation(compose.runtime)
-    commonMainImplementation(compose.ui)
-    commonMainImplementation(compose.foundation)
-    commonMainImplementation(compose.material)
-    commonMainImplementation(libs.kotlinx.collections)
 
     debugImplementation(compose.uiTooling)
     "androidMainImplementation"(compose.preview)
@@ -114,6 +121,8 @@ configurations.configureEach {
     // https://github.com/chrisbanes/tivi/blob/5e7586465337d326a1f1e40e0b412ecd2779bb5c/build.gradle#L72
     exclude(group = "androidx.appcompat")
     exclude(group = "com.google.android.material", module = "material")
+
+
 }
 
 tasks.dokkaHtml.configure {

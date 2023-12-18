@@ -19,11 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.mikepenz.aboutlibraries.entity.Library
-import com.mikepenz.aboutlibraries.ui.compose.util.StableLibrary
-import com.mikepenz.aboutlibraries.ui.compose.util.StableLibs
-import com.mikepenz.aboutlibraries.ui.compose.util.author
-import com.mikepenz.aboutlibraries.ui.compose.util.htmlReadyLicenseContent
-import com.mikepenz.aboutlibraries.ui.compose.util.stable
+import com.mikepenz.aboutlibraries.ui.compose.util.*
 import kotlinx.collections.immutable.ImmutableList
 
 
@@ -73,7 +69,13 @@ fun LibrariesContainer(
             } else if (!license?.htmlReadyLicenseContent.isNullOrBlank()) {
                 openDialog.value = library
             } else if (!license?.url.isNullOrBlank()) {
-                license?.url?.also { uriHandler.openUri(it) }
+                license?.url?.also {
+                    try {
+                        uriHandler.openUri(it)
+                    } catch (t: Throwable) {
+                        println("Failed to open url: ${it}")
+                    }
+                }
             }
         },
     )
@@ -96,7 +98,7 @@ fun LicenseDialog(
     onDismiss: () -> Unit,
 ) {
     val scrollState = rememberScrollState()
-    
+
     Dialog(
         onDismissRequest = onDismiss,
         properties = DialogProperties(),
@@ -173,7 +175,13 @@ fun Libraries(
             if (onLibraryClick != null) {
                 onLibraryClick.invoke(library)
             } else if (!license?.url.isNullOrBlank()) {
-                license?.url?.also { uriHandler.openUri(it) }
+                license?.url?.also {
+                    try {
+                        uriHandler.openUri(it)
+                    } catch (t: Throwable) {
+                        println("Failed to open url: ${it}")
+                    }
+                }
             }
         }
     }
