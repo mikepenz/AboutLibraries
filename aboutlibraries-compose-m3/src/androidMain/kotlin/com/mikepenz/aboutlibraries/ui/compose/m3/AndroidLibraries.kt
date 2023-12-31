@@ -1,4 +1,4 @@
-package com.mikepenz.aboutlibraries.ui.compose
+package com.mikepenz.aboutlibraries.ui.compose.m3
 
 import android.content.Context
 import android.widget.TextView
@@ -6,8 +6,8 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.produceState
 import androidx.compose.ui.Modifier
@@ -20,15 +20,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.text.HtmlCompat
 import com.mikepenz.aboutlibraries.Libs
-import com.mikepenz.aboutlibraries.ui.compose.data.fakeData
-import com.mikepenz.aboutlibraries.ui.m3.Libraries
-import com.mikepenz.aboutlibraries.ui.m3.Library
-import com.mikepenz.aboutlibraries.ui.m3.LibraryColors
-import com.mikepenz.aboutlibraries.ui.m3.LibraryDefaults
-import com.mikepenz.aboutlibraries.ui.m3.LibraryPadding
-import com.mikepenz.aboutlibraries.ui.m3.util.StableLibrary
-import com.mikepenz.aboutlibraries.ui.m3.util.htmlReadyLicenseContent
-import com.mikepenz.aboutlibraries.ui.m3.util.stable
+import com.mikepenz.aboutlibraries.ui.compose.m3.data.fakeData
+import com.mikepenz.aboutlibraries.ui.compose.m3.util.StableLibrary
+import com.mikepenz.aboutlibraries.ui.compose.m3.util.htmlReadyLicenseContent
+import com.mikepenz.aboutlibraries.ui.compose.m3.util.stable
 import com.mikepenz.aboutlibraries.util.withContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -61,7 +56,7 @@ fun LibrariesContainer(
             librariesBlock(context)
         }
     }
-    com.mikepenz.aboutlibraries.ui.m3.LibrariesContainer(
+    LibrariesContainer(
         libraries.value?.stable,
         modifier,
         lazyListState,

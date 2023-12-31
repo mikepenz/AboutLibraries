@@ -121,8 +121,7 @@ configurations.configureEach {
     // https://github.com/chrisbanes/tivi/blob/5e7586465337d326a1f1e40e0b412ecd2779bb5c/build.gradle#L72
     exclude(group = "androidx.appcompat")
     exclude(group = "com.google.android.material", module = "material")
-
-
+    exclude(group = "com.google.android.material", module = "material3")
 }
 
 tasks.dokkaHtml.configure {

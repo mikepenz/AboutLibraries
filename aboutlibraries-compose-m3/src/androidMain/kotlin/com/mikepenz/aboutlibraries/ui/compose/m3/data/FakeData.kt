@@ -1,4 +1,4 @@
-package com.mikepenz.aboutlibraries.ui.compose.data
+package com.mikepenz.aboutlibraries.ui.compose.m3.data
 
 import com.mikepenz.aboutlibraries.Libs
 
