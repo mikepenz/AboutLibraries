@@ -74,7 +74,8 @@ jobs:
           ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGNING_PASSWORD }}
         run: |
           ./gradlew aboutlibraries-core:publishAllPublicationsToMavenCentralRepository --no-daemon -Plibrary_core_only --no-configure-on-demand --no-parallel
-          ./gradlew aboutlibraries-compose:publishAllPublicationsToMavenCentralRepository -x test -x lint -Plibrary_compose_only --no-configure-on-demand --no-parallel
+          ./gradlew aboutlibraries-compose-m2:publishAllPublicationsToMavenCentralRepository -x test -x lint -Plibrary_compose_only --no-configure-on-demand --no-parallel
+          ./gradlew aboutlibraries-compose-m3:publishAllPublicationsToMavenCentralRepository -x test -x lint -Plibrary_compose_m3_only --no-configure-on-demand --no-parallel
 
       - name: Publish the windows artifact
         if: matrix.os == 'windows-latest'

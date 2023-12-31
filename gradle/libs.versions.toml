@@ -11,12 +11,12 @@ buildTools = "34.0.0"
 dokka = "1.9.10"
 kotlinCore = { require = "1.9.21" }
 kotlinCoroutines = { require = "1.7.3" }
-kotlinxSerialization = "1.6.0"
+kotlinxSerialization = "1.6.2"
 kotlinxCollections = "0.3.7"
 # compose
 compose = "1.5.4"
 composeUi = "1.5.4" # foundation / material
-composeCompiler = "1.5.6"
+composeCompiler = "1.5.7"
 composejb = "1.6.0-alpha01" # "1.4.0-dev-wasm09"
 composeCompilerJb = "1.5.4"
 # androidx

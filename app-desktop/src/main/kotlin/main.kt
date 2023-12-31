@@ -7,6 +7,7 @@ import androidx.compose.ui.res.useResource
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import com.mikepenz.aboutlibraries.ui.compose.LibrariesContainer
+import m2.SampleTheme
 
 fun main() = application {
     Window(title = "AboutLibraries Sample", onCloseRequest = ::exitApplication) {
