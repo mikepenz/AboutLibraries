@@ -39,7 +39,7 @@
 
 ## Latest releases 🛠
 
-- (Next Gen) Kotlin && Multiplatform && Plugin | [v10.10.0-rc02](https://github.com/mikepenz/AboutLibraries/tree/v10.10.0-rc02)
+- (Next Gen) Kotlin && Multiplatform && Plugin | [v10.10.0](https://github.com/mikepenz/AboutLibraries/tree/v10.10.0)
 - Kotlin && Gradle Plugin | [v8.9.4](https://github.com/mikepenz/AboutLibraries/tree/v8.9.4)
 
 ## Gradle Plugin
@@ -214,6 +214,9 @@ for (lib in libraries) {
 
 ```gradle
 implementation "com.mikepenz:aboutlibraries-compose:${latestAboutLibsRelease}"
+
+// Alternative Material3 based module
+implementation "com.mikepenz:aboutlibraries-compose-m3:${latestAboutLibsRelease}"
 ```
 
 ### Usage

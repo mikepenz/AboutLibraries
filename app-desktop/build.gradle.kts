@@ -16,8 +16,10 @@ dependencies {
     implementation(compose.desktop.currentOs)
     implementation(compose.foundation)
     implementation(compose.material)
+    implementation(compose.material3)
     implementation(project(":aboutlibraries-core"))
-    implementation(project(":aboutlibraries-compose"))
+    implementation(project(":aboutlibraries-compose-m2"))
+    implementation(project(":aboutlibraries-compose-m3"))
 
     // Coroutines
     implementation(libs.kotlin.coroutines.core)
