@@ -50,7 +50,8 @@ kotlin {
                 implementation(compose.components.resources)
 
                 implementation(project(":aboutlibraries-core"))
-                implementation(project(":aboutlibraries-compose"))
+                implementation(project(":aboutlibraries-compose-m2"))
+                implementation(project(":aboutlibraries-compose-m3"))
             }
         }
     }

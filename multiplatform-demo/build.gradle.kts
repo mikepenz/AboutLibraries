@@ -39,7 +39,7 @@ kotlin {
                 implementation(compose.desktop.currentOs)
 
                 implementation("com.mikepenz:aboutlibraries-core:${extra["aboutlibraries.version"] as String}")
-                implementation("com.mikepenz:aboutlibraries-compose:${extra["aboutlibraries.version"] as String}")
+                implementation("com.mikepenz:aboutlibraries-compose-m2:${extra["aboutlibraries.version"] as String}")
             }
         }
         val jvmTest by getting

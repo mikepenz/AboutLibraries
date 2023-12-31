@@ -214,6 +214,9 @@ for (lib in libraries) {
 
 ```gradle
 implementation "com.mikepenz:aboutlibraries-compose:${latestAboutLibsRelease}"
+
+// Alternative Material3 based module
+implementation "com.mikepenz:aboutlibraries-compose-m3:${latestAboutLibsRelease}"
 ```
 
 ### Usage

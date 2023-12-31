@@ -123,7 +123,8 @@ aboutLibraries {
 dependencies {
     implementation project(':aboutlibraries-core')
     implementation project(':aboutlibraries')
-    implementation project(':aboutlibraries-compose')
+    implementation project(':aboutlibraries-compose-m2')
+    implementation project(':aboutlibraries-compose-m3')
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.cardView)
