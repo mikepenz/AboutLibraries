@@ -100,7 +100,6 @@ kotlin {
                 implementation(compose.ui)
                 implementation(compose.foundation)
                 implementation(compose.material)
-                implementation(libs.kotlinx.collections)
             }
         }
         val commonTest by getting
