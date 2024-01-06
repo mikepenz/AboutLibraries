@@ -104,6 +104,7 @@ aboutLibraries {
     // Define the output file name. Modifying this will disable the automatic meta data discovery for supported platforms.
     outputFileName = "aboutlibraries.json"
     // Define the path configuration files are located in. E.g. additional libraries, licenses to add to the target .json
+    // Warning: Please do not use the parent folder of a module as path, as this can result in issues. More details: https://github.com/mikepenz/AboutLibraries/issues/936
     configPath = "config"
     // Allow to enable "offline mode", will disable any network check of the plugin (including [fetchRemoteLicense] or pulling spdx license texts)
     offlineMode = false
