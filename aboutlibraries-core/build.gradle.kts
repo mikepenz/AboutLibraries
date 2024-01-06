@@ -104,11 +104,14 @@ kotlin {
 
     sourceSets {
         val commonMain by getting
+        commonMain.dependencies {
+            implementation(libs.kotlinx.serialization)
+            api(libs.kotlinx.collections)
+        }
 
         val multiplatformMain by creating {
             dependsOn(commonMain)
         }
-
         val jvmMain by getting {
             dependsOn(multiplatformMain)
         }
@@ -121,25 +124,15 @@ kotlin {
         val androidMain by getting {
             dependsOn(commonMain)
         }
-
         val wasmJsMain by getting {
             dependsOn(multiplatformMain)
-            dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.1-wasm1")
-            }
         }
-
         val jvmTest by getting {
             dependencies {
                 implementation(kotlin("test-junit"))
             }
         }
     }
-}
-
-dependencies {
-    // kotlinx Serialize
-    "commonMainImplementation"(libs.kotlinx.serialization)
 }
 
 tasks.dokkaHtml.configure {

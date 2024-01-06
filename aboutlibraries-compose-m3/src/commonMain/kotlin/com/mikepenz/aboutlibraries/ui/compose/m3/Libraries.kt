@@ -10,8 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.mikepenz.aboutlibraries.Libs
-import com.mikepenz.aboutlibraries.ui.compose.m3.util.StableLibrary
-import com.mikepenz.aboutlibraries.ui.compose.m3.util.stable
+import com.mikepenz.aboutlibraries.entity.Library
 
 /**
  * Displays all provided libraries in a simple list.
@@ -30,9 +29,9 @@ fun LibrariesContainer(
     itemContentPadding: PaddingValues = LibraryDefaults.ContentPadding,
     itemSpacing: Dp = LibraryDefaults.LibraryItemSpacing,
     header: (LazyListScope.() -> Unit)? = null,
-    onLibraryClick: ((StableLibrary) -> Unit)? = null,
+    onLibraryClick: ((Library) -> Unit)? = null,
 ) {
-    val libs = Libs.Builder().withJson(aboutLibsJson).build().stable
+    val libs = Libs.Builder().withJson(aboutLibsJson).build()
     LibrariesContainer(
         libs,
         modifier = modifier,
@@ -48,7 +47,7 @@ fun LibrariesContainer(
         header = header,
         onLibraryClick = onLibraryClick,
         licenseDialogBody = { library ->
-            Text(library.library.licenses.firstOrNull()?.licenseContent ?: "")
+            Text(library.licenses.firstOrNull()?.licenseContent ?: "")
         }
     )
 }
@@ -70,9 +69,9 @@ fun LibrariesContainer(
     itemContentPadding: PaddingValues = LibraryDefaults.ContentPadding,
     itemSpacing: Dp = LibraryDefaults.LibraryItemSpacing,
     header: (LazyListScope.() -> Unit)? = null,
-    onLibraryClick: ((StableLibrary) -> Unit)? = null,
+    onLibraryClick: ((Library) -> Unit)? = null,
 ) {
-    val libs = librariesBlock().stable
+    val libs = librariesBlock()
 
     LibrariesContainer(
         libs,
@@ -89,7 +88,7 @@ fun LibrariesContainer(
         header,
         onLibraryClick,
         licenseDialogBody = { library ->
-            Text(library.library.licenses.firstOrNull()?.licenseContent ?: "")
+            Text(library.licenses.firstOrNull()?.licenseContent ?: "")
         }
     )
 
