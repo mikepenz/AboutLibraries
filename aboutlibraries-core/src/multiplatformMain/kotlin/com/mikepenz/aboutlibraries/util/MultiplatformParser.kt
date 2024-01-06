@@ -1,6 +1,13 @@
 package com.mikepenz.aboutlibraries.util
 
-import com.mikepenz.aboutlibraries.entity.*
+import com.mikepenz.aboutlibraries.entity.Developer
+import com.mikepenz.aboutlibraries.entity.Funding
+import com.mikepenz.aboutlibraries.entity.Library
+import com.mikepenz.aboutlibraries.entity.License
+import com.mikepenz.aboutlibraries.entity.Organization
+import com.mikepenz.aboutlibraries.entity.Scm
+import kotlinx.collections.immutable.toImmutableList
+import kotlinx.collections.immutable.toImmutableSet
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonObject
 
@@ -20,7 +27,9 @@ actual fun parseData(json: String): Result {
         }
         val mappedLicenses = licenses.associateBy { it.hash }
         val libraries = metaData.getJSONArray("libraries").forEachObject {
-            val libLicenses = optJSONArray("licenses").forEachString { mappedLicenses[this] }.mapNotNull { it }.toHashSet()
+            val libLicenses =
+                optJSONArray("licenses").forEachString { mappedLicenses[this] }.mapNotNull { it }
+                    .toHashSet()
             val developers = optJSONArray("developers")?.forEachObject {
                 Developer(optString("name"), optString("organisationUrl"))
             } ?: emptyList()
@@ -28,7 +37,11 @@ actual fun parseData(json: String): Result {
                 Organization(it.getString("name"), it.optString("url"))
             }
             val scm = optJSONObject("scm")?.let {
-                Scm(it.optString("connection"), it.optString("developerConnection"), it.optString("url"))
+                Scm(
+                    it.optString("connection"),
+                    it.optString("developerConnection"),
+                    it.optString("url")
+                )
             }
             val funding = optJSONArray("funding").forEachObject {
                 Funding(getString("platform"), getString("url"))
@@ -41,11 +54,11 @@ actual fun parseData(json: String): Result {
                 optString("name") ?: id,
                 optString("description"),
                 optString("website"),
-                developers,
+                developers.toImmutableList(),
                 organization,
                 scm,
-                libLicenses,
-                funding,
+                libLicenses.toImmutableSet(),
+                funding.toImmutableSet(),
                 optString("tag")
             )
         }

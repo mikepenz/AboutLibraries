@@ -1,5 +1,9 @@
 package com.mikepenz.aboutlibraries.entity
 
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.ImmutableSet
+import kotlinx.collections.immutable.persistentSetOf
+
 /**
  * Describes a complete [Library] element, specifying important information about a used dependency.
  *
@@ -20,11 +24,11 @@ data class Library(
     val name: String,
     val description: String?,
     val website: String?,
-    val developers: List<Developer>,
+    val developers: ImmutableList<Developer>,
     val organization: Organization?,
     val scm: Scm?,
-    val licenses: Set<License> = emptySet(),
-    val funding: Set<Funding> = emptySet(),
+    val licenses: ImmutableSet<License> = persistentSetOf(),
+    val funding: ImmutableSet<Funding> = persistentSetOf(),
     val tag: String? = null,
 ) {
     /**

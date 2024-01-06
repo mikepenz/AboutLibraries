@@ -10,7 +10,7 @@ import com.mikepenz.aboutlibraries.ui.LibsActivity
 import com.mikepenz.aboutlibraries.ui.LibsSupportFragment
 import com.mikepenz.aboutlibraries.util.SerializableLibs
 import com.mikepenz.aboutlibraries.util.toLibs
-import com.mikepenz.aboutlibraries.util.toSerializeable
+import com.mikepenz.aboutlibraries.util.toSerializable
 import java.io.Serializable
 
 class LibsBuilder : Serializable {
@@ -76,7 +76,7 @@ class LibsBuilder : Serializable {
     var libs: Libs? = null
         get() = field ?: _libs?.toLibs()
         set(value) {
-            _libs = value?.toSerializeable()
+            _libs = value?.toSerializable()
         }
 
     var aboutMinimalDesign: Boolean = false
