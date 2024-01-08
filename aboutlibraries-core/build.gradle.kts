@@ -4,6 +4,7 @@ plugins {
     kotlin("multiplatform")
     // kotlin("native.cocoapods")
     id("com.android.library")
+    id("org.jetbrains.compose")
     id("org.jetbrains.dokka")
     id("com.vanniktech.maven.publish")
 }
@@ -29,6 +30,29 @@ android {
 
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
         kotlinOptions.jvmTarget = "11"
+
+        kotlinOptions {
+            if (project.findProperty("composeCompilerReports") == "true") {
+                freeCompilerArgs += listOf(
+                    "-P",
+                    "plugin:androidx.compose.compiler.plugins.kotlin:reportsDestination=${project.layout.buildDirectory.asFile.get().absolutePath}/compose_compiler"
+                )
+            }
+            if (project.findProperty("composeCompilerMetrics") == "true") {
+                freeCompilerArgs += listOf(
+                    "-P",
+                    "plugin:androidx.compose.compiler.plugins.kotlin:metricsDestination=${project.layout.buildDirectory.asFile.get().absolutePath}/compose_compiler"
+                )
+            }
+        }
+    }
+
+    buildFeatures {
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
     }
 
     lint {
@@ -105,6 +129,7 @@ kotlin {
     sourceSets {
         val commonMain by getting
         commonMain.dependencies {
+            implementation(compose.runtime)
             implementation(libs.kotlinx.serialization)
             api(libs.kotlinx.collections)
         }
