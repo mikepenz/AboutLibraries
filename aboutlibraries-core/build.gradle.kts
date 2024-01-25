@@ -1,4 +1,5 @@
 import com.vanniktech.maven.publish.SonatypeHost
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("multiplatform")
@@ -27,8 +28,15 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        kotlinOptions.jvmTarget = "11"
+    tasks.withType<KotlinCompile> {
+        kotlinOptions {
+            jvmTarget = "11"
+            freeCompilerArgs += listOf(
+                "-P",
+                "plugin:androidx.compose.compiler.plugins.kotlin:stabilityConfigurationPath=" +
+                        "${project.path}/compose_compiler_config.conf"
+            )
+        }
     }
 
     lint {
@@ -104,11 +112,14 @@ kotlin {
 
     sourceSets {
         val commonMain by getting
+        commonMain.dependencies {
+            implementation(libs.kotlinx.serialization)
+            api(libs.kotlinx.collections)
+        }
 
         val multiplatformMain by creating {
             dependsOn(commonMain)
         }
-
         val jvmMain by getting {
             dependsOn(multiplatformMain)
         }
@@ -121,25 +132,15 @@ kotlin {
         val androidMain by getting {
             dependsOn(commonMain)
         }
-
         val wasmJsMain by getting {
             dependsOn(multiplatformMain)
-            dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.1-wasm1")
-            }
         }
-
         val jvmTest by getting {
             dependencies {
                 implementation(kotlin("test-junit"))
             }
         }
     }
-}
-
-dependencies {
-    // kotlinx Serialize
-    "commonMainImplementation"(libs.kotlinx.serialization)
 }
 
 tasks.dokkaHtml.configure {

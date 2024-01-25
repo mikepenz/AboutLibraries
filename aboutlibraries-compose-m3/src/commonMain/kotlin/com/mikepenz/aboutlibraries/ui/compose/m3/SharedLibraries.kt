@@ -41,13 +41,12 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.entity.Library
-import com.mikepenz.aboutlibraries.ui.compose.m3.util.StableLibrary
-import com.mikepenz.aboutlibraries.ui.compose.m3.util.StableLibs
 import com.mikepenz.aboutlibraries.ui.compose.m3.util.author
 import com.mikepenz.aboutlibraries.ui.compose.m3.util.htmlReadyLicenseContent
-import com.mikepenz.aboutlibraries.ui.compose.m3.util.stable
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
 
 /**
@@ -55,7 +54,7 @@ import kotlinx.collections.immutable.ImmutableList
  */
 @Composable
 fun LibrariesContainer(
-    libraries: StableLibs?,
+    libraries: Libs?,
     modifier: Modifier = Modifier,
     lazyListState: LazyListState = rememberLazyListState(),
     contentPadding: PaddingValues = PaddingValues(0.dp),
@@ -67,14 +66,14 @@ fun LibrariesContainer(
     itemContentPadding: PaddingValues = LibraryDefaults.ContentPadding,
     itemSpacing: Dp = LibraryDefaults.LibraryItemSpacing,
     header: (LazyListScope.() -> Unit)? = null,
-    onLibraryClick: ((StableLibrary) -> Unit)? = null,
-    licenseDialogBody: (@Composable (StableLibrary) -> Unit)? = null,
+    onLibraryClick: ((Library) -> Unit)? = null,
+    licenseDialogBody: (@Composable (Library) -> Unit)? = null,
     licenseDialogConfirmText: String = "OK",
 ) {
     val uriHandler = LocalUriHandler.current
 
-    val libs = libraries?.libraries ?: emptyList<Library>().stable
-    val openDialog = remember { mutableStateOf<StableLibrary?>(null) }
+    val libs = libraries?.libraries ?: persistentListOf()
+    val openDialog = remember { mutableStateOf<Library?>(null) }
 
     Libraries(
         libraries = libs,
@@ -90,7 +89,7 @@ fun LibrariesContainer(
         itemSpacing = itemSpacing,
         header = header,
         onLibraryClick = { library ->
-            val license = library.library.licenses.firstOrNull()
+            val license = library.licenses.firstOrNull()
             if (onLibraryClick != null) {
                 onLibraryClick(library)
             } else if (!license?.htmlReadyLicenseContent.isNullOrBlank()) {
@@ -118,10 +117,10 @@ fun LibrariesContainer(
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun LicenseDialog(
-    library: StableLibrary,
+    library: Library,
     colors: LibraryColors = LibraryDefaults.libraryColors(),
     confirmText: String = "OK",
-    body: @Composable (StableLibrary) -> Unit,
+    body: @Composable (Library) -> Unit,
     onDismiss: () -> Unit,
 ) {
     val scrollState = rememberScrollState()
@@ -166,7 +165,7 @@ fun LicenseDialog(
  */
 @Composable
 fun Libraries(
-    libraries: ImmutableList<StableLibrary>,
+    libraries: ImmutableList<Library>,
     modifier: Modifier = Modifier,
     lazyListState: LazyListState = rememberLazyListState(),
     contentPadding: PaddingValues = PaddingValues(0.dp),
@@ -178,7 +177,7 @@ fun Libraries(
     itemContentPadding: PaddingValues = LibraryDefaults.ContentPadding,
     itemSpacing: Dp = LibraryDefaults.LibraryItemSpacing,
     header: (LazyListScope.() -> Unit)? = null,
-    onLibraryClick: ((StableLibrary) -> Unit)? = null,
+    onLibraryClick: ((Library) -> Unit)? = null,
 ) {
     val uriHandler = LocalUriHandler.current
 
@@ -198,7 +197,7 @@ fun Libraries(
             padding,
             itemContentPadding
         ) { library ->
-            val license = library.library.licenses.firstOrNull()
+            val license = library.licenses.firstOrNull()
             if (onLibraryClick != null) {
                 onLibraryClick.invoke(library)
             } else if (!license?.url.isNullOrBlank()) {
@@ -215,14 +214,14 @@ fun Libraries(
 }
 
 internal inline fun LazyListScope.libraryItems(
-    libraries: ImmutableList<StableLibrary>,
+    libraries: ImmutableList<Library>,
     showAuthor: Boolean = true,
     showVersion: Boolean = true,
     showLicenseBadges: Boolean = true,
     colors: LibraryColors,
     padding: LibraryPadding,
     itemContentPadding: PaddingValues = LibraryDefaults.ContentPadding,
-    crossinline onLibraryClick: ((StableLibrary) -> Unit),
+    crossinline onLibraryClick: ((Library) -> Unit),
 ) {
     items(libraries) { library ->
         Library(
@@ -242,7 +241,7 @@ internal inline fun LazyListScope.libraryItems(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun Library(
-    library: StableLibrary,
+    library: Library,
     showAuthor: Boolean = true,
     showVersion: Boolean = true,
     showLicenseBadges: Boolean = true,
@@ -264,7 +263,7 @@ internal fun Library(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
-                text = library.library.name,
+                text = library.name,
                 modifier = Modifier
                     .padding(padding.namePadding)
                     .weight(1f),
@@ -273,7 +272,7 @@ internal fun Library(
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
-            val version = library.library.artifactVersion
+            val version = library.artifactVersion
             if (version != null && showVersion) {
                 Text(
                     version,
@@ -284,7 +283,7 @@ internal fun Library(
                 )
             }
         }
-        val author = library.library.author
+        val author = library.author
         if (showAuthor && author.isNotBlank()) {
             Text(
                 text = author,
@@ -292,9 +291,9 @@ internal fun Library(
                 color = colors.contentColor
             )
         }
-        if (showLicenseBadges && library.library.licenses.isNotEmpty()) {
+        if (showLicenseBadges && library.licenses.isNotEmpty()) {
             Row {
-                library.library.licenses.forEach {
+                library.licenses.forEach {
                     Badge(
                         modifier = Modifier.padding(padding.badgePadding),
                         contentColor = colors.badgeContentColor,
