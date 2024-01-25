@@ -1,4 +1,4 @@
-import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
+import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 
 plugins {
     kotlin("multiplatform")
@@ -16,38 +16,31 @@ plugins {
 // }
 
 kotlin {
+    @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
         moduleName = "aboutlibraries"
         browser {
             commonWebpackConfig {
-                devServer = (devServer ?: KotlinWebpackConfig.DevServer()).copy(
-                    open = mapOf(
-                        "app" to mapOf(
-                            "name" to "google chrome canary",
-                            "arguments" to listOf("--js-flags=--experimental-wasm-gc ")
-                        )
-                    ),
-                    static = (devServer?.static ?: mutableListOf()).apply {
-                        add(project.rootDir.path)
-                        add(project.rootDir.path + "/common/")
-                        add(project.rootDir.path + "/nonAndroidMain/")
-                        add(project.rootDir.path + "/web/")
-                    },
-                )
+                outputFileName = "composeApp.js"
             }
         }
         binaries.executable()
     }
 
     sourceSets {
+        commonMain {
+            dependencies {
+                @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
+                implementation(compose.components.resources)
+            }
+        }
+
         val wasmJsMain by getting {
             dependencies {
                 implementation(compose.runtime)
                 implementation(compose.ui)
                 implementation(compose.foundation)
                 implementation(compose.material)
-                @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
-                implementation(compose.components.resources)
 
                 implementation(project(":aboutlibraries-core"))
                 implementation(project(":aboutlibraries-compose-m2"))
