@@ -39,8 +39,8 @@
 
 ## Latest releases 🛠
 
-- (Next Gen) Kotlin && Multiplatform && Plugin | [v10.10.0](https://github.com/mikepenz/AboutLibraries/tree/v10.10.0)
-- Kotlin && Gradle Plugin | [v8.9.4](https://github.com/mikepenz/AboutLibraries/tree/v8.9.4)
+- Kotlin && Multiplatform && Plugin | [v10.10.0](https://github.com/mikepenz/AboutLibraries/tree/v10.10.0)
+- Compose 1.6.0 / Compose Multiplatform 1.6.0-beta01 | [v11.1.0-b01](https://github.com/mikepenz/AboutLibraries/tree/v11.1.0-b01)
 
 ## Gradle Plugin
 
@@ -417,7 +417,7 @@ Additional dependencies can be provided via the plugins API to extend and provid
 
 # License
 
-    Copyright 2021 Mike Penz
+    Copyright 2024 Mike Penz
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
