@@ -14,7 +14,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [macOS-latest, ubuntu-latest, windows-latest]
+        os: [macos-14, ubuntu-latest, windows-latest]
 
     runs-on: ${{matrix.os}}
 
@@ -33,16 +33,8 @@ jobs:
       - name: Copy CI gradle.properties
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
 
-      - name: Checkout Gradle Build Cache
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-            !~/.gradle/wrapper/dists/**/gradle*.zip
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
-          restore-keys: |
-            gradle-${{ runner.os }}-
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
 
       - name: Cache konan
         uses: actions/cache@v3
@@ -122,16 +114,8 @@ jobs:
       - name: Copy CI gradle.properties
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
 
-      - name: Checkout Gradle Build Cache
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-            !~/.gradle/wrapper/dists/**/gradle*.zip
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
-          restore-keys: |
-            gradle-${{ runner.os }}-
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
 
       - name: Publish plugin locally
         run: |
