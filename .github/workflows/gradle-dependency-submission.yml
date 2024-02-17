@@ -24,23 +24,7 @@ jobs:
       - name: Copy CI gradle.properties
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
 
-      - name: Checkout Gradle Build Cache
-        uses: actions/cache@v3
+      - name: Setup Gradle & Submit dependency graphs
+        uses: gradle/actions/setup-gradle@v3
         with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-            !~/.gradle/wrapper/dists/**/gradle*.zip
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
-          restore-keys: |
-            gradle-${{ runner.os }}-
-
-      - name: Submit Dependency Graph
-        uses: mikepenz/gradle-dependency-submission@v0.9.1
-        with:
-          gradle-build-module: |-
-            :app
-            :app-desktop
-          gradle-build-configuration-mapping: |-
-            :app-desktop|compileClasspath
-          sub-module-mode: INDIVIDUAL_DEEP
+          dependency-graph: generate-and-submit
