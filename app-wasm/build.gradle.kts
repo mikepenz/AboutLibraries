@@ -6,15 +6,6 @@ plugins {
     id("com.mikepenz.aboutlibraries.plugin")
 }
 
-// val copyWasmResources = tasks.create("copyWasmResourcesWorkaround", Copy::class.java) {
-//     from(project(":shared").file("src/commonMain/resources"))
-//     into("build/processedResources/wasm/main")
-// }
-//
-// afterEvaluate {
-//     project.tasks.getByName("wasmProcessResources").finalizedBy(copyWasmResources)
-// }
-
 kotlin {
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
@@ -56,5 +47,4 @@ compose.experimental {
 
 compose {
     kotlinCompilerPlugin.set(libs.versions.composeCompilerJb.get())
-    // kotlinCompilerPluginArgs.add("suppressKotlinVersionCompatibilityCheck=${libs.versions.kotlinCore.get()}")
 }
