@@ -19,7 +19,7 @@
 
 ### What's included 🚀
 
-- Kotlin Multiplatform support
+- Kotlin Multiplatform support (including wasm)
 - Lightweight multiplatform core module
   - Access all generated information
   - Build custom UIs
@@ -40,7 +40,7 @@
 ## Latest releases 🛠
 
 - Kotlin && Multiplatform && Plugin | [v10.10.0](https://github.com/mikepenz/AboutLibraries/tree/v10.10.0)
-- Compose 1.6.1 / Compose Multiplatform 1.6.0-rc02 | [v11.1.0-b03](https://github.com/mikepenz/AboutLibraries/tree/v11.1.0-b03)
+- Compose 1.6.1 / Compose Multiplatform 1.6.0 | [v11.1.0](https://github.com/mikepenz/AboutLibraries/tree/v11.1.0)
 
 ## Gradle Plugin
 
