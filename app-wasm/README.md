@@ -3,7 +3,7 @@
 ### Generate Dependency Information
 
 ```bash
-./gradlew app-wasm:exportLibraryDefinitions -PaboutLibraries.exportPath=src/wasmJsMain/resources/
+./gradlew app-wasm:exportLibraryDefinitions -PaboutLibraries.exportPath=src/commonMain/composeResources/files/
 ```
 
 ### Run Wasm app

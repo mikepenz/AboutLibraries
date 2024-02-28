@@ -3,14 +3,18 @@ package com.mikepenz.aboutlibraries
 import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.entity.License
 import com.mikepenz.aboutlibraries.util.parseData
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.ImmutableSet
+import kotlinx.collections.immutable.toImmutableList
+import kotlinx.collections.immutable.toImmutableSet
 
 /**
  * The [Libs] class is the main access point to the generated data of the plugin.
  * Provides accessors for the [Library] and [License] lists, containing all the dependency information for the module.
  */
 data class Libs constructor(
-    val libraries: List<Library>,
-    val licenses: Set<License>,
+    val libraries: ImmutableList<Library>,
+    val licenses: ImmutableSet<License>,
 ) {
     /**
      * Builder used to automatically parse and interpret the generated library data from the plugin.
@@ -43,7 +47,10 @@ data class Libs constructor(
                 """.trimIndent()
                 )
             }
-            return Libs(libraries.sortedBy { it.name.lowercase() }, licenses.toMutableSet())
+            return Libs(
+                libraries.sortedBy { it.name.lowercase() }.toImmutableList(),
+                licenses.toImmutableSet()
+            )
         }
     }
 }

@@ -34,9 +34,9 @@ android {
     }
 
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        kotlinOptions.jvmTarget = "11"
-
         kotlinOptions {
+            jvmTarget = "11"
+            
             if (project.findProperty("composeCompilerReports") == "true") {
                 freeCompilerArgs += listOf(
                     "-P",
@@ -49,6 +49,12 @@ android {
                     "plugin:androidx.compose.compiler.plugins.kotlin:metricsDestination=${project.layout.buildDirectory.asFile.get().absolutePath}/compose_compiler"
                 )
             }
+
+            val outputDir = rootDir.resolve("aboutlibraries-core/compose_compiler_config.conf").path
+            compilerOptions.freeCompilerArgs.addAll(
+                "-P",
+                "plugin:androidx.compose.compiler.plugins.kotlin:stabilityConfigurationPath=${outputDir}"
+            )
         }
     }
 
@@ -100,7 +106,6 @@ kotlin {
                 implementation(compose.ui)
                 implementation(compose.foundation)
                 implementation(compose.material)
-                implementation(libs.kotlinx.collections)
             }
         }
         val commonTest by getting
