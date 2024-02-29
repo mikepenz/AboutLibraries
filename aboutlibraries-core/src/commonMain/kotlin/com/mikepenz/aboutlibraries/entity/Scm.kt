@@ -1,5 +1,8 @@
 package com.mikepenz.aboutlibraries.entity
 
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+
 /**
  * Describes the [Scm] defined in the `pom.xml` file.
  *
@@ -9,8 +12,9 @@ package com.mikepenz.aboutlibraries.entity
  * @param developerConnection optionally describing the developer connection
  * @param url optionally linking to the hosted form of this artifact
  */
+@Serializable
 data class Scm(
-    val connection: String?,
-    val developerConnection: String?,
-    val url: String?
+    @SerialName("connection") val connection: String?,
+    @SerialName("developerConnection") val developerConnection: String?,
+    @SerialName("url") val url: String?
 )

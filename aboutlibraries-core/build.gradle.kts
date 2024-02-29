@@ -7,6 +7,7 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.dokka")
     id("com.vanniktech.maven.publish")
+    kotlin("plugin.serialization") version "1.9.22"
 }
 
 android {

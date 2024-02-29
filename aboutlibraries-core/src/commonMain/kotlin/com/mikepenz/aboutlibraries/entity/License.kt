@@ -1,5 +1,8 @@
 package com.mikepenz.aboutlibraries.entity
 
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+
 /**
  * Describes a complete [License] element.
  * Either retrieved from spdx or downloaded from the artifacts repo
@@ -11,13 +14,14 @@ package com.mikepenz.aboutlibraries.entity
  * @param licenseContent contains the whole license content as downloaded from the server
  * @param hash usually calculated to identify if a license is re-used and can be used for multiple artifacts
  */
+@Serializable
 data class License(
-    val name: String,
-    val url: String?,
-    val year: String? = null,
-    val spdxId: String? = null,
-    val licenseContent: String? = null,
-    val hash: String
+    @SerialName("name") val name: String,
+    @SerialName("url") val url: String?,
+    @SerialName("year") val year: String? = null,
+    @SerialName("spdxId") val spdxId: String? = null,
+    @SerialName("licenseContent") val licenseContent: String? = null,
+    @SerialName("hash") val hash: String
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
