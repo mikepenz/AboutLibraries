@@ -64,6 +64,8 @@ class SimpleLibraryItem(internal val library: Library, private val libsBuilder: 
                     openLicense(ctx, libsBuilder, library)
                 }
             }
+        } else {
+            holder.itemView.setOnClickListener(null)
         }
     }
 
