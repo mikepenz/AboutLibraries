@@ -7,14 +7,17 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.ImmutableSet
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.collections.immutable.toImmutableSet
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The [Libs] class is the main access point to the generated data of the plugin.
  * Provides accessors for the [Library] and [License] lists, containing all the dependency information for the module.
  */
+@Serializable
 data class Libs constructor(
-    val libraries: ImmutableList<Library>,
-    val licenses: ImmutableSet<License>,
+    @SerialName("libraries") val libraries: ImmutableList<Library>,
+    @SerialName("licenses") val licenses: ImmutableSet<License>,
 ) {
     /**
      * Builder used to automatically parse and interpret the generated library data from the plugin.
