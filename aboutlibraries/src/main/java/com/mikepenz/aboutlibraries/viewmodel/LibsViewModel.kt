@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.LibsBuilder
+import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.ui.item.HeaderItem
 import com.mikepenz.aboutlibraries.ui.item.LibraryItem
 import com.mikepenz.aboutlibraries.ui.item.LoaderItem
@@ -91,8 +92,9 @@ class LibsViewModel(
                 return@withContext
             }
 
-            if (builder.libraryComparator != null) {
-                Collections.sort(builtLibs.libraries, builder.libraryComparator)
+            var libraries: Iterable<Library> = builtLibs.libraries
+            builder.libraryComparator?.let {
+                libraries = builtLibs.libraries.sortedWith(it)
             }
 
             val finalList = mutableListOf<GenericItem>()
@@ -110,7 +112,7 @@ class LibsViewModel(
             }
 
             //add the libs
-            for (library in builtLibs.libraries) {
+            for (library in libraries) {
                 when {
                     builder.aboutMinimalDesign -> finalList.add(SimpleLibraryItem(library, builder))
                     else -> finalList.add(LibraryItem(library, builder))
