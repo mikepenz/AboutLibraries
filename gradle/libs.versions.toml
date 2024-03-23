@@ -5,19 +5,19 @@ coreMinSdk = "19"
 minSdk = "21"
 targetSdk = "34"
 # build
-gradleBuild = "8.2.2"
+gradleBuild = "8.3.1"
 # kotlin
-dokka = "1.9.10"
-kotlinCore = { require = "1.9.22" }
+dokka = "1.9.20"
+kotlinCore = { require = "1.9.23" }
 kotlinCoroutines = { require = "1.8.0" }
 kotlinxSerialization = "1.6.3"
 kotlinxCollections = "0.3.7"
 # compose
-compose = "1.6.2"
-composeUi = "1.6.2" # foundation / material
-composeCompiler = "1.5.10"
-composejb = "1.6.0"
-composeCompilerJb = "1.5.8"
+compose = "1.6.4"
+composeUi = "1.6.4" # foundation / material
+composeCompiler = "1.5.11"
+composejb = "1.6.1"
+composeCompilerJb = "1.5.10"
 # androidx
 activity = "1.8.2"
 cardview = "1.0.0"
@@ -34,7 +34,7 @@ fastAdapter = "5.7.0"
 gradleMvnPublish = "0.25.3"
 iconics = "5.4.0"
 itemAnimators = "1.1.0"
-ivy = "2.5.1"
+ivy = "2.5.2"
 materialDrawer = "9.0.2"
 okhttp = "4.12.0"
 
