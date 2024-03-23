@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.LibsBuilder
+import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.ui.item.HeaderItem
 import com.mikepenz.aboutlibraries.ui.item.LibraryItem
 import com.mikepenz.aboutlibraries.ui.item.LoaderItem
@@ -16,12 +17,11 @@ import com.mikepenz.fastadapter.GenericItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext
-import java.util.*
 
 class LibsViewModel(
     private val ctx: Context,
     internal val builder: LibsBuilder, // ui module
-    private val libsBuilder: Libs.Builder
+    private val libsBuilder: Libs.Builder,
 ) : ViewModel() {
 
     private var versionName: String? = null
@@ -34,23 +34,28 @@ class LibsViewModel(
 
         builder.aboutShowIcon = ctx.extractBooleanBundleOrResource(builder._aboutShowIcon, "aboutLibraries_description_showIcon") ?: false
         builder.aboutShowVersion = ctx.extractBooleanBundleOrResource(builder._aboutShowVersion, "aboutLibraries_description_showVersion") ?: false
-        builder.aboutShowVersionName = ctx.extractBooleanBundleOrResource(builder._aboutShowVersionName, "aboutLibraries_description_showVersionName")
-            ?: false
-        builder.aboutShowVersionCode = ctx.extractBooleanBundleOrResource(builder._aboutShowVersionCode, "aboutLibraries_description_showVersionCode")
-            ?: false
+        builder.aboutShowVersionName = ctx.extractBooleanBundleOrResource(
+            builder._aboutShowVersionName, "aboutLibraries_description_showVersionName"
+        ) ?: false
+        builder.aboutShowVersionCode = ctx.extractBooleanBundleOrResource(
+            builder._aboutShowVersionCode, "aboutLibraries_description_showVersionCode"
+        ) ?: false
 
         builder.aboutAppName = ctx.extractStringBundleOrResource(builder.aboutAppName, "aboutLibraries_description_name") ?: ""
         builder.aboutDescription = ctx.extractStringBundleOrResource(builder.aboutDescription, "aboutLibraries_description_text") ?: ""
 
         builder.aboutAppSpecial1 = ctx.extractStringBundleOrResource(builder.aboutAppSpecial1, "aboutLibraries_description_special1_name")
-        builder.aboutAppSpecial1Description =
-            ctx.extractStringBundleOrResource(builder.aboutAppSpecial1Description, "aboutLibraries_description_special1_text")
+        builder.aboutAppSpecial1Description = ctx.extractStringBundleOrResource(
+            builder.aboutAppSpecial1Description, "aboutLibraries_description_special1_text"
+        )
         builder.aboutAppSpecial2 = ctx.extractStringBundleOrResource(builder.aboutAppSpecial2, "aboutLibraries_description_special2_name")
-        builder.aboutAppSpecial2Description =
-            ctx.extractStringBundleOrResource(builder.aboutAppSpecial2Description, "aboutLibraries_description_special2_text")
+        builder.aboutAppSpecial2Description = ctx.extractStringBundleOrResource(
+            builder.aboutAppSpecial2Description, "aboutLibraries_description_special2_text"
+        )
         builder.aboutAppSpecial3 = ctx.extractStringBundleOrResource(builder.aboutAppSpecial3, "aboutLibraries_description_special3_name")
-        builder.aboutAppSpecial3Description =
-            ctx.extractStringBundleOrResource(builder.aboutAppSpecial3Description, "aboutLibraries_description_special3_text")
+        builder.aboutAppSpecial3Description = ctx.extractStringBundleOrResource(
+            builder.aboutAppSpecial3Description, "aboutLibraries_description_special3_text"
+        )
 
 
         //load the data for the header
@@ -91,8 +96,11 @@ class LibsViewModel(
                 return@withContext
             }
 
-            if (builder.libraryComparator != null) {
-                Collections.sort(builtLibs.libraries, builder.libraryComparator)
+            val comparator = builder.libraryComparator
+            val libraries: Iterable<Library> = if (comparator != null) {
+                builtLibs.libraries.sortedWith(comparator)
+            } else {
+                builtLibs.libraries
             }
 
             val finalList = mutableListOf<GenericItem>()
@@ -106,11 +114,13 @@ class LibsViewModel(
             val showVersionInfo = builder.aboutShowVersion || builder.aboutShowVersionName || builder.aboutShowVersionCode
             if (builder.aboutShowIcon && showVersionInfo) {
                 //add this cool thing to the headerView of our listView
-                finalList.add(HeaderItem(builder).withAboutVersionName(versionName).withAboutVersionCode(versionCode).withAboutIcon(icon))
+                finalList.add(
+                    HeaderItem(builder).withAboutVersionName(versionName).withAboutVersionCode(versionCode).withAboutIcon(icon)
+                )
             }
 
             //add the libs
-            for (library in builtLibs.libraries) {
+            for (library in libraries) {
                 when {
                     builder.aboutMinimalDesign -> finalList.add(SimpleLibraryItem(library, builder))
                     else -> finalList.add(LibraryItem(library, builder))

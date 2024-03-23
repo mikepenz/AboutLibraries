@@ -39,8 +39,7 @@
 
 ## Latest releases 🛠
 
-- Kotlin && Multiplatform && Plugin | [v10.10.0](https://github.com/mikepenz/AboutLibraries/tree/v10.10.0)
-- Compose 1.6.1 / Compose Multiplatform 1.6.0 | [v11.1.0](https://github.com/mikepenz/AboutLibraries/tree/v11.1.0)
+- Kotlin && Multiplatform && Compose && Plugin | [v11.1.1](https://github.com/mikepenz/AboutLibraries/tree/v11.1.1)
 
 ## Gradle Plugin
 

@@ -1,5 +1,8 @@
 package com.mikepenz.aboutlibraries.entity
 
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+
 /**
  * Describes the [Organization] defined in the `pom.xml` file.
  *
@@ -8,7 +11,8 @@ package com.mikepenz.aboutlibraries.entity
  * @param name of the organisation
  * @param url optional url to the website of the defined organisation
  */
+@Serializable
 data class Organization(
-    val name: String,
-    val url: String?
+    @SerialName("name") val name: String,
+    @SerialName("url") val url: String?
 )
