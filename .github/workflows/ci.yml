@@ -129,6 +129,11 @@ jobs:
         if: github.event_name  == 'pull_request'
         run: ./gradlew lintDebug
 
+      - name: 'Qodana Scan'
+        uses: JetBrains/qodana-action@main
+        env:
+          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
+
       - name: Setup Ruby
         if: github.event_name  == 'pull_request'
         uses: ruby/setup-ruby@v1
