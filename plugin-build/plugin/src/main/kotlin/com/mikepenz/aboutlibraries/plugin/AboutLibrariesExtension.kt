@@ -126,7 +126,7 @@ abstract class AboutLibrariesExtension {
 
     /**
      * Defines the allowed licenses for specific libraries which will not result in warnings or failures depending on the [strictMode] configuration.
-     * This is useful if some dependencies have special licenses which are only used in testing and are accepted for thsi case.
+     * This is useful if some dependencies have special licenses which are only used in testing and are accepted for this case.
      *
      * ```
      * aboutLibraries {

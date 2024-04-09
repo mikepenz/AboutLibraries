@@ -57,9 +57,11 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
             }
 
             val missingMapped = mutableMapOf<License, List<Library>>()
+            val allowedLicensesMap = allowedLicensesMap.mapKeys { (key, _) -> key.lowercase(Locale.ENGLISH) }
             if (allowedLicensesMap.isNotEmpty()) {
                 missing.forEach {
                     val id = it.spdxId?.lowercase(Locale.ENGLISH) ?: it.hash.lowercase(Locale.ENGLISH)
+                    val name = it.name.lowercase(Locale.ENGLISH)
 
                     val libsForLicense = allowedLicensesMap[id] ?: allowedLicensesMap[name]
                     if (libsForLicense != null) {
