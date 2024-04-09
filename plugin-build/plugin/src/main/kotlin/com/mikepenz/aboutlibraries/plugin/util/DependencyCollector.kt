@@ -74,17 +74,21 @@ class DependencyCollector(
                 val visitedDependencyNames = mutableSetOf<String>()
 
                 if (LOGGER.isDebugEnabled) LOGGER.debug("Pre-fetching dependencies for $variant")
-                configuration
-                    .resolvedConfiguration
-                    .lenientConfiguration
-                    .allModuleDependencies
-                    .getResolvedArtifacts(visitedDependencyNames)
-                    .forEach { resArtifact ->
-                        val identifier = "${resArtifact.moduleVersion.id.group.trim()}:${resArtifact.name.trim()}"
-                        if (LOGGER.isDebugEnabled) LOGGER.debug("Retrieved for $variant :: $identifier")
-                        val versions = variantSet.getOrPut(identifier) { LinkedHashSet() }
-                        versions.add(resArtifact.moduleVersion.id.version.trim())
-                    }
+                try {
+                    configuration
+                        .resolvedConfiguration
+                        .lenientConfiguration
+                        .allModuleDependencies
+                        .getResolvedArtifacts(visitedDependencyNames)
+                        .forEach { resArtifact ->
+                            val identifier = "${resArtifact.moduleVersion.id.group.trim()}:${resArtifact.name.trim()}"
+                            if (LOGGER.isDebugEnabled) LOGGER.debug("Retrieved for $variant :: $identifier")
+                            val versions = variantSet.getOrPut(identifier) { LinkedHashSet() }
+                            versions.add(resArtifact.moduleVersion.id.version.trim())
+                        }
+                } catch (t: Throwable) {
+                    LOGGER.error("Failed to retrieve dependencies for $variant", t)
+                }
 
                 if (LOGGER.isDebugEnabled) LOGGER.debug("Completed-fetching dependencies for $variant")
             }
@@ -148,10 +152,10 @@ class DependencyCollector(
     private val testCompile = setOf("testCompile", "androidTestCompile")
     private val Configuration.isTest
         get() = name.startsWith("test", ignoreCase = true) ||
-                name.startsWith("androidTest", ignoreCase = true) ||
-                hierarchy.any { configurationHierarchy ->
-                    testCompile.any { configurationHierarchy.name.contains(it, ignoreCase = true) }
-                }
+            name.startsWith("androidTest", ignoreCase = true) ||
+            hierarchy.any { configurationHierarchy ->
+                testCompile.any { configurationHierarchy.name.contains(it, ignoreCase = true) }
+            }
 
     private val platform = "platform"
 
