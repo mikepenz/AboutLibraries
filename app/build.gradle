@@ -1,3 +1,7 @@
+import com.mikepenz.aboutlibraries.plugin.DuplicateMode
+import com.mikepenz.aboutlibraries.plugin.DuplicateRule
+import com.mikepenz.aboutlibraries.plugin.StrictMode
+
 plugins {
     id 'com.android.application'
 }
@@ -106,13 +110,15 @@ aboutLibraries {
     // Define the strict mode, will fail if the project uses licenses not allowed
     // - This will only automatically fail for Android projects which have `registerAndroidTasks` enabled
     // For non Android projects, execute `exportLibraryDefinitions`
-    strictMode = com.mikepenz.aboutlibraries.plugin.StrictMode.FAIL
+    strictMode = StrictMode.FAIL
     // Allowed set of licenses, this project will be able to use without build failure
-    allowedLicenses = ["Apache-2.0", "asdkl"]
+    allowedLicenses = ["Apache-2.0"]
+    // Allowed set of licenses for specific dependencies, this project will be able to use without build failure
+    allowedLicensesMap = ["asdkl": ["androidx.jetpack.library"]]
     // Enable the duplication mode, allows to merge, or link dependencies which relate
-    duplicationMode = com.mikepenz.aboutlibraries.plugin.DuplicateMode.LINK
+    duplicationMode = DuplicateMode.LINK
     // Configure the duplication rule, to match "duplicates" with
-    duplicationRule = com.mikepenz.aboutlibraries.plugin.DuplicateRule.SIMPLE
+    duplicationRule = DuplicateRule.SIMPLE
     // Enable pretty printing for the generated JSON file
     prettyPrint = true
 
