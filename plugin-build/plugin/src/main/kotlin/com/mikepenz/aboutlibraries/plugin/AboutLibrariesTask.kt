@@ -69,6 +69,8 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
                         if (notAllowed.isNotEmpty()) {
                             missingMapped[it] = notAllowed
                         }
+                    } else {
+                        missing.forEach { missingMapped[it] = result.libraries.forLicense(it) }
                     }
                 }
             } else {
