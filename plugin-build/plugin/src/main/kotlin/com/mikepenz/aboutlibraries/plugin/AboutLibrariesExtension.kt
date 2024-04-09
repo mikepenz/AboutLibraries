@@ -1,9 +1,6 @@
 package com.mikepenz.aboutlibraries.plugin
 
-import org.gradle.api.NamedDomainObjectCollection
-import org.gradle.api.model.ObjectFactory
 import java.util.regex.Pattern
-import javax.inject.Inject
 
 @Suppress("unused") // Public API for Gradle build scripts.
 abstract class AboutLibrariesExtension {
@@ -126,6 +123,20 @@ abstract class AboutLibrariesExtension {
      * This API requires spdxId's to be provided. A full list is available here: https://spdx.org/licenses/
      */
     var allowedLicenses: Array<String> = emptyArray()
+
+    /**
+     * Defines the allowed licenses for specific libraries which will not result in warnings or failures depending on the [strictMode] configuration.
+     * This is useful if some dependencies have special licenses which are only used in testing and are accepted for thsi case.
+     *
+     * ```
+     * aboutLibraries {
+     *   allowedLicensesMap = mapOf("Apache-2.0" to arrayOf("libraryId"))
+     * }
+     * ```
+     *
+     * This API requires spdxId's to be provided. A full list is available here: https://spdx.org/licenses/
+     */
+    var allowedLicensesMap: Map<String, List<String>> = emptyMap()
 
     /**
      * Defines the plugins behavior in case of duplicates.

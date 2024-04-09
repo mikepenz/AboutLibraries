@@ -37,7 +37,7 @@ jobs:
         uses: gradle/actions/setup-gradle@v3
 
       - name: Cache konan
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.konan
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
@@ -109,7 +109,7 @@ jobs:
             17
 
       - name: Validate gradle wrapper
-        uses: gradle/wrapper-validation-action@v1
+        uses: gradle/wrapper-validation-action@v2
 
       - name: Copy CI gradle.properties
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties

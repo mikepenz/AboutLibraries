@@ -5,7 +5,12 @@ import com.mikepenz.aboutlibraries.plugin.util.LibrariesProcessor
 import groovy.json.JsonSlurper
 import org.gradle.api.DefaultTask
 import org.gradle.api.artifacts.dsl.DependencyHandler
-import org.gradle.api.tasks.*
+import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.InputDirectory
+import org.gradle.api.tasks.InputFile
+import org.gradle.api.tasks.Internal
+import org.gradle.api.tasks.PathSensitive
+import org.gradle.api.tasks.PathSensitivity
 import org.slf4j.LoggerFactory
 import java.io.File
 import javax.inject.Inject
@@ -58,6 +63,9 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
 
     @Input
     val allowedLicenses = extension.allowedLicenses
+
+    @Input
+    val allowedLicensesMap = extension.allowedLicensesMap
 
     @Input
     val offlineMode = extension.offlineMode
