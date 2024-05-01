@@ -13,7 +13,7 @@ import java.io.OutputStreamWriter
 import java.net.URL
 
 internal class GitHubApi(
-    private val gitHubToken: String? = null
+    private val gitHubToken: String? = null,
 ) : IApi {
     private var rateLimit: Int = 0
 
@@ -36,7 +36,7 @@ internal class GitHubApi(
             }
             limit
         } catch (t: Throwable) {
-            LOGGER.error("Could not retrieve `rate_limit`. Please check if the token is provided.")
+            LOGGER.error("Could not retrieve `rate_limit`. Please check if the token is provided. (${t.message})")
             0
         }
     }
