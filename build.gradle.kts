@@ -20,8 +20,8 @@ plugins {
 }
 
 allprojects {
-    group = properties["GROUP"]!!
-    version = properties["VERSION_NAME"]!!
+    group = ext.get("GROUP")!!
+    version = ext.get("VERSION_NAME")!!
 
     repositories {
         mavenLocal()
