@@ -5,10 +5,11 @@ import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 
 plugins {
     kotlin("multiplatform")
-    id("com.android.library")
-    id("org.jetbrains.compose")
-    id("org.jetbrains.dokka")
-    id("com.vanniktech.maven.publish")
+    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.jetbrainsCompose)
+    alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.dokka)
+    alias(libs.plugins.mavenPublish)
 }
 
 android {
@@ -61,19 +62,9 @@ android {
         compose = true
     }
 
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
-    }
-
     lint {
         abortOnError = false
     }
-}
-
-
-compose {
-    //kotlinCompilerPlugin.set("androidx.compose.compiler:compiler")
-    //kotlinCompilerPluginArgs.add("suppressKotlinVersionCompatibilityCheck=${libs.versions.kotlinCore.get()}")
 }
 
 kotlin {

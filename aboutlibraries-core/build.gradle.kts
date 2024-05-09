@@ -4,9 +4,9 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     kotlin("multiplatform")
     // kotlin("native.cocoapods")
-    id("com.android.library")
-    id("org.jetbrains.dokka")
-    id("com.vanniktech.maven.publish")
+    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.dokka)
+    alias(libs.plugins.mavenPublish)
     kotlin("plugin.serialization") version libs.versions.kotlinCore.get()
 }
 
@@ -35,7 +35,7 @@ android {
             freeCompilerArgs += listOf(
                 "-P",
                 "plugin:androidx.compose.compiler.plugins.kotlin:stabilityConfigurationPath=" +
-                        "${project.path}/compose_compiler_config.conf"
+                    "${project.path}/compose_compiler_config.conf"
             )
         }
     }

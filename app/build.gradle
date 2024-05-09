@@ -3,7 +3,9 @@ import com.mikepenz.aboutlibraries.plugin.DuplicateRule
 import com.mikepenz.aboutlibraries.plugin.StrictMode
 
 plugins {
-    id 'com.android.application'
+    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.jetbrainsCompose)
+    alias(libs.plugins.composeCompiler)
 }
 apply plugin: 'kotlin-android'
 apply plugin: 'com.mikepenz.aboutlibraries.plugin' // has to be applied AFTER android
@@ -73,10 +75,6 @@ android {
 
     buildFeatures {
         compose = true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
     }
 
     packagingOptions {
