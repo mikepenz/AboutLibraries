@@ -2,7 +2,8 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm")
-    id("org.jetbrains.compose")
+    alias(libs.plugins.jetbrainsCompose)
+    alias(libs.plugins.composeCompiler)
     id("com.mikepenz.aboutlibraries.plugin")
     application
 }
@@ -24,13 +25,8 @@ dependencies {
     // Coroutines
     implementation(libs.kotlin.coroutines.core)
 
-    // example for parent via a prent
+    // example for parent via a parent
     // implementation("org.apache.commons:commons-csv:1.9.0")
-}
-
-compose {
-    kotlinCompilerPlugin.set(libs.versions.composeCompilerJb.get())
-    //kotlinCompilerPluginArgs.add("suppressKotlinVersionCompatibilityCheck=${libs.versions.kotlinCore.get()}")
 }
 
 tasks.withType<JavaCompile> {
