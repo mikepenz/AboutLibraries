@@ -18,3 +18,4 @@ docs
 
 /.bundle/
 /vendor/*
+/.kotlin/

@@ -1,3 +1,13 @@
+pluginManagement {
+    repositories {
+        maven { setUrl("https://maven.pkg.jetbrains.space/public/p/compose/dev") }
+        maven { setUrl("https://maven.pkg.jetbrains.space/kotlin/p/wasm/experimental") }
+        google()
+        gradlePluginPortal()
+        mavenCentral()
+    }
+}
+
 rootProject.name = "AboutLibraries"
 
 include ':aboutlibraries-core'

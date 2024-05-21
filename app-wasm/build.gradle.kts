@@ -2,7 +2,8 @@ import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 
 plugins {
     kotlin("multiplatform")
-    id("org.jetbrains.compose")
+    alias(libs.plugins.jetbrainsCompose)
+    alias(libs.plugins.composeCompiler)
     id("com.mikepenz.aboutlibraries.plugin")
 }
 
@@ -43,8 +44,4 @@ kotlin {
 
 compose.experimental {
     web.application {}
-}
-
-compose {
-    kotlinCompilerPlugin.set(libs.versions.composeCompilerJb.get())
 }

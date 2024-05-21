@@ -1,42 +1,49 @@
 [versions]
 # android sdk versions
 compileSdk = "34"
-coreMinSdk = "19"
 minSdk = "21"
 targetSdk = "34"
 # build
-gradleBuild = "8.3.1"
+gradleBuild = "8.4.0"
 # kotlin
 dokka = "1.9.20"
-kotlinCore = { require = "1.9.23" }
-kotlinCoroutines = { require = "1.8.0" }
+kotlinCore = { require = "2.0.0" }
+kotlinCoroutines = { require = "1.8.1" }
 kotlinxSerialization = "1.6.3"
 kotlinxCollections = "0.3.7"
 # compose
-compose = "1.6.4"
-composeUi = "1.6.4" # foundation / material
-composeCompiler = "1.5.11"
-composejb = "1.6.1"
-composeCompilerJb = "1.5.10"
+compose = "1.6.7"
+compose-plugin = "1.6.10"
+composeUi = "1.6.7" # foundation / material
 # androidx
-activity = "1.8.2"
+activity = "1.9.0"
 cardview = "1.0.0"
 constraintLayout = "2.1.4"
-core = "1.12.0"
+core = "1.13.1"
 lifecycle = { require = "2.7.0" }
 navigation = "2.7.7"
 recyclerView = "1.3.2"
 # google
-material = "1.11.0"
+material = "1.12.0"
 # other
 accompanist = "0.34.0"
 fastAdapter = "5.7.0"
-gradleMvnPublish = "0.25.3"
+gradleMvnPublish = "0.28.0"
 iconics = "5.4.0"
 itemAnimators = "1.1.0"
 ivy = "2.5.2"
 materialDrawer = "9.0.2"
 okhttp = "4.12.0"
+
+[plugins]
+androidApplication = { id = "com.android.application", version.ref = "gradleBuild" }
+androidLibrary = { id = "com.android.library", version.ref = "gradleBuild" }
+jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
+composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlinCore" }
+kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlinCore" }
+dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
+navSafeArgs = { id = "androidx.navigation.safeargs", version.ref = "navigation" }
+mavenPublish = { id = "com.vanniktech.maven.publish", version.ref = "gradleMvnPublish" }
 
 [libraries]
 # build
@@ -57,7 +64,6 @@ compose-androidx-ui-tooling = { module = "androidx.compose.ui:ui-tooling", versi
 compose-androidx-foundation-core = { module = "androidx.compose.foundation:foundation", version.ref = "composeUi" }
 compose-androidx-foundation-layout = { module = "androidx.compose.foundation:foundation-layout", version.ref = "composeUi" }
 compose-androidx-material = { module = "androidx.compose.material:material", version.ref = "composeUi" }
-compose-jb-plug = { module = "org.jetbrains.compose:compose-gradle-plugin", version.ref = "composejb" }
 # androidx
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity" }
 androidx-cardView = { module = "androidx.cardview:cardview", version.ref = "cardview" }
