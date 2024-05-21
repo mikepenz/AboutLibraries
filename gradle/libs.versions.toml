@@ -7,13 +7,13 @@ targetSdk = "34"
 gradleBuild = "8.4.0"
 # kotlin
 dokka = "1.9.20"
-kotlinCore = { require = "2.0.0-RC2" }
-kotlinCoroutines = { require = "1.8.0" }
+kotlinCore = { require = "2.0.0" }
+kotlinCoroutines = { require = "1.8.1" }
 kotlinxSerialization = "1.6.3"
 kotlinxCollections = "0.3.7"
 # compose
 compose = "1.6.7"
-compose-plugin = "1.6.10-rc01"
+compose-plugin = "1.6.10"
 composeUi = "1.6.7" # foundation / material
 # androidx
 activity = "1.9.0"
