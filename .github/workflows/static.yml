@@ -43,7 +43,8 @@ jobs:
         uses: gradle/actions/setup-gradle@v3
       - name: Build Page
         run: |
-          ./gradlew app-wasm:wasmJsBrowserDistribution --no-configuration-cache
+          ./gradlew :app-wasm:exportLibraryDefinitions -PaboutLibraries.exportPath=src/commonMain/composeResources/files/
+          ./gradlew :app-wasm:wasmJsBrowserDistribution --no-configuration-cache
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
