@@ -130,10 +130,13 @@ class DependencyCollector(
                         }
                     }
                 } catch (e: Throwable) {
-                    if (LOGGER.isDebugEnabled) {
-                        LOGGER.warn("Found possibly ambiguous variant - $resolvedDependency - ${e.message}")
-                    } else {
-                        LOGGER.warn("Found possibly ambiguous variant - $resolvedDependency", e)
+                    when {
+                        LOGGER.isDebugEnabled -> {
+                            LOGGER.warn("Found possibly ambiguous variant - $resolvedDependency", e)
+                        }
+                        LOGGER.isInfoEnabled -> {
+                            LOGGER.warn("Found possibly ambiguous variant - $resolvedDependency")
+                        }
                     }
                 }
             }
