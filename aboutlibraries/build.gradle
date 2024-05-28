@@ -48,6 +48,10 @@ android {
     kotlinOptions.freeCompilerArgs += ["-module-name", POM_ARTIFACT_ID]
 }
 
+kotlin {
+    jvmToolchain(17)
+}
+
 dependencies {
     api project(':aboutlibraries-core')
 
