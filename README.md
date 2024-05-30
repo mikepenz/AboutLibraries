@@ -242,13 +242,21 @@ Find a sample application as the `app-desktop` module. It showcases the usage to
 ### Generate Dependency Information
 
 ```bash
-./gradlew app-desktop:exportLibraryDefinitions -PaboutLibraries.exportPath=src/main/resources/
+./gradlew :app-desktop:exportLibraryDefinitions -PaboutLibraries.exportPath=src/main/resources/
+
+# Filter exported definition by variant by passing `-PaboutLibraries.exportVariant==<VARIANT>`
+./gradlew :app-wasm:exportLibraryDefinitions -PaboutLibraries.exportPath=src/main/resources/ -PaboutLibraries.exportVariant=wasmJs
+./gradlew :app-wasm:exportLibraryDefinitions -PaboutLibraries.exportPath=src/main/resources/ -PaboutLibraries.exportVariant=jvm
 ```
 
-### Run Desktop app
+### Run Demo app(s)
 
 ```
+# JVM Desktop app
 ./gradlew :app-desktop:run
+
+# WASM Web app
+./gradlew :app-wasm:run
 ```
 
 ### Screenshot
