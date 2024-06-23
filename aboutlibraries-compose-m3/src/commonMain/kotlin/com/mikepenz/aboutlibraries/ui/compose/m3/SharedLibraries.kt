@@ -238,7 +238,7 @@ internal inline fun LazyListScope.libraryItems(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 internal fun Library(
     library: Library,
@@ -292,7 +292,7 @@ internal fun Library(
             )
         }
         if (showLicenseBadges && library.licenses.isNotEmpty()) {
-            Row {
+            FlowRow {
                 library.licenses.forEach {
                     Badge(
                         modifier = Modifier.padding(padding.badgePadding),
