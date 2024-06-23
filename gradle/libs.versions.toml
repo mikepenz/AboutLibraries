@@ -4,7 +4,7 @@ compileSdk = "34"
 minSdk = "21"
 targetSdk = "34"
 # build
-gradleBuild = "8.4.2"
+gradleBuild = "8.5.0"
 # kotlin
 dokka = "1.9.20"
 kotlinCore = { require = "2.0.0" }
