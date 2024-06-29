@@ -39,7 +39,7 @@
 
 ## Latest releases 🛠
 
-- Kotlin 2.x && Multiplatform && Compose && Plugin | [v11.2.1](https://github.com/mikepenz/AboutLibraries/tree/v11.2.1)
+- Kotlin 2.x && Multiplatform && Compose && Plugin | [v11.2.2](https://github.com/mikepenz/AboutLibraries/tree/v11.2.2)
 
 ## Gradle Plugin
 
@@ -222,15 +222,22 @@ implementation "com.mikepenz:aboutlibraries-compose-m3:${latestAboutLibsRelease}
 ### Usage
 
 ```kotlin
-// android
+// android (when using the default resource location
 LibrariesContainer(
     Modifier.fillMaxSize()
 )
 
-// compose-desktop
-LibrariesContainer(useResource("aboutlibraries.json") {
-    it.bufferedReader().readText()
-}, Modifier.fillMaxSize())
+// compose resource API
+val libraries by rememberLibraries {
+  Res.readBytes("files/aboutlibraries.json").decodeToString()
+}
+
+// compose manually
+  val libraries by rememberLibraries {
+  useResource("aboutlibraries.json") { res -> res.bufferedReader().readText() }
+}
+
+LibrariesContainer(libraries, Modifier.fillMaxSize())
 ```
 
 <details><summary><b>Compose-jb</b></summary>
@@ -242,13 +249,21 @@ Find a sample application as the `app-desktop` module. It showcases the usage to
 ### Generate Dependency Information
 
 ```bash
-./gradlew app-desktop:exportLibraryDefinitions -PaboutLibraries.exportPath=src/main/resources/
+./gradlew :app-desktop:exportLibraryDefinitions -PaboutLibraries.exportPath=src/main/resources/
+
+# Filter exported definition by variant by passing `-PaboutLibraries.exportVariant==<VARIANT>`
+./gradlew :app-wasm:exportLibraryDefinitions -PaboutLibraries.exportPath=src/main/resources/ -PaboutLibraries.exportVariant=wasmJs
+./gradlew :app-wasm:exportLibraryDefinitions -PaboutLibraries.exportPath=src/main/resources/ -PaboutLibraries.exportVariant=jvm
 ```
 
-### Run Desktop app
+### Run Demo app(s)
 
 ```
+# JVM Desktop app
 ./gradlew :app-desktop:run
+
+# WASM Web app
+./gradlew :app-wasm:run
 ```
 
 ### Screenshot
