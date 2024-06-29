@@ -233,7 +233,7 @@ val libraries by rememberLibraries {
 }
 
 // compose manually
-val libraries by rememberLibraries {
+  val libraries by rememberLibraries {
   useResource("aboutlibraries.json") { res -> res.bufferedReader().readText() }
 }
 
