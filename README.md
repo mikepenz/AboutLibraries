@@ -222,15 +222,22 @@ implementation "com.mikepenz:aboutlibraries-compose-m3:${latestAboutLibsRelease}
 ### Usage
 
 ```kotlin
-// android
+// android (when using the default resource location
 LibrariesContainer(
     Modifier.fillMaxSize()
 )
 
-// compose-desktop
-LibrariesContainer(useResource("aboutlibraries.json") {
-    it.bufferedReader().readText()
-}, Modifier.fillMaxSize())
+// compose resource API
+val libraries by rememberLibraries {
+  Res.readBytes("files/aboutlibraries.json").decodeToString()
+}
+
+// compose manually
+  val libraries by rememberLibraries {
+  useResource("aboutlibraries.json") { res -> res.bufferedReader().readText() }
+}
+
+LibrariesContainer(libraries, Modifier.fillMaxSize())
 ```
 
 <details><summary><b>Compose-jb</b></summary>
