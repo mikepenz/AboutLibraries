@@ -18,6 +18,7 @@ include ':aboutlibraries-compose-m3'
 include ':app'
 include ':app-desktop'
 include ':app-wasm'
+include ':app-mp'
 include ':app-test'
 
 includeBuild("plugin-build") {
