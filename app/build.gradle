@@ -112,7 +112,10 @@ aboutLibraries {
     // Allowed set of licenses, this project will be able to use without build failure
     allowedLicenses = ["Apache-2.0"]
     // Allowed set of licenses for specific dependencies, this project will be able to use without build failure
-    allowedLicensesMap = ["asdkl": ["androidx.jetpack.library"]]
+    allowedLicensesMap = [
+            "asdkl": ["androidx.jetpack.library"],
+            "other": ["org.jetbrains.kotlinx:atomicfu-jvm"]
+    ]
     // Enable the duplication mode, allows to merge, or link dependencies which relate
     duplicationMode = DuplicateMode.LINK
     // Configure the duplication rule, to match "duplicates" with
