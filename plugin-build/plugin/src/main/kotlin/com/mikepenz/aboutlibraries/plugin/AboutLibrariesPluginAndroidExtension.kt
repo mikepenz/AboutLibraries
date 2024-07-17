@@ -32,6 +32,9 @@ object AboutLibrariesPluginAndroidExtension {
     @Suppress("DEPRECATION")
     private fun createAboutLibrariesAndroidTasks(project: Project, v: Any, collectTask: TaskProvider<*>) {
         val variant = (v as? com.android.build.gradle.api.BaseVariant) ?: return
+
+        val relativeResultDirectory = "generated/aboutLibraries/${variant.name}/res/raw/"
+        val resultDirectory = project.layout.buildDirectory.file(relativeResultDirectory)
         // task to write the general definitions information
         val task = project.tasks.create(
             "prepareLibraryDefinitions${variant.name.capitalize(Locale.ENGLISH)}",
@@ -40,14 +43,14 @@ object AboutLibrariesPluginAndroidExtension {
             it.description = "Writes the relevant meta data for the AboutLibraries plugin to display dependencies"
             it.group = "Build"
             it.variant = variant.name
-            it.resultDirectory = project.file("${project.buildDir}/generated/aboutLibraries/${variant.name}/res/raw/")
+            it.combinedLibrariesOutputFile.set(project.layout.buildDirectory.file("${relativeResultDirectory}/${it.extension.outputFileName}"))
             it.dependsOn(collectTask)
         }
 
         // This is necessary for backwards compatibility with versions of gradle that do not support
         // this new API.
         try {
-            variant.registerGeneratedResFolders(project.files(task.resultDirectory.parentFile).builtBy(task))
+            variant.registerGeneratedResFolders(project.files(resultDirectory.get().asFile.parentFile).builtBy(task))
             try {
                 variant.mergeResourcesProvider.configure { it.dependsOn(task) }
             } catch (t: Throwable) {
@@ -56,7 +59,7 @@ object AboutLibrariesPluginAndroidExtension {
             }
         } catch (t: Throwable) {
             @Suppress("DEPRECATION")
-            variant.registerResGeneratingTask(task, task.resultDirectory.parentFile)
+            variant.registerResGeneratingTask(task, resultDirectory.get().asFile.parentFile)
         }
 
         // task to generate libraries, and their license into the build folder (not hooked to the build task)
@@ -67,7 +70,7 @@ object AboutLibrariesPluginAndroidExtension {
             it.description = "Manually write meta data for the AboutLibraries plugin"
             it.group = "Build"
             it.variant = variant.name
-            it.resultDirectory = project.file("${project.buildDir}/generated/aboutLibraries/${variant.name}/res/raw/")
+            it.combinedLibrariesOutputFile.set(project.layout.buildDirectory.file("${relativeResultDirectory}/${it.extension.outputFileName}"))
             it.dependsOn(collectTask)
         }
 

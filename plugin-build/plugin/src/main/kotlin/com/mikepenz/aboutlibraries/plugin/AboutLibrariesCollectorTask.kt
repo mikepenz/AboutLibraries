@@ -3,13 +3,10 @@ package com.mikepenz.aboutlibraries.plugin
 import com.mikepenz.aboutlibraries.plugin.model.CollectedContainer
 import com.mikepenz.aboutlibraries.plugin.util.DependencyCollector
 import org.gradle.api.DefaultTask
-import org.gradle.api.tasks.CacheableTask
-import org.gradle.api.tasks.Input
-import org.gradle.api.tasks.Internal
-import org.gradle.api.tasks.OutputFile
-import org.gradle.api.tasks.TaskAction
+import org.gradle.api.file.RegularFile
+import org.gradle.api.provider.Provider
+import org.gradle.api.tasks.*
 import org.slf4j.LoggerFactory
-import java.io.File
 
 @CacheableTask
 abstract class AboutLibrariesCollectorTask : DefaultTask() {
@@ -30,10 +27,8 @@ abstract class AboutLibrariesCollectorTask : DefaultTask() {
     @Internal
     protected lateinit var collectedDependencies: CollectedContainer
 
-    @OutputFile
-    val dependencyCache: File = File(File(project.buildDir, "generated/aboutLibraries/").also {
-        it.mkdirs()
-    }, "dependency_cache.json")
+    @get:OutputFile
+    val dependencyCache: Provider<RegularFile> = project.layout.buildDirectory.file("generated/aboutLibraries/dependency_cache.json")
 
     /**
      * Collect the dependencies via the available configurations for the current project
@@ -49,7 +44,7 @@ abstract class AboutLibrariesCollectorTask : DefaultTask() {
         if (!::collectedDependencies.isInitialized) {
             configure()
         }
-        dependencyCache.writeText(groovy.json.JsonOutput.toJson(collectedDependencies))
+        dependencyCache.get().asFile.writeText(groovy.json.JsonOutput.toJson(collectedDependencies))
     }
 
     private companion object {

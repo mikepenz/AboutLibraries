@@ -4,14 +4,13 @@ import com.mikepenz.aboutlibraries.plugin.mapping.Library
 import com.mikepenz.aboutlibraries.plugin.mapping.License
 import com.mikepenz.aboutlibraries.plugin.model.writeToDisk
 import com.mikepenz.aboutlibraries.plugin.util.forLicense
+import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.Input
-import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
 import org.slf4j.LoggerFactory
-import java.io.File
-import java.util.Locale
+import java.util.*
 
 @CacheableTask
 abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
@@ -21,22 +20,11 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
     @Input
     val outputFileName = extension.outputFileName
 
-    @Internal
-    var resultDirectory: File = project.file("${project.buildDir}/generated/aboutLibraries/res/")
-        set(value) {
-            field = value
-            combinedLibrariesOutputFile = File(resultDirectory, outputFileName)
-        }
-
-    @OutputFile
-    var combinedLibrariesOutputFile = File(resultDirectory, outputFileName)
+    @get:OutputFile
+    abstract val combinedLibrariesOutputFile: RegularFileProperty
 
     @TaskAction
     public fun action() {
-        if (!resultDirectory.exists()) {
-            resultDirectory.mkdirs() // verify output exists
-        }
-
         val result = createLibraryProcessor().gatherDependencies()
 
         // validate found licenses match expectation
@@ -104,7 +92,7 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
         }
 
         // write to disk
-        result.writeToDisk(combinedLibrariesOutputFile, excludeFields, extension.prettyPrint)
+        result.writeToDisk(combinedLibrariesOutputFile.get().asFile, excludeFields, extension.prettyPrint)
     }
 
     companion object {

@@ -5,12 +5,9 @@ import com.mikepenz.aboutlibraries.plugin.util.LibrariesProcessor
 import groovy.json.JsonSlurper
 import org.gradle.api.DefaultTask
 import org.gradle.api.artifacts.dsl.DependencyHandler
-import org.gradle.api.tasks.Input
-import org.gradle.api.tasks.InputDirectory
-import org.gradle.api.tasks.InputFile
-import org.gradle.api.tasks.Internal
-import org.gradle.api.tasks.PathSensitive
-import org.gradle.api.tasks.PathSensitivity
+import org.gradle.api.file.RegularFile
+import org.gradle.api.provider.Provider
+import org.gradle.api.tasks.*
 import org.slf4j.LoggerFactory
 import java.io.File
 import javax.inject.Inject
@@ -21,7 +18,7 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     private val rootDir = project.rootDir
 
     @Internal
-    protected val extension = project.extensions.getByName("aboutLibraries") as AboutLibrariesExtension
+    val extension = project.extensions.getByName("aboutLibraries") as AboutLibrariesExtension
 
     @Internal
     open var variant: String? = null
@@ -29,27 +26,29 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     @Inject
     abstract fun getDependencyHandler(): DependencyHandler
 
-    @InputFile
-    @PathSensitive(value = PathSensitivity.RELATIVE)
-    protected val dependencyCache = File(project.buildDir, "generated/aboutLibraries/dependency_cache.json")
+    @get:InputFiles
+    @get:PathSensitive(value = PathSensitivity.RELATIVE)
+    val dependencyCache: Provider<RegularFile> = project.layout.buildDirectory.file("generated/aboutLibraries/dependency_cache.json")
 
-    @org.gradle.api.tasks.Optional
-    @PathSensitive(value = PathSensitivity.RELATIVE)
-    @InputDirectory
-    fun getConfigPath(): File? {
+    @get:Optional
+    @get:PathSensitive(value = PathSensitivity.RELATIVE)
+    @get:InputDirectory
+    val configPath: Provider<File?> = project.provider {
         val path = extension.configPath
         if (path != null) {
             val inputFile = File(path)
             val absoluteFile = File(rootDir, path)
             if (inputFile.isAbsolute && inputFile.exists()) {
-                return inputFile
+                project.file(inputFile)
             } else if (absoluteFile.exists()) {
-                return absoluteFile
+                project.file(absoluteFile)
             } else {
                 LOGGER.warn("Couldn't find provided path in: '${inputFile.absolutePath}' or '${absoluteFile.absolutePath}'")
+                null
             }
+        } else {
+            null
         }
-        return null
     }
 
     @Input
@@ -80,7 +79,7 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     val additionalLicenses = extension.additionalLicenses.toHashSet()
 
     @Input
-    @org.gradle.api.tasks.Optional
+    @Optional
     val gitHubApiToken = extension.gitHubApiToken
 
     @Input
@@ -89,7 +88,7 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     @Suppress("UNCHECKED_CAST")
     protected fun readInCollectedDependencies(): CollectedContainer {
         try {
-            return CollectedContainer.from((JsonSlurper().parse(dependencyCache) as Map<String, *>)["dependencies"] as Map<String, Map<String, List<String>>>)
+            return CollectedContainer.from((JsonSlurper().parse(dependencyCache.get().asFile) as Map<String, *>)["dependencies"] as Map<String, Map<String, List<String>>>)
         } catch (t: Throwable) {
             throw IllegalStateException("Failed to parse the dependencyCache. Try to do a clean build", t)
         }
@@ -99,7 +98,7 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
         return LibrariesProcessor(
             getDependencyHandler(),
             collectedContainer,
-            getConfigPath(),
+            configPath.getOrElse(null),
             exclusionPatterns,
             offlineMode,
             fetchRemoteLicense,

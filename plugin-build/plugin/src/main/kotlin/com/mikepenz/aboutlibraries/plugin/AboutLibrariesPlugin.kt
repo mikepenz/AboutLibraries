@@ -53,10 +53,13 @@ class AboutLibrariesPlugin : Plugin<Project> {
                 it.description = "Writes the relevant meta data for the AboutLibraries plugin to display dependencies"
                 it.group = "Build"
                 it.variant = project.safeProp("aboutLibraries.exportVariant") ?: project.safeProp("exportVariant")
-                it.resultDirectory = project.file(
-                    project.safeProp("aboutLibraries.exportPath") ?: project.safeProp("exportPath")
-                    ?: "${project.buildDir}/generated/aboutLibraries/"
-                )
+
+                val path = project.safeProp("aboutLibraries.exportPath") ?: project.safeProp("exportPath")
+                if (path != null) {
+                    it.combinedLibrariesOutputFile.set(project.file("${path}/${it.extension.outputFileName}"))
+                } else {
+                    it.combinedLibrariesOutputFile.set(project.layout.buildDirectory.file("generated/aboutLibraries/res/${it.extension.outputFileName}"))
+                }
                 it.dependsOn(collectTask)
             }
 
