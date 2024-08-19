@@ -2,6 +2,7 @@ package com.mikepenz.aboutlibraries.plugin.model
 
 import com.mikepenz.aboutlibraries.plugin.mapping.Library
 import com.mikepenz.aboutlibraries.plugin.mapping.License
+import com.mikepenz.aboutlibraries.plugin.util.PartialObjectConverter
 import groovy.json.JsonGenerator
 import groovy.json.JsonOutput
 import java.io.File
@@ -29,7 +30,8 @@ fun ResultContainer.writeToDisk(outputFile: File, excludeFields: Array<String>, 
     val fieldNames = mutableListOf("artifactId", "groupId", "artifactFolder").also {
         it.addAll(excludeFields)
     }
-    val jsonGenerator = JsonGenerator.Options().excludeNulls().excludeFieldsByName(fieldNames).build()
+    val libraryConverter = PartialObjectConverter(Library::class.java, fieldNames)
+    val jsonGenerator = JsonGenerator.Options().excludeNulls().addConverter(libraryConverter).build()
     PrintWriter(OutputStreamWriter(outputFile.outputStream(), StandardCharsets.UTF_8), true).use {
         it.write(jsonGenerator.toJson(this).let { json -> if (prettyPrint) JsonOutput.prettyPrint(json) else json })
     }
