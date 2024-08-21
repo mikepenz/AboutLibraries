@@ -31,7 +31,7 @@ class MetaData(
 )
 
 fun ResultContainer.writeToDisk(outputFile: File, excludeFields: Array<String>, prettyPrint: Boolean) {
-    val allowedQualifiers = setOf(
+    val allowedExclusionQualifiers = setOf(
         ResultContainer::class.simpleName,
         Library::class.simpleName,
         Developer::class.simpleName,
@@ -41,24 +41,24 @@ fun ResultContainer.writeToDisk(outputFile: File, excludeFields: Array<String>, 
         License::class.simpleName,
         MetaData::class.simpleName,
     )
-    val qualifiedFieldNames = mutableSetOf(
+    val excludedQualifiedFieldNames = mutableSetOf(
         "${Library::class.simpleName}.${Library::artifactId.name}",
         "${Library::class.simpleName}.${Library::groupId.name}",
         "${Library::class.simpleName}.${Library::artifactFolder.name}"
     )
-    val unqualifiedFieldNames = mutableSetOf<String>()
+    val excludedUnqualifiedFieldNames = mutableSetOf<String>()
     excludeFields.forEach { excludedField ->
         val segments = excludedField.split(".")
-        if (segments.size == 2 && allowedQualifiers.contains(segments.first())) {
-            qualifiedFieldNames.add(excludedField)
+        if (segments.size == 2 && allowedExclusionQualifiers.contains(segments.first())) {
+            excludedQualifiedFieldNames.add(excludedField)
         } else {
-            unqualifiedFieldNames.add(excludedField)
+            excludedUnqualifiedFieldNames.add(excludedField)
         }
     }
     val jsonGenerator = JsonGenerator.Options()
         .excludeNulls()
-        .excludeFieldsByName(unqualifiedFieldNames)
-        .addConverter(PartialObjectConverter(qualifiedFieldNames))
+        .excludeFieldsByName(excludedUnqualifiedFieldNames)
+        .addConverter(PartialObjectConverter(excludedQualifiedFieldNames))
         .build()
     PrintWriter(OutputStreamWriter(outputFile.outputStream(), StandardCharsets.UTF_8), true).use {
         it.write(jsonGenerator.toJson(this).let { json -> if (prettyPrint) JsonOutput.prettyPrint(json) else json })
