@@ -118,7 +118,8 @@ aboutLibraries {
     // Full license text for license IDs mentioned here will be included, even if no detected dependency uses them.
     additionalLicenses = ["mit", "mpl_2_0"]
     // Allows to exclude some fields from the generated meta data field.
-    excludeFields = ["developers", "funding"]
+    // If the class name is specified, the field is only excluded for that class; without a class name, the exclusion is global.
+    excludeFields = ["License.name", "developers", "funding"]
     // Enable inclusion of `platform` dependencies in the library report
     includePlatform = true
     // Define the strict mode, will fail if the project uses licenses not allowed
