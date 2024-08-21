@@ -27,11 +27,24 @@ class MetaData(
 )
 
 fun ResultContainer.writeToDisk(outputFile: File, excludeFields: Array<String>, prettyPrint: Boolean) {
-    val fieldNames = mutableListOf("artifactId", "groupId", "artifactFolder").also {
-        it.addAll(excludeFields)
+    val qualifiedFieldNames = mutableSetOf(
+        "${Library::class.qualifiedName}.${Library::artifactId.name}",
+        "${Library::class.qualifiedName}.${Library::groupId.name}",
+        "${Library::class.qualifiedName}.${Library::artifactFolder.name}"
+    )
+    val unqualifiedFieldNames = mutableSetOf<String>()
+    excludeFields.forEach { excludedField ->
+        if (excludedField.startsWith("com.mikepenz.aboutlibraries.plugin")) {
+            qualifiedFieldNames.add(excludedField)
+        } else {
+            unqualifiedFieldNames.add(excludedField)
+        }
     }
-    val libraryConverter = PartialObjectConverter(Library::class.java, fieldNames)
-    val jsonGenerator = JsonGenerator.Options().excludeNulls().addConverter(libraryConverter).build()
+    val jsonGenerator = JsonGenerator.Options()
+        .excludeNulls()
+        .excludeFieldsByName(unqualifiedFieldNames)
+        .addConverter(PartialObjectConverter(qualifiedFieldNames))
+        .build()
     PrintWriter(OutputStreamWriter(outputFile.outputStream(), StandardCharsets.UTF_8), true).use {
         it.write(jsonGenerator.toJson(this).let { json -> if (prettyPrint) JsonOutput.prettyPrint(json) else json })
     }
