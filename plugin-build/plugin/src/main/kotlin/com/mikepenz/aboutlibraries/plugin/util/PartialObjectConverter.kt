@@ -7,7 +7,7 @@ import org.codehaus.groovy.runtime.DefaultGroovyMethods
 /**
  * A converter for [JsonGenerator], which allows properties to be excluded from the output.
  * The way it works is identical to the serialization of objects in [DefaultJsonGenerator].
- * @property excludedQualifiedPropertyNames The fully qualified name (package name + class name + property name)
+ * @property excludedQualifiedPropertyNames The qualified name (class name + property name)
  * of the properties that should be excluded from serialization.
  */
 class PartialObjectConverter(
@@ -21,12 +21,12 @@ class PartialObjectConverter(
     private val excludedPropertyNames = setOf("class", "declaringClass", "metaClass")
 
     override fun handles(type: Class<*>?): Boolean {
-        return type != null && targetClassNames.contains(type.name)
+        return type != null && targetClassNames.contains(type.simpleName)
     }
 
     override fun convert(value: Any, key: String?): Any {
         return DefaultGroovyMethods.getProperties(value).filterKeys { propertyName ->
-            propertyName !in excludedPropertyNames && "${value::class.qualifiedName}.$propertyName" !in excludedQualifiedPropertyNames
+            propertyName !in excludedPropertyNames && "${value::class.simpleName}.$propertyName" !in excludedQualifiedPropertyNames
         }
     }
 

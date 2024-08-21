@@ -1,7 +1,11 @@
 package com.mikepenz.aboutlibraries.plugin.model
 
+import com.mikepenz.aboutlibraries.plugin.mapping.Developer
+import com.mikepenz.aboutlibraries.plugin.mapping.Funding
 import com.mikepenz.aboutlibraries.plugin.mapping.Library
 import com.mikepenz.aboutlibraries.plugin.mapping.License
+import com.mikepenz.aboutlibraries.plugin.mapping.Organization
+import com.mikepenz.aboutlibraries.plugin.mapping.Scm
 import com.mikepenz.aboutlibraries.plugin.util.PartialObjectConverter
 import groovy.json.JsonGenerator
 import groovy.json.JsonOutput
@@ -27,14 +31,25 @@ class MetaData(
 )
 
 fun ResultContainer.writeToDisk(outputFile: File, excludeFields: Array<String>, prettyPrint: Boolean) {
+    val allowedQualifiers = setOf(
+        ResultContainer::class.simpleName,
+        Library::class.simpleName,
+        Developer::class.simpleName,
+        Organization::class.simpleName,
+        Funding::class.simpleName,
+        Scm::class.simpleName,
+        License::class.simpleName,
+        MetaData::class.simpleName,
+    )
     val qualifiedFieldNames = mutableSetOf(
-        "${Library::class.qualifiedName}.${Library::artifactId.name}",
-        "${Library::class.qualifiedName}.${Library::groupId.name}",
-        "${Library::class.qualifiedName}.${Library::artifactFolder.name}"
+        "${Library::class.simpleName}.${Library::artifactId.name}",
+        "${Library::class.simpleName}.${Library::groupId.name}",
+        "${Library::class.simpleName}.${Library::artifactFolder.name}"
     )
     val unqualifiedFieldNames = mutableSetOf<String>()
     excludeFields.forEach { excludedField ->
-        if (excludedField.startsWith("com.mikepenz.aboutlibraries.plugin")) {
+        val segments = excludedField.split(".")
+        if (segments.size == 2 && allowedQualifiers.contains(segments.first())) {
             qualifiedFieldNames.add(excludedField)
         } else {
             unqualifiedFieldNames.add(excludedField)
