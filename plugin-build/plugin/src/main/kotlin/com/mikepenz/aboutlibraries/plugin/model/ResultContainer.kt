@@ -1,11 +1,6 @@
 package com.mikepenz.aboutlibraries.plugin.model
 
-import com.mikepenz.aboutlibraries.plugin.mapping.Developer
-import com.mikepenz.aboutlibraries.plugin.mapping.Funding
-import com.mikepenz.aboutlibraries.plugin.mapping.Library
-import com.mikepenz.aboutlibraries.plugin.mapping.License
-import com.mikepenz.aboutlibraries.plugin.mapping.Organization
-import com.mikepenz.aboutlibraries.plugin.mapping.Scm
+import com.mikepenz.aboutlibraries.plugin.mapping.*
 import com.mikepenz.aboutlibraries.plugin.util.PartialObjectConverter
 import groovy.json.JsonGenerator
 import groovy.json.JsonOutput

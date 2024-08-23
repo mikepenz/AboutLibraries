@@ -11,7 +11,7 @@ import org.codehaus.groovy.runtime.DefaultGroovyMethods
  * of the properties that should be excluded from serialization.
  */
 class PartialObjectConverter(
-    private val excludedQualifiedPropertyNames: Set<String>
+    private val excludedQualifiedPropertyNames: Set<String>,
 ) : JsonGenerator.Converter {
 
     private val targetClassNames: Set<String> = excludedQualifiedPropertyNames.mapTo(mutableSetOf()) { field ->
@@ -29,5 +29,4 @@ class PartialObjectConverter(
             propertyName !in excludedPropertyNames && "${value::class.simpleName}.$propertyName" !in excludedQualifiedPropertyNames
         }
     }
-
 }
