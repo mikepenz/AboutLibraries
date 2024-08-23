@@ -39,7 +39,7 @@
 
 ## Latest releases 🛠
 
-- Kotlin 2.x && Multiplatform && Compose && Plugin | [v11.2.2](https://github.com/mikepenz/AboutLibraries/tree/v11.2.2)
+- Kotlin 2.x && Multiplatform && Compose && Plugin | [v11.2.3](https://github.com/mikepenz/AboutLibraries/tree/v11.2.3)
 
 ## Gradle Plugin
 
