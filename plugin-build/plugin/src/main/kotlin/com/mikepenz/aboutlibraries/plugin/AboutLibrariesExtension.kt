@@ -219,10 +219,14 @@ abstract class AboutLibrariesExtension {
     /**
      * Defines fields which will be excluded during the serialisation of the metadata output file.
      *
-     * Any field as included in the [com.mikepenz.aboutlibraries.plugin.mapping.Library] can theoretically be excluded.
+     * It is possible to qualify the field names by specifying the class name (e.g. "License.name").
+     * Permissible qualifiers are "ResultContainer", "Library", "Developer", "Organization", "Funding", "Scm",
+     * "License" and "MetaData".
+     * Unqualified field names (e.g. "description") are applied to the entire output.
+     *
      * ```
      * aboutLibraries {
-     *   excludeFields = arrayOf("description", "tag")
+     *   excludeFields = arrayOf("License.name", "ResultContainer.metadata", "description", "tag")
      * }
      * ```
      */

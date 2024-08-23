@@ -1,7 +1,12 @@
 package com.mikepenz.aboutlibraries.plugin.model
 
+import com.mikepenz.aboutlibraries.plugin.mapping.Developer
+import com.mikepenz.aboutlibraries.plugin.mapping.Funding
 import com.mikepenz.aboutlibraries.plugin.mapping.Library
 import com.mikepenz.aboutlibraries.plugin.mapping.License
+import com.mikepenz.aboutlibraries.plugin.mapping.Organization
+import com.mikepenz.aboutlibraries.plugin.mapping.Scm
+import com.mikepenz.aboutlibraries.plugin.util.PartialObjectConverter
 import groovy.json.JsonGenerator
 import groovy.json.JsonOutput
 import java.io.File
@@ -26,10 +31,35 @@ class MetaData(
 )
 
 fun ResultContainer.writeToDisk(outputFile: File, excludeFields: Array<String>, prettyPrint: Boolean) {
-    val fieldNames = mutableListOf("artifactId", "groupId", "artifactFolder").also {
-        it.addAll(excludeFields)
+    val allowedExclusionQualifiers = setOf(
+        ResultContainer::class.simpleName,
+        Library::class.simpleName,
+        Developer::class.simpleName,
+        Organization::class.simpleName,
+        Funding::class.simpleName,
+        Scm::class.simpleName,
+        License::class.simpleName,
+        MetaData::class.simpleName,
+    )
+    val excludedQualifiedFieldNames = mutableSetOf(
+        "${Library::class.simpleName}.${Library::artifactId.name}",
+        "${Library::class.simpleName}.${Library::groupId.name}",
+        "${Library::class.simpleName}.${Library::artifactFolder.name}"
+    )
+    val excludedUnqualifiedFieldNames = mutableSetOf<String>()
+    excludeFields.forEach { excludedField ->
+        val segments = excludedField.split(".")
+        if (segments.size == 2 && allowedExclusionQualifiers.contains(segments.first())) {
+            excludedQualifiedFieldNames.add(excludedField)
+        } else {
+            excludedUnqualifiedFieldNames.add(excludedField)
+        }
     }
-    val jsonGenerator = JsonGenerator.Options().excludeNulls().excludeFieldsByName(fieldNames).build()
+    val jsonGenerator = JsonGenerator.Options()
+        .excludeNulls()
+        .excludeFieldsByName(excludedUnqualifiedFieldNames)
+        .addConverter(PartialObjectConverter(excludedQualifiedFieldNames))
+        .build()
     PrintWriter(OutputStreamWriter(outputFile.outputStream(), StandardCharsets.UTF_8), true).use {
         it.write(jsonGenerator.toJson(this).let { json -> if (prettyPrint) JsonOutput.prettyPrint(json) else json })
     }
