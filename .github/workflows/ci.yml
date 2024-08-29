@@ -104,7 +104,6 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: |
-            11
             15
             17
 
@@ -128,6 +127,11 @@ jobs:
       - name: Run Lint
         if: github.event_name  == 'pull_request'
         run: ./gradlew lintDebug
+
+      - name: 'Qodana Scan'
+        uses: JetBrains/qodana-action@main
+        env:
+          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
 
       - name: Setup Ruby
         if: github.event_name  == 'pull_request'
