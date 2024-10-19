@@ -15,12 +15,12 @@ object AboutLibrariesPluginAndroidExtension {
         try {
             val app = project.extensions.findByType(com.android.build.gradle.AppExtension::class.java)
             if (app != null) {
-                app.applicationVariants.all {
+                app.applicationVariants.configureEach {
                     createAboutLibrariesAndroidTasks(project, it, collectTask)
                 }
             } else {
                 val lib = project.extensions.findByType(com.android.build.gradle.LibraryExtension::class.java)
-                lib?.libraryVariants?.all {
+                lib?.libraryVariants?.configureEach {
                     createAboutLibrariesAndroidTasks(project, it, collectTask)
                 }
             }

@@ -161,7 +161,7 @@ dependencies {
     stagingImplementation(libs.okhttp.core)
 }
 
-configurations.all {
+configurations.configureEach {
     resolutionStrategy.force(libs.fastAdapter.core)
     resolutionStrategy.force(libs.iconics.core)
 }

@@ -27,7 +27,7 @@ repositories {
 
 kotlin {
     jvm {
-        compilations.all {
+        compilations.configureEach {
             kotlinOptions.jvmTarget = "11"
         }
         withJava()
@@ -61,7 +61,7 @@ configure<AboutLibrariesExtension> {
     registerAndroidTasks = false
 }
 
-tasks.withType(KotlinCompile::class.java) {
+tasks.withType(KotlinCompile::class.java).configureEach {
     dependsOn("exportLibraryDefinitions")
 }
 

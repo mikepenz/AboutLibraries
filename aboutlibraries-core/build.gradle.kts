@@ -19,7 +19,7 @@ android {
     }
 
     buildTypes {
-        getByName("release") {
+        named("release") {
             isMinifyEnabled = false
         }
     }
@@ -29,7 +29,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 
-    tasks.withType<KotlinCompile> {
+    tasks.withType<KotlinCompile>().configureEach {
         kotlinOptions {
             jvmTarget = "11"
             freeCompilerArgs += listOf(
@@ -52,7 +52,7 @@ kotlin {
     js(IR) {
         nodejs {}
         browser {}
-        compilations.all {
+        compilations.configureEach {
             kotlinOptions {
                 moduleKind = "umd"
                 sourceMap = true
