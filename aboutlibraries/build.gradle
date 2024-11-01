@@ -75,7 +75,7 @@ dependencies {
 import com.vanniktech.maven.publish.SonatypeHost
 if (project.hasProperty('pushall') || project.hasProperty('library_only')) {
     mavenPublishing {
-        publishToMavenCentral(SonatypeHost.S01)
+        publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL, true)
         signAllPublications()
     }
 }

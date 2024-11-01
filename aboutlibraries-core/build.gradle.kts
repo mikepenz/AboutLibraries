@@ -154,7 +154,7 @@ tasks.dokkaHtml.configure {
 
 if (project.hasProperty("pushall") || project.hasProperty("library_core_only")) {
     mavenPublishing {
-        publishToMavenCentral(SonatypeHost.S01)
+        publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL, true)
         signAllPublications()
     }
 }
