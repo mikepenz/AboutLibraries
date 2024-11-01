@@ -6,7 +6,7 @@ targetSdk = "35"
 # build
 gradleBuild = "8.7.2"
 # kotlin
-dokka = "2.0.0-Beta"
+dokka = "1.9.20"
 kotlinCore = { require = "2.0.21" }
 kotlinCoroutines = { require = "1.9.0" }
 kotlinxSerialization = "1.7.1"

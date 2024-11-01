@@ -37,7 +37,3 @@ tasks.withType<DokkaMultiModuleTask>().configureEach {
     dependsOn(gradle.includedBuild("plugin-build").task(":plugin:dokkaHtmlPartial"))
     addSubprojectChildTasks(":plugin-build:build:dokkaHtmlPartial")
 }
-
-dokka {
-    dokkaGeneratorIsolation = ClassLoaderIsolation()
-}
