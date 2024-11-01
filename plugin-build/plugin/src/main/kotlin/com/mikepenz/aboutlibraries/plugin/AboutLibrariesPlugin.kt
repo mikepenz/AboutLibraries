@@ -5,6 +5,7 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.util.GradleVersion
 import org.slf4j.LoggerFactory
+import java.io.File
 
 @Suppress("unused") // Public API for Gradle build scripts.
 class AboutLibrariesPlugin : Plugin<Project> {
@@ -53,14 +54,18 @@ class AboutLibrariesPlugin : Plugin<Project> {
                 it.description = "Writes the relevant meta data for the AboutLibraries plugin to display dependencies"
                 it.group = "Build"
                 it.variant = project.safeProp("aboutLibraries.exportVariant") ?: project.safeProp("exportVariant")
-                it.resultDirectory = project.file(
-                    project.safeProp("aboutLibraries.exportPath") ?: project.safeProp("exportPath")
-                    ?: "${project.buildDir}/generated/aboutLibraries/"
-                )
+
+                val exportPath = project.safeProp("aboutLibraries.exportPath") ?: project.safeProp("exportPath")
+                if (exportPath != null) {
+                    it.resultDirectory.set(File(exportPath))
+                } else {
+                    it.resultDirectory.set(project.layout.buildDirectory.dir("generated/aboutLibraries/"))
+                }
+
                 it.dependsOn(collectTask)
             }
 
-            val extension = project.extensions.getByName("aboutLibraries") as AboutLibrariesExtension
+            val extension = project.extensions.findByType(AboutLibrariesExtension::class.java)!!
             if (extension.registerAndroidTasks) {
                 AboutLibrariesPluginAndroidExtension.apply(project, collectTask)
             }
