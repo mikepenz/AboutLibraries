@@ -135,6 +135,7 @@ dependencies {
     implementation(libs.androidx.recyclerView)
 
     implementation(libs.google.material)
+    implementation(libs.compose.androidx.icons)
 
     implementation(libs.bundles.accompanist)
 

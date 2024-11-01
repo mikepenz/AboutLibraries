@@ -64,6 +64,7 @@ compose-androidx-ui-tooling = { module = "androidx.compose.ui:ui-tooling", versi
 compose-androidx-foundation-core = { module = "androidx.compose.foundation:foundation", version.ref = "composeUi" }
 compose-androidx-foundation-layout = { module = "androidx.compose.foundation:foundation-layout", version.ref = "composeUi" }
 compose-androidx-material = { module = "androidx.compose.material:material", version.ref = "composeUi" }
+compose-androidx-icons = { module = "androidx.compose.material:material-icons-extended", version = "1.7.4" }
 # androidx
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity" }
 androidx-cardView = { module = "androidx.cardview:cardview", version.ref = "cardview" }
