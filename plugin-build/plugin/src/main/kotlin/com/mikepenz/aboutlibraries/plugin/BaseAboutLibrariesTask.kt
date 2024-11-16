@@ -11,7 +11,6 @@ import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputDirectory
 import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.Internal
-import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.PathSensitive
 import org.gradle.api.tasks.PathSensitivity
 import org.slf4j.LoggerFactory
@@ -27,7 +26,7 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     protected val extension = project.extensions.findByType(AboutLibrariesExtension::class.java)!!
 
     @Internal
-    open var variant: String? = null
+    open var variant: Provider<String?> = project.provider { null }
 
     @Inject
     abstract fun getDependencyHandler(): DependencyHandler
@@ -110,7 +109,7 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
             additionalLicenses,
             duplicationMode,
             duplicationRule,
-            variant,
+            variant.orNull,
             gitHubApiToken
         )
     }

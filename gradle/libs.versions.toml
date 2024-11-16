@@ -10,7 +10,7 @@ dokka = "1.9.20"
 kotlinCore = { require = "2.0.21" }
 kotlinCoroutines = { require = "1.9.0" }
 kotlinxSerialization = "1.7.3"
-kotlinxCollections = "0.3.7"
+kotlinxCollections = "0.3.8"
 # compose
 compose = "1.7.5"
 compose-plugin = "1.7.1"
@@ -48,7 +48,9 @@ mavenPublish = { id = "com.vanniktech.maven.publish", version.ref = "gradleMvnPu
 [libraries]
 # build
 gradle-build = { module = "com.android.tools.build:gradle", version.ref = "gradleBuild" }
+android-lint-gradle = { module = "androidx.lint:lint-gradle", version = "1.0.0-alpha02" }
 # kotlin
+android-lint-plug = { module = "com.android.lint:com.android.lint.gradle.plugin", version.ref = "gradleBuild" }
 dokka-plug = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka" }
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlinCore" }
 kotlin-plug = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlinCore" }

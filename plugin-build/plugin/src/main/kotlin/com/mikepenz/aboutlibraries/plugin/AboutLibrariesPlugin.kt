@@ -1,18 +1,18 @@
 package com.mikepenz.aboutlibraries.plugin
 
-import com.mikepenz.aboutlibraries.plugin.util.safeProp
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.file.Directory
+import org.gradle.api.provider.Provider
 import org.gradle.util.GradleVersion
 import org.slf4j.LoggerFactory
-import java.io.File
 
 @Suppress("unused") // Public API for Gradle build scripts.
 class AboutLibrariesPlugin : Plugin<Project> {
 
     override fun apply(project: Project) {
-        if (GradleVersion.current() < GradleVersion.version("5.0")) {
-            project.logger.error("Gradle 5.0 or greater is required to apply this plugin.")
+        if (GradleVersion.current() < GradleVersion.version("7.0")) {
+            project.logger.error("Gradle 7.0 or greater is required to apply this plugin.")
             return
         }
 
@@ -23,7 +23,7 @@ class AboutLibrariesPlugin : Plugin<Project> {
             // task to output library names with ids for further actions
             val collectTask = project.tasks.register("collectDependencies", AboutLibrariesCollectorTask::class.java) {
                 it.description = "Collects dependencies to be used by the different AboutLibraries tasks"
-                if (project.experimentalCache) {
+                if (project.experimentalCache.orNull == true) {
                     it.configure()
                 }
             }
@@ -53,14 +53,18 @@ class AboutLibrariesPlugin : Plugin<Project> {
             project.tasks.register("exportLibraryDefinitions", AboutLibrariesTask::class.java) {
                 it.description = "Writes the relevant meta data for the AboutLibraries plugin to display dependencies"
                 it.group = "Build"
-                it.variant = project.safeProp("aboutLibraries.exportVariant") ?: project.safeProp("exportVariant")
+                it.variant = project.providers.gradleProperty("aboutLibraries.exportVariant")
+                    .orElse(project.providers.gradleProperty("exportVariant"))
 
-                val exportPath = project.safeProp("aboutLibraries.exportPath") ?: project.safeProp("exportPath")
-                if (exportPath != null) {
-                    it.resultDirectory.set(File(exportPath))
-                } else {
-                    it.resultDirectory.set(project.layout.buildDirectory.dir("generated/aboutLibraries/"))
-                }
+                val exportPath: Provider<Directory> = project.providers.gradleProperty("aboutLibraries.exportPath")
+                    .map { path -> project.layout.projectDirectory.dir(path) }
+                    .orElse(
+                        project.providers.gradleProperty("exportPath")
+                            .map { path -> project.layout.projectDirectory.dir(path) }
+                    ).orElse(
+                        project.layout.buildDirectory.dir("generated/aboutLibraries/")
+                    )
+                it.resultDirectory.set(exportPath)
 
                 it.dependsOn(collectTask)
             }
@@ -72,12 +76,11 @@ class AboutLibrariesPlugin : Plugin<Project> {
         }
     }
 
-    private val Project.experimentalCache: Boolean
-        get() = hasProperty("org.gradle.unsafe.configuration-cache") &&
-            property("org.gradle.unsafe.configuration-cache") == "true" ||
-            hasProperty("org.gradle.configuration-cache") &&
-            property("org.gradle.configuration-cache") == "true"
-
+    private val Project.experimentalCache: Provider<Boolean>
+        get() = providers.gradleProperty("org.gradle.unsafe.configuration-cache").map { it == "true" }
+            .orElse(
+                providers.gradleProperty("org.gradle.configuration-cache").map { it == "true" }
+            )
 
     companion object {
         private val LOGGER = LoggerFactory.getLogger(AboutLibrariesPlugin::class.java)

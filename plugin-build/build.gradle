@@ -9,6 +9,7 @@ buildscript {
     }
 
     dependencies {
+        classpath(libs.android.lint.plug.get())
         classpath(libs.kotlin.plug.get())
         classpath(libs.dokka.plug)
     }

@@ -8,6 +8,6 @@
 
 ### Run Desktop app
 
-```
+```bash
 ./gradlew :app-desktop:run
 ```
