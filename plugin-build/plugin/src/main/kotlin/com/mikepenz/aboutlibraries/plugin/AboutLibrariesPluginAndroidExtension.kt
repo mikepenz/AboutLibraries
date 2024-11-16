@@ -32,8 +32,8 @@ object AboutLibrariesPluginAndroidExtension {
     @Suppress("DEPRECATION")
     private fun createAboutLibrariesAndroidTasks(project: Project, v: Any, collectTask: TaskProvider<*>) {
         val variant = (v as? com.android.build.gradle.api.BaseVariant) ?: return
-
-        val resultsDirectory = project.layout.buildDirectory.dir("generated/aboutLibraries/${variant.name}/res/raw/")
+        val resultsResDirectory = project.layout.buildDirectory.dir("generated/aboutLibraries/${variant.name}/res/")
+        val resultsDirectory = resultsResDirectory.map { it.dir("raw/") }
 
         // task to write the general definitions information
         val task = project.tasks.register(
@@ -49,7 +49,7 @@ object AboutLibrariesPluginAndroidExtension {
 
         // This is necessary for backwards compatibility with versions of gradle that do not support this new API.
         try {
-            variant.registerGeneratedResFolders(project.files(resultsDirectory).builtBy(task))
+            variant.registerGeneratedResFolders(project.files(resultsResDirectory).builtBy(task))
             try {
                 variant.mergeResourcesProvider.configure { it.dependsOn(task) }
             } catch (t: Throwable) {
