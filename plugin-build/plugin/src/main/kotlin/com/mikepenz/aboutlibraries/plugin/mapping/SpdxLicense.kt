@@ -396,15 +396,15 @@ enum class SpdxLicense(
     }),
     BSD_2_Clause("BSD 2-Clause \"Simplified\" License", "BSD-2-Clause", customMatcher = { name, url ->
         name.equals("BSD 2-Clause License", true)
-                || url?.endsWith("opensource.org/licenses/BSD-2-Clause", true) == true
-                || url?.endsWith("opensource.org/licenses/bsd-license", true) == true
+            || url?.endsWith("opensource.org/licenses/BSD-2-Clause", true) == true
+            || url?.endsWith("opensource.org/licenses/bsd-license", true) == true
     }),
     BSD_3_Clause("BSD 3-Clause \"New\" or \"Revised\" License", "BSD-3-Clause", customMatcher = { name, url ->
         name.equals("New BSD License", true) || name.equals("Modified BSD License", true) || name.equals(
             "BSD 3-clause",
             true
         ) ||
-                url?.endsWith("opensource.org/licenses/BSD-3-Clause", true) == true
+            url?.endsWith("opensource.org/licenses/BSD-3-Clause", true) == true
     }),
     MIT("MIT License", "MIT", customMatcher = { name, _ ->
         name.contains("MIT", true)
@@ -432,6 +432,8 @@ enum class SpdxLicense(
     fun getUrl(): String = customUrl ?: "https://spdx.org/licenses/$id.html"
 
     fun getTxtUrl(): String = customTxtUrl ?: "https://spdx.org/licenses/$id.txt"
+
+    fun getFallbackTxtUrl(): String = "https://raw.githubusercontent.com/spdx/license-list-data/refs/heads/main/text/$id.txt"
 
     companion object {
         internal fun find(key: String): SpdxLicense? {
