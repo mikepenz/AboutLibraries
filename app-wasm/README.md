@@ -8,6 +8,6 @@
 
 ### Run Wasm app
 
-```
-./gradlew :app-wasm:wasmJsRun   
+```bash
+./gradlew :app-wasm:wasmJsRun
 ```

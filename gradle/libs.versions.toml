@@ -10,7 +10,7 @@ dokka = "1.9.20"
 kotlinCore = { require = "2.0.21" }
 kotlinCoroutines = { require = "1.9.0" }
 kotlinxSerialization = "1.7.3"
-kotlinxCollections = "0.3.7"
+kotlinxCollections = "0.3.8"
 # compose
 compose = "1.7.5"
 compose-plugin = "1.7.1"
