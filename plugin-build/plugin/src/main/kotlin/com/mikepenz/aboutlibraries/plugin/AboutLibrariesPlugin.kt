@@ -11,8 +11,8 @@ import org.slf4j.LoggerFactory
 class AboutLibrariesPlugin : Plugin<Project> {
 
     override fun apply(project: Project) {
-        if (GradleVersion.current() < GradleVersion.version("8.0")) {
-            project.logger.error("Gradle 8.0 or greater is required to apply this plugin.")
+        if (GradleVersion.current() < GradleVersion.version("7.0")) {
+            project.logger.error("Gradle 7.0 or greater is required to apply this plugin.")
             return
         }
 
