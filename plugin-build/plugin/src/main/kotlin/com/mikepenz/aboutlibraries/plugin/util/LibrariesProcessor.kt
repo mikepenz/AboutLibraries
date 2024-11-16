@@ -8,6 +8,7 @@ import com.mikepenz.aboutlibraries.plugin.mapping.Library
 import com.mikepenz.aboutlibraries.plugin.mapping.License
 import com.mikepenz.aboutlibraries.plugin.mapping.SpdxLicense
 import com.mikepenz.aboutlibraries.plugin.model.CollectedContainer
+import com.mikepenz.aboutlibraries.plugin.model.DefaultModuleVersionIdentifier
 import com.mikepenz.aboutlibraries.plugin.model.ResultContainer
 import com.mikepenz.aboutlibraries.plugin.util.LicenseUtil.loadSpdxLicense
 import com.mikepenz.aboutlibraries.plugin.util.PomLoader.resolvePomFile
@@ -15,7 +16,6 @@ import com.mikepenz.aboutlibraries.plugin.util.parser.LibraryReader
 import com.mikepenz.aboutlibraries.plugin.util.parser.LicenseReader
 import com.mikepenz.aboutlibraries.plugin.util.parser.PomReader
 import org.gradle.api.artifacts.dsl.DependencyHandler
-import org.gradle.api.internal.artifacts.DefaultModuleVersionIdentifier
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.File

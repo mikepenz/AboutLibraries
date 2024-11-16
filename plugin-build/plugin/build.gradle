@@ -1,10 +1,12 @@
 plugins {
+    id "com.android.lint"
     id "org.jetbrains.kotlin.jvm"
     id "com.gradle.plugin-publish" version "0.20.0"
     id "java-gradle-plugin"
     id "maven-publish"
     id "org.jetbrains.dokka"
 }
+
 
 group = "com.mikepenz.aboutlibraries.plugin"
 version = rootProject.properties["version"]
@@ -60,6 +62,9 @@ dependencies {
 
     // add better android support
     compileOnly(libs.gradle.build)
+
+    // lint rules
+    lintChecks(libs.android.lint.gradle)
 }
 
 // generate zip file for android maven release tool
