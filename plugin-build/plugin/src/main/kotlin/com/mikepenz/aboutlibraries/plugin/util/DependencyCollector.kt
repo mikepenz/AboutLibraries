@@ -126,7 +126,8 @@ class DependencyCollector(
 
                         else -> {
                             if (LOGGER.isDebugEnabled) LOGGER.debug("retrieve allModuleArtifacts from artifact")
-                            resolvedDependency.allModuleArtifacts
+                            resolvedDependency.allModuleArtifacts +
+                                    resolvedDependency.toResolvedBomArtifact()
                         }
                     }
                 } catch (e: Throwable) {
