@@ -63,7 +63,7 @@ internal fun <T> chooseValue(uniqueId: String, key: String, value: Array<T>?, bl
 }
 
 /**
- * Convenient helper to wrap a [ResolvedDependency] into a []ResolvedArtifact]
+ * Convenient helper to wrap a [ResolvedDependency] into a [ResolvedArtifact]
  * Required to handle `platform` dependencies.
  */
 internal fun ResolvedDependency.toResolvedBomArtifact() = object : ResolvedArtifact {
