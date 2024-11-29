@@ -1,6 +1,6 @@
 {
     "metadata": {
-        "generated": "2024-11-16T14:12:37.75Z"
+        "generated": "2024-11-29T14:41:44.149Z"
     },
     "libraries": [
         {
@@ -160,7 +160,7 @@
                     "name": "Mike Penz"
                 }
             ],
-            "artifactVersion": "11.3.0-b01",
+            "artifactVersion": "11.3.0-rc01",
             "description": "AboutLibraries automatically detects all dependencies of a project and collects their information including the license. Optionally visualising it via the provided ui components.",
             "scm": {
                 "connection": "scm:git@github.com:mikepenz/AboutLibraries.git",
@@ -183,7 +183,7 @@
                     "name": "Mike Penz"
                 }
             ],
-            "artifactVersion": "11.3.0-b01",
+            "artifactVersion": "11.3.0-rc01",
             "description": "AboutLibraries automatically detects all dependencies of a project and collects their information including the license. Optionally visualising it via the provided ui components.",
             "scm": {
                 "connection": "scm:git@github.com:mikepenz/AboutLibraries.git",
@@ -663,7 +663,7 @@
                     "name": "Kotlin Team"
                 }
             ],
-            "artifactVersion": "2.0.21",
+            "artifactVersion": "2.1.0",
             "description": "Kotlin Standard Library",
             "scm": {
                 "connection": "scm:git:https://github.com/JetBrains/kotlin.git",
@@ -757,7 +757,7 @@
                     "name": "JetBrains Team"
                 }
             ],
-            "artifactVersion": "0.3.7",
+            "artifactVersion": "0.3.8",
             "description": "Kotlin Immutable Collections multiplatform library",
             "scm": {
                 "url": "https://github.com/Kotlin/kotlinx.collections.immutable"
