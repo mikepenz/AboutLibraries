@@ -38,7 +38,7 @@
 ## Latest releases 🛠
 
 - [v11.2.3](https://github.com/mikepenz/AboutLibraries/tree/v11.2.3)
-- Compile 35 | Gradle 7.0+ | [v11.3.0-rc02](https://github.com/mikepenz/AboutLibraries/tree/v11.3.0-rc02
+- Compile 35 | Gradle 7.0+ | [v11.3.0](https://github.com/mikepenz/AboutLibraries/tree/v11.3.0
 
 ## Gradle Plugin
 
