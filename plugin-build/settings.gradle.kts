@@ -5,6 +5,7 @@ dependencyResolutionManagement {
         mavenCentral()
         google()
         gradlePluginPortal()
+        mavenLocal()
     }
 
     versionCatalogs {
@@ -12,7 +13,7 @@ dependencyResolutionManagement {
             from(files("../gradle/libs.versions.toml"))
         }
         create("baseLibs") {
-            from("com.mikepenz:version-catalog:0.0.1")
+            from("com.mikepenz:version-catalog:0.0.4")
         }
     }
 }
