@@ -19,7 +19,7 @@ android {
     }
 
     buildTypes {
-        getByName("release") {
+        named("release") {
             isMinifyEnabled = false
         }
     }
@@ -29,7 +29,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 
-    tasks.withType<KotlinCompile> {
+    tasks.withType<KotlinCompile>().configureEach {
         kotlinOptions {
             jvmTarget = "11"
             freeCompilerArgs += listOf(
@@ -52,7 +52,7 @@ kotlin {
     js(IR) {
         nodejs {}
         browser {}
-        compilations.all {
+        compilations.configureEach {
             kotlinOptions {
                 moduleKind = "umd"
                 sourceMap = true
@@ -94,9 +94,15 @@ kotlin {
     watchosDeviceArm64()
 
     // common sets
-    ios()
-    tvos()
-    watchos()
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
+    tvosX64()
+    tvosArm64()
+    tvosSimulatorArm64()
+    watchosX64()
+    watchosArm64()
+    watchosSimulatorArm64()
 
     /*
     cocoapods {
@@ -154,7 +160,7 @@ tasks.dokkaHtml.configure {
 
 if (project.hasProperty("pushall") || project.hasProperty("library_core_only")) {
     mavenPublishing {
-        publishToMavenCentral(SonatypeHost.S01)
+        publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL, true)
         signAllPublications()
     }
 }

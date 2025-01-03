@@ -3,7 +3,6 @@ package com.mikepenz.aboutlibraries.plugin.util
 import com.mikepenz.aboutlibraries.plugin.mapping.Library
 import com.mikepenz.aboutlibraries.plugin.mapping.License
 import com.mikepenz.aboutlibraries.plugin.util.parser.PomReader
-import org.gradle.api.Project
 import org.gradle.api.artifacts.ModuleIdentifier
 import org.gradle.api.artifacts.ResolvedArtifact
 import org.gradle.api.artifacts.ResolvedDependency
@@ -22,12 +21,6 @@ internal infix fun <T> List<PomReader>?.first(read: PomReader.() -> T?): T? {
         }
     }
     return null
-}
-
-internal fun Project.safeProp(key: String): String? = if (hasProperty(key)) {
-    property(key).toString()
-} else {
-    null
 }
 
 internal fun String.toMD5(): String {
@@ -70,7 +63,7 @@ internal fun <T> chooseValue(uniqueId: String, key: String, value: Array<T>?, bl
 }
 
 /**
- * Convenient helper to wrap a [ResolvedDependency] into a []ResolvedArtifact]
+ * Convenient helper to wrap a [ResolvedDependency] into a [ResolvedArtifact]
  * Required to handle `platform` dependencies.
  */
 internal fun ResolvedDependency.toResolvedBomArtifact() = object : ResolvedArtifact {

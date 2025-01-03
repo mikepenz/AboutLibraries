@@ -29,12 +29,12 @@ dependencies {
     // implementation("org.apache.commons:commons-csv:1.9.0")
 }
 
-tasks.withType<JavaCompile> {
+tasks.withType<JavaCompile>().configureEach {
     sourceCompatibility = "11"
     targetCompatibility = "11"
 }
 
-tasks.withType<KotlinCompile> {
+tasks.withType<KotlinCompile>().configureEach {
     kotlinOptions.jvmTarget = "11"
 }
 

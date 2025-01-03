@@ -19,6 +19,7 @@ abstract class AboutLibrariesExportTask : BaseAboutLibrariesTask() {
     @TaskAction
     fun action() {
         val result = createLibraryProcessor().gatherDependencies()
+        val variant = variant.orNull
         if (variant != null) {
             println("")
             println("")

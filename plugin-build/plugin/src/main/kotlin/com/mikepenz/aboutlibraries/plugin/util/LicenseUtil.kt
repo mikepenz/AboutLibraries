@@ -33,8 +33,7 @@ object LicenseUtil {
         try {
             val enumLicense = SpdxLicense.find(spdxId)
             if (enumLicense != null) {
-                val licUrl = enumLicense.getTxtUrl()
-                val singleLicense: String? = loadLicenseCached(licUrl)
+                val singleLicense: String? = loadLicenseCached(enumLicense.getTxtUrl()) ?: loadLicenseCached(enumLicense.getFallbackTxtUrl())
                 if (singleLicense?.isNotBlank() == true) {
                     name = enumLicense.fullName
                     url = enumLicense.getUrl()

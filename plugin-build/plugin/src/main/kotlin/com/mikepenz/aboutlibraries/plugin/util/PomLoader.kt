@@ -1,9 +1,9 @@
 package com.mikepenz.aboutlibraries.plugin.util
 
+import com.mikepenz.aboutlibraries.plugin.model.DefaultModuleComponentIdentifier
 import org.gradle.api.artifacts.ModuleVersionIdentifier
 import org.gradle.api.artifacts.dsl.DependencyHandler
 import org.gradle.api.artifacts.result.ResolvedArtifactResult
-import org.gradle.internal.component.external.model.DefaultModuleComponentIdentifier
 import org.gradle.maven.MavenModule
 import org.gradle.maven.MavenPomArtifact
 import org.slf4j.Logger

@@ -9,8 +9,6 @@
     <a href="#whats-included-">What's included 🚀</a> &bull;
     <a href="#setup">Setup 🛠️</a> &bull;
     <a href="#gradle-api">Gradle API️</a> &bull;
-    <a href="https://mikepenz.github.io/AboutLibraries/index.html">SDK Docs 📖 </a> &bull;
-    <a href="https://mikepenz.github.io/AboutLibraries/plugin/index.html">Plugin Docs 📖</a> &bull;
     <a href="MIGRATION.md">Migration Guide 🧬</a> &bull;
     <a href="https://play.google.com/store/apps/details?id=com.mikepenz.aboutlibraries.sample">Sample App</a>
 </p>
@@ -39,7 +37,8 @@
 
 ## Latest releases 🛠
 
-- Kotlin 2.x && Multiplatform && Compose && Plugin | [v11.2.3](https://github.com/mikepenz/AboutLibraries/tree/v11.2.3)
+- [v11.2.3](https://github.com/mikepenz/AboutLibraries/tree/v11.2.3)
+- Compile 35 | Gradle 7.0+ | [v11.3.0](https://github.com/mikepenz/AboutLibraries/tree/v11.3.0
 
 ## Gradle Plugin
 

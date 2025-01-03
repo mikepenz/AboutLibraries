@@ -3,7 +3,7 @@ package com.mikepenz.aboutlibraries.plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.TaskProvider
 import org.slf4j.LoggerFactory
-import java.util.*
+import java.util.Locale
 
 /**
  * Android specific extension for the [AboutLibrariesPlugin]
@@ -15,12 +15,12 @@ object AboutLibrariesPluginAndroidExtension {
         try {
             val app = project.extensions.findByType(com.android.build.gradle.AppExtension::class.java)
             if (app != null) {
-                app.applicationVariants.all {
+                app.applicationVariants.configureEach {
                     createAboutLibrariesAndroidTasks(project, it, collectTask)
                 }
             } else {
                 val lib = project.extensions.findByType(com.android.build.gradle.LibraryExtension::class.java)
-                lib?.libraryVariants?.all {
+                lib?.libraryVariants?.configureEach {
                     createAboutLibrariesAndroidTasks(project, it, collectTask)
                 }
             }
@@ -32,22 +32,24 @@ object AboutLibrariesPluginAndroidExtension {
     @Suppress("DEPRECATION")
     private fun createAboutLibrariesAndroidTasks(project: Project, v: Any, collectTask: TaskProvider<*>) {
         val variant = (v as? com.android.build.gradle.api.BaseVariant) ?: return
+        val resultsResDirectory = project.layout.buildDirectory.dir("generated/aboutLibraries/${variant.name}/res/")
+        val resultsDirectory = resultsResDirectory.map { it.dir("raw/") }
+
         // task to write the general definitions information
-        val task = project.tasks.create(
+        val task = project.tasks.register(
             "prepareLibraryDefinitions${variant.name.capitalize(Locale.ENGLISH)}",
             AboutLibrariesTask::class.java
         ) {
             it.description = "Writes the relevant meta data for the AboutLibraries plugin to display dependencies"
             it.group = "Build"
-            it.variant = variant.name
-            it.resultDirectory = project.file("${project.buildDir}/generated/aboutLibraries/${variant.name}/res/raw/")
+            it.variant = project.provider { variant.name }
+            it.resultDirectory.set(resultsDirectory)
             it.dependsOn(collectTask)
         }
 
-        // This is necessary for backwards compatibility with versions of gradle that do not support
-        // this new API.
+        // This is necessary for backwards compatibility with versions of gradle that do not support this new API.
         try {
-            variant.registerGeneratedResFolders(project.files(task.resultDirectory.parentFile).builtBy(task))
+            variant.registerGeneratedResFolders(project.files(resultsResDirectory).builtBy(task))
             try {
                 variant.mergeResourcesProvider.configure { it.dependsOn(task) }
             } catch (t: Throwable) {
@@ -55,8 +57,10 @@ object AboutLibrariesPluginAndroidExtension {
                 variant.mergeResources.dependsOn(task)
             }
         } catch (t: Throwable) {
+            LOGGER.warn("Using deprecated API to register task, as new registerGeneratedResFolders was not supported by the current environment. Consider upgrading your AGP version.")
             @Suppress("DEPRECATION")
-            variant.registerResGeneratingTask(task, task.resultDirectory.parentFile)
+            // noinspection EagerGradleConfiguration
+            variant.registerResGeneratingTask(task.get(), resultsDirectory.get().asFile.parentFile)
         }
 
         // task to generate libraries, and their license into the build folder (not hooked to the build task)
@@ -66,8 +70,8 @@ object AboutLibrariesPluginAndroidExtension {
         ) {
             it.description = "Manually write meta data for the AboutLibraries plugin"
             it.group = "Build"
-            it.variant = variant.name
-            it.resultDirectory = project.file("${project.buildDir}/generated/aboutLibraries/${variant.name}/res/raw/")
+            it.variant = project.provider { variant.name }
+            it.resultDirectory.set(project.layout.buildDirectory.dir("generated/aboutLibraries/${variant.name}/res/raw/"))
             it.dependsOn(collectTask)
         }
 
@@ -78,7 +82,7 @@ object AboutLibrariesPluginAndroidExtension {
         ) {
             it.description = "Writes all libraries and their license in CSV format to the CLI"
             it.group = "Help"
-            it.variant = variant.name
+            it.variant = project.provider { variant.name }
             it.dependsOn(collectTask)
         }
 
@@ -90,7 +94,7 @@ object AboutLibrariesPluginAndroidExtension {
             it.description =
                 "Writes all libraries with their source and their license in CSV format to the configured directory"
             it.group = "Help"
-            it.variant = variant.name
+            it.variant = project.provider { variant.name }
             it.dependsOn(collectTask)
         }
     }

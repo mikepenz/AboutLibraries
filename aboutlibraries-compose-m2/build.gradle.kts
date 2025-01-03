@@ -21,7 +21,7 @@ android {
     }
 
     buildTypes {
-        getByName("release") {
+        named("release") {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
@@ -34,7 +34,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
         kotlinOptions {
             jvmTarget = "11"
 
@@ -133,7 +133,7 @@ tasks.dokkaHtml.configure {
 
 if (project.hasProperty("pushall") || project.hasProperty("library_compose_only")) {
     mavenPublishing {
-        publishToMavenCentral(SonatypeHost.S01)
+        publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL, true)
         signAllPublications()
     }
 }

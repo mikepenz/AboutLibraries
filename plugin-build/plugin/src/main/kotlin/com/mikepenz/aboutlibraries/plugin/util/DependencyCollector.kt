@@ -126,7 +126,9 @@ class DependencyCollector(
 
                         else -> {
                             if (LOGGER.isDebugEnabled) LOGGER.debug("retrieve allModuleArtifacts from artifact")
-                            resolvedDependency.allModuleArtifacts
+                            val allArtifacts = resolvedDependency.allModuleArtifacts
+                            if (includePlatform) allArtifacts + resolvedDependency.toResolvedBomArtifact()
+                            allArtifacts
                         }
                     }
                 } catch (e: Throwable) {
@@ -134,6 +136,7 @@ class DependencyCollector(
                         LOGGER.isDebugEnabled -> {
                             LOGGER.warn("Found possibly ambiguous variant - $resolvedDependency", e)
                         }
+
                         LOGGER.isInfoEnabled -> {
                             LOGGER.warn("Found possibly ambiguous variant - $resolvedDependency")
                         }
