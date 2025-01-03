@@ -1,5 +1,14 @@
 include(":plugin")
 
+pluginManagement {
+    repositories {
+        google()
+        gradlePluginPortal()
+        mavenCentral()
+        mavenLocal()
+    }
+}
+
 dependencyResolutionManagement {
     repositories {
         mavenCentral()
