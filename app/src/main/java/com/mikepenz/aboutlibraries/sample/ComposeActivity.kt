@@ -8,17 +8,17 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.Build
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.mikepenz.aboutlibraries.ui.compose.LibrariesContainer
+import com.mikepenz.aboutlibraries.ui.compose.m3.LibrariesContainer
 
 class ComposeActivity : ComponentActivity() {
 
@@ -32,11 +32,11 @@ class ComposeActivity : ComponentActivity() {
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
+@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun MainLayout() {
     MaterialTheme(
-        colors = if (isSystemInDarkTheme()) darkColors() else lightColors()
+        colorScheme = if (isSystemInDarkTheme()) darkColorScheme() else lightColorScheme()
     ) {
         var showAuthor by remember { mutableStateOf(true) }
         var showVersion by remember { mutableStateOf(true) }
@@ -49,12 +49,9 @@ fun MainLayout() {
                 // content padding matching the system bars insets.
                 TopAppBar(
                     title = { Text("Compose Sample") },
-                    backgroundColor = MaterialTheme.colors.surface.copy(alpha = 0.9f),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(
-                            WindowInsets.statusBars.asPaddingValues()
-                        ),
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.9f)
+                    ),
                     actions = {
                         IconButton(onClick = {
                             showAuthor = !showAuthor
@@ -89,7 +86,7 @@ fun MainLayout() {
                             Column(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .background(MaterialTheme.colors.surface)
+                                    .background(MaterialTheme.colorScheme.surface)
                                     .padding(vertical = 25.dp),
                                 horizontalAlignment = Alignment.CenterHorizontally,
                             ) {
