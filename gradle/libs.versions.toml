@@ -1,5 +1,5 @@
 [versions]
-conventionPlugin = "0.0.4"
+conventionPlugin = "0.0.5"
 # kotlin
 dokka = "2.0.0"
 kotlinCore = { require = "2.1.0" }
