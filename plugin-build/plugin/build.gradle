@@ -78,7 +78,7 @@ task sourcesJar(type: Jar) {
     from sourceSets.main.allSource
 }
 
-task javadocJar(type: Jar, dependsOn: dokkaHtml) {
+task javadocJar(type: Jar, dependsOn: dokkaGenerate) {
     archiveClassifier = 'javadoc'
     from "$buildDir/javadoc"
 }
@@ -100,7 +100,7 @@ artifacts {
     archives javadocJar
 }
 
-dokkaHtml.configure {
+dokka {
     dokkaSourceSets {
     }
 }
