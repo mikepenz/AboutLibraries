@@ -113,7 +113,7 @@ aboutLibraries {
     // See https://github.com/mikepenz/AboutLibraries#special-repository-support
     fetchRemoteFunding = true
     // (Optional) GitHub token to raise API request limit to allow fetching more licenses
-    gitHubApiToken = getLocalOrGlobalProperty("github.pat")
+    gitHubApiToken = property("github.pat")
     // Full license text for license IDs mentioned here will be included, even if no detected dependency uses them.
     additionalLicenses = ["mit", "mpl_2_0"]
     // Allows to exclude some fields from the generated meta data field.

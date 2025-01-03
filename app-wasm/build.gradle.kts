@@ -1,9 +1,8 @@
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
 plugins {
-    kotlin("multiplatform")
-    alias(libs.plugins.jetbrainsCompose)
-    alias(libs.plugins.composeCompiler)
+    id("com.mikepenz.convention.kotlin-multiplatform")
+    id("com.mikepenz.convention.compose")
     id("com.mikepenz.aboutlibraries.plugin")
 }
 
@@ -40,8 +39,4 @@ kotlin {
             }
         }
     }
-}
-
-compose.experimental {
-    web.application {}
 }

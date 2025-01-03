@@ -210,7 +210,7 @@ abstract class AboutLibrariesExtension {
      *
      * ```
      * aboutLibraries {
-     *   gitHubApiToken = getLocalOrGlobalProperty("github.pat")
+     *   gitHubApiToken = property("github.pat")
      * }
      * ```
      */
