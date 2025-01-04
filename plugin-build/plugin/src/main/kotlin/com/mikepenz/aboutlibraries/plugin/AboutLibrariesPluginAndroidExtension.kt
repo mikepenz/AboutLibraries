@@ -3,7 +3,7 @@ package com.mikepenz.aboutlibraries.plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.TaskProvider
 import org.slf4j.LoggerFactory
-import java.util.Locale
+import java.util.*
 
 /**
  * Android specific extension for the [AboutLibrariesPlugin]
@@ -91,10 +91,11 @@ object AboutLibrariesPluginAndroidExtension {
             "exportComplianceLibraries${variant.name.capitalize(Locale.ENGLISH)}",
             AboutLibrariesExportComplianceTask::class.java
         ) {
-            it.description =
-                "Writes all libraries with their source and their license in CSV format to the configured directory"
+            it.description = "Writes all libraries with their source and their license in CSV format to the configured directory"
             it.group = "Help"
             it.variant = project.provider { variant.name }
+            it.projectDirectory.set(project.layout.projectDirectory)
+
             it.dependsOn(collectTask)
         }
     }

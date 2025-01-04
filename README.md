@@ -37,8 +37,8 @@
 
 ## Latest releases 🛠
 
-- [v11.2.3](https://github.com/mikepenz/AboutLibraries/tree/v11.2.3)
 - Compile 35 | Gradle 7.0+ | [v11.3.0](https://github.com/mikepenz/AboutLibraries/tree/v11.3.0
+- Java 17 | [v11.4.0](https://github.com/mikepenz/AboutLibraries/tree/11.4.0
 
 ## Gradle Plugin
 
@@ -48,7 +48,6 @@ AboutLibraries v10 includes a completely redone plugin, with build cache support
 
 <details open><summary><b>Using the plugins DSL (for single modules)</b></summary>
 <p>
-
 
 ```gradle
 // Root build.gradle
@@ -113,7 +112,7 @@ aboutLibraries {
     // See https://github.com/mikepenz/AboutLibraries#special-repository-support
     fetchRemoteFunding = true
     // (Optional) GitHub token to raise API request limit to allow fetching more licenses
-    gitHubApiToken = getLocalOrGlobalProperty("github.pat")
+    gitHubApiToken = property("github.pat")
     // Full license text for license IDs mentioned here will be included, even if no detected dependency uses them.
     additionalLicenses = ["mit", "mpl_2_0"]
     // Allows to exclude some fields from the generated meta data field.

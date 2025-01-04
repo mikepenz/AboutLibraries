@@ -1,95 +1,22 @@
-@file:OptIn(ExperimentalWasmDsl::class)
-
-import com.vanniktech.maven.publish.SonatypeHost
-import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
-
 plugins {
-    kotlin("multiplatform")
-    alias(libs.plugins.androidLibrary)
-    alias(libs.plugins.jetbrainsCompose)
-    alias(libs.plugins.composeCompiler)
-    alias(libs.plugins.dokka)
-    alias(libs.plugins.mavenPublish)
+    id("com.mikepenz.convention.android-library")
+    id("com.mikepenz.convention.kotlin-multiplatform")
+    id("com.mikepenz.convention.compose")
+    id("com.mikepenz.convention.publishing")
 }
 
 android {
-    compileSdk = libs.versions.compileSdk.get().toInt()
     namespace = "com.mikepenz.aboutlibraries.ui.compose"
 
-    defaultConfig {
-        minSdk = libs.versions.minSdk.get().toInt()
-    }
-
-    buildTypes {
-        named("release") {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
-            )
-        }
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-        kotlinOptions {
-            jvmTarget = "11"
-
-            if (project.findProperty("composeCompilerReports") == "true") {
-                freeCompilerArgs += listOf(
-                    "-P",
-                    "plugin:androidx.compose.compiler.plugins.kotlin:reportsDestination=${project.layout.buildDirectory.asFile.get().absolutePath}/compose_compiler"
-                )
-            }
-            if (project.findProperty("composeCompilerMetrics") == "true") {
-                freeCompilerArgs += listOf(
-                    "-P",
-                    "plugin:androidx.compose.compiler.plugins.kotlin:metricsDestination=${project.layout.buildDirectory.asFile.get().absolutePath}/compose_compiler"
-                )
-            }
-
+        compilerOptions {
             val outputDir = rootDir.resolve("aboutlibraries-core/compose_compiler_config.conf").path
-            compilerOptions.freeCompilerArgs.addAll(
-                "-P",
-                "plugin:androidx.compose.compiler.plugins.kotlin:stabilityConfigurationPath=${outputDir}"
-            )
+            freeCompilerArgs.addAll("-P", "plugin:androidx.compose.compiler.plugins.kotlin:stabilityConfigurationPath=${outputDir}")
         }
-    }
-
-    buildFeatures {
-        compose = true
-    }
-
-    lint {
-        abortOnError = false
     }
 }
 
 kotlin {
-    applyDefaultHierarchyTemplate()
-
-    jvm()
-
-    androidTarget {
-        publishLibraryVariants("release")
-    }
-
-    js(IR) {
-        browser()
-    }
-
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
-    macosX64()
-    macosArm64()
-    wasmJs {
-        nodejs()
-    }
-
     sourceSets {
         val commonMain by getting {
             dependencies {
@@ -108,7 +35,6 @@ dependencies {
 
     debugImplementation(compose.uiTooling)
     "androidMainImplementation"(compose.preview)
-
     "androidMainImplementation"(libs.androidx.core.ktx)
 }
 
@@ -117,23 +43,4 @@ configurations.configureEach {
     // https://github.com/chrisbanes/tivi/blob/5e7586465337d326a1f1e40e0b412ecd2779bb5c/build.gradle#L72
     exclude(group = "androidx.appcompat")
     exclude(group = "com.google.android.material", module = "material")
-
-
-}
-
-tasks.dokkaHtml.configure {
-    dokkaSourceSets {
-        configureEach {
-            noAndroidSdkLink.set(false)
-        }
-    }
-}
-
-
-
-if (project.hasProperty("pushall") || project.hasProperty("library_compose_only")) {
-    mavenPublishing {
-        publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL, true)
-        signAllPublications()
-    }
 }
