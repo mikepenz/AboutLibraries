@@ -19,8 +19,3 @@ plugins {
 
     alias(libs.plugins.navSafeArgs) apply false
 }
-
-allprojects {
-    group = ext.get("GROUP")!!
-    version = ext.get("VERSION_NAME")!!
-}

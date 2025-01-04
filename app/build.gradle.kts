@@ -1,7 +1,7 @@
 import com.mikepenz.aboutlibraries.plugin.DuplicateMode
 import com.mikepenz.aboutlibraries.plugin.DuplicateRule
 import com.mikepenz.aboutlibraries.plugin.StrictMode
-import org.jetbrains.kotlin.konan.properties.Properties
+import com.mikepenz.gradle.utils.readPropertyOrElse
 
 plugins {
     kotlin("android")
@@ -11,6 +11,7 @@ plugins {
     id("com.mikepenz.aboutlibraries.plugin")
 }
 
+val openSourceSigningFile: String? = readPropertyOrElse("openSource.signing.file")
 if (openSourceSigningFile != null) {
     apply(from = openSourceSigningFile)
 }
@@ -24,10 +25,16 @@ android {
     }
 
     buildTypes {
+        getByName("debug") {
+            signingConfig = signingConfigs.findByName("debug")
+        }
         create("staging") {
             signingConfig = signingConfigs.findByName("release")
             applicationIdSuffix = ".debugStaging"
             matchingFallbacks.add("debug")
+        }
+        getByName("release") {
+            signingConfig = signingConfigs.findByName("release")
         }
     }
 
@@ -138,14 +145,3 @@ configurations.configureEach {
     resolutionStrategy.force(libs.fastAdapter.core)
     resolutionStrategy.force(libs.iconics.core)
 }
-
-private val openSourceSigningFile: String?
-    get() {
-        val k = "openSource.signing.file"
-        return Properties().also { prop ->
-            rootProject.file("local.properties").takeIf { it.exists() }?.let {
-                prop.load(it.inputStream())
-            }
-        }.getProperty(k, null) ?: if (project.hasProperty(k)) project.property(k)
-            ?.toString() else null
-    }
