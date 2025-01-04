@@ -101,12 +101,17 @@ dependencies {
     implementation(libs.androidx.recyclerView)
 
     implementation(libs.google.material)
+
+    implementation(compose.desktop.currentOs)
+    implementation(compose.ui)
+    implementation(compose.uiTooling)
+    implementation(compose.foundation)
+    implementation(compose.material)
     implementation(compose.material3)
-    implementation(libs.compose.androidx.icons)
+    implementation(compose.components.resources)
+    implementation(compose.materialIconsExtended)
 
     implementation(libs.bundles.accompanist)
-
-    implementation(libs.bundles.compose.androidx)
 
     //used to generate the drawer on the left
     //https://github.com/mikepenz/MaterialDrawer

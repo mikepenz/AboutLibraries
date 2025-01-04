@@ -25,7 +25,7 @@ kotlin {
                 implementation(project(":aboutlibraries-compose-m3"))
 
                 // Coroutines
-                implementation(libs.kotlin.coroutines.core)
+                implementation(baseLibs.kotlinx.coroutines.core)
 
                 // example for parent via a parent
                 // implementation("org.apache.commons:commons-csv:1.9.0")

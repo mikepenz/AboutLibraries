@@ -23,7 +23,7 @@ dependencies {
     implementation(libs.google.material)
 
     // Coroutines
-    implementation(libs.kotlin.coroutines.core)
+    implementation(baseLibs.kotlinx.coroutines.core)
 
     // add the constraintLayout used to create the items and headers
     implementation(libs.androidx.constraintLayout)
