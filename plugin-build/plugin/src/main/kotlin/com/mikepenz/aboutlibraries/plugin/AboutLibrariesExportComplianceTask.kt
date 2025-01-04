@@ -2,11 +2,9 @@ package com.mikepenz.aboutlibraries.plugin
 
 import com.mikepenz.aboutlibraries.plugin.mapping.SpdxLicense
 import org.gradle.api.file.Directory
+import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.provider.Provider
-import org.gradle.api.tasks.Input
-import org.gradle.api.tasks.Internal
-import org.gradle.api.tasks.Optional
-import org.gradle.api.tasks.TaskAction
+import org.gradle.api.tasks.*
 import org.gradle.util.GradleVersion
 import org.slf4j.LoggerFactory
 import java.io.File
@@ -15,19 +13,23 @@ import java.nio.file.StandardCopyOption
 
 abstract class AboutLibrariesExportComplianceTask : BaseAboutLibrariesTask() {
 
+    @get:InputDirectory
+    abstract val projectDirectory: DirectoryProperty
+
     @Input
     @Optional
     val exportPath: Provider<Directory> = project.providers.gradleProperty("aboutLibraries.exportPath")
-        .map { path -> project.layout.projectDirectory.dir(path) }
+        .map { path -> projectDirectory.get().dir(path) }
+        .orElse(project.providers.gradleProperty("exportPath").map { path ->
+            projectDirectory.get().dir(path)
+        })
         .orElse(
-            project.providers.gradleProperty("exportPath").map { path -> project.layout.projectDirectory.dir(path) }
-        ).orElse(
             if (GradleVersion.current() < GradleVersion.version("8.8")) {
-                project.isolated.rootProject.projectDirectory.dir(".")
-            } else {
                 LOGGER.info("Fallback to non project isolated safe API for root directory.")
-                // noinspection GradleProjectIsolation
                 project.rootProject.layout.projectDirectory.dir(".")
+            } else {
+                @Suppress("UnstableApiUsage")
+                project.isolated.rootProject.projectDirectory.dir(".")
             }
         )
 
