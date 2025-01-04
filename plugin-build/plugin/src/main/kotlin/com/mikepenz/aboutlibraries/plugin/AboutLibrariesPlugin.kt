@@ -56,13 +56,15 @@ class AboutLibrariesPlugin : Plugin<Project> {
                 it.variant = project.providers.gradleProperty("aboutLibraries.exportVariant")
                     .orElse(project.providers.gradleProperty("exportVariant"))
 
+                val projectDirectory = project.layout.projectDirectory
+                val buildDirectory = project.layout.buildDirectory
+
                 val exportPath: Provider<Directory> = project.providers.gradleProperty("aboutLibraries.exportPath")
-                    .map { path -> project.layout.projectDirectory.dir(path) }
+                    .map { path -> projectDirectory.dir(path) }
                     .orElse(
-                        project.providers.gradleProperty("exportPath")
-                            .map { path -> project.layout.projectDirectory.dir(path) }
+                        project.providers.gradleProperty("exportPath").map { path -> projectDirectory.dir(path) }
                     ).orElse(
-                        project.layout.buildDirectory.dir("generated/aboutLibraries/")
+                        buildDirectory.dir("generated/aboutLibraries/")
                     )
                 it.resultDirectory.set(exportPath)
 
