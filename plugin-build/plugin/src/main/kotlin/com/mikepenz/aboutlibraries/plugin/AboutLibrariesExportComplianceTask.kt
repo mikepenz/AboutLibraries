@@ -26,6 +26,7 @@ abstract class AboutLibrariesExportComplianceTask : BaseAboutLibrariesTask() {
         .orElse(
             if (GradleVersion.current() < GradleVersion.version("8.8")) {
                 LOGGER.info("Fallback to non project isolated safe API for root directory.")
+                // noinspection GradleProjectIsolation
                 project.rootProject.layout.projectDirectory.dir(".")
             } else {
                 @Suppress("UnstableApiUsage")
