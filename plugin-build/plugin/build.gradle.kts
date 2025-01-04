@@ -40,16 +40,15 @@ kotlin {
 dependencies {
     implementation(gradleApi())
     implementation(localGroovy())
-    implementation(libs.kotlin.stdlib)
 
     // parser the pom.xml files
     implementation(libs.ivy.core)
 
     // add better android support
-    compileOnly(libs.gradle.build)
+    compileOnly(baseLibs.android.gradlePlugin)
 
     // lint rules
-    lintChecks(libs.android.lint.gradle)
+    lintChecks(baseLibs.android.lint.gradle)
 }
 
 mavenPublishing {
