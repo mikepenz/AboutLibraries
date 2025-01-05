@@ -1,19 +1,12 @@
 import com.mikepenz.aboutlibraries.plugin.DuplicateMode
 import com.mikepenz.aboutlibraries.plugin.DuplicateRule
 import com.mikepenz.aboutlibraries.plugin.StrictMode
-import com.mikepenz.gradle.utils.readPropertyOrElse
 
 plugins {
-    kotlin("android")
-    id("com.mikepenz.convention.android-application")
     id("com.mikepenz.convention.kotlin-multiplatform")
+    id("com.mikepenz.convention.android-application")
     id("com.mikepenz.convention.compose")
     id("com.mikepenz.aboutlibraries.plugin")
-}
-
-val openSourceSigningFile: String? = readPropertyOrElse("openSource.signing.file")
-if (openSourceSigningFile != null) {
-    apply(from = openSourceSigningFile)
 }
 
 android {
@@ -25,16 +18,10 @@ android {
     }
 
     buildTypes {
-        getByName("debug") {
-            signingConfig = signingConfigs.findByName("debug")
-        }
         create("staging") {
             signingConfig = signingConfigs.findByName("release")
             applicationIdSuffix = ".debugStaging"
             matchingFallbacks.add("debug")
-        }
-        getByName("release") {
-            signingConfig = signingConfigs.findByName("release")
         }
     }
 
