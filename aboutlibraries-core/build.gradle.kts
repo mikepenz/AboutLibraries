@@ -20,9 +20,7 @@ kotlin {
                 api(libs.kotlinx.collections)
             }
         }
-        val multiplatformMain by creating {
-            dependsOn(commonMain)
-        }
+        val multiplatformMain by creating
         val jvmMain by getting {
             dependsOn(multiplatformMain)
         }
@@ -32,9 +30,7 @@ kotlin {
         val jsMain by getting {
             dependsOn(multiplatformMain)
         }
-        val androidMain by getting {
-            dependsOn(commonMain)
-        }
+        val androidMain by getting
         val wasmJsMain by getting {
             dependsOn(multiplatformMain)
         }
