@@ -1,5 +1,5 @@
 [versions]
-conventionPlugin = "0.1.3"
+conventionPlugin = "0.1.4"
 # kotlin
 kotlinxSerialization = "1.7.3"
 kotlinxCollections = "0.3.8"

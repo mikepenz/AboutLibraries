@@ -2,6 +2,7 @@ import java.io.FileInputStream
 import java.util.*
 
 plugins {
+    alias(baseLibs.plugins.kotlinJvm) apply false
     alias(libs.plugins.conventionPlugin)
     alias(baseLibs.plugins.dokka)
     alias(baseLibs.plugins.mavenPublish)
