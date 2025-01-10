@@ -2,7 +2,9 @@ import java.io.FileInputStream
 import java.util.*
 
 plugins {
-    alias(baseLibs.plugins.kotlinJvm) apply false
+    // force Kotlin 1.9.24 to support Gradle builds < 8.12.
+    // Gradle only introduces Kotlin 2 support
+    alias(baseLibs.plugins.kotlinJvm) version "1.9.24" apply false
     alias(libs.plugins.conventionPlugin)
     alias(baseLibs.plugins.dokka)
     alias(baseLibs.plugins.mavenPublish)
