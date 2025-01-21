@@ -4,20 +4,13 @@ import com.mikepenz.aboutlibraries.plugin.mapping.Library
 import com.mikepenz.aboutlibraries.plugin.mapping.License
 import com.mikepenz.aboutlibraries.plugin.model.writeToDisk
 import com.mikepenz.aboutlibraries.plugin.util.forLicense
-import org.gradle.api.file.Directory
 import org.gradle.api.file.DirectoryProperty
-import org.gradle.api.file.RegularFile
-import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.Input
-import org.gradle.api.tasks.InputDirectory
-import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.OutputDirectory
-import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
 import org.slf4j.LoggerFactory
-import java.io.File
-import java.util.Locale
+import java.util.*
 
 @CacheableTask
 abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
@@ -104,7 +97,7 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
 
         // write to disk
         val combinedLibrariesOutputFile = resultDirectory.file(outputFileName).get().asFile
-        result.writeToDisk(combinedLibrariesOutputFile, excludeFields, extension.prettyPrint)
+        result.writeToDisk(combinedLibrariesOutputFile, includeMetaData, excludeFields, prettyPrint)
     }
 
     companion object {
