@@ -7,12 +7,7 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.artifacts.dsl.DependencyHandler
 import org.gradle.api.file.RegularFile
 import org.gradle.api.provider.Provider
-import org.gradle.api.tasks.Input
-import org.gradle.api.tasks.InputDirectory
-import org.gradle.api.tasks.InputFile
-import org.gradle.api.tasks.Internal
-import org.gradle.api.tasks.PathSensitive
-import org.gradle.api.tasks.PathSensitivity
+import org.gradle.api.tasks.*
 import org.slf4j.LoggerFactory
 import java.io.File
 import javax.inject.Inject
@@ -58,6 +53,9 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     val exclusionPatterns = extension.exclusionPatterns
 
     @Input
+    val includePlatform = extension.includePlatform
+
+    @Input
     val duplicationMode = extension.duplicationMode
 
     @Input
@@ -87,6 +85,12 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
 
     @Input
     val excludeFields = extension.excludeFields
+
+    @Input
+    val includeMetaData = extension.includeMetaData
+
+    @Input
+    val prettyPrint = extension.prettyPrint
 
     @Suppress("UNCHECKED_CAST")
     protected fun readInCollectedDependencies(): CollectedContainer {
