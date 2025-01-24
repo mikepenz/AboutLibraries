@@ -1,16 +1,16 @@
 [versions]
-conventionPlugin = "0.1.0"
+conventionPlugin = "0.1.5"
 # kotlin
 kotlinxSerialization = "1.7.3"
 kotlinxCollections = "0.3.8"
 # androidx
-activity = "1.9.3"
+activity = "1.10.0"
 cardview = "1.0.0"
 constraintLayout = "2.2.0"
 core = "1.15.0"
 lifecycle = { require = "2.8.7" }
 navigation = "2.8.5"
-recyclerView = "1.3.2"
+recyclerView = "1.4.0"
 # google
 material = "1.12.0"
 # other

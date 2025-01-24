@@ -1,18 +1,12 @@
 import com.mikepenz.aboutlibraries.plugin.DuplicateMode
 import com.mikepenz.aboutlibraries.plugin.DuplicateRule
 import com.mikepenz.aboutlibraries.plugin.StrictMode
-import org.jetbrains.kotlin.konan.properties.Properties
 
 plugins {
-    kotlin("android")
-    id("com.mikepenz.convention.android-application")
     id("com.mikepenz.convention.kotlin-multiplatform")
+    id("com.mikepenz.convention.android-application")
     id("com.mikepenz.convention.compose")
     id("com.mikepenz.aboutlibraries.plugin")
-}
-
-if (openSourceSigningFile != null) {
-    apply(from = openSourceSigningFile)
 }
 
 android {
@@ -138,14 +132,3 @@ configurations.configureEach {
     resolutionStrategy.force(libs.fastAdapter.core)
     resolutionStrategy.force(libs.iconics.core)
 }
-
-private val openSourceSigningFile: String?
-    get() {
-        val k = "openSource.signing.file"
-        return Properties().also { prop ->
-            rootProject.file("local.properties").takeIf { it.exists() }?.let {
-                prop.load(it.inputStream())
-            }
-        }.getProperty(k, null) ?: if (project.hasProperty(k)) project.property(k)
-            ?.toString() else null
-    }

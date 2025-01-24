@@ -25,7 +25,7 @@ class MetaData(
         .format(Calendar.getInstance().toInstant()),
 )
 
-fun ResultContainer.writeToDisk(outputFile: File, excludeFields: Array<String>, prettyPrint: Boolean) {
+fun ResultContainer.writeToDisk(outputFile: File, includeMetaData: Boolean, excludeFields: Array<String>, prettyPrint: Boolean) {
     val allowedExclusionQualifiers = setOf(
         ResultContainer::class.simpleName,
         Library::class.simpleName,
@@ -42,7 +42,14 @@ fun ResultContainer.writeToDisk(outputFile: File, excludeFields: Array<String>, 
         "${Library::class.simpleName}.${Library::artifactFolder.name}"
     )
     val excludedUnqualifiedFieldNames = mutableSetOf<String>()
-    excludeFields.forEach { excludedField ->
+
+    // by default remove the metadata element
+    val excludedFields = excludeFields.toMutableSet()
+    if (!includeMetaData) {
+        excludedFields.add("ResultContainer.metadata")
+    }
+
+    excludedFields.forEach { excludedField ->
         val segments = excludedField.split(".")
         if (segments.size == 2 && allowedExclusionQualifiers.contains(segments.first())) {
             excludedQualifiedFieldNames.add(excludedField)

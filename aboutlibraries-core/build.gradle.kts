@@ -32,9 +32,7 @@ kotlin {
         val jsMain by getting {
             dependsOn(multiplatformMain)
         }
-        val androidMain by getting {
-            dependsOn(commonMain)
-        }
+        val androidMain by getting
         val wasmJsMain by getting {
             dependsOn(multiplatformMain)
         }

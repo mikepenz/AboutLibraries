@@ -217,6 +217,18 @@ abstract class AboutLibrariesExtension {
     var gitHubApiToken: String? = null
 
     /**
+     * Enable the inclusion of generated MetaData.
+     * Warning: This includes the generated date, making the build non-reproducible.
+     *
+     * ```
+     * aboutLibraries {
+     *   includeMetaData = true
+     * }
+     * ```
+     */
+    var includeMetaData: Boolean = false
+
+    /**
      * Defines fields which will be excluded during the serialisation of the metadata output file.
      *
      * It is possible to qualify the field names by specifying the class name (e.g. "License.name").

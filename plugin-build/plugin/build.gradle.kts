@@ -19,8 +19,8 @@ gradlePlugin {
 
     plugins {
         create("aboutlibsPlugin") {
-            id = "${project.group}"
-            implementationClass = "${project.group}.AboutLibrariesPlugin"
+            id = "$group"
+            implementationClass = "$group.AboutLibrariesPlugin"
             description = "Resolve all dependencies used in a gradle module, with associated license and further information."
             displayName = "AboutLibraries Library Gradle Plugin"
             tags = listOf("libraries", "licenses", "android")
