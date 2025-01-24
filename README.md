@@ -38,7 +38,7 @@
 ## Latest releases 🛠
 
 - Compile 35 | Gradle 7.0+ | [v11.3.0](https://github.com/mikepenz/AboutLibraries/tree/v11.3.0
-- Java 17 | [v11.4.0](https://github.com/mikepenz/AboutLibraries/tree/11.4.0
+- Java 17 | [v11.5.0](https://github.com/mikepenz/AboutLibraries/tree/11.5.0
 
 ## Gradle Plugin
 
