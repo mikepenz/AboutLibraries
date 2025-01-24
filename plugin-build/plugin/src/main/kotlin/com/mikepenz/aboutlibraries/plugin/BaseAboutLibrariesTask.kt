@@ -20,7 +20,8 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     @Internal
     protected val extension = project.extensions.findByType(AboutLibrariesExtension::class.java)!!
 
-    @Internal
+    @Optional
+    @Input
     open var variant: Provider<String?> = project.provider { null }
 
     @Inject
