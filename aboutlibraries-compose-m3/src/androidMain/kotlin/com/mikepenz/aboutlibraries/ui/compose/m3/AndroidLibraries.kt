@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.ui.compose.m3.data.fakeData
+import com.mikepenz.aboutlibraries.ui.compose.m3.util.htmlReadyLicenseContent
 import com.mikepenz.aboutlibraries.util.withContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -68,7 +69,7 @@ fun LibrariesContainer(
         onLibraryClick,
         licenseDialogBody = { library ->
             Text(
-                text = AnnotatedString.fromHtml(library.licenses.firstOrNull()?.licenseContent.orEmpty()),
+                text = AnnotatedString.fromHtml(library.licenses.firstOrNull()?.htmlReadyLicenseContent.orEmpty()),
                 color = colors.contentColor
             )
         }
