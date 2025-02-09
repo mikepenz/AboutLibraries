@@ -6,15 +6,15 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
-import androidx.compose.runtime.produceState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.entity.Library
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import com.mikepenz.aboutlibraries.ui.compose.LibraryColors
+import com.mikepenz.aboutlibraries.ui.compose.LibraryDefaults
+import com.mikepenz.aboutlibraries.ui.compose.LibraryDimensions
+import com.mikepenz.aboutlibraries.ui.compose.LibraryPadding
+import com.mikepenz.aboutlibraries.ui.compose.rememberLibraries
 
 /**
  * Displays all provided libraries in a simple list.
@@ -31,8 +31,7 @@ fun LibrariesContainer(
     showLicenseBadges: Boolean = true,
     colors: LibraryColors = LibraryDefaults.libraryColors(),
     padding: LibraryPadding = LibraryDefaults.libraryPadding(),
-    itemContentPadding: PaddingValues = LibraryDefaults.ContentPadding,
-    itemSpacing: Dp = LibraryDefaults.LibraryItemSpacing,
+    dimensions: LibraryDimensions = LibraryDefaults.libraryDimensions(),
     header: (LazyListScope.() -> Unit)? = null,
     onLibraryClick: ((Library) -> Unit)? = null,
 ) {
@@ -48,8 +47,7 @@ fun LibrariesContainer(
         showLicenseBadges = showLicenseBadges,
         colors = colors,
         padding = padding,
-        itemContentPadding = itemContentPadding,
-        itemSpacing = itemSpacing,
+        dimensions = dimensions,
         header = header,
         onLibraryClick = onLibraryClick,
         licenseDialogBody = { library ->
@@ -73,8 +71,7 @@ fun LibrariesContainer(
     showLicenseBadges: Boolean = true,
     colors: LibraryColors = LibraryDefaults.libraryColors(),
     padding: LibraryPadding = LibraryDefaults.libraryPadding(),
-    itemContentPadding: PaddingValues = LibraryDefaults.ContentPadding,
-    itemSpacing: Dp = LibraryDefaults.LibraryItemSpacing,
+    dimensions: LibraryDimensions = LibraryDefaults.libraryDimensions(),
     header: (LazyListScope.() -> Unit)? = null,
     onLibraryClick: ((Library) -> Unit)? = null,
 ) {
@@ -91,8 +88,7 @@ fun LibrariesContainer(
         showLicenseBadges = showLicenseBadges,
         colors = colors,
         padding = padding,
-        itemContentPadding = itemContentPadding,
-        itemSpacing = itemSpacing,
+        dimensions = dimensions,
         header = header,
         onLibraryClick = onLibraryClick,
         licenseDialogBody = { library ->
@@ -106,27 +102,19 @@ fun LibrariesContainer(
  *
  * @see Libs
  */
+@Deprecated("Use rememberLibraries(libraries: ByteArray) instead", ReplaceWith("com.mikepenz.aboutlibraries.ui.compose.rememberLibraries(libraries)"))
 @Composable
 fun rememberLibraries(
     libraries: ByteArray,
-): State<Libs?> = rememberLibraries {
-    libraries.decodeToString()
-}
+) = rememberLibraries(libraries)
 
 /**
  * Creates a State<Libs?> that holds the [Libs] as loaded by the [block].
  *
  * @see Libs
  */
+@Deprecated("Use rememberLibraries(block: suspend () -> String) instead", ReplaceWith("com.mikepenz.aboutlibraries.ui.compose.rememberLibraries(block)"))
 @Composable
 fun rememberLibraries(
     block: suspend () -> String,
-): State<Libs?> {
-    return produceState<Libs?>(initialValue = null) {
-        value = withContext(Dispatchers.Default) {
-            Libs.Builder()
-                .withJson(block())
-                .build()
-        }
-    }
-}
+) = rememberLibraries(block)

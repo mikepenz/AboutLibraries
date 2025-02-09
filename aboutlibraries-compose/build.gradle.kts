@@ -3,53 +3,42 @@ plugins {
     id("com.mikepenz.convention.kotlin-multiplatform")
     id("com.mikepenz.convention.compose")
     id("com.mikepenz.convention.publishing")
-    alias(baseLibs.plugins.screenshot)
 }
 
 android {
     namespace = "com.mikepenz.aboutlibraries.ui.compose"
 
-    @Suppress("UnstableApiUsage")
-    experimentalProperties["android.experimental.enableScreenshotTest"] = true
-}
-
-kotlin {
-    applyDefaultHierarchyTemplate()
-
-    sourceSets {
-        val commonMain by getting {
-            dependencies {
-                api(project(":aboutlibraries-core"))
-                api(project(":aboutlibraries-compose"))
-
-                implementation(compose.runtime)
-                implementation(compose.ui)
-                implementation(compose.foundation)
-                implementation(compose.material)
-            }
-        }
-
-        val androidMain by getting {
-            dependencies {
-                implementation(compose.preview)
-                implementation(libs.androidx.core.ktx)
-            }
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+        compilerOptions {
+            val outputDir = rootDir.resolve("aboutlibraries-core/compose_compiler_config.conf").path
+            freeCompilerArgs.addAll("-P", "plugin:androidx.compose.compiler.plugins.kotlin:stabilityConfigurationPath=${outputDir}")
         }
     }
 }
 
-dependencies {
-    debugImplementation(compose.uiTooling)
+kotlin {
+    sourceSets {
+        val commonMain by getting {
+            dependencies {
+                implementation(compose.runtime)
+                implementation(compose.ui)
+                implementation(compose.foundation)
+            }
+        }
+        val commonTest by getting
+    }
+}
 
-    screenshotTestImplementation(compose.runtime)
-    screenshotTestImplementation(compose.ui)
-    screenshotTestImplementation(compose.foundation)
-    screenshotTestImplementation(compose.material)
+dependencies {
+    commonMainApi(project(":aboutlibraries-core"))
+
+    debugImplementation(compose.uiTooling)
+    "androidMainImplementation"(compose.preview)
+    "androidMainImplementation"(libs.androidx.core.ktx)
 }
 
 configurations.configureEach {
     // We forcefully exclude AppCompat + MDC from any transitive dependencies. This is a Compose module, so there's no need for these
     // https://github.com/chrisbanes/tivi/blob/5e7586465337d326a1f1e40e0b412ecd2779bb5c/build.gradle#L72
     exclude(group = "androidx.appcompat")
-    exclude(group = "com.google.android.material", module = "material")
 }

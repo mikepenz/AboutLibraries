@@ -7,7 +7,6 @@ plugins {
     id("com.mikepenz.convention.android-application")
     id("com.mikepenz.convention.compose")
     id("com.mikepenz.aboutlibraries.plugin")
-    alias(baseLibs.plugins.screenshot)
 }
 
 android {
@@ -17,9 +16,6 @@ android {
         multiDexEnabled = true
         setProperty("archivesBaseName", "AboutLibraries-v$versionName-c$versionCode")
     }
-
-    @Suppress("UnstableApiUsage")
-    experimentalProperties["android.experimental.enableScreenshotTest"] = true
 
     buildTypes {
         create("staging") {

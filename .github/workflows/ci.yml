@@ -129,13 +129,17 @@ jobs:
       - name: Build Debug
         run: ./gradlew app:assembleDebug
 
-      - name: Run Lint
+      - name: Run Api Validation
         if: github.event_name  == 'pull_request'
         run: ./gradlew apiCheck
 
       - name: Run Lint
         if: github.event_name  == 'pull_request'
         run: ./gradlew lintDebug
+
+      - name: Verify Screenshot Tests
+        if: github.event_name  == 'pull_request'
+        run: ./gradlew validateScreenshotTest
 
       - name: Setup Ruby
         if: github.event_name  == 'pull_request'

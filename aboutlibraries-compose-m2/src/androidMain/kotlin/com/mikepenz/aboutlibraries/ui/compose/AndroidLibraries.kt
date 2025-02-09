@@ -5,8 +5,6 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.produceState
@@ -14,12 +12,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.fromHtml
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.entity.Library
-import com.mikepenz.aboutlibraries.ui.compose.data.fakeData
 import com.mikepenz.aboutlibraries.ui.compose.util.htmlReadyLicenseContent
 import com.mikepenz.aboutlibraries.util.withContext
 import kotlinx.coroutines.Dispatchers
@@ -42,8 +37,7 @@ fun LibrariesContainer(
     showLicenseBadges: Boolean = true,
     colors: LibraryColors = LibraryDefaults.libraryColors(),
     padding: LibraryPadding = LibraryDefaults.libraryPadding(),
-    itemContentPadding: PaddingValues = LibraryDefaults.ContentPadding,
-    itemSpacing: Dp = LibraryDefaults.LibraryItemSpacing,
+    dimensions: LibraryDimensions = LibraryDefaults.libraryDimensions(),
     header: (LazyListScope.() -> Unit)? = null,
     onLibraryClick: ((Library) -> Unit)? = null,
 ) {
@@ -65,8 +59,7 @@ fun LibrariesContainer(
         showLicenseBadges = showLicenseBadges,
         colors = colors,
         padding = padding,
-        itemContentPadding = itemContentPadding,
-        itemSpacing = itemSpacing,
+        dimensions = dimensions,
         header = header,
         onLibraryClick = onLibraryClick,
         licenseDialogBody = { library ->
@@ -76,39 +69,4 @@ fun LibrariesContainer(
             )
         }
     )
-}
-
-@Preview("Library items (Default)")
-@Composable
-fun PreviewLibraries() {
-    MaterialTheme {
-        Surface {
-            Libraries(fakeData.libraries)
-        }
-    }
-}
-
-
-@Preview("Library items (Off)")
-@Composable
-fun PreviewLibrariesOff() {
-    MaterialTheme {
-        Surface {
-            Libraries(fakeData.libraries, showAuthor = false, showLicenseBadges = false)
-        }
-    }
-}
-
-@Preview("Library item")
-@Composable
-fun PreviewLibrary() {
-    MaterialTheme {
-        Surface {
-            Library(
-                fakeData.libraries.first()
-            ) {
-                // on-click
-            }
-        }
-    }
 }
