@@ -59,6 +59,7 @@ fun LibrariesContainer(
     lazyListState: LazyListState = rememberLazyListState(),
     contentPadding: PaddingValues = PaddingValues(0.dp),
     showAuthor: Boolean = true,
+    showDescription: Boolean = false,
     showVersion: Boolean = true,
     showLicenseBadges: Boolean = true,
     colors: LibraryColors = LibraryDefaults.libraryColors(),
@@ -81,6 +82,7 @@ fun LibrariesContainer(
         lazyListState = lazyListState,
         contentPadding = contentPadding,
         showAuthor = showAuthor,
+        showDescription = showDescription,
         showVersion = showVersion,
         showLicenseBadges = showLicenseBadges,
         colors = colors,
@@ -170,6 +172,7 @@ fun Libraries(
     lazyListState: LazyListState = rememberLazyListState(),
     contentPadding: PaddingValues = PaddingValues(0.dp),
     showAuthor: Boolean = true,
+    showDescription: Boolean = false,
     showVersion: Boolean = true,
     showLicenseBadges: Boolean = true,
     colors: LibraryColors = LibraryDefaults.libraryColors(),
@@ -189,19 +192,20 @@ fun Libraries(
     ) {
         header?.invoke(this)
         libraryItems(
-            libraries,
-            showAuthor,
-            showVersion,
-            showLicenseBadges,
-            colors,
-            padding,
-            itemContentPadding
+            libraries = libraries,
+            showAuthor = showAuthor,
+            showDescription = showDescription,
+            showVersion = showVersion,
+            showLicenseBadges = showLicenseBadges,
+            colors = colors,
+            padding = padding,
+            itemContentPadding = itemContentPadding
         ) { library ->
             val license = library.licenses.firstOrNull()
             if (onLibraryClick != null) {
                 onLibraryClick.invoke(library)
             } else if (!license?.url.isNullOrBlank()) {
-                license?.url?.also {
+                license.url?.also {
                     try {
                         uriHandler.openUri(it)
                     } catch (t: Throwable) {
@@ -216,6 +220,7 @@ fun Libraries(
 internal inline fun LazyListScope.libraryItems(
     libraries: ImmutableList<Library>,
     showAuthor: Boolean = true,
+    showDescription: Boolean = false,
     showVersion: Boolean = true,
     showLicenseBadges: Boolean = true,
     colors: LibraryColors,
@@ -225,13 +230,14 @@ internal inline fun LazyListScope.libraryItems(
 ) {
     items(libraries) { library ->
         Library(
-            library,
-            showAuthor,
-            showVersion,
-            showLicenseBadges,
-            colors,
-            padding,
-            itemContentPadding
+            library = library,
+            showAuthor = showAuthor,
+            showDescription = showDescription,
+            showVersion = showVersion,
+            showLicenseBadges = showLicenseBadges,
+            colors = colors,
+            padding = padding,
+            contentPadding = itemContentPadding
         ) {
             onLibraryClick.invoke(library)
         }
@@ -243,6 +249,7 @@ internal inline fun LazyListScope.libraryItems(
 internal fun Library(
     library: Library,
     showAuthor: Boolean = true,
+    showDescription: Boolean = false,
     showVersion: Boolean = true,
     showLicenseBadges: Boolean = true,
     colors: LibraryColors = LibraryDefaults.libraryColors(),
@@ -256,7 +263,8 @@ internal fun Library(
             .fillMaxWidth()
             .background(colors.backgroundColor)
             .clickable { onClick.invoke() }
-            .padding(contentPadding)
+            .padding(contentPadding),
+        verticalArrangement = Arrangement.spacedBy(padding.verticalPadding)
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -288,6 +296,14 @@ internal fun Library(
             Text(
                 text = author,
                 style = typography.bodyMedium,
+                color = colors.contentColor
+            )
+        }
+        val description = library.description
+        if (showDescription && !description.isNullOrBlank()) {
+            Text(
+                text = description,
+                style = typography.bodySmall,
                 color = colors.contentColor
             )
         }
@@ -359,6 +375,7 @@ object LibraryDefaults {
      * @param versionPadding the padding around the version shown as part of a [Library]
      * @param badgePadding the padding around a badge element shown as part of a [Library]
      * @param badgeContentPadding the padding around the content of a badge element shown as part of a [Library]
+     * @param verticalPadding the vertical padding between the individual items in the library element
      */
     @Composable
     fun libraryPadding(
@@ -369,11 +386,13 @@ object LibraryDefaults {
             end = LibraryBadgePaddingEnd
         ),
         badgeContentPadding: PaddingValues = PaddingValues(0.dp),
+        verticalPadding: Dp = 2.dp,
     ): LibraryPadding = DefaultLibraryPadding(
         namePadding = namePadding,
         versionPadding = versionPadding,
         badgePadding = badgePadding,
         badgeContentPadding = badgeContentPadding,
+        verticalPadding = verticalPadding,
     )
 }
 
@@ -427,6 +446,9 @@ interface LibraryPadding {
 
     /** Represents the padding around the content of a badge element shown as part of a [Library] */
     val badgeContentPadding: PaddingValues
+
+    /** Represents the vertical padding between the individual items in the library element */
+    val verticalPadding: Dp
 }
 
 /**
@@ -438,4 +460,5 @@ private class DefaultLibraryPadding(
     override val versionPadding: PaddingValues,
     override val badgePadding: PaddingValues,
     override val badgeContentPadding: PaddingValues,
+    override val verticalPadding: Dp,
 ) : LibraryPadding

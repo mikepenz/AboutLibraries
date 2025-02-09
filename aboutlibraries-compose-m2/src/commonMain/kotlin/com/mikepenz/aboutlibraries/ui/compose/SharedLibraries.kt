@@ -58,6 +58,7 @@ fun LibrariesContainer(
     lazyListState: LazyListState = rememberLazyListState(),
     contentPadding: PaddingValues = PaddingValues(0.dp),
     showAuthor: Boolean = true,
+    showDescription: Boolean = false,
     showVersion: Boolean = true,
     showLicenseBadges: Boolean = true,
     colors: LibraryColors = LibraryDefaults.libraryColors(),
@@ -80,6 +81,7 @@ fun LibrariesContainer(
         lazyListState = lazyListState,
         contentPadding = contentPadding,
         showAuthor = showAuthor,
+        showDescription = showDescription,
         showVersion = showVersion,
         showLicenseBadges = showLicenseBadges,
         colors = colors,
@@ -94,7 +96,7 @@ fun LibrariesContainer(
             } else if (!license?.htmlReadyLicenseContent.isNullOrBlank()) {
                 openDialog.value = library
             } else if (!license?.url.isNullOrBlank()) {
-                license?.url?.also {
+                license.url?.also {
                     try {
                         uriHandler.openUri(it)
                     } catch (t: Throwable) {
@@ -129,9 +131,7 @@ fun LicenseDialog(
         properties = DialogProperties(),
         content = {
             Surface(
-                shape = MaterialTheme.shapes.medium,
-                color = colors.backgroundColor,
-                contentColor = colors.contentColor
+                shape = MaterialTheme.shapes.medium, color = colors.backgroundColor, contentColor = colors.contentColor
             ) {
                 Column {
                     FlowRow(
@@ -140,13 +140,10 @@ fun LicenseDialog(
                         body(library)
                     }
                     FlowRow(
-                        modifier = Modifier
-                            .align(Alignment.End)
-                            .padding(horizontal = 8.dp, vertical = 2.dp)
+                        modifier = Modifier.align(Alignment.End).padding(horizontal = 8.dp, vertical = 2.dp)
                     ) {
                         TextButton(
-                            onClick = onDismiss,
-                            colors = ButtonDefaults.textButtonColors(
+                            onClick = onDismiss, colors = ButtonDefaults.textButtonColors(
                                 contentColor = colors.dialogConfirmButtonColor,
                             )
                         ) {
@@ -169,6 +166,7 @@ fun Libraries(
     lazyListState: LazyListState = rememberLazyListState(),
     contentPadding: PaddingValues = PaddingValues(0.dp),
     showAuthor: Boolean = true,
+    showDescription: Boolean = false,
     showVersion: Boolean = true,
     showLicenseBadges: Boolean = true,
     colors: LibraryColors = LibraryDefaults.libraryColors(),
@@ -181,26 +179,24 @@ fun Libraries(
     val uriHandler = LocalUriHandler.current
 
     LazyColumn(
-        modifier,
-        verticalArrangement = Arrangement.spacedBy(itemSpacing),
-        state = lazyListState,
-        contentPadding = contentPadding
+        modifier, verticalArrangement = Arrangement.spacedBy(itemSpacing), state = lazyListState, contentPadding = contentPadding
     ) {
         header?.invoke(this)
         libraryItems(
-            libraries,
-            showAuthor,
-            showVersion,
-            showLicenseBadges,
-            colors,
-            padding,
-            itemContentPadding
+            libraries = libraries,
+            showAuthor = showAuthor,
+            showDescription = showDescription,
+            showVersion = showVersion,
+            showLicenseBadges = showLicenseBadges,
+            colors = colors,
+            padding = padding,
+            itemContentPadding = itemContentPadding
         ) { library ->
             val license = library.licenses.firstOrNull()
             if (onLibraryClick != null) {
                 onLibraryClick.invoke(library)
             } else if (!license?.url.isNullOrBlank()) {
-                license?.url?.also {
+                license.url?.also {
                     try {
                         uriHandler.openUri(it)
                     } catch (t: Throwable) {
@@ -215,6 +211,7 @@ fun Libraries(
 internal inline fun LazyListScope.libraryItems(
     libraries: ImmutableList<Library>,
     showAuthor: Boolean = true,
+    showDescription: Boolean = false,
     showVersion: Boolean = true,
     showLicenseBadges: Boolean = true,
     colors: LibraryColors,
@@ -224,13 +221,14 @@ internal inline fun LazyListScope.libraryItems(
 ) {
     items(libraries) { library ->
         Library(
-            library,
-            showAuthor,
-            showVersion,
-            showLicenseBadges,
-            colors,
-            padding,
-            itemContentPadding
+            library = library,
+            showAuthor = showAuthor,
+            showDescription = showDescription,
+            showVersion = showVersion,
+            showLicenseBadges = showLicenseBadges,
+            colors = colors,
+            padding = padding,
+            contentPadding = itemContentPadding
         ) {
             onLibraryClick.invoke(library)
         }
@@ -242,6 +240,7 @@ internal inline fun LazyListScope.libraryItems(
 internal fun Library(
     library: Library,
     showAuthor: Boolean = true,
+    showDescription: Boolean = false,
     showVersion: Boolean = true,
     showLicenseBadges: Boolean = true,
     colors: LibraryColors = LibraryDefaults.libraryColors(),
@@ -250,22 +249,14 @@ internal fun Library(
     typography: Typography = MaterialTheme.typography,
     onClick: () -> Unit,
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(colors.backgroundColor)
-            .clickable { onClick.invoke() }
-            .padding(contentPadding)
-    ) {
+    Column(modifier = Modifier.fillMaxWidth().background(colors.backgroundColor).clickable { onClick.invoke() }.padding(contentPadding),
+        verticalArrangement = Arrangement.spacedBy(padding.verticalPadding)) {
         Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
+            verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
                 text = library.name,
-                modifier = Modifier
-                    .padding(padding.namePadding)
-                    .weight(1f),
+                modifier = Modifier.padding(padding.namePadding).weight(1f),
                 style = typography.h6,
                 color = colors.contentColor,
                 maxLines = 1,
@@ -274,33 +265,30 @@ internal fun Library(
             val version = library.artifactVersion
             if (version != null && showVersion) {
                 Text(
-                    version,
-                    modifier = Modifier.padding(padding.versionPadding),
-                    style = typography.body2,
-                    color = colors.contentColor,
-                    textAlign = TextAlign.Center
+                    version, modifier = Modifier.padding(padding.versionPadding), style = typography.body2, color = colors.contentColor, textAlign = TextAlign.Center
                 )
             }
         }
         val author = library.author
         if (showAuthor && author.isNotBlank()) {
             Text(
-                text = author,
-                style = typography.body2,
-                color = colors.contentColor
+                text = author, style = typography.body2, color = colors.contentColor
+            )
+        }
+        val description = library.description
+        if (showDescription && !description.isNullOrBlank()) {
+            Text(
+                text = description, style = typography.body2, color = colors.contentColor
             )
         }
         if (showLicenseBadges && library.licenses.isNotEmpty()) {
             FlowRow {
                 library.licenses.forEach {
                     Badge(
-                        modifier = Modifier.padding(padding.badgePadding),
-                        contentColor = colors.badgeContentColor,
-                        backgroundColor = colors.badgeBackgroundColor
+                        modifier = Modifier.padding(padding.badgePadding), contentColor = colors.badgeContentColor, backgroundColor = colors.badgeBackgroundColor
                     ) {
                         Text(
-                            modifier = Modifier.padding(padding.badgeContentPadding),
-                            text = it.name
+                            modifier = Modifier.padding(padding.badgeContentPadding), text = it.name
                         )
                     }
                 }
@@ -358,21 +346,23 @@ object LibraryDefaults {
      * @param versionPadding the padding around the version shown as part of a [Library]
      * @param badgePadding the padding around a badge element shown as part of a [Library]
      * @param badgeContentPadding the padding around the content of a badge element shown as part of a [Library]
+     * @param verticalPadding the vertical padding between the individual items in the library element
      */
     @Composable
     fun libraryPadding(
         namePadding: PaddingValues = PaddingValues(top = LibraryNamePaddingTop),
         versionPadding: PaddingValues = PaddingValues(start = LibraryVersionPaddingStart),
         badgePadding: PaddingValues = PaddingValues(
-            top = LibraryBadgePaddingTop,
-            end = LibraryBadgePaddingEnd
+            top = LibraryBadgePaddingTop, end = LibraryBadgePaddingEnd
         ),
         badgeContentPadding: PaddingValues = PaddingValues(0.dp),
+        verticalPadding: Dp = 2.dp,
     ): LibraryPadding = DefaultLibraryPadding(
         namePadding = namePadding,
         versionPadding = versionPadding,
         badgePadding = badgePadding,
         badgeContentPadding = badgeContentPadding,
+        verticalPadding = verticalPadding,
     )
 }
 
@@ -426,6 +416,9 @@ interface LibraryPadding {
 
     /** Represents the padding around the content of a badge element shown as part of a [Library] */
     val badgeContentPadding: PaddingValues
+
+    /** Represents the vertical padding between the individual items in the library element */
+    val verticalPadding: Dp
 }
 
 /**
@@ -437,4 +430,5 @@ private class DefaultLibraryPadding(
     override val versionPadding: PaddingValues,
     override val badgePadding: PaddingValues,
     override val badgeContentPadding: PaddingValues,
+    override val verticalPadding: Dp,
 ) : LibraryPadding
