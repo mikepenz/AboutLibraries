@@ -37,6 +37,7 @@ import androidx.compose.material.Switch
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.Build
+import androidx.compose.material.icons.filled.Description
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Person
@@ -101,6 +102,7 @@ fun MainLayout() {
         colorScheme = if (isSystemInDarkTheme()) darkColorScheme() else lightColorScheme()
     ) {
         var showAuthor by remember { mutableStateOf(true) }
+        var showDescription by remember { mutableStateOf(false) }
         var showVersion by remember { mutableStateOf(true) }
         var showLicenseBadges by remember { mutableStateOf(true) }
         var showHeader by remember { mutableStateOf(false) }
@@ -111,149 +113,138 @@ fun MainLayout() {
         val scope = rememberCoroutineScope()
         val context = LocalContext.current
 
-        ModalNavigationDrawer(
-            scrimColor = Color.Transparent,
-            drawerState = drawerState,
-            drawerContent = {
-                DismissibleDrawerSheet(
-                    drawerState = drawerState,
+        ModalNavigationDrawer(scrimColor = Color.Transparent, drawerState = drawerState, drawerContent = {
+            DismissibleDrawerSheet(
+                drawerState = drawerState,
+            ) {
+                Column(
+                    modifier = Modifier.fillMaxHeight()
                 ) {
                     Column(
-                        modifier = Modifier.fillMaxHeight()
+                        modifier = Modifier
+                            .verticalScroll(rememberScrollState())
+                            .fillMaxHeight()
+                            .weight(1f)
                     ) {
-                        Column(
-                            modifier = Modifier
-                                .verticalScroll(rememberScrollState())
-                                .fillMaxHeight()
-                                .weight(1f)
-                        ) {
-                            DrawerItems()
-                        }
-                        NavigationDrawerItem(
-                            label = { Text(stringResource(R.string.action_opensource)) },
-                            selected = false,
-                            icon = { Icon(Github, "Open Source") },
-                            onClick = { context.startActivity(Intent(Intent.ACTION_VIEW, "https://github.com/mikepenz/AboutLibraries".toUri())) },
-                            modifier = Modifier.padding(horizontal = 12.dp)
-                        )
+                        DrawerItems()
                     }
+                    NavigationDrawerItem(
+                        label = { Text(stringResource(R.string.action_opensource)) },
+                        selected = false,
+                        icon = { Icon(Github, "Open Source") },
+                        onClick = { context.startActivity(Intent(Intent.ACTION_VIEW, "https://github.com/mikepenz/AboutLibraries".toUri())) },
+                        modifier = Modifier.padding(horizontal = 12.dp)
+                    )
                 }
-            },
-            content = {
-                BottomDrawer(
-                    gesturesEnabled = bottomDrawerState.isOpen,
-                    drawerState = bottomDrawerState,
-                    drawerContent = {
-                        Column(
-                            modifier = Modifier.windowInsetsPadding(WindowInsets.systemBars.only(WindowInsetsSides.Horizontal + WindowInsetsSides.Bottom))
-                        ) {
-                            TogglableSetting(
-                                title = "Show Author",
-                                icon = Icons.Default.Person,
-                                enabled = showAuthor,
-                                onToggled = { showAuthor = it },
-                            )
-                            TogglableSetting(
-                                title = "Show Version",
-                                icon = Icons.Default.Build,
-                                enabled = showVersion,
-                                onToggled = { showVersion = it },
-                            )
-                            TogglableSetting(
-                                title = "Show License Badges",
-                                icon = Icons.AutoMirrored.Filled.List,
-                                enabled = showLicenseBadges,
-                                onToggled = { showLicenseBadges = it },
-                            )
-                            TogglableSetting(
-                                title = "Show Header",
-                                icon = Icons.Default.Info,
-                                enabled = showHeader,
-                                onToggled = { showHeader = it },
-                            )
-                        }
-                    },
-                    content = {
-                        Scaffold(
-                            topBar = {
-                                // We use TopAppBar from accompanist-insets-ui which allows us to provide
-                                // content padding matching the system bars insets.
-                                TopAppBar(
-                                    title = { Text("AboutLibs") },
-                                    navigationIcon = {
-                                        IconButton(onClick = {
-                                            scope.launch {
-                                                if (drawerState.isOpen) {
-                                                    drawerState.close()
-                                                } else {
-                                                    drawerState.open()
-                                                }
-                                            }
-                                        }) {
-                                            Icon(
-                                                imageVector = Icons.Filled.Menu,
-                                                contentDescription = "Open Menu"
-                                            )
-                                        }
-                                    },
-                                    colors = TopAppBarDefaults.topAppBarColors(
-                                        containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.9f)
-                                    ),
-                                    actions = {
-                                        IconButton(onClick = { scope.launch { bottomDrawerState.open() } }) {
-                                            Icon(Icons.Default.Settings, "Settings")
-                                        }
-                                    }
-                                )
-                            },
-                        ) { contentPadding ->
-                            LibrariesContainer(
-                                modifier = Modifier
-                                    .fillMaxSize(),
-                                contentPadding = contentPadding,
-                                showAuthor = showAuthor,
-                                showVersion = showVersion,
-                                showLicenseBadges = showLicenseBadges,
-                                header = {
-                                    if (showHeader) {
-                                        stickyHeader {
-                                            Column(
-                                                modifier = Modifier
-                                                    .fillMaxWidth()
-                                                    .background(MaterialTheme.colorScheme.surface)
-                                                    .padding(vertical = 25.dp),
-                                                horizontalAlignment = Alignment.CenterHorizontally,
-                                            ) {
-                                                Text("ExampleHeader")
-                                            }
-                                        }
+            }
+        }, content = {
+            BottomDrawer(gesturesEnabled = bottomDrawerState.isOpen, drawerState = bottomDrawerState, drawerContent = {
+                Column(
+                    modifier = Modifier.windowInsetsPadding(WindowInsets.systemBars.only(WindowInsetsSides.Horizontal + WindowInsetsSides.Bottom))
+                ) {
+                    ToggleableSetting(
+                        title = "Show Author",
+                        icon = Icons.Default.Person,
+                        enabled = showAuthor,
+                        onToggled = { showAuthor = it },
+                    )
+                    ToggleableSetting(
+                        title = "Show Description",
+                        icon = Icons.Default.Description,
+                        enabled = showDescription,
+                        onToggled = { showDescription = it },
+                    )
+                    ToggleableSetting(
+                        title = "Show Version",
+                        icon = Icons.Default.Build,
+                        enabled = showVersion,
+                        onToggled = { showVersion = it },
+                    )
+                    ToggleableSetting(
+                        title = "Show License Badges",
+                        icon = Icons.AutoMirrored.Filled.List,
+                        enabled = showLicenseBadges,
+                        onToggled = { showLicenseBadges = it },
+                    )
+                    ToggleableSetting(
+                        title = "Show Header",
+                        icon = Icons.Default.Info,
+                        enabled = showHeader,
+                        onToggled = { showHeader = it },
+                    )
+                }
+            }, content = {
+                Scaffold(
+                    topBar = {
+                        // We use TopAppBar from accompanist-insets-ui which allows us to provide
+                        // content padding matching the system bars insets.
+                        TopAppBar(
+                            title = { Text("AboutLibs") }, navigationIcon = {
+                            IconButton(onClick = {
+                                scope.launch {
+                                    if (drawerState.isOpen) {
+                                        drawerState.close()
+                                    } else {
+                                        drawerState.open()
                                     }
                                 }
-                            )
-                        }
-                    }
-                )
-            }
-        )
+                            }) {
+                                Icon(
+                                    imageVector = Icons.Filled.Menu, contentDescription = "Open Menu"
+                                )
+                            }
+                        }, colors = TopAppBarDefaults.topAppBarColors(
+                            containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.9f)
+                        ), actions = {
+                            IconButton(onClick = { scope.launch { bottomDrawerState.open() } }) {
+                                Icon(Icons.Default.Settings, "Settings")
+                            }
+                        })
+                    },
+                ) { contentPadding ->
+                    LibrariesContainer(
+                        modifier = Modifier.fillMaxSize(),
+                        contentPadding = contentPadding,
+                        showAuthor = showAuthor,
+                        showDescription = showDescription,
+                        showVersion = showVersion,
+                        showLicenseBadges = showLicenseBadges,
+                        header = {
+                            if (showHeader) {
+                                stickyHeader {
+                                    Column(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .background(MaterialTheme.colorScheme.surface)
+                                            .padding(vertical = 25.dp),
+                                        horizontalAlignment = Alignment.CenterHorizontally,
+                                    ) {
+                                        Text("ExampleHeader")
+                                    }
+                                }
+                            }
+                        })
+                }
+            })
+        })
     }
 }
 
 @Composable
-fun TogglableSetting(title: String, icon: ImageVector, enabled: Boolean, onToggled: (Boolean) -> Unit) {
+fun ToggleableSetting(title: String, icon: ImageVector, enabled: Boolean, onToggled: (Boolean) -> Unit) {
     val interactionSource = remember { MutableInteractionSource() }
-    fun handleToggle() {
-        onToggled(!enabled)
-    }
     Row(
-        verticalAlignment = Alignment.CenterVertically, modifier = Modifier
-            .clickable(interactionSource = interactionSource, onClick = { handleToggle() }, indication = ripple())
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .clickable(interactionSource = interactionSource, onClick = { onToggled(!enabled) }, indication = ripple())
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 12.dp), horizontalArrangement = Arrangement.spacedBy(30.dp)
+            .padding(horizontal = 16.dp, vertical = 12.dp),
+        horizontalArrangement = Arrangement.spacedBy(30.dp)
     ) {
         Icon(icon, contentDescription = title)
         Text(text = title, style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f))
         Switch(interactionSource = interactionSource, checked = enabled, onCheckedChange = {
-            handleToggle()
+            onToggled(!enabled)
         })
     }
 }
@@ -271,84 +262,63 @@ private fun ColumnScope.DrawerItems() {
     )
     Spacer(Modifier.height(12.dp))
     NavigationDrawerItem(
-        label = { Text(stringResource(R.string.action_manifestactivity)) },
-        badge = { Badge { Text("Deprecated") } },
-        selected = false,
-        onClick = {
-            val libsUIListener: LibsConfiguration.LibsUIListener = object : LibsConfiguration.LibsUIListener {
-                override fun preOnCreateView(view: View): View {
-                    return view
-                }
-
-                override fun postOnCreateView(view: View): View {
-                    return view
-                }
-            }
-            val libsListener: LibsConfiguration.LibsListener = object : LibsConfiguration.LibsListener {
-                override fun onIconClicked(v: View) {
-                    Toast.makeText(v.context, "We are able to track this now ;)", Toast.LENGTH_LONG).show()
-                }
-
-                override fun onLibraryAuthorClicked(v: View, library: Library): Boolean {
-                    return false
-                }
-
-                override fun onLibraryContentClicked(v: View, library: Library): Boolean {
-                    return false
-                }
-
-                override fun onLibraryBottomClicked(v: View, library: Library): Boolean {
-                    return false
-                }
-
-                override fun onExtraClicked(v: View, specialButton: SpecialButton): Boolean {
-                    return false
-                }
-
-                override fun onIconLongClicked(v: View): Boolean {
-                    return false
-                }
-
-                override fun onLibraryAuthorLongClicked(v: View, library: Library): Boolean {
-                    return false
-                }
-
-                override fun onLibraryContentLongClicked(v: View, library: Library): Boolean {
-                    return false
-                }
-
-                override fun onLibraryBottomLongClicked(v: View, library: Library): Boolean {
-                    return false
-                }
+        label = { Text(stringResource(R.string.action_manifestactivity)) }, badge = { Badge { Text("Deprecated") } }, selected = false, onClick = {
+        val libsUIListener: LibsConfiguration.LibsUIListener = object : LibsConfiguration.LibsUIListener {
+            override fun preOnCreateView(view: View): View {
+                return view
             }
 
-            LibsBuilder()
-                .withLicenseShown(true)
-                .withVersionShown(true)
-                .withActivityTitle("Open Source")
-                .withEdgeToEdge(true)
-                .withListener(libsListener)
-                .withUiListener(libsUIListener)
-                .withSearchEnabled(true)
-                .start(context)
-        },
-        modifier = Modifier.padding(horizontal = 12.dp)
+            override fun postOnCreateView(view: View): View {
+                return view
+            }
+        }
+        val libsListener: LibsConfiguration.LibsListener = object : LibsConfiguration.LibsListener {
+            override fun onIconClicked(v: View) {
+                Toast.makeText(v.context, "We are able to track this now ;)", Toast.LENGTH_LONG).show()
+            }
+
+            override fun onLibraryAuthorClicked(v: View, library: Library): Boolean {
+                return false
+            }
+
+            override fun onLibraryContentClicked(v: View, library: Library): Boolean {
+                return false
+            }
+
+            override fun onLibraryBottomClicked(v: View, library: Library): Boolean {
+                return false
+            }
+
+            override fun onExtraClicked(v: View, specialButton: SpecialButton): Boolean {
+                return false
+            }
+
+            override fun onIconLongClicked(v: View): Boolean {
+                return false
+            }
+
+            override fun onLibraryAuthorLongClicked(v: View, library: Library): Boolean {
+                return false
+            }
+
+            override fun onLibraryContentLongClicked(v: View, library: Library): Boolean {
+                return false
+            }
+
+            override fun onLibraryBottomLongClicked(v: View, library: Library): Boolean {
+                return false
+            }
+        }
+
+        LibsBuilder().withLicenseShown(true).withVersionShown(true).withActivityTitle("Open Source").withEdgeToEdge(true).withListener(libsListener).withUiListener(libsUIListener)
+            .withSearchEnabled(true).start(context)
+    }, modifier = Modifier.padding(horizontal = 12.dp)
     )
     Spacer(Modifier.height(12.dp))
     NavigationDrawerItem(
-        label = { Text(stringResource(R.string.action_minimalactivity)) },
-        badge = { Badge { Text("Deprecated") } },
-        selected = false,
-        onClick = {
-            LibsBuilder()
-                .withAboutMinimalDesign(true)
-                .withEdgeToEdge(true)
-                .withActivityTitle("Open Source")
-                .withAboutIconShown(false)
-                .withSearchEnabled(true)
-                .start(context)
-        },
-        modifier = Modifier.padding(horizontal = 12.dp)
+        label = { Text(stringResource(R.string.action_minimalactivity)) }, badge = { Badge { Text("Deprecated") } }, selected = false, onClick = {
+        LibsBuilder().withAboutMinimalDesign(true).withEdgeToEdge(true).withActivityTitle("Open Source").withAboutIconShown(false).withSearchEnabled(true).start(context)
+    }, modifier = Modifier.padding(horizontal = 12.dp)
     )
     Spacer(Modifier.height(12.dp))
     NavigationDrawerItem(

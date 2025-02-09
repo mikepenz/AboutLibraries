@@ -37,6 +37,7 @@ fun LibrariesContainer(
     lazyListState: LazyListState = rememberLazyListState(),
     contentPadding: PaddingValues = PaddingValues(0.dp),
     showAuthor: Boolean = true,
+    showDescription: Boolean = false,
     showVersion: Boolean = true,
     showLicenseBadges: Boolean = true,
     colors: LibraryColors = LibraryDefaults.libraryColors(),
@@ -54,19 +55,20 @@ fun LibrariesContainer(
         }
     }
     LibrariesContainer(
-        libraries.value,
-        modifier,
-        lazyListState,
-        contentPadding,
-        showAuthor,
-        showVersion,
-        showLicenseBadges,
-        colors,
-        padding,
-        itemContentPadding,
-        itemSpacing,
-        header,
-        onLibraryClick,
+        libraries = libraries.value,
+        modifier = modifier,
+        lazyListState = lazyListState,
+        contentPadding = contentPadding,
+        showAuthor = showAuthor,
+        showDescription = showDescription,
+        showVersion = showVersion,
+        showLicenseBadges = showLicenseBadges,
+        colors = colors,
+        padding = padding,
+        itemContentPadding = itemContentPadding,
+        itemSpacing = itemSpacing,
+        header = header,
+        onLibraryClick = onLibraryClick,
         licenseDialogBody = { library ->
             Text(
                 text = AnnotatedString.fromHtml(library.licenses.firstOrNull()?.htmlReadyLicenseContent.orEmpty()),
@@ -81,7 +83,10 @@ fun LibrariesContainer(
 fun PreviewLibraries() {
     MaterialTheme {
         Surface {
-            Libraries(fakeData.libraries)
+            Libraries(
+                fakeData.libraries,
+                showDescription = true
+            )
         }
     }
 }
