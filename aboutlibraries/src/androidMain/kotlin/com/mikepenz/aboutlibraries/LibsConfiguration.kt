@@ -10,6 +10,7 @@ import com.mikepenz.aboutlibraries.util.SpecialButton
 /**
  * Util class to modify behavior of the
  */
+@Deprecated("The legacy view based UI will be deprecated in the future. Please consider moving to the compose based UI.")
 object LibsConfiguration {
     /** LOGIC FOR THE LISTENER*/
     var listener: LibsListener? = null

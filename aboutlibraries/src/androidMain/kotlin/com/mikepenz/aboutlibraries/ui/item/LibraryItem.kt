@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.mikepenz.aboutlibraries.ui.item
 
 import android.content.Context
@@ -18,7 +20,11 @@ import com.mikepenz.aboutlibraries.LibsBuilder
 import com.mikepenz.aboutlibraries.LibsConfiguration
 import com.mikepenz.aboutlibraries.R
 import com.mikepenz.aboutlibraries.entity.Library
-import com.mikepenz.aboutlibraries.util.*
+import com.mikepenz.aboutlibraries.util.getSupportColor
+import com.mikepenz.aboutlibraries.util.getThemeColor
+import com.mikepenz.aboutlibraries.util.htmlReadyLicenseContent
+import com.mikepenz.aboutlibraries.util.license
+import com.mikepenz.aboutlibraries.util.resolveStyledValue
 import com.mikepenz.fastadapter.items.AbstractItem
 
 

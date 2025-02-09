@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.mikepenz.aboutlibraries.ui.item
 
 import android.content.Context
