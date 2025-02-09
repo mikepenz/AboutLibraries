@@ -7,6 +7,7 @@ plugins {
     id("com.mikepenz.convention.android-application")
     id("com.mikepenz.convention.compose")
     id("com.mikepenz.aboutlibraries.plugin")
+    alias(baseLibs.plugins.screenshot)
 }
 
 android {
@@ -17,15 +18,15 @@ android {
         setProperty("archivesBaseName", "AboutLibraries-v$versionName-c$versionCode")
     }
 
+    @Suppress("UnstableApiUsage")
+    experimentalProperties["android.experimental.enableScreenshotTest"] = true
+
     buildTypes {
         create("staging") {
             signingConfig = signingConfigs.findByName("release")
             applicationIdSuffix = ".debugStaging"
             matchingFallbacks.add("debug")
         }
-    }
-
-    productFlavors {
     }
 
     buildFeatures {

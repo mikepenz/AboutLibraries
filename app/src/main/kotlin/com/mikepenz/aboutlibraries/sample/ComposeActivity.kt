@@ -180,26 +180,26 @@ fun MainLayout() {
                         // content padding matching the system bars insets.
                         TopAppBar(
                             title = { Text("AboutLibs") }, navigationIcon = {
-                            IconButton(onClick = {
-                                scope.launch {
-                                    if (drawerState.isOpen) {
-                                        drawerState.close()
-                                    } else {
-                                        drawerState.open()
+                                IconButton(onClick = {
+                                    scope.launch {
+                                        if (drawerState.isOpen) {
+                                            drawerState.close()
+                                        } else {
+                                            drawerState.open()
+                                        }
                                     }
+                                }) {
+                                    Icon(
+                                        imageVector = Icons.Filled.Menu, contentDescription = "Open Menu"
+                                    )
                                 }
-                            }) {
-                                Icon(
-                                    imageVector = Icons.Filled.Menu, contentDescription = "Open Menu"
-                                )
-                            }
-                        }, colors = TopAppBarDefaults.topAppBarColors(
-                            containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.9f)
-                        ), actions = {
-                            IconButton(onClick = { scope.launch { bottomDrawerState.open() } }) {
-                                Icon(Icons.Default.Settings, "Settings")
-                            }
-                        })
+                            }, colors = TopAppBarDefaults.topAppBarColors(
+                                containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.9f)
+                            ), actions = {
+                                IconButton(onClick = { scope.launch { bottomDrawerState.open() } }) {
+                                    Icon(Icons.Default.Settings, "Settings")
+                                }
+                            })
                     },
                 ) { contentPadding ->
                     LibrariesContainer(
@@ -263,62 +263,63 @@ private fun ColumnScope.DrawerItems() {
     Spacer(Modifier.height(12.dp))
     NavigationDrawerItem(
         label = { Text(stringResource(R.string.action_manifestactivity)) }, badge = { Badge { Text("Deprecated") } }, selected = false, onClick = {
-        val libsUIListener: LibsConfiguration.LibsUIListener = object : LibsConfiguration.LibsUIListener {
-            override fun preOnCreateView(view: View): View {
-                return view
+            val libsUIListener: LibsConfiguration.LibsUIListener = object : LibsConfiguration.LibsUIListener {
+                override fun preOnCreateView(view: View): View {
+                    return view
+                }
+
+                override fun postOnCreateView(view: View): View {
+                    return view
+                }
+            }
+            val libsListener: LibsConfiguration.LibsListener = object : LibsConfiguration.LibsListener {
+                override fun onIconClicked(v: View) {
+                    Toast.makeText(v.context, "We are able to track this now ;)", Toast.LENGTH_LONG).show()
+                }
+
+                override fun onLibraryAuthorClicked(v: View, library: Library): Boolean {
+                    return false
+                }
+
+                override fun onLibraryContentClicked(v: View, library: Library): Boolean {
+                    return false
+                }
+
+                override fun onLibraryBottomClicked(v: View, library: Library): Boolean {
+                    return false
+                }
+
+                override fun onExtraClicked(v: View, specialButton: SpecialButton): Boolean {
+                    return false
+                }
+
+                override fun onIconLongClicked(v: View): Boolean {
+                    return false
+                }
+
+                override fun onLibraryAuthorLongClicked(v: View, library: Library): Boolean {
+                    return false
+                }
+
+                override fun onLibraryContentLongClicked(v: View, library: Library): Boolean {
+                    return false
+                }
+
+                override fun onLibraryBottomLongClicked(v: View, library: Library): Boolean {
+                    return false
+                }
             }
 
-            override fun postOnCreateView(view: View): View {
-                return view
-            }
-        }
-        val libsListener: LibsConfiguration.LibsListener = object : LibsConfiguration.LibsListener {
-            override fun onIconClicked(v: View) {
-                Toast.makeText(v.context, "We are able to track this now ;)", Toast.LENGTH_LONG).show()
-            }
-
-            override fun onLibraryAuthorClicked(v: View, library: Library): Boolean {
-                return false
-            }
-
-            override fun onLibraryContentClicked(v: View, library: Library): Boolean {
-                return false
-            }
-
-            override fun onLibraryBottomClicked(v: View, library: Library): Boolean {
-                return false
-            }
-
-            override fun onExtraClicked(v: View, specialButton: SpecialButton): Boolean {
-                return false
-            }
-
-            override fun onIconLongClicked(v: View): Boolean {
-                return false
-            }
-
-            override fun onLibraryAuthorLongClicked(v: View, library: Library): Boolean {
-                return false
-            }
-
-            override fun onLibraryContentLongClicked(v: View, library: Library): Boolean {
-                return false
-            }
-
-            override fun onLibraryBottomLongClicked(v: View, library: Library): Boolean {
-                return false
-            }
-        }
-
-        LibsBuilder().withLicenseShown(true).withVersionShown(true).withActivityTitle("Open Source").withEdgeToEdge(true).withListener(libsListener).withUiListener(libsUIListener)
-            .withSearchEnabled(true).start(context)
-    }, modifier = Modifier.padding(horizontal = 12.dp)
+            LibsBuilder().withLicenseShown(true).withVersionShown(true).withActivityTitle("Open Source").withEdgeToEdge(true).withListener(libsListener)
+                .withUiListener(libsUIListener)
+                .withSearchEnabled(true).start(context)
+        }, modifier = Modifier.padding(horizontal = 12.dp)
     )
     Spacer(Modifier.height(12.dp))
     NavigationDrawerItem(
         label = { Text(stringResource(R.string.action_minimalactivity)) }, badge = { Badge { Text("Deprecated") } }, selected = false, onClick = {
-        LibsBuilder().withAboutMinimalDesign(true).withEdgeToEdge(true).withActivityTitle("Open Source").withAboutIconShown(false).withSearchEnabled(true).start(context)
-    }, modifier = Modifier.padding(horizontal = 12.dp)
+            LibsBuilder().withAboutMinimalDesign(true).withEdgeToEdge(true).withActivityTitle("Open Source").withAboutIconShown(false).withSearchEnabled(true).start(context)
+        }, modifier = Modifier.padding(horizontal = 12.dp)
     )
     Spacer(Modifier.height(12.dp))
     NavigationDrawerItem(
