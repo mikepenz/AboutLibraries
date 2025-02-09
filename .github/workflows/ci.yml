@@ -131,6 +131,10 @@ jobs:
 
       - name: Run Lint
         if: github.event_name  == 'pull_request'
+        run: ./gradlew apiCheck
+
+      - name: Run Lint
+        if: github.event_name  == 'pull_request'
         run: ./gradlew lintDebug
 
       - name: Setup Ruby

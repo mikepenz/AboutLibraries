@@ -1,0 +1,324 @@
+public final class com/mikepenz/aboutlibraries/LibsBuilder : java/io/Serializable {
+	public static final field BUNDLE_EDGE_TO_EDGE Ljava/lang/String;
+	public static final field BUNDLE_SEARCH_ENABLED Ljava/lang/String;
+	public static final field BUNDLE_TITLE Ljava/lang/String;
+	public static final field Companion Lcom/mikepenz/aboutlibraries/LibsBuilder$Companion;
+	public fun <init> ()V
+	public final fun activity (Landroid/content/Context;)V
+	public final fun getAboutAppName ()Ljava/lang/String;
+	public final fun getAboutAppSpecial1 ()Ljava/lang/String;
+	public final fun getAboutAppSpecial1Description ()Ljava/lang/String;
+	public final fun getAboutAppSpecial2 ()Ljava/lang/String;
+	public final fun getAboutAppSpecial2Description ()Ljava/lang/String;
+	public final fun getAboutAppSpecial3 ()Ljava/lang/String;
+	public final fun getAboutAppSpecial3Description ()Ljava/lang/String;
+	public final fun getAboutDescription ()Ljava/lang/String;
+	public final fun getAboutMinimalDesign ()Z
+	public final fun getAboutShowIcon ()Z
+	public final fun getAboutShowVersion ()Z
+	public final fun getAboutShowVersionCode ()Z
+	public final fun getAboutShowVersionName ()Z
+	public final fun getAboutVersionString ()Ljava/lang/String;
+	public final fun getActivityTitle ()Ljava/lang/String;
+	public final fun getEdgeToEdge ()Z
+	public final fun getLibraryComparator ()Ljava/util/Comparator;
+	public final fun getLibs ()Lcom/mikepenz/aboutlibraries/Libs;
+	public final fun getSearchEnabled ()Z
+	public final fun getShowLicense ()Z
+	public final fun getShowLicenseDialog ()Z
+	public final fun getShowLoadingProgress ()Z
+	public final fun getShowVersion ()Z
+	public final fun getSort ()Z
+	public final fun intent (Landroid/content/Context;)Landroid/content/Intent;
+	public final fun setAboutAppName (Ljava/lang/String;)V
+	public final fun setAboutAppSpecial1 (Ljava/lang/String;)V
+	public final fun setAboutAppSpecial1Description (Ljava/lang/String;)V
+	public final fun setAboutAppSpecial2 (Ljava/lang/String;)V
+	public final fun setAboutAppSpecial2Description (Ljava/lang/String;)V
+	public final fun setAboutAppSpecial3 (Ljava/lang/String;)V
+	public final fun setAboutAppSpecial3Description (Ljava/lang/String;)V
+	public final fun setAboutDescription (Ljava/lang/String;)V
+	public final fun setAboutMinimalDesign (Z)V
+	public final fun setAboutShowIcon (Z)V
+	public final fun setAboutShowVersion (Z)V
+	public final fun setAboutShowVersionCode (Z)V
+	public final fun setAboutShowVersionName (Z)V
+	public final fun setAboutVersionString (Ljava/lang/String;)V
+	public final fun setActivityTitle (Ljava/lang/String;)V
+	public final fun setEdgeToEdge (Z)V
+	public final fun setLibraryComparator (Ljava/util/Comparator;)V
+	public final fun setLibs (Lcom/mikepenz/aboutlibraries/Libs;)V
+	public final fun setSearchEnabled (Z)V
+	public final fun setShowLicense (Z)V
+	public final fun setShowLicenseDialog (Z)V
+	public final fun setShowLoadingProgress (Z)V
+	public final fun setShowVersion (Z)V
+	public final fun setSort (Z)V
+	public final fun start (Landroid/content/Context;)V
+	public final fun supportFragment ()Lcom/mikepenz/aboutlibraries/ui/LibsSupportFragment;
+	public final fun withAboutAppName (Ljava/lang/String;)Lcom/mikepenz/aboutlibraries/LibsBuilder;
+	public final fun withAboutDescription (Ljava/lang/String;)Lcom/mikepenz/aboutlibraries/LibsBuilder;
+	public final fun withAboutIconShown (Z)Lcom/mikepenz/aboutlibraries/LibsBuilder;
+	public final fun withAboutMinimalDesign (Z)Lcom/mikepenz/aboutlibraries/LibsBuilder;
+	public final fun withAboutSpecial1 (Ljava/lang/String;)Lcom/mikepenz/aboutlibraries/LibsBuilder;
+	public final fun withAboutSpecial1Description (Ljava/lang/String;)Lcom/mikepenz/aboutlibraries/LibsBuilder;
+	public final fun withAboutSpecial2 (Ljava/lang/String;)Lcom/mikepenz/aboutlibraries/LibsBuilder;
+	public final fun withAboutSpecial2Description (Ljava/lang/String;)Lcom/mikepenz/aboutlibraries/LibsBuilder;
+	public final fun withAboutSpecial3 (Ljava/lang/String;)Lcom/mikepenz/aboutlibraries/LibsBuilder;
+	public final fun withAboutSpecial3Description (Ljava/lang/String;)Lcom/mikepenz/aboutlibraries/LibsBuilder;
+	public final fun withAboutVersionShown (Z)Lcom/mikepenz/aboutlibraries/LibsBuilder;
+	public final fun withAboutVersionShownCode (Z)Lcom/mikepenz/aboutlibraries/LibsBuilder;
+	public final fun withAboutVersionShownName (Z)Lcom/mikepenz/aboutlibraries/LibsBuilder;
+	public final fun withAboutVersionString (Ljava/lang/String;)Lcom/mikepenz/aboutlibraries/LibsBuilder;
+	public final fun withActivityTitle (Ljava/lang/String;)Lcom/mikepenz/aboutlibraries/LibsBuilder;
+	public final fun withEdgeToEdge (Z)Lcom/mikepenz/aboutlibraries/LibsBuilder;
+	public final fun withLibraryComparator (Ljava/util/Comparator;)Lcom/mikepenz/aboutlibraries/LibsBuilder;
+	public final fun withLibs (Lcom/mikepenz/aboutlibraries/Libs;)Lcom/mikepenz/aboutlibraries/LibsBuilder;
+	public final fun withLicenseDialog (Z)Lcom/mikepenz/aboutlibraries/LibsBuilder;
+	public final fun withLicenseShown (Z)Lcom/mikepenz/aboutlibraries/LibsBuilder;
+	public final fun withListener (Lcom/mikepenz/aboutlibraries/LibsConfiguration$LibsListener;)Lcom/mikepenz/aboutlibraries/LibsBuilder;
+	public final fun withSearchEnabled (Z)Lcom/mikepenz/aboutlibraries/LibsBuilder;
+	public final fun withShowLoadingProgress (Z)Lcom/mikepenz/aboutlibraries/LibsBuilder;
+	public final fun withSortEnabled (Z)Lcom/mikepenz/aboutlibraries/LibsBuilder;
+	public final fun withUiListener (Lcom/mikepenz/aboutlibraries/LibsConfiguration$LibsUIListener;)Lcom/mikepenz/aboutlibraries/LibsBuilder;
+	public final fun withVersionShown (Z)Lcom/mikepenz/aboutlibraries/LibsBuilder;
+}
+
+public final class com/mikepenz/aboutlibraries/LibsBuilder$Companion {
+}
+
+public final class com/mikepenz/aboutlibraries/LibsConfiguration {
+	public static final field INSTANCE Lcom/mikepenz/aboutlibraries/LibsConfiguration;
+	public final fun getItemAnimator ()Landroidx/recyclerview/widget/RecyclerView$ItemAnimator;
+	public final fun getListener ()Lcom/mikepenz/aboutlibraries/LibsConfiguration$LibsListener;
+	public final fun getUiListener ()Lcom/mikepenz/aboutlibraries/LibsConfiguration$LibsUIListener;
+	public final fun setItemAnimator (Landroidx/recyclerview/widget/RecyclerView$ItemAnimator;)V
+	public final fun setListener (Lcom/mikepenz/aboutlibraries/LibsConfiguration$LibsListener;)V
+	public final fun setUiListener (Lcom/mikepenz/aboutlibraries/LibsConfiguration$LibsUIListener;)V
+}
+
+public abstract interface class com/mikepenz/aboutlibraries/LibsConfiguration$LibsListener {
+	public abstract fun onExtraClicked (Landroid/view/View;Lcom/mikepenz/aboutlibraries/util/SpecialButton;)Z
+	public abstract fun onIconClicked (Landroid/view/View;)V
+	public abstract fun onIconLongClicked (Landroid/view/View;)Z
+	public abstract fun onLibraryAuthorClicked (Landroid/view/View;Lcom/mikepenz/aboutlibraries/entity/Library;)Z
+	public abstract fun onLibraryAuthorLongClicked (Landroid/view/View;Lcom/mikepenz/aboutlibraries/entity/Library;)Z
+	public abstract fun onLibraryBottomClicked (Landroid/view/View;Lcom/mikepenz/aboutlibraries/entity/Library;)Z
+	public abstract fun onLibraryBottomLongClicked (Landroid/view/View;Lcom/mikepenz/aboutlibraries/entity/Library;)Z
+	public abstract fun onLibraryContentClicked (Landroid/view/View;Lcom/mikepenz/aboutlibraries/entity/Library;)Z
+	public abstract fun onLibraryContentLongClicked (Landroid/view/View;Lcom/mikepenz/aboutlibraries/entity/Library;)Z
+}
+
+public abstract interface class com/mikepenz/aboutlibraries/LibsConfiguration$LibsUIListener {
+	public abstract fun postOnCreateView (Landroid/view/View;)Landroid/view/View;
+	public abstract fun preOnCreateView (Landroid/view/View;)Landroid/view/View;
+}
+
+public final class com/mikepenz/aboutlibraries/databinding/ActivityOpensourceBinding : androidx/viewbinding/ViewBinding {
+	public final field frameContainer Landroidx/fragment/app/FragmentContainerView;
+	public final field toolbar Landroidx/appcompat/widget/Toolbar;
+	public static fun bind (Landroid/view/View;)Lcom/mikepenz/aboutlibraries/databinding/ActivityOpensourceBinding;
+	public synthetic fun getRoot ()Landroid/view/View;
+	public fun getRoot ()Landroidx/constraintlayout/widget/ConstraintLayout;
+	public static fun inflate (Landroid/view/LayoutInflater;)Lcom/mikepenz/aboutlibraries/databinding/ActivityOpensourceBinding;
+	public static fun inflate (Landroid/view/LayoutInflater;Landroid/view/ViewGroup;Z)Lcom/mikepenz/aboutlibraries/databinding/ActivityOpensourceBinding;
+}
+
+public final class com/mikepenz/aboutlibraries/databinding/FragmentOpensourceBinding : androidx/viewbinding/ViewBinding {
+	public final field cardListView Landroidx/recyclerview/widget/RecyclerView;
+	public static fun bind (Landroid/view/View;)Lcom/mikepenz/aboutlibraries/databinding/FragmentOpensourceBinding;
+	public synthetic fun getRoot ()Landroid/view/View;
+	public fun getRoot ()Landroidx/recyclerview/widget/RecyclerView;
+	public static fun inflate (Landroid/view/LayoutInflater;)Lcom/mikepenz/aboutlibraries/databinding/FragmentOpensourceBinding;
+	public static fun inflate (Landroid/view/LayoutInflater;Landroid/view/ViewGroup;Z)Lcom/mikepenz/aboutlibraries/databinding/FragmentOpensourceBinding;
+}
+
+public final class com/mikepenz/aboutlibraries/databinding/ListheaderOpensourceBinding : androidx/viewbinding/ViewBinding {
+	public final field aboutDescription Landroid/widget/TextView;
+	public final field aboutDivider Landroid/view/View;
+	public final field aboutIcon Landroid/widget/ImageView;
+	public final field aboutName Landroid/widget/TextView;
+	public final field aboutSpecial1 Lcom/google/android/material/button/MaterialButton;
+	public final field aboutSpecial2 Lcom/google/android/material/button/MaterialButton;
+	public final field aboutSpecial3 Lcom/google/android/material/button/MaterialButton;
+	public final field aboutSpecialContainer Landroid/widget/LinearLayout;
+	public final field aboutVersion Landroid/widget/TextView;
+	public static fun bind (Landroid/view/View;)Lcom/mikepenz/aboutlibraries/databinding/ListheaderOpensourceBinding;
+	public synthetic fun getRoot ()Landroid/view/View;
+	public fun getRoot ()Landroid/widget/LinearLayout;
+	public static fun inflate (Landroid/view/LayoutInflater;)Lcom/mikepenz/aboutlibraries/databinding/ListheaderOpensourceBinding;
+	public static fun inflate (Landroid/view/LayoutInflater;Landroid/view/ViewGroup;Z)Lcom/mikepenz/aboutlibraries/databinding/ListheaderOpensourceBinding;
+}
+
+public final class com/mikepenz/aboutlibraries/databinding/ListitemMinimalOpensourceBinding : androidx/viewbinding/ViewBinding {
+	public final field libraryName Landroid/widget/TextView;
+	public static fun bind (Landroid/view/View;)Lcom/mikepenz/aboutlibraries/databinding/ListitemMinimalOpensourceBinding;
+	public synthetic fun getRoot ()Landroid/view/View;
+	public fun getRoot ()Landroid/widget/TextView;
+	public static fun inflate (Landroid/view/LayoutInflater;)Lcom/mikepenz/aboutlibraries/databinding/ListitemMinimalOpensourceBinding;
+	public static fun inflate (Landroid/view/LayoutInflater;Landroid/view/ViewGroup;Z)Lcom/mikepenz/aboutlibraries/databinding/ListitemMinimalOpensourceBinding;
+}
+
+public final class com/mikepenz/aboutlibraries/databinding/ListitemOpensourceBinding : androidx/viewbinding/ViewBinding {
+	public final field content Landroidx/constraintlayout/widget/ConstraintLayout;
+	public final field libraryBottomDivider Landroid/view/View;
+	public final field libraryCreator Landroid/widget/TextView;
+	public final field libraryDescription Landroid/widget/TextView;
+	public final field libraryDescriptionDivider Landroid/view/View;
+	public final field libraryLicense Landroid/widget/TextView;
+	public final field libraryName Landroid/widget/TextView;
+	public final field libraryVersion Landroid/widget/TextView;
+	public static fun bind (Landroid/view/View;)Lcom/mikepenz/aboutlibraries/databinding/ListitemOpensourceBinding;
+	public synthetic fun getRoot ()Landroid/view/View;
+	public fun getRoot ()Lcom/google/android/material/card/MaterialCardView;
+	public static fun inflate (Landroid/view/LayoutInflater;)Lcom/mikepenz/aboutlibraries/databinding/ListitemOpensourceBinding;
+	public static fun inflate (Landroid/view/LayoutInflater;Landroid/view/ViewGroup;Z)Lcom/mikepenz/aboutlibraries/databinding/ListitemOpensourceBinding;
+}
+
+public final class com/mikepenz/aboutlibraries/databinding/ListloaderOpensourceBinding : androidx/viewbinding/ViewBinding {
+	public final field progressBar Landroid/widget/ProgressBar;
+	public static fun bind (Landroid/view/View;)Lcom/mikepenz/aboutlibraries/databinding/ListloaderOpensourceBinding;
+	public synthetic fun getRoot ()Landroid/view/View;
+	public fun getRoot ()Landroid/widget/RelativeLayout;
+	public static fun inflate (Landroid/view/LayoutInflater;)Lcom/mikepenz/aboutlibraries/databinding/ListloaderOpensourceBinding;
+	public static fun inflate (Landroid/view/LayoutInflater;Landroid/view/ViewGroup;Z)Lcom/mikepenz/aboutlibraries/databinding/ListloaderOpensourceBinding;
+}
+
+public class com/mikepenz/aboutlibraries/ui/LibsActivity : androidx/appcompat/app/AppCompatActivity, androidx/appcompat/widget/SearchView$OnQueryTextListener {
+	public fun <init> ()V
+	public fun onCreate (Landroid/os/Bundle;)V
+	public fun onCreateOptionsMenu (Landroid/view/Menu;)Z
+	public fun onOptionsItemSelected (Landroid/view/MenuItem;)Z
+	public fun onQueryTextChange (Ljava/lang/String;)Z
+	public fun onQueryTextSubmit (Ljava/lang/String;)Z
+}
+
+public class com/mikepenz/aboutlibraries/ui/LibsSupportFragment : androidx/fragment/app/Fragment, android/widget/Filterable {
+	public fun <init> ()V
+	public fun getFilter ()Landroid/widget/Filter;
+	public fun onCreateView (Landroid/view/LayoutInflater;Landroid/view/ViewGroup;Landroid/os/Bundle;)Landroid/view/View;
+}
+
+public final class com/mikepenz/aboutlibraries/ui/LibsSupportFragmentArgs : androidx/navigation/NavArgs {
+	public static final field Companion Lcom/mikepenz/aboutlibraries/ui/LibsSupportFragmentArgs$Companion;
+	public fun <init> (Ljava/io/Serializable;)V
+	public final fun component1 ()Ljava/io/Serializable;
+	public final fun copy (Ljava/io/Serializable;)Lcom/mikepenz/aboutlibraries/ui/LibsSupportFragmentArgs;
+	public static synthetic fun copy$default (Lcom/mikepenz/aboutlibraries/ui/LibsSupportFragmentArgs;Ljava/io/Serializable;ILjava/lang/Object;)Lcom/mikepenz/aboutlibraries/ui/LibsSupportFragmentArgs;
+	public fun equals (Ljava/lang/Object;)Z
+	public static final fun fromBundle (Landroid/os/Bundle;)Lcom/mikepenz/aboutlibraries/ui/LibsSupportFragmentArgs;
+	public static final fun fromSavedStateHandle (Landroidx/lifecycle/SavedStateHandle;)Lcom/mikepenz/aboutlibraries/ui/LibsSupportFragmentArgs;
+	public final fun getData ()Ljava/io/Serializable;
+	public fun hashCode ()I
+	public final fun toBundle ()Landroid/os/Bundle;
+	public final fun toSavedStateHandle ()Landroidx/lifecycle/SavedStateHandle;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/mikepenz/aboutlibraries/ui/LibsSupportFragmentArgs$Companion {
+	public final fun fromBundle (Landroid/os/Bundle;)Lcom/mikepenz/aboutlibraries/ui/LibsSupportFragmentArgs;
+	public final fun fromSavedStateHandle (Landroidx/lifecycle/SavedStateHandle;)Lcom/mikepenz/aboutlibraries/ui/LibsSupportFragmentArgs;
+}
+
+public final class com/mikepenz/aboutlibraries/ui/item/HeaderItem : com/mikepenz/fastadapter/items/AbstractItem {
+	public fun <init> (Lcom/mikepenz/aboutlibraries/LibsBuilder;)V
+	public synthetic fun bindView (Landroidx/recyclerview/widget/RecyclerView$ViewHolder;Ljava/util/List;)V
+	public fun bindView (Lcom/mikepenz/aboutlibraries/ui/item/HeaderItem$ViewHolder;Ljava/util/List;)V
+	public fun getLayoutRes ()I
+	public final fun getLibsBuilder ()Lcom/mikepenz/aboutlibraries/LibsBuilder;
+	public fun getType ()I
+	public synthetic fun getViewHolder (Landroid/view/View;)Landroidx/recyclerview/widget/RecyclerView$ViewHolder;
+	public fun getViewHolder (Landroid/view/View;)Lcom/mikepenz/aboutlibraries/ui/item/HeaderItem$ViewHolder;
+	public fun isSelectable ()Z
+	public final fun setLibsBuilder (Lcom/mikepenz/aboutlibraries/LibsBuilder;)V
+	public fun setSelectable (Z)V
+	public final fun withAboutIcon (Landroid/graphics/drawable/Drawable;)Lcom/mikepenz/aboutlibraries/ui/item/HeaderItem;
+	public final fun withAboutVersionCode (Ljava/lang/Integer;)Lcom/mikepenz/aboutlibraries/ui/item/HeaderItem;
+	public final fun withAboutVersionCode (Ljava/lang/Long;)Lcom/mikepenz/aboutlibraries/ui/item/HeaderItem;
+	public final fun withAboutVersionName (Ljava/lang/String;)Lcom/mikepenz/aboutlibraries/ui/item/HeaderItem;
+	public final fun withLibsBuilder (Lcom/mikepenz/aboutlibraries/LibsBuilder;)Lcom/mikepenz/aboutlibraries/ui/item/HeaderItem;
+}
+
+public final class com/mikepenz/aboutlibraries/ui/item/HeaderItem$ViewHolder : androidx/recyclerview/widget/RecyclerView$ViewHolder {
+	public fun <init> (Landroid/view/View;)V
+}
+
+public final class com/mikepenz/aboutlibraries/ui/item/LibraryItem : com/mikepenz/fastadapter/items/AbstractItem {
+	public fun <init> (Lcom/mikepenz/aboutlibraries/entity/Library;Lcom/mikepenz/aboutlibraries/LibsBuilder;)V
+	public synthetic fun bindView (Landroidx/recyclerview/widget/RecyclerView$ViewHolder;Ljava/util/List;)V
+	public fun bindView (Lcom/mikepenz/aboutlibraries/ui/item/LibraryItem$ViewHolder;Ljava/util/List;)V
+	public fun getLayoutRes ()I
+	public fun getType ()I
+	public synthetic fun getViewHolder (Landroid/view/View;)Landroidx/recyclerview/widget/RecyclerView$ViewHolder;
+	public fun getViewHolder (Landroid/view/View;)Lcom/mikepenz/aboutlibraries/ui/item/LibraryItem$ViewHolder;
+	public fun isSelectable ()Z
+	public fun setSelectable (Z)V
+}
+
+public final class com/mikepenz/aboutlibraries/ui/item/LibraryItem$ViewHolder : androidx/recyclerview/widget/RecyclerView$ViewHolder {
+	public fun <init> (Landroid/view/View;)V
+}
+
+public final class com/mikepenz/aboutlibraries/ui/item/LoaderItem : com/mikepenz/fastadapter/items/AbstractItem {
+	public fun <init> ()V
+	public fun getLayoutRes ()I
+	public fun getType ()I
+	public synthetic fun getViewHolder (Landroid/view/View;)Landroidx/recyclerview/widget/RecyclerView$ViewHolder;
+	public fun getViewHolder (Landroid/view/View;)Lcom/mikepenz/aboutlibraries/ui/item/LoaderItem$ViewHolder;
+	public fun isSelectable ()Z
+	public fun setSelectable (Z)V
+}
+
+public final class com/mikepenz/aboutlibraries/ui/item/LoaderItem$ViewHolder : androidx/recyclerview/widget/RecyclerView$ViewHolder {
+	public fun <init> (Landroid/view/View;)V
+}
+
+public final class com/mikepenz/aboutlibraries/ui/item/SimpleLibraryItem : com/mikepenz/fastadapter/items/AbstractItem {
+	public fun <init> (Lcom/mikepenz/aboutlibraries/entity/Library;Lcom/mikepenz/aboutlibraries/LibsBuilder;)V
+	public synthetic fun bindView (Landroidx/recyclerview/widget/RecyclerView$ViewHolder;Ljava/util/List;)V
+	public fun bindView (Lcom/mikepenz/aboutlibraries/ui/item/SimpleLibraryItem$ViewHolder;Ljava/util/List;)V
+	public fun getLayoutRes ()I
+	public fun getType ()I
+	public synthetic fun getViewHolder (Landroid/view/View;)Landroidx/recyclerview/widget/RecyclerView$ViewHolder;
+	public fun getViewHolder (Landroid/view/View;)Lcom/mikepenz/aboutlibraries/ui/item/SimpleLibraryItem$ViewHolder;
+	public fun isSelectable ()Z
+	public fun setSelectable (Z)V
+}
+
+public final class com/mikepenz/aboutlibraries/ui/item/SimpleLibraryItem$ViewHolder : androidx/recyclerview/widget/RecyclerView$ViewHolder {
+	public fun <init> (Landroid/view/View;)V
+}
+
+public final class com/mikepenz/aboutlibraries/util/LibraryExtensionsKt {
+	public static final fun getAuthor (Lcom/mikepenz/aboutlibraries/entity/Library;)Ljava/lang/String;
+}
+
+public final class com/mikepenz/aboutlibraries/util/MovementCheck : android/text/method/LinkMovementMethod {
+	public static final field Companion Lcom/mikepenz/aboutlibraries/util/MovementCheck$Companion;
+	public fun <init> ()V
+	public fun onTouchEvent (Landroid/widget/TextView;Landroid/text/Spannable;Landroid/view/MotionEvent;)Z
+}
+
+public final class com/mikepenz/aboutlibraries/util/MovementCheck$Companion {
+	public final fun getInstance ()Lcom/mikepenz/aboutlibraries/util/MovementCheck;
+}
+
+public final class com/mikepenz/aboutlibraries/util/SpecialButton : java/lang/Enum {
+	public static final field SPECIAL1 Lcom/mikepenz/aboutlibraries/util/SpecialButton;
+	public static final field SPECIAL2 Lcom/mikepenz/aboutlibraries/util/SpecialButton;
+	public static final field SPECIAL3 Lcom/mikepenz/aboutlibraries/util/SpecialButton;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/mikepenz/aboutlibraries/util/SpecialButton;
+	public static fun values ()[Lcom/mikepenz/aboutlibraries/util/SpecialButton;
+}
+
+public final class com/mikepenz/aboutlibraries/viewmodel/LibsViewModel : androidx/lifecycle/ViewModel {
+	public fun <init> (Landroid/content/Context;Lcom/mikepenz/aboutlibraries/LibsBuilder;Lcom/mikepenz/aboutlibraries/Libs$Builder;)V
+	public final fun getListItems ()Lkotlinx/coroutines/flow/Flow;
+}
+
+public final class com/mikepenz/aboutlibraries/viewmodel/LibsViewModelFactory : androidx/lifecycle/ViewModelProvider$Factory {
+	public fun <init> (Landroid/content/Context;Lcom/mikepenz/aboutlibraries/LibsBuilder;Lcom/mikepenz/aboutlibraries/Libs$Builder;)V
+	public fun create (Ljava/lang/Class;)Landroidx/lifecycle/ViewModel;
+}
+
