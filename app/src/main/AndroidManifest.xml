@@ -2,18 +2,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
-        android:name=".CustomApplication"
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:theme="@style/SampleApp.DayNight">
+            android:name=".CustomApplication"
+            android:allowBackup="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:roundIcon="@mipmap/ic_launcher_round"
+            android:theme="@style/SampleApp.DayNight">
         <!--android:supportsRtl="true"-->
         <activity
-            android:name="com.mikepenz.aboutlibraries.sample.FragmentActivity"
-            android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/SampleApp.DayNight">
+                android:name="com.mikepenz.aboutlibraries.sample.ComposeActivity"
+                android:exported="true"
+                android:label="@string/app_name"
+                android:theme="@style/SampleApp.DayNight">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,20 +21,20 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.mikepenz.aboutlibraries.sample.ExtendActivity"
-            android:exported="false"
-            android:label="@string/app_name"
-            android:theme="@style/SampleApp.DayNight" />
+                android:name="com.mikepenz.aboutlibraries.sample.FragmentActivity"
+                android:exported="false"
+                android:label="@string/app_name"
+                android:theme="@style/SampleApp.DayNight" />
         <activity
-            android:name="com.mikepenz.aboutlibraries.sample.CustomSortActivity"
-            android:exported="false"
-            android:label="@string/app_name"
-            android:theme="@style/SampleApp.DayNight" />
+                android:name="com.mikepenz.aboutlibraries.sample.ExtendActivity"
+                android:exported="false"
+                android:label="@string/app_name"
+                android:theme="@style/SampleApp.DayNight" />
         <activity
-            android:name="com.mikepenz.aboutlibraries.sample.ComposeActivity"
-            android:exported="false"
-            android:label="@string/app_name"
-            android:theme="@style/SampleApp.DayNight" />
+                android:name="com.mikepenz.aboutlibraries.sample.CustomSortActivity"
+                android:exported="false"
+                android:label="@string/app_name"
+                android:theme="@style/SampleApp.DayNight" />
     </application>
 
 </manifest>
