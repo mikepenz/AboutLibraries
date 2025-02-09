@@ -1,0 +1,252 @@
+public final class com/mikepenz/aboutlibraries/Libs {
+	public static final field Companion Lcom/mikepenz/aboutlibraries/Libs$Companion;
+	public fun <init> (Lkotlinx/collections/immutable/ImmutableList;Lkotlinx/collections/immutable/ImmutableSet;)V
+	public final fun component1 ()Lkotlinx/collections/immutable/ImmutableList;
+	public final fun component2 ()Lkotlinx/collections/immutable/ImmutableSet;
+	public final fun copy (Lkotlinx/collections/immutable/ImmutableList;Lkotlinx/collections/immutable/ImmutableSet;)Lcom/mikepenz/aboutlibraries/Libs;
+	public static synthetic fun copy$default (Lcom/mikepenz/aboutlibraries/Libs;Lkotlinx/collections/immutable/ImmutableList;Lkotlinx/collections/immutable/ImmutableSet;ILjava/lang/Object;)Lcom/mikepenz/aboutlibraries/Libs;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getLibraries ()Lkotlinx/collections/immutable/ImmutableList;
+	public final fun getLicenses ()Lkotlinx/collections/immutable/ImmutableSet;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public synthetic class com/mikepenz/aboutlibraries/Libs$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/mikepenz/aboutlibraries/Libs$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/mikepenz/aboutlibraries/Libs;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/mikepenz/aboutlibraries/Libs;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+}
+
+public final class com/mikepenz/aboutlibraries/Libs$Builder {
+	public fun <init> ()V
+	public final fun build ()Lcom/mikepenz/aboutlibraries/Libs;
+	public final fun withJson (Ljava/lang/String;)Lcom/mikepenz/aboutlibraries/Libs$Builder;
+}
+
+public final class com/mikepenz/aboutlibraries/Libs$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/mikepenz/aboutlibraries/entity/Developer {
+	public static final field Companion Lcom/mikepenz/aboutlibraries/entity/Developer$Companion;
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;)Lcom/mikepenz/aboutlibraries/entity/Developer;
+	public static synthetic fun copy$default (Lcom/mikepenz/aboutlibraries/entity/Developer;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/mikepenz/aboutlibraries/entity/Developer;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getName ()Ljava/lang/String;
+	public final fun getOrganisationUrl ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public synthetic class com/mikepenz/aboutlibraries/entity/Developer$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/mikepenz/aboutlibraries/entity/Developer$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/mikepenz/aboutlibraries/entity/Developer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/mikepenz/aboutlibraries/entity/Developer;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+}
+
+public final class com/mikepenz/aboutlibraries/entity/Developer$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/mikepenz/aboutlibraries/entity/Funding {
+	public static final field Companion Lcom/mikepenz/aboutlibraries/entity/Funding$Companion;
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;)Lcom/mikepenz/aboutlibraries/entity/Funding;
+	public static synthetic fun copy$default (Lcom/mikepenz/aboutlibraries/entity/Funding;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/mikepenz/aboutlibraries/entity/Funding;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getPlatform ()Ljava/lang/String;
+	public final fun getUrl ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public synthetic class com/mikepenz/aboutlibraries/entity/Funding$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/mikepenz/aboutlibraries/entity/Funding$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/mikepenz/aboutlibraries/entity/Funding;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/mikepenz/aboutlibraries/entity/Funding;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+}
+
+public final class com/mikepenz/aboutlibraries/entity/Funding$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/mikepenz/aboutlibraries/entity/Library {
+	public static final field Companion Lcom/mikepenz/aboutlibraries/entity/Library$Companion;
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlinx/collections/immutable/ImmutableList;Lcom/mikepenz/aboutlibraries/entity/Organization;Lcom/mikepenz/aboutlibraries/entity/Scm;Lkotlinx/collections/immutable/ImmutableSet;Lkotlinx/collections/immutable/ImmutableSet;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlinx/collections/immutable/ImmutableList;Lcom/mikepenz/aboutlibraries/entity/Organization;Lcom/mikepenz/aboutlibraries/entity/Scm;Lkotlinx/collections/immutable/ImmutableSet;Lkotlinx/collections/immutable/ImmutableSet;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component10 ()Lkotlinx/collections/immutable/ImmutableSet;
+	public final fun component11 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Lkotlinx/collections/immutable/ImmutableList;
+	public final fun component7 ()Lcom/mikepenz/aboutlibraries/entity/Organization;
+	public final fun component8 ()Lcom/mikepenz/aboutlibraries/entity/Scm;
+	public final fun component9 ()Lkotlinx/collections/immutable/ImmutableSet;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlinx/collections/immutable/ImmutableList;Lcom/mikepenz/aboutlibraries/entity/Organization;Lcom/mikepenz/aboutlibraries/entity/Scm;Lkotlinx/collections/immutable/ImmutableSet;Lkotlinx/collections/immutable/ImmutableSet;Ljava/lang/String;)Lcom/mikepenz/aboutlibraries/entity/Library;
+	public static synthetic fun copy$default (Lcom/mikepenz/aboutlibraries/entity/Library;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlinx/collections/immutable/ImmutableList;Lcom/mikepenz/aboutlibraries/entity/Organization;Lcom/mikepenz/aboutlibraries/entity/Scm;Lkotlinx/collections/immutable/ImmutableSet;Lkotlinx/collections/immutable/ImmutableSet;Ljava/lang/String;ILjava/lang/Object;)Lcom/mikepenz/aboutlibraries/entity/Library;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getArtifactId ()Ljava/lang/String;
+	public final fun getArtifactVersion ()Ljava/lang/String;
+	public final fun getDescription ()Ljava/lang/String;
+	public final fun getDevelopers ()Lkotlinx/collections/immutable/ImmutableList;
+	public final fun getFunding ()Lkotlinx/collections/immutable/ImmutableSet;
+	public final fun getLicenses ()Lkotlinx/collections/immutable/ImmutableSet;
+	public final fun getName ()Ljava/lang/String;
+	public final fun getOpenSource ()Z
+	public final fun getOrganization ()Lcom/mikepenz/aboutlibraries/entity/Organization;
+	public final fun getScm ()Lcom/mikepenz/aboutlibraries/entity/Scm;
+	public final fun getTag ()Ljava/lang/String;
+	public final fun getUniqueId ()Ljava/lang/String;
+	public final fun getWebsite ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public synthetic class com/mikepenz/aboutlibraries/entity/Library$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/mikepenz/aboutlibraries/entity/Library$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/mikepenz/aboutlibraries/entity/Library;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/mikepenz/aboutlibraries/entity/Library;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+}
+
+public final class com/mikepenz/aboutlibraries/entity/Library$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/mikepenz/aboutlibraries/entity/License {
+	public static final field Companion Lcom/mikepenz/aboutlibraries/entity/License$Companion;
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/mikepenz/aboutlibraries/entity/License;
+	public static synthetic fun copy$default (Lcom/mikepenz/aboutlibraries/entity/License;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/mikepenz/aboutlibraries/entity/License;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getHash ()Ljava/lang/String;
+	public final fun getLicenseContent ()Ljava/lang/String;
+	public final fun getName ()Ljava/lang/String;
+	public final fun getSpdxId ()Ljava/lang/String;
+	public final fun getUrl ()Ljava/lang/String;
+	public final fun getYear ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public synthetic class com/mikepenz/aboutlibraries/entity/License$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/mikepenz/aboutlibraries/entity/License$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/mikepenz/aboutlibraries/entity/License;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/mikepenz/aboutlibraries/entity/License;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+}
+
+public final class com/mikepenz/aboutlibraries/entity/License$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/mikepenz/aboutlibraries/entity/Organization {
+	public static final field Companion Lcom/mikepenz/aboutlibraries/entity/Organization$Companion;
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;)Lcom/mikepenz/aboutlibraries/entity/Organization;
+	public static synthetic fun copy$default (Lcom/mikepenz/aboutlibraries/entity/Organization;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/mikepenz/aboutlibraries/entity/Organization;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getName ()Ljava/lang/String;
+	public final fun getUrl ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public synthetic class com/mikepenz/aboutlibraries/entity/Organization$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/mikepenz/aboutlibraries/entity/Organization$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/mikepenz/aboutlibraries/entity/Organization;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/mikepenz/aboutlibraries/entity/Organization;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+}
+
+public final class com/mikepenz/aboutlibraries/entity/Organization$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/mikepenz/aboutlibraries/entity/Scm {
+	public static final field Companion Lcom/mikepenz/aboutlibraries/entity/Scm$Companion;
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/mikepenz/aboutlibraries/entity/Scm;
+	public static synthetic fun copy$default (Lcom/mikepenz/aboutlibraries/entity/Scm;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/mikepenz/aboutlibraries/entity/Scm;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getConnection ()Ljava/lang/String;
+	public final fun getDeveloperConnection ()Ljava/lang/String;
+	public final fun getUrl ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public synthetic class com/mikepenz/aboutlibraries/entity/Scm$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/mikepenz/aboutlibraries/entity/Scm$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/mikepenz/aboutlibraries/entity/Scm;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/mikepenz/aboutlibraries/entity/Scm;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+}
+
+public final class com/mikepenz/aboutlibraries/entity/Scm$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/mikepenz/aboutlibraries/util/AndroidExtensionsKt {
+	public static final fun withContext (Lcom/mikepenz/aboutlibraries/Libs$Builder;Landroid/content/Context;)Lcom/mikepenz/aboutlibraries/Libs$Builder;
+	public static final fun withJson (Lcom/mikepenz/aboutlibraries/Libs$Builder;Landroid/content/Context;I)Lcom/mikepenz/aboutlibraries/Libs$Builder;
+	public static final fun withJson (Lcom/mikepenz/aboutlibraries/Libs$Builder;[B)Lcom/mikepenz/aboutlibraries/Libs$Builder;
+}
+
+public final class com/mikepenz/aboutlibraries/util/AndroidParserKt {
+	public static final fun parseData (Ljava/lang/String;)Lcom/mikepenz/aboutlibraries/util/Result;
+}
+
+public final class com/mikepenz/aboutlibraries/util/Result {
+	public fun <init> (Ljava/util/List;Ljava/util/List;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun component2 ()Ljava/util/List;
+	public final fun getLibraries ()Ljava/util/List;
+	public final fun getLicenses ()Ljava/util/List;
+}
+
