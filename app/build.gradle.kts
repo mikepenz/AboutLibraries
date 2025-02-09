@@ -3,7 +3,7 @@ import com.mikepenz.aboutlibraries.plugin.DuplicateRule
 import com.mikepenz.aboutlibraries.plugin.StrictMode
 
 plugins {
-    id("com.mikepenz.convention.kotlin-multiplatform")
+    id("com.mikepenz.convention.kotlin")
     id("com.mikepenz.convention.android-application")
     id("com.mikepenz.convention.compose")
     id("com.mikepenz.aboutlibraries.plugin")
