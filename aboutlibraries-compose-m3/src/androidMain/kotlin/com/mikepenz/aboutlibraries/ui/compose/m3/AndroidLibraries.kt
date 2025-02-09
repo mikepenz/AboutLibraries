@@ -1,7 +1,6 @@
 package com.mikepenz.aboutlibraries.ui.compose.m3
 
 import android.content.Context
-import android.widget.TextView
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
@@ -11,18 +10,13 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.produceState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.viewinterop.AndroidView
-import androidx.core.text.HtmlCompat
 import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.ui.compose.m3.data.fakeData
-import com.mikepenz.aboutlibraries.ui.compose.m3.util.htmlReadyLicenseContent
 import com.mikepenz.aboutlibraries.util.withContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -68,27 +62,8 @@ fun LibrariesContainer(
         itemContentPadding,
         itemSpacing,
         header,
-        onLibraryClick,
-        licenseDialogBody = { library ->
-            HtmlText(
-                html = library.licenses.firstOrNull()?.htmlReadyLicenseContent.orEmpty(),
-                color = colors.contentColor,
-            )
-        }
+        onLibraryClick
     )
-}
-
-@Composable
-fun HtmlText(
-    html: String,
-    modifier: Modifier = Modifier,
-    color: Color = LibraryDefaults.libraryColors().contentColor,
-) {
-    AndroidView(modifier = modifier, factory = { context ->
-        TextView(context).apply {
-            setTextColor(color.toArgb())
-        }
-    }, update = { it.text = HtmlCompat.fromHtml(html, HtmlCompat.FROM_HTML_MODE_COMPACT) })
 }
 
 @Preview("Library items (Default)")

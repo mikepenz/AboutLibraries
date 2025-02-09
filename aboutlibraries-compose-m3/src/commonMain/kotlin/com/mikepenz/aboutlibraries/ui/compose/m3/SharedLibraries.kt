@@ -35,6 +35,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.fromHtml
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
@@ -67,7 +69,12 @@ fun LibrariesContainer(
     itemSpacing: Dp = LibraryDefaults.LibraryItemSpacing,
     header: (LazyListScope.() -> Unit)? = null,
     onLibraryClick: ((Library) -> Unit)? = null,
-    licenseDialogBody: (@Composable (Library) -> Unit)? = null,
+    licenseDialogBody: (@Composable (Library) -> Unit)? = { library ->
+        Text(
+            text = AnnotatedString.fromHtml(library.licenses.firstOrNull()?.licenseContent.orEmpty()),
+            color = colors.contentColor
+        )
+    },
     licenseDialogConfirmText: String = "OK",
 ) {
     val uriHandler = LocalUriHandler.current
@@ -99,7 +106,7 @@ fun LibrariesContainer(
                     try {
                         uriHandler.openUri(it)
                     } catch (t: Throwable) {
-                        println("Failed to open url: ${it}")
+                        println("Failed to open url: $it")
                     }
                 }
             }
@@ -107,7 +114,7 @@ fun LibrariesContainer(
     )
 
     val library = openDialog.value
-    if (library != null && licenseDialogBody != null) {
+    if (library != null && licenseDialogBody != null && library.licenses.isNotEmpty()) {
         LicenseDialog(library, colors, licenseDialogConfirmText, body = licenseDialogBody) {
             openDialog.value = null
         }
