@@ -3,6 +3,7 @@
     <string name="app_name">AboutLibraries Sample</string>
 
     <string name="action_composeactivity">Compose Activity</string>
+    <string name="action_fargmentactivity">Fragment Activity</string>
     <string name="action_manifestactivity">Manifest Activity</string>
     <string name="action_minimalactivity">Minimal Activity</string>
     <string name="action_extendactivity">Extended Activity</string>

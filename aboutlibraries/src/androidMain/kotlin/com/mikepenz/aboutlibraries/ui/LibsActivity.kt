@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.mikepenz.aboutlibraries.ui
 
 import android.os.Bundle
@@ -20,6 +22,7 @@ import com.mikepenz.aboutlibraries.util.getThemeColor
 /**
  * Container [AppCompatActivity] to host the [LibsSupportFragment]
  */
+@Deprecated("The legacy view based UI will be deprecated in the future. Please consider moving to the compose based UI.")
 open class LibsActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
     private lateinit var fragment: LibsSupportFragment

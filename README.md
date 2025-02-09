@@ -274,6 +274,9 @@ Find a sample application as the `app-desktop` module. It showcases the usage to
 
 ## (Legacy) UI-module
 
+> [!NOTE]  
+> The legacy view based UI will be deprecated in the future. Please consider moving to the compose based UI.
+
 ```gradle
 implementation "com.mikepenz:aboutlibraries:${latestAboutLibsRelease}"
 ```
