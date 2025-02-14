@@ -5,6 +5,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.mikepenz.aboutlibraries.entity.Library
@@ -14,13 +16,6 @@ import com.mikepenz.aboutlibraries.entity.Library
  * Contains the default values used by [Library]
  */
 object LibraryDefaults {
-    private val LibraryVersionPaddingStart = 8.dp
-    private val LibraryBadgePaddingTop = 8.dp
-    private val LibraryBadgePaddingEnd = 4.dp
-
-    /** The default content padding used by [Library] */
-    private val LibraryItemContentPadding = PaddingValues(16.dp)
-
     /**
      * Creates a [LibraryPadding] that represents the default paddings used in a [Library]
      *
@@ -32,12 +27,10 @@ object LibraryDefaults {
      */
     @Composable
     fun libraryPadding(
-        contentPadding: PaddingValues = LibraryItemContentPadding,
+        contentPadding: PaddingValues = PaddingValues(16.dp),
         namePadding: PaddingValues = PaddingValues(0.dp),
-        versionPadding: PaddingValues = PaddingValues(start = LibraryVersionPaddingStart),
-        badgePadding: PaddingValues = PaddingValues(
-            top = LibraryBadgePaddingTop, end = LibraryBadgePaddingEnd
-        ),
+        versionPadding: PaddingValues = PaddingValues(start = 8.dp),
+        badgePadding: PaddingValues = PaddingValues(top = 8.dp, end = 4.dp),
         badgeContentPadding: PaddingValues = PaddingValues(0.dp),
         verticalPadding: Dp = 2.dp,
     ): LibraryPadding = DefaultLibraryPadding(
@@ -49,17 +42,51 @@ object LibraryDefaults {
         verticalPadding = verticalPadding,
     )
 
-    private val LibraryItemSpacing = 0.dp
-
     /**
      * Creates a [LibraryDimensions] that represents the default dimensions used in a [Library]
      *
      * @param itemSpacing the spacing between items in the [Library]
      */
     fun libraryDimensions(
-        itemSpacing: Dp = LibraryItemSpacing,
+        itemSpacing: Dp = 0.dp,
     ): LibraryDimensions = DefaultLibraryDimensions(
         itemSpacing = itemSpacing,
+    )
+
+    /**
+     * Creates a [LibraryTextStyles] that represents the default configurations used in a [Library]
+     *
+     * @param defaultOverflow the default text overflow for all line limited texts
+     * @param nameMaxLines the max lines allowed for the name text
+     * @param nameOverflow the text overflow for the name text
+     * @param versionMaxLines the max lines allowed for the version text
+     * @param authorMaxLines the max lines allowed for the author text
+     * @param descriptionMaxLines the max lines allowed for the description text
+     */
+    fun libraryTextStyles(
+        defaultOverflow: TextOverflow = TextOverflow.Ellipsis,
+        nameTextStyles: TextStyle? = null,
+        nameMaxLines: Int = 1,
+        nameOverflow: TextOverflow = defaultOverflow,
+        versionTextStyle: TextStyle? = null,
+        versionMaxLines: Int = nameMaxLines,
+        authorTextStyle: TextStyle? = null,
+        authorMaxLines: Int = nameMaxLines,
+        descriptionTextStyle: TextStyle? = null,
+        descriptionMaxLines: Int = 3,
+        licensesTextStyle: TextStyle? = null,
+    ): LibraryTextStyles = DefaultLibraryTextStyles(
+        defaultOverflow = defaultOverflow,
+        nameTextStyles = nameTextStyles,
+        nameMaxLines = nameMaxLines,
+        nameOverflow = nameOverflow,
+        versionTextStyle = versionTextStyle,
+        versionMaxLines = versionMaxLines,
+        authorTextStyle = authorTextStyle,
+        authorMaxLines = authorMaxLines,
+        descriptionTextStyle = descriptionTextStyle,
+        descriptionMaxLines = descriptionMaxLines,
+        licensesTextStyle = licensesTextStyle,
     )
 }
 
@@ -151,3 +178,60 @@ interface LibraryDimensions {
 private class DefaultLibraryDimensions(
     override val itemSpacing: Dp,
 ) : LibraryDimensions
+
+/**
+ * Represents the text styles used in a library.
+ */
+@Stable
+interface LibraryTextStyles {
+    /** Represents the default text overflow for all line limited texts */
+    val defaultOverflow: TextOverflow
+
+    /** Represents the text styles for the name text */
+    val nameTextStyles: TextStyle?
+
+    /** Represents the max lines allowed for the name text */
+    val nameMaxLines: Int
+
+    /** Represents the text overflow for the name text */
+    val nameOverflow: TextOverflow
+
+    /** Represents the text styles for the version text */
+    val versionTextStyle: TextStyle?
+
+    /** Represents the max lines allowed for the version text */
+    val versionMaxLines: Int
+
+    /** Represents the text styles for the author text */
+    val authorTextStyle: TextStyle?
+
+    /** Represents the max lines allowed for the author text */
+    val authorMaxLines: Int
+
+    /** Represents the text styles for the description text */
+    val descriptionTextStyle: TextStyle?
+
+    /** Represents the max lines allowed for the description text */
+    val descriptionMaxLines: Int
+
+    /** Represents the text styles for the description text */
+    val licensesTextStyle: TextStyle?
+}
+
+/**
+ * Default [LibraryTextStyles].
+ */
+@Immutable
+private class DefaultLibraryTextStyles(
+    override val defaultOverflow: TextOverflow,
+    override val nameTextStyles: TextStyle?,
+    override val nameMaxLines: Int,
+    override val nameOverflow: TextOverflow,
+    override val versionTextStyle: TextStyle?,
+    override val versionMaxLines: Int,
+    override val authorTextStyle: TextStyle?,
+    override val authorMaxLines: Int,
+    override val descriptionTextStyle: TextStyle?,
+    override val descriptionMaxLines: Int,
+    override val licensesTextStyle: TextStyle?,
+) : LibraryTextStyles

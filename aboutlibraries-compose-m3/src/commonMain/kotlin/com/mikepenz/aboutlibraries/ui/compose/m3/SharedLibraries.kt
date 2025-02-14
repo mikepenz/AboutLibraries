@@ -19,6 +19,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Badge
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -33,7 +34,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
@@ -44,6 +44,7 @@ import com.mikepenz.aboutlibraries.ui.compose.LibraryColors
 import com.mikepenz.aboutlibraries.ui.compose.LibraryDefaults
 import com.mikepenz.aboutlibraries.ui.compose.LibraryDimensions
 import com.mikepenz.aboutlibraries.ui.compose.LibraryPadding
+import com.mikepenz.aboutlibraries.ui.compose.LibraryTextStyles
 import com.mikepenz.aboutlibraries.ui.compose.layout.LibraryScaffoldLayout
 import com.mikepenz.aboutlibraries.ui.compose.util.author
 import com.mikepenz.aboutlibraries.ui.compose.util.htmlReadyLicenseContent
@@ -250,6 +251,7 @@ fun Library(
     showLicenseBadges: Boolean = true,
     colors: LibraryColors = LibraryDefaults.libraryColors(),
     padding: LibraryPadding = LibraryDefaults.libraryPadding(),
+    textStyles: LibraryTextStyles = LibraryDefaults.libraryTextStyles(),
     typography: Typography = MaterialTheme.typography,
     onClick: () -> Unit,
 ) {
@@ -263,8 +265,8 @@ fun Library(
                 text = library.name,
                 style = typography.titleLarge,
                 color = colors.contentColor,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
+                maxLines = textStyles.nameMaxLines,
+                overflow = textStyles.nameOverflow,
             )
         },
         version = {
@@ -274,7 +276,9 @@ fun Library(
                     text = version,
                     style = typography.bodyMedium,
                     color = colors.contentColor,
-                    textAlign = TextAlign.Center
+                    maxLines = textStyles.versionMaxLines,
+                    textAlign = TextAlign.Center,
+                    overflow = textStyles.defaultOverflow,
                 )
             }
         },
@@ -284,7 +288,9 @@ fun Library(
                 Text(
                     text = author,
                     style = typography.bodyMedium,
-                    color = colors.contentColor
+                    color = colors.contentColor,
+                    maxLines = textStyles.authorMaxLines,
+                    overflow = textStyles.defaultOverflow,
                 )
             }
         },
@@ -294,7 +300,9 @@ fun Library(
                 Text(
                     text = description,
                     style = typography.bodySmall,
-                    color = colors.contentColor
+                    color = colors.contentColor,
+                    maxLines = textStyles.descriptionMaxLines,
+                    overflow = textStyles.defaultOverflow,
                 )
             }
         },
@@ -308,7 +316,8 @@ fun Library(
                     ) {
                         Text(
                             modifier = Modifier.padding(padding.badgeContentPadding),
-                            text = it.name
+                            text = it.name,
+                            style = textStyles.licensesTextStyle ?: LocalTextStyle.current,
                         )
                     }
                 }

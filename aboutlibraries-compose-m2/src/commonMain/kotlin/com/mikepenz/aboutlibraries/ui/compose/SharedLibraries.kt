@@ -18,6 +18,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Badge
 import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.LocalTextStyle
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -32,7 +33,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
@@ -237,6 +237,7 @@ fun Library(
     showLicenseBadges: Boolean = true,
     colors: LibraryColors = LibraryDefaults.libraryColors(),
     padding: LibraryPadding = LibraryDefaults.libraryPadding(),
+    textStyles: LibraryTextStyles = LibraryDefaults.libraryTextStyles(),
     typography: Typography = MaterialTheme.typography,
     onClick: () -> Unit,
 ) {
@@ -244,14 +245,23 @@ fun Library(
         modifier = Modifier.fillMaxWidth().background(colors.backgroundColor).clickable { onClick.invoke() },
         name = {
             Text(
-                text = library.name, style = typography.h6, color = colors.contentColor, maxLines = 1, overflow = TextOverflow.Ellipsis
+                text = library.name,
+                style = textStyles.nameTextStyles ?: typography.h6,
+                color = colors.contentColor,
+                maxLines = textStyles.nameMaxLines,
+                overflow = textStyles.nameOverflow,
             )
         },
         version = {
             val version = library.artifactVersion
             if (version != null && showVersion) {
                 Text(
-                    text = version, style = typography.body2, color = colors.contentColor, textAlign = TextAlign.Center
+                    text = version,
+                    style = textStyles.versionTextStyle ?: typography.body2,
+                    color = colors.contentColor,
+                    maxLines = textStyles.versionMaxLines,
+                    textAlign = TextAlign.Center,
+                    overflow = textStyles.defaultOverflow,
                 )
             }
         },
@@ -259,7 +269,11 @@ fun Library(
             val author = library.author
             if (showAuthor && author.isNotBlank()) {
                 Text(
-                    text = author, style = typography.body2, color = colors.contentColor
+                    text = author,
+                    style = textStyles.authorTextStyle ?: typography.body2,
+                    color = colors.contentColor,
+                    maxLines = textStyles.authorMaxLines,
+                    overflow = textStyles.defaultOverflow,
                 )
             }
         },
@@ -267,7 +281,11 @@ fun Library(
             val description = library.description
             if (showDescription && !description.isNullOrBlank()) {
                 Text(
-                    text = description, style = typography.caption, color = colors.contentColor
+                    text = description,
+                    style = textStyles.descriptionTextStyle ?: typography.caption,
+                    color = colors.contentColor,
+                    maxLines = textStyles.descriptionMaxLines,
+                    overflow = textStyles.defaultOverflow,
                 )
             }
         },
@@ -275,10 +293,14 @@ fun Library(
             if (showLicenseBadges && library.licenses.isNotEmpty()) {
                 library.licenses.forEach {
                     Badge(
-                        modifier = Modifier.padding(padding.badgePadding), contentColor = colors.badgeContentColor, backgroundColor = colors.badgeBackgroundColor
+                        modifier = Modifier.padding(padding.badgePadding),
+                        contentColor = colors.badgeContentColor,
+                        backgroundColor = colors.badgeBackgroundColor
                     ) {
                         Text(
-                            modifier = Modifier.padding(padding.badgeContentPadding), text = it.name
+                            modifier = Modifier.padding(padding.badgeContentPadding),
+                            text = it.name,
+                            style = textStyles.licensesTextStyle ?: LocalTextStyle.current,
                         )
                     }
                 }
@@ -288,8 +310,7 @@ fun Library(
 }
 
 /**
- * Creates a [LibraryColors] that represents the default colors used in
- * a [Library].
+ * Creates a [LibraryColors] that represents the default colors used in a [Library].
  *
  * @param backgroundColor the background color of this [Library]
  * @param contentColor the content color of this [Library]
