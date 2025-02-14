@@ -51,7 +51,7 @@ jobs:
           echo "gradle.publish.secret=${{ secrets.GRADLE_PUBLISH_SECRET }}" >> ~/.gradle/gradle.properties
 
       - name: Release Plugin
-        if: matrix.os == 'ubuntu-latest'
+        if: matrix.os == 'ubuntu-latest' && !contains(github.ref, '+')
         run: |
           cd plugin-build
           ./gradlew publishPlugins | true
