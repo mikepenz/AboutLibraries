@@ -19,14 +19,14 @@
 
 - Kotlin Multiplatform support (including wasm)
 - Lightweight multiplatform core module
-  - Access all generated information
-  - Build custom UIs
+    - Access all generated information
+    - Build custom UIs
 - Compose UI module
 - Gradle Plugin
-  - Generating dependency / license metadata
-  - Different exports, compliance report
-  - Identify possible project funding
-  - License *strict mode*
+    - Generating dependency / license metadata
+    - Different exports, compliance report
+    - Identify possible project funding
+    - License *strict mode*
 - Simple and fast integration
 
 # Screenshots
@@ -42,19 +42,21 @@
 
 ## Gradle Plugin
 
-AboutLibraries v10 includes a completely redone plugin, with build cache support. It includes all dependencies as found based on the gradle configuration.
+AboutLibraries v10 includes a completely redone plugin, with build cache support. It includes all
+dependencies as found based on the gradle configuration.
 
-> The gradle plugin is hosted via [Gradle Plugins](https://plugins.gradle.org/plugin/com.mikepenz.aboutlibraries.plugin).
+> The gradle plugin is hosted
+> via [Gradle Plugins](https://plugins.gradle.org/plugin/com.mikepenz.aboutlibraries.plugin).
 
 <details open><summary><b>Using the plugins DSL (for single modules)</b></summary>
 <p>
 
 ```gradle
-// Root build.gradle
-id 'com.mikepenz.aboutlibraries.plugin' version "${latestAboutLibsRelease}" apply false
+// Root build.gradle.kts
+id("com.mikepenz.aboutlibraries.plugin") version "${latestAboutLibsRelease}" apply false
 
-// App build.gradle
-id 'com.mikepenz.aboutlibraries.plugin'
+// App build.gradle.kts
+id("com.mikepenz.aboutlibraries.plugin")
 ```
 
 </p>
@@ -65,7 +67,7 @@ id 'com.mikepenz.aboutlibraries.plugin'
 
 ```gradle
 // Root build.gradle
-id 'com.mikepenz.aboutlibraries.plugin' version "${latestAboutLibsRelease}"
+id("com.mikepenz.aboutlibraries.plugin") version "${latestAboutLibsRelease}"
 ```
 
 </p>
@@ -76,7 +78,7 @@ id 'com.mikepenz.aboutlibraries.plugin' version "${latestAboutLibsRelease}"
 
 ```gradle
 // Root build.gradle
-classpath "com.mikepenz.aboutlibraries.plugin:aboutlibraries-plugin:${latestAboutLibsRelease}"
+classpath("com.mikepenz.aboutlibraries.plugin:aboutlibraries-plugin:${latestAboutLibsRelease}")
 
 // App build.gradle
 apply plugin: 'com.mikepenz.aboutlibraries.plugin'
@@ -137,11 +139,13 @@ aboutLibraries {
 }
 ```
 
-Full documentation of all available gradle plugin configurations: https://github.com/mikepenz/AboutLibraries/blob/develop/plugin-build/plugin/src/main/kotlin/com/mikepenz/aboutlibraries/plugin/AboutLibrariesExtension.kt
+Full documentation of all available gradle plugin
+configurations: https://github.com/mikepenz/AboutLibraries/blob/develop/plugin-build/plugin/src/main/kotlin/com/mikepenz/aboutlibraries/plugin/AboutLibrariesExtension.kt
 
 ## Modify libraries / licenses
 
-The plugin offers the ability to add additional libraries or licenses by specifying these under the `libraries` and respectively `licenses` directory, within the defined `configPath`.
+The plugin offers the ability to add additional libraries or licenses by specifying these under the
+`libraries` and respectively `licenses` directory, within the defined `configPath`.
 This can be seen here: https://github.com/mikepenz/AboutLibraries/blob/develop/config/
 
 ### Libraries
@@ -182,10 +186,11 @@ Provide additional or modify existing licenses via a `.json` file per license.
 
 ## Core-module
 
-> The AboutLibraries Library is pushed to [Maven Central](https://search.maven.org/artifact/com.mikepenz/aboutlibraries-core).
+> The AboutLibraries Library is pushed
+> to [Maven Central](https://search.maven.org/artifact/com.mikepenz/aboutlibraries-core).
 
 ```gradle
-implementation "com.mikepenz:aboutlibraries-core:${latestAboutLibsRelease}"
+implementation("com.mikepenz:aboutlibraries-core:${latestAboutLibsRelease}")
 ```
 
 <details><summary><b>(Advanced) Usage</b></summary>
@@ -193,7 +198,8 @@ implementation "com.mikepenz:aboutlibraries-core:${latestAboutLibsRelease}"
 
 ## Access generated library details
 
-To create a individual integration, access the generated library information programmatically through the core module.
+To create a individual integration, access the generated library information programmatically
+through the core module.
 
 ```kotlin
 val libs = Libs.Builder()
@@ -212,10 +218,10 @@ for (lib in libraries) {
 ## UI-module
 
 ```gradle
-implementation "com.mikepenz:aboutlibraries-compose:${latestAboutLibsRelease}"
+implementation("com.mikepenz:aboutlibraries-compose:${latestAboutLibsRelease}")
 
 // Alternative Material3 based module
-implementation "com.mikepenz:aboutlibraries-compose-m3:${latestAboutLibsRelease}"
+implementation("com.mikepenz:aboutlibraries-compose-m3:${latestAboutLibsRelease}")
 ```
 
 ### Usage
@@ -228,12 +234,12 @@ LibrariesContainer(
 
 // compose resource API
 val libraries by rememberLibraries {
-  Res.readBytes("files/aboutlibraries.json").decodeToString()
+    Res.readBytes("files/aboutlibraries.json").decodeToString()
 }
 
 // compose manually
-  val libraries by rememberLibraries {
-  useResource("aboutlibraries.json") { res -> res.bufferedReader().readText() }
+val libraries by rememberLibraries {
+    useResource("aboutlibraries.json") { res -> res.bufferedReader().readText() }
 }
 
 LibrariesContainer(libraries, Modifier.fillMaxSize())
@@ -243,7 +249,8 @@ LibrariesContainer(libraries, Modifier.fillMaxSize())
 <p>
 
 The core module and the compose module are Kotlin-Multiplatform projects.
-Find a sample application as the `app-desktop` module. It showcases the usage to manually generate the dependency meta information and include as part of the SCM.
+Find a sample application as the `app-desktop` module. It showcases the usage to manually generate
+the dependency meta information and include as part of the SCM.
 
 ### Generate Dependency Information
 
@@ -275,10 +282,11 @@ Find a sample application as the `app-desktop` module. It showcases the usage to
 ## (Legacy) UI-module
 
 > [!NOTE]  
-> The legacy view based UI will be deprecated in the future. Please consider moving to the compose based UI.
+> The legacy view based UI will be deprecated in the future. Please consider moving to the compose
+> based UI.
 
 ```gradle
-implementation "com.mikepenz:aboutlibraries:${latestAboutLibsRelease}"
+implementation("com.mikepenz:aboutlibraries:${latestAboutLibsRelease}")
 ```
 
 <details><summary><b>Usage</b></summary>
@@ -286,7 +294,9 @@ implementation "com.mikepenz:aboutlibraries:${latestAboutLibsRelease}"
 
 ### Usage
 
-Use this library in a few different ways. Create a custom activity, including a custom style or just use its generated information. Or simply use the built-in Activity or Fragment and just pass the libs to include.
+Use this library in a few different ways. Create a custom activity, including a custom style or just
+use its generated information. Or simply use the built-in Activity or Fragment and just pass the
+libs to include.
 
 > **Note**: The new version requires the new Material3 theme as base.
 
@@ -297,30 +307,36 @@ LibsBuilder()
     .start(this) // start the activity
 ```
 
-The activity uses a toolbar, which requires the appropriate theme. See [Style the AboutLibraries](#style-the-aboutlibraries-%EF%B8%8F) for more details
+The activity uses a toolbar, which requires the appropriate theme.
+See [Style the AboutLibraries](#style-the-aboutlibraries-%EF%B8%8F) for more details
 
 #### Fragment
+
 ```kotlin
 val fragment = LibsBuilder()
     .supportFragment()
 ```
 
 #### About this App UI
+
 The `AboutLibraries` library also offers the ability to create an `About this app` screen.
 Add the following .xml file (or just the strings - the key must be the same) to the project.
 
 ```xml
+
 <resources>
     <string name="aboutLibraries_description_showIcon">true</string>
     <string name="aboutLibraries_description_showVersion">true</string>
     <string name="aboutLibraries_description_text">Place the description here :D</string>
 </resources>
 ```
+
 or use the builder and add following:
+
 ```kotlin
 .withAboutIconShown(true)
-.withAboutVersionShown(true)
-.withAboutDescription("This is a small sample which can be set in the about my app description file.<br /><b>Style this with html markup :D</b>")
+    .withAboutVersionShown(true)
+    .withAboutDescription("This is a small sample which can be set in the about my app description file.<br /><b>Style this with html markup :D</b>")
 ```
 
 #### Style the AboutLibraries 🖌️
@@ -342,20 +358,21 @@ Create a custom style for the AboutLibraries UI.
 </style>
 
 // define the custom styles for the theme
+
 <style name="SampleApp" parent="Theme.MaterialComponents.Light.NoActionBar">
-    ...
-    <item name="aboutLibrariesStyle">@style/CustomAboutLibrariesStyle</item>
-    ...
+...
+<item name="aboutLibrariesStyle">@style/CustomAboutLibrariesStyle</item>
+...
 </style>
 ```
 
 </p>
 </details>
 
-
 ## Enterprise
 
 Since v10 of the AboutLibraries plugin it is possible to disable the automatic registration of the plugin task as part of the build system.
+
 ```
 aboutLibraries {
     registerAndroidTasks = false
@@ -364,9 +381,11 @@ aboutLibraries {
 
 This is especially beneficial for enterprise environments where it is required to be in full control of the included `aboutlibraries.json`.
 After disabling the integration it is possible to manually update the definitions, or do it on your CI environment.
+
 ```
 ./gradlew app:exportLibraryDefinitions -PaboutLibraries.exportPath=src/main/res/raw/ -PaboutLibraries.exportVariant=release
 ```
+
 This generated file can be either included in your SCM, and every build will use this exact verified and approved state.
 Additionally, this helps to ensure no issues occur during the apps delivery phase, as the respective file is already generated and included.
 
@@ -383,7 +402,8 @@ LibrariesContainer(
 
 ## Gradle API
 
-By default, the gradle plugin is automatically executed for Android projects, generating the library metadata where it's automatically discovered by the `ui` modules.
+By default, the gradle plugin is automatically executed for Android projects, generating the library
+metadata where it's automatically discovered by the `ui` modules.
 For other environments or for more advanced usages the plugin offers additional APIs.
 
 ```bash
@@ -409,27 +429,34 @@ For other environments or for more advanced usages the plugin offers additional 
 ```
 
 # Special repository support
+
 | Host                          | License | Funding |
 |-------------------------------|---------|---------|
 | [GitHub](https://github.com/) | x       | x       |
 
 # Disclaimer
 
-This library uses all compile time dependencies (and their sub dependencies) as defined in the `build.gradle` file.
-This could lead to dependencies which are only used during compilation (and not actually distributed in the app) to be listed or missing in the attribution screen.
-It might also fail to identify licenses if the dependencies do not define it properly in their pom.xml file.
+This library uses all compile time dependencies (and their sub dependencies) as defined in the
+`build.gradle` file.
+This could lead to dependencies which are only used during compilation (and not actually distributed
+in the app) to be listed or missing in the attribution screen.
+It might also fail to identify licenses if the dependencies do not define it properly in their
+pom.xml file.
 
-Careful optimisation and review of all licenses is recommended to really include all required dependencies. The use of the gradle commands like `findLibraries` can help doing this.
+Careful optimisation and review of all licenses is recommended to really include all required
+dependencies. The use of the gradle commands like `findLibraries` can help doing this.
 
-It is also important that native sub dependencies can *not* be resolved automatically as they are not included via gradle.
-Additional dependencies can be provided via the plugins API to extend and provide any additional details.
+It is also important that native sub dependencies can *not* be resolved automatically as they are
+not included via gradle.
+Additional dependencies can be provided via the plugins API to extend and provide any additional
+details.
 
 # Developed By
 
 - Mike Penz
-  - [mikepenz.dev](https://mikepenz.dev) - [blog.mikepenz.dev](https://blog.mikepenz.dev) - <mikepenz@gmail.com>
-  - [paypal.me/mikepenz](http://paypal.me/mikepenz)
-  - [Automatic changelog generation action](https://github.com/marketplace/actions/release-changelog-builder)
+    - [mikepenz.dev](https://mikepenz.dev) - [blog.mikepenz.dev](https://blog.mikepenz.dev) - <mikepenz@gmail.com>
+    - [paypal.me/mikepenz](http://paypal.me/mikepenz)
+    - [Automatic changelog generation action](https://github.com/marketplace/actions/release-changelog-builder)
 
 # License
 
