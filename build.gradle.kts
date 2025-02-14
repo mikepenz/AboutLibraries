@@ -5,8 +5,7 @@ buildscript {
 }
 
 plugins {
-    alias(libs.plugins.conventionPlugin)
-
+    alias(baseLibs.plugins.conventionPlugin)
     alias(baseLibs.plugins.androidApplication) apply false
     alias(baseLibs.plugins.androidLibrary) apply false
     alias(baseLibs.plugins.composeMultiplatform) apply false
@@ -16,6 +15,7 @@ plugins {
     alias(baseLibs.plugins.dokka)
     alias(baseLibs.plugins.aboutLibraries) apply false
     alias(baseLibs.plugins.mavenPublish) apply false
+    alias(baseLibs.plugins.binaryCompatiblityValidator) apply false
 
     alias(libs.plugins.navSafeArgs) apply false
 }

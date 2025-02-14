@@ -1,7 +1,6 @@
 [versions]
-conventionPlugin = "0.1.5"
 # kotlin
-kotlinxSerialization = "1.7.3"
+kotlinxSerialization = "1.8.0"
 kotlinxCollections = "0.3.8"
 # androidx
 activity = "1.10.0"
@@ -9,7 +8,7 @@ cardview = "1.0.0"
 constraintLayout = "2.2.0"
 core = "1.15.0"
 lifecycle = { require = "2.8.7" }
-navigation = "2.8.5"
+navigation = "2.8.6"
 recyclerView = "1.4.0"
 # google
 material = "1.12.0"
@@ -24,7 +23,6 @@ materialDrawer = "9.0.2"
 okhttp = "4.12.0"
 
 [plugins]
-conventionPlugin = { id = "com.mikepenz.convention.root", version.ref = "conventionPlugin" }
 navSafeArgs = { id = "androidx.navigation.safeargs", version.ref = "navigation" }
 
 [libraries]

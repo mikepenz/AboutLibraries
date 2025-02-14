@@ -1,3 +1,4 @@
+import aboutlibraries.app_wasm.generated.resources.Res
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
@@ -14,7 +15,6 @@ import com.mikepenz.aboutlibraries.ui.compose.LibrariesContainer
 import com.mikepenz.aboutlibraries.ui.compose.LicenseDialog
 import com.mikepenz.aboutlibraries.ui.compose.rememberLibraries
 import com.mikepenz.aboutlibraries.ui.compose.util.htmlReadyLicenseContent
-import com.mikepenz.app_wasm.generated.resources.Res
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalResourceApi::class)

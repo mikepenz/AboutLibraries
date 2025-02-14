@@ -1,24 +1,22 @@
 package com.mikepenz.aboutlibraries.ui.compose
 
 import android.content.Context
-import android.widget.TextView
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.produceState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.fromHtml
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.viewinterop.AndroidView
-import androidx.core.text.HtmlCompat
 import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.ui.compose.data.fakeData
@@ -39,6 +37,7 @@ fun LibrariesContainer(
     lazyListState: LazyListState = rememberLazyListState(),
     contentPadding: PaddingValues = PaddingValues(0.dp),
     showAuthor: Boolean = true,
+    showDescription: Boolean = false,
     showVersion: Boolean = true,
     showLicenseBadges: Boolean = true,
     colors: LibraryColors = LibraryDefaults.libraryColors(),
@@ -56,39 +55,27 @@ fun LibrariesContainer(
         }
     }
     LibrariesContainer(
-        libraries.value,
-        modifier,
-        lazyListState,
-        contentPadding,
-        showAuthor,
-        showVersion,
-        showLicenseBadges,
-        colors,
-        padding,
-        itemContentPadding,
-        itemSpacing,
-        header,
-        onLibraryClick,
+        libraries = libraries.value,
+        modifier = modifier,
+        lazyListState = lazyListState,
+        contentPadding = contentPadding,
+        showAuthor = showAuthor,
+        showDescription = showDescription,
+        showVersion = showVersion,
+        showLicenseBadges = showLicenseBadges,
+        colors = colors,
+        padding = padding,
+        itemContentPadding = itemContentPadding,
+        itemSpacing = itemSpacing,
+        header = header,
+        onLibraryClick = onLibraryClick,
         licenseDialogBody = { library ->
-            HtmlText(
-                html = library.licenses.firstOrNull()?.htmlReadyLicenseContent.orEmpty(),
-                color = colors.contentColor,
+            Text(
+                text = AnnotatedString.fromHtml(library.licenses.firstOrNull()?.htmlReadyLicenseContent.orEmpty()),
+                color = colors.contentColor
             )
         }
     )
-}
-
-@Composable
-fun HtmlText(
-    html: String,
-    modifier: Modifier = Modifier,
-    color: Color = LibraryDefaults.libraryColors().contentColor,
-) {
-    AndroidView(modifier = modifier, factory = { context ->
-        TextView(context).apply {
-            setTextColor(color.toArgb())
-        }
-    }, update = { it.text = HtmlCompat.fromHtml(html, HtmlCompat.FROM_HTML_MODE_COMPACT) })
 }
 
 @Preview("Library items (Default)")

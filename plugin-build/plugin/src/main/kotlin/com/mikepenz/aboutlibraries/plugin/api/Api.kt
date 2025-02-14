@@ -28,8 +28,8 @@ class Api private constructor(
     /**
      * Fetches the remote license for the given repository, and attaches them to the existing set.
      */
-    override fun fetchRemoteLicense(uniqueId: String, repositoryLink: Scm?, licenses: HashSet<License>) {
-        resolveApi(repositoryLink?.url)?.fetchRemoteLicense(uniqueId, repositoryLink, licenses)
+    override fun fetchRemoteLicense(uniqueId: String, repositoryLink: Scm?, licenses: HashSet<License>, mapLicensesToSpdx: Boolean) {
+        resolveApi(repositoryLink?.url)?.fetchRemoteLicense(uniqueId, repositoryLink, licenses, mapLicensesToSpdx)
     }
 
     /**
@@ -70,7 +70,7 @@ internal interface IApi {
     /**
      * Fetches the remote license as stored in the repository and updates the already covered licenses.
      */
-    fun fetchRemoteLicense(uniqueId: String, repositoryLink: Scm?, licenses: HashSet<License>) {}
+    fun fetchRemoteLicense(uniqueId: String, repositoryLink: Scm?, licenses: HashSet<License>, mapLicensesToSpdx: Boolean = true) {}
 
     /**
      * Fetches the funding for the given repository.

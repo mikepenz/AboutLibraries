@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.mikepenz.aboutlibraries.ui.item
 
 import android.graphics.drawable.Drawable
@@ -13,7 +15,11 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.mikepenz.aboutlibraries.LibsBuilder
 import com.mikepenz.aboutlibraries.LibsConfiguration
 import com.mikepenz.aboutlibraries.R
-import com.mikepenz.aboutlibraries.util.*
+import com.mikepenz.aboutlibraries.util.MovementCheck
+import com.mikepenz.aboutlibraries.util.SpecialButton
+import com.mikepenz.aboutlibraries.util.getSupportColor
+import com.mikepenz.aboutlibraries.util.getThemeColor
+import com.mikepenz.aboutlibraries.util.resolveStyledValue
 import com.mikepenz.fastadapter.items.AbstractItem
 
 /**

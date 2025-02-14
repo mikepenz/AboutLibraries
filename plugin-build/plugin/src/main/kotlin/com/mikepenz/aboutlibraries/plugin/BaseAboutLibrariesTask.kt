@@ -7,7 +7,13 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.artifacts.dsl.DependencyHandler
 import org.gradle.api.file.RegularFile
 import org.gradle.api.provider.Provider
-import org.gradle.api.tasks.*
+import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.InputDirectory
+import org.gradle.api.tasks.InputFile
+import org.gradle.api.tasks.Internal
+import org.gradle.api.tasks.Optional
+import org.gradle.api.tasks.PathSensitive
+import org.gradle.api.tasks.PathSensitivity
 import org.slf4j.LoggerFactory
 import java.io.File
 import javax.inject.Inject
@@ -31,7 +37,7 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     @PathSensitive(value = PathSensitivity.RELATIVE)
     val dependencyCache: Provider<RegularFile> = project.layout.buildDirectory.file("generated/aboutLibraries/dependency_cache.json")
 
-    @org.gradle.api.tasks.Optional
+    @Optional
     @PathSensitive(value = PathSensitivity.RELATIVE)
     @InputDirectory
     fun getConfigPath(): File? {
@@ -63,6 +69,9 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     val duplicationRule = extension.duplicationRule
 
     @Input
+    val mapLicensesToSpdx = extension.mapLicensesToSpdx
+
+    @Input
     val allowedLicenses = extension.allowedLicenses
 
     @Input
@@ -81,7 +90,7 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     val additionalLicenses = extension.additionalLicenses.toHashSet()
 
     @Input
-    @org.gradle.api.tasks.Optional
+    @Optional
     val gitHubApiToken = extension.gitHubApiToken
 
     @Input
@@ -104,18 +113,19 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
 
     protected fun createLibraryProcessor(collectedContainer: CollectedContainer = readInCollectedDependencies()): LibrariesProcessor {
         return LibrariesProcessor(
-            getDependencyHandler(),
-            collectedContainer,
-            getConfigPath(),
-            exclusionPatterns,
-            offlineMode,
-            fetchRemoteLicense,
-            fetchRemoteFunding,
-            additionalLicenses,
-            duplicationMode,
-            duplicationRule,
-            variant.orNull,
-            gitHubApiToken
+            dependencyHandler = getDependencyHandler(),
+            collectedDependencies = collectedContainer,
+            configFolder = getConfigPath(),
+            exclusionPatterns = exclusionPatterns,
+            offlineMode = offlineMode,
+            fetchRemoteLicense = fetchRemoteLicense,
+            fetchRemoteFunding = fetchRemoteFunding,
+            additionalLicenses = additionalLicenses,
+            duplicationMode = duplicationMode,
+            duplicationRule = duplicationRule,
+            variant = variant.orNull,
+            mapLicensesToSpdx = mapLicensesToSpdx,
+            gitHubToken = gitHubApiToken
         )
     }
 }

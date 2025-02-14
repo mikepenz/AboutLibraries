@@ -33,6 +33,7 @@ class LibrariesProcessor(
     private val duplicationMode: DuplicateMode,
     private val duplicationRule: DuplicateRule,
     private var variant: String? = null,
+    private val mapLicensesToSpdx: Boolean = true,
     gitHubToken: String? = null,
 ) {
     private val handledLibraries = HashSet<String>()
@@ -128,7 +129,7 @@ class LibrariesProcessor(
         licensesMap.values.forEach {
             if (it.content.isNullOrBlank()) {
                 if (!offlineMode) {
-                    it.loadSpdxLicense()
+                    it.loadSpdxLicense(mapLicensesToSpdx)
                 } else {
                     LOGGER.warn("--> `${it.name}` does not contain the license text and configuration is in OFFLINE MODE. Please provide manually with `name`: `${it.name}` and `hash`: `${it.hash}`")
                 }
@@ -205,13 +206,16 @@ class LibrariesProcessor(
             pomReader.licenses
         ) { parentPomReaders first { licenses.takeIf { it.isNotEmpty() } } })?.map {
             License(it.name, it.url).also { lic ->
-                lic.internalHash = lic.spdxId // in case this can be tracked back to a spdx id use according hash
+                if (mapLicensesToSpdx) {
+                    // in case this can be tracked back to a spdx id use according hash, doing so will lower the size of the output
+                    lic.internalHash = lic.spdxId
+                }
             }
         }?.toHashSet() ?: hashSetOf()
 
         val scm = chooseValue(uniqueId, "scm", pomReader.scm) { parentPomReaders first { scm } }
         if (fetchRemoteLicense) {
-            api.fetchRemoteLicense(uniqueId, scm, licenses)
+            api.fetchRemoteLicense(uniqueId, scm, licenses, mapLicensesToSpdx)
         }
 
         val funding = mutableSetOf<Funding>()

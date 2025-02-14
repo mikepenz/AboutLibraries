@@ -112,6 +112,18 @@ abstract class AboutLibrariesExtension {
     var strictMode = StrictMode.IGNORE
 
     /**
+     * Defines if licenses are mapped to SPDX identifiers.
+     * This lowers the meta data file size, however in case of modified license content, might loose the original license information - and instead use standard SPDX information, based on SPDX license id defined.
+     *
+     * ```
+     * aboutLibraries {
+     *   mapLicensesToSpdx = false
+     * }
+     * ```
+     */
+    var mapLicensesToSpdx: Boolean = true
+
+    /**
      * Defines the allowed licenses which will not result in warnings or failures depending on the [strictMode] configuration.
      *
      * ```

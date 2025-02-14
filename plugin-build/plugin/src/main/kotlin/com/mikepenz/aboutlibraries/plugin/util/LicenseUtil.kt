@@ -28,15 +28,19 @@ object LicenseUtil {
         }
     }
 
-    fun License.loadSpdxLicense() {
+    fun License.loadSpdxLicense(mapToSpdx: Boolean = true) {
         val spdxId = spdxId ?: return
         try {
             val enumLicense = SpdxLicense.find(spdxId)
             if (enumLicense != null) {
                 val singleLicense: String? = loadLicenseCached(enumLicense.getTxtUrl()) ?: loadLicenseCached(enumLicense.getFallbackTxtUrl())
                 if (singleLicense?.isNotBlank() == true) {
-                    name = enumLicense.fullName
-                    url = enumLicense.getUrl()
+                    if (mapToSpdx || name.isBlank()) {
+                        name = enumLicense.fullName
+                    }
+                    if (mapToSpdx || url.isNullOrBlank()) {
+                        url = enumLicense.getUrl()
+                    }
                     content = singleLicense
                 }
             } else {

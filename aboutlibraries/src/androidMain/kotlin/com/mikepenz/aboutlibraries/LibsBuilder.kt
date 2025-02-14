@@ -1,4 +1,5 @@
 @file:JvmName("LibsBuilder")
+@file:Suppress("DEPRECATION")
 
 package com.mikepenz.aboutlibraries
 
@@ -13,6 +14,7 @@ import com.mikepenz.aboutlibraries.util.toLibs
 import com.mikepenz.aboutlibraries.util.toSerializable
 import java.io.Serializable
 
+@Deprecated("The legacy view based UI will be deprecated in the future. Please consider moving to the compose based UI.")
 class LibsBuilder : Serializable {
     var sort: Boolean = true
     var libraryComparator: Comparator<Library>? = null

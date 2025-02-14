@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.mikepenz.aboutlibraries.viewmodel
 
 import android.content.Context

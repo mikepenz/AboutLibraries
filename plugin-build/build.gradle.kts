@@ -3,10 +3,10 @@ import java.util.*
 
 plugins {
     alias(baseLibs.plugins.kotlinJvm) apply false
-    alias(libs.plugins.conventionPlugin)
+    alias(baseLibs.plugins.conventionPlugin)
     alias(baseLibs.plugins.dokka)
     alias(baseLibs.plugins.mavenPublish)
-    id("com.gradle.plugin-publish") version "1.3.0" apply false
+    id("com.gradle.plugin-publish") version "1.3.1" apply false
 }
 
 buildscript {

@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.mikepenz.aboutlibraries.ui
 
 import android.os.Bundle
@@ -39,6 +41,7 @@ import kotlinx.coroutines.withContext
  *
  * Retrieves the [LibsBuilder] via the 'data' passed as argument.
  */
+@Deprecated("The legacy view based UI will be deprecated in the future. Please consider moving to the compose based UI.")
 open class LibsSupportFragment : Fragment(), Filterable {
 
     private val itemAdapter: ItemAdapter<GenericItem> = ItemAdapter()

@@ -37,8 +37,8 @@
 
 ## Latest releases 🛠
 
-- Compile 35 | Gradle 7.0+ | [v11.3.0](https://github.com/mikepenz/AboutLibraries/tree/v11.3.0
-- Java 17 | [v11.5.0](https://github.com/mikepenz/AboutLibraries/tree/11.5.0
+- Compile 35 | Gradle 7.0+ | Java 17 | [v11.6.0](https://github.com/mikepenz/AboutLibraries/tree/11.6.0)
+- [Legacy] Compile 35 | Gradle 7.0+ | [v11.3.0](https://github.com/mikepenz/AboutLibraries/tree/v11.3.0)
 
 ## Gradle Plugin
 
@@ -273,6 +273,9 @@ Find a sample application as the `app-desktop` module. It showcases the usage to
 </details>
 
 ## (Legacy) UI-module
+
+> [!NOTE]  
+> The legacy view based UI will be deprecated in the future. Please consider moving to the compose based UI.
 
 ```gradle
 implementation "com.mikepenz:aboutlibraries:${latestAboutLibsRelease}"
