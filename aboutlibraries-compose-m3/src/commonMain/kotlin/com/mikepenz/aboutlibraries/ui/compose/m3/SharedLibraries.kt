@@ -97,7 +97,7 @@ fun LibrariesContainer(
             } else if (!license?.htmlReadyLicenseContent.isNullOrBlank()) {
                 openDialog.value = library
             } else if (!license?.url.isNullOrBlank()) {
-                license?.url?.also {
+                license.url?.also {
                     try {
                         uriHandler.openUri(it)
                     } catch (t: Throwable) {

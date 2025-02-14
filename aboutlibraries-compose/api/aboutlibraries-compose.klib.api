@@ -1,0 +1,74 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, js, macosArm64, macosX64, wasmJs]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <AboutLibraries:aboutlibraries-compose>
+abstract interface com.mikepenz.aboutlibraries.ui.compose/LibraryColors { // com.mikepenz.aboutlibraries.ui.compose/LibraryColors|null[0]
+    abstract val backgroundColor // com.mikepenz.aboutlibraries.ui.compose/LibraryColors.backgroundColor|{}backgroundColor[0]
+        abstract fun <get-backgroundColor>(): androidx.compose.ui.graphics/Color // com.mikepenz.aboutlibraries.ui.compose/LibraryColors.backgroundColor.<get-backgroundColor>|<get-backgroundColor>(){}[0]
+    abstract val badgeBackgroundColor // com.mikepenz.aboutlibraries.ui.compose/LibraryColors.badgeBackgroundColor|{}badgeBackgroundColor[0]
+        abstract fun <get-badgeBackgroundColor>(): androidx.compose.ui.graphics/Color // com.mikepenz.aboutlibraries.ui.compose/LibraryColors.badgeBackgroundColor.<get-badgeBackgroundColor>|<get-badgeBackgroundColor>(){}[0]
+    abstract val badgeContentColor // com.mikepenz.aboutlibraries.ui.compose/LibraryColors.badgeContentColor|{}badgeContentColor[0]
+        abstract fun <get-badgeContentColor>(): androidx.compose.ui.graphics/Color // com.mikepenz.aboutlibraries.ui.compose/LibraryColors.badgeContentColor.<get-badgeContentColor>|<get-badgeContentColor>(){}[0]
+    abstract val contentColor // com.mikepenz.aboutlibraries.ui.compose/LibraryColors.contentColor|{}contentColor[0]
+        abstract fun <get-contentColor>(): androidx.compose.ui.graphics/Color // com.mikepenz.aboutlibraries.ui.compose/LibraryColors.contentColor.<get-contentColor>|<get-contentColor>(){}[0]
+    abstract val dialogConfirmButtonColor // com.mikepenz.aboutlibraries.ui.compose/LibraryColors.dialogConfirmButtonColor|{}dialogConfirmButtonColor[0]
+        abstract fun <get-dialogConfirmButtonColor>(): androidx.compose.ui.graphics/Color // com.mikepenz.aboutlibraries.ui.compose/LibraryColors.dialogConfirmButtonColor.<get-dialogConfirmButtonColor>|<get-dialogConfirmButtonColor>(){}[0]
+}
+
+abstract interface com.mikepenz.aboutlibraries.ui.compose/LibraryDimensions { // com.mikepenz.aboutlibraries.ui.compose/LibraryDimensions|null[0]
+    abstract val itemSpacing // com.mikepenz.aboutlibraries.ui.compose/LibraryDimensions.itemSpacing|{}itemSpacing[0]
+        abstract fun <get-itemSpacing>(): androidx.compose.ui.unit/Dp // com.mikepenz.aboutlibraries.ui.compose/LibraryDimensions.itemSpacing.<get-itemSpacing>|<get-itemSpacing>(){}[0]
+}
+
+abstract interface com.mikepenz.aboutlibraries.ui.compose/LibraryPadding { // com.mikepenz.aboutlibraries.ui.compose/LibraryPadding|null[0]
+    abstract val badgeContentPadding // com.mikepenz.aboutlibraries.ui.compose/LibraryPadding.badgeContentPadding|{}badgeContentPadding[0]
+        abstract fun <get-badgeContentPadding>(): androidx.compose.foundation.layout/PaddingValues // com.mikepenz.aboutlibraries.ui.compose/LibraryPadding.badgeContentPadding.<get-badgeContentPadding>|<get-badgeContentPadding>(){}[0]
+    abstract val badgePadding // com.mikepenz.aboutlibraries.ui.compose/LibraryPadding.badgePadding|{}badgePadding[0]
+        abstract fun <get-badgePadding>(): androidx.compose.foundation.layout/PaddingValues // com.mikepenz.aboutlibraries.ui.compose/LibraryPadding.badgePadding.<get-badgePadding>|<get-badgePadding>(){}[0]
+    abstract val contentPadding // com.mikepenz.aboutlibraries.ui.compose/LibraryPadding.contentPadding|{}contentPadding[0]
+        abstract fun <get-contentPadding>(): androidx.compose.foundation.layout/PaddingValues // com.mikepenz.aboutlibraries.ui.compose/LibraryPadding.contentPadding.<get-contentPadding>|<get-contentPadding>(){}[0]
+    abstract val namePadding // com.mikepenz.aboutlibraries.ui.compose/LibraryPadding.namePadding|{}namePadding[0]
+        abstract fun <get-namePadding>(): androidx.compose.foundation.layout/PaddingValues // com.mikepenz.aboutlibraries.ui.compose/LibraryPadding.namePadding.<get-namePadding>|<get-namePadding>(){}[0]
+    abstract val versionPadding // com.mikepenz.aboutlibraries.ui.compose/LibraryPadding.versionPadding|{}versionPadding[0]
+        abstract fun <get-versionPadding>(): androidx.compose.foundation.layout/PaddingValues // com.mikepenz.aboutlibraries.ui.compose/LibraryPadding.versionPadding.<get-versionPadding>|<get-versionPadding>(){}[0]
+    abstract val verticalPadding // com.mikepenz.aboutlibraries.ui.compose/LibraryPadding.verticalPadding|{}verticalPadding[0]
+        abstract fun <get-verticalPadding>(): androidx.compose.ui.unit/Dp // com.mikepenz.aboutlibraries.ui.compose/LibraryPadding.verticalPadding.<get-verticalPadding>|<get-verticalPadding>(){}[0]
+}
+
+final class com.mikepenz.aboutlibraries.ui.compose/DefaultLibraryColors : com.mikepenz.aboutlibraries.ui.compose/LibraryColors { // com.mikepenz.aboutlibraries.ui.compose/DefaultLibraryColors|null[0]
+    constructor <init>(androidx.compose.ui.graphics/Color, androidx.compose.ui.graphics/Color, androidx.compose.ui.graphics/Color, androidx.compose.ui.graphics/Color, androidx.compose.ui.graphics/Color) // com.mikepenz.aboutlibraries.ui.compose/DefaultLibraryColors.<init>|<init>(androidx.compose.ui.graphics.Color;androidx.compose.ui.graphics.Color;androidx.compose.ui.graphics.Color;androidx.compose.ui.graphics.Color;androidx.compose.ui.graphics.Color){}[0]
+
+    final val backgroundColor // com.mikepenz.aboutlibraries.ui.compose/DefaultLibraryColors.backgroundColor|{}backgroundColor[0]
+        final fun <get-backgroundColor>(): androidx.compose.ui.graphics/Color // com.mikepenz.aboutlibraries.ui.compose/DefaultLibraryColors.backgroundColor.<get-backgroundColor>|<get-backgroundColor>(){}[0]
+    final val badgeBackgroundColor // com.mikepenz.aboutlibraries.ui.compose/DefaultLibraryColors.badgeBackgroundColor|{}badgeBackgroundColor[0]
+        final fun <get-badgeBackgroundColor>(): androidx.compose.ui.graphics/Color // com.mikepenz.aboutlibraries.ui.compose/DefaultLibraryColors.badgeBackgroundColor.<get-badgeBackgroundColor>|<get-badgeBackgroundColor>(){}[0]
+    final val badgeContentColor // com.mikepenz.aboutlibraries.ui.compose/DefaultLibraryColors.badgeContentColor|{}badgeContentColor[0]
+        final fun <get-badgeContentColor>(): androidx.compose.ui.graphics/Color // com.mikepenz.aboutlibraries.ui.compose/DefaultLibraryColors.badgeContentColor.<get-badgeContentColor>|<get-badgeContentColor>(){}[0]
+    final val contentColor // com.mikepenz.aboutlibraries.ui.compose/DefaultLibraryColors.contentColor|{}contentColor[0]
+        final fun <get-contentColor>(): androidx.compose.ui.graphics/Color // com.mikepenz.aboutlibraries.ui.compose/DefaultLibraryColors.contentColor.<get-contentColor>|<get-contentColor>(){}[0]
+    final val dialogConfirmButtonColor // com.mikepenz.aboutlibraries.ui.compose/DefaultLibraryColors.dialogConfirmButtonColor|{}dialogConfirmButtonColor[0]
+        final fun <get-dialogConfirmButtonColor>(): androidx.compose.ui.graphics/Color // com.mikepenz.aboutlibraries.ui.compose/DefaultLibraryColors.dialogConfirmButtonColor.<get-dialogConfirmButtonColor>|<get-dialogConfirmButtonColor>(){}[0]
+}
+
+final object com.mikepenz.aboutlibraries.ui.compose/LibraryDefaults { // com.mikepenz.aboutlibraries.ui.compose/LibraryDefaults|null[0]
+    final fun libraryDimensions(androidx.compose.ui.unit/Dp = ...): com.mikepenz.aboutlibraries.ui.compose/LibraryDimensions // com.mikepenz.aboutlibraries.ui.compose/LibraryDefaults.libraryDimensions|libraryDimensions(androidx.compose.ui.unit.Dp){}[0]
+    final fun libraryPadding(androidx.compose.foundation.layout/PaddingValues?, androidx.compose.foundation.layout/PaddingValues?, androidx.compose.foundation.layout/PaddingValues?, androidx.compose.foundation.layout/PaddingValues?, androidx.compose.foundation.layout/PaddingValues?, androidx.compose.ui.unit/Dp, androidx.compose.runtime/Composer?, kotlin/Int, kotlin/Int): com.mikepenz.aboutlibraries.ui.compose/LibraryPadding // com.mikepenz.aboutlibraries.ui.compose/LibraryDefaults.libraryPadding|libraryPadding(androidx.compose.foundation.layout.PaddingValues?;androidx.compose.foundation.layout.PaddingValues?;androidx.compose.foundation.layout.PaddingValues?;androidx.compose.foundation.layout.PaddingValues?;androidx.compose.foundation.layout.PaddingValues?;androidx.compose.ui.unit.Dp;androidx.compose.runtime.Composer?;kotlin.Int;kotlin.Int){}[0]
+}
+
+final val com.mikepenz.aboutlibraries.ui.compose.util/author // com.mikepenz.aboutlibraries.ui.compose.util/author|@com.mikepenz.aboutlibraries.entity.Library{}author[0]
+    final fun (com.mikepenz.aboutlibraries.entity/Library).<get-author>(): kotlin/String // com.mikepenz.aboutlibraries.ui.compose.util/author.<get-author>|<get-author>@com.mikepenz.aboutlibraries.entity.Library(){}[0]
+final val com.mikepenz.aboutlibraries.ui.compose.util/htmlReadyLicenseContent // com.mikepenz.aboutlibraries.ui.compose.util/htmlReadyLicenseContent|@com.mikepenz.aboutlibraries.entity.License{}htmlReadyLicenseContent[0]
+    final fun (com.mikepenz.aboutlibraries.entity/License).<get-htmlReadyLicenseContent>(): kotlin/String? // com.mikepenz.aboutlibraries.ui.compose.util/htmlReadyLicenseContent.<get-htmlReadyLicenseContent>|<get-htmlReadyLicenseContent>@com.mikepenz.aboutlibraries.entity.License(){}[0]
+final val com.mikepenz.aboutlibraries.ui.compose.util/strippedLicenseContent // com.mikepenz.aboutlibraries.ui.compose.util/strippedLicenseContent|@com.mikepenz.aboutlibraries.entity.License{}strippedLicenseContent[0]
+    final fun (com.mikepenz.aboutlibraries.entity/License).<get-strippedLicenseContent>(): kotlin/String? // com.mikepenz.aboutlibraries.ui.compose.util/strippedLicenseContent.<get-strippedLicenseContent>|<get-strippedLicenseContent>@com.mikepenz.aboutlibraries.entity.License(){}[0]
+final val com.mikepenz.aboutlibraries.ui.compose/com_mikepenz_aboutlibraries_ui_compose_DefaultLibraryColors$stableprop // com.mikepenz.aboutlibraries.ui.compose/com_mikepenz_aboutlibraries_ui_compose_DefaultLibraryColors$stableprop|#static{}com_mikepenz_aboutlibraries_ui_compose_DefaultLibraryColors$stableprop[0]
+final val com.mikepenz.aboutlibraries.ui.compose/com_mikepenz_aboutlibraries_ui_compose_LibraryDefaults$stableprop // com.mikepenz.aboutlibraries.ui.compose/com_mikepenz_aboutlibraries_ui_compose_LibraryDefaults$stableprop|#static{}com_mikepenz_aboutlibraries_ui_compose_LibraryDefaults$stableprop[0]
+
+final fun com.mikepenz.aboutlibraries.ui.compose/com_mikepenz_aboutlibraries_ui_compose_DefaultLibraryColors$stableprop_getter(): kotlin/Int // com.mikepenz.aboutlibraries.ui.compose/com_mikepenz_aboutlibraries_ui_compose_DefaultLibraryColors$stableprop_getter|com_mikepenz_aboutlibraries_ui_compose_DefaultLibraryColors$stableprop_getter(){}[0]
+final fun com.mikepenz.aboutlibraries.ui.compose/com_mikepenz_aboutlibraries_ui_compose_LibraryDefaults$stableprop_getter(): kotlin/Int // com.mikepenz.aboutlibraries.ui.compose/com_mikepenz_aboutlibraries_ui_compose_LibraryDefaults$stableprop_getter|com_mikepenz_aboutlibraries_ui_compose_LibraryDefaults$stableprop_getter(){}[0]
+final fun com.mikepenz.aboutlibraries.ui.compose/rememberLibraries(kotlin.coroutines/SuspendFunction0<kotlin/String>, androidx.compose.runtime/Composer?, kotlin/Int): androidx.compose.runtime/State<com.mikepenz.aboutlibraries/Libs?> // com.mikepenz.aboutlibraries.ui.compose/rememberLibraries|rememberLibraries(kotlin.coroutines.SuspendFunction0<kotlin.String>;androidx.compose.runtime.Composer?;kotlin.Int){}[0]
+final fun com.mikepenz.aboutlibraries.ui.compose/rememberLibraries(kotlin/ByteArray, androidx.compose.runtime/Composer?, kotlin/Int): androidx.compose.runtime/State<com.mikepenz.aboutlibraries/Libs?> // com.mikepenz.aboutlibraries.ui.compose/rememberLibraries|rememberLibraries(kotlin.ByteArray;androidx.compose.runtime.Composer?;kotlin.Int){}[0]

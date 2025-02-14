@@ -1,0 +1,50 @@
+public final class com/mikepenz/aboutlibraries/ui/compose/DefaultLibraryColors : com/mikepenz/aboutlibraries/ui/compose/LibraryColors {
+	public static final field $stable I
+	public synthetic fun <init> (JJJJJLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun getBackgroundColor-0d7_KjU ()J
+	public fun getBadgeBackgroundColor-0d7_KjU ()J
+	public fun getBadgeContentColor-0d7_KjU ()J
+	public fun getContentColor-0d7_KjU ()J
+	public fun getDialogConfirmButtonColor-0d7_KjU ()J
+}
+
+public final class com/mikepenz/aboutlibraries/ui/compose/ExtensionsKt {
+	public static final fun rememberLibraries (Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;I)Landroidx/compose/runtime/State;
+	public static final fun rememberLibraries ([BLandroidx/compose/runtime/Composer;I)Landroidx/compose/runtime/State;
+}
+
+public abstract interface class com/mikepenz/aboutlibraries/ui/compose/LibraryColors {
+	public abstract fun getBackgroundColor-0d7_KjU ()J
+	public abstract fun getBadgeBackgroundColor-0d7_KjU ()J
+	public abstract fun getBadgeContentColor-0d7_KjU ()J
+	public abstract fun getContentColor-0d7_KjU ()J
+	public abstract fun getDialogConfirmButtonColor-0d7_KjU ()J
+}
+
+public final class com/mikepenz/aboutlibraries/ui/compose/LibraryDefaults {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDefaults;
+	public final fun libraryDimensions-0680j_4 (F)Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDimensions;
+	public static synthetic fun libraryDimensions-0680j_4$default (Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDefaults;FILjava/lang/Object;)Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDimensions;
+	public final fun libraryPadding-HYR8e34 (Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;FLandroidx/compose/runtime/Composer;II)Lcom/mikepenz/aboutlibraries/ui/compose/LibraryPadding;
+}
+
+public abstract interface class com/mikepenz/aboutlibraries/ui/compose/LibraryDimensions {
+	public abstract fun getItemSpacing-D9Ej5fM ()F
+}
+
+public abstract interface class com/mikepenz/aboutlibraries/ui/compose/LibraryPadding {
+	public abstract fun getBadgeContentPadding ()Landroidx/compose/foundation/layout/PaddingValues;
+	public abstract fun getBadgePadding ()Landroidx/compose/foundation/layout/PaddingValues;
+	public abstract fun getContentPadding ()Landroidx/compose/foundation/layout/PaddingValues;
+	public abstract fun getNamePadding ()Landroidx/compose/foundation/layout/PaddingValues;
+	public abstract fun getVersionPadding ()Landroidx/compose/foundation/layout/PaddingValues;
+	public abstract fun getVerticalPadding-D9Ej5fM ()F
+}
+
+public final class com/mikepenz/aboutlibraries/ui/compose/util/ExtensionsKt {
+	public static final fun getAuthor (Lcom/mikepenz/aboutlibraries/entity/Library;)Ljava/lang/String;
+	public static final fun getHtmlReadyLicenseContent (Lcom/mikepenz/aboutlibraries/entity/License;)Ljava/lang/String;
+	public static final fun getStrippedLicenseContent (Lcom/mikepenz/aboutlibraries/entity/License;)Ljava/lang/String;
+}
+
