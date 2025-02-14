@@ -189,6 +189,8 @@ Provide additional or modify existing licenses via a `.json` file per license.
 > The AboutLibraries Library is pushed
 > to [Maven Central](https://search.maven.org/artifact/com.mikepenz/aboutlibraries-core).
 
+### `libs.versions.toml`
+
 ```toml
 [versions]
 aboutLibraries = "{latest-version}"
