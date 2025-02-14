@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -39,6 +38,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.entity.Library
+import com.mikepenz.aboutlibraries.ui.compose.layout.LibraryScaffoldLayout
 import com.mikepenz.aboutlibraries.ui.compose.util.author
 import com.mikepenz.aboutlibraries.ui.compose.util.htmlReadyLicenseContent
 import kotlinx.collections.immutable.ImmutableList
@@ -95,7 +95,7 @@ fun LibrariesContainer(
                     try {
                         uriHandler.openUri(it)
                     } catch (t: Throwable) {
-                        println("Failed to open url: ${it}")
+                        println("Failed to open url: $it")
                     }
                 }
             }
@@ -193,7 +193,7 @@ fun Libraries(
                     try {
                         uriHandler.openUri(it)
                     } catch (t: Throwable) {
-                        println("Failed to open url: ${it}")
+                        println("Failed to open url: $it")
                     }
                 }
             }
@@ -226,9 +226,10 @@ internal inline fun LazyListScope.libraryItems(
     }
 }
 
+
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-internal fun Library(
+fun Library(
     library: Library,
     showAuthor: Boolean = true,
     showDescription: Boolean = false,
@@ -239,44 +240,39 @@ internal fun Library(
     typography: Typography = MaterialTheme.typography,
     onClick: () -> Unit,
 ) {
-    Column(
-        modifier = Modifier.fillMaxWidth().background(colors.backgroundColor).clickable { onClick.invoke() }.padding(padding.contentPadding),
-        verticalArrangement = Arrangement.spacedBy(padding.verticalPadding)
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween
-        ) {
+    LibraryScaffoldLayout(
+        modifier = Modifier.fillMaxWidth().background(colors.backgroundColor).clickable { onClick.invoke() },
+        name = {
             Text(
-                text = library.name,
-                modifier = Modifier.padding(padding.namePadding).weight(1f),
-                style = typography.h6,
-                color = colors.contentColor,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
+                text = library.name, style = typography.h6, color = colors.contentColor, maxLines = 1, overflow = TextOverflow.Ellipsis
             )
+        },
+        version = {
             val version = library.artifactVersion
             if (version != null && showVersion) {
                 Text(
-                    version, modifier = Modifier.padding(padding.versionPadding), style = typography.body2, color = colors.contentColor, textAlign = TextAlign.Center
+                    text = version, style = typography.body2, color = colors.contentColor, textAlign = TextAlign.Center
                 )
             }
-        }
-        val author = library.author
-        if (showAuthor && author.isNotBlank()) {
-            Text(
-                text = author, style = typography.body2, color = colors.contentColor
-            )
-        }
-        val description = library.description
-        if (description?.isNotBlank() == true) {
-            Text(
-                text = description,
-                style = typography.caption,
-                color = colors.contentColor
-            )
-        }
-        if (showLicenseBadges && library.licenses.isNotEmpty()) {
-            FlowRow {
+        },
+        author = {
+            val author = library.author
+            if (showAuthor && author.isNotBlank()) {
+                Text(
+                    text = author, style = typography.body2, color = colors.contentColor
+                )
+            }
+        },
+        description = {
+            val description = library.description
+            if (showDescription && !description.isNullOrBlank()) {
+                Text(
+                    text = description, style = typography.caption, color = colors.contentColor
+                )
+            }
+        },
+        licenses = {
+            if (showLicenseBadges && library.licenses.isNotEmpty()) {
                 library.licenses.forEach {
                     Badge(
                         modifier = Modifier.padding(padding.badgePadding), contentColor = colors.badgeContentColor, backgroundColor = colors.badgeBackgroundColor
@@ -287,10 +283,9 @@ internal fun Library(
                     }
                 }
             }
-        }
-    }
+        },
+    )
 }
-
 
 /**
  * Creates a [LibraryColors] that represents the default colors used in

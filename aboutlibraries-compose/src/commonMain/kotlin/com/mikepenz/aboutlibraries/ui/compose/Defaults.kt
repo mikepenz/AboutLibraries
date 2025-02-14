@@ -14,7 +14,6 @@ import com.mikepenz.aboutlibraries.entity.Library
  * Contains the default values used by [Library]
  */
 object LibraryDefaults {
-    private val LibraryNamePaddingTop = 4.dp
     private val LibraryVersionPaddingStart = 8.dp
     private val LibraryBadgePaddingTop = 8.dp
     private val LibraryBadgePaddingEnd = 4.dp
@@ -34,7 +33,7 @@ object LibraryDefaults {
     @Composable
     fun libraryPadding(
         contentPadding: PaddingValues = LibraryItemContentPadding,
-        namePadding: PaddingValues = PaddingValues(top = LibraryNamePaddingTop),
+        namePadding: PaddingValues = PaddingValues(0.dp),
         versionPadding: PaddingValues = PaddingValues(start = LibraryVersionPaddingStart),
         badgePadding: PaddingValues = PaddingValues(
             top = LibraryBadgePaddingTop, end = LibraryBadgePaddingEnd

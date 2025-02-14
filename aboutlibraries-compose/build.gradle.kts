@@ -7,34 +7,31 @@ plugins {
 
 android {
     namespace = "com.mikepenz.aboutlibraries.ui.compose"
-
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-        compilerOptions {
-            val outputDir = rootDir.resolve("aboutlibraries-core/compose_compiler_config.conf").path
-            freeCompilerArgs.addAll("-P", "plugin:androidx.compose.compiler.plugins.kotlin:stabilityConfigurationPath=${outputDir}")
-        }
-    }
 }
 
 kotlin {
+    applyDefaultHierarchyTemplate()
+
     sourceSets {
         val commonMain by getting {
             dependencies {
+                api(project(":aboutlibraries-core"))
                 implementation(compose.runtime)
                 implementation(compose.ui)
                 implementation(compose.foundation)
             }
         }
-        val commonTest by getting
+
+        val androidMain by getting {
+            dependencies {
+                implementation(compose.preview)
+            }
+        }
     }
 }
 
 dependencies {
-    commonMainApi(project(":aboutlibraries-core"))
-
     debugImplementation(compose.uiTooling)
-    "androidMainImplementation"(compose.preview)
-    "androidMainImplementation"(libs.androidx.core.ktx)
 }
 
 configurations.configureEach {
