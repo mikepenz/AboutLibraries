@@ -14,16 +14,13 @@ import com.mikepenz.aboutlibraries.entity.Library
  * Contains the default values used by [Library]
  */
 object LibraryDefaults {
-    private val LibraryItemPadding = 16.dp
     private val LibraryNamePaddingTop = 4.dp
     private val LibraryVersionPaddingStart = 8.dp
     private val LibraryBadgePaddingTop = 8.dp
     private val LibraryBadgePaddingEnd = 4.dp
 
-    /**
-     * The default content padding used by [Library]
-     */
-    private val ContentPadding = PaddingValues(LibraryItemPadding)
+    /** The default content padding used by [Library] */
+    private val LibraryItemContentPadding = PaddingValues(16.dp)
 
     /**
      * Creates a [LibraryPadding] that represents the default paddings used in a [Library]
@@ -36,12 +33,11 @@ object LibraryDefaults {
      */
     @Composable
     fun libraryPadding(
-        contentPadding: PaddingValues = ContentPadding,
+        contentPadding: PaddingValues = LibraryItemContentPadding,
         namePadding: PaddingValues = PaddingValues(top = LibraryNamePaddingTop),
         versionPadding: PaddingValues = PaddingValues(start = LibraryVersionPaddingStart),
         badgePadding: PaddingValues = PaddingValues(
-            top = LibraryBadgePaddingTop,
-            end = LibraryBadgePaddingEnd
+            top = LibraryBadgePaddingTop, end = LibraryBadgePaddingEnd
         ),
         badgeContentPadding: PaddingValues = PaddingValues(0.dp),
         verticalPadding: Dp = 2.dp,
@@ -59,12 +55,12 @@ object LibraryDefaults {
     /**
      * Creates a [LibraryDimensions] that represents the default dimensions used in a [Library]
      *
-     * @param libraryItemSpacing the spacing between items in the [Library]
+     * @param itemSpacing the spacing between items in the [Library]
      */
     fun libraryDimensions(
-        libraryItemSpacing: Dp = LibraryItemSpacing,
+        itemSpacing: Dp = LibraryItemSpacing,
     ): LibraryDimensions = DefaultLibraryDimensions(
-        libraryItemSpacing = libraryItemSpacing,
+        itemSpacing = itemSpacing,
     )
 }
 
@@ -146,7 +142,7 @@ private class DefaultLibraryPadding(
 @Stable
 interface LibraryDimensions {
     /** Represents the spacing between items in the [Library] */
-    val libraryItemSpacing: Dp
+    val itemSpacing: Dp
 }
 
 /**
@@ -154,5 +150,5 @@ interface LibraryDimensions {
  */
 @Immutable
 private class DefaultLibraryDimensions(
-    override val libraryItemSpacing: Dp,
+    override val itemSpacing: Dp,
 ) : LibraryDimensions

@@ -173,7 +173,7 @@ fun Libraries(
     val uriHandler = LocalUriHandler.current
 
     LazyColumn(
-        modifier, verticalArrangement = Arrangement.spacedBy(dimensions.libraryItemSpacing), state = lazyListState, contentPadding = contentPadding
+        modifier, verticalArrangement = Arrangement.spacedBy(dimensions.itemSpacing), state = lazyListState, contentPadding = contentPadding
     ) {
         header?.invoke(this)
         libraryItems(

@@ -185,7 +185,7 @@ fun Libraries(
 
     LazyColumn(
         modifier,
-        verticalArrangement = Arrangement.spacedBy(dimensions.libraryItemSpacing),
+        verticalArrangement = Arrangement.spacedBy(dimensions.itemSpacing),
         state = lazyListState,
         contentPadding = contentPadding
     ) {
