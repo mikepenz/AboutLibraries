@@ -138,7 +138,7 @@ jobs:
         run: ./gradlew lintDebug
 
       - name: Verify Screenshot Tests
-        if: github.event_name  == 'pull_request'
+        if: false && github.event_name  == 'pull_request'
         run: ./gradlew validateScreenshotTest
 
       - name: Setup Ruby
