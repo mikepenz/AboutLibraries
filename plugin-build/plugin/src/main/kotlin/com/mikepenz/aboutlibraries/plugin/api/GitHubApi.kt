@@ -45,7 +45,7 @@ internal class GitHubApi(
      * Fetch licenses from either the repository, or from spdx as txt format
      */
     @Suppress("UNCHECKED_CAST")
-    override fun fetchRemoteLicense(uniqueId: String, repositoryLink: Scm?, licenses: HashSet<License>) {
+    override fun fetchRemoteLicense(uniqueId: String, repositoryLink: Scm?, licenses: HashSet<License>, mapLicensesToSpdx: Boolean) {
         val url = repositoryLink?.url
         if (rateLimit > 0 && url?.contains("github") == true) {
             LOGGER.debug("Remaining GitHub rate limit: $rateLimit")
@@ -54,7 +54,7 @@ internal class GitHubApi(
             if (licenses.isNotEmpty()) {
                 licenses.forEach {
                     if (it.spdxId != null && it.content == null) {
-                        it.loadSpdxLicense()
+                        it.loadSpdxLicense(mapLicensesToSpdx)
                     }
                 }
             } else {
