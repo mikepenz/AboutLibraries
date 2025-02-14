@@ -6,7 +6,10 @@ import androidx.compose.material.Surface
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.unit.LayoutDirection
 import com.mikepenz.aboutlibraries.ui.compose.data.fakeData
 
 @Composable
@@ -17,8 +20,7 @@ fun Theme(isDarkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () 
 fun PreviewLibraries() = Theme {
     Surface {
         Libraries(
-            fakeData.libraries,
-            showDescription = true
+            fakeData.libraries, showDescription = true
         )
     }
 }
@@ -39,6 +41,20 @@ fun PreviewLibrary() = Theme {
             fakeData.libraries.first()
         ) {
             // on-click
+        }
+    }
+}
+
+@PreviewLightDark
+@Composable
+fun PreviewLibraryRTL() = Theme {
+    CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
+        Surface {
+            Library(
+                fakeData.libraries.first()
+            ) {
+                // on-click
+            }
         }
     }
 }
