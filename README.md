@@ -184,13 +184,33 @@ Provide additional or modify existing licenses via a `.json` file per license.
 </p>
 </details>
 
-## Core-module
+## Dependencies
 
 > The AboutLibraries Library is pushed
 > to [Maven Central](https://search.maven.org/artifact/com.mikepenz/aboutlibraries-core).
 
+```toml
+[versions]
+aboutLibraries = "{latest-version}"
+
+[libraries]
+aboutlibraries-core = { module = "com.mikepenz:aboutlibraries-core", version.ref = "aboutLibraries" }
+aboutlibraries-compose-core = { module = "com.mikepenz:aboutlibraries-compose", version.ref = "aboutLibraries" }
+aboutlibraries-compose-m2 = { module = "com.mikepenz:aboutlibraries-compose-m2", version.ref = "aboutLibraries" }
+aboutlibraries-compose-m3 = { module = "com.mikepenz:aboutlibraries-compose-m3", version.ref = "aboutLibraries" }
+# Deprecated module
+aboutlibraries-compose-view = { module = "com.mikepenz:aboutlibraries", version.ref = "aboutLibraries" }
+
+[plugins]
+aboutLibraries = { id = "com.mikepenz.aboutlibraries.plugin", version.ref = "aboutLibraries" }
+```
+
+## Core-module
+
 ```gradle
 implementation("com.mikepenz:aboutlibraries-core:${latestAboutLibsRelease}")
+// or
+implementation(libs.aboutlibraries.core)
 ```
 
 <details><summary><b>(Advanced) Usage</b></summary>
@@ -218,10 +238,11 @@ for (lib in libraries) {
 ## UI-module
 
 ```gradle
-implementation("com.mikepenz:aboutlibraries-compose:${latestAboutLibsRelease}")
-
-// Alternative Material3 based module
-implementation("com.mikepenz:aboutlibraries-compose-m3:${latestAboutLibsRelease}")
+implementation("com.mikepenz:aboutlibraries-compose:${latestAboutLibsRelease}") // material 2
+implementation("com.mikepenz:aboutlibraries-compose-m3:${latestAboutLibsRelease}") // material 3
+// or
+implementation(libs.aboutlibraries.compose.m2) // material 2
+implementation(libs.aboutlibraries.compose.m3) // material 3
 ```
 
 ### Usage
