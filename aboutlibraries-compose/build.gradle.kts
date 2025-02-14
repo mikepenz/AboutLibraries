@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.mikepenz.aboutlibraries.ui.compose"
+    namespace = "com.mikepenz.aboutlibraries.ui.compose.core"
 }
 
 kotlin {
