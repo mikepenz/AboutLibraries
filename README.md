@@ -39,6 +39,7 @@
 
 - Compile 35 | Gradle 7.0+ | Java 17 | [v11.6.0](https://github.com/mikepenz/AboutLibraries/tree/11.6.0)
 - New Compose UI Configuration Options | [v12.0.0-a02](https://github.com/mikepenz/AboutLibraries/tree/12.0.0-a02)
+- Compose 1.8.x build | [v12.0.0-a02+compose_1_8](https://github.com/mikepenz/AboutLibraries/tree/12.0.0-a02+compose_1_8)
 
 ## Gradle Plugin
 
