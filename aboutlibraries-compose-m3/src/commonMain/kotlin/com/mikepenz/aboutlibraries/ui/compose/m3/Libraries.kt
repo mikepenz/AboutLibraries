@@ -14,6 +14,7 @@ import com.mikepenz.aboutlibraries.ui.compose.LibraryColors
 import com.mikepenz.aboutlibraries.ui.compose.LibraryDefaults
 import com.mikepenz.aboutlibraries.ui.compose.LibraryDimensions
 import com.mikepenz.aboutlibraries.ui.compose.LibraryPadding
+import com.mikepenz.aboutlibraries.ui.compose.LibraryTextStyles
 import com.mikepenz.aboutlibraries.ui.compose.rememberLibraries
 
 /**
@@ -72,6 +73,7 @@ fun LibrariesContainer(
     colors: LibraryColors = LibraryDefaults.libraryColors(),
     padding: LibraryPadding = LibraryDefaults.libraryPadding(),
     dimensions: LibraryDimensions = LibraryDefaults.libraryDimensions(),
+    textStyles: LibraryTextStyles = LibraryDefaults.libraryTextStyles(),
     header: (LazyListScope.() -> Unit)? = null,
     onLibraryClick: ((Library) -> Unit)? = null,
 ) {
@@ -89,6 +91,7 @@ fun LibrariesContainer(
         colors = colors,
         padding = padding,
         dimensions = dimensions,
+        textStyles = textStyles,
         header = header,
         onLibraryClick = onLibraryClick,
         licenseDialogBody = { library ->

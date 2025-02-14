@@ -27,6 +27,7 @@ fun LibrariesContainer(
     colors: LibraryColors = LibraryDefaults.libraryColors(),
     padding: LibraryPadding = LibraryDefaults.libraryPadding(),
     dimensions: LibraryDimensions = LibraryDefaults.libraryDimensions(),
+    textStyles: LibraryTextStyles = LibraryDefaults.libraryTextStyles(),
     header: (LazyListScope.() -> Unit)? = null,
     onLibraryClick: ((Library) -> Unit)? = null,
 ) {
@@ -43,6 +44,7 @@ fun LibrariesContainer(
         colors = colors,
         padding = padding,
         dimensions = dimensions,
+        textStyles = textStyles,
         header = header,
         onLibraryClick = onLibraryClick,
         licenseDialogBody = { library ->
@@ -66,6 +68,7 @@ fun LibrariesContainer(
     colors: LibraryColors = LibraryDefaults.libraryColors(),
     padding: LibraryPadding = LibraryDefaults.libraryPadding(),
     dimensions: LibraryDimensions = LibraryDefaults.libraryDimensions(),
+    textStyles: LibraryTextStyles = LibraryDefaults.libraryTextStyles(),
     header: (LazyListScope.() -> Unit)? = null,
     onLibraryClick: ((Library) -> Unit)? = null,
 ) {
@@ -83,6 +86,7 @@ fun LibrariesContainer(
         colors = colors,
         padding = padding,
         dimensions = dimensions,
+        textStyles = textStyles,
         header = header,
         onLibraryClick = onLibraryClick,
         licenseDialogBody = { library ->

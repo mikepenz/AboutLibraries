@@ -61,6 +61,7 @@ fun LibrariesContainer(
     colors: LibraryColors = LibraryDefaults.libraryColors(),
     padding: LibraryPadding = LibraryDefaults.libraryPadding(),
     dimensions: LibraryDimensions = LibraryDefaults.libraryDimensions(),
+    textStyles: LibraryTextStyles = LibraryDefaults.libraryTextStyles(),
     header: (LazyListScope.() -> Unit)? = null,
     onLibraryClick: ((Library) -> Unit)? = null,
     licenseDialogBody: (@Composable (Library) -> Unit)? = null,
@@ -83,6 +84,7 @@ fun LibrariesContainer(
         colors = colors,
         padding = padding,
         dimensions = dimensions,
+        textStyles = textStyles,
         header = header,
         onLibraryClick = { library ->
             val license = library.licenses.firstOrNull()
@@ -167,6 +169,7 @@ fun Libraries(
     colors: LibraryColors = LibraryDefaults.libraryColors(),
     padding: LibraryPadding = LibraryDefaults.libraryPadding(),
     dimensions: LibraryDimensions = LibraryDefaults.libraryDimensions(),
+    textStyles: LibraryTextStyles = LibraryDefaults.libraryTextStyles(),
     header: (LazyListScope.() -> Unit)? = null,
     onLibraryClick: ((Library) -> Unit)? = null,
 ) {
@@ -184,6 +187,7 @@ fun Libraries(
             showLicenseBadges = showLicenseBadges,
             colors = colors,
             padding = padding,
+            textStyles = textStyles,
         ) { library ->
             val license = library.licenses.firstOrNull()
             if (onLibraryClick != null) {
@@ -209,6 +213,7 @@ internal inline fun LazyListScope.libraryItems(
     showLicenseBadges: Boolean = true,
     colors: LibraryColors,
     padding: LibraryPadding,
+    textStyles: LibraryTextStyles,
     crossinline onLibraryClick: ((Library) -> Unit),
 ) {
     items(libraries) { library ->
@@ -220,6 +225,7 @@ internal inline fun LazyListScope.libraryItems(
             showLicenseBadges = showLicenseBadges,
             colors = colors,
             padding = padding,
+            textStyles = textStyles,
         ) {
             onLibraryClick.invoke(library)
         }
@@ -293,9 +299,7 @@ fun Library(
             if (showLicenseBadges && library.licenses.isNotEmpty()) {
                 library.licenses.forEach {
                     Badge(
-                        modifier = Modifier.padding(padding.badgePadding),
-                        contentColor = colors.badgeContentColor,
-                        backgroundColor = colors.badgeBackgroundColor
+                        modifier = Modifier.padding(padding.badgePadding), contentColor = colors.badgeContentColor, backgroundColor = colors.badgeBackgroundColor
                     ) {
                         Text(
                             modifier = Modifier.padding(padding.badgeContentPadding),
