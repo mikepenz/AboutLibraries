@@ -5,8 +5,6 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.produceState
@@ -14,13 +12,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.fromHtml
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.entity.Library
-import com.mikepenz.aboutlibraries.ui.compose.m3.data.fakeData
-import com.mikepenz.aboutlibraries.ui.compose.m3.util.htmlReadyLicenseContent
+import com.mikepenz.aboutlibraries.ui.compose.LibraryColors
+import com.mikepenz.aboutlibraries.ui.compose.LibraryDefaults
+import com.mikepenz.aboutlibraries.ui.compose.LibraryDimensions
+import com.mikepenz.aboutlibraries.ui.compose.LibraryPadding
+import com.mikepenz.aboutlibraries.ui.compose.LibraryTextStyles
+import com.mikepenz.aboutlibraries.ui.compose.util.htmlReadyLicenseContent
 import com.mikepenz.aboutlibraries.util.withContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -42,8 +42,8 @@ fun LibrariesContainer(
     showLicenseBadges: Boolean = true,
     colors: LibraryColors = LibraryDefaults.libraryColors(),
     padding: LibraryPadding = LibraryDefaults.libraryPadding(),
-    itemContentPadding: PaddingValues = LibraryDefaults.ContentPadding,
-    itemSpacing: Dp = LibraryDefaults.LibraryItemSpacing,
+    dimensions: LibraryDimensions = LibraryDefaults.libraryDimensions(),
+    textStyles: LibraryTextStyles = LibraryDefaults.libraryTextStyles(),
     header: (LazyListScope.() -> Unit)? = null,
     onLibraryClick: ((Library) -> Unit)? = null,
 ) {
@@ -65,53 +65,13 @@ fun LibrariesContainer(
         showLicenseBadges = showLicenseBadges,
         colors = colors,
         padding = padding,
-        itemContentPadding = itemContentPadding,
-        itemSpacing = itemSpacing,
+        dimensions = dimensions,
+        textStyles = textStyles,
         header = header,
         onLibraryClick = onLibraryClick,
         licenseDialogBody = { library ->
             Text(
-                text = AnnotatedString.fromHtml(library.licenses.firstOrNull()?.htmlReadyLicenseContent.orEmpty()),
-                color = colors.contentColor
+                text = AnnotatedString.fromHtml(library.licenses.firstOrNull()?.htmlReadyLicenseContent.orEmpty()), color = colors.contentColor
             )
-        }
-    )
-}
-
-@Preview("Library items (Default)")
-@Composable
-fun PreviewLibraries() {
-    MaterialTheme {
-        Surface {
-            Libraries(
-                fakeData.libraries,
-                showDescription = true
-            )
-        }
-    }
-}
-
-
-@Preview("Library items (Off)")
-@Composable
-fun PreviewLibrariesOff() {
-    MaterialTheme {
-        Surface {
-            Libraries(fakeData.libraries, showAuthor = false, showLicenseBadges = false)
-        }
-    }
-}
-
-@Preview("Library item")
-@Composable
-fun PreviewLibrary() {
-    MaterialTheme {
-        Surface {
-            Library(
-                fakeData.libraries.first()
-            ) {
-                // on-click
-            }
-        }
-    }
+        })
 }
