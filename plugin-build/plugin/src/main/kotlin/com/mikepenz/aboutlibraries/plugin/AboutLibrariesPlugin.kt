@@ -1,5 +1,6 @@
 package com.mikepenz.aboutlibraries.plugin
 
+import com.mikepenz.aboutlibraries.plugin.util.experimentalCache
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.file.Directory
@@ -53,19 +54,15 @@ class AboutLibrariesPlugin : Plugin<Project> {
             project.tasks.register("exportLibraryDefinitions", AboutLibrariesTask::class.java) {
                 it.description = "Writes the relevant meta data for the AboutLibraries plugin to display dependencies"
                 it.group = "Build"
-                it.variant = project.providers.gradleProperty("aboutLibraries.exportVariant")
-                    .orElse(project.providers.gradleProperty("exportVariant"))
+                it.variant = project.providers.gradleProperty("aboutLibraries.exportVariant").orElse(project.providers.gradleProperty("exportVariant"))
 
                 val projectDirectory = project.layout.projectDirectory
                 val buildDirectory = project.layout.buildDirectory
 
-                val exportPath: Provider<Directory> = project.providers.gradleProperty("aboutLibraries.exportPath")
-                    .map { path -> projectDirectory.dir(path) }
-                    .orElse(
-                        project.providers.gradleProperty("exportPath").map { path -> projectDirectory.dir(path) }
-                    ).orElse(
-                        buildDirectory.dir("generated/aboutLibraries/")
-                    )
+                val exportPath: Provider<Directory> = project.providers.gradleProperty("aboutLibraries.exportPath").map { path -> projectDirectory.dir(path) }.orElse(
+                    project.providers.gradleProperty("exportPath").map { path -> projectDirectory.dir(path) }).orElse(
+                    buildDirectory.dir("generated/aboutLibraries/")
+                )
                 it.resultDirectory.set(exportPath)
 
                 it.dependsOn(collectTask)
@@ -73,16 +70,10 @@ class AboutLibrariesPlugin : Plugin<Project> {
 
             val extension = project.extensions.findByType(AboutLibrariesExtension::class.java)!!
             if (extension.registerAndroidTasks) {
-                AboutLibrariesPluginAndroidExtension.apply(project, collectTask)
+                AboutLibrariesPluginAndroidExtension.apply(project)
             }
         }
     }
-
-    private val Project.experimentalCache: Provider<Boolean>
-        get() = providers.gradleProperty("org.gradle.unsafe.configuration-cache").map { it == "true" }
-            .orElse(
-                providers.gradleProperty("org.gradle.configuration-cache").map { it == "true" }
-            )
 
     companion object {
         private val LOGGER = LoggerFactory.getLogger(AboutLibrariesPlugin::class.java)
