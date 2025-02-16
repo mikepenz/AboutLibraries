@@ -3,14 +3,20 @@ package com.mikepenz.aboutlibraries.plugin.util
 import com.mikepenz.aboutlibraries.plugin.mapping.Library
 import com.mikepenz.aboutlibraries.plugin.mapping.License
 import com.mikepenz.aboutlibraries.plugin.util.parser.PomReader
+import org.gradle.api.Project
 import org.gradle.api.artifacts.ModuleIdentifier
 import org.gradle.api.artifacts.ResolvedArtifact
 import org.gradle.api.artifacts.ResolvedDependency
 import org.gradle.api.artifacts.ResolvedModuleVersion
 import org.gradle.api.artifacts.component.ComponentArtifactIdentifier
 import org.gradle.api.artifacts.component.ModuleComponentIdentifier
+import org.gradle.api.provider.Provider
 import java.io.File
 import java.security.MessageDigest
+
+internal val Project.experimentalCache: Provider<Boolean>
+    get() = providers.gradleProperty("org.gradle.unsafe.configuration-cache").map { it == "true" }.orElse(
+        providers.gradleProperty("org.gradle.configuration-cache").map { it == "true" })
 
 internal infix fun <T> List<PomReader>?.first(read: PomReader.() -> T?): T? {
     this ?: return null

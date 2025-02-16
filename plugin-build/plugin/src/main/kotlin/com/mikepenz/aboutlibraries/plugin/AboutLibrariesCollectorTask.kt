@@ -8,10 +8,10 @@ import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.Internal
+import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
 import org.slf4j.LoggerFactory
-import java.io.File
 
 @CacheableTask
 abstract class AboutLibrariesCollectorTask : DefaultTask() {
@@ -32,15 +32,26 @@ abstract class AboutLibrariesCollectorTask : DefaultTask() {
     @Internal
     protected lateinit var collectedDependencies: CollectedContainer
 
+    @Optional
+    @Input
+    open var variant: Provider<String?> = project.provider { null }
+
     @OutputFile
-    val dependencyCache: Provider<RegularFile> = project.layout.buildDirectory.file("generated/aboutLibraries/dependency_cache.json")
+    val dependencyCache: Provider<RegularFile> = project.provider {
+        val variant = variant.orNull
+        if (variant == null) {
+            project.layout.buildDirectory.file("generated/aboutLibraries/dependency_cache.json").orNull
+        } else {
+            project.layout.buildDirectory.file("generated/aboutLibraries/$variant/dependency_cache.json").orNull
+        }
+    }
 
     /**
      * Collect the dependencies via the available configurations for the current project
      */
     fun configure() {
         project.evaluationDependsOnChildren()
-        collectedDependencies = DependencyCollector(includePlatform, filterVariants).collect(project)
+        collectedDependencies = DependencyCollector(includePlatform, filterVariants + (variant.orNull?.let { arrayOf(it) } ?: emptyArray())).collect(project)
     }
 
     @TaskAction

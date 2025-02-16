@@ -35,8 +35,15 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
 
     @InputFile
     @PathSensitive(value = PathSensitivity.RELATIVE)
-    val dependencyCache: Provider<RegularFile> = project.layout.buildDirectory.file("generated/aboutLibraries/dependency_cache.json")
-
+    val dependencyCache: Provider<RegularFile> = project.provider {
+        val variant = variant.orNull
+        if (variant == null) {
+            project.layout.buildDirectory.file("generated/aboutLibraries/dependency_cache.json").orNull
+        } else {
+            project.layout.buildDirectory.file("generated/aboutLibraries/$variant/dependency_cache.json").orNull
+        }
+    }
+    
     @Optional
     @PathSensitive(value = PathSensitivity.RELATIVE)
     @InputDirectory

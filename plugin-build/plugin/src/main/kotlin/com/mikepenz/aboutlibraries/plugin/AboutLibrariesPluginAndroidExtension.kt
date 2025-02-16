@@ -1,9 +1,9 @@
 package com.mikepenz.aboutlibraries.plugin
 
+import com.mikepenz.aboutlibraries.plugin.util.experimentalCache
 import org.gradle.api.Project
-import org.gradle.api.tasks.TaskProvider
 import org.slf4j.LoggerFactory
-import java.util.*
+import java.util.Locale
 
 /**
  * Android specific extension for the [AboutLibrariesPlugin]
@@ -11,17 +11,17 @@ import java.util.*
 object AboutLibrariesPluginAndroidExtension {
     private val LOGGER = LoggerFactory.getLogger(AboutLibrariesPluginAndroidExtension::class.java)
 
-    fun apply(project: Project, collectTask: TaskProvider<AboutLibrariesCollectorTask>) {
+    fun apply(project: Project) {
         try {
             val app = project.extensions.findByType(com.android.build.gradle.AppExtension::class.java)
             if (app != null) {
                 app.applicationVariants.configureEach {
-                    createAboutLibrariesAndroidTasks(project, it, collectTask)
+                    createAboutLibrariesAndroidTasks(project, it)
                 }
             } else {
                 val lib = project.extensions.findByType(com.android.build.gradle.LibraryExtension::class.java)
                 lib?.libraryVariants?.configureEach {
-                    createAboutLibrariesAndroidTasks(project, it, collectTask)
+                    createAboutLibrariesAndroidTasks(project, it)
                 }
             }
         } catch (t: Throwable) {
@@ -30,15 +30,24 @@ object AboutLibrariesPluginAndroidExtension {
     }
 
     @Suppress("DEPRECATION")
-    private fun createAboutLibrariesAndroidTasks(project: Project, v: Any, collectTask: TaskProvider<*>) {
+    private fun createAboutLibrariesAndroidTasks(project: Project, v: Any) {
         val variant = (v as? com.android.build.gradle.api.BaseVariant) ?: return
+
+        // task to output library names with ids for further actions
+        val collectTask = project.tasks.register("collectDependencies${variant.name.capitalize(Locale.ENGLISH)}", AboutLibrariesCollectorTask::class.java) {
+            it.description = "Collects dependencies to be used by the different AboutLibraries tasks"
+            it.variant = project.provider { variant.name }
+            if (project.experimentalCache.orNull == true) {
+                it.configure()
+            }
+        }
+
         val resultsResDirectory = project.layout.buildDirectory.dir("generated/aboutLibraries/${variant.name}/res/")
         val resultsDirectory = resultsResDirectory.map { it.dir("raw/") }
 
         // task to write the general definitions information
         val task = project.tasks.register(
-            "prepareLibraryDefinitions${variant.name.capitalize(Locale.ENGLISH)}",
-            AboutLibrariesTask::class.java
+            "prepareLibraryDefinitions${variant.name.capitalize(Locale.ENGLISH)}", AboutLibrariesTask::class.java
         ) {
             it.description = "Writes the relevant meta data for the AboutLibraries plugin to display dependencies"
             it.group = "Build"
@@ -53,8 +62,7 @@ object AboutLibrariesPluginAndroidExtension {
             try {
                 variant.mergeResourcesProvider.configure { it.dependsOn(task) }
             } catch (t: Throwable) {
-                @Suppress("DEPRECATION")
-                variant.mergeResources.dependsOn(task)
+                @Suppress("DEPRECATION") variant.mergeResources.dependsOn(task)
             }
         } catch (t: Throwable) {
             LOGGER.warn("Using deprecated API to register task, as new registerGeneratedResFolders was not supported by the current environment. Consider upgrading your AGP version.")
@@ -65,8 +73,7 @@ object AboutLibrariesPluginAndroidExtension {
 
         // task to generate libraries, and their license into the build folder (not hooked to the build task)
         project.tasks.register(
-            "generateLibraryDefinitions${variant.name.capitalize(Locale.ENGLISH)}",
-            AboutLibrariesTask::class.java
+            "generateLibraryDefinitions${variant.name.capitalize(Locale.ENGLISH)}", AboutLibrariesTask::class.java
         ) {
             it.description = "Manually write meta data for the AboutLibraries plugin"
             it.group = "Build"
@@ -77,8 +84,7 @@ object AboutLibrariesPluginAndroidExtension {
 
         // task to output libraries, and their license in CSV format to the CLI
         project.tasks.register(
-            "exportLibraries${variant.name.capitalize(Locale.ENGLISH)}",
-            AboutLibrariesExportTask::class.java
+            "exportLibraries${variant.name.capitalize(Locale.ENGLISH)}", AboutLibrariesExportTask::class.java
         ) {
             it.description = "Writes all libraries and their license in CSV format to the CLI"
             it.group = "Help"
@@ -88,8 +94,7 @@ object AboutLibrariesPluginAndroidExtension {
 
         // task to output libraries, their license in CSV format and source to a given location
         project.tasks.register(
-            "exportComplianceLibraries${variant.name.capitalize(Locale.ENGLISH)}",
-            AboutLibrariesExportComplianceTask::class.java
+            "exportComplianceLibraries${variant.name.capitalize(Locale.ENGLISH)}", AboutLibrariesExportComplianceTask::class.java
         ) {
             it.description = "Writes all libraries with their source and their license in CSV format to the configured directory"
             it.group = "Help"
