@@ -25,5 +25,6 @@
         "dependencies"
       ]
     }
-  ]
+  ],
+  "max_tags_to_fetch": 500
 }
