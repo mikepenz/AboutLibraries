@@ -16,11 +16,15 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         mavenLocal()
+        maven(url = "https://www.jitpack.io")
     }
 
     versionCatalogs {
         create("baseLibs") {
             from("com.mikepenz:version-catalog:0.1.5")
+        }
+        create("testLibs") {
+            from(files("gradle/test.versions.toml"))
         }
     }
 }
