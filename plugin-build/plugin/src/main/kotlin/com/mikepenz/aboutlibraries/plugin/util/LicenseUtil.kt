@@ -14,7 +14,7 @@ object LicenseUtil {
     internal fun loadLicenseCached(url: String): String? {
         return try {
             if (remoteLicenseCache.containsKey(url)) {
-                remoteLicenseCache[url]
+                remoteLicenseCache[url]?.takeIf { it.isNotBlank() }
             } else {
                 remoteLicenseCache[url] = ""
                 URL(url).readText().let {
