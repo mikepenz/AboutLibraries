@@ -24,6 +24,7 @@ class AboutLibrariesPlugin : Plugin<Project> {
             // task to output library names with ids for further actions
             val collectTask = project.tasks.register("collectDependencies", AboutLibrariesCollectorTask::class.java) {
                 it.description = "Collects dependencies to be used by the different AboutLibraries tasks"
+                it.variant = project.providers.gradleProperty("aboutLibraries.exportVariant").orElse(project.providers.gradleProperty("exportVariant"))
                 if (project.experimentalCache.orNull == true) {
                     it.configure()
                 }
