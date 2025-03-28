@@ -268,6 +268,41 @@ val libraries by rememberLibraries {
 LibrariesContainer(libraries, Modifier.fillMaxSize())
 ```
 
+
+<details><summary><b>Advanced Usage</b></summary>
+<p>
+
+### Advanced Usage
+
+Provide custom header, divider, and footer for the libraries container.
+
+```kotlin
+// custom header, divider, footer
+LibrariesContainer(
+  libraries = libraries,
+  modifier = Modifier.fillMaxSize().padding(it),
+  header = {
+    item {
+      Box(modifier = Modifier.fillMaxWidth().padding(16.dp), contentAlignment = Alignment.Center) {
+        Text("Hello Header")
+      }
+    }
+  },
+  divider = { HorizontalDivider() },
+  footer = {
+    item {
+      Box(modifier = Modifier.fillMaxWidth().padding(16.dp), contentAlignment = Alignment.Center) {
+        Text("Hello Footer")
+      }
+    }
+  }
+)
+```
+
+</p>
+</details>
+
+
 <details><summary><b>Compose-jb</b></summary>
 <p>
 

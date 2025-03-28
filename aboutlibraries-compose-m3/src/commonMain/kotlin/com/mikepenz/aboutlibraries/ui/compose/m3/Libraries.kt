@@ -36,6 +36,7 @@ fun LibrariesContainer(
     dimensions: LibraryDimensions = LibraryDefaults.libraryDimensions(),
     header: (LazyListScope.() -> Unit)? = null,
     divider: (@Composable LazyItemScope.() -> Unit)? = null,
+    footer: (LazyListScope.() -> Unit)? = null,
     onLibraryClick: ((Library) -> Unit)? = null,
 ) {
     val libs = Libs.Builder().withJson(aboutLibsJson).build()
@@ -53,6 +54,7 @@ fun LibrariesContainer(
         dimensions = dimensions,
         header = header,
         divider = divider,
+        footer = footer,
         onLibraryClick = onLibraryClick,
         licenseDialogBody = { library ->
             Text(library.licenses.firstOrNull()?.licenseContent ?: "")
@@ -79,6 +81,7 @@ fun LibrariesContainer(
     textStyles: LibraryTextStyles = LibraryDefaults.libraryTextStyles(),
     header: (LazyListScope.() -> Unit)? = null,
     divider: (@Composable LazyItemScope.() -> Unit)? = null,
+    footer: (LazyListScope.() -> Unit)? = null,
     onLibraryClick: ((Library) -> Unit)? = null,
 ) {
     val libs = librariesBlock()
@@ -98,6 +101,7 @@ fun LibrariesContainer(
         textStyles = textStyles,
         header = header,
         divider = divider,
+        footer = footer,
         onLibraryClick = onLibraryClick,
         licenseDialogBody = { library ->
             Text(library.licenses.firstOrNull()?.licenseContent ?: "")
