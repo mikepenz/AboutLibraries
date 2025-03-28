@@ -65,6 +65,7 @@ fun LibrariesContainer(
     textStyles: LibraryTextStyles = LibraryDefaults.libraryTextStyles(),
     header: (LazyListScope.() -> Unit)? = null,
     divider: (@Composable LazyItemScope.() -> Unit)? = null,
+    footer: (LazyListScope.() -> Unit)? = null,
     onLibraryClick: ((Library) -> Unit)? = null,
     licenseDialogBody: (@Composable (Library) -> Unit)? = null,
     licenseDialogConfirmText: String = "OK",
@@ -89,6 +90,7 @@ fun LibrariesContainer(
         textStyles = textStyles,
         header = header,
         divider = divider,
+        footer = footer,
         onLibraryClick = { library ->
             val license = library.licenses.firstOrNull()
             if (onLibraryClick != null) {
@@ -175,6 +177,7 @@ fun Libraries(
     textStyles: LibraryTextStyles = LibraryDefaults.libraryTextStyles(),
     header: (LazyListScope.() -> Unit)? = null,
     divider: (@Composable LazyItemScope.() -> Unit)? = null,
+    footer: (LazyListScope.() -> Unit)? = null,
     onLibraryClick: ((Library) -> Unit)? = null,
 ) {
     val uriHandler = LocalUriHandler.current
@@ -207,6 +210,7 @@ fun Libraries(
                 }
             }
         }
+        footer?.invoke(this)
     }
 }
 

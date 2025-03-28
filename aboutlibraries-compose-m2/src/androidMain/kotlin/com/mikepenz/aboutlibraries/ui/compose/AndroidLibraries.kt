@@ -2,6 +2,7 @@ package com.mikepenz.aboutlibraries.ui.compose
 
 import android.content.Context
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -40,6 +41,8 @@ fun LibrariesContainer(
     dimensions: LibraryDimensions = LibraryDefaults.libraryDimensions(),
     textStyles: LibraryTextStyles = LibraryDefaults.libraryTextStyles(),
     header: (LazyListScope.() -> Unit)? = null,
+    divider: (@Composable LazyItemScope.() -> Unit)? = null,
+    footer: (LazyListScope.() -> Unit)? = null,
     onLibraryClick: ((Library) -> Unit)? = null,
 ) {
     val context = LocalContext.current
@@ -63,6 +66,8 @@ fun LibrariesContainer(
         dimensions = dimensions,
         textStyles = textStyles,
         header = header,
+        divider = divider,
+        footer = footer,
         onLibraryClick = onLibraryClick,
         licenseDialogBody = { library ->
             Text(
