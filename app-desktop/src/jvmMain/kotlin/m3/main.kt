@@ -24,7 +24,11 @@ fun main() = application {
                 val libraries by rememberLibraries {
                     Res.readBytes("files/aboutlibraries.json").decodeToString()
                 }
-                LibrariesContainer(libraries, Modifier.fillMaxSize().padding(it))
+                LibrariesContainer(
+                    libraries = libraries,
+                    modifier = Modifier.fillMaxSize().padding(it),
+                    // divider = { HorizontalDivider() }
+                )
             }
         }
     }

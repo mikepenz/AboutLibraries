@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
@@ -63,6 +64,7 @@ fun LibrariesContainer(
     dimensions: LibraryDimensions = LibraryDefaults.libraryDimensions(),
     textStyles: LibraryTextStyles = LibraryDefaults.libraryTextStyles(),
     header: (LazyListScope.() -> Unit)? = null,
+    divider: (@Composable LazyItemScope.() -> Unit)? = null,
     onLibraryClick: ((Library) -> Unit)? = null,
     licenseDialogBody: (@Composable (Library) -> Unit)? = null,
     licenseDialogConfirmText: String = "OK",
@@ -86,6 +88,7 @@ fun LibrariesContainer(
         dimensions = dimensions,
         textStyles = textStyles,
         header = header,
+        divider = divider,
         onLibraryClick = { library ->
             val license = library.licenses.firstOrNull()
             if (onLibraryClick != null) {
@@ -171,6 +174,7 @@ fun Libraries(
     dimensions: LibraryDimensions = LibraryDefaults.libraryDimensions(),
     textStyles: LibraryTextStyles = LibraryDefaults.libraryTextStyles(),
     header: (LazyListScope.() -> Unit)? = null,
+    divider: (@Composable LazyItemScope.() -> Unit)? = null,
     onLibraryClick: ((Library) -> Unit)? = null,
 ) {
     val uriHandler = LocalUriHandler.current
@@ -188,6 +192,7 @@ fun Libraries(
             colors = colors,
             padding = padding,
             textStyles = textStyles,
+            divider = divider,
         ) { library ->
             val license = library.licenses.firstOrNull()
             if (onLibraryClick != null) {
@@ -214,6 +219,7 @@ internal inline fun LazyListScope.libraryItems(
     colors: LibraryColors,
     padding: LibraryPadding,
     textStyles: LibraryTextStyles,
+    noinline divider: (@Composable LazyItemScope.() -> Unit)?,
     crossinline onLibraryClick: ((Library) -> Unit),
 ) {
     items(libraries) { library ->
@@ -229,6 +235,8 @@ internal inline fun LazyListScope.libraryItems(
         ) {
             onLibraryClick.invoke(library)
         }
+
+        divider?.invoke(this@items)
     }
 }
 
