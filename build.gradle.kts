@@ -16,6 +16,7 @@ plugins {
     alias(baseLibs.plugins.aboutLibraries) apply false
     alias(baseLibs.plugins.mavenPublish) apply false
     alias(baseLibs.plugins.binaryCompatiblityValidator) apply false
+    alias(baseLibs.plugins.versionCatalogUpdate) apply false
 
     alias(libs.plugins.navSafeArgs) apply false
 }
