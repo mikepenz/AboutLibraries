@@ -1,6 +1,7 @@
 package com.mikepenz.aboutlibraries.ui.compose
 
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -29,6 +30,7 @@ fun LibrariesContainer(
     dimensions: LibraryDimensions = LibraryDefaults.libraryDimensions(),
     textStyles: LibraryTextStyles = LibraryDefaults.libraryTextStyles(),
     header: (LazyListScope.() -> Unit)? = null,
+    divider: (@Composable LazyItemScope.() -> Unit)? = null,
     onLibraryClick: ((Library) -> Unit)? = null,
 ) {
     val libs = Libs.Builder().withJson(aboutLibsJson).build()
@@ -46,6 +48,7 @@ fun LibrariesContainer(
         dimensions = dimensions,
         textStyles = textStyles,
         header = header,
+        divider = divider,
         onLibraryClick = onLibraryClick,
         licenseDialogBody = { library ->
             Text(library.licenses.firstOrNull()?.licenseContent ?: "")
@@ -70,6 +73,7 @@ fun LibrariesContainer(
     dimensions: LibraryDimensions = LibraryDefaults.libraryDimensions(),
     textStyles: LibraryTextStyles = LibraryDefaults.libraryTextStyles(),
     header: (LazyListScope.() -> Unit)? = null,
+    divider: (@Composable LazyItemScope.() -> Unit)? = null,
     onLibraryClick: ((Library) -> Unit)? = null,
 ) {
     val libs = librariesBlock()
@@ -88,6 +92,7 @@ fun LibrariesContainer(
         dimensions = dimensions,
         textStyles = textStyles,
         header = header,
+        divider = divider,
         onLibraryClick = onLibraryClick,
         licenseDialogBody = { library ->
             Text(library.licenses.firstOrNull()?.licenseContent ?: "")
