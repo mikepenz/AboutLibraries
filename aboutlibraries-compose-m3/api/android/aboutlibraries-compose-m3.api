@@ -5,8 +5,8 @@ public final class com/mikepenz/aboutlibraries/ui/compose/m3/AndroidLibrariesKt 
 public final class com/mikepenz/aboutlibraries/ui/compose/m3/ComposableSingletons$LibrariesKt {
 	public static final field INSTANCE Lcom/mikepenz/aboutlibraries/ui/compose/m3/ComposableSingletons$LibrariesKt;
 	public fun <init> ()V
-	public final fun getLambda-1$aboutlibraries_compose_m3_release ()Lkotlin/jvm/functions/Function3;
-	public final fun getLambda-2$aboutlibraries_compose_m3_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-1493421797$aboutlibraries_compose_m3_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$691610126$aboutlibraries_compose_m3_release ()Lkotlin/jvm/functions/Function3;
 }
 
 public final class com/mikepenz/aboutlibraries/ui/compose/m3/LibrariesKt {
