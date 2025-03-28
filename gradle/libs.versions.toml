@@ -50,5 +50,10 @@ materialDrawer-core = { module = "com.mikepenz:materialdrawer", version.ref = "m
 okhttp-core = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
 
 [bundles]
-accompanist = ["accompanist-systemuicontroller"]
-androidx-lifecycle = ["androidx-lifecycle-livedata-ktx", "androidx-lifecycle-viewmodel-ktx"]
+accompanist = [
+    "accompanist-systemuicontroller",
+]
+androidx-lifecycle = [
+    "androidx-lifecycle-livedata-ktx",
+    "androidx-lifecycle-viewmodel-ktx",
+]
