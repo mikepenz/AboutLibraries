@@ -13,7 +13,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -226,7 +226,7 @@ internal inline fun LazyListScope.libraryItems(
     noinline divider: (@Composable LazyItemScope.() -> Unit)?,
     crossinline onLibraryClick: ((Library) -> Unit),
 ) {
-    items(libraries) { library ->
+    itemsIndexed(libraries) { index, library ->
         Library(
             library = library,
             showAuthor = showAuthor,
@@ -240,7 +240,9 @@ internal inline fun LazyListScope.libraryItems(
             onLibraryClick.invoke(library)
         }
 
-        divider?.invoke(this@items)
+        if (divider != null && index < libraries.lastIndex) {
+            divider.invoke(this)
+        }
     }
 }
 
