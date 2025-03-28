@@ -1,8 +1,8 @@
 public final class com/mikepenz/aboutlibraries/ui/compose/ComposableSingletons$LibrariesKt {
 	public static final field INSTANCE Lcom/mikepenz/aboutlibraries/ui/compose/ComposableSingletons$LibrariesKt;
 	public fun <init> ()V
-	public final fun getLambda-1$aboutlibraries_compose_m2 ()Lkotlin/jvm/functions/Function3;
-	public final fun getLambda-2$aboutlibraries_compose_m2 ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$1360252953$aboutlibraries_compose_m2 ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$952926916$aboutlibraries_compose_m2 ()Lkotlin/jvm/functions/Function3;
 }
 
 public final class com/mikepenz/aboutlibraries/ui/compose/LibrariesKt {
