@@ -43,4 +43,5 @@ compose.desktop {
 aboutLibraries {
     registerAndroidTasks = false
     prettyPrint = true
+    outputPath = "src/commonMain/composeResources/files/"
 }

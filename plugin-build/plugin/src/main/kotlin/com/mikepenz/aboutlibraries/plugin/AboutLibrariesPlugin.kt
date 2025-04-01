@@ -18,61 +18,62 @@ class AboutLibrariesPlugin : Plugin<Project> {
         }
 
         // create the config possible
-        project.extensions.create("aboutLibraries", AboutLibrariesExtension::class.java)
+        val extension = project.extensions.create("aboutLibraries", AboutLibrariesExtension::class.java)
 
-        project.afterEvaluate {
-            // task to output library names with ids for further actions
-            val collectTask = project.tasks.register("collectDependencies", AboutLibrariesCollectorTask::class.java) {
-                it.description = "Collects dependencies to be used by the different AboutLibraries tasks"
-                it.variant = project.providers.gradleProperty("aboutLibraries.exportVariant").orElse(project.providers.gradleProperty("exportVariant"))
-                if (project.experimentalCache.orNull == true) {
-                    it.configure()
-                }
+        // task to output library names with ids for further actions
+        val collectTask = project.tasks.register("collectDependencies", AboutLibrariesCollectorTask::class.java) {
+            it.description = "Collects dependencies to be used by the different AboutLibraries tasks"
+            it.variant = project.providers.gradleProperty("aboutLibraries.exportVariant").orElse(project.providers.gradleProperty("exportVariant"))
+            if (project.experimentalCache.orNull == true) {
+                it.configure()
             }
+        }
 
-            // task to output funding options for included libraries
-            project.tasks.register("fundLibraries", AboutLibrariesFundingTask::class.java) {
-                it.description = "Outputs the funding options for used dependencies"
-                it.group = "Help"
-                it.dependsOn(collectTask)
-            }
+        // task to output funding options for included libraries
+        project.tasks.register("fundLibraries", AboutLibrariesFundingTask::class.java) {
+            it.description = "Outputs the funding options for used dependencies"
+            it.group = "Help"
+            it.dependsOn(collectTask)
+        }
 
-            // task to output library names with ids for further actions
-            project.tasks.register("findLibraries", AboutLibrariesIdTask::class.java) {
-                it.description = "Writes the relevant meta data for the AboutLibraries plugin to display dependencies"
-                it.group = "Help"
-                it.dependsOn(collectTask)
-            }
+        // task to output library names with ids for further actions
+        project.tasks.register("findLibraries", AboutLibrariesIdTask::class.java) {
+            it.description = "Writes the relevant meta data for the AboutLibraries plugin to display dependencies"
+            it.group = "Help"
+            it.dependsOn(collectTask)
+        }
 
-            // task to output libraries, and their license in CSV format to the CLI
-            project.tasks.register("exportLibraries", AboutLibrariesExportTask::class.java) {
-                it.description = "Writes all libraries and their license in CSV format to the CLI"
-                it.group = "Help"
-                it.dependsOn(collectTask)
-            }
+        // task to output libraries, and their license in CSV format to the CLI
+        project.tasks.register("exportLibraries", AboutLibrariesExportTask::class.java) {
+            it.description = "Writes all libraries and their license in CSV format to the CLI"
+            it.group = "Help"
+            it.dependsOn(collectTask)
+        }
 
-            // register a global task to generate library definitions
-            project.tasks.register("exportLibraryDefinitions", AboutLibrariesTask::class.java) {
-                it.description = "Writes the relevant meta data for the AboutLibraries plugin to display dependencies"
-                it.group = "Build"
-                it.variant = project.providers.gradleProperty("aboutLibraries.exportVariant").orElse(project.providers.gradleProperty("exportVariant"))
-
-                val projectDirectory = project.layout.projectDirectory
-                val buildDirectory = project.layout.buildDirectory
-
-                val exportPath: Provider<Directory> = project.providers.gradleProperty("aboutLibraries.exportPath").map { path -> projectDirectory.dir(path) }.orElse(
-                    project.providers.gradleProperty("exportPath").map { path -> projectDirectory.dir(path) }).orElse(
-                    buildDirectory.dir("generated/aboutLibraries/")
+        // register a global task to generate library definitions
+        project.tasks.register("exportLibraryDefinitions", AboutLibrariesTask::class.java) {
+            it.description = "Writes the relevant meta data for the AboutLibraries plugin to display dependencies"
+            it.group = "Build"
+            it.variant = project.providers.gradleProperty("aboutLibraries.exportVariant").orElse(
+                project.providers.gradleProperty("exportVariant").orElse(
+                    project.provider { extension.exportVariant }
                 )
-                it.resultDirectory.set(exportPath)
+            )
 
-                it.dependsOn(collectTask)
-            }
+            val projectDirectory = project.layout.projectDirectory
+            val buildDirectory = project.layout.buildDirectory
 
-            val extension = project.extensions.findByType(AboutLibrariesExtension::class.java)!!
-            if (extension.registerAndroidTasks) {
-                AboutLibrariesPluginAndroidExtension.apply(project)
-            }
+            val exportPath: Provider<Directory> = project.providers.gradleProperty("aboutLibraries.exportPath").map { path -> projectDirectory.dir(path) }.orElse(
+                project.providers.gradleProperty("exportPath").map { path -> projectDirectory.dir(path) }).orElse(
+                extension.outputPath?.let { path -> project.provider { projectDirectory.dir(path) } } ?: buildDirectory.dir("generated/aboutLibraries/")
+            )
+            it.resultDirectory.set(exportPath)
+
+            it.dependsOn(collectTask)
+        }
+
+        if (extension.registerAndroidTasks) {
+            AboutLibrariesPluginAndroidExtension.apply(project)
         }
     }
 
