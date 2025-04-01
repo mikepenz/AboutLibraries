@@ -99,7 +99,10 @@ aboutLibraries {
     // - If the automatic registered android tasks are disabled, a similar thing can be achieved manually
     // - `./gradlew app:exportLibraryDefinitions -PaboutLibraries.exportPath=src/main/res/raw`
     // - the resulting file can for example be added as part of the SCM
+    // - the `exportPath` can also be changed by setting `outputPath` via the dsl.
     registerAndroidTasks = false
+    // Define the output path (excluding fileName). Modifying this will disable the automatic meta data discovery for supported platforms.
+    outputPath = "src/commonMain/composeResources/files/"
     // Define the output file name. Modifying this will disable the automatic meta data discovery for supported platforms.
     outputFileName = "aboutlibraries.json"
     // Define the path configuration files are located in. E.g. additional libraries, licenses to add to the target .json

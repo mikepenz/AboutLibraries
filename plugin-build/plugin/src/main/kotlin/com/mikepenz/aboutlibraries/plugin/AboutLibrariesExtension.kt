@@ -6,6 +6,19 @@ import java.util.regex.Pattern
 abstract class AboutLibrariesExtension {
 
     /**
+     * The path to the directory where the generated meta data file will be stored.
+     *
+     * This path is relative to the modules project directory.
+     *
+     * ```
+     * aboutLibraries {
+     *   outputPath = "src/commonMain/composeResources/files"
+     * }
+     * ```
+     */
+    var outputPath: String? = null
+
+    /**
      * Adjusts the output file name for the generated meta data file.
      * Adjusting the file name will break the automatic discovery for supported platforms.
      * Ensure to use the respective APIs of the core module.
@@ -15,8 +28,23 @@ abstract class AboutLibrariesExtension {
      *   outputFileName = "aboutlibraries.json"
      * }
      * ```
+     *
+     * This can be overwritten with the `-PaboutLibraries.exportPath` command line argument.
      */
     var outputFileName: String = "aboutlibraries.json"
+
+
+    /**
+     * The default export variant to use for this module.
+     * Can be overwritten with the `-PaboutLibraries.exportVariant` command line argument.
+     *
+     * ```
+     * aboutLibraries {
+     *   exportVariant = "jvm"
+     * }
+     * ```
+     */
+    var exportVariant: String? = null
 
     /**
      * Disables any remote checking of licenses.
