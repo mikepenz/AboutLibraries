@@ -1,7 +1,11 @@
 package com.mikepenz.aboutlibraries.ui.compose.m3
 
+import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.focusable
+import androidx.compose.foundation.indication
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -145,8 +149,14 @@ fun LicenseDialog(
                 contentColor = colors.contentColor
             ) {
                 Column {
+                    val interactionSource = remember { MutableInteractionSource() }
                     FlowRow(
-                        modifier = Modifier.verticalScroll(scrollState).padding(8.dp).weight(1f)
+                        modifier = Modifier
+                            .indication(interactionSource, LocalIndication.current)
+                            .focusable(interactionSource = interactionSource)
+                            .verticalScroll(scrollState)
+                            .padding(8.dp)
+                            .weight(1f)
                     ) {
                         body(library)
                     }
