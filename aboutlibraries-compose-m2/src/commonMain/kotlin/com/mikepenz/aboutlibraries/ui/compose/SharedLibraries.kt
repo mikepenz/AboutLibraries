@@ -7,9 +7,9 @@ import androidx.compose.foundation.focusable
 import androidx.compose.foundation.indication
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -141,7 +141,7 @@ fun LicenseDialog(
             ) {
                 Column {
                     val interactionSource = remember { MutableInteractionSource() }
-                    FlowRow(
+                    Box(
                         modifier = Modifier
                             .indication(interactionSource, LocalIndication.current)
                             .focusable(interactionSource = interactionSource)
@@ -151,16 +151,14 @@ fun LicenseDialog(
                     ) {
                         body(library)
                     }
-                    FlowRow(
-                        modifier = Modifier.align(Alignment.End).padding(horizontal = 8.dp, vertical = 2.dp)
+                    TextButton(
+                        modifier = Modifier.align(Alignment.End).padding(horizontal = 8.dp, vertical = 4.dp),
+                        onClick = onDismiss,
+                        colors = ButtonDefaults.textButtonColors(
+                            contentColor = colors.dialogConfirmButtonColor,
+                        )
                     ) {
-                        TextButton(
-                            onClick = onDismiss, colors = ButtonDefaults.textButtonColors(
-                                contentColor = colors.dialogConfirmButtonColor,
-                            )
-                        ) {
-                            Text(confirmText)
-                        }
+                        Text(confirmText)
                     }
                 }
             }
