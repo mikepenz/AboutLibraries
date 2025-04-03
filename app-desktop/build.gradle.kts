@@ -41,7 +41,11 @@ compose.desktop {
 }
 
 aboutLibraries {
-    registerAndroidTasks = false
-    prettyPrint = true
-    outputPath = "src/commonMain/composeResources/files/"
+    android {
+        registerAndroidTasks = false
+    }
+    export {
+        prettyPrint = true
+        outputPath = file("src/commonMain/composeResources/files/aboutLibraries.json")
+    }
 }

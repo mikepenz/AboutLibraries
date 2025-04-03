@@ -1,50 +1,53 @@
 package com.mikepenz.aboutlibraries.plugin
 
+import org.gradle.api.Action
+import org.gradle.api.file.DirectoryProperty
+import org.gradle.api.file.RegularFileProperty
+import org.gradle.api.provider.MapProperty
+import org.gradle.api.provider.Property
+import org.gradle.api.provider.SetProperty
+import org.gradle.api.tasks.Nested
+import org.gradle.api.tasks.Optional
 import java.util.regex.Pattern
+import javax.inject.Inject
 
 @Suppress("unused") // Public API for Gradle build scripts.
 abstract class AboutLibrariesExtension {
 
-    /**
-     * The path to the directory where the generated meta data file will be stored.
-     *
-     * This path is relative to the modules project directory.
-     *
-     * ```
-     * aboutLibraries {
-     *   outputPath = "src/commonMain/composeResources/files"
-     * }
-     * ```
-     */
-    var outputPath: String? = null
+    @get:Nested
+    abstract val collect: CollectorConfig
 
-    /**
-     * Adjusts the output file name for the generated meta data file.
-     * Adjusting the file name will break the automatic discovery for supported platforms.
-     * Ensure to use the respective APIs of the core module.
-     *
-     * ```
-     * aboutLibraries {
-     *   outputFileName = "aboutlibraries.json"
-     * }
-     * ```
-     *
-     * This can be overwritten with the `-PaboutLibraries.exportPath` command line argument.
-     */
-    var outputFileName: String = "aboutlibraries.json"
+    fun collect(action: Action<CollectorConfig>) {
+        action.execute(collect)
+    }
 
+    @get:Nested
+    abstract val export: ExportConfig
 
-    /**
-     * The default export variant to use for this module.
-     * Can be overwritten with the `-PaboutLibraries.exportVariant` command line argument.
-     *
-     * ```
-     * aboutLibraries {
-     *   exportVariant = "jvm"
-     * }
-     * ```
-     */
-    var exportVariant: String? = null
+    fun export(action: Action<ExportConfig>) {
+        action.execute(export)
+    }
+
+    @get:Nested
+    abstract val library: LibraryConfig
+
+    fun library(action: Action<LibraryConfig>) {
+        action.execute(library)
+    }
+
+    @get:Nested
+    abstract val license: LicenseConfig
+
+    fun license(action: Action<LicenseConfig>) {
+        action.execute(license)
+    }
+
+    @get:Nested
+    abstract val android: AndroidConfig
+
+    fun android(action: Action<AndroidConfig>) {
+        action.execute(android)
+    }
 
     /**
      * Disables any remote checking of licenses.
@@ -57,7 +60,41 @@ abstract class AboutLibrariesExtension {
      * }
      * ```
      */
-    var offlineMode: Boolean = false
+    @get:Optional
+    abstract val offlineMode: Property<Boolean>
+
+    /**
+     * Helper API to apply the default convention for the extension.
+     */
+    fun applyConvention() {
+        offlineMode.convention(false)
+        collect {
+            it.includePlatform.convention(true)
+            it.fetchRemoteLicense.convention(false)
+            it.fetchRemoteFunding.convention(false)
+            it.filterVariants.convention(emptySet())
+        }
+        export {
+            it.includeMetaData.convention(false)
+            it.excludeFields.convention(emptySet())
+            it.prettyPrint.convention(false)
+        }
+        library {
+            it.exclusionPatterns.convention(emptySet())
+            it.duplicationMode.convention(DuplicateMode.KEEP)
+            it.duplicationRule.convention(DuplicateRule.SIMPLE)
+        }
+        license {
+            it.mapLicensesToSpdx.convention(true)
+            it.allowedLicenses.convention(emptySet())
+            it.allowedLicensesMap.convention(emptyMap())
+            it.additionalLicenses.convention(emptySet())
+            it.strictMode.convention(StrictMode.IGNORE)
+        }
+    }
+}
+
+abstract class AndroidConfig @Inject constructor() {
 
     /**
      * Configures the creation and registration of the Android related tasks. Will automatically hook into the build process and create the `aboutlibraries.json` during build time.
@@ -72,7 +109,11 @@ abstract class AboutLibrariesExtension {
      * For Android projects `./gradlew app:exportLibraryDefinitions -PaboutLibraries.exportPath=src/main/res/raw` leads to a similar manual output.
      * The resulting file can for example be added as part of the SCM.
      */
-    var registerAndroidTasks: Boolean = true
+    @get:Optional
+    abstract val registerAndroidTasks: Property<Boolean> // = true
+}
+
+abstract class CollectorConfig @Inject constructor() {
 
     /**
      * The path to your directory containing additional libraries, and licenses to include in the generated data.
@@ -84,20 +125,8 @@ abstract class AboutLibrariesExtension {
      * }
      * ```
      */
-    var configPath: String? = null
-
-    /**
-     * A list of patterns (matching on the library `uniqueId` ($groupId:$artifactId)) to exclude libraries.
-     *
-     * ```
-     * aboutLibraries {
-     *      exclusionPatterns = [
-     *          ~"com\.company\..*"
-     *      ]
-     * }
-     * ```
-     */
-    var exclusionPatterns: List<Pattern> = emptyList()
+    @get:Optional
+    abstract val configPath: DirectoryProperty
 
     /**
      * Enable the inclusion of platform dependencies in the report.
@@ -111,72 +140,159 @@ abstract class AboutLibrariesExtension {
      * }
      * ```
      */
-    var includePlatform: Boolean = true
+    @get:Optional
+    abstract val includePlatform: Property<Boolean>
 
     /**
-     * Additional license descriptors to include in the generated `aboutlibs.json` file.
+     * Enable fetching of remote licenses.
      *
-     * Useful in case e.g. there's a license only used in an explicitly-added library.
+     * This will use the API for (supported) repository source hosts to fetch the source license information.
+     *
+     * Find special source hosts supported for this here: https://github.com/mikepenz/AboutLibraries#special-repository-support
      *
      * ```
      * aboutLibraries {
-     *   additionalLicenses = arrayOf("mit", "mpl_2_0")
+     *   fetchRemoteLicense = false
      * }
      * ```
-     *
-     * This API requires spdxId's to be provided. A full list is available here: https://spdx.org/licenses/
      */
-    var additionalLicenses: Array<String> = emptyArray()
+    @get:Optional
+    abstract val fetchRemoteLicense: Property<Boolean>
 
     /**
-     * Enables an exceptional strictMode which will either log or crash the build in case non allowed licenses are detected.
+     * Enable fetching of remote funding information.
+     * This will use the API for (supported) repository source hosts to fetch the funding information via the API.
+     *
+     * Find special source hosts supported for this here: https://github.com/mikepenz/AboutLibraries#special-repository-support
      *
      * ```
      * aboutLibraries {
-     *   strictMode = StrictMode.FAIL
+     *   fetchRemoteFunding = false
      * }
      * ```
      */
-    var strictMode = StrictMode.IGNORE
+    @get:Optional
+    abstract val fetchRemoteFunding: Property<Boolean>
 
     /**
-     * Defines if licenses are mapped to SPDX identifiers.
-     * This lowers the meta data file size, however in case of modified license content, might loose the original license information - and instead use standard SPDX information, based on SPDX license id defined.
+     * An optional GitHub API token used to access the `license` endpoint provided by GitHub
+     * - https://api.github.com/repos/mikepenz/AboutLibraries/license
      *
      * ```
      * aboutLibraries {
-     *   mapLicensesToSpdx = false
+     *   gitHubApiToken = property("github.pat")
      * }
      * ```
      */
-    var mapLicensesToSpdx: Boolean = true
+    @get:Optional
+    abstract val gitHubApiToken: Property<String>
 
     /**
-     * Defines the allowed licenses which will not result in warnings or failures depending on the [strictMode] configuration.
+     * Defines the variants to keep during the "collectDependencies" step.
      *
      * ```
      * aboutLibraries {
-     *   allowedLicenses = arrayOf("Apache-2.0", "mit")
+     *   filterVariants = arrayOf("debug")
      * }
      * ```
-     *
-     * This API requires spdxId's to be provided. A full list is available here: https://spdx.org/licenses/
      */
-    var allowedLicenses: Array<String> = emptyArray()
+    @get:Optional
+    abstract val filterVariants: SetProperty<String>
+}
+
+abstract class ExportConfig @Inject constructor() {
 
     /**
-     * Defines the allowed licenses for specific libraries which will not result in warnings or failures depending on the [strictMode] configuration.
-     * This is useful if some dependencies have special licenses which are only used in testing and are accepted for this case.
+     * The path to the directory where the generated meta data file will be stored.
+     *
+     * This path is relative to the modules project directory.
+     *
+     * Adjusts the output file name for the generated meta data file.
+     * Adjusting the file name will break the automatic discovery for supported platforms.
+     * Ensure to use the respective APIs of the core module.
+     *
+     * This can be overwritten with the `-PaboutLibraries.exportPath` command line argument.
      *
      * ```
      * aboutLibraries {
-     *   allowedLicensesMap = mapOf("Apache-2.0" to arrayOf("libraryId"))
+     *   outputPath = "src/commonMain/composeResources/files/aboutlibraries.json"
      * }
      * ```
-     *
-     * This API requires spdxId's to be provided. A full list is available here: https://spdx.org/licenses/
      */
-    var allowedLicensesMap: Map<String, List<String>> = emptyMap()
+    @get:Optional
+    abstract val outputPath: RegularFileProperty
+
+    /**
+     * The default export variant to use for this module.
+     * Can be overwritten with the `-PaboutLibraries.exportVariant` command line argument.
+     *
+     * ```
+     * aboutLibraries {
+     *   exportVariant = "jvm"
+     * }
+     * ```
+     */
+    @get:Optional
+    abstract val exportVariant: Property<String>
+
+    /**
+     * Enable the inclusion of generated MetaData.
+     * Warning: This includes the generated date, making the build non-reproducible.
+     *
+     * ```
+     * aboutLibraries {
+     *   includeMetaData = true
+     * }
+     * ```
+     */
+    @get:Optional
+    abstract val includeMetaData: Property<Boolean>
+
+    /**
+     * Defines fields which will be excluded during the serialisation of the metadata output file.
+     *
+     * It is possible to qualify the field names by specifying the class name (e.g. "License.name").
+     * Permissible qualifiers are "ResultContainer", "Library", "Developer", "Organization", "Funding", "Scm",
+     * "License" and "MetaData".
+     * Unqualified field names (e.g. "description") are applied to the entire output.
+     *
+     * ```
+     * aboutLibraries {
+     *   excludeFields = arrayOf("License.name", "ResultContainer.metadata", "description", "tag")
+     * }
+     * ```
+     */
+    @get:Optional
+    abstract val excludeFields: SetProperty<String>
+
+    /**
+     * Enable pretty printing for the generated JSON metadata.
+     *
+     * ```
+     * aboutLibraries {
+     *   prettyPrint = true
+     * }
+     * ```
+     */
+    @get:Optional
+    abstract val prettyPrint: Property<Boolean>
+}
+
+abstract class LibraryConfig @Inject constructor() {
+
+    /**
+     * A list of patterns (matching on the library `uniqueId` ($groupId:$artifactId)) to exclude libraries.
+     *
+     * ```
+     * aboutLibraries {
+     *      exclusionPatterns = [
+     *          ~"com\.company\..*"
+     *      ]
+     * }
+     * ```
+     */
+    @get:Optional
+    abstract val exclusionPatterns: SetProperty<Pattern>
 
     /**
      * Defines the plugins behavior in case of duplicates.
@@ -195,7 +311,8 @@ abstract class AboutLibrariesExtension {
      *
      * @see duplicationRule
      */
-    var duplicationMode = DuplicateMode.KEEP
+    @get:Optional
+    abstract val duplicationMode: Property<DuplicateMode>
 
     /**
      * Specifies which approach the plugin takes on detecting duplicates.
@@ -213,99 +330,83 @@ abstract class AboutLibrariesExtension {
      *
      * @see duplicationMode
      */
-    var duplicationRule = DuplicateRule.SIMPLE
-
-    /**
-     * Enable fetching of remote licenses.
-     *
-     * This will use the API for (supported) repository source hosts to fetch the source license information.
-     *
-     * Find special source hosts supported for this here: https://github.com/mikepenz/AboutLibraries#special-repository-support
-     *
-     * ```
-     * aboutLibraries {
-     *   fetchRemoteLicense = false
-     * }
-     * ```
-     */
-    var fetchRemoteLicense: Boolean = false
-
-    /**
-     * Enable fetching of remote funding information.
-     * This will use the API for (supported) repository source hosts to fetch the funding information via the API.
-     *
-     * Find special source hosts supported for this here: https://github.com/mikepenz/AboutLibraries#special-repository-support
-     *
-     * ```
-     * aboutLibraries {
-     *   fetchRemoteFunding = false
-     * }
-     * ```
-     */
-    var fetchRemoteFunding: Boolean = false
-
-    /**
-     * An optional GitHub API token used to access the `license` endpoint provided by GitHub
-     * - https://api.github.com/repos/mikepenz/AboutLibraries/license
-     *
-     * ```
-     * aboutLibraries {
-     *   gitHubApiToken = property("github.pat")
-     * }
-     * ```
-     */
-    var gitHubApiToken: String? = null
-
-    /**
-     * Enable the inclusion of generated MetaData.
-     * Warning: This includes the generated date, making the build non-reproducible.
-     *
-     * ```
-     * aboutLibraries {
-     *   includeMetaData = true
-     * }
-     * ```
-     */
-    var includeMetaData: Boolean = false
-
-    /**
-     * Defines fields which will be excluded during the serialisation of the metadata output file.
-     *
-     * It is possible to qualify the field names by specifying the class name (e.g. "License.name").
-     * Permissible qualifiers are "ResultContainer", "Library", "Developer", "Organization", "Funding", "Scm",
-     * "License" and "MetaData".
-     * Unqualified field names (e.g. "description") are applied to the entire output.
-     *
-     * ```
-     * aboutLibraries {
-     *   excludeFields = arrayOf("License.name", "ResultContainer.metadata", "description", "tag")
-     * }
-     * ```
-     */
-    var excludeFields: Array<String> = emptyArray()
-
-    /**
-     * Enable pretty printing for the generated JSON metadata.
-     *
-     * ```
-     * aboutLibraries {
-     *   prettyPrint = true
-     * }
-     * ```
-     */
-    var prettyPrint: Boolean = false
-
-    /**
-     * Defines the variants to keep during the "collectDependencies" step.
-     *
-     * ```
-     * aboutLibraries {
-     *   filterVariants = arrayOf("debug")
-     * }
-     * ```
-     */
-    var filterVariants: Array<String> = emptyArray()
+    @get:Optional
+    abstract val duplicationRule: Property<DuplicateRule>
 }
+
+abstract class LicenseConfig @Inject constructor() {
+
+    /**
+     * Defines if licenses are mapped to SPDX identifiers.
+     * This lowers the meta data file size, however in case of modified license content, might loose the original license information - and instead use standard SPDX information, based on SPDX license id defined.
+     *
+     * ```
+     * aboutLibraries {
+     *   mapLicensesToSpdx = false
+     * }
+     * ```
+     */
+    @get:Optional
+    abstract val mapLicensesToSpdx: Property<Boolean>
+
+    /**
+     * Defines the allowed licenses which will not result in warnings or failures depending on the [strictMode] configuration.
+     *
+     * ```
+     * aboutLibraries {
+     *   allowedLicenses = arrayOf("Apache-2.0", "mit")
+     * }
+     * ```
+     *
+     * This API requires spdxId's to be provided. A full list is available here: https://spdx.org/licenses/
+     */
+    @get:Optional
+    abstract val allowedLicenses: SetProperty<String>
+
+    /**
+     * Defines the allowed licenses for specific libraries which will not result in warnings or failures depending on the [strictMode] configuration.
+     * This is useful if some dependencies have special licenses which are only used in testing and are accepted for this case.
+     *
+     * ```
+     * aboutLibraries {
+     *   allowedLicensesMap = mapOf("Apache-2.0" to arrayOf("libraryId"))
+     * }
+     * ```
+     *
+     * This API requires spdxId's to be provided. A full list is available here: https://spdx.org/licenses/
+     */
+    @get:Optional
+    abstract val allowedLicensesMap: MapProperty<String, List<String>>
+
+    /**
+     * Additional license descriptors to include in the generated `aboutlibs.json` file.
+     *
+     * Useful in case e.g. there's a license only used in an explicitly-added library.
+     *
+     * ```
+     * aboutLibraries {
+     *   additionalLicenses = arrayOf("mit", "mpl_2_0")
+     * }
+     * ```
+     *
+     * This API requires spdxId's to be provided. A full list is available here: https://spdx.org/licenses/
+     */
+    @get:Optional
+    abstract val additionalLicenses: SetProperty<String>
+
+    /**
+     * Enables an exceptional strictMode which will either log or crash the build in case non allowed licenses are detected.
+     *
+     * ```
+     * aboutLibraries {
+     *   strictMode = StrictMode.FAIL
+     * }
+     * ```
+     */
+    @get:Optional
+    abstract val strictMode: Property<StrictMode>
+}
+
 
 enum class StrictMode {
     /** fails the build if a non allowed license is found */

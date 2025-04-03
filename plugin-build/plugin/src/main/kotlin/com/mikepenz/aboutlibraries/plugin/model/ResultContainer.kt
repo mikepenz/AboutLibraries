@@ -1,6 +1,11 @@
 package com.mikepenz.aboutlibraries.plugin.model
 
-import com.mikepenz.aboutlibraries.plugin.mapping.*
+import com.mikepenz.aboutlibraries.plugin.mapping.Developer
+import com.mikepenz.aboutlibraries.plugin.mapping.Funding
+import com.mikepenz.aboutlibraries.plugin.mapping.Library
+import com.mikepenz.aboutlibraries.plugin.mapping.License
+import com.mikepenz.aboutlibraries.plugin.mapping.Organization
+import com.mikepenz.aboutlibraries.plugin.mapping.Scm
 import com.mikepenz.aboutlibraries.plugin.util.PartialObjectConverter
 import groovy.json.JsonGenerator
 import groovy.json.JsonOutput
@@ -10,7 +15,7 @@ import java.io.PrintWriter
 import java.nio.charset.StandardCharsets
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
-import java.util.*
+import java.util.Calendar
 
 data class ResultContainer(
     val libraries: List<Library>,
@@ -25,7 +30,7 @@ class MetaData(
         .format(Calendar.getInstance().toInstant()),
 )
 
-fun ResultContainer.writeToDisk(outputFile: File, includeMetaData: Boolean, excludeFields: Array<String>, prettyPrint: Boolean) {
+fun ResultContainer.writeToDisk(outputFile: File, includeMetaData: Boolean, excludeFields: Set<String>, prettyPrint: Boolean) {
     val allowedExclusionQualifiers = setOf(
         ResultContainer::class.simpleName,
         Library::class.simpleName,

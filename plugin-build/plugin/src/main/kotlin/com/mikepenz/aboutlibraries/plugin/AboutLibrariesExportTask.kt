@@ -2,22 +2,20 @@ package com.mikepenz.aboutlibraries.plugin
 
 import com.mikepenz.aboutlibraries.plugin.mapping.SpdxLicense
 import org.gradle.api.tasks.CacheableTask
-import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.TaskAction
 
 @CacheableTask
 abstract class AboutLibrariesExportTask : BaseAboutLibrariesTask() {
 
-    @Internal
-    var neededLicenses = HashSet<SpdxLicense>()
-
-    @Internal
-    var librariesWithoutLicenses = HashSet<String>()
-
-    private var unknownLicenses = HashMap<String, HashSet<String>>()
+    override fun getDescription(): String = "Writes all libraries and their licenses in CSV format to the CLI"
+    override fun getGroup(): String = "Help"
 
     @TaskAction
     fun action() {
+        val neededLicenses = HashSet<SpdxLicense>()
+        val librariesWithoutLicenses = HashSet<String>()
+        val unknownLicenses = HashMap<String, HashSet<String>>()
+
         val result = createLibraryProcessor().gatherDependencies()
         val variant = variant.orNull
         if (variant != null) {

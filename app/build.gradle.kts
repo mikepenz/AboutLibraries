@@ -39,46 +39,61 @@ android {
 
 // It is possible to define a custom config path with custom mappings
 aboutLibraries {
-    // - if the automatic registered android tasks are disabled, a similar thing can be achieved manually
-    // - `./gradlew app:exportLibraryDefinitions -PaboutLibraries.exportPath=src/main/res/raw`
-    // - the resulting file can for example be added as part of the SCM
-    // registerAndroidTasks = false
-
-    // define the path configuration files are located in. E.g. additional libraries, licenses to add to the target .json
-    configPath = "config"
     // allow to enable "offline mode", will disable any network check of the plugin (including [fetchRemoteLicense] or pulling spdx license texts)
     offlineMode = false
-    // enable fetching of "remote" licenses. Uses the GitHub API
-    fetchRemoteLicense = true
-    // (optional) GitHub token to raise API request limit to allow fetching more licenses
-    gitHubApiToken = if (hasProperty("github.pat")) property("github.pat")?.toString() else null
 
-    // Full license text for license IDs mentioned here will be included, even if no detected dependency uses them.
-    // additionalLicenses = arrayOf("mit", "mpl_2_0")
+    android {
+        // - if the automatic registered android tasks are disabled, a similar thing can be achieved manually
+        // - `./gradlew app:exportLibraryDefinitions -PaboutLibraries.exportPath=src/main/res/raw`
+        // - the resulting file can for example be added as part of the SCM
+        // registerAndroidTasks = false
+    }
 
-    // Allows excluding some fields from the generated meta data field.
-    // excludeFields = arrayOf("developers", "funding")
+    collect {
+        // define the path configuration files are located in. E.g. additional libraries, licenses to add to the target .json
+        configPath = file("../config")
 
-    // Define the strict mode, will fail if the project uses licenses not allowed
-    // - This will only automatically fail for Android projects which have `registerAndroidTasks` enabled
-    // For non Android projects, execute `exportLibraryDefinitions`
-    strictMode = StrictMode.FAIL
-    // Allowed set of licenses, this project will be able to use without build failure
-    allowedLicenses = arrayOf("Apache-2.0")
-    // Allowed set of licenses for specific dependencies, this project will be able to use without build failure
-    allowedLicensesMap = mapOf(
-        "asdkl" to listOf("androidx.jetpack.library"),
-        "NOASSERTION" to listOf("org.jetbrains.kotlinx"),
-    )
-    // Enable the duplication mode, allows to merge, or link dependencies which relate
-    duplicationMode = DuplicateMode.LINK
-    // Configure the duplication rule, to match "duplicates" with
-    duplicationRule = DuplicateRule.SIMPLE
-    // Enable pretty printing for the generated JSON file
-    prettyPrint = true
+        // (optional) GitHub token to raise API request limit to allow fetching more licenses
+        gitHubApiToken = if (hasProperty("github.pat")) property("github.pat")?.toString() else null
 
-    // Allows to only collect dependencies of specific variants during the `collectDependencies` step.
-    // filterVariants = arrayOf("debug")
+        // enable fetching of "remote" licenses. Uses the GitHub API
+        fetchRemoteLicense = true
+
+        // Allows to only collect dependencies of specific variants during the `collectDependencies` step.
+        // filterVariants.addAll("debug")
+    }
+
+    export {
+        // Allows excluding some fields from the generated meta data field.
+        // excludeFields.addAll("developers", "funding")
+
+        // Enable pretty printing for the generated JSON file
+        prettyPrint = true
+    }
+
+    license {
+        // Define the strict mode, will fail if the project uses licenses not allowed
+        // - This will only automatically fail for Android projects which have `registerAndroidTasks` enabled
+        // For non Android projects, execute `exportLibraryDefinitions`
+        strictMode = StrictMode.FAIL
+        // Allowed set of licenses, this project will be able to use without build failure
+        allowedLicenses.addAll("Apache-2.0")
+        // Allowed set of licenses for specific dependencies, this project will be able to use without build failure
+        allowedLicensesMap = mapOf(
+            "asdkl" to listOf("androidx.jetpack.library"),
+            "NOASSERTION" to listOf("org.jetbrains.kotlinx"),
+        )
+
+        // Full license text for license IDs mentioned here will be included, even if no detected dependency uses them.
+        // additionalLicenses.addAll("mit", "mpl_2_0")
+    }
+
+    library {
+        // Enable the duplication mode, allows to merge, or link dependencies which relate
+        duplicationMode = DuplicateMode.LINK
+        // Configure the duplication rule, to match "duplicates" with
+        duplicationRule = DuplicateRule.SIMPLE
+    }
 }
 
 dependencies {

@@ -4,7 +4,11 @@ import com.mikepenz.aboutlibraries.plugin.mapping.SpdxLicense
 import org.gradle.api.file.Directory
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.provider.Provider
-import org.gradle.api.tasks.*
+import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.InputDirectory
+import org.gradle.api.tasks.Internal
+import org.gradle.api.tasks.Optional
+import org.gradle.api.tasks.TaskAction
 import org.gradle.util.GradleVersion
 import org.slf4j.LoggerFactory
 import java.io.File
@@ -15,6 +19,9 @@ abstract class AboutLibrariesExportComplianceTask : BaseAboutLibrariesTask() {
 
     @get:InputDirectory
     abstract val projectDirectory: DirectoryProperty
+
+    override fun getDescription(): String = "Writes all libraries with their source and their license in CSV format to the configured directory"
+    override fun getGroup(): String = "Help"
 
     @Input
     @Optional

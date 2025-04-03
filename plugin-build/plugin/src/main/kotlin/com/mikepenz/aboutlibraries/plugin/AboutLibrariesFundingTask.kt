@@ -6,6 +6,9 @@ import org.gradle.api.tasks.TaskAction
 @CacheableTask
 abstract class AboutLibrariesFundingTask : BaseAboutLibrariesTask() {
 
+    override fun getDescription(): String = "Outputs the funding options for used dependencies"
+    override fun getGroup(): String = "Help"
+
     @TaskAction
     fun action() {
         val result = createLibraryProcessor(readInCollectedDependencies()).gatherDependencies()

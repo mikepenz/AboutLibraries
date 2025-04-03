@@ -4,6 +4,7 @@ import com.mikepenz.aboutlibraries.plugin.model.CollectedContainer
 import com.mikepenz.aboutlibraries.plugin.util.DependencyCollector
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.RegularFile
+import org.gradle.api.provider.MapProperty
 import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.Input
@@ -13,28 +14,37 @@ import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
 import org.slf4j.LoggerFactory
 
+/**
+ * A Gradle task to collect library dependencies and cache them in a JSON file.
+ */
 @CacheableTask
 abstract class AboutLibrariesCollectorTask : DefaultTask() {
+
+    override fun getDescription(): String = "Collects dependencies to be used by the different AboutLibraries tasks"
 
     @Internal
     protected val extension = project.extensions.findByType(AboutLibrariesExtension::class.java)!!
 
-    @Input
-    val projectName = project.name
+    @get:Input
+    val projectName: String = project.name
 
     @Input
-    val includePlatform = extension.includePlatform
+    val includePlatform = extension.collect.includePlatform
 
     @Input
-    val filterVariants = extension.filterVariants
-
-    /** holds the collected set of dependencies*/
-    @Internal
-    protected lateinit var collectedDependencies: CollectedContainer
+    val filterVariants = extension.collect.filterVariants
 
     @Optional
     @Input
-    open var variant: Provider<String?> = project.provider { null }
+    var variant: Provider<String?> = project.providers.gradleProperty("aboutLibraries.exportVariant").orElse(
+        project.providers.gradleProperty("exportVariant").orElse(
+            extension.export.exportVariant
+        )
+    )
+
+    /** holds the collected set of dependencies*/
+    @get:Input
+    abstract val dependencies: MapProperty<String, Map<String, Set<String>>>
 
     @OutputFile
     val dependencyCache: Provider<RegularFile> = project.provider {
@@ -46,23 +56,25 @@ abstract class AboutLibrariesCollectorTask : DefaultTask() {
         }
     }
 
-    /**
-     * Collect the dependencies via the available configurations for the current project
-     */
     fun configure() {
-        project.evaluationDependsOnChildren()
-        collectedDependencies = DependencyCollector(includePlatform, filterVariants + (variant.orNull?.let { arrayOf(it) } ?: emptyArray())).collect(project)
+        dependencies.set(
+            DependencyCollector(
+                includePlatform.get(),
+                filterVariants.get() + (variant.orNull?.let { arrayOf(it) } ?: emptyArray()),
+            ).collect(project)
+        )
     }
+
 
     @TaskAction
     fun action() {
         LOGGER.info("Collecting for: $projectName")
-        if (!::collectedDependencies.isInitialized) {
-            configure()
-        }
 
-        dependencyCache.get().asFile.parentFile.mkdirs()
-        dependencyCache.get().asFile.writeText(groovy.json.JsonOutput.toJson(collectedDependencies))
+        val cacheOutput = dependencyCache.get().asFile
+        cacheOutput.parentFile.mkdirs()
+        cacheOutput.writeText(groovy.json.JsonOutput.toJson(CollectedContainer(dependencies.get())))
+
+        LOGGER.debug("Collected dependencies for: $projectName to ${cacheOutput.absolutePath}")
     }
 
     private companion object {
