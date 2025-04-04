@@ -1,138 +1,159 @@
 package com.mikepenz.aboutlibraries.plugin
 
+import com.mikepenz.aboutlibraries.plugin.mapping.Library
+import com.mikepenz.aboutlibraries.plugin.mapping.License
 import com.mikepenz.aboutlibraries.plugin.model.CollectedContainer
+import com.mikepenz.aboutlibraries.plugin.util.DependencyCollector
 import com.mikepenz.aboutlibraries.plugin.util.LibrariesProcessor
-import groovy.json.JsonSlurper
 import org.gradle.api.DefaultTask
 import org.gradle.api.artifacts.dsl.DependencyHandler
-import org.gradle.api.file.RegularFile
-import org.gradle.api.provider.Provider
+import org.gradle.api.file.DirectoryProperty
+import org.gradle.api.provider.ListProperty
+import org.gradle.api.provider.MapProperty
+import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputDirectory
-import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.PathSensitive
 import org.gradle.api.tasks.PathSensitivity
 import org.slf4j.LoggerFactory
-import java.io.File
 import javax.inject.Inject
 
 abstract class BaseAboutLibrariesTask : DefaultTask() {
-    private val LOGGER = LoggerFactory.getLogger(BaseAboutLibrariesTask::class.java)!!
-
-    private val rootDir = project.rootDir
 
     @Internal
     protected val extension = project.extensions.findByType(AboutLibrariesExtension::class.java)!!
 
-    @Optional
-    @Input
-    open var variant: Provider<String?> = project.provider { null }
-
-    @Inject
-    abstract fun getDependencyHandler(): DependencyHandler
-
-    @InputFile
-    @PathSensitive(value = PathSensitivity.RELATIVE)
-    val dependencyCache: Provider<RegularFile> = project.provider {
-        val variant = variant.orNull
-        if (variant == null) {
-            project.layout.buildDirectory.file("generated/aboutLibraries/dependency_cache.json").orNull
-        } else {
-            project.layout.buildDirectory.file("generated/aboutLibraries/$variant/dependency_cache.json").orNull
-        }
-    }
-    
-    @Optional
-    @PathSensitive(value = PathSensitivity.RELATIVE)
-    @InputDirectory
-    fun getConfigPath(): File? {
-        val path = extension.configPath
-        if (path != null) {
-            val inputFile = File(path)
-            val absoluteFile = File(rootDir, path)
-            if (inputFile.isAbsolute && inputFile.exists()) {
-                return inputFile
-            } else if (absoluteFile.exists()) {
-                return absoluteFile
-            } else {
-                LOGGER.warn("Couldn't find provided path in: '${inputFile.absolutePath}' or '${absoluteFile.absolutePath}'")
-            }
-        }
-        return null
-    }
+    @get:Input
+    val projectName: String = project.name
 
     @Input
-    val exclusionPatterns = extension.exclusionPatterns
+    val includePlatform = extension.collect.includePlatform
 
     @Input
-    val includePlatform = extension.includePlatform
+    val filterVariants = extension.collect.filterVariants
+
+    @get:Optional
+    @get:Input
+    abstract val variant: Property<String?>
 
     @Input
-    val duplicationMode = extension.duplicationMode
+    val exclusionPatterns = extension.library.exclusionPatterns
 
     @Input
-    val duplicationRule = extension.duplicationRule
+    val duplicationMode = extension.library.duplicationMode
 
     @Input
-    val mapLicensesToSpdx = extension.mapLicensesToSpdx
+    val duplicationRule = extension.library.duplicationRule
 
     @Input
-    val allowedLicenses = extension.allowedLicenses
+    val mapLicensesToSpdx = extension.license.mapLicensesToSpdx
 
     @Input
-    val allowedLicensesMap = extension.allowedLicensesMap
+    val allowedLicenses = extension.license.allowedLicenses
+
+    @Input
+    val allowedLicensesMap = extension.license.allowedLicensesMap
 
     @Input
     val offlineMode = extension.offlineMode
 
     @Input
-    val fetchRemoteLicense = extension.fetchRemoteLicense && !offlineMode
+    val fetchRemoteLicense = extension.collect.fetchRemoteLicense.map { it && !offlineMode.getOrElse(false) }.orElse(false)
 
     @Input
-    val fetchRemoteFunding = extension.fetchRemoteFunding && !offlineMode
+    val fetchRemoteFunding = extension.collect.fetchRemoteFunding.map { it && !offlineMode.getOrElse(false) }
 
     @Input
-    val additionalLicenses = extension.additionalLicenses.toHashSet()
+    val additionalLicenses = extension.license.additionalLicenses
 
     @Input
     @Optional
-    val gitHubApiToken = extension.gitHubApiToken
+    val gitHubApiToken = extension.collect.gitHubApiToken
 
     @Input
-    val excludeFields = extension.excludeFields
+    val excludeFields = extension.export.excludeFields
 
     @Input
-    val includeMetaData = extension.includeMetaData
+    val includeMetaData = extension.export.includeMetaData
 
     @Input
-    val prettyPrint = extension.prettyPrint
+    val prettyPrint = extension.export.prettyPrint
 
-    @Suppress("UNCHECKED_CAST")
-    protected fun readInCollectedDependencies(): CollectedContainer {
-        try {
-            return CollectedContainer.from((JsonSlurper().parse(dependencyCache.get().asFile) as Map<String, *>)["dependencies"] as Map<String, Map<String, List<String>>>)
-        } catch (t: Throwable) {
-            throw IllegalStateException("Failed to parse the dependencyCache. Try to do a clean build", t)
+    @Inject
+    abstract fun getDependencyHandler(): DependencyHandler
+
+    @Optional
+    @PathSensitive(value = PathSensitivity.RELATIVE)
+    @InputDirectory
+    val configPath: DirectoryProperty = extension.collect.configPath
+
+    @get:Internal
+    abstract val dependencies: MapProperty<String, Map<String, Set<String>>>
+
+    @get:Internal
+    abstract val libraries: ListProperty<Library>
+
+    @get:Internal
+    abstract val licenses: MapProperty<String, License>
+
+    open fun configure() {
+        if (!variant.isPresent) {
+            variant.set(
+                project.providers.gradleProperty("aboutLibraries.exportVariant").orElse(
+                    project.providers.gradleProperty("exportVariant").orElse(
+                        extension.export.exportVariant
+                    )
+                )
+            )
         }
+
+        val variant = variant.orNull
+        val collectedContainer = DependencyCollector(
+            includePlatform.get(),
+            filterVariants.get() + (variant?.let { arrayOf(it) } ?: emptyArray()),
+        ).collect(project)
+
+        // keep dependencies
+        dependencies.set(collectedContainer.dependencies)
+
+        val resultContainer = createLibraryProcessor(collectedContainer).gatherDependencies()
+
+        LOGGER.info("Collected ${resultContainer.libraries.size} libraries and ${resultContainer.licenses.size} licenses")
+
+        libraries.set(resultContainer.libraries)
+        licenses.set(resultContainer.licenses)
     }
 
-    protected fun createLibraryProcessor(collectedContainer: CollectedContainer = readInCollectedDependencies()): LibrariesProcessor {
+    private fun createLibraryProcessor(collectedContainer: CollectedContainer): LibrariesProcessor {
+        val configDirectory = configPath.orNull
+        val realPath = if (configDirectory != null) {
+            val file = configDirectory.asFile
+            if (file.exists()) file else {
+                LOGGER.warn("Couldn't find provided path in: '${file.absolutePath}'")
+                null
+            }
+        } else null
+
         return LibrariesProcessor(
             dependencyHandler = getDependencyHandler(),
             collectedDependencies = collectedContainer,
-            configFolder = getConfigPath(),
-            exclusionPatterns = exclusionPatterns,
-            offlineMode = offlineMode,
-            fetchRemoteLicense = fetchRemoteLicense,
-            fetchRemoteFunding = fetchRemoteFunding,
-            additionalLicenses = additionalLicenses,
-            duplicationMode = duplicationMode,
-            duplicationRule = duplicationRule,
+            configFolder = realPath,
+            exclusionPatterns = exclusionPatterns.getOrElse(emptySet()),
+            offlineMode = offlineMode.getOrElse(false),
+            fetchRemoteLicense = fetchRemoteLicense.get(),
+            fetchRemoteFunding = fetchRemoteFunding.get(),
+            additionalLicenses = additionalLicenses.get(),
+            duplicationMode = duplicationMode.get(),
+            duplicationRule = duplicationRule.get(),
             variant = variant.orNull,
-            mapLicensesToSpdx = mapLicensesToSpdx,
-            gitHubToken = gitHubApiToken
+            mapLicensesToSpdx = mapLicensesToSpdx.get(),
+            gitHubToken = gitHubApiToken.orNull
         )
+    }
+
+    companion object {
+        private val LOGGER = LoggerFactory.getLogger(BaseAboutLibrariesTask::class.java)!!
     }
 }

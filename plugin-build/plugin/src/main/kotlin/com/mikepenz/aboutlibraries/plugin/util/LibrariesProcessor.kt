@@ -25,11 +25,11 @@ class LibrariesProcessor(
     private val dependencyHandler: DependencyHandler,
     private val collectedDependencies: CollectedContainer,
     private val configFolder: File?,
-    private val exclusionPatterns: List<Pattern>,
+    private val exclusionPatterns: Set<Pattern>,
     private val offlineMode: Boolean,
     private val fetchRemoteLicense: Boolean,
     private val fetchRemoteFunding: Boolean,
-    private val additionalLicenses: HashSet<String>,
+    additionalLicenses: Set<String>,
     private val duplicationMode: DuplicateMode,
     private val duplicationRule: DuplicateRule,
     private var variant: String? = null,
@@ -37,6 +37,7 @@ class LibrariesProcessor(
     gitHubToken: String? = null,
 ) {
     private val handledLibraries = HashSet<String>()
+    private val additionalLicenses: MutableSet<String> = additionalLicenses.toMutableSet()
 
     private val api = Api.create(offlineMode, gitHubToken)
 

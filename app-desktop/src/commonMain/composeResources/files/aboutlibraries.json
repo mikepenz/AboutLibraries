@@ -170,6 +170,166 @@
             }
         },
         {
+            "uniqueId": "com.fasterxml.jackson.core:jackson-annotations",
+            "funding": [
+                
+            ],
+            "developers": [
+                
+            ],
+            "artifactVersion": "2.12.7",
+            "description": "Core annotations used for value types, used by Jackson data binding package.",
+            "scm": {
+                "connection": "scm:git:git@github.com:FasterXML/jackson-annotations.git",
+                "url": "http://github.com/FasterXML/jackson-annotations",
+                "developerConnection": "scm:git:git@github.com:FasterXML/jackson-annotations.git"
+            },
+            "name": "Jackson-annotations",
+            "website": "http://github.com/FasterXML/jackson",
+            "licenses": [
+                "Apache-2.0"
+            ],
+            "organization": {
+                "url": "http://fasterxml.com/",
+                "name": "FasterXML"
+            }
+        },
+        {
+            "uniqueId": "com.fasterxml.jackson.core:jackson-core",
+            "funding": [
+                
+            ],
+            "developers": [
+                
+            ],
+            "artifactVersion": "2.12.7",
+            "description": "Core Jackson processing abstractions (aka Streaming API), implementation for JSON",
+            "scm": {
+                "connection": "scm:git:git@github.com:FasterXML/jackson-core.git",
+                "url": "http://github.com/FasterXML/jackson-core",
+                "developerConnection": "scm:git:git@github.com:FasterXML/jackson-core.git"
+            },
+            "name": "Jackson-core",
+            "website": "https://github.com/FasterXML/jackson-core",
+            "licenses": [
+                "Apache-2.0"
+            ],
+            "organization": {
+                "url": "http://fasterxml.com/",
+                "name": "FasterXML"
+            }
+        },
+        {
+            "uniqueId": "com.fasterxml.jackson.core:jackson-databind",
+            "funding": [
+                
+            ],
+            "developers": [
+                
+            ],
+            "artifactVersion": "2.12.7.1",
+            "description": "General data-binding functionality for Jackson: works on core streaming API",
+            "scm": {
+                "connection": "scm:git:git@github.com:FasterXML/jackson-databind.git",
+                "url": "http://github.com/FasterXML/jackson-databind",
+                "developerConnection": "scm:git:git@github.com:FasterXML/jackson-databind.git"
+            },
+            "name": "jackson-databind",
+            "website": "http://github.com/FasterXML/jackson",
+            "licenses": [
+                "Apache-2.0"
+            ],
+            "organization": {
+                "url": "http://fasterxml.com/",
+                "name": "FasterXML"
+            }
+        },
+        {
+            "uniqueId": "com.fasterxml.jackson.module:jackson-module-kotlin",
+            "funding": [
+                
+            ],
+            "developers": [
+                {
+                    "name": "Jayson Minard"
+                },
+                {
+                    "name": "Drew Stephens"
+                },
+                {
+                    "name": "Vyacheslav Artemyev"
+                }
+            ],
+            "artifactVersion": "2.12.7",
+            "description": "Add-on module for Jackson (https://github.com/FasterXML/jackson/) to support\n        Kotlin language, specifically introspection of method/constructor parameter names,\n        without having to add explicit property name annotation.",
+            "scm": {
+                "connection": "scm:git:git@github.com:FasterXML/jackson-module-kotlin.git",
+                "url": "https://github.com/FasterXML/jackson-module-kotlin",
+                "developerConnection": "scm:git:git@github.com:FasterXML/jackson-module-kotlin.git"
+            },
+            "name": "jackson-module-kotlin",
+            "website": "https://github.com/FasterXML/jackson-module-kotlin",
+            "licenses": [
+                "Apache-2.0"
+            ],
+            "organization": {
+                "url": "http://fasterxml.com/",
+                "name": "FasterXML"
+            }
+        },
+        {
+            "uniqueId": "com.fasterxml.jackson:jackson-bom",
+            "funding": [
+                
+            ],
+            "developers": [
+                {
+                    "name": "Tatu Saloranta"
+                }
+            ],
+            "artifactVersion": "2.12.7",
+            "description": "Bill of Materials pom for getting full, complete set of compatible versions\nof Jackson components maintained by FasterXML.com",
+            "scm": {
+                "connection": "scm:git:git@github.com:FasterXML/jackson-bom.git",
+                "url": "https://github.com/FasterXML/jackson-bom",
+                "developerConnection": "scm:git:git@github.com:FasterXML/jackson-bom.git"
+            },
+            "name": "Jackson BOM",
+            "website": "https://github.com/FasterXML/jackson-bom",
+            "licenses": [
+                "Apache-2.0"
+            ],
+            "organization": {
+                "url": "http://fasterxml.com/",
+                "name": "FasterXML"
+            }
+        },
+        {
+            "uniqueId": "org.freemarker:freemarker",
+            "funding": [
+                
+            ],
+            "developers": [
+                
+            ],
+            "artifactVersion": "2.3.32",
+            "description": "FreeMarker is a \"template engine\"; a generic tool to generate text output based on templates.",
+            "scm": {
+                "connection": "scm:git:https://git-wip-us.apache.org/repos/asf/freemarker.git",
+                "url": "https://git-wip-us.apache.org/repos/asf?p=freemarker.git",
+                "developerConnection": "scm:git:https://git-wip-us.apache.org/repos/asf/freemarker.git"
+            },
+            "name": "Apache FreeMarker",
+            "website": "https://freemarker.apache.org/",
+            "licenses": [
+                "Apache-2.0"
+            ],
+            "organization": {
+                "url": "http://apache.org",
+                "name": "Apache Software Foundation"
+            }
+        },
+        {
             "uniqueId": "org.jetbrains.androidx.lifecycle:lifecycle-common",
             "funding": [
                 
@@ -1274,6 +1434,122 @@
             ]
         },
         {
+            "uniqueId": "org.jetbrains.dokka:all-modules-page-plugin",
+            "funding": [
+                
+            ],
+            "developers": [
+                {
+                    "organisationUrl": "https://www.jetbrains.com",
+                    "name": "JetBrains Team"
+                }
+            ],
+            "artifactVersion": "2.0.0",
+            "description": "Dokka is an API documentation engine for Kotlin",
+            "scm": {
+                "connection": "scm:git:git://github.com/Kotlin/dokka.git",
+                "url": "https://github.com/Kotlin/dokka"
+            },
+            "name": "Dokka plugin-all-modules-page",
+            "website": "https://github.com/Kotlin/dokka",
+            "licenses": [
+                "Apache-2.0"
+            ]
+        },
+        {
+            "uniqueId": "org.jetbrains.dokka:analysis-markdown",
+            "funding": [
+                
+            ],
+            "developers": [
+                {
+                    "organisationUrl": "https://www.jetbrains.com",
+                    "name": "JetBrains Team"
+                }
+            ],
+            "artifactVersion": "2.0.0",
+            "description": "Dokka is an API documentation engine for Kotlin",
+            "scm": {
+                "connection": "scm:git:git://github.com/Kotlin/dokka.git",
+                "url": "https://github.com/Kotlin/dokka"
+            },
+            "name": "Dokka analysis-markdown-jb",
+            "website": "https://github.com/Kotlin/dokka",
+            "licenses": [
+                "Apache-2.0"
+            ]
+        },
+        {
+            "uniqueId": "org.jetbrains.dokka:dokka-base",
+            "funding": [
+                
+            ],
+            "developers": [
+                {
+                    "organisationUrl": "https://www.jetbrains.com",
+                    "name": "JetBrains Team"
+                }
+            ],
+            "artifactVersion": "2.0.0",
+            "description": "Dokka is an API documentation engine for Kotlin",
+            "scm": {
+                "connection": "scm:git:git://github.com/Kotlin/dokka.git",
+                "url": "https://github.com/Kotlin/dokka"
+            },
+            "name": "Dokka plugin-base",
+            "website": "https://github.com/Kotlin/dokka",
+            "licenses": [
+                "Apache-2.0"
+            ]
+        },
+        {
+            "uniqueId": "org.jetbrains.dokka:templating-plugin",
+            "funding": [
+                
+            ],
+            "developers": [
+                {
+                    "organisationUrl": "https://www.jetbrains.com",
+                    "name": "JetBrains Team"
+                }
+            ],
+            "artifactVersion": "2.0.0",
+            "description": "Dokka is an API documentation engine for Kotlin",
+            "scm": {
+                "connection": "scm:git:git://github.com/Kotlin/dokka.git",
+                "url": "https://github.com/Kotlin/dokka"
+            },
+            "name": "Dokka plugin-templating",
+            "website": "https://github.com/Kotlin/dokka",
+            "licenses": [
+                "Apache-2.0"
+            ]
+        },
+        {
+            "uniqueId": "org.jetbrains.kotlin:kotlin-reflect",
+            "funding": [
+                
+            ],
+            "developers": [
+                {
+                    "organisationUrl": "https://www.jetbrains.com",
+                    "name": "Kotlin Team"
+                }
+            ],
+            "artifactVersion": "2.0.20",
+            "description": "Kotlin Full Reflection Library",
+            "scm": {
+                "connection": "scm:git:https://github.com/JetBrains/kotlin.git",
+                "url": "https://github.com/JetBrains/kotlin",
+                "developerConnection": "scm:git:https://github.com/JetBrains/kotlin.git"
+            },
+            "name": "Kotlin Reflect",
+            "website": "https://kotlinlang.org/",
+            "licenses": [
+                "Apache-2.0"
+            ]
+        },
+        {
             "uniqueId": "org.jetbrains.kotlin:kotlin-stdlib",
             "funding": [
                 
@@ -1284,7 +1560,7 @@
                     "name": "Kotlin Team"
                 }
             ],
-            "artifactVersion": "2.1.10",
+            "artifactVersion": "2.1.20",
             "description": "Kotlin Standard Library",
             "scm": {
                 "connection": "scm:git:https://github.com/JetBrains/kotlin.git",
@@ -1544,6 +1820,31 @@
             ]
         },
         {
+            "uniqueId": "org.jetbrains.kotlinx:kotlinx-html-jvm",
+            "funding": [
+                
+            ],
+            "developers": [
+                {
+                    "name": "Sergey Mashkov"
+                },
+                {
+                    "name": "Anton Dmitriev"
+                }
+            ],
+            "artifactVersion": "0.9.1",
+            "description": "A kotlinx.html library provides DSL to build HTML to Writer/Appendable or DOM at JVM and browser (or other JavaScript engine) for better Kotlin programming for Web.",
+            "scm": {
+                "connection": "scm:git:git@github.com:Kotlin/kotlinx.html.git",
+                "url": "https://github.com/Kotlin/kotlinx.html"
+            },
+            "name": "kotlinx.html",
+            "website": "https://github.com/Kotlin/kotlinx.html",
+            "licenses": [
+                "Apache-2.0"
+            ]
+        },
+        {
             "uniqueId": "org.jetbrains.kotlinx:kotlinx-serialization-bom",
             "funding": [
                 
@@ -1554,7 +1855,7 @@
                     "name": "JetBrains Team"
                 }
             ],
-            "artifactVersion": "1.8.0",
+            "artifactVersion": "1.8.1",
             "description": "Kotlin multiplatform serialization runtime library",
             "scm": {
                 "url": "https://github.com/Kotlin/kotlinx.serialization"
@@ -1576,7 +1877,7 @@
                     "name": "JetBrains Team"
                 }
             ],
-            "artifactVersion": "1.8.0",
+            "artifactVersion": "1.8.1",
             "description": "Kotlin multiplatform serialization runtime library",
             "scm": {
                 "url": "https://github.com/Kotlin/kotlinx.serialization"
@@ -1598,7 +1899,7 @@
                     "name": "JetBrains Team"
                 }
             ],
-            "artifactVersion": "1.8.0",
+            "artifactVersion": "1.8.1",
             "description": "Kotlin multiplatform serialization runtime library",
             "scm": {
                 "url": "https://github.com/Kotlin/kotlinx.serialization"
@@ -1620,7 +1921,7 @@
                     "name": "JetBrains Team"
                 }
             ],
-            "artifactVersion": "1.8.0",
+            "artifactVersion": "1.8.1",
             "description": "Kotlin multiplatform serialization runtime library",
             "scm": {
                 "url": "https://github.com/Kotlin/kotlinx.serialization"
@@ -1642,7 +1943,7 @@
                     "name": "JetBrains Team"
                 }
             ],
-            "artifactVersion": "1.8.0",
+            "artifactVersion": "1.8.1",
             "description": "Kotlin multiplatform serialization runtime library",
             "scm": {
                 "url": "https://github.com/Kotlin/kotlinx.serialization"
@@ -1748,6 +2049,55 @@
             "licenses": [
                 "Apache-2.0"
             ]
+        },
+        {
+            "uniqueId": "org.jetbrains:markdown-jvm",
+            "funding": [
+                
+            ],
+            "developers": [
+                {
+                    "organisationUrl": "https://jetbrains.com",
+                    "name": "Valentin Fondaratov"
+                }
+            ],
+            "artifactVersion": "0.7.3",
+            "description": "Markdown parser in Kotlin",
+            "scm": {
+                "connection": "scm:git:git://github.com/JetBrains/markdown.git",
+                "url": "https://github.com/JetBrains/markdown"
+            },
+            "name": "markdown",
+            "website": "https://github.com/JetBrains/markdown",
+            "licenses": [
+                "Apache-2.0"
+            ]
+        },
+        {
+            "uniqueId": "org.jsoup:jsoup",
+            "funding": [
+                
+            ],
+            "developers": [
+                {
+                    "name": "Jonathan Hedley"
+                }
+            ],
+            "artifactVersion": "1.16.1",
+            "description": "jsoup is a Java library for working with real-world HTML. It provides a very convenient API for fetching URLs and extracting and manipulating data, using the best of HTML5 DOM methods and CSS selectors. jsoup implements the WHATWG HTML5 specification, and parses HTML to the same DOM as modern browsers do.",
+            "scm": {
+                "connection": "scm:git:https://github.com/jhy/jsoup.git",
+                "url": "https://github.com/jhy/jsoup"
+            },
+            "name": "jsoup Java HTML Parser",
+            "website": "https://jsoup.org/",
+            "licenses": [
+                "MIT"
+            ],
+            "organization": {
+                "url": "https://jhy.io/",
+                "name": "Jonathan Hedley"
+            }
         }
     ],
     "licenses": {
@@ -1758,6 +2108,14 @@
             "url": "https://spdx.org/licenses/Apache-2.0.html",
             "spdxId": "Apache-2.0",
             "name": "Apache License 2.0"
+        },
+        "MIT": {
+            "content": "MIT License\n\nCopyright (c) <year> <copyright holders>\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.",
+            "hash": "MIT",
+            "internalHash": "MIT",
+            "url": "https://spdx.org/licenses/MIT.html",
+            "spdxId": "MIT",
+            "name": "MIT License"
         }
     }
 }

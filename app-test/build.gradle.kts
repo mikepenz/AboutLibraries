@@ -17,5 +17,7 @@ kotlin {
 }
 
 aboutLibraries {
-    fetchRemoteLicense = true
+    collect {
+        fetchRemoteLicense = true
+    }
 }

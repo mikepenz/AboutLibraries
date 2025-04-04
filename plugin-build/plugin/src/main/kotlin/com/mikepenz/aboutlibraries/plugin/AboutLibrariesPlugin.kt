@@ -1,10 +1,7 @@
 package com.mikepenz.aboutlibraries.plugin
 
-import com.mikepenz.aboutlibraries.plugin.util.experimentalCache
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.file.Directory
-import org.gradle.api.provider.Provider
 import org.gradle.util.GradleVersion
 import org.slf4j.LoggerFactory
 
@@ -17,63 +14,33 @@ class AboutLibrariesPlugin : Plugin<Project> {
             return
         }
 
-        // create the config possible
+        // create the extension for the about libraries plugin
         val extension = project.extensions.create("aboutLibraries", AboutLibrariesExtension::class.java)
-
-        // task to output library names with ids for further actions
-        val collectTask = project.tasks.register("collectDependencies", AboutLibrariesCollectorTask::class.java) {
-            it.description = "Collects dependencies to be used by the different AboutLibraries tasks"
-            it.variant = project.providers.gradleProperty("aboutLibraries.exportVariant").orElse(project.providers.gradleProperty("exportVariant"))
-            if (project.experimentalCache.orNull == true) {
-                it.configure()
-            }
-        }
+        extension.applyConvention()
 
         // task to output funding options for included libraries
         project.tasks.register("fundLibraries", AboutLibrariesFundingTask::class.java) {
-            it.description = "Outputs the funding options for used dependencies"
-            it.group = "Help"
-            it.dependsOn(collectTask)
+            it.configure()
         }
 
         // task to output library names with ids for further actions
         project.tasks.register("findLibraries", AboutLibrariesIdTask::class.java) {
-            it.description = "Writes the relevant meta data for the AboutLibraries plugin to display dependencies"
-            it.group = "Help"
-            it.dependsOn(collectTask)
+            it.configure()
         }
 
         // task to output libraries, and their license in CSV format to the CLI
         project.tasks.register("exportLibraries", AboutLibrariesExportTask::class.java) {
-            it.description = "Writes all libraries and their license in CSV format to the CLI"
-            it.group = "Help"
-            it.dependsOn(collectTask)
+            it.configure()
         }
 
         // register a global task to generate library definitions
         project.tasks.register("exportLibraryDefinitions", AboutLibrariesTask::class.java) {
-            it.description = "Writes the relevant meta data for the AboutLibraries plugin to display dependencies"
-            it.group = "Build"
-            it.variant = project.providers.gradleProperty("aboutLibraries.exportVariant").orElse(
-                project.providers.gradleProperty("exportVariant").orElse(
-                    project.provider { extension.exportVariant }
-                )
-            )
-
-            val projectDirectory = project.layout.projectDirectory
-            val buildDirectory = project.layout.buildDirectory
-
-            val exportPath: Provider<Directory> = project.providers.gradleProperty("aboutLibraries.exportPath").map { path -> projectDirectory.dir(path) }.orElse(
-                project.providers.gradleProperty("exportPath").map { path -> projectDirectory.dir(path) }).orElse(
-                extension.outputPath?.let { path -> project.provider { projectDirectory.dir(path) } } ?: buildDirectory.dir("generated/aboutLibraries/")
-            )
-            it.resultDirectory.set(exportPath)
-
-            it.dependsOn(collectTask)
+            it.configureOutputFile()
+            it.configure()
         }
 
-        if (extension.registerAndroidTasks) {
-            AboutLibrariesPluginAndroidExtension.apply(project)
+        if (extension.android.registerAndroidTasks.getOrElse(true)) {
+            AboutLibrariesPluginAndroidExtension.apply(project, extension)
         }
     }
 

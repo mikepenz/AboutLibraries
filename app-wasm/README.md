@@ -9,5 +9,5 @@
 ### Run Wasm app
 
 ```bash
-./gradlew :app-wasm:wasmJsRun
+./gradlew :app-wasm:wasmJsBrowserDevelopmentRun
 ```

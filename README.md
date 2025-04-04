@@ -94,51 +94,83 @@ apply plugin: 'com.mikepenz.aboutlibraries.plugin'
 
 It is possible to provide custom configurations / adjustments to the automatic detection. This can be done via the gradle plugin.
 
-```groovy
+```kts
 aboutLibraries {
-    // - If the automatic registered android tasks are disabled, a similar thing can be achieved manually
-    // - `./gradlew app:exportLibraryDefinitions -PaboutLibraries.exportPath=src/main/res/raw`
-    // - the resulting file can for example be added as part of the SCM
-    // - the `exportPath` can also be changed by setting `outputPath` via the DSL.
-    registerAndroidTasks = false
-    // Define the output path (excluding fileName). Modifying this will disable the automatic meta data discovery for supported platforms.
-    outputPath = "src/commonMain/composeResources/files/"
-    // Define the output file name. Modifying this will disable the automatic meta data discovery for supported platforms.
-    outputFileName = "aboutlibraries.json"
-    // Define the path configuration files are located in. E.g. additional libraries, licenses to add to the target .json
-    // Warning: Please do not use the parent folder of a module as path, as this can result in issues. More details: https://github.com/mikepenz/AboutLibraries/issues/936
-    configPath = "config"
     // Allow to enable "offline mode", will disable any network check of the plugin (including [fetchRemoteLicense] or pulling spdx license texts)
     offlineMode = false
-    // Enable fetching of "remote" licenses.  Uses the API of supported source hosts
-    // See https://github.com/mikepenz/AboutLibraries#special-repository-support
-    fetchRemoteLicense = true
-    // Enables fetching of "remote" funding information. Uses the API of supported source hosts
-    // See https://github.com/mikepenz/AboutLibraries#special-repository-support
-    fetchRemoteFunding = true
-    // (Optional) GitHub token to raise API request limit to allow fetching more licenses
-    gitHubApiToken = property("github.pat")
-    // Full license text for license IDs mentioned here will be included, even if no detected dependency uses them.
-    additionalLicenses = ["mit", "mpl_2_0"]
-    // Allows to exclude some fields from the generated meta data field.
-    // If the class name is specified, the field is only excluded for that class; without a class name, the exclusion is global.
-    excludeFields = ["License.name", "developers", "funding"]
-    // Enable inclusion of `platform` dependencies in the library report
-    includePlatform = true
-    // Define the strict mode, will fail if the project uses licenses not allowed
-    // - This will only automatically fail for Android projects which have `registerAndroidTasks` enabled
-    // For non Android projects, execute `exportLibraryDefinitions`
-    strictMode = com.mikepenz.aboutlibraries.plugin.StrictMode.FAIL
-    // Allowed set of licenses, this project will be able to use without build failure
-    allowedLicenses = ["Apache-2.0", "asdkl"]
-    // Enable the duplication mode, allows to merge, or link dependencies which relate
-    duplicationMode = com.mikepenz.aboutlibraries.plugin.DuplicateMode.LINK
-    // Configure the duplication rule, to match "duplicates" with
-    duplicationRule = com.mikepenz.aboutlibraries.plugin.DuplicateRule.SIMPLE
-    // Enable pretty printing for the generated JSON file
-    prettyPrint = false
-    // Allows to only collect dependencies of specific variants during the `collectDependencies` step.
-    filterVariants = ["debug", "release"]
+
+    android {
+        // - If the automatic registered android tasks are disabled, a similar thing can be achieved manually
+        // - `./gradlew app:exportLibraryDefinitions -PaboutLibraries.exportPath=src/main/res/raw`
+        // - the resulting file can for example be added as part of the SCM
+        // - the `exportPath` can also be changed by setting `outputPath` via the DSL.
+        registerAndroidTasks = false
+    }
+
+    collect {
+        // Define the path configuration files are located in. E.g. additional libraries, licenses to add to the target .json
+        // Warning: Please do not use the parent folder of a module as path, as this can result in issues. More details: https://github.com/mikepenz/AboutLibraries/issues/936
+        // The path provided is relative to the modules path (not project root)
+        configPath = file("../config")
+
+        // (optional) GitHub token to raise API request limit to allow fetching more licenses
+        gitHubApiToken = if (hasProperty("github.pat")) property("github.pat")?.toString() else null
+
+        // Enable fetching of "remote" licenses.  Uses the API of supported source hosts
+        // See https://github.com/mikepenz/AboutLibraries#special-repository-support
+        fetchRemoteLicense = true
+
+        // Enables fetching of "remote" funding information. Uses the API of supported source hosts
+        // See https://github.com/mikepenz/AboutLibraries#special-repository-support
+        fetchRemoteFunding = true
+
+        // Allows to only collect dependencies of specific variants during the `collectDependencies` step.
+        // filterVariants.addAll("debug", "release")
+
+        // Enable inclusion of `platform` dependencies in the library report
+        includePlatform = true
+    }
+
+    export {
+        // Define the output path (including fileName). Modifying this will disable the automatic meta data discovery for supported platforms.
+        outputPath = file("src/commonMain/composeResources/files/aboutlibraries.json")
+
+        // The default export variant to use for this module.
+        // exportVariant = "release"
+
+        // Allows to exclude some fields from the generated meta data field.
+        // If the class name is specified, the field is only excluded for that class; without a class name, the exclusion is global.
+        excludeFields.addAll("License.name", "developers", "funding")
+
+        // Enable pretty printing for the generated JSON file
+        prettyPrint = true
+    }
+
+    license {
+        // Define the strict mode, will fail if the project uses licenses not allowed
+        // - This will only automatically fail for Android projects which have `registerAndroidTasks` enabled
+        // For non Android projects, execute `exportLibraryDefinitions`
+        strictMode = com.mikepenz.aboutlibraries.plugin.StrictMode.FAIL
+
+        // Allowed set of licenses, this project will be able to use without build failure
+        allowedLicenses.addAll("Apache-2.0", "asdkl")
+
+        // Allowed set of licenses for specific dependencies, this project will be able to use without build failure
+        allowedLicensesMap = mapOf(
+            "asdkl" to listOf("androidx.jetpack.library"),
+            "NOASSERTION" to listOf("org.jetbrains.kotlinx"),
+        )
+
+        // Full license text for license IDs mentioned here will be included, even if no detected dependency uses them.
+        // additionalLicenses.addAll("mit", "mpl_2_0")
+    }
+
+    library {
+        // Enable the duplication mode, allows to merge, or link dependencies which relate
+        duplicationMode = com.mikepenz.aboutlibraries.plugin.DuplicateMode.LINK
+        // Configure the duplication rule, to match "duplicates" with
+        duplicationRule = com.mikepenz.aboutlibraries.plugin.DuplicateRule.SIMPLE
+    }
 }
 ```
 
@@ -271,7 +303,6 @@ val libraries by rememberLibraries {
 LibrariesContainer(libraries, Modifier.fillMaxSize())
 ```
 
-
 <details><summary><b>Advanced Usage</b></summary>
 <p>
 
@@ -282,23 +313,23 @@ Provide custom header, divider, and footer for the libraries container.
 ```kotlin
 // custom header, divider, footer
 LibrariesContainer(
-  libraries = libraries,
-  modifier = Modifier.fillMaxSize().padding(it),
-  header = {
-    item {
-      Box(modifier = Modifier.fillMaxWidth().padding(16.dp), contentAlignment = Alignment.Center) {
-        Text("Hello Header")
-      }
+    libraries = libraries,
+    modifier = Modifier.fillMaxSize().padding(it),
+    header = {
+        item {
+            Box(modifier = Modifier.fillMaxWidth().padding(16.dp), contentAlignment = Alignment.Center) {
+                Text("Hello Header")
+            }
+        }
+    },
+    divider = { HorizontalDivider() },
+    footer = {
+        item {
+            Box(modifier = Modifier.fillMaxWidth().padding(16.dp), contentAlignment = Alignment.Center) {
+                Text("Hello Footer")
+            }
+        }
     }
-  },
-  divider = { HorizontalDivider() },
-  footer = {
-    item {
-      Box(modifier = Modifier.fillMaxWidth().padding(16.dp), contentAlignment = Alignment.Center) {
-        Text("Hello Footer")
-      }
-    }
-  }
 )
 ```
 
@@ -325,7 +356,7 @@ the dependency meta information and include as part of the SCM.
 
 ### Run Demo app(s)
 
-```
+```bash
 # JVM Desktop app
 ./gradlew :app-desktop:run
 
@@ -418,7 +449,7 @@ Create a custom style for the AboutLibraries UI.
     <item name="aboutLibrariesOpenSourceDivider">@color/opensource_divider</item>
 </style>
 
-// define the custom styles for the theme
+        // define the custom styles for the theme
 
 <style name="SampleApp" parent="Theme.MaterialComponents.Light.NoActionBar">
 ...
@@ -434,16 +465,27 @@ Create a custom style for the AboutLibraries UI.
 
 Since v10 of the AboutLibraries plugin it is possible to disable the automatic registration of the plugin task as part of the build system.
 
-```
+```kts
 aboutLibraries {
-    registerAndroidTasks = false
+    android {
+        // Disable the automatic task
+        registerAndroidTasks = false
+    }
+    export {
+        // Define the output path (including fileName)
+        outputPath = file("src/commonMain/composeResources/files/aboutlibraries.json")
+        exportVariant = "release" // Optional, if not set the default variant will be used
+    }
 }
 ```
 
 This is especially beneficial for enterprise environments where it is required to be in full control of the included `aboutlibraries.json`.
 After disabling the integration it is possible to manually update the definitions, or do it on your CI environment.
 
-```
+```bash
+# Generate using the configured location
+./gradlew app:exportLibraryDefinitions
+# Generate providing a custom path and variant
 ./gradlew app:exportLibraryDefinitions -PaboutLibraries.exportPath=src/main/res/raw/ -PaboutLibraries.exportVariant=release
 ```
 
@@ -475,18 +517,18 @@ For other environments or for more advanced usages the plugin offers additional 
 ./gradlew app-desktop:exportLibraryDefinitions -PaboutLibraries.exportPath=src/main/resources/ -PaboutLibraries.exportVariant=release
 
 # Export dependencies to CLI in CSV format
-./gradlew exportLibraries
-./gradlew exportLibraries${Variant}
+./gradlew app:exportLibraries
+./gradlew app:exportLibraries${Variant}
 
 # Outputs all dependencies with name, version and their identifier
-./gradlew findLibraries
+./gradlew app:findLibraries
 
 # Exports all dependencies in a format helpful for compliance reports.
 # By default writes `export.csv` and `export.txt` and `dependencies` folder in the root of the project.
-./gradlew exportComplianceLibraries${Variant}
+./gradlew app:exportComplianceLibraries${Variant}
 
 # List all funding options for included projects (as identified via the e.g.: GitHub API)
-./gradlew fundLibraries
+./gradlew app:fundLibraries
 ```
 
 # Special repository support

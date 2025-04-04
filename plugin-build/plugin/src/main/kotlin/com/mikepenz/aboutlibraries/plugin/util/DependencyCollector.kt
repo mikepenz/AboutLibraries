@@ -27,7 +27,7 @@ import org.slf4j.LoggerFactory
  */
 class DependencyCollector(
     private val includePlatform: Boolean = false,
-    private val filterVariants: Array<String> = emptyArray(),
+    private val filterVariants: Set<String> = emptySet(),
 ) {
     /**
      * Generates the project dependency report structure

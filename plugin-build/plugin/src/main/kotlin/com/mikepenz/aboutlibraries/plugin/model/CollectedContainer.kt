@@ -1,13 +1,11 @@
 package com.mikepenz.aboutlibraries.plugin.model
 
-import org.gradle.api.tasks.Input
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.Serializable
 
 data class CollectedContainer(
-    // Map<Variant, Map<Identifier, Set<Versions>>>
-    @get:Input val dependencies: Map<String, Map<String, Set<String>>>,
+    val dependencies: Map<String, Map<String, Set<String>>>,
 ) : Serializable {
     /**
      * Retrieves the dependencies for a specific variant, if no variant is provided, will merge all found variants together.

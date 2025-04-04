@@ -4,7 +4,11 @@ import com.mikepenz.aboutlibraries.plugin.mapping.SpdxLicense
 import org.gradle.api.file.Directory
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.provider.Provider
-import org.gradle.api.tasks.*
+import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.InputDirectory
+import org.gradle.api.tasks.Internal
+import org.gradle.api.tasks.Optional
+import org.gradle.api.tasks.TaskAction
 import org.gradle.util.GradleVersion
 import org.slf4j.LoggerFactory
 import java.io.File
@@ -15,6 +19,9 @@ abstract class AboutLibrariesExportComplianceTask : BaseAboutLibrariesTask() {
 
     @get:InputDirectory
     abstract val projectDirectory: DirectoryProperty
+
+    override fun getDescription(): String = "Writes all libraries with their source and their license in CSV format to the configured directory"
+    override fun getGroup(): String = "Help"
 
     @Input
     @Optional
@@ -49,7 +56,9 @@ abstract class AboutLibrariesExportComplianceTask : BaseAboutLibrariesTask() {
 
     @TaskAction
     fun action() {
-        val result = createLibraryProcessor().gatherDependencies()
+        val libraries = libraries.get()
+        val licenses = licenses.get()
+
         val variant = variant.orNull
         if (variant != null) {
             println("")
@@ -69,7 +78,7 @@ abstract class AboutLibrariesExportComplianceTask : BaseAboutLibrariesTask() {
         dependenciesFolder.deleteRecursively()
 
         val ungroupedKey = "zzzzz_ungrouped"
-        val groupSorted = result.libraries.groupBy {
+        val groupSorted = libraries.groupBy {
             for (group in groups) {
                 if (it.artifactId.startsWith(group)) {
                     return@groupBy group
@@ -88,7 +97,7 @@ abstract class AboutLibrariesExportComplianceTask : BaseAboutLibrariesTask() {
             exportTxt.appendText("${group}\n")
 
             for (library in entry.value) {
-                val fullLicenses = library.licenses.mapNotNull { result.licenses[it] }
+                val fullLicenses = library.licenses.mapNotNull { licenses[it] }
                 fullLicenses.map { it.spdxId ?: it.name }.forEach { licenseId ->
                     try {
                         neededLicenses.add(SpdxLicense.getById(licenseId))
@@ -120,16 +129,13 @@ abstract class AboutLibrariesExportComplianceTask : BaseAboutLibrariesTask() {
                         Files.walk(source).forEach { s ->
                             val targetPath = libraryTargetFolder.toPath()
                             val fn = s.fileName.toString()
-                            if (!Files.isDirectory(s) && (fn.endsWith(".aar") || fn.endsWith(".jar") || fn.endsWith(".pom")) && !fn.endsWith(
-                                    "-javadoc.jar"
-                                )
-                            ) {
+                            if (!Files.isDirectory(s) && (fn.endsWith(".aar") || fn.endsWith(".jar") || fn.endsWith(".pom")) && !fn.endsWith("-javadoc.jar")) {
                                 Files.copy(s, targetPath.resolve(fn), StandardCopyOption.REPLACE_EXISTING)
                             }
                         }
                     }
                 } catch (ex: Exception) {
-                    ex.printStackTrace()
+                    LOGGER.error("Failed to copy library files for ${library.artifactId}", ex)
                 }
             }
         }
