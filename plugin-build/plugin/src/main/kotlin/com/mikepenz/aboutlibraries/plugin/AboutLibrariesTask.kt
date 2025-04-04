@@ -27,7 +27,7 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
     override fun getGroup(): String = "Build"
 
     fun configureOutputFile(outputFile: Provider<RegularFile>? = null) {
-        if (outputFile != null) {
+        if (outputFile != null && outputFile.isPresent) {
             this.outputFile.set(outputFile)
         } else {
             val projectDirectory = project.layout.projectDirectory
