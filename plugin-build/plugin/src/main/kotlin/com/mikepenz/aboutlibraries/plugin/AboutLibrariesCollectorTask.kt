@@ -3,9 +3,9 @@ package com.mikepenz.aboutlibraries.plugin
 import com.mikepenz.aboutlibraries.plugin.model.CollectedContainer
 import com.mikepenz.aboutlibraries.plugin.util.DependencyCollector
 import org.gradle.api.DefaultTask
-import org.gradle.api.file.RegularFile
+import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.MapProperty
-import org.gradle.api.provider.Provider
+import org.gradle.api.provider.Property
 import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.Internal
@@ -34,33 +34,39 @@ abstract class AboutLibrariesCollectorTask : DefaultTask() {
     @Input
     val filterVariants = extension.collect.filterVariants
 
-    @Optional
-    @Input
-    var variant: Provider<String?> = project.providers.gradleProperty("aboutLibraries.exportVariant").orElse(
-        project.providers.gradleProperty("exportVariant").orElse(
-            extension.export.exportVariant
-        )
-    )
+    @get:Optional
+    @get:Input
+    abstract val variant: Property<String?>
 
     /** holds the collected set of dependencies*/
     @get:Input
     abstract val dependencies: MapProperty<String, Map<String, Set<String>>>
 
-    @OutputFile
-    val dependencyCache: Provider<RegularFile> = project.provider {
-        val variant = variant.orNull
-        if (variant == null) {
-            project.layout.buildDirectory.file("generated/aboutLibraries/dependency_cache.json").orNull
-        } else {
-            project.layout.buildDirectory.file("generated/aboutLibraries/$variant/dependency_cache.json").orNull
-        }
-    }
+    @get:OutputFile
+    abstract val dependencyCache: RegularFileProperty
 
     fun configure() {
+        variant.orElse(
+            project.providers.gradleProperty("aboutLibraries.exportVariant").orElse(
+                project.providers.gradleProperty("exportVariant").orElse(
+                    extension.export.exportVariant
+                )
+            )
+        )
+
+        val variant = variant.orNull
+        dependencyCache.set(
+            if (variant == null) {
+                project.layout.buildDirectory.file("generated/aboutLibraries/dependency_cache.json")
+            } else {
+                project.layout.buildDirectory.file("generated/aboutLibraries/$variant/dependency_cache.json")
+            }
+        )
+
         dependencies.set(
             DependencyCollector(
                 includePlatform.get(),
-                filterVariants.get() + (variant.orNull?.let { arrayOf(it) } ?: emptyArray()),
+                filterVariants.get() + (variant?.let { arrayOf(it) } ?: emptyArray()),
             ).collect(project)
         )
     }

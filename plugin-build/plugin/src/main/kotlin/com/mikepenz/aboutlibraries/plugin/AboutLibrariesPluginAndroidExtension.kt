@@ -34,8 +34,8 @@ object AboutLibrariesPluginAndroidExtension {
 
         // task to output library names with ids for further actions
         val collectTask = project.tasks.register("collectDependencies${variant.name.capitalize(Locale.ENGLISH)}", AboutLibrariesCollectorTask::class.java) {
-            it.variant = project.provider { variant.name }
-            project.evaluationDependsOnChildren()
+            it.variant.set(variant.name)
+            // project.evaluationDependsOnChildren()
             it.configure()
         }
 
@@ -46,7 +46,7 @@ object AboutLibrariesPluginAndroidExtension {
         val task = project.tasks.register(
             "prepareLibraryDefinitions${variant.name.capitalize(Locale.ENGLISH)}", AboutLibrariesTask::class.java
         ) {
-            it.variant = project.provider { variant.name }
+            it.variant.set(variant.name)
             it.configureOutputFile(resultsDirectory.map { dir -> dir.file(extension.export.outputFileName.get()) })
             it.configure()
             it.dependsOn(collectTask)
@@ -75,7 +75,7 @@ object AboutLibrariesPluginAndroidExtension {
         project.tasks.register(
             "generateLibraryDefinitions${variant.name.capitalize(Locale.ENGLISH)}", AboutLibrariesTask::class.java
         ) {
-            it.variant = project.provider { variant.name }
+            it.variant.set(variant.name)
             it.configureOutputFile(resultsDirectory.map { dir -> dir.file(extension.export.outputFileName.get()) })
             it.configure()
             it.dependsOn(collectTask)
@@ -85,7 +85,7 @@ object AboutLibrariesPluginAndroidExtension {
         project.tasks.register(
             "exportLibraries${variant.name.capitalize(Locale.ENGLISH)}", AboutLibrariesExportTask::class.java
         ) {
-            it.variant = project.provider { variant.name }
+            it.variant.set(variant.name)
             it.configure()
             it.dependsOn(collectTask)
         }
@@ -94,7 +94,7 @@ object AboutLibrariesPluginAndroidExtension {
         project.tasks.register(
             "exportComplianceLibraries${variant.name.capitalize(Locale.ENGLISH)}", AboutLibrariesExportComplianceTask::class.java
         ) {
-            it.variant = project.provider { variant.name }
+            it.variant.set(variant.name)
             it.projectDirectory.set(project.layout.projectDirectory)
             it.configure()
             it.dependsOn(collectTask)

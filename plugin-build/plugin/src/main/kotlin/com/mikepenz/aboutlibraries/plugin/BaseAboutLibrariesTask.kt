@@ -8,10 +8,10 @@ import groovy.json.JsonSlurper
 import org.gradle.api.DefaultTask
 import org.gradle.api.artifacts.dsl.DependencyHandler
 import org.gradle.api.file.DirectoryProperty
-import org.gradle.api.file.RegularFile
+import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.MapProperty
-import org.gradle.api.provider.Provider
+import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputDirectory
 import org.gradle.api.tasks.InputFile
@@ -27,24 +27,13 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     @Internal
     protected val extension = project.extensions.findByType(AboutLibrariesExtension::class.java)!!
 
-    @Optional
-    @Input
-    var variant: Provider<String?> = project.providers.gradleProperty("aboutLibraries.exportVariant").orElse(
-        project.providers.gradleProperty("exportVariant").orElse(
-            extension.export.exportVariant
-        )
-    )
+    @get:Optional
+    @get:Input
+    abstract val variant: Property<String?>
 
-    @InputFile
-    @PathSensitive(value = PathSensitivity.RELATIVE)
-    val dependencyCache: Provider<RegularFile> = project.provider {
-        val variant = variant.orNull
-        if (variant == null) {
-            project.layout.buildDirectory.file("generated/aboutLibraries/dependency_cache.json").orNull
-        } else {
-            project.layout.buildDirectory.file("generated/aboutLibraries/$variant/dependency_cache.json").orNull
-        }
-    }
+    @get:InputFile
+    @get:PathSensitive(value = PathSensitivity.RELATIVE)
+    abstract val dependencyCache: RegularFileProperty
 
     @Input
     val exclusionPatterns = extension.library.exclusionPatterns
@@ -104,6 +93,23 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     abstract val licenses: MapProperty<String, License>
 
     open fun configure() {
+        variant.orElse(
+            project.providers.gradleProperty("aboutLibraries.exportVariant").orElse(
+                project.providers.gradleProperty("exportVariant").orElse(
+                    extension.export.exportVariant
+                )
+            )
+        )
+
+        val variant = variant.orNull
+        dependencyCache.set(
+            if (variant == null) {
+                project.layout.buildDirectory.file("generated/aboutLibraries/dependency_cache.json")
+            } else {
+                project.layout.buildDirectory.file("generated/aboutLibraries/$variant/dependency_cache.json")
+            }
+        )
+
         val resultContainer = createLibraryProcessor().gatherDependencies()
 
         LOGGER.info("Collected ${resultContainer.libraries.size} libraries and ${resultContainer.licenses.size} licenses")
