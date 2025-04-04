@@ -74,8 +74,6 @@ aboutLibraries {
         // Allows excluding some fields from the generated meta data field.
         // excludeFields.addAll("developers", "funding")
 
-        exportVariant = "release"
-
         // Enable pretty printing for the generated JSON file
         prettyPrint = true
     }
