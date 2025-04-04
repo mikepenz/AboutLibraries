@@ -32,13 +32,6 @@ object AboutLibrariesPluginAndroidExtension {
     private fun createAboutLibrariesAndroidTasks(project: Project, extension: AboutLibrariesExtension, v: Any) {
         val variant = (v as? com.android.build.gradle.api.BaseVariant) ?: return
 
-        // task to output library names with ids for further actions
-        val collectTask = project.tasks.register("collectDependencies${variant.name.capitalize(Locale.ENGLISH)}", AboutLibrariesCollectorTask::class.java) {
-            it.variant.set(variant.name)
-            // project.evaluationDependsOnChildren()
-            it.configure()
-        }
-
         val resultsResDirectory = project.layout.buildDirectory.dir("generated/aboutLibraries/${variant.name}/res/")
         val resultsDirectory = resultsResDirectory.map { it.dir("raw/") }
 
@@ -49,7 +42,6 @@ object AboutLibrariesPluginAndroidExtension {
             it.variant.set(variant.name)
             it.configureOutputFile(resultsDirectory.map { dir -> dir.file(extension.export.outputFileName.get()) })
             it.configure()
-            it.dependsOn(collectTask)
         }
 
         // This is necessary for backwards compatibility with versions of gradle that do not support this new API.
@@ -78,7 +70,6 @@ object AboutLibrariesPluginAndroidExtension {
             it.variant.set(variant.name)
             it.configureOutputFile(resultsDirectory.map { dir -> dir.file(extension.export.outputFileName.get()) })
             it.configure()
-            it.dependsOn(collectTask)
         }
 
         // task to output libraries, and their license in CSV format to the CLI
@@ -87,7 +78,6 @@ object AboutLibrariesPluginAndroidExtension {
         ) {
             it.variant.set(variant.name)
             it.configure()
-            it.dependsOn(collectTask)
         }
 
         // task to output libraries, their license in CSV format and source to a given location
@@ -97,7 +87,6 @@ object AboutLibrariesPluginAndroidExtension {
             it.variant.set(variant.name)
             it.projectDirectory.set(project.layout.projectDirectory)
             it.configure()
-            it.dependsOn(collectTask)
         }
     }
 }

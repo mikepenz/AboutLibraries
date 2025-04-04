@@ -18,36 +18,25 @@ class AboutLibrariesPlugin : Plugin<Project> {
         val extension = project.extensions.create("aboutLibraries", AboutLibrariesExtension::class.java)
         extension.applyConvention()
 
-        // task to output library names with ids for further actions
-        val collectTask = project.tasks.register("collectDependencies", AboutLibrariesCollectorTask::class.java) {
-            // Disable the `evaluationDependsOnChildren` and observe if with the general API changes this is now stable.
-            // project.evaluationDependsOnChildren()
-            it.configure()
-        }
-
         // task to output funding options for included libraries
         project.tasks.register("fundLibraries", AboutLibrariesFundingTask::class.java) {
             it.configure()
-            it.dependsOn(collectTask)
         }
 
         // task to output library names with ids for further actions
         project.tasks.register("findLibraries", AboutLibrariesIdTask::class.java) {
             it.configure()
-            it.dependsOn(collectTask)
         }
 
         // task to output libraries, and their license in CSV format to the CLI
         project.tasks.register("exportLibraries", AboutLibrariesExportTask::class.java) {
             it.configure()
-            it.dependsOn(collectTask)
         }
 
         // register a global task to generate library definitions
         project.tasks.register("exportLibraryDefinitions", AboutLibrariesTask::class.java) {
             it.configureOutputFile()
             it.configure()
-            it.dependsOn(collectTask)
         }
 
         if (extension.android.registerAndroidTasks.getOrElse(true)) {

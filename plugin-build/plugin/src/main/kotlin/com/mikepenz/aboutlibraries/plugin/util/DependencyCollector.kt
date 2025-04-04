@@ -15,6 +15,7 @@
  */
 package com.mikepenz.aboutlibraries.plugin.util
 
+import com.mikepenz.aboutlibraries.plugin.model.CollectedContainer
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Configuration
 import org.gradle.api.artifacts.ResolvedArtifact
@@ -34,7 +35,7 @@ class DependencyCollector(
      * @param project this project
      * @return resolved set of dependencies, and the related versions
      */
-    fun collect(project: Project): Map<String, Map<String, Set<String>>> {
+    fun collect(project: Project): CollectedContainer {
         LOGGER.info("Collecting dependencies")
 
         val mutableCollectContainer: MutableMap<String, MutableMap<String, MutableSet<String>>> =
@@ -91,7 +92,7 @@ class DependencyCollector(
 
                 if (LOGGER.isDebugEnabled) LOGGER.debug("Completed-fetching dependencies for $variant")
             }
-        return mutableCollectContainer
+        return CollectedContainer(mutableCollectContainer)
     }
 
     /**

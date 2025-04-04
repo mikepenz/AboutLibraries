@@ -3,18 +3,16 @@ package com.mikepenz.aboutlibraries.plugin
 import com.mikepenz.aboutlibraries.plugin.mapping.Library
 import com.mikepenz.aboutlibraries.plugin.mapping.License
 import com.mikepenz.aboutlibraries.plugin.model.CollectedContainer
+import com.mikepenz.aboutlibraries.plugin.util.DependencyCollector
 import com.mikepenz.aboutlibraries.plugin.util.LibrariesProcessor
-import groovy.json.JsonSlurper
 import org.gradle.api.DefaultTask
 import org.gradle.api.artifacts.dsl.DependencyHandler
 import org.gradle.api.file.DirectoryProperty
-import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.MapProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputDirectory
-import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.PathSensitive
@@ -27,13 +25,18 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     @Internal
     protected val extension = project.extensions.findByType(AboutLibrariesExtension::class.java)!!
 
+    @get:Input
+    val projectName: String = project.name
+
+    @Input
+    val includePlatform = extension.collect.includePlatform
+
+    @Input
+    val filterVariants = extension.collect.filterVariants
+
     @get:Optional
     @get:Input
     abstract val variant: Property<String?>
-
-    @get:InputFile
-    @get:PathSensitive(value = PathSensitivity.RELATIVE)
-    abstract val dependencyCache: RegularFileProperty
 
     @Input
     val exclusionPatterns = extension.library.exclusionPatterns
@@ -87,30 +90,35 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     val configPath: DirectoryProperty = extension.collect.configPath
 
     @get:Internal
+    abstract val dependencies: MapProperty<String, Map<String, Set<String>>>
+
+    @get:Internal
     abstract val libraries: ListProperty<Library>
 
     @get:Internal
     abstract val licenses: MapProperty<String, License>
 
     open fun configure() {
-        variant.orElse(
-            project.providers.gradleProperty("aboutLibraries.exportVariant").orElse(
-                project.providers.gradleProperty("exportVariant").orElse(
-                    extension.export.exportVariant
+        if (!variant.isPresent) {
+            variant.set(
+                project.providers.gradleProperty("aboutLibraries.exportVariant").orElse(
+                    project.providers.gradleProperty("exportVariant").orElse(
+                        extension.export.exportVariant
+                    )
                 )
             )
-        )
+        }
 
         val variant = variant.orNull
-        dependencyCache.set(
-            if (variant == null) {
-                project.layout.buildDirectory.file("generated/aboutLibraries/dependency_cache.json")
-            } else {
-                project.layout.buildDirectory.file("generated/aboutLibraries/$variant/dependency_cache.json")
-            }
-        )
+        val collectedContainer = DependencyCollector(
+            includePlatform.get(),
+            filterVariants.get() + (variant?.let { arrayOf(it) } ?: emptyArray()),
+        ).collect(project)
 
-        val resultContainer = createLibraryProcessor().gatherDependencies()
+        // keep dependencies
+        dependencies.set(collectedContainer.dependencies)
+
+        val resultContainer = createLibraryProcessor(collectedContainer).gatherDependencies()
 
         LOGGER.info("Collected ${resultContainer.libraries.size} libraries and ${resultContainer.licenses.size} licenses")
 
@@ -118,24 +126,7 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
         licenses.set(resultContainer.licenses)
     }
 
-    @Suppress("UNCHECKED_CAST")
-    protected fun readInCollectedDependencies(): CollectedContainer {
-        try {
-            val parsedMap = JsonSlurper().parse(dependencyCache.get().asFile) as Map<String, *>
-            val dependencies = if (parsedMap.contains("dependencies")) {
-                parsedMap["dependencies"] as Map<String, Map<String, List<String>>>
-            } else {
-                LOGGER.warn("No dependencies found in the cache file. Please check your setup.")
-                emptyMap()
-            }
-
-            return CollectedContainer.from(dependencies)
-        } catch (t: Throwable) {
-            throw IllegalStateException("Failed to parse the dependencyCache. Try to do a clean build. (${dependencyCache.orNull?.asFile?.absolutePath ?: "-"})", t)
-        }
-    }
-
-    private fun createLibraryProcessor(collectedContainer: CollectedContainer = readInCollectedDependencies()): LibrariesProcessor {
+    private fun createLibraryProcessor(collectedContainer: CollectedContainer): LibrariesProcessor {
         val configDirectory = configPath.orNull
         val realPath = if (configDirectory != null) {
             val file = configDirectory.asFile
