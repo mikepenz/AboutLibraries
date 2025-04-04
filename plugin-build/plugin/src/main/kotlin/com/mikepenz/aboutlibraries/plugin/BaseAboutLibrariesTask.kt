@@ -106,7 +106,7 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     open fun configure() {
         val resultContainer = createLibraryProcessor().gatherDependencies()
 
-        LOGGER.error("Collected ${resultContainer.libraries.size} libraries and ${resultContainer.licenses.size} licenses")
+        LOGGER.info("Collected ${resultContainer.libraries.size} libraries and ${resultContainer.licenses.size} licenses")
 
         libraries.set(resultContainer.libraries)
         licenses.set(resultContainer.licenses)
@@ -125,7 +125,7 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
 
             return CollectedContainer.from(dependencies)
         } catch (t: Throwable) {
-            throw IllegalStateException("Failed to parse the dependencyCache. Try to do a clean build", t)
+            throw IllegalStateException("Failed to parse the dependencyCache. Try to do a clean build. (${dependencyCache.orNull?.asFile?.absolutePath ?: "-"})", t)
         }
     }
 

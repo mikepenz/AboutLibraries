@@ -62,11 +62,19 @@ aboutLibraries {
 
         // Allows to only collect dependencies of specific variants during the `collectDependencies` step.
         // filterVariants.addAll("debug")
+
+        // Allows to enable the collection of funding information of differnet libraries
+        // fetchRemoteFunding = true
     }
 
     export {
+        // Optional configuration to output the result in an alternative location
+        // outputPath = file("$buildDir/generated/aboutlibraries/aboutlibraries.json")
+
         // Allows excluding some fields from the generated meta data field.
         // excludeFields.addAll("developers", "funding")
+
+        exportVariant = "release"
 
         // Enable pretty printing for the generated JSON file
         prettyPrint = true

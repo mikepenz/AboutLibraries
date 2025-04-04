@@ -20,7 +20,8 @@ class AboutLibrariesPlugin : Plugin<Project> {
 
         // task to output library names with ids for further actions
         val collectTask = project.tasks.register("collectDependencies", AboutLibrariesCollectorTask::class.java) {
-            project.evaluationDependsOnChildren()
+            // Disable the `evaluationDependsOnChildren` and observe if with the general API changes this is now stable.
+            // project.evaluationDependsOnChildren()
             it.configure()
         }
 
@@ -44,6 +45,7 @@ class AboutLibrariesPlugin : Plugin<Project> {
 
         // register a global task to generate library definitions
         project.tasks.register("exportLibraryDefinitions", AboutLibrariesTask::class.java) {
+            it.configureOutputFile()
             it.configure()
             it.dependsOn(collectTask)
         }
