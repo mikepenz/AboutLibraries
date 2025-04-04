@@ -31,7 +31,7 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
         val outputFileName = extension.export.outputFileName.get()
 
         outputFile.set(
-            project.providers.gradleProperty("aboutLibraries.exportPath").map { projectDirectory.dir(path).file(outputFileName) }.orElse(
+            project.providers.gradleProperty("aboutLibraries.exportPath").map { path -> projectDirectory.dir(path).file(outputFileName) }.orElse(
                 project.providers.gradleProperty("exportPath").map { path -> projectDirectory.dir(path).file(outputFileName) }).orElse(
                 extension.export.outputPath.orElse(
                     buildDirectory.dir("generated/aboutLibraries/").map { it.file(outputFileName) }
