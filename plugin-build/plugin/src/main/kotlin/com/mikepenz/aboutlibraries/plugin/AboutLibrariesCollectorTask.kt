@@ -65,7 +65,6 @@ abstract class AboutLibrariesCollectorTask : DefaultTask() {
         )
     }
 
-
     @TaskAction
     fun action() {
         LOGGER.info("Collecting for: $projectName")

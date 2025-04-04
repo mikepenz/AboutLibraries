@@ -20,9 +20,8 @@ import java.util.Calendar
 data class ResultContainer(
     val libraries: List<Library>,
     val licenses: Map<String, License>,
-) {
-    val metadata: MetaData = MetaData()
-}
+    val metadata: MetaData = MetaData(),
+)
 
 class MetaData(
     val generated: String = DateTimeFormatter.ISO_DATE_TIME

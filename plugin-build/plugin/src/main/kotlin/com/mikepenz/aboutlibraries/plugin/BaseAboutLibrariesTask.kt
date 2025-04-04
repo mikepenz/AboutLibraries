@@ -1,5 +1,7 @@
 package com.mikepenz.aboutlibraries.plugin
 
+import com.mikepenz.aboutlibraries.plugin.mapping.Library
+import com.mikepenz.aboutlibraries.plugin.mapping.License
 import com.mikepenz.aboutlibraries.plugin.model.CollectedContainer
 import com.mikepenz.aboutlibraries.plugin.util.LibrariesProcessor
 import groovy.json.JsonSlurper
@@ -7,6 +9,8 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.artifacts.dsl.DependencyHandler
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.RegularFile
+import org.gradle.api.provider.ListProperty
+import org.gradle.api.provider.MapProperty
 import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputDirectory
@@ -44,9 +48,6 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
 
     @Input
     val exclusionPatterns = extension.library.exclusionPatterns
-
-    @Input
-    val includePlatform = extension.collect.includePlatform
 
     @Input
     val duplicationMode = extension.library.duplicationMode
@@ -96,6 +97,21 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     @InputDirectory
     val configPath: DirectoryProperty = extension.collect.configPath
 
+    @get:Internal
+    abstract val libraries: ListProperty<Library>
+
+    @get:Internal
+    abstract val licenses: MapProperty<String, License>
+
+    open fun configure() {
+        val resultContainer = createLibraryProcessor().gatherDependencies()
+
+        LOGGER.error("Collected ${resultContainer.libraries.size} libraries and ${resultContainer.licenses.size} licenses")
+
+        libraries.set(resultContainer.libraries)
+        licenses.set(resultContainer.licenses)
+    }
+
     @Suppress("UNCHECKED_CAST")
     protected fun readInCollectedDependencies(): CollectedContainer {
         try {
@@ -113,7 +129,7 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
         }
     }
 
-    protected fun createLibraryProcessor(collectedContainer: CollectedContainer = readInCollectedDependencies()): LibrariesProcessor {
+    private fun createLibraryProcessor(collectedContainer: CollectedContainer = readInCollectedDependencies()): LibrariesProcessor {
         val configDirectory = configPath.orNull
         val realPath = if (configDirectory != null) {
             val file = configDirectory.asFile

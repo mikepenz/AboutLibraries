@@ -11,10 +11,10 @@ abstract class AboutLibrariesFundingTask : BaseAboutLibrariesTask() {
 
     @TaskAction
     fun action() {
-        val result = createLibraryProcessor(readInCollectedDependencies()).gatherDependencies()
+        val libraries = libraries.get()
         println("Libraries offering funding options:")
         println()
-        for (library in result.libraries.filter { it.funding.isNotEmpty() }) {
+        for (library in libraries.filter { it.funding.isNotEmpty() }) {
             println("${library.name} @ ${library.website ?: library.scm?.url ?: "no website"}")
             library.funding.forEach {
                 println(" --> Sponsor via ${it.platform} @ ${it.url}")

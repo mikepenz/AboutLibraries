@@ -2,9 +2,12 @@ package com.mikepenz.aboutlibraries.plugin
 
 import com.mikepenz.aboutlibraries.plugin.mapping.Library
 import com.mikepenz.aboutlibraries.plugin.mapping.License
+import com.mikepenz.aboutlibraries.plugin.model.ResultContainer
 import com.mikepenz.aboutlibraries.plugin.model.writeToDisk
 import com.mikepenz.aboutlibraries.plugin.util.forLicense
+import org.gradle.api.file.RegularFile
 import org.gradle.api.file.RegularFileProperty
+import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.OutputFile
@@ -18,26 +21,29 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
     val strictMode = extension.license.strictMode
 
     @get:OutputFile
-    abstract val outputFile: RegularFileProperty
+    protected abstract val outputFile: RegularFileProperty
 
     override fun getDescription(): String = "Writes the relevant meta data for the AboutLibraries plugin to display dependencies"
     override fun getGroup(): String = "Build"
 
-    fun configure() {
-        val projectDirectory = project.layout.projectDirectory
-        val buildDirectory = project.layout.buildDirectory
+    fun configureOutputFile(outputFile: Provider<RegularFile>? = null) {
+        if (outputFile != null) {
+            this.outputFile.set(outputFile)
+        } else {
+            val projectDirectory = project.layout.projectDirectory
+            val buildDirectory = project.layout.buildDirectory
 
-        @Suppress("DEPRECATION")
-        val outputFileName = extension.export.outputFileName.get()
-
-        outputFile.set(
-            project.providers.gradleProperty("aboutLibraries.exportPath").map { path -> projectDirectory.dir(path).file(outputFileName) }.orElse(
-                project.providers.gradleProperty("exportPath").map { path -> projectDirectory.dir(path).file(outputFileName) }).orElse(
-                extension.export.outputPath.orElse(
-                    buildDirectory.dir("generated/aboutLibraries/").map { it.file(outputFileName) }
+            @Suppress("DEPRECATION")
+            val outputFileName = extension.export.outputFileName.get()
+            this.outputFile.set(
+                project.providers.gradleProperty("aboutLibraries.exportPath").map { path -> projectDirectory.dir(path).file(outputFileName) }.orElse(
+                    project.providers.gradleProperty("exportPath").map { path -> projectDirectory.dir(path).file(outputFileName) }).orElse(
+                    extension.export.outputPath.orElse(
+                        buildDirectory.dir("generated/aboutLibraries/").map { it.file(outputFileName) }
+                    )
                 )
             )
-        )
+        }
     }
 
     @TaskAction
@@ -47,14 +53,15 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
             output.parentFile.mkdirs() // verify output exists
         }
 
-        val result = createLibraryProcessor().gatherDependencies()
+        val libraries = libraries.get()
+        val licenses = licenses.get()
 
         // validate found licenses match expectation
         val allowedLicenses = allowedLicenses.getOrElse(emptySet()).map { it.lowercase(Locale.ENGLISH) }
         if (allowedLicenses.isNotEmpty() && strictMode.getOrElse(StrictMode.IGNORE) != StrictMode.IGNORE) {
             // detect all missing licenses
             val missing = mutableListOf<License>()
-            result.licenses.values.forEach {
+            licenses.values.forEach {
                 val id = it.spdxId?.lowercase(Locale.ENGLISH) ?: it.hash.lowercase(Locale.ENGLISH)
                 val name = it.name.lowercase(Locale.ENGLISH)
                 val url = it.url?.lowercase(Locale.ENGLISH)
@@ -72,20 +79,19 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
 
                     val libsForLicense = allowedLicensesMap[id] ?: allowedLicensesMap[name]
                     if (libsForLicense != null) {
-                        val notAllowed = result.libraries.forLicense(it).filter { lib ->
+                        val notAllowed = libraries.forLicense(it).filter { lib ->
                             !(libsForLicense.contains(lib.uniqueId) || libsForLicense.contains(lib.groupId) || libsForLicense.contains(lib.artifactId))
                         }
                         if (notAllowed.isNotEmpty()) {
                             missingMapped[it] = notAllowed
                         }
                     } else {
-                        missingMapped[it] = result.libraries.forLicense(it)
+                        missingMapped[it] = libraries.forLicense(it)
                     }
                 }
             } else {
-                missing.forEach { missingMapped[it] = result.libraries.forLicense(it) }
+                missing.forEach { missingMapped[it] = libraries.forLicense(it) }
             }
-
 
             if (missingMapped.isEmpty()) {
                 LOGGER.info("No libraries detected using a license not allowed.")
@@ -111,7 +117,7 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
         }
 
         // write to disk
-        result.writeToDisk(output, includeMetaData.get(), excludeFields.get(), prettyPrint.get())
+        ResultContainer(libraries, licenses).writeToDisk(output, includeMetaData.get(), excludeFields.get(), prettyPrint.get())
     }
 
     companion object {

@@ -16,7 +16,9 @@ abstract class AboutLibrariesExportTask : BaseAboutLibrariesTask() {
         val librariesWithoutLicenses = HashSet<String>()
         val unknownLicenses = HashMap<String, HashSet<String>>()
 
-        val result = createLibraryProcessor().gatherDependencies()
+        val libraries = libraries.get()
+        val licenses = licenses.get()
+
         val variant = variant.orNull
         if (variant != null) {
             println("")
@@ -28,8 +30,8 @@ abstract class AboutLibrariesExportTask : BaseAboutLibrariesTask() {
         println("")
         println("LIBRARIES:")
 
-        for (library in result.libraries) {
-            val fullLicenses = library.licenses.mapNotNull { result.licenses[it] }
+        for (library in libraries) {
+            val fullLicenses = library.licenses.mapNotNull { licenses[it] }
             fullLicenses.map { it.spdxId ?: it.name }.forEach { licenseId ->
                 try {
                     neededLicenses.add(SpdxLicense.getById(licenseId))

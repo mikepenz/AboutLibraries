@@ -26,16 +26,19 @@ class AboutLibrariesPlugin : Plugin<Project> {
 
         // task to output funding options for included libraries
         project.tasks.register("fundLibraries", AboutLibrariesFundingTask::class.java) {
+            it.configure()
             it.dependsOn(collectTask)
         }
 
         // task to output library names with ids for further actions
         project.tasks.register("findLibraries", AboutLibrariesIdTask::class.java) {
+            it.configure()
             it.dependsOn(collectTask)
         }
 
         // task to output libraries, and their license in CSV format to the CLI
         project.tasks.register("exportLibraries", AboutLibrariesExportTask::class.java) {
+            it.configure()
             it.dependsOn(collectTask)
         }
 

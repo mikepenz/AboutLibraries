@@ -47,7 +47,8 @@ object AboutLibrariesPluginAndroidExtension {
             "prepareLibraryDefinitions${variant.name.capitalize(Locale.ENGLISH)}", AboutLibrariesTask::class.java
         ) {
             it.variant = project.provider { variant.name }
-            it.outputFile.set(resultsDirectory.map { dir -> dir.file(extension.export.outputFileName.get()) })
+            it.configureOutputFile(resultsDirectory.map { dir -> dir.file(extension.export.outputFileName.get()) })
+            it.configure()
             it.dependsOn(collectTask)
         }
 
@@ -75,7 +76,8 @@ object AboutLibrariesPluginAndroidExtension {
             "generateLibraryDefinitions${variant.name.capitalize(Locale.ENGLISH)}", AboutLibrariesTask::class.java
         ) {
             it.variant = project.provider { variant.name }
-            it.outputFile.set(resultsDirectory.map { dir -> dir.file(extension.export.outputFileName.get()) })
+            it.configureOutputFile(resultsDirectory.map { dir -> dir.file(extension.export.outputFileName.get()) })
+            it.configure()
             it.dependsOn(collectTask)
         }
 
@@ -84,6 +86,7 @@ object AboutLibrariesPluginAndroidExtension {
             "exportLibraries${variant.name.capitalize(Locale.ENGLISH)}", AboutLibrariesExportTask::class.java
         ) {
             it.variant = project.provider { variant.name }
+            it.configure()
             it.dependsOn(collectTask)
         }
 
@@ -93,7 +96,7 @@ object AboutLibrariesPluginAndroidExtension {
         ) {
             it.variant = project.provider { variant.name }
             it.projectDirectory.set(project.layout.projectDirectory)
-
+            it.configure()
             it.dependsOn(collectTask)
         }
     }
