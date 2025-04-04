@@ -46,6 +46,6 @@ aboutLibraries {
     }
     export {
         prettyPrint = true
-        outputPath = file("src/commonMain/composeResources/files/aboutLibraries.json")
+        outputPath = file("src/commonMain/composeResources/files/aboutlibraries.json")
     }
 }
