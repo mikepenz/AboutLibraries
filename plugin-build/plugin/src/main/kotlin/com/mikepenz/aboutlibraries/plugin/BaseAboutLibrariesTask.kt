@@ -25,7 +25,7 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
 
     @Optional
     @Input
-    open var variant: Provider<String?> = project.providers.gradleProperty("aboutLibraries.exportVariant").orElse(
+    var variant: Provider<String?> = project.providers.gradleProperty("aboutLibraries.exportVariant").orElse(
         project.providers.gradleProperty("exportVariant").orElse(
             extension.export.exportVariant
         )

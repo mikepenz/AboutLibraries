@@ -51,6 +51,7 @@ aboutLibraries {
 
     collect {
         // define the path configuration files are located in. E.g. additional libraries, licenses to add to the target .json
+        // relative to module root (`../` for parent folder)
         configPath = file("../config")
 
         // (optional) GitHub token to raise API request limit to allow fetching more licenses

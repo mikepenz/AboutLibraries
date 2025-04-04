@@ -27,11 +27,14 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
         val projectDirectory = project.layout.projectDirectory
         val buildDirectory = project.layout.buildDirectory
 
+        @Suppress("DEPRECATION")
+        val outputFileName = extension.export.outputFileName.get()
+
         outputFile.set(
-            project.providers.gradleProperty("aboutLibraries.exportPath").map { projectDirectory.dir(path).file("aboutlibraries.json") }.orElse(
-                project.providers.gradleProperty("exportPath").map { path -> projectDirectory.dir(path).file("aboutlibraries.json") }).orElse(
+            project.providers.gradleProperty("aboutLibraries.exportPath").map { projectDirectory.dir(path).file(outputFileName) }.orElse(
+                project.providers.gradleProperty("exportPath").map { path -> projectDirectory.dir(path).file(outputFileName) }).orElse(
                 extension.export.outputPath.orElse(
-                    buildDirectory.dir("generated/aboutLibraries/").map { it.file("aboutlibraries.json") }
+                    buildDirectory.dir("generated/aboutLibraries/").map { it.file(outputFileName) }
                 )
             )
         )

@@ -10,17 +10,17 @@ import java.util.Locale
 object AboutLibrariesPluginAndroidExtension {
     private val LOGGER = LoggerFactory.getLogger(AboutLibrariesPluginAndroidExtension::class.java)
 
-    fun apply(project: Project) {
+    fun apply(project: Project, extension: AboutLibrariesExtension) {
         try {
             val app = project.extensions.findByType(com.android.build.gradle.AppExtension::class.java)
             if (app != null) {
                 app.applicationVariants.configureEach {
-                    createAboutLibrariesAndroidTasks(project, it)
+                    createAboutLibrariesAndroidTasks(project, extension, it)
                 }
             } else {
                 val lib = project.extensions.findByType(com.android.build.gradle.LibraryExtension::class.java)
                 lib?.libraryVariants?.configureEach {
-                    createAboutLibrariesAndroidTasks(project, it)
+                    createAboutLibrariesAndroidTasks(project, extension, it)
                 }
             }
         } catch (t: Throwable) {
@@ -29,7 +29,7 @@ object AboutLibrariesPluginAndroidExtension {
     }
 
     @Suppress("DEPRECATION")
-    private fun createAboutLibrariesAndroidTasks(project: Project, v: Any) {
+    private fun createAboutLibrariesAndroidTasks(project: Project, extension: AboutLibrariesExtension, v: Any) {
         val variant = (v as? com.android.build.gradle.api.BaseVariant) ?: return
 
         // task to output library names with ids for further actions
@@ -47,7 +47,7 @@ object AboutLibrariesPluginAndroidExtension {
             "prepareLibraryDefinitions${variant.name.capitalize(Locale.ENGLISH)}", AboutLibrariesTask::class.java
         ) {
             it.variant = project.provider { variant.name }
-            it.outputFile.set(resultsDirectory.map { dir -> dir.file("aboutlibraries.json") })
+            it.outputFile.set(resultsDirectory.map { dir -> dir.file(extension.export.outputFileName.get()) })
             it.dependsOn(collectTask)
         }
 
@@ -75,7 +75,7 @@ object AboutLibrariesPluginAndroidExtension {
             "generateLibraryDefinitions${variant.name.capitalize(Locale.ENGLISH)}", AboutLibrariesTask::class.java
         ) {
             it.variant = project.provider { variant.name }
-            it.outputFile.set(resultsDirectory.map { dir -> dir.file("aboutlibraries.json") })
+            it.outputFile.set(resultsDirectory.map { dir -> dir.file(extension.export.outputFileName.get()) })
             it.dependsOn(collectTask)
         }
 

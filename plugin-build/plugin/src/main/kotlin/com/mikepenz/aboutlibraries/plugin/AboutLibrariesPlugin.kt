@@ -46,7 +46,7 @@ class AboutLibrariesPlugin : Plugin<Project> {
         }
 
         if (extension.android.registerAndroidTasks.getOrElse(true)) {
-            AboutLibrariesPluginAndroidExtension.apply(project)
+            AboutLibrariesPluginAndroidExtension.apply(project, extension)
         }
     }
 

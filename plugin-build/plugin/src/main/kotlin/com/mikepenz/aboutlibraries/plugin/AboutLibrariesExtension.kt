@@ -11,7 +11,6 @@ import org.gradle.api.tasks.Optional
 import java.util.regex.Pattern
 import javax.inject.Inject
 
-@Suppress("unused") // Public API for Gradle build scripts.
 abstract class AboutLibrariesExtension {
 
     @get:Nested
@@ -78,6 +77,8 @@ abstract class AboutLibrariesExtension {
             it.includeMetaData.convention(false)
             it.excludeFields.convention(emptySet())
             it.prettyPrint.convention(false)
+            @Suppress("DEPRECATION")
+            it.outputFileName.convention(DEFAULT_OUTPUT_NAME)
         }
         library {
             it.exclusionPatterns.convention(emptySet())
@@ -92,6 +93,10 @@ abstract class AboutLibrariesExtension {
             it.strictMode.convention(StrictMode.IGNORE)
         }
     }
+
+    companion object {
+        private const val DEFAULT_OUTPUT_NAME = "aboutlibraries.json"
+    }
 }
 
 abstract class AndroidConfig @Inject constructor() {
@@ -102,11 +107,12 @@ abstract class AndroidConfig @Inject constructor() {
      *
      * ```
      * aboutLibraries {
-     *   registerAndroidTasks = true
+     *   android {
+     *      registerAndroidTasks = true
+     *   }
      * }
      * ```
      *
-     * For Android projects `./gradlew app:exportLibraryDefinitions -PaboutLibraries.exportPath=src/main/res/raw` leads to a similar manual output.
      * The resulting file can for example be added as part of the SCM.
      */
     @get:Optional
@@ -117,11 +123,15 @@ abstract class CollectorConfig @Inject constructor() {
 
     /**
      * The path to your directory containing additional libraries, and licenses to include in the generated data.
-     * These can also be used to update library data, as identified by the `uniqueId`
+     * These can also be used to update library data, as identified by the `uniqueId`.
+     *
+     * The path is relative to the module directory. (Not project root)
      *
      * ```
      * aboutLibraries {
-     *   configPath = "config"
+     *   collect {
+     *      configPath = "config"
+     *   }
      * }
      * ```
      */
@@ -136,7 +146,9 @@ abstract class CollectorConfig @Inject constructor() {
      *
      * ```
      * aboutLibraries {
+     *   collect {
      *      includePlatform = false
+     *   }
      * }
      * ```
      */
@@ -152,7 +164,9 @@ abstract class CollectorConfig @Inject constructor() {
      *
      * ```
      * aboutLibraries {
-     *   fetchRemoteLicense = false
+     *   collect {
+     *      fetchRemoteLicense = false
+     *   }
      * }
      * ```
      */
@@ -167,7 +181,9 @@ abstract class CollectorConfig @Inject constructor() {
      *
      * ```
      * aboutLibraries {
-     *   fetchRemoteFunding = false
+     *   collect {
+     *      fetchRemoteFunding = false
+     *   }
      * }
      * ```
      */
@@ -180,7 +196,9 @@ abstract class CollectorConfig @Inject constructor() {
      *
      * ```
      * aboutLibraries {
-     *   gitHubApiToken = property("github.pat")
+     *   collect {
+     *      gitHubApiToken = property("github.pat")
+     *   }
      * }
      * ```
      */
@@ -192,7 +210,9 @@ abstract class CollectorConfig @Inject constructor() {
      *
      * ```
      * aboutLibraries {
-     *   filterVariants = arrayOf("debug")
+     *   collect {
+     *      filterVariants.addAll("debug")
+     *   }
      * }
      * ```
      */
@@ -215,7 +235,9 @@ abstract class ExportConfig @Inject constructor() {
      *
      * ```
      * aboutLibraries {
-     *   outputPath = "src/commonMain/composeResources/files/aboutlibraries.json"
+     *   export {
+     *      outputPath = "src/commonMain/composeResources/files/aboutlibraries.json"
+     *   }
      * }
      * ```
      */
@@ -223,12 +245,31 @@ abstract class ExportConfig @Inject constructor() {
     abstract val outputPath: RegularFileProperty
 
     /**
+     * The output file name for the generated meta data file.
+     * Adjusting the file name will break the automatic discovery for supported platforms.
+     *
+     * Note: This API has no effect if `outputPath` is used. (unless the property is passed)
+     * ```
+     * aboutLibraries {
+     *   export {
+     *      outputFileName = "aboutlibraries.json"
+     *   }
+     * }
+     * ```
+     */
+    @Deprecated("Use `outputPath` instead, which is the full path including file name")
+    @get:Optional
+    abstract val outputFileName: Property<String>
+
+    /**
      * The default export variant to use for this module.
      * Can be overwritten with the `-PaboutLibraries.exportVariant` command line argument.
      *
      * ```
      * aboutLibraries {
-     *   exportVariant = "jvm"
+     *   export {
+     *      exportVariant = "jvm"
+     *   }
      * }
      * ```
      */
@@ -241,7 +282,9 @@ abstract class ExportConfig @Inject constructor() {
      *
      * ```
      * aboutLibraries {
-     *   includeMetaData = true
+     *   export {
+     *      includeMetaData = true
+     *   }
      * }
      * ```
      */
@@ -258,7 +301,9 @@ abstract class ExportConfig @Inject constructor() {
      *
      * ```
      * aboutLibraries {
-     *   excludeFields = arrayOf("License.name", "ResultContainer.metadata", "description", "tag")
+     *   export {
+     *      excludeFields.addAll"License.name", "ResultContainer.metadata", "description", "tag")
+     *   }
      * }
      * ```
      */
@@ -270,7 +315,9 @@ abstract class ExportConfig @Inject constructor() {
      *
      * ```
      * aboutLibraries {
-     *   prettyPrint = true
+     *   export {
+     *      prettyPrint = true
+     *   }
      * }
      * ```
      */
@@ -285,9 +332,9 @@ abstract class LibraryConfig @Inject constructor() {
      *
      * ```
      * aboutLibraries {
-     *      exclusionPatterns = [
-     *          ~"com\.company\..*"
-     *      ]
+     *   library {
+     *      exclusionPatterns.addAll(Pattern.compile("com\.company\..*")))
+     *   }
      * }
      * ```
      */
@@ -305,7 +352,9 @@ abstract class LibraryConfig @Inject constructor() {
      *
      * ```
      * aboutLibraries {
-     *   duplicationRule = DuplicateMode.KEEP
+     *   library {
+     *      duplicationRule = DuplicateMode.KEEP
+     *   }
      * }
      * ```
      *
@@ -324,7 +373,9 @@ abstract class LibraryConfig @Inject constructor() {
      *
      * ```
      * aboutLibraries {
-     *   duplicationRule = DuplicateRule.SIMPLE
+     *   library {
+     *      duplicationRule = DuplicateRule.SIMPLE
+     *   }
      * }
      * ```
      *
@@ -342,7 +393,9 @@ abstract class LicenseConfig @Inject constructor() {
      *
      * ```
      * aboutLibraries {
-     *   mapLicensesToSpdx = false
+     *   license {
+     *      mapLicensesToSpdx = false
+     *   }
      * }
      * ```
      */
@@ -354,7 +407,9 @@ abstract class LicenseConfig @Inject constructor() {
      *
      * ```
      * aboutLibraries {
-     *   allowedLicenses = arrayOf("Apache-2.0", "mit")
+     *   license {
+     *      allowedLicenses.addAll("Apache-2.0", "mit")
+     *   }
      * }
      * ```
      *
@@ -369,7 +424,9 @@ abstract class LicenseConfig @Inject constructor() {
      *
      * ```
      * aboutLibraries {
-     *   allowedLicensesMap = mapOf("Apache-2.0" to arrayOf("libraryId"))
+     *   license {
+     *      allowedLicensesMap = mapOf("Apache-2.0" to arrayOf("libraryId"))
+     *   }
      * }
      * ```
      *
@@ -385,7 +442,9 @@ abstract class LicenseConfig @Inject constructor() {
      *
      * ```
      * aboutLibraries {
-     *   additionalLicenses = arrayOf("mit", "mpl_2_0")
+     *   license {
+     *      additionalLicenses.addAll("mit", "mpl_2_0")
+     *   }
      * }
      * ```
      *
@@ -399,7 +458,9 @@ abstract class LicenseConfig @Inject constructor() {
      *
      * ```
      * aboutLibraries {
-     *   strictMode = StrictMode.FAIL
+     *   license {
+     *      strictMode = StrictMode.FAIL
+     *   }
      * }
      * ```
      */
