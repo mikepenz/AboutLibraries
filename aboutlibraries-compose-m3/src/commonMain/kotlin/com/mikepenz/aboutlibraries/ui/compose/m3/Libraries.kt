@@ -5,7 +5,6 @@ import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -56,9 +55,6 @@ fun LibrariesContainer(
         divider = divider,
         footer = footer,
         onLibraryClick = onLibraryClick,
-        licenseDialogBody = { library ->
-            Text(library.licenses.firstOrNull()?.licenseContent ?: "")
-        }
     )
 }
 
@@ -103,9 +99,6 @@ fun LibrariesContainer(
         divider = divider,
         footer = footer,
         onLibraryClick = onLibraryClick,
-        licenseDialogBody = { library ->
-            Text(library.licenses.firstOrNull()?.licenseContent ?: "")
-        }
     )
 }
 

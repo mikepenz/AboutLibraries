@@ -1,10 +1,3 @@
-public final class com/mikepenz/aboutlibraries/ui/compose/ComposableSingletons$LibrariesKt {
-	public static final field INSTANCE Lcom/mikepenz/aboutlibraries/ui/compose/ComposableSingletons$LibrariesKt;
-	public fun <init> ()V
-	public final fun getLambda$1360252953$aboutlibraries_compose_m2 ()Lkotlin/jvm/functions/Function3;
-	public final fun getLambda$952926916$aboutlibraries_compose_m2 ()Lkotlin/jvm/functions/Function3;
-}
-
 public final class com/mikepenz/aboutlibraries/ui/compose/LibrariesKt {
 	public static final fun LibrariesContainer (Ljava/lang/String;Landroidx/compose/ui/Modifier;Landroidx/compose/foundation/lazy/LazyListState;Landroidx/compose/foundation/layout/PaddingValues;ZZZZLcom/mikepenz/aboutlibraries/ui/compose/LibraryColors;Lcom/mikepenz/aboutlibraries/ui/compose/LibraryPadding;Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDimensions;Lcom/mikepenz/aboutlibraries/ui/compose/LibraryTextStyles;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;III)V
 	public static final fun LibrariesContainer (Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Landroidx/compose/foundation/lazy/LazyListState;Landroidx/compose/foundation/layout/PaddingValues;ZZZZLcom/mikepenz/aboutlibraries/ui/compose/LibraryColors;Lcom/mikepenz/aboutlibraries/ui/compose/LibraryPadding;Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDimensions;Lcom/mikepenz/aboutlibraries/ui/compose/LibraryTextStyles;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;III)V
