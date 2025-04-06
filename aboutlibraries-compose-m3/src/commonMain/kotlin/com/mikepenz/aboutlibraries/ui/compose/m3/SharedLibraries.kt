@@ -53,6 +53,7 @@ import com.mikepenz.aboutlibraries.ui.compose.LibraryTextStyles
 import com.mikepenz.aboutlibraries.ui.compose.layout.LibraryScaffoldLayout
 import com.mikepenz.aboutlibraries.ui.compose.util.author
 import com.mikepenz.aboutlibraries.ui.compose.util.htmlReadyLicenseContent
+import com.mikepenz.aboutlibraries.ui.compose.util.strippedLicenseContent
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
@@ -78,7 +79,7 @@ fun LibrariesContainer(
     divider: (@Composable LazyItemScope.() -> Unit)? = null,
     footer: (LazyListScope.() -> Unit)? = null,
     onLibraryClick: ((Library) -> Unit)? = null,
-    licenseDialogBody: (@Composable (Library) -> Unit)? = null,
+    licenseDialogBody: (@Composable (Library) -> Unit)? = { library -> LicenseDialogBody(library = library, colors = colors) },
     licenseDialogConfirmText: String = "OK",
 ) {
     val uriHandler = LocalUriHandler.current
@@ -175,6 +176,18 @@ fun LicenseDialog(
             }
         },
     )
+}
+
+@Composable
+internal fun LicenseDialogBody(library: Library, colors: LibraryColors, modifier: Modifier = Modifier) {
+    val license = remember(library) { library.strippedLicenseContent.takeIf { it.isNotEmpty() } }
+    if (license != null) {
+        Text(
+            text = library.strippedLicenseContent,
+            modifier = modifier,
+            color = colors.contentColor
+        )
+    }
 }
 
 /**

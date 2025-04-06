@@ -64,7 +64,9 @@ public final class com/mikepenz/aboutlibraries/ui/compose/layout/LibraryScaffold
 
 public final class com/mikepenz/aboutlibraries/ui/compose/util/ExtensionsKt {
 	public static final fun getAuthor (Lcom/mikepenz/aboutlibraries/entity/Library;)Ljava/lang/String;
+	public static final fun getHtmlReadyLicenseContent (Lcom/mikepenz/aboutlibraries/entity/Library;)Ljava/lang/String;
 	public static final fun getHtmlReadyLicenseContent (Lcom/mikepenz/aboutlibraries/entity/License;)Ljava/lang/String;
+	public static final fun getStrippedLicenseContent (Lcom/mikepenz/aboutlibraries/entity/Library;)Ljava/lang/String;
 	public static final fun getStrippedLicenseContent (Lcom/mikepenz/aboutlibraries/entity/License;)Ljava/lang/String;
 }
 

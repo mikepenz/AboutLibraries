@@ -9,6 +9,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.produceState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.AnnotatedString
@@ -75,8 +76,15 @@ fun LibrariesContainer(
         footer = footer,
         onLibraryClick = onLibraryClick,
         licenseDialogBody = { library ->
-            Text(
-                text = AnnotatedString.fromHtml(library.licenses.firstOrNull()?.htmlReadyLicenseContent.orEmpty()), color = colors.contentColor
-            )
-        })
+            val license = remember(library) {
+                library.htmlReadyLicenseContent.takeIf { it.isNotEmpty() }?.let { AnnotatedString.fromHtml(it) }
+            }
+            if (license != null) {
+                Text(
+                    text = license,
+                    color = colors.contentColor
+                )
+            }
+        }
+    )
 }
