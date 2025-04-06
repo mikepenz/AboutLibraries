@@ -172,7 +172,7 @@ internal fun LicenseDialogBody(library: Library, colors: LibraryColors, modifier
     val license = remember(library) { library.strippedLicenseContent.takeIf { it.isNotEmpty() } }
     if (license != null) {
         Text(
-            text = library.strippedLicenseContent,
+            text = license,
             modifier = modifier,
             color = colors.contentColor
         )
