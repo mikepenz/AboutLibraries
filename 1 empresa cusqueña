@@ -1,0 +1,76 @@
+from pptx import Presentation
+from pptx.util import Inches, Pt
+
+prs = Presentation()
+title_font_size = Pt(40)
+content_font_size = Pt(24)
+
+def add_slide(title, content_lines):
+    slide_layout = prs.slide_layouts[1]
+    slide = prs.slides.add_slide(slide_layout)
+    slide.shapes.title.text = title
+    content = slide.placeholders[1].text_frame
+    content.clear()
+    for line in content_lines:
+        p = content.add_paragraph()
+        p.text = line
+        p.level = 0
+        p.font.size = content_font_size
+
+# Slide 1 - Portada
+slide_layout = prs.slide_layouts[0]
+slide = prs.slides.add_slide(slide_layout)
+slide.shapes.title.text = "Neuromarketing y Emociones en la Marca Cusqueña"
+slide.placeholders[1].text = (
+    "Integrantes:\n[Nombre 1], [Nombre 2], [Nombre 3], ...\n\n"
+    "Curso: Neuromarketing\nProfesor: [Nombre del profesor]\nFecha: [Fecha de entrega]"
+)
+
+# Slide 2 - Emociones
+add_slide("Emociones de Cusqueña", [
+    "• Orgullo por la cultura peruana y su historia.",
+    "• Tradición y raíces del Imperio Inca.",
+    "• Sofisticación (marca premium).",
+    "• Placer sensorial y experiencia cultural.",
+])
+
+# Slide 3 - Fases del cerebro
+add_slide("Cómo interactúa el cerebro (Cusqueña)", [
+    "Estímulo: Diseño elegante, botella dorada.",
+    "Sensación: Textura del vidrio, aroma y sabor.",
+    "Percepción: Producto premium y auténtico.",
+    "Impulso: Deseo de algo especial y nacional.",
+    "Sentimiento: Orgullo y conexión con lo peruano.",
+    "Respuesta: Compra y recomendación del producto.",
+])
+
+# Slide 4 - Modelo de la Motivación
+add_slide("Modelo de la Motivación – Ejemplo", [
+    "1. Necesidad: Celebrar con amigos.",
+    "2. Deseo: Algo significativo y sabroso.",
+    "3. Tensión: Duda entre varias marcas.",
+    "4. Acción: Elige Cusqueña.",
+    "5. Satisfacción: Se siente bien compartiéndola.",
+    "6. Aprendizaje: La vuelve a comprar.",
+])
+
+# Slide 5 - Marketing Sensorial
+add_slide("Marketing Sensorial (5 sentidos)", [
+    "Vista: Botella dorada, estética premium.",
+    "Oído: Música andina en sus spots.",
+    "Tacto: Relieve de la botella.",
+    "Olfato: Aroma a malta y lúpulo.",
+    "Gusto: Variedad de sabores (negra, dorada, trigo).",
+    "Propuesta: Aromas en puntos de venta.",
+])
+
+# Slide 6 - Resumen
+add_slide("Resumen del Análisis", [
+    "• Conecta emociones: orgullo, tradición, sofisticación.",
+    "• Usa fases mentales del consumidor estratégicamente.",
+    "• Aplica marketing sensorial en los 5 sentidos.",
+    "• Refuerza su posicionamiento como marca cultural premium.",
+])
+
+prs.save("Neuromarketing_Cusquena.pptx")
+print("Presentación guardada como 'Neuromarketing_Cusquena.pptx'")
