@@ -14,7 +14,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [ macos-14 ] # , ubuntu-latest, windows-latest
+        os: [ macos-latest ] # , ubuntu-latest, windows-latest
 
     runs-on: ${{matrix.os}}
 
@@ -69,6 +69,7 @@ jobs:
           ./gradlew aboutlibraries-compose:publishAllPublicationsToMavenCentralRepository -x test -x lint -Plibrary_compose_only --no-configure-on-demand --no-parallel --no-configuration-cache
           ./gradlew aboutlibraries-compose-m2:publishAllPublicationsToMavenCentralRepository -x test -x lint -Plibrary_compose_only --no-configure-on-demand --no-parallel --no-configuration-cache
           ./gradlew aboutlibraries-compose-m3:publishAllPublicationsToMavenCentralRepository -x test -x lint -Plibrary_compose_m3_only --no-configure-on-demand --no-parallel --no-configuration-cache
+          ./gradlew aboutlibraries:publishAllPublicationsToMavenCentralRepository -x test -x lint -Plibrary_only --no-configure-on-demand --no-parallel --no-configuration-cache
 
       - name: Publish the windows artifact
         if: matrix.os == 'windows-latest'
@@ -90,7 +91,6 @@ jobs:
           ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGNING_PASSWORD }}
         run: |
           ./gradlew aboutlibraries-core:publishLinuxX64PublicationToMavenCentralRepository -Plibrary_core_only --no-configure-on-demand --no-parallel --no-configuration-cache
-          ./gradlew aboutlibraries:publishAllPublicationsToMavenCentralRepository -x test -x lint -Plibrary_only --no-configure-on-demand --no-parallel --no-configuration-cache
 
   build:
     name: Build
