@@ -376,6 +376,8 @@ the dependency meta information and include as part of the SCM.
 > [!NOTE]  
 > The legacy view based UI will be deprecated in the future. Please consider moving to the compose
 > based UI.
+> 
+> **If you need/want to use this library in a View based app, check out the [ComposeView](https://developer.android.com/develop/ui/compose/migrate/interoperability-apis/compose-in-views) API provided by Compose.**
 
 ```gradle
 implementation("com.mikepenz:aboutlibraries:${latestAboutLibsRelease}")
