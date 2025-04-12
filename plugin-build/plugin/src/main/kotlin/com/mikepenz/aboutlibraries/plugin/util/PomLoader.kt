@@ -31,8 +31,8 @@ object PomLoader {
                 .withArtifacts(MavenModule::class.java, MavenPomArtifact::class.java)
                 .execute()
 
-            if (resolutionResult.resolvedComponents.size == 0) {
-                LibrariesProcessor.LOGGER.error("${prefix}--> Retrieved no components for: $id")
+            if (resolutionResult.resolvedComponents.isEmpty()) {
+                LOGGER.info("{}--> Retrieved no components for: {}", prefix, id)
             }
 
             // size is 0 for gradle plugins, 1 for normal dependencies
