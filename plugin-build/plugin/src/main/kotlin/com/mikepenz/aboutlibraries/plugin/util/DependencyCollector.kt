@@ -108,8 +108,6 @@ class DependencyCollector(
             if (name !in visitedDependencyNames) {
                 visitedDependencyNames += name
 
-                if (LOGGER.isDebugEnabled) LOGGER.debug("handling resolved artifact :: $name")
-
                 try {
                     resolvedArtifacts += when {
                         resolvedDependency.moduleVersion == "unspecified" -> {
@@ -130,16 +128,13 @@ class DependencyCollector(
                             if (includePlatform) allArtifacts + resolvedDependency.toResolvedBomArtifact()
                             allArtifacts
                         }
+                    }.filter {
+                        it.file.isFile // filter out artifacts that are folders (these are modules within the project)
                     }
                 } catch (e: Throwable) {
                     when {
-                        LOGGER.isDebugEnabled -> {
-                            LOGGER.warn("Found possibly ambiguous variant - $resolvedDependency", e)
-                        }
-
-                        LOGGER.isInfoEnabled -> {
-                            LOGGER.warn("Found possibly ambiguous variant - $resolvedDependency")
-                        }
+                        LOGGER.isDebugEnabled -> LOGGER.warn("Found possibly ambiguous variant - $resolvedDependency", e)
+                        LOGGER.isInfoEnabled -> LOGGER.warn("Found possibly ambiguous variant - $resolvedDependency")
                     }
                 }
             }
