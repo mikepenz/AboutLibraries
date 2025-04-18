@@ -56,6 +56,7 @@ class DependencyCollector(
                         return@mapNotNull variant to it
                     } else {
                         LOGGER.info("Skipping compile time variant $variant from config: ${it.name}")
+                        mutableCollectContainer.getOrPut(variant) { mutableMapOf() }
                     }
                 } else if (cn.endsWith("RuntimeClasspath", true)) {
                     val variant = cn.removeSuffix("RuntimeClasspath")
@@ -64,6 +65,7 @@ class DependencyCollector(
                         return@mapNotNull variant to it
                     } else {
                         LOGGER.info("Skipping compile time variant $variant from config: ${it.name}")
+                        mutableCollectContainer.getOrPut(variant) { mutableMapOf() }
                     }
                 }
 
