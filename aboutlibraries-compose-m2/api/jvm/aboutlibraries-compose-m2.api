@@ -1,50 +1,13 @@
-public final class com/mikepenz/aboutlibraries/ui/compose/ComposableSingletons$LibrariesKt {
-	public static final field INSTANCE Lcom/mikepenz/aboutlibraries/ui/compose/ComposableSingletons$LibrariesKt;
-	public fun <init> ()V
-	public final fun getLambda-1$aboutlibraries_compose_m2 ()Lkotlin/jvm/functions/Function3;
-	public final fun getLambda-2$aboutlibraries_compose_m2 ()Lkotlin/jvm/functions/Function3;
-}
-
 public final class com/mikepenz/aboutlibraries/ui/compose/LibrariesKt {
-	public static final fun LibrariesContainer-Qi0uq5o (Ljava/lang/String;Landroidx/compose/ui/Modifier;Landroidx/compose/foundation/lazy/LazyListState;Landroidx/compose/foundation/layout/PaddingValues;ZZZZLcom/mikepenz/aboutlibraries/ui/compose/LibraryColors;Lcom/mikepenz/aboutlibraries/ui/compose/LibraryPadding;Landroidx/compose/foundation/layout/PaddingValues;FLkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;III)V
-	public static final fun LibrariesContainer-Qi0uq5o (Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Landroidx/compose/foundation/lazy/LazyListState;Landroidx/compose/foundation/layout/PaddingValues;ZZZZLcom/mikepenz/aboutlibraries/ui/compose/LibraryColors;Lcom/mikepenz/aboutlibraries/ui/compose/LibraryPadding;Landroidx/compose/foundation/layout/PaddingValues;FLkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;III)V
-	public static final fun rememberLibraries (Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;I)Landroidx/compose/runtime/State;
-	public static final fun rememberLibraries ([BLandroidx/compose/runtime/Composer;I)Landroidx/compose/runtime/State;
-}
-
-public abstract interface class com/mikepenz/aboutlibraries/ui/compose/LibraryColors {
-	public abstract fun getBackgroundColor-0d7_KjU ()J
-	public abstract fun getBadgeBackgroundColor-0d7_KjU ()J
-	public abstract fun getBadgeContentColor-0d7_KjU ()J
-	public abstract fun getContentColor-0d7_KjU ()J
-	public abstract fun getDialogConfirmButtonColor-0d7_KjU ()J
-}
-
-public final class com/mikepenz/aboutlibraries/ui/compose/LibraryDefaults {
-	public static final field $stable I
-	public static final field INSTANCE Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDefaults;
-	public final fun getContentPadding ()Landroidx/compose/foundation/layout/PaddingValues;
-	public final fun libraryColors-zjMxDiM (JJJJJLandroidx/compose/runtime/Composer;II)Lcom/mikepenz/aboutlibraries/ui/compose/LibraryColors;
-	public final fun libraryPadding-FJfuzF0 (Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;FLandroidx/compose/runtime/Composer;II)Lcom/mikepenz/aboutlibraries/ui/compose/LibraryPadding;
-}
-
-public abstract interface class com/mikepenz/aboutlibraries/ui/compose/LibraryPadding {
-	public abstract fun getBadgeContentPadding ()Landroidx/compose/foundation/layout/PaddingValues;
-	public abstract fun getBadgePadding ()Landroidx/compose/foundation/layout/PaddingValues;
-	public abstract fun getNamePadding ()Landroidx/compose/foundation/layout/PaddingValues;
-	public abstract fun getVersionPadding ()Landroidx/compose/foundation/layout/PaddingValues;
-	public abstract fun getVerticalPadding-D9Ej5fM ()F
+	public static final fun LibrariesContainer (Ljava/lang/String;Landroidx/compose/ui/Modifier;Landroidx/compose/foundation/lazy/LazyListState;Landroidx/compose/foundation/layout/PaddingValues;ZZZZLcom/mikepenz/aboutlibraries/ui/compose/LibraryColors;Lcom/mikepenz/aboutlibraries/ui/compose/LibraryPadding;Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDimensions;Lcom/mikepenz/aboutlibraries/ui/compose/LibraryTextStyles;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;III)V
+	public static final fun LibrariesContainer (Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Landroidx/compose/foundation/lazy/LazyListState;Landroidx/compose/foundation/layout/PaddingValues;ZZZZLcom/mikepenz/aboutlibraries/ui/compose/LibraryColors;Lcom/mikepenz/aboutlibraries/ui/compose/LibraryPadding;Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDimensions;Lcom/mikepenz/aboutlibraries/ui/compose/LibraryTextStyles;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;III)V
 }
 
 public final class com/mikepenz/aboutlibraries/ui/compose/SharedLibrariesKt {
-	public static final fun Libraries-Qi0uq5o (Lkotlinx/collections/immutable/ImmutableList;Landroidx/compose/ui/Modifier;Landroidx/compose/foundation/lazy/LazyListState;Landroidx/compose/foundation/layout/PaddingValues;ZZZZLcom/mikepenz/aboutlibraries/ui/compose/LibraryColors;Lcom/mikepenz/aboutlibraries/ui/compose/LibraryPadding;Landroidx/compose/foundation/layout/PaddingValues;FLkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;III)V
-	public static final fun LibrariesContainer-0essu7Y (Lcom/mikepenz/aboutlibraries/Libs;Landroidx/compose/ui/Modifier;Landroidx/compose/foundation/lazy/LazyListState;Landroidx/compose/foundation/layout/PaddingValues;ZZZZLcom/mikepenz/aboutlibraries/ui/compose/LibraryColors;Lcom/mikepenz/aboutlibraries/ui/compose/LibraryPadding;Landroidx/compose/foundation/layout/PaddingValues;FLkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;Ljava/lang/String;Landroidx/compose/runtime/Composer;III)V
+	public static final fun Libraries (Lkotlinx/collections/immutable/ImmutableList;Landroidx/compose/ui/Modifier;Landroidx/compose/foundation/lazy/LazyListState;Landroidx/compose/foundation/layout/PaddingValues;ZZZZLcom/mikepenz/aboutlibraries/ui/compose/LibraryColors;Lcom/mikepenz/aboutlibraries/ui/compose/LibraryPadding;Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDimensions;Lcom/mikepenz/aboutlibraries/ui/compose/LibraryTextStyles;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;III)V
+	public static final fun LibrariesContainer (Lcom/mikepenz/aboutlibraries/Libs;Landroidx/compose/ui/Modifier;Landroidx/compose/foundation/lazy/LazyListState;Landroidx/compose/foundation/layout/PaddingValues;ZZZZLcom/mikepenz/aboutlibraries/ui/compose/LibraryColors;Lcom/mikepenz/aboutlibraries/ui/compose/LibraryPadding;Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDimensions;Lcom/mikepenz/aboutlibraries/ui/compose/LibraryTextStyles;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;Ljava/lang/String;Landroidx/compose/runtime/Composer;III)V
+	public static final fun Library (Lcom/mikepenz/aboutlibraries/entity/Library;ZZZZLcom/mikepenz/aboutlibraries/ui/compose/LibraryColors;Lcom/mikepenz/aboutlibraries/ui/compose/LibraryPadding;Lcom/mikepenz/aboutlibraries/ui/compose/LibraryTextStyles;Landroidx/compose/material/Typography;Lkotlin/jvm/functions/Function0;Landroidx/compose/runtime/Composer;II)V
 	public static final fun LicenseDialog (Lcom/mikepenz/aboutlibraries/entity/Library;Lcom/mikepenz/aboutlibraries/ui/compose/LibraryColors;Ljava/lang/String;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function0;Landroidx/compose/runtime/Composer;II)V
-}
-
-public final class com/mikepenz/aboutlibraries/ui/compose/util/ExtensionsKt {
-	public static final fun getAuthor (Lcom/mikepenz/aboutlibraries/entity/Library;)Ljava/lang/String;
-	public static final fun getHtmlReadyLicenseContent (Lcom/mikepenz/aboutlibraries/entity/License;)Ljava/lang/String;
-	public static final fun getStrippedLicenseContent (Lcom/mikepenz/aboutlibraries/entity/License;)Ljava/lang/String;
+	public static final fun libraryColors-Hformbs (Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDefaults;JJJJJLandroidx/compose/runtime/Composer;II)Lcom/mikepenz/aboutlibraries/ui/compose/LibraryColors;
 }
 

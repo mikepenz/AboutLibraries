@@ -20,13 +20,14 @@ dependencyResolutionManagement {
 
     versionCatalogs {
         create("baseLibs") {
-            from("com.mikepenz:version-catalog:0.1.5")
+            from("com.mikepenz:version-catalog:0.2.8")
         }
     }
 }
 
 include(":aboutlibraries-core")
 include(":aboutlibraries")
+include(":aboutlibraries-compose")
 include(":aboutlibraries-compose-m2")
 include(":aboutlibraries-compose-m3")
 

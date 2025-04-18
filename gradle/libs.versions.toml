@@ -1,24 +1,23 @@
 [versions]
 # kotlin
-kotlinxSerialization = "1.8.0"
+kotlinxSerialization = "1.8.1"
 kotlinxCollections = "0.3.8"
 # androidx
-activity = "1.10.0"
+activity = "1.10.1"
 cardview = "1.0.0"
-constraintLayout = "2.2.0"
+constraintLayout = "2.2.1"
 core = "1.15.0"
 lifecycle = { require = "2.8.7" }
-navigation = "2.8.6"
+navigation = "2.8.9"
 recyclerView = "1.4.0"
 # google
 material = "1.12.0"
 # other
 accompanist = "0.36.0"
 fastAdapter = "5.7.0"
-gradleMvnPublish = "0.30.0"
 iconics = "5.4.0"
 itemAnimators = "1.1.0"
-ivy = "2.5.2"
+ivy = "2.5.3"
 materialDrawer = "9.0.2"
 okhttp = "4.12.0"
 
@@ -51,5 +50,10 @@ materialDrawer-core = { module = "com.mikepenz:materialdrawer", version.ref = "m
 okhttp-core = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
 
 [bundles]
-accompanist = ["accompanist-systemuicontroller"]
-androidx-lifecycle = ["androidx-lifecycle-livedata-ktx", "androidx-lifecycle-viewmodel-ktx"]
+accompanist = [
+    "accompanist-systemuicontroller",
+]
+androidx-lifecycle = [
+    "androidx-lifecycle-livedata-ktx",
+    "androidx-lifecycle-viewmodel-ktx",
+]

@@ -27,7 +27,7 @@ import org.slf4j.LoggerFactory
  */
 class DependencyCollector(
     private val includePlatform: Boolean = false,
-    private val filterVariants: Array<String> = emptyArray(),
+    private val filterVariants: Set<String> = emptySet(),
 ) {
     /**
      * Generates the project dependency report structure
@@ -56,6 +56,7 @@ class DependencyCollector(
                         return@mapNotNull variant to it
                     } else {
                         LOGGER.info("Skipping compile time variant $variant from config: ${it.name}")
+                        mutableCollectContainer.getOrPut(variant) { mutableMapOf() }
                     }
                 } else if (cn.endsWith("RuntimeClasspath", true)) {
                     val variant = cn.removeSuffix("RuntimeClasspath")
@@ -64,6 +65,7 @@ class DependencyCollector(
                         return@mapNotNull variant to it
                     } else {
                         LOGGER.info("Skipping compile time variant $variant from config: ${it.name}")
+                        mutableCollectContainer.getOrPut(variant) { mutableMapOf() }
                     }
                 }
 
@@ -108,8 +110,6 @@ class DependencyCollector(
             if (name !in visitedDependencyNames) {
                 visitedDependencyNames += name
 
-                if (LOGGER.isDebugEnabled) LOGGER.debug("handling resolved artifact :: $name")
-
                 try {
                     resolvedArtifacts += when {
                         resolvedDependency.moduleVersion == "unspecified" -> {
@@ -130,16 +130,13 @@ class DependencyCollector(
                             if (includePlatform) allArtifacts + resolvedDependency.toResolvedBomArtifact()
                             allArtifacts
                         }
+                    }.filter {
+                        it.file.isFile // filter out artifacts that are folders (these are modules within the project)
                     }
                 } catch (e: Throwable) {
                     when {
-                        LOGGER.isDebugEnabled -> {
-                            LOGGER.warn("Found possibly ambiguous variant - $resolvedDependency", e)
-                        }
-
-                        LOGGER.isInfoEnabled -> {
-                            LOGGER.warn("Found possibly ambiguous variant - $resolvedDependency")
-                        }
+                        LOGGER.isDebugEnabled -> LOGGER.warn("Found possibly ambiguous variant - $resolvedDependency", e)
+                        LOGGER.isInfoEnabled -> LOGGER.warn("Found possibly ambiguous variant - $resolvedDependency")
                     }
                 }
             }

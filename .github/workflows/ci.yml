@@ -14,7 +14,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [ macos-14, ubuntu-latest, windows-latest ]
+        os: [ macos-latest ] # , ubuntu-latest, windows-latest
 
     runs-on: ${{matrix.os}}
 
@@ -45,19 +45,19 @@ jobs:
             gradle-${{ runner.os }}-
 
       - name: Prepare Gradle Publish properties
-        if: matrix.os == 'ubuntu-latest'
+        if: matrix.os == 'macos-latest'
         run: |
           echo "gradle.publish.key=${{ secrets.GRADLE_PUBLISH_KEY }}" >> ~/.gradle/gradle.properties
           echo "gradle.publish.secret=${{ secrets.GRADLE_PUBLISH_SECRET }}" >> ~/.gradle/gradle.properties
 
       - name: Release Plugin
-        if: matrix.os == 'ubuntu-latest'
+        if: matrix.os == 'macos-latest' && !contains(github.ref, '+')
         run: |
           cd plugin-build
-          ./gradlew publishPlugins | true
+          ./gradlew publishPlugins --no-configuration-cache | true
 
       - name: Publish the macOS artifacts
-        if: matrix.os == 'macos-14'
+        if: matrix.os == 'macos-latest'
         env:
           ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.NEXUS_USERNAME }}
           ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.NEXUS_PASSWORD }}
@@ -65,9 +65,11 @@ jobs:
           ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.SIGNING_PRIVATE_KEY }}
           ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGNING_PASSWORD }}
         run: |
-          ./gradlew aboutlibraries-core:publishAllPublicationsToMavenCentralRepository --no-daemon -Plibrary_core_only --no-configure-on-demand --no-parallel
-          ./gradlew aboutlibraries-compose-m2:publishAllPublicationsToMavenCentralRepository -x test -x lint -Plibrary_compose_only --no-configure-on-demand --no-parallel
-          ./gradlew aboutlibraries-compose-m3:publishAllPublicationsToMavenCentralRepository -x test -x lint -Plibrary_compose_m3_only --no-configure-on-demand --no-parallel
+          ./gradlew aboutlibraries-core:publishAllPublicationsToMavenCentralRepository --no-daemon -Plibrary_core_only --no-configure-on-demand --no-parallel --no-configuration-cache
+          ./gradlew aboutlibraries-compose:publishAllPublicationsToMavenCentralRepository -x test -x lint -Plibrary_compose_only --no-configure-on-demand --no-parallel --no-configuration-cache
+          ./gradlew aboutlibraries-compose-m2:publishAllPublicationsToMavenCentralRepository -x test -x lint -Plibrary_compose_only --no-configure-on-demand --no-parallel --no-configuration-cache
+          ./gradlew aboutlibraries-compose-m3:publishAllPublicationsToMavenCentralRepository -x test -x lint -Plibrary_compose_m3_only --no-configure-on-demand --no-parallel --no-configuration-cache
+          ./gradlew aboutlibraries:publishAllPublicationsToMavenCentralRepository -x test -x lint -Plibrary_only --no-configure-on-demand --no-parallel --no-configuration-cache
 
       - name: Publish the windows artifact
         if: matrix.os == 'windows-latest'
@@ -77,7 +79,7 @@ jobs:
           ORG_GRADLE_PROJECT_signingInMemoryKeyId: ${{ secrets.SIGNING_KEY_ID }}
           ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.SIGNING_PRIVATE_KEY }}
           ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGNING_PASSWORD }}
-        run: ./gradlew aboutlibraries-core:publishMingwX64PublicationToMavenCentralRepository -Plibrary_core_only --no-configure-on-demand --no-parallel
+        run: ./gradlew aboutlibraries-core:publishMingwX64PublicationToMavenCentralRepository -Plibrary_core_only --no-configure-on-demand --no-parallel --no-configuration-cache
 
       - name: Publish the linux artifact
         if: matrix.os == 'ubuntu-latest'
@@ -88,8 +90,7 @@ jobs:
           ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.SIGNING_PRIVATE_KEY }}
           ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGNING_PASSWORD }}
         run: |
-          ./gradlew aboutlibraries-core:publishLinuxX64PublicationToMavenCentralRepository -Plibrary_core_only --no-configure-on-demand --no-parallel
-          ./gradlew aboutlibraries:publishAllPublicationsToMavenCentralRepository -x test -x lint -Plibrary_only --no-configure-on-demand --no-parallel
+          ./gradlew aboutlibraries-core:publishLinuxX64PublicationToMavenCentralRepository -Plibrary_core_only --no-configure-on-demand --no-parallel --no-configuration-cache
 
   build:
     name: Build
@@ -120,7 +121,7 @@ jobs:
       - name: Publish plugin locally
         run: |
           cd plugin-build
-          ./gradlew publishToMavenLocal
+          ./gradlew publishToMavenLocal --no-configuration-cache
 
       - name: Run Lint on Gradle Plugin
         run: |
@@ -129,13 +130,17 @@ jobs:
       - name: Build Debug
         run: ./gradlew app:assembleDebug
 
-      - name: Run Lint
+      - name: Run Api Validation
         if: github.event_name  == 'pull_request'
         run: ./gradlew apiCheck
 
       - name: Run Lint
         if: github.event_name  == 'pull_request'
         run: ./gradlew lintDebug
+
+      - name: Verify Screenshot Tests
+        if: false && github.event_name  == 'pull_request'
+        run: ./gradlew validateScreenshotTest
 
       - name: Setup Ruby
         if: github.event_name  == 'pull_request'

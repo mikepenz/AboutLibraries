@@ -3,39 +3,48 @@ plugins {
     id("com.mikepenz.convention.kotlin-multiplatform")
     id("com.mikepenz.convention.compose")
     id("com.mikepenz.convention.publishing")
+    alias(baseLibs.plugins.screenshot)
 }
 
 android {
     namespace = "com.mikepenz.aboutlibraries.ui.compose.m3"
 
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-        compilerOptions {
-            val outputDir = rootDir.resolve("aboutlibraries-core/compose_compiler_config.conf").path
-            freeCompilerArgs.addAll("-P", "plugin:androidx.compose.compiler.plugins.kotlin:stabilityConfigurationPath=${outputDir}")
-        }
-    }
+    @Suppress("UnstableApiUsage")
+    experimentalProperties["android.experimental.enableScreenshotTest"] = true
 }
 
 kotlin {
+    applyDefaultHierarchyTemplate()
+
     sourceSets {
         val commonMain by getting {
             dependencies {
+                api(project(":aboutlibraries-core"))
+                api(project(":aboutlibraries-compose"))
+
                 implementation(compose.runtime)
                 implementation(compose.ui)
                 implementation(compose.foundation)
                 implementation(compose.material3)
             }
         }
-        val commonTest by getting
+
+        val androidMain by getting {
+            dependencies {
+                implementation(compose.preview)
+                implementation(libs.androidx.core.ktx)
+            }
+        }
     }
 }
 
 dependencies {
-    commonMainApi(project(":aboutlibraries-core"))
-
     debugImplementation(compose.uiTooling)
-    "androidMainImplementation"(compose.preview)
-    "androidMainImplementation"(libs.androidx.core.ktx)
+
+    screenshotTestImplementation(compose.runtime)
+    screenshotTestImplementation(compose.ui)
+    screenshotTestImplementation(compose.foundation)
+    screenshotTestImplementation(compose.material3)
 }
 
 configurations.configureEach {
