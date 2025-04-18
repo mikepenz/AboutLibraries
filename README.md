@@ -37,13 +37,9 @@
 
 ## Latest releases 🛠
 
-- Compile 35 | Gradle 7.0+ | Java 17 | [v11.6.3](https://github.com/mikepenz/AboutLibraries/tree/11.6.3)
-- Compose UI updates | Gradle Plugin refresh | [v12.0.0-b03](https://github.com/mikepenz/AboutLibraries/tree/12.0.0-b03)
+- Compose UI updates | Gradle Plugin refresh | [v12.0.0](https://github.com/mikepenz/AboutLibraries/tree/12.0.0)
 
 ## Gradle Plugin
-
-AboutLibraries v10 includes a completely redone plugin, with build cache support. It includes all
-dependencies as found based on the gradle configuration.
 
 > The gradle plugin is hosted
 > via [Gradle Plugins](https://plugins.gradle.org/plugin/com.mikepenz.aboutlibraries.plugin).
