@@ -374,10 +374,10 @@ the dependency meta information and include as part of the SCM.
 ## (Legacy) UI-module
 
 > [!NOTE]  
-> The legacy view based UI will be deprecated in the future. Please consider moving to the compose
-> based UI.
-> 
-> **If you need/want to use this library in a View based app, check out the [ComposeView](https://developer.android.com/develop/ui/compose/migrate/interoperability-apis/compose-in-views) API provided by Compose.**
+> The legacy view based UI will be deprecated in the future. Please consider moving to the compose based UI.
+> For view based use cases please check out the [ComposeView](https://developer.android.com/develop/ui/compose/migrate/interoperability-apis/compose-in-views) provided by Compose.
+> Alternatively, the legacy module will be supported as long as the `core` data format isn't changed. Generally newer versions of the gradle plugin are compatible with older
+> versions of the ui modules.
 
 ```gradle
 implementation("com.mikepenz:aboutlibraries:${latestAboutLibsRelease}")
