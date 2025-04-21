@@ -44,8 +44,8 @@ data class Libs constructor(
                 throw IllegalStateException(
                     """
                     Please provide the required library data via the available APIs.
-                    Depending on the platform this can be done for example via `LibsBuilder().withJson()`.
-                    For Android there exists an `LibsBuilder.withContext()`, automatically loading the `aboutlibraries.json` file from the `raw` resources folder.
+                    Depending on the platform this can be done for example via `Libs.Builder().withJson()`.
+                    For Android there exists an `Libs.Builder().withContext(context).build()`, automatically loading the `aboutlibraries.json` file from the `raw` resources folder.
                     When using compose or other parent modules, please check their corresponding APIs.
                 """.trimIndent()
                 )
