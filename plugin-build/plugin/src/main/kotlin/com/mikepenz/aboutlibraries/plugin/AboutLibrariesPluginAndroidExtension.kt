@@ -11,24 +11,28 @@ object AboutLibrariesPluginAndroidExtension {
     private val LOGGER = LoggerFactory.getLogger(AboutLibrariesPluginAndroidExtension::class.java)
 
     fun apply(project: Project, extension: AboutLibrariesExtension) {
-        try {
+        project.pluginManager.withPlugin("com.android.application") {
+            LOGGER.debug("Registering Android task for Application")
+
             val app = project.extensions.findByType(com.android.build.gradle.AppExtension::class.java)
             if (app != null) {
                 app.applicationVariants.configureEach {
                     createAboutLibrariesAndroidTasks(project, extension, it)
                 }
             } else {
-                val lib = project.extensions.findByType(com.android.build.gradle.LibraryExtension::class.java)
-                if (lib != null) {
-                    lib.libraryVariants.configureEach {
-                        createAboutLibrariesAndroidTasks(project, extension, it)
-                    }
-                } else {
-                    LOGGER.info("No Android extension found. Skipping Android tasks registration. Please ensure your Android Gradle plugin is applied BEFORE the AboutLibraries plugin.")
-                }
+                LOGGER.warn("No Android AppExtension found. Skipping Android tasks registration. Please ensure your Android Gradle plugin is applied BEFORE the AboutLibraries plugin.")
             }
-        } catch (t: Throwable) {
-            LOGGER.warn("Couldn't register Android related plugin tasks")
+        }
+        project.pluginManager.withPlugin("com.android.library") {
+            LOGGER.debug("Registering Android task for Library")
+            val lib = project.extensions.findByType(com.android.build.gradle.LibraryExtension::class.java)
+            if (lib != null) {
+                lib.libraryVariants.configureEach {
+                    createAboutLibrariesAndroidTasks(project, extension, it)
+                }
+            } else {
+                LOGGER.warn("No Android LibraryExtension found. Skipping Android tasks registration. Please ensure your Android Gradle plugin is applied BEFORE the AboutLibraries plugin.")
+            }
         }
     }
 
