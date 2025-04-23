@@ -19,8 +19,12 @@ object AboutLibrariesPluginAndroidExtension {
                 }
             } else {
                 val lib = project.extensions.findByType(com.android.build.gradle.LibraryExtension::class.java)
-                lib?.libraryVariants?.configureEach {
-                    createAboutLibrariesAndroidTasks(project, extension, it)
+                if (lib != null) {
+                    lib.libraryVariants.configureEach {
+                        createAboutLibrariesAndroidTasks(project, extension, it)
+                    }
+                } else {
+                    LOGGER.info("No Android extension found. Skipping Android tasks registration. Please ensure your Android Gradle plugin is applied BEFORE the AboutLibraries plugin.")
                 }
             }
         } catch (t: Throwable) {
