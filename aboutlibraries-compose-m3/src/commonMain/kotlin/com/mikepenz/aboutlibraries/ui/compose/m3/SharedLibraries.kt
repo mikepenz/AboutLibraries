@@ -300,6 +300,7 @@ fun Library(
             .fillMaxWidth()
             .background(colors.backgroundColor)
             .clickable { onClick.invoke() },
+        libraryPadding = padding,
         name = {
             Text(
                 text = library.name,
