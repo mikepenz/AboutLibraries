@@ -1,5 +1,7 @@
 package com.mikepenz.aboutlibraries.plugin
 
+import com.mikepenz.aboutlibraries.plugin.AboutLibrariesExtension.Companion.PROP_EXPORT_VARIANT
+import com.mikepenz.aboutlibraries.plugin.AboutLibrariesExtension.Companion.PROP_PREFIX
 import com.mikepenz.aboutlibraries.plugin.mapping.Library
 import com.mikepenz.aboutlibraries.plugin.mapping.License
 import com.mikepenz.aboutlibraries.plugin.model.CollectedContainer
@@ -101,8 +103,8 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     open fun configure() {
         if (!variant.isPresent) {
             variant.set(
-                project.providers.gradleProperty("aboutLibraries.exportVariant").orElse(
-                    project.providers.gradleProperty("exportVariant").orElse(
+                project.providers.gradleProperty("${PROP_PREFIX}${PROP_EXPORT_VARIANT}").orElse(
+                    project.providers.gradleProperty(PROP_EXPORT_VARIANT).orElse(
                         extension.export.exportVariant
                     )
                 )
