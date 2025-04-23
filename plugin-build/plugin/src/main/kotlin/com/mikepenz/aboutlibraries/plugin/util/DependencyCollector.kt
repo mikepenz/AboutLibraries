@@ -67,6 +67,8 @@ class DependencyCollector(
                         LOGGER.info("Skipping compile time variant $variant from config: ${it.name}")
                         mutableCollectContainer.getOrPut(variant) { mutableMapOf() }
                     }
+                } else {
+                    LOGGER.debug("Skipping configuration $cn")
                 }
 
                 null

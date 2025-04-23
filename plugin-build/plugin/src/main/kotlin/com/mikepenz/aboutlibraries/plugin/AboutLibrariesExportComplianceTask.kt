@@ -1,5 +1,8 @@
 package com.mikepenz.aboutlibraries.plugin
 
+import com.mikepenz.aboutlibraries.plugin.AboutLibrariesExtension.Companion.PROP_EXPORT_ARTIFACT_GROUPS
+import com.mikepenz.aboutlibraries.plugin.AboutLibrariesExtension.Companion.PROP_EXPORT_PATH
+import com.mikepenz.aboutlibraries.plugin.AboutLibrariesExtension.Companion.PROP_PREFIX
 import com.mikepenz.aboutlibraries.plugin.mapping.SpdxLicense
 import org.gradle.api.file.Directory
 import org.gradle.api.file.DirectoryProperty
@@ -25,9 +28,9 @@ abstract class AboutLibrariesExportComplianceTask : BaseAboutLibrariesTask() {
 
     @Input
     @Optional
-    val exportPath: Provider<Directory> = project.providers.gradleProperty("aboutLibraries.exportPath")
+    val exportPath: Provider<Directory> = project.providers.gradleProperty("${PROP_PREFIX}${PROP_EXPORT_PATH}")
         .map { path -> projectDirectory.get().dir(path) }
-        .orElse(project.providers.gradleProperty("exportPath").map { path ->
+        .orElse(project.providers.gradleProperty(PROP_EXPORT_PATH).map { path ->
             projectDirectory.get().dir(path)
         })
         .orElse(
@@ -42,8 +45,8 @@ abstract class AboutLibrariesExportComplianceTask : BaseAboutLibrariesTask() {
         )
 
     @Input
-    val artifactGroups: Provider<String> = project.providers.gradleProperty("aboutLibraries.artifactGroups").orElse(
-        project.providers.gradleProperty("artifactGroups")
+    val artifactGroups: Provider<String> = project.providers.gradleProperty("${PROP_PREFIX}${PROP_EXPORT_ARTIFACT_GROUPS}").orElse(
+        project.providers.gradleProperty(PROP_EXPORT_ARTIFACT_GROUPS)
     ).orElse("")
 
     @Internal

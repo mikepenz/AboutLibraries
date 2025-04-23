@@ -1,5 +1,7 @@
 package com.mikepenz.aboutlibraries.plugin
 
+import com.mikepenz.aboutlibraries.plugin.AboutLibrariesExtension.Companion.PROP_EXPORT_PATH
+import com.mikepenz.aboutlibraries.plugin.AboutLibrariesExtension.Companion.PROP_PREFIX
 import com.mikepenz.aboutlibraries.plugin.mapping.Library
 import com.mikepenz.aboutlibraries.plugin.mapping.License
 import com.mikepenz.aboutlibraries.plugin.model.ResultContainer
@@ -36,8 +38,8 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
             @Suppress("DEPRECATION")
             val outputFileName = extension.export.outputFileName.get()
             this.outputFile.set(
-                project.providers.gradleProperty("aboutLibraries.exportPath").map { path -> projectDirectory.dir(path).file(outputFileName) }.orElse(
-                    project.providers.gradleProperty("exportPath").map { path -> projectDirectory.dir(path).file(outputFileName) }).orElse(
+                project.providers.gradleProperty("${PROP_PREFIX}${PROP_EXPORT_PATH}").map { path -> projectDirectory.dir(path).file(outputFileName) }.orElse(
+                    project.providers.gradleProperty(PROP_EXPORT_PATH).map { path -> projectDirectory.dir(path).file(outputFileName) }).orElse(
                     extension.export.outputPath.orElse(
                         buildDirectory.dir("generated/aboutLibraries/").map { it.file(outputFileName) }
                     )

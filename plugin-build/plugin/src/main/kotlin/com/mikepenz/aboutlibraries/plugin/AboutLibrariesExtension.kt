@@ -260,6 +260,10 @@ abstract class AboutLibrariesExtension {
 
     companion object {
         private const val DEFAULT_OUTPUT_NAME = "aboutlibraries.json"
+        internal const val PROP_PREFIX = "aboutLibraries."
+        internal const val PROP_EXPORT_VARIANT = "exportVariant"
+        internal const val PROP_EXPORT_PATH = "exportPath"
+        internal const val PROP_EXPORT_ARTIFACT_GROUPS = "artifactGroups"
     }
 }
 
