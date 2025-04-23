@@ -264,6 +264,7 @@ abstract class AboutLibrariesExtension {
         internal const val PROP_EXPORT_VARIANT = "exportVariant"
         internal const val PROP_EXPORT_PATH = "exportPath"
         internal const val PROP_EXPORT_ARTIFACT_GROUPS = "artifactGroups"
+        internal const val PROP_EXPORT_OUTPUT_PATH = "outputPath"
     }
 }
 
@@ -399,7 +400,7 @@ abstract class ExportConfig @Inject constructor() {
      * Adjusting the file name will break the automatic discovery for supported platforms.
      * Ensure to use the respective APIs of the core module.
      *
-     * This can be overwritten with the `-PaboutLibraries.exportPath` command line argument.
+     * This can also be overwritten with the `-PaboutLibraries.outputPath` command line argument.
      *
      * ```
      * aboutLibraries {
