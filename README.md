@@ -37,7 +37,7 @@
 
 ## Latest releases 🛠
 
-- Compose UI updates | Gradle Plugin refresh | [v12.0.0](https://github.com/mikepenz/AboutLibraries/tree/12.0.0)
+- Compose UI updates | Gradle Plugin refresh | [v12.0.1](https://github.com/mikepenz/AboutLibraries/tree/12.0.1)
 
 ## Gradle Plugin
 
@@ -97,9 +97,9 @@ aboutLibraries {
 
     android {
         // - If the automatic registered android tasks are disabled, a similar thing can be achieved manually
-        // - `./gradlew app:exportLibraryDefinitions -PaboutLibraries.exportPath=src/main/res/raw`
+        // - `./gradlew app:exportLibraryDefinitions -PaboutLibraries.outputPath=src/main/res/raw/aboutlibraries.json`
         // - the resulting file can for example be added as part of the SCM
-        // - the `exportPath` can also be changed by setting `outputPath` via the DSL.
+        // - the `outputPath` can also be changed by setting `outputPath` via the DSL.
         registerAndroidTasks = false
     }
 
@@ -228,8 +228,8 @@ aboutLibraries = "{latest-version}"
 
 [libraries]
 aboutlibraries-core = { module = "com.mikepenz:aboutlibraries-core", version.ref = "aboutLibraries" }
-aboutlibraries-compose-core = { module = "com.mikepenz:aboutlibraries-compose", version.ref = "aboutLibraries" }
-aboutlibraries-compose-m2 = { module = "com.mikepenz:aboutlibraries-compose-m2", version.ref = "aboutLibraries" }
+aboutlibraries-compose-core = { module = "com.mikepenz:aboutlibraries-compose-core", version.ref = "aboutLibraries" }
+aboutlibraries-compose-m2 = { module = "com.mikepenz:aboutlibraries-compose", version.ref = "aboutLibraries" }
 aboutlibraries-compose-m3 = { module = "com.mikepenz:aboutlibraries-compose-m3", version.ref = "aboutLibraries" }
 # Deprecated module
 aboutlibraries-compose-view = { module = "com.mikepenz:aboutlibraries", version.ref = "aboutLibraries" }
@@ -343,11 +343,11 @@ the dependency meta information and include as part of the SCM.
 ### Generate Dependency Information
 
 ```bash
-./gradlew :app-desktop:exportLibraryDefinitions -PaboutLibraries.exportPath=src/main/resources/
+./gradlew :app-desktop:exportLibraryDefinitions -PaboutLibraries.outputPath=src/main/resources/libraries.json
 
 # Filter exported definition by variant by passing `-PaboutLibraries.exportVariant==<VARIANT>`
-./gradlew :app-wasm:exportLibraryDefinitions -PaboutLibraries.exportPath=src/main/resources/ -PaboutLibraries.exportVariant=wasmJs
-./gradlew :app-wasm:exportLibraryDefinitions -PaboutLibraries.exportPath=src/main/resources/ -PaboutLibraries.exportVariant=jvm
+./gradlew :app-wasm:exportLibraryDefinitions -PaboutLibraries.outputPath=src/main/resources/libraries.json -PaboutLibraries.exportVariant=wasmJs
+./gradlew :app-wasm:exportLibraryDefinitions -PaboutLibraries.outputPath=src/main/resources/libraries.json -PaboutLibraries.exportVariant=jvm
 ```
 
 ### Run Demo app(s)
@@ -484,7 +484,7 @@ After disabling the integration it is possible to manually update the definition
 # Generate using the configured location
 ./gradlew app:exportLibraryDefinitions
 # Generate providing a custom path and variant
-./gradlew app:exportLibraryDefinitions -PaboutLibraries.exportPath=src/main/res/raw/ -PaboutLibraries.exportVariant=release
+./gradlew app:exportLibraryDefinitions -PaboutLibraries.outputPath=src/main/res/raw/libraries.json -PaboutLibraries.exportVariant=release
 ```
 
 This generated file can be either included in your SCM, and every build will use this exact verified and approved state.
@@ -510,9 +510,9 @@ For other environments or for more advanced usages the plugin offers additional 
 ```bash
 # Manually generate the dependency metaData in the provided location. Allows to commit it in SCM
 # Exports the metaData in `src/main/resources/` relative to the module root
-./gradlew app-desktop:exportLibraryDefinitions -PaboutLibraries.exportPath=src/main/resources/
+./gradlew app-desktop:exportLibraryDefinitions -PaboutLibraries.outputPath=src/main/resources/libraries.json
 # Export only for a specific variant: `release`
-./gradlew app-desktop:exportLibraryDefinitions -PaboutLibraries.exportPath=src/main/resources/ -PaboutLibraries.exportVariant=release
+./gradlew app-desktop:exportLibraryDefinitions -PaboutLibraries.outputPath=src/main/resources/libraries.json -PaboutLibraries.exportVariant=release
 
 # Export dependencies to CLI in CSV format
 ./gradlew app:exportLibraries
@@ -523,7 +523,7 @@ For other environments or for more advanced usages the plugin offers additional 
 
 # Exports all dependencies in a format helpful for compliance reports.
 # By default writes `export.csv` and `export.txt` and `dependencies` folder in the root of the project.
-./gradlew app:exportComplianceLibraries${Variant}
+./gradlew app:exportComplianceLibraries${Variant} -PaboutLibraries.exportPath=complianceReport/
 
 # List all funding options for included projects (as identified via the e.g.: GitHub API)
 ./gradlew app:fundLibraries

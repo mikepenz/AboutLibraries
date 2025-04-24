@@ -283,7 +283,11 @@ fun Library(
     onClick: () -> Unit,
 ) {
     LibraryScaffoldLayout(
-        modifier = Modifier.fillMaxWidth().background(colors.backgroundColor).clickable { onClick.invoke() },
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(colors.backgroundColor)
+            .clickable { onClick.invoke() },
+        libraryPadding = padding,
         name = {
             Text(
                 text = library.name,
