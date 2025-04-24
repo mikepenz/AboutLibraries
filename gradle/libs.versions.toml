@@ -6,7 +6,7 @@ kotlinxCollections = "0.3.8"
 activity = "1.10.1"
 cardview = "1.0.0"
 constraintLayout = "2.2.1"
-core = "1.15.0"
+core = "1.16.0"
 lifecycle = { require = "2.8.7" }
 navigation = "2.8.9"
 recyclerView = "1.4.0"
