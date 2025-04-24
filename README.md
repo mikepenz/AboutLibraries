@@ -37,7 +37,7 @@
 
 ## Latest releases 🛠
 
-- Compose UI updates | Gradle Plugin refresh | [v12.0.0](https://github.com/mikepenz/AboutLibraries/tree/12.0.0)
+- Compose UI updates | Gradle Plugin refresh | [v12.0.1](https://github.com/mikepenz/AboutLibraries/tree/12.0.1)
 
 ## Gradle Plugin
 
