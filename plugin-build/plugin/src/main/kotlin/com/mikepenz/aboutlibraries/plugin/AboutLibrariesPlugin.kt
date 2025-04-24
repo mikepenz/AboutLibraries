@@ -3,7 +3,11 @@ package com.mikepenz.aboutlibraries.plugin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.util.GradleVersion
+import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
+import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType.androidJvm
+import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType.common
 import org.slf4j.LoggerFactory
+import java.util.Locale.ROOT
 
 @Suppress("unused") // Public API for Gradle build scripts.
 class AboutLibrariesPlugin : Plugin<Project> {
@@ -37,6 +41,26 @@ class AboutLibrariesPlugin : Plugin<Project> {
         project.tasks.register("exportLibraryDefinitions", AboutLibrariesTask::class.java) {
             it.configureOutputFile()
             it.configure()
+        }
+
+        project.pluginManager.withPlugin("org.jetbrains.kotlin.multiplatform") {
+            val kotlin = project.extensions.getByType(KotlinMultiplatformExtension::class.java)
+            val targets = kotlin.targets
+            targets.configureEach { target ->
+                if (target.platformType == common) {
+                    return@configureEach // All common dependencies end up in platform targets.
+                }
+                if (target.platformType == androidJvm) {
+                    return@configureEach // handled by android logic.
+                }
+
+                val suffix = target.name.replaceFirstChar { it.titlecase(ROOT) }
+                project.tasks.register("exportLibraryDefinitions${suffix}", AboutLibrariesTask::class.java) {
+                    it.variant.set(target.name)
+                    it.configureOutputFile()
+                    it.configure()
+                }
+            }
         }
 
         if (extension.android.registerAndroidTasks.get()) {
