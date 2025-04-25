@@ -8,7 +8,7 @@ import com.mikepenz.aboutlibraries.plugin.mapping.Library
 
 fun List<Library>.processDuplicates(
     duplicateMode: DuplicateMode,
-    duplicateRule: DuplicateRule
+    duplicateRule: DuplicateRule,
 ): List<Library> {
     fun mappedLibs(): Map<String, List<Library>> {
         return this.groupBy {
@@ -35,6 +35,7 @@ fun List<Library>.processDuplicates(
             }
             return deDuplicatedList
         }
+
         DuplicateMode.LINK -> {
             mappedLibs().forEach { (_, group) ->
                 if (group.size > 1) {
@@ -46,6 +47,7 @@ fun List<Library>.processDuplicates(
             }
             return this // we did add association by reference
         }
+
         DuplicateMode.KEEP -> {
             // no duplication handling enabled
             return this

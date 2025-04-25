@@ -9,7 +9,7 @@ data class License(
     var name: String,
     var url: String?,
     var year: String? = null,
-    var content: String? = null
+    var content: String? = null,
 ) {
     /** internal to describe custom licenses */
     var internalHash: String? = null

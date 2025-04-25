@@ -83,7 +83,7 @@ internal class LibraryPostProcessor(
                         null,
                         dependencyData.artifactFolder,
                     )
-                    
+
                     licensesMap.putAll(licenses.associateBy { it.hash })
                     librariesList.add(library)
                 } else {
