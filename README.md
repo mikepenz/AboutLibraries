@@ -38,7 +38,7 @@
 ## Latest releases 🛠
 
 - Compose UI updates | Gradle Plugin refresh | [v12.0.1](https://github.com/mikepenz/AboutLibraries/tree/12.0.1)
-- Compose 1.8.x | [v12.1.0-rc01](https://github.com/mikepenz/AboutLibraries/tree/12.1.0-rc01)
+- Compose 1.8.x | Plugin refactor | [v12.1.0-rc02](https://github.com/mikepenz/AboutLibraries/tree/12.1.0-rc02)
 
 ## Gradle Plugin
 
