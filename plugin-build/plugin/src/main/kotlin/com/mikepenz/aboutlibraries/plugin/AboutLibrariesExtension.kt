@@ -257,6 +257,9 @@ abstract class AboutLibrariesExtension {
             it.additionalLicenses.convention(emptySet())
             it.strictMode.convention(StrictMode.IGNORE)
         }
+        android {
+            it.registerAndroidTasks.convention(true)
+        }
     }
 
     companion object {

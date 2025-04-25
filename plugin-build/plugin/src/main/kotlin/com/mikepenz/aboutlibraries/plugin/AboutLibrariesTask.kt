@@ -124,7 +124,12 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
         }
 
         // write to disk
-        ResultContainer(libraries, licenses).writeToDisk(output, includeMetaData.get(), excludeFields.get(), prettyPrint.get())
+        ResultContainer(libraries, licenses).writeToDisk(
+            outputFile = output,
+            includeMetaData = includeMetaData.get(),
+            excludeFields = excludeFields.get(),
+            prettyPrint = prettyPrint.get()
+        )
     }
 
     companion object {

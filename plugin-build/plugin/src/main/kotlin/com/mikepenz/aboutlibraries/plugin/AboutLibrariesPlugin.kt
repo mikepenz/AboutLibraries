@@ -39,7 +39,7 @@ class AboutLibrariesPlugin : Plugin<Project> {
             it.configure()
         }
 
-        if (extension.android.registerAndroidTasks.getOrElse(true)) {
+        if (extension.android.registerAndroidTasks.get()) {
             LOGGER.debug("Registering Android tasks")
             AboutLibrariesPluginAndroidExtension.apply(project, extension)
         }
