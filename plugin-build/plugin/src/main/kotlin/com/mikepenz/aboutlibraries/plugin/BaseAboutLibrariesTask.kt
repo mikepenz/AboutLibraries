@@ -23,9 +23,6 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     @Internal
     protected val extension = project.extensions.findByType(AboutLibrariesExtension::class.java)!!
 
-    @get:Input
-    val projectName: String = project.name
-
     @Input
     val collectAll = extension.collect.all
 
@@ -60,9 +57,11 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     @Input
     val offlineMode = extension.offlineMode
 
+    @Suppress("HasPlatformType")
     @Input
     val fetchRemoteLicense = extension.collect.fetchRemoteLicense.map { it && !offlineMode.get() }
 
+    @Suppress("HasPlatformType")
     @Input
     val fetchRemoteFunding = extension.collect.fetchRemoteFunding.map { it && !offlineMode.get() }
 
@@ -86,6 +85,9 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     @PathSensitive(value = PathSensitivity.RELATIVE)
     @InputDirectory
     val configPath: DirectoryProperty = extension.collect.configPath
+
+    // @get:Input
+    // internal abstract val dependencyCoordinates: ListProperty<DependencyCoordinates>
 
     @get:Internal
     internal abstract val variantToDependencyData: MapProperty<String, List<DependencyData>>
@@ -144,6 +146,16 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
             config.name to DependencyCollector(includePlatform.get())
                 .loadDependenciesFromConfiguration(project, config.incoming.resolutionResult.rootComponent)
         }
+
+        // dependencyCoordinates.set(
+        //     project.providers.provider {
+        //         dependencies.flatMap {
+        //             it.value.get().map {
+        //                 it.dependencyCoordinates
+        //             }
+        //         }
+        //     }
+        // )
 
         variantToDependencyData.set(project.providers.provider {
             val target = mutableMapOf<String, List<DependencyData>>()

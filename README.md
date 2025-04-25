@@ -553,6 +553,11 @@ not included via gradle.
 Additional dependencies can be provided via the plugins API to extend and provide any additional
 details.
 
+# Credits
+
+Starting from v12.1.0 some parts of the plugin were refactored to use different APIs to retrieve dependencies.
+Some of these refactored components were heavily inspired by the amazing https://github.com/cashapp/licensee/tree/1.13.0 project.
+
 # Developed By
 
 - Mike Penz

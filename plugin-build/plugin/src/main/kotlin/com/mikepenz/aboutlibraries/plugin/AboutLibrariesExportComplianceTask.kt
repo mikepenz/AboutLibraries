@@ -105,7 +105,7 @@ abstract class AboutLibrariesExportComplianceTask : BaseAboutLibrariesTask() {
                 fullLicenses.map { it.spdxId ?: it.name }.forEach { licenseId ->
                     try {
                         neededLicenses.add(SpdxLicense.getById(licenseId))
-                    } catch (ex: Throwable) {
+                    } catch (_: Throwable) {
                         if (licenseId != "") {
                             val libsWithMissing = unknownLicenses.getOrDefault(licenseId, HashSet())
                             libsWithMissing.add(library.artifactId)

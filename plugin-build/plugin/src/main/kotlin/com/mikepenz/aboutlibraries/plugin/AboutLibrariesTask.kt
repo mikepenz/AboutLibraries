@@ -64,8 +64,8 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
         val licenses = postProcessedLibraryData.licenses
 
         // validate found licenses match expectation
-        val allowedLicenses = allowedLicenses.getOrElse(emptySet()).map { it.lowercase(Locale.ENGLISH) }
-        if (allowedLicenses.isNotEmpty() && strictMode.getOrElse(StrictMode.IGNORE) != StrictMode.IGNORE) {
+        val allowedLicenses = allowedLicenses.get().map { it.lowercase(Locale.ENGLISH) }
+        if (allowedLicenses.isNotEmpty() && strictMode.get() != StrictMode.IGNORE) {
             // detect all missing licenses
             val missing = mutableListOf<License>()
             licenses.values.forEach {
@@ -115,7 +115,7 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
                 repeat(2) {
                     message.appendLine("=======================================")
                 }
-                if (strictMode.getOrElse(StrictMode.IGNORE) == StrictMode.FAIL) {
+                if (strictMode.get() == StrictMode.FAIL) {
                     throw IllegalStateException(message.toString())
                 } else {
                     LOGGER.warn(message.toString())

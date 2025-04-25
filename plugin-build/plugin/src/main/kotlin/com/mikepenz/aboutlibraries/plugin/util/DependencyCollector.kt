@@ -212,7 +212,19 @@ internal class DependencyCollector(
         val scm = chooseValue(pom, parentRawModel) { it.scm }?.let { Scm(it.connection, it.developerConnection, it.url) }
         val developers = combineValues(pom, parentRawModel) { it.developers }.map { Developer(it.name, it.organizationUrl) }.toHashSet().toList()
         val organization = chooseValue(pom, parentRawModel) { it.organization }?.let { Organization(it.name, it.url) }
-        return DependencyData(coordinates, uniqueId, artifactVersion, libraryName, libraryDescription, libraryWebsite, developers, organization, scm, licenses)
+        return DependencyData(
+            dependencyCoordinates = coordinates,
+            uniqueId = uniqueId,
+            artifactVersion = artifactVersion,
+            name = libraryName,
+            description = libraryDescription,
+            website = libraryWebsite,
+            developers = developers,
+            organization = organization,
+            scm = scm,
+            licenses = licenses,
+            artifactFolder = pom.pomFile.parentFile?.parentFile,
+        )
     }
 
     private fun chooseStringValue(pom: Model, parentRawModel: List<Model>, block: (Model) -> String?): String? {

@@ -38,15 +38,15 @@ internal class LibraryPostProcessor(
         val librariesList = ArrayList<Library>()
         val licensesMap = sortedMapOf<String, License>(compareBy { it })
 
+        val variant = variant
         val dependencyDataForVariant = if (variant.isNullOrBlank()) {
-            variantToDependencyData.flatMap { (_, dependencies) -> dependencies }.groupBy {
-                it.uniqueId
-            }.map { (key, value) ->
-                // Multiple entries for $key
-                value.first()
-            }.toSet()
+            variantToDependencyData.flatMap { (_, dependencies) -> dependencies }.deduplicateDependencies() ?: emptySet()
         } else {
-            variantToDependencyData[variant]
+            variantToDependencyData[variant] ?: variantToDependencyData.flatMap { (configName, dependencies) ->
+                // if we don't have an exact match, use all variants starting with
+                val cleanedConfigName = configName.removeSuffix("CompileClasspath").removeSuffix("RuntimeClasspath")
+                if (cleanedConfigName == variant) dependencies else emptyList()
+            }.deduplicateDependencies()
         }
 
         if (dependencyDataForVariant != null) {
@@ -93,7 +93,6 @@ internal class LibraryPostProcessor(
         } else {
             LOGGER.warn("No dependencies found for variant: $variant")
         }
-
 
         if (configFolder != null) {
             LicenseReader.readLicenses(configFolder).forEach { lic ->
@@ -195,6 +194,16 @@ internal class LibraryPostProcessor(
     private fun fixLibraryDescription(value: String?): String {
         return value?.takeIf { it != "null" }?.trimIndent() ?: ""
     }
+
+    private fun List<DependencyData>.deduplicateDependencies() = groupBy {
+        it.uniqueId
+    }.map { (uniqueId, value) ->
+        if (LOGGER.isInfoEnabled) LOGGER.info("Found multiple entries for $uniqueId, using first")
+        if (LOGGER.isDebugEnabled) LOGGER.info("   Duplicates: ${value.joinToString(", ") { "${it.uniqueId}:${it.artifactVersion}" }}")
+        value.first()
+    }.takeIf {
+        it.isNotEmpty()
+    }?.toSet()
 
     companion object {
         private val LOGGER: Logger = LoggerFactory.getLogger(LibraryPostProcessor::class.java)
