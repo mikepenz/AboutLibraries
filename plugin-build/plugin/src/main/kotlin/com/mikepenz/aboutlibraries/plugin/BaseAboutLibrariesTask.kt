@@ -2,15 +2,12 @@ package com.mikepenz.aboutlibraries.plugin
 
 import com.mikepenz.aboutlibraries.plugin.AboutLibrariesExtension.Companion.PROP_EXPORT_VARIANT
 import com.mikepenz.aboutlibraries.plugin.AboutLibrariesExtension.Companion.PROP_PREFIX
-import com.mikepenz.aboutlibraries.plugin.mapping.Library
-import com.mikepenz.aboutlibraries.plugin.mapping.License
-import com.mikepenz.aboutlibraries.plugin.model.CollectedContainer
 import com.mikepenz.aboutlibraries.plugin.util.DependencyCollector
-import com.mikepenz.aboutlibraries.plugin.util.LibrariesProcessor
+import com.mikepenz.aboutlibraries.plugin.util.DependencyData
+import com.mikepenz.aboutlibraries.plugin.util.LibraryPostProcessor
 import org.gradle.api.DefaultTask
-import org.gradle.api.artifacts.dsl.DependencyHandler
+import org.gradle.api.artifacts.Configuration
 import org.gradle.api.file.DirectoryProperty
-import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.MapProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
@@ -20,15 +17,14 @@ import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.PathSensitive
 import org.gradle.api.tasks.PathSensitivity
 import org.slf4j.LoggerFactory
-import javax.inject.Inject
 
 abstract class BaseAboutLibrariesTask : DefaultTask() {
 
     @Internal
     protected val extension = project.extensions.findByType(AboutLibrariesExtension::class.java)!!
 
-    @get:Input
-    val projectName: String = project.name
+    @Input
+    val collectAll = extension.collect.all
 
     @Input
     val includePlatform = extension.collect.includePlatform
@@ -61,11 +57,13 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     @Input
     val offlineMode = extension.offlineMode
 
+    @Suppress("HasPlatformType")
     @Input
-    val fetchRemoteLicense = extension.collect.fetchRemoteLicense.map { it && !offlineMode.getOrElse(false) }.orElse(false)
+    val fetchRemoteLicense = extension.collect.fetchRemoteLicense.map { it && !offlineMode.get() }
 
+    @Suppress("HasPlatformType")
     @Input
-    val fetchRemoteFunding = extension.collect.fetchRemoteFunding.map { it && !offlineMode.getOrElse(false) }
+    val fetchRemoteFunding = extension.collect.fetchRemoteFunding.map { it && !offlineMode.get() }
 
     @Input
     val additionalLicenses = extension.license.additionalLicenses
@@ -83,22 +81,16 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     @Input
     val prettyPrint = extension.export.prettyPrint
 
-    @Inject
-    abstract fun getDependencyHandler(): DependencyHandler
-
     @Optional
     @PathSensitive(value = PathSensitivity.RELATIVE)
     @InputDirectory
     val configPath: DirectoryProperty = extension.collect.configPath
 
-    @get:Internal
-    abstract val dependencies: MapProperty<String, Map<String, Set<String>>>
+    // @get:Input
+    // internal abstract val dependencyCoordinates: ListProperty<DependencyCoordinates>
 
     @get:Internal
-    abstract val libraries: ListProperty<Library>
-
-    @get:Internal
-    abstract val licenses: MapProperty<String, License>
+    internal abstract val variantToDependencyData: MapProperty<String, List<DependencyData>>
 
     open fun configure() {
         if (!variant.isPresent) {
@@ -111,24 +103,70 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
             )
         }
 
-        val variant = variant.orNull
-        val collectedContainer = DependencyCollector(
-            includePlatform.get(),
-            filterVariants.get() + (variant?.let { arrayOf(it) } ?: emptyArray()),
-        ).collect(project)
+        val filter = filterVariants.get() + (variant.orNull?.let { arrayOf(it) } ?: emptyArray())
 
-        // keep dependencies
-        dependencies.set(collectedContainer.dependencies)
+        val dependencies = project.configurations.filterNot { config ->
+            config.shouldSkip()
+        }.filter { config ->
+            val cn = config.name
+            if (collectAll.get()) {
+                // collect configurations for the variants we are interested in
+                if (filter.isEmpty() || filter.any { cn.contains(it) }) {
+                    LOGGER.info("Collecting dependencies for variant $variant from config: $cn")
+                    true
+                } else {
+                    LOGGER.info("Skipping variant $variant from config: $cn")
+                    false
+                }
+            } else {
+                if (cn.endsWith("CompileClasspath", true)) {
+                    val variant = cn.removeSuffix("CompileClasspath")
+                    if (filter.isEmpty() || filter.contains(variant)) {
+                        LOGGER.info("Collecting dependencies for compile time variant $variant from config: $cn")
+                        true
+                    } else {
+                        LOGGER.info("Skipping compile time variant $variant from config: $cn")
+                        false
+                    }
+                } else if (cn.endsWith("RuntimeClasspath", true)) {
+                    val variant = cn.removeSuffix("RuntimeClasspath")
+                    if (filter.isEmpty() || filter.contains(variant)) {
+                        LOGGER.info("Collecting dependencies for runtime variant $variant from config: $cn")
+                        true
+                    } else {
+                        LOGGER.info("Skipping runtime variant $variant from config: $cn")
+                        false
+                    }
+                } else {
+                    LOGGER.debug("Skipping configuration $cn")
+                    false
+                }
+            }
+        }.associate { config ->
+            config.name to DependencyCollector(includePlatform.get())
+                .loadDependenciesFromConfiguration(project, config.incoming.resolutionResult.rootComponent)
+        }
 
-        val resultContainer = createLibraryProcessor(collectedContainer).gatherDependencies()
+        // dependencyCoordinates.set(
+        //     project.providers.provider {
+        //         dependencies.flatMap {
+        //             it.value.get().map {
+        //                 it.dependencyCoordinates
+        //             }
+        //         }
+        //     }
+        // )
 
-        LOGGER.info("Collected ${resultContainer.libraries.size} libraries and ${resultContainer.licenses.size} licenses")
+        variantToDependencyData.set(project.providers.provider {
+            val target = mutableMapOf<String, List<DependencyData>>()
+            dependencies.onEach { (name, result) -> target[name] = result.get() }
+            target
+        })
 
-        libraries.set(resultContainer.libraries)
-        licenses.set(resultContainer.licenses)
+        // LOGGER.info("Collected ${resultContainer.libraries.size} libraries and ${resultContainer.licenses.size} licenses")
     }
 
-    private fun createLibraryProcessor(collectedContainer: CollectedContainer): LibrariesProcessor {
+    internal fun createLibraryPostProcessor(): LibraryPostProcessor {
         val configDirectory = configPath.orNull
         val realPath = if (configDirectory != null) {
             val file = configDirectory.asFile
@@ -138,12 +176,11 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
             }
         } else null
 
-        return LibrariesProcessor(
-            dependencyHandler = getDependencyHandler(),
-            collectedDependencies = collectedContainer,
+        return LibraryPostProcessor(
+            variantToDependencyData = variantToDependencyData.get(),
             configFolder = realPath,
-            exclusionPatterns = exclusionPatterns.getOrElse(emptySet()),
-            offlineMode = offlineMode.getOrElse(false),
+            exclusionPatterns = exclusionPatterns.get(),
+            offlineMode = offlineMode.get(),
             fetchRemoteLicense = fetchRemoteLicense.get(),
             fetchRemoteFunding = fetchRemoteFunding.get(),
             additionalLicenses = additionalLicenses.get(),
@@ -154,6 +191,21 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
             gitHubToken = gitHubApiToken.orNull
         )
     }
+
+    /** Skip test and non resolvable configurations */
+    private fun Configuration.shouldSkip() = !isCanBeResolved || isTest
+
+    /**
+     * Based on the gist by @eygraber https://gist.github.com/eygraber/482e9942d5812e9efa5ace016aac4197
+     * Via https://github.com/google/play-services-plugins/blob/master/oss-licenses-plugin/src/main/groovy/com/google/android/gms/oss/licenses/plugin/LicensesTask.groovy
+     */
+    private val Configuration.isTest
+        get() = name.startsWith("test", ignoreCase = true) ||
+            name.startsWith("androidTest", ignoreCase = true) ||
+            hierarchy.any { configurationHierarchy ->
+                setOf("testCompile", "androidTestCompile").any { configurationHierarchy.name.contains(it, ignoreCase = true) }
+            }
+
 
     companion object {
         private val LOGGER = LoggerFactory.getLogger(BaseAboutLibrariesTask::class.java)!!

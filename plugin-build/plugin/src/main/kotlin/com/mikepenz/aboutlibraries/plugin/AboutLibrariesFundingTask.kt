@@ -11,7 +11,8 @@ abstract class AboutLibrariesFundingTask : BaseAboutLibrariesTask() {
 
     @TaskAction
     fun action() {
-        val libraries = libraries.get()
+        val result = createLibraryPostProcessor().process()
+        val libraries = result.libraries
         println("Libraries offering funding options:")
         println()
         for (library in libraries.filter { it.funding.isNotEmpty() }) {

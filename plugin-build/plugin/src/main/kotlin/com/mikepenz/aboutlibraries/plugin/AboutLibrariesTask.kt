@@ -59,12 +59,13 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
             output.parentFile.mkdirs() // verify output exists
         }
 
-        val libraries = libraries.get()
-        val licenses = licenses.get()
+        val postProcessedLibraryData = createLibraryPostProcessor().process()
+        val libraries = postProcessedLibraryData.libraries
+        val licenses = postProcessedLibraryData.licenses
 
         // validate found licenses match expectation
-        val allowedLicenses = allowedLicenses.getOrElse(emptySet()).map { it.lowercase(Locale.ENGLISH) }
-        if (allowedLicenses.isNotEmpty() && strictMode.getOrElse(StrictMode.IGNORE) != StrictMode.IGNORE) {
+        val allowedLicenses = allowedLicenses.get().map { it.lowercase(Locale.ENGLISH) }
+        if (allowedLicenses.isNotEmpty() && strictMode.get() != StrictMode.IGNORE) {
             // detect all missing licenses
             val missing = mutableListOf<License>()
             licenses.values.forEach {
@@ -114,7 +115,7 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
                 repeat(2) {
                     message.appendLine("=======================================")
                 }
-                if (strictMode.getOrElse(StrictMode.IGNORE) == StrictMode.FAIL) {
+                if (strictMode.get() == StrictMode.FAIL) {
                     throw IllegalStateException(message.toString())
                 } else {
                     LOGGER.warn(message.toString())
@@ -123,7 +124,12 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
         }
 
         // write to disk
-        ResultContainer(libraries, licenses).writeToDisk(output, includeMetaData.get(), excludeFields.get(), prettyPrint.get())
+        ResultContainer(libraries, licenses).writeToDisk(
+            outputFile = output,
+            includeMetaData = includeMetaData.get(),
+            excludeFields = excludeFields.get(),
+            prettyPrint = prettyPrint.get()
+        )
     }
 
     companion object {

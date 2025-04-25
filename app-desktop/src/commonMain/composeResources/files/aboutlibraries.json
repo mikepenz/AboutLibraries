@@ -10,14 +10,14 @@
                     "name": "The Android Open Source Project"
                 }
             ],
-            "artifactVersion": "1.9.1",
+            "artifactVersion": "1.8.0",
             "description": "Provides source annotations for tooling and readability.",
             "scm": {
                 "connection": "scm:git:https://android.googlesource.com/platform/frameworks/support",
                 "url": "https://cs.android.com/androidx/platform/frameworks/support"
             },
             "name": "Annotation",
-            "website": "https://developer.android.com/jetpack/androidx/releases/annotation#1.9.1",
+            "website": "https://developer.android.com/jetpack/androidx/releases/annotation#1.8.0",
             "licenses": [
                 "Apache-2.0"
             ],
@@ -123,6 +123,31 @@
             }
         },
         {
+            "uniqueId": "androidx.lifecycle:lifecycle-common",
+            "funding": [
+                
+            ],
+            "developers": [
+                {
+                    "name": "The Android Open Source Project"
+                }
+            ],
+            "artifactVersion": "2.8.5",
+            "description": "Android Lifecycle-Common",
+            "scm": {
+                "connection": "scm:git:https://android.googlesource.com/platform/frameworks/support",
+                "url": "https://cs.android.com/androidx/platform/frameworks/support"
+            },
+            "name": "Lifecycle-Common",
+            "website": "https://developer.android.com/jetpack/androidx/releases/lifecycle#2.8.5",
+            "licenses": [
+                "Apache-2.0"
+            ],
+            "organization": {
+                "name": "The Android Open Source Project"
+            }
+        },
+        {
             "uniqueId": "androidx.lifecycle:lifecycle-common-jvm",
             "funding": [
                 
@@ -148,6 +173,31 @@
             }
         },
         {
+            "uniqueId": "androidx.lifecycle:lifecycle-runtime",
+            "funding": [
+                
+            ],
+            "developers": [
+                {
+                    "name": "The Android Open Source Project"
+                }
+            ],
+            "artifactVersion": "2.8.5",
+            "description": "Android Lifecycle Runtime",
+            "scm": {
+                "connection": "scm:git:https://android.googlesource.com/platform/frameworks/support",
+                "url": "https://cs.android.com/androidx/platform/frameworks/support"
+            },
+            "name": "Lifecycle Runtime",
+            "website": "https://developer.android.com/jetpack/androidx/releases/lifecycle#2.8.5",
+            "licenses": [
+                "Apache-2.0"
+            ],
+            "organization": {
+                "name": "The Android Open Source Project"
+            }
+        },
+        {
             "uniqueId": "androidx.lifecycle:lifecycle-runtime-desktop",
             "funding": [
                 
@@ -164,6 +214,31 @@
                 "url": "https://cs.android.com/androidx/platform/frameworks/support"
             },
             "name": "Lifecycle Runtime",
+            "website": "https://developer.android.com/jetpack/androidx/releases/lifecycle#2.8.5",
+            "licenses": [
+                "Apache-2.0"
+            ],
+            "organization": {
+                "name": "The Android Open Source Project"
+            }
+        },
+        {
+            "uniqueId": "androidx.lifecycle:lifecycle-viewmodel",
+            "funding": [
+                
+            ],
+            "developers": [
+                {
+                    "name": "The Android Open Source Project"
+                }
+            ],
+            "artifactVersion": "2.8.5",
+            "description": "Android Lifecycle ViewModel",
+            "scm": {
+                "connection": "scm:git:https://android.googlesource.com/platform/frameworks/support",
+                "url": "https://cs.android.com/androidx/platform/frameworks/support"
+            },
+            "name": "Lifecycle ViewModel",
             "website": "https://developer.android.com/jetpack/androidx/releases/lifecycle#2.8.5",
             "licenses": [
                 "Apache-2.0"
@@ -203,7 +278,9 @@
                 
             ],
             "developers": [
-                
+                {
+                    "name": "Tatu Saloranta"
+                }
             ],
             "artifactVersion": "2.12.7",
             "description": "Core annotations used for value types, used by Jackson data binding package.",
@@ -228,7 +305,9 @@
                 
             ],
             "developers": [
-                
+                {
+                    "name": "Tatu Saloranta"
+                }
             ],
             "artifactVersion": "2.12.7",
             "description": "Core Jackson processing abstractions (aka Streaming API), implementation for JSON",
@@ -253,7 +332,9 @@
                 
             ],
             "developers": [
-                
+                {
+                    "name": "Tatu Saloranta"
+                }
             ],
             "artifactVersion": "2.12.7.1",
             "description": "General data-binding functionality for Jackson: works on core streaming API",
@@ -279,10 +360,13 @@
             ],
             "developers": [
                 {
-                    "name": "Jayson Minard"
+                    "name": "Tatu Saloranta"
                 },
                 {
                     "name": "Drew Stephens"
+                },
+                {
+                    "name": "Jayson Minard"
                 },
                 {
                     "name": "Vyacheslav Artemyev"
@@ -297,6 +381,33 @@
             },
             "name": "jackson-module-kotlin",
             "website": "https://github.com/FasterXML/jackson-module-kotlin",
+            "licenses": [
+                "Apache-2.0"
+            ],
+            "organization": {
+                "url": "http://fasterxml.com/",
+                "name": "FasterXML"
+            }
+        },
+        {
+            "uniqueId": "com.fasterxml.jackson:jackson-bom",
+            "funding": [
+                
+            ],
+            "developers": [
+                {
+                    "name": "Tatu Saloranta"
+                }
+            ],
+            "artifactVersion": "2.12.7",
+            "description": "Bill of Materials pom for getting full, complete set of compatible versions\nof Jackson components maintained by FasterXML.com",
+            "scm": {
+                "connection": "scm:git:git@github.com:FasterXML/jackson-bom.git",
+                "url": "https://github.com/FasterXML/jackson-bom",
+                "developerConnection": "scm:git:git@github.com:FasterXML/jackson-bom.git"
+            },
+            "name": "Jackson BOM",
+            "website": "https://github.com/FasterXML/jackson-bom",
             "licenses": [
                 "Apache-2.0"
             ],
@@ -557,7 +668,7 @@
                     "name": "Compose Multiplatform Team"
                 }
             ],
-            "artifactVersion": "1.8.0-rc01",
+            "artifactVersion": "1.6.11",
             "description": "Provides source annotations for tooling and readability.",
             "scm": {
                 "connection": "scm:git:https://github.com/JetBrains/compose-jb.git",
@@ -668,6 +779,30 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.desktop:desktop-jvm",
+            "funding": [
+                
+            ],
+            "developers": [
+                {
+                    "organisationUrl": "https://www.jetbrains.com",
+                    "name": "Compose Multiplatform Team"
+                }
+            ],
+            "artifactVersion": "1.8.0-rc01",
+            "description": "Compose Desktop",
+            "scm": {
+                "connection": "scm:git:https://github.com/JetBrains/compose-jb.git",
+                "url": "https://github.com/JetBrains/compose-jb",
+                "developerConnection": "scm:git:https://github.com/JetBrains/compose-jb.git"
+            },
+            "name": "Compose Desktop",
+            "website": "https://github.com/JetBrains/compose-jb",
+            "licenses": [
+                "Apache-2.0"
+            ]
+        },
+        {
+            "uniqueId": "org.jetbrains.compose.desktop:desktop-jvm-macos-arm64",
             "funding": [
                 
             ],
@@ -1575,6 +1710,30 @@
             ]
         },
         {
+            "uniqueId": "org.jetbrains.kotlin:kotlin-stdlib-common",
+            "funding": [
+                
+            ],
+            "developers": [
+                {
+                    "organisationUrl": "https://www.jetbrains.com",
+                    "name": "Kotlin Team"
+                }
+            ],
+            "artifactVersion": "2.1.20",
+            "description": "Kotlin Common Standard Library (legacy, use kotlin-stdlib instead)",
+            "scm": {
+                "connection": "scm:git:https://github.com/JetBrains/kotlin.git",
+                "url": "https://github.com/JetBrains/kotlin",
+                "developerConnection": "scm:git:https://github.com/JetBrains/kotlin.git"
+            },
+            "name": "Kotlin Stdlib Common",
+            "website": "https://kotlinlang.org/",
+            "licenses": [
+                "Apache-2.0"
+            ]
+        },
+        {
             "uniqueId": "org.jetbrains.kotlin:kotlin-stdlib-jdk7",
             "funding": [
                 
@@ -1711,6 +1870,28 @@
             ]
         },
         {
+            "uniqueId": "org.jetbrains.kotlinx:kotlinx-coroutines-bom",
+            "funding": [
+                
+            ],
+            "developers": [
+                {
+                    "organisationUrl": "https://www.jetbrains.com",
+                    "name": "JetBrains Team"
+                }
+            ],
+            "artifactVersion": "1.10.2",
+            "description": "Coroutines support libraries for Kotlin",
+            "scm": {
+                "url": "https://github.com/Kotlin/kotlinx.coroutines"
+            },
+            "name": "kotlinx-coroutines-bom",
+            "website": "https://github.com/Kotlin/kotlinx.coroutines",
+            "licenses": [
+                "Apache-2.0"
+            ]
+        },
+        {
             "uniqueId": "org.jetbrains.kotlinx:kotlinx-coroutines-core",
             "funding": [
                 
@@ -1819,6 +2000,28 @@
             },
             "name": "kotlinx.html",
             "website": "https://github.com/Kotlin/kotlinx.html",
+            "licenses": [
+                "Apache-2.0"
+            ]
+        },
+        {
+            "uniqueId": "org.jetbrains.kotlinx:kotlinx-serialization-bom",
+            "funding": [
+                
+            ],
+            "developers": [
+                {
+                    "organisationUrl": "https://www.jetbrains.com",
+                    "name": "JetBrains Team"
+                }
+            ],
+            "artifactVersion": "1.8.1",
+            "description": "Kotlin multiplatform serialization runtime library",
+            "scm": {
+                "url": "https://github.com/Kotlin/kotlinx.serialization"
+            },
+            "name": "kotlinx-serialization-bom",
+            "website": "https://github.com/Kotlin/kotlinx.serialization",
             "licenses": [
                 "Apache-2.0"
             ]
@@ -2003,6 +2206,29 @@
             },
             "name": "JetBrains Java Annotations",
             "website": "https://github.com/JetBrains/java-annotations",
+            "licenses": [
+                "Apache-2.0"
+            ]
+        },
+        {
+            "uniqueId": "org.jetbrains:markdown",
+            "funding": [
+                
+            ],
+            "developers": [
+                {
+                    "organisationUrl": "https://jetbrains.com",
+                    "name": "Valentin Fondaratov"
+                }
+            ],
+            "artifactVersion": "0.7.3",
+            "description": "Markdown parser in Kotlin",
+            "scm": {
+                "connection": "scm:git:git://github.com/JetBrains/markdown.git",
+                "url": "https://github.com/JetBrains/markdown"
+            },
+            "name": "markdown",
+            "website": "https://github.com/JetBrains/markdown",
             "licenses": [
                 "Apache-2.0"
             ]
