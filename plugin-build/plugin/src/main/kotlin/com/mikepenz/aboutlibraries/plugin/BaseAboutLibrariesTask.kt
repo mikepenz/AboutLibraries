@@ -134,7 +134,7 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
                         LOGGER.info("Collecting dependencies for runtime variant $variant from config: $cn")
                         true
                     } else {
-                        LOGGER.info("Skipping compile time variant $variant from config: $cn")
+                        LOGGER.info("Skipping runtime variant $variant from config: $cn")
                         false
                     }
                 } else {
