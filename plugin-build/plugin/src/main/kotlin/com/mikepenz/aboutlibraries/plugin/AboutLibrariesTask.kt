@@ -59,8 +59,9 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
             output.parentFile.mkdirs() // verify output exists
         }
 
-        val libraries = libraries.get()
-        val licenses = licenses.get()
+        val postProcessedLibraryData = createLibraryPostProcessor().process()
+        val libraries = postProcessedLibraryData.libraries
+        val licenses = postProcessedLibraryData.licenses
 
         // validate found licenses match expectation
         val allowedLicenses = allowedLicenses.getOrElse(emptySet()).map { it.lowercase(Locale.ENGLISH) }

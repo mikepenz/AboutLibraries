@@ -11,8 +11,9 @@ abstract class AboutLibrariesIdTask : BaseAboutLibrariesTask() {
 
     @TaskAction
     fun action() {
-        val libraries = libraries.get()
-        dependencies.get().keys.forEach {
+        val result = createLibraryPostProcessor().process()
+        val libraries = result.libraries
+        variantToDependencyData.get().keys.forEach {
             println("variant: $it")
         }
         println("")

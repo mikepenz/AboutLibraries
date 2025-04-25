@@ -232,6 +232,7 @@ abstract class AboutLibrariesExtension {
     fun applyConvention() {
         offlineMode.convention(false)
         collect {
+            it.all.convention(false)
             it.includePlatform.convention(true)
             it.fetchRemoteLicense.convention(false)
             it.fetchRemoteFunding.convention(false)
@@ -306,6 +307,21 @@ abstract class CollectorConfig @Inject constructor() {
      */
     @get:Optional
     abstract val configPath: DirectoryProperty
+
+    /**
+     * Enabling this will collect all configurations found in the project, skipping the usual `runtime` and `compile` filters.
+     * This will still filter based on the provided filter, and also skip test configurations.
+     *
+     * ```
+     * aboutLibraries {
+     *   collect {
+     *      all = false
+     *   }
+     * }
+     * ```
+     */
+    @get:Optional
+    abstract val all: Property<Boolean>
 
     /**
      * Enable the inclusion of platform dependencies in the report.

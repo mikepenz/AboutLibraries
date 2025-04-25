@@ -43,6 +43,7 @@ dependencies {
 
     // parser the pom.xml files
     implementation(libs.ivy.core)
+    implementation(libs.maven.modelBuilder)
 
     // add better android support
     compileOnly(baseLibs.android.gradlePlugin)

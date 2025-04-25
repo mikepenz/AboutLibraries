@@ -59,8 +59,9 @@ abstract class AboutLibrariesExportComplianceTask : BaseAboutLibrariesTask() {
 
     @TaskAction
     fun action() {
-        val libraries = libraries.get()
-        val licenses = licenses.get()
+        val result = createLibraryPostProcessor().process()
+        val libraries = result.libraries
+        val licenses = result.licenses
 
         val variant = variant.orNull
         if (variant != null) {
@@ -118,7 +119,7 @@ abstract class AboutLibrariesExportComplianceTask : BaseAboutLibrariesTask() {
                 exportCsv.appendText("${library.name};${library.artifactId};${fullLicenses.joinToString(",") { it.spdxId ?: it.name }};${library.website}\n")
                 exportTxt.appendText("${library.name};${library.artifactId};${fullLicenses.joinToString(",") { it.spdxId ?: it.name }}\n")
 
-                var targetFolder = "${library.artifactId}"
+                var targetFolder = library.artifactId
                 if (!ungrouped) {
                     targetFolder = "${group}/${library.artifactId}"
                 }

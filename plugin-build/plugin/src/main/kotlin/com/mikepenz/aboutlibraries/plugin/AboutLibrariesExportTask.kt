@@ -16,8 +16,9 @@ abstract class AboutLibrariesExportTask : BaseAboutLibrariesTask() {
         val librariesWithoutLicenses = HashSet<String>()
         val unknownLicenses = HashMap<String, HashSet<String>>()
 
-        val libraries = libraries.get()
-        val licenses = licenses.get()
+        val result = createLibraryPostProcessor().process()
+        val libraries = result.libraries
+        val licenses = result.licenses
 
         val variant = variant.orNull
         if (variant != null) {
