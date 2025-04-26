@@ -25,18 +25,26 @@ kotlin {
                 implementation(compose.components.resources)
             }
         }
+        wasmJsMain.dependencies {
+            implementation(compose.runtime)
+            implementation(compose.ui)
+            implementation(compose.foundation)
+            implementation(compose.material)
 
-        val wasmJsMain by getting {
-            dependencies {
-                implementation(compose.runtime)
-                implementation(compose.ui)
-                implementation(compose.foundation)
-                implementation(compose.material)
-
-                implementation(project(":aboutlibraries-core"))
-                implementation(project(":aboutlibraries-compose-m2"))
-                implementation(project(":aboutlibraries-compose-m3"))
-            }
+            implementation(project(":aboutlibraries-core"))
+            implementation(project(":aboutlibraries-compose-m2"))
+            implementation(project(":aboutlibraries-compose-m3"))
         }
+    }
+}
+
+aboutLibraries {
+    android {
+        registerAndroidTasks = false
+    }
+    export {
+        exportVariant = "wasmJs"
+        prettyPrint = true
+        outputPath = file("src/commonMain/composeResources/files/aboutlibraries.json")
     }
 }

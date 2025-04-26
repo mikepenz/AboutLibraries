@@ -13,7 +13,6 @@ android {
     namespace = "com.mikepenz.aboutlibraries.sample"
 
     defaultConfig {
-        multiDexEnabled = true
         setProperty("archivesBaseName", "AboutLibraries-v$versionName-c$versionCode")
     }
 
@@ -83,7 +82,7 @@ aboutLibraries {
     license {
         // Define the strict mode, will fail if the project uses licenses not allowed
         // - This will only automatically fail for Android projects which have `registerAndroidTasks` enabled
-        // For non Android projects, execute `exportLibraryDefinitions`
+        // For non-Android projects, execute `exportLibraryDefinitions`
         strictMode = StrictMode.FAIL
         // Allowed set of licenses, this project will be able to use without build failure
         allowedLicenses.addAll("Apache-2.0")
