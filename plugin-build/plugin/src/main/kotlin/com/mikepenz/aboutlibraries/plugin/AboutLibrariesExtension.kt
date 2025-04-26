@@ -411,13 +411,12 @@ abstract class CollectorConfig @Inject constructor() {
 abstract class ExportConfig @Inject constructor() {
 
     /**
-     * The path to the directory where the generated meta data file will be stored.
+     * The full path (file path, including file name) at which the generated metadata file will be stored.
      *
      * This path is relative to the modules project directory.
      *
-     * Adjusts the output file name for the generated meta data file.
-     * Adjusting the file name will break the automatic discovery for supported platforms.
-     * Ensure to use the respective APIs of the core module.
+     * This setting specifies both the path and file name for the generated metadata file.
+     * Adjusting this will break the automatic discovery for supported platforms (Android).
      *
      * This can also be overwritten with the `-PaboutLibraries.outputPath` command line argument.
      *
