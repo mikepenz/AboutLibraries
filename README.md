@@ -5,7 +5,7 @@
 [![Gradle Plugin Portal](https://img.shields.io/gradle-plugin-portal/v/com.mikepenz.aboutlibraries.plugin?label=Gradle%20Plugin&style=for-the-badge)](https://plugins.gradle.org/plugin/com.mikepenz.aboutlibraries.plugin)
 [![Apache 2.0 License](https://img.shields.io/github/license/mikepenz/AboutLibraries?style=for-the-badge)](https://github.com/mikepenz/AboutLibraries/blob/develop/LICENSE)
 
-.. collects dependency details including licenses at compile time, and offers simple APIs to visualize these in the app.
+This library collects dependency details, including licenses at compile time, and offers simple APIs to visualize these in the app.
 *No runtime overhead.* Strong caching. Supports any Gradle dependency.
 
 -------
@@ -521,24 +521,7 @@ Generate the file manually using the Gradle task:
 ./gradlew :app:exportLibraryDefinitions -PaboutLibraries.outputFile=src/main/res/raw/libraries.json -PaboutLibraries.exportVariant=release
 ```
 
-Commit the generated `aboutlibraries.json` to your SCM. The library will then need to load this file manually.
-
-Example for Compose UI:
-
-```kotlin
-// Load the JSON from Android resources
-LibrariesContainer(
-    librariesBlock = { ctx -> 
-        Libs.Builder().withContext(ctx).build()
-    }
-)
-
-// Load the JSON using compose-resources
-val libraries by rememberLibraries {
-    Res.readBytes("files/aboutlibraries.json").decodeToString()
-}
-LibrariesContainer(libraries)
-```
+Commit the generated `aboutlibraries.json` to your SCM. The library will then need to load this file manually. See details in [Usage](#usage).
 
 ## Gradle API / Tasks
 
