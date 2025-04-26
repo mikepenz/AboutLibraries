@@ -411,7 +411,7 @@ abstract class CollectorConfig @Inject constructor() {
 abstract class ExportConfig @Inject constructor() {
 
     /**
-     * The full path (file path, including file name) at which the generated meta data file will be stored.
+     * The full path (file path, including file name) at which the generated metadata file will be stored.
      *
      * This path is relative to the modules project directory.
      *
