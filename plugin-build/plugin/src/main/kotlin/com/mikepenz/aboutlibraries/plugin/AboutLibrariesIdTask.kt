@@ -6,7 +6,7 @@ import org.gradle.api.tasks.TaskAction
 @CacheableTask
 abstract class AboutLibrariesIdTask : BaseAboutLibrariesTask() {
 
-    override fun getDescription(): String = "Writes the relevant meta data for the AboutLibraries plugin to display dependencies"
+    override fun getDescription(): String = "Prints all retrieved variants and its libraries to the CLI."
     override fun getGroup(): String = "Help"
 
     @TaskAction

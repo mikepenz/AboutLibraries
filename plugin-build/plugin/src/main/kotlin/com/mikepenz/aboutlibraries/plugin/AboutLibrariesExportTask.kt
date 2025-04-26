@@ -7,7 +7,7 @@ import org.gradle.api.tasks.TaskAction
 @CacheableTask
 abstract class AboutLibrariesExportTask : BaseAboutLibrariesTask() {
 
-    override fun getDescription(): String = "Writes all libraries and their licenses in CSV format to the CLI"
+    override fun getDescription(): String = "Writes all libraries and their licenses in CSV format to the CLI.${variant.orNull?.let { " Filtered by variant: '$it'." } ?: ""}"
     override fun getGroup(): String = "Help"
 
     @TaskAction

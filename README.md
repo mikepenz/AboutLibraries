@@ -98,9 +98,9 @@ aboutLibraries {
 
     android {
         // - If the automatic registered android tasks are disabled, a similar thing can be achieved manually
-        // - `./gradlew app:exportLibraryDefinitions -PaboutLibraries.outputPath=src/main/res/raw/aboutlibraries.json`
+        // - `./gradlew app:exportLibraryDefinitions -PaboutLibraries.outputFile=src/main/res/raw/aboutlibraries.json`
         // - the resulting file can for example be added as part of the SCM
-        // - the `outputPath` can also be changed by setting `outputPath` via the DSL.
+        // - the `outputFile` can also be changed by setting `outputFile` via the DSL.
         registerAndroidTasks = false
     }
 
@@ -130,10 +130,10 @@ aboutLibraries {
 
     export {
         // Define the output path (including fileName). Modifying this will disable the automatic meta data discovery for supported platforms.
-        outputPath = file("src/commonMain/composeResources/files/aboutlibraries.json")
+        outputFile = file("src/commonMain/composeResources/files/aboutlibraries.json")
 
         // The default export variant to use for this module.
-        // exportVariant = "release"
+        // variant = "release"
 
         // Allows to exclude some fields from the generated meta data field.
         // If the class name is specified, the field is only excluded for that class; without a class name, the exclusion is global.
@@ -344,11 +344,11 @@ the dependency meta information and include as part of the SCM.
 ### Generate Dependency Information
 
 ```bash
-./gradlew :app-desktop:exportLibraryDefinitions -PaboutLibraries.outputPath=src/main/resources/libraries.json
+./gradlew :app-desktop:exportLibraryDefinitions -PaboutLibraries.outputFile=src/main/resources/libraries.json
 
 # Filter exported definition by variant by passing `-PaboutLibraries.exportVariant==<VARIANT>`
-./gradlew :app-wasm:exportLibraryDefinitions -PaboutLibraries.outputPath=src/main/resources/libraries.json -PaboutLibraries.exportVariant=wasmJs
-./gradlew :app-wasm:exportLibraryDefinitions -PaboutLibraries.outputPath=src/main/resources/libraries.json -PaboutLibraries.exportVariant=jvm
+./gradlew :app-wasm:exportLibraryDefinitions -PaboutLibraries.outputFile=src/main/resources/libraries.json -PaboutLibraries.exportVariant=wasmJs
+./gradlew :app-wasm:exportLibraryDefinitions -PaboutLibraries.outputFile=src/main/resources/libraries.json -PaboutLibraries.exportVariant=jvm
 ```
 
 ### Run Demo app(s)
@@ -472,8 +472,8 @@ aboutLibraries {
     }
     export {
         // Define the output path (including fileName)
-        outputPath = file("src/commonMain/composeResources/files/aboutlibraries.json")
-        exportVariant = "release" // Optional, if not set the default variant will be used
+        outputFile = file("src/commonMain/composeResources/files/aboutlibraries.json")
+        variant = "release" // Optional, if not set the default variant will be used
     }
 }
 ```
@@ -485,7 +485,7 @@ After disabling the integration it is possible to manually update the definition
 # Generate using the configured location
 ./gradlew app:exportLibraryDefinitions
 # Generate providing a custom path and variant
-./gradlew app:exportLibraryDefinitions -PaboutLibraries.outputPath=src/main/res/raw/libraries.json -PaboutLibraries.exportVariant=release
+./gradlew app:exportLibraryDefinitions -PaboutLibraries.outputFile=src/main/res/raw/libraries.json -PaboutLibraries.exportVariant=release
 ```
 
 This generated file can be either included in your SCM, and every build will use this exact verified and approved state.
@@ -511,9 +511,9 @@ For other environments or for more advanced usages the plugin offers additional 
 ```bash
 # Manually generate the dependency metaData in the provided location. Allows to commit it in SCM
 # Exports the metaData in `src/main/resources/` relative to the module root
-./gradlew app-desktop:exportLibraryDefinitions -PaboutLibraries.outputPath=src/main/resources/libraries.json
+./gradlew app-desktop:exportLibraryDefinitions -PaboutLibraries.outputFile=src/main/resources/libraries.json
 # Export only for a specific variant: `release`
-./gradlew app-desktop:exportLibraryDefinitions -PaboutLibraries.outputPath=src/main/resources/libraries.json -PaboutLibraries.exportVariant=release
+./gradlew app-desktop:exportLibraryDefinitions -PaboutLibraries.outputFile=src/main/resources/libraries.json -PaboutLibraries.exportVariant=release
 
 # Export dependencies to CLI in CSV format
 ./gradlew app:exportLibraries

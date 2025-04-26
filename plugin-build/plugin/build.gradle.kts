@@ -39,6 +39,8 @@ kotlin {
 
 dependencies {
     compileOnly(gradleApi())
+    compileOnly(baseLibs.kotlin.gradlePlugin)
+
     implementation(localGroovy())
 
     // parser the pom.xml files
