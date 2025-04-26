@@ -3,7 +3,7 @@
 ### Generate Dependency Information
 
 ```bash
-./gradlew :app-wasm:exportLibraryDefinitions
+./gradlew :app-wasm:exportLibraryDefinitionsWasmJs
 ```
 
 ### Run Wasm app
