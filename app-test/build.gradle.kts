@@ -29,13 +29,14 @@ aboutLibraries {
     }
     export {
         prettyPrint = true
+        outputFile = file("files/aboutlibraries.json")
     }
     exports {
         create("jvm") {
-            outputFile = file("files/jvm/aboutLibraries.json")
+            outputFile = file("files/jvm/aboutlibraries.json")
         }
         create("wasmJs") {
-            outputFile = file("files/wasmJs/aboutLibraries.json")
+            outputFile = file("files/wasmJs/aboutlibraries.json")
         }
     }
 }
