@@ -415,7 +415,7 @@ abstract class ExportConfig @Inject constructor() {
      *
      * This path is relative to the modules project directory.
      *
-     * Settings this can change the path, and file name for the generated meta data file.
+     * This setting specifies both the path and file name for the generated metadata file.
      * Adjusting this will break the automatic discovery for supported platforms (Android).
      *
      * This can also be overwritten with the `-PaboutLibraries.outputPath` command line argument.
