@@ -112,10 +112,10 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
             if (collectAll.get()) {
                 // collect configurations for the variants we are interested in
                 if (filter.isEmpty() || filter.any { cn.contains(it) }) {
-                    LOGGER.info("Collecting dependencies for variant $variant from config: $cn")
+                    LOGGER.info("Collecting dependencies from config: $cn")
                     true
                 } else {
-                    LOGGER.info("Skipping variant $variant from config: $cn")
+                    LOGGER.info("Skipping config: $cn")
                     false
                 }
             } else {

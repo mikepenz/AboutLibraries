@@ -239,6 +239,7 @@ abstract class AboutLibrariesExtension {
             it.filterVariants.convention(emptySet())
         }
         export {
+            // it.exportVariant.convention("") (mp) intentionally not set, we use it as `orNull` in places
             it.includeMetaData.convention(false)
             it.excludeFields.convention(emptySet())
             it.prettyPrint.convention(false)

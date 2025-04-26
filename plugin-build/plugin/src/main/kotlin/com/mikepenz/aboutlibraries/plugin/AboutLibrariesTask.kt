@@ -10,9 +10,11 @@ import com.mikepenz.aboutlibraries.plugin.model.writeToDisk
 import com.mikepenz.aboutlibraries.plugin.util.forLicense
 import org.gradle.api.file.RegularFile
 import org.gradle.api.file.RegularFileProperty
+import org.gradle.api.provider.Property
 import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
 import org.slf4j.LoggerFactory
@@ -26,8 +28,12 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
     @get:OutputFile
     protected abstract val outputFile: RegularFileProperty
 
+    @get:Optional
+    @get:Input
+    abstract val deprecated: Property<Boolean>
+
     override fun getDescription(): String = "Exports dependency meta data from the current module.${variant.orNull?.let { " Filtered by variant: '$it'." } ?: ""}"
-    override fun getGroup(): String = org.gradle.language.base.plugins.LifecycleBasePlugin.BUILD_GROUP
+    override fun getGroup(): String = super.group ?: org.gradle.language.base.plugins.LifecycleBasePlugin.BUILD_GROUP
 
     fun configureOutputFile(outputFile: Provider<RegularFile>? = null) {
         if (outputFile != null && outputFile.isPresent) {
@@ -54,6 +60,10 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
 
     @TaskAction
     fun action() {
+        if (deprecated.isPresent && deprecated.get()) {
+            LOGGER.warn("`generateLibraryDefinitions${variant.orElse("")}` is deprecated. Please use `exportLibraryDefinitions${variant.orElse("")}` instead.")
+        }
+
         val output = outputFile.get().asFile
         if (!output.parentFile.exists()) {
             output.parentFile.mkdirs() // verify output exists

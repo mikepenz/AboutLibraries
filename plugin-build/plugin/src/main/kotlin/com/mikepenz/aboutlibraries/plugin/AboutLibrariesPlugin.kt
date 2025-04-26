@@ -97,13 +97,14 @@ class AboutLibrariesPlugin : Plugin<Project> {
 
     @Suppress("DEPRECATION")
     private fun configureAndroidTasks(project: Project, extension: AboutLibrariesExtension, variant: com.android.build.gradle.api.BaseVariant) {
+        val variantName = variant.name.capitalize(Locale.ENGLISH)
+
         val resultsResDirectory = project.layout.buildDirectory.dir("generated/aboutLibraries/${variant.name}/res/")
         val resultsDirectory = resultsResDirectory.map { it.dir("raw/") }
 
         // task to write the general definitions information
-        val task = project.tasks.configure(
-            "prepareLibraryDefinitions${variant.name.capitalize(Locale.ENGLISH)}", AboutLibrariesTask::class.java
-        ) {
+        val task = project.tasks.configure("prepareLibraryDefinitions${variantName}", AboutLibrariesTask::class.java) {
+            it.group = ""
             it.variant.set(variant.name)
             it.configureOutputFile(resultsDirectory.map { dir -> dir.file(extension.export.outputFileName.get()) })
             it.configure()
@@ -126,26 +127,29 @@ class AboutLibrariesPlugin : Plugin<Project> {
         }
 
         // task to generate libraries, and their license into the build folder (not hooked to the build task)
-        project.tasks.configure(
-            "generateLibraryDefinitions${variant.name.capitalize(Locale.ENGLISH)}", AboutLibrariesTask::class.java
-        ) {
+        project.tasks.configure("exportLibraryDefinitions${variantName}", AboutLibrariesTask::class.java) {
+            it.variant.set(variant.name)
+            it.configureOutputFile(resultsDirectory.map { dir -> dir.file(extension.export.outputFileName.get()) })
+            it.configure()
+        }
+
+        // backwards compatibility, to be removed in v13.0.0
+        project.tasks.configure("generateLibraryDefinitions${variantName}", AboutLibrariesTask::class.java) {
+            it.group = ""
+            it.deprecated.set(true)
             it.variant.set(variant.name)
             it.configureOutputFile(resultsDirectory.map { dir -> dir.file(extension.export.outputFileName.get()) })
             it.configure()
         }
 
         // task to output libraries, and their license in CSV format to the CLI
-        project.tasks.configure(
-            "exportLibraries${variant.name.capitalize(Locale.ENGLISH)}", AboutLibrariesExportTask::class.java
-        ) {
+        project.tasks.configure("exportLibraries${variantName}", AboutLibrariesExportTask::class.java) {
             it.variant.set(variant.name)
             it.configure()
         }
 
         // task to output libraries, their license in CSV format and source to a given location
-        project.tasks.configure(
-            "exportComplianceLibraries${variant.name.capitalize(Locale.ENGLISH)}", AboutLibrariesExportComplianceTask::class.java
-        ) {
+        project.tasks.configure("exportComplianceLibraries${variantName}", AboutLibrariesExportComplianceTask::class.java) {
             it.variant.set(variant.name)
             it.projectDirectory.set(project.layout.projectDirectory)
             it.configure()
