@@ -146,6 +146,16 @@ aboutLibraries {
         // Enable pretty printing for the generated JSON file
         prettyPrint = true
     }
+  
+    exports {
+        // Define export configuration per variant.
+        create("jvm") {
+            outputFile = file("files/jvm/aboutlibraries.json")
+        }
+        create("wasmJs") {
+            outputFile = file("files/wasmJs/aboutlibraries.json")
+        }
+    }
 
     license {
         // Define the strict mode, will fail if the project uses licenses not allowed
