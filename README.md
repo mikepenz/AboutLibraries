@@ -1,16 +1,20 @@
 # AboutLibraries
 
-.. collects all dependency details including licenses at compile time, and offers simple APIs to visualize these in the app.
-*No runtime overhead.* Strong caching. Any gradle dependency is supported.
+<!-- Badges -->
+[![Maven Central](https://img.shields.io/maven-central/v/com.mikepenz/aboutlibraries-core?style=for-the-badge)](https://search.maven.org/artifact/com.mikepenz/aboutlibraries-core)
+[![Gradle Plugin Portal](https://img.shields.io/gradle-plugin-portal/v/com.mikepenz.aboutlibraries.plugin?label=Gradle%20Plugin&style=for-the-badge)](https://plugins.gradle.org/plugin/com.mikepenz.aboutlibraries.plugin)
+[![Apache 2.0 License](https://img.shields.io/github/license/mikepenz/AboutLibraries?style=for-the-badge)](https://github.com/mikepenz/AboutLibraries/blob/develop/LICENSE)
+
+.. collects dependency details including licenses at compile time, and offers simple APIs to visualize these in the app.
+*No runtime overhead.* Strong caching. Supports any Gradle dependency.
 
 -------
 
 <p align="center">
-    <a href="#whats-included-">What's included 🚀</a> &bull;
-    <a href="#setup">Setup 🛠️</a> &bull;
-    <a href="#gradle-api">Gradle API️</a> &bull;
+    <a href="#whats-included-">What's Included 🚀</a> &bull;
+    <a href="#setup">Setup Guide 🛠️</a> &bull;
+    <a href="#gradle-api">Gradle Tasks ⚙️</a> &bull;
     <a href="MIGRATION.md">Migration Guide 🧬</a> &bull;
-    <a href="https://play.google.com/store/apps/details?id=com.mikepenz.aboutlibraries.sample">Sample App</a>
 </p>
 
 -------
@@ -31,7 +35,7 @@
 
 # Screenshots
 
-![Screenshots](https://raw.githubusercontent.com/mikepenz/AboutLibraries/develop/DEV/screenshots/Screenshots.png)
+![AboutLibraries Screenshots](https://raw.githubusercontent.com/mikepenz/AboutLibraries/develop/DEV/screenshots/Screenshots.png)
 
 # Setup
 
@@ -42,10 +46,10 @@
 
 ## Gradle Plugin
 
-> The gradle plugin is hosted
-> via [Gradle Plugins](https://plugins.gradle.org/plugin/com.mikepenz.aboutlibraries.plugin).
+> The Gradle plugin is hosted via the [Gradle Plugin Portal](https://plugins.gradle.org/plugin/com.mikepenz.aboutlibraries.plugin).
+> Using the `plugins` DSL is the recommended approach.
 
-<details open><summary><b>Using the plugins DSL (for single modules)</b></summary>
+<details open><summary><b>Using the plugins DSL (Recommended)</b></summary>
 <p>
 
 ```gradle
@@ -59,7 +63,7 @@ id("com.mikepenz.aboutlibraries.plugin")
 </p>
 </details>
 
-<details><summary><b>Using the plugins DSL (for whole project)</b></summary>
+<details><summary><b>Using the plugins DSL (Apply to all subprojects)</b></summary>
 <p>
 
 ```gradle
@@ -84,12 +88,12 @@ apply plugin: 'com.mikepenz.aboutlibraries.plugin'
 </p>
 </details>
 
-<details><summary><b>Gradle Plugin Configuration</b></summary>
+<details><summary><b>Gradle Plugin Configuration Options</b></summary>
 <p>
 
 ## Gradle Plugin Configuration
 
-It is possible to provide custom configurations / adjustments to the automatic detection. This can be done via the gradle plugin.
+The plugin allows customization via the `aboutLibraries` extension in your build script.
 
 ```kts
 aboutLibraries {
@@ -172,13 +176,19 @@ aboutLibraries {
 ```
 
 Full documentation of all available gradle plugin
-configurations: https://github.com/mikepenz/AboutLibraries/blob/develop/plugin-build/plugin/src/main/kotlin/com/mikepenz/aboutlibraries/plugin/AboutLibrariesExtension.kt
+configurations can be found in the [AboutLibrariesExtension.kt](https://github.com/mikepenz/AboutLibraries/blob/develop/plugin-build/plugin/src/main/kotlin/com/mikepenz/aboutlibraries/plugin/AboutLibrariesExtension.kt) source file.
+
+</p>
+</details>
+
+<details><summary><b>Modify Libraries / Licenses</b></summary>
+<p>
 
 ## Modify libraries / licenses
 
-The plugin offers the ability to add additional libraries or licenses by specifying these under the
-`libraries` and respectively `licenses` directory, within the defined `configPath`.
-This can be seen here: https://github.com/mikepenz/AboutLibraries/blob/develop/config/
+The plugin offers the ability to add or override library and license details by placing JSON files
+in the `libraries` and `licenses` directories within the configured `configPath`.
+See the [config directory](https://github.com/mikepenz/AboutLibraries/blob/develop/config/) for examples.
 
 ### Libraries
 
@@ -218,22 +228,24 @@ Provide additional or modify existing licenses via a `.json` file per license.
 
 ## Dependencies
 
-> The AboutLibraries Library is pushed
-> to [Maven Central](https://search.maven.org/artifact/com.mikepenz/aboutlibraries-core).
+> The AboutLibraries libraries are published to [Maven Central](https://search.maven.org/artifact/com.mikepenz/aboutlibraries-core).
+> Using a version catalog (`libs.versions.toml`) is the recommended way to manage dependencies.
 
-### `libs.versions.toml`
+### `libs.versions.toml` (Recommended)
 
 ```toml
 [versions]
 aboutLibraries = "{latest-version}"
 
 [libraries]
+# Core module (required for accessing library data)
 aboutlibraries-core = { module = "com.mikepenz:aboutlibraries-core", version.ref = "aboutLibraries" }
-aboutlibraries-compose-core = { module = "com.mikepenz:aboutlibraries-compose-core", version.ref = "aboutLibraries" }
-aboutlibraries-compose-m2 = { module = "com.mikepenz:aboutlibraries-compose", version.ref = "aboutLibraries" }
-aboutlibraries-compose-m3 = { module = "com.mikepenz:aboutlibraries-compose-m3", version.ref = "aboutLibraries" }
-# Deprecated module
-aboutlibraries-compose-view = { module = "com.mikepenz:aboutlibraries", version.ref = "aboutLibraries" }
+# Compose UI modules (choose one or both)
+aboutlibraries-compose-core = { module = "com.mikepenz:aboutlibraries-compose-core", version.ref = "aboutLibraries" } # Common compose core
+aboutlibraries-compose-m2 = { module = "com.mikepenz:aboutlibraries-compose", version.ref = "aboutLibraries" }      # Material 2 UI
+aboutlibraries-compose-m3 = { module = "com.mikepenz:aboutlibraries-compose-m3", version.ref = "aboutLibraries" }      # Material 3 UI
+# Deprecated View-based UI module
+aboutlibraries-view = { module = "com.mikepenz:aboutlibraries", version.ref = "aboutLibraries" }
 
 [plugins]
 aboutLibraries = { id = "com.mikepenz.aboutlibraries.plugin", version.ref = "aboutLibraries" }
@@ -241,10 +253,15 @@ aboutLibraries = { id = "com.mikepenz.aboutlibraries.plugin", version.ref = "abo
 
 ## Core-module
 
+Include the core module to access the generated library information programmatically.
+
 ```gradle
-implementation("com.mikepenz:aboutlibraries-core:${latestAboutLibsRelease}")
-// or
+// build.gradle.kts
+// Recommended: Using version catalog
 implementation(libs.aboutlibraries.core)
+
+// Alternative: Direct dependency declaration
+// implementation("com.mikepenz:aboutlibraries-core:${latestAboutLibsRelease}")
 ```
 
 <details><summary><b>(Advanced) Usage</b></summary>
@@ -269,34 +286,41 @@ for (lib in libraries) {
 </p>
 </details>
 
-## UI-module
+## UI-module (Compose)
+
+Include the Compose UI module(s) for easy integration into Jetpack Compose applications.
 
 ```gradle
-implementation("com.mikepenz:aboutlibraries-compose:${latestAboutLibsRelease}") // material 2
-implementation("com.mikepenz:aboutlibraries-compose-m3:${latestAboutLibsRelease}") // material 3
-// or
-implementation(libs.aboutlibraries.compose.m2) // material 2
-implementation(libs.aboutlibraries.compose.m3) // material 3
+// build.gradle.kts
+// Recommended: Using version catalog (choose M2 or M3, or both)
+implementation(libs.aboutlibraries.compose.m2) // Material 2
+implementation(libs.aboutlibraries.compose.m3) // Material 3
+
+// Alternative: Direct dependency declaration
+// implementation("com.mikepenz:aboutlibraries-compose:${latestAboutLibsRelease}") // Material 2
+// implementation("com.mikepenz:aboutlibraries-compose-m3:${latestAboutLibsRelease}") // Material 3
 ```
 
 ### Usage
 
 ```kotlin
-// android (when using the default resource location
+// Android: Auto-discovery using default resource location (src/main/res/raw/aboutlibraries.json)
 LibrariesContainer(
     Modifier.fillMaxSize()
 )
 
-// compose resource API
+// Multiplatform: Using compose-resources API (e.g., src/commonMain/composeResources/files/aboutlibraries.json)
 val libraries by rememberLibraries {
     Res.readBytes("files/aboutlibraries.json").decodeToString()
 }
+LibrariesContainer(libraries, Modifier.fillMaxSize())
 
-// compose manually
+
+// Multiplatform: Manually loading JSON
 val libraries by rememberLibraries {
+    // Replace with your specific resource loading logic
     useResource("aboutlibraries.json") { res -> res.bufferedReader().readText() }
 }
-
 LibrariesContainer(libraries, Modifier.fillMaxSize())
 ```
 
@@ -305,7 +329,7 @@ LibrariesContainer(libraries, Modifier.fillMaxSize())
 
 ### Advanced Usage
 
-Provide custom header, divider, and footer for the libraries container.
+Provide custom header, divider, and footer items for the `LibrariesContainer`.
 
 ```kotlin
 // custom header, divider, footer
@@ -334,21 +358,22 @@ LibrariesContainer(
 </details>
 
 
-<details><summary><b>Compose-jb</b></summary>
+<details><summary><b>Compose Multiplatform (Desktop, Wasm, etc.)</b></summary>
 <p>
 
-The core module and the compose module are Kotlin-Multiplatform projects.
-Find a sample application as the `app-desktop` module. It showcases the usage to manually generate
-the dependency meta information and include as part of the SCM.
+The core and compose modules are Kotlin Multiplatform compatible.
+The `app-desktop` and `app-wasm` modules demonstrate usage outside of Android, including manual generation and inclusion of the dependency metadata.
 
 ### Generate Dependency Information
 
+Manually export the definitions using the Gradle task. This is typically needed for non-Android platforms or when `registerAndroidTasks` is disabled.
+
 ```bash
+# Export definitions to the specified file (e.g., for desktop)
 ./gradlew :app-desktop:exportLibraryDefinitions -PaboutLibraries.outputFile=src/main/resources/libraries.json
 
-# Filter exported definition by variant by passing `-PaboutLibraries.exportVariant==<VARIANT>`
-./gradlew :app-wasm:exportLibraryDefinitions -PaboutLibraries.outputFile=src/main/resources/libraries.json -PaboutLibraries.exportVariant=wasmJs
-./gradlew :app-wasm:exportLibraryDefinitions -PaboutLibraries.outputFile=src/main/resources/libraries.json -PaboutLibraries.exportVariant=jvm
+# Filter exported definition by variant (e.g., for wasmJs target)
+./gradlew :app-wasm:exportLibraryDefinitions -PaboutLibraries.outputFile=src/jsMain/resources/aboutlibraries.json -PaboutLibraries.exportVariant=wasmJs
 ```
 
 ### Run Demo app(s)
@@ -363,24 +388,29 @@ the dependency meta information and include as part of the SCM.
 
 ### Screenshot
 
-![Compose-jb Screenshot](https://raw.githubusercontent.com/mikepenz/AboutLibraries/develop/DEV/screenshots/compose-jb.png)
+![Compose Multiplatform Screenshot](https://raw.githubusercontent.com/mikepenz/AboutLibraries/develop/DEV/screenshots/compose-jb.png)
 
 </p>
 </details>
 
-## (Legacy) UI-module
+## (Legacy) UI-module (View-based)
 
-> [!NOTE]  
-> The legacy view based UI will be deprecated in the future. Please consider moving to the compose based UI.
-> For view based use cases please check out the [ComposeView](https://developer.android.com/develop/ui/compose/migrate/interoperability-apis/compose-in-views) provided by Compose.
-> Alternatively, the legacy module will be supported as long as the `core` data format isn't changed. Generally newer versions of the gradle plugin are compatible with older
-> versions of the ui modules.
+> [!WARNING]
+> **Deprecated:** The legacy View-based UI module (`com.mikepenz:aboutlibraries`) is deprecated and will receive limited support.
+> Please migrate to the [Compose UI module](#ui-module-compose).
+> For embedding Compose in Views, consider using [ComposeView](https://developer.android.com/develop/ui/compose/migrate/interoperability-apis/compose-in-views).
+> While newer Gradle plugin versions *might* be compatible with older UI modules regarding the data format, migration is strongly recommended.
 
 ```gradle
-implementation("com.mikepenz:aboutlibraries:${latestAboutLibsRelease}")
+// build.gradle.kts
+// Recommended: Using version catalog
+implementation(libs.aboutlibraries.view)
+
+// Alternative: Direct dependency declaration
+// implementation("com.mikepenz:aboutlibraries:${latestAboutLibsRelease}")
 ```
 
-<details><summary><b>Usage</b></summary>
+<details><summary><b>Legacy Usage</b></summary>
 <p>
 
 ### Usage
@@ -460,49 +490,57 @@ Create a custom style for the AboutLibraries UI.
 </p>
 </details>
 
-## Enterprise
+## Enterprise / Manual JSON Handling
 
-Since v10 of the AboutLibraries plugin it is possible to disable the automatic registration of the plugin task as part of the build system.
+For environments requiring full control over the included `aboutlibraries.json` (e.g., manual verification, CI generation), you can disable automatic task registration and handle generation manually.
 
 ```kts
+// build.gradle.kts
 aboutLibraries {
     android {
-        // Disable the automatic task
+        // Disable automatic task registration for Android builds
         registerAndroidTasks = false
     }
     export {
-        // Define the output path (including fileName)
+        // Define the output path for manual generation
+        // Adjust the path based on your project structure (e.g., composeResources, Android res/raw)
         outputFile = file("src/commonMain/composeResources/files/aboutlibraries.json")
-        variant = "release" // Optional, if not set the default variant will be used
+        // Optionally specify the variant for export
+        // variant = "release"
     }
 }
 ```
 
-This is especially beneficial for enterprise environments where it is required to be in full control of the included `aboutlibraries.json`.
-After disabling the integration it is possible to manually update the definitions, or do it on your CI environment.
+Generate the file manually using the Gradle task:
 
 ```bash
-# Generate using the configured location
-./gradlew app:exportLibraryDefinitions
-# Generate providing a custom path and variant
-./gradlew app:exportLibraryDefinitions -PaboutLibraries.outputFile=src/main/res/raw/libraries.json -PaboutLibraries.exportVariant=release
+# Generate using the configured location and variant
+./gradlew :app:exportLibraryDefinitions
+
+# Generate providing a custom path and variant override
+./gradlew :app:exportLibraryDefinitions -PaboutLibraries.outputFile=src/main/res/raw/libraries.json -PaboutLibraries.exportVariant=release
 ```
 
-This generated file can be either included in your SCM, and every build will use this exact verified and approved state.
-Additionally, this helps to ensure no issues occur during the apps delivery phase, as the respective file is already generated and included.
+Commit the generated `aboutlibraries.json` to your SCM. The library will then need to load this file manually.
 
-The library offers complete customisation for this behavior and location or name for the generated files can be adjusted as needed.
-A full compose code example providing the `Libs` manually:
+Example for Compose UI:
 
 ```kotlin
+// Load the JSON from Android resources
 LibrariesContainer(
-    librariesBlock = { ctx ->
-        Libs.Builder().withJson(ctx, R.raw.aboutlibraries).build()
+    librariesBlock = { ctx -> 
+        Libs.Builder().withContext(ctx).build()
     }
 )
+
+// Load the JSON using compose-resources
+val libraries by rememberLibraries {
+    Res.readBytes("files/aboutlibraries.json").decodeToString()
+}
+LibrariesContainer(libraries)
 ```
 
-## Gradle API
+## Gradle API / Tasks
 
 By default, the gradle plugin is automatically executed for Android projects, generating the library
 metadata where it's automatically discovered by the `ui` modules.
