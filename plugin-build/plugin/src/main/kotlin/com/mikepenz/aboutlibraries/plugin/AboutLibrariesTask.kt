@@ -26,8 +26,8 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
     @get:OutputFile
     protected abstract val outputFile: RegularFileProperty
 
-    override fun getDescription(): String = "Writes the relevant meta data for the AboutLibraries plugin to display dependencies"
-    override fun getGroup(): String = "Build"
+    override fun getDescription(): String = "Exports dependency meta data from the current module.${variant.orNull?.let { " Filtered by variant: '$it'." } ?: ""}"
+    override fun getGroup(): String = org.gradle.language.base.plugins.LifecycleBasePlugin.BUILD_GROUP
 
     fun configureOutputFile(outputFile: Provider<RegularFile>? = null) {
         if (outputFile != null && outputFile.isPresent) {
