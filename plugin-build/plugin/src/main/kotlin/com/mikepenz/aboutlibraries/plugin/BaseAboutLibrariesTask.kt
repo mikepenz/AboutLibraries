@@ -97,7 +97,7 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
             variant.set(
                 project.providers.gradleProperty("${PROP_PREFIX}${PROP_EXPORT_VARIANT}").orElse(
                     project.providers.gradleProperty(PROP_EXPORT_VARIANT).orElse(
-                        extension.export.exportVariant
+                        extension.export.variant
                     )
                 )
             )

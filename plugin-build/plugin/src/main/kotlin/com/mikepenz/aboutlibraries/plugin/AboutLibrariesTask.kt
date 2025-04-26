@@ -1,5 +1,6 @@
 package com.mikepenz.aboutlibraries.plugin
 
+import com.mikepenz.aboutlibraries.plugin.AboutLibrariesExtension.Companion.PROP_EXPORT_OUTPUT_FILE
 import com.mikepenz.aboutlibraries.plugin.AboutLibrariesExtension.Companion.PROP_EXPORT_OUTPUT_PATH
 import com.mikepenz.aboutlibraries.plugin.AboutLibrariesExtension.Companion.PROP_EXPORT_PATH
 import com.mikepenz.aboutlibraries.plugin.AboutLibrariesExtension.Companion.PROP_PREFIX
@@ -45,12 +46,15 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
             @Suppress("DEPRECATION")
             val outputFileName = extension.export.outputFileName.get()
             val providers = project.providers
+
             this.outputFile.set(
-                providers.gradleProperty("${PROP_PREFIX}${PROP_EXPORT_OUTPUT_PATH}").map { path -> projectDirectory.file(path) }.orElse(
-                    providers.gradleProperty("${PROP_PREFIX}${PROP_EXPORT_PATH}").map { path -> projectDirectory.dir(path).file(outputFileName) }.orElse(
-                        providers.gradleProperty(PROP_EXPORT_PATH).map { path -> projectDirectory.dir(path).file(outputFileName) }).orElse(
-                        extension.export.outputPath.orElse(
-                            buildDirectory.dir("generated/aboutLibraries/").map { it.file(outputFileName) }
+                providers.gradleProperty("${PROP_PREFIX}${PROP_EXPORT_OUTPUT_FILE}").map { path -> projectDirectory.file(path) }.orElse(
+                    providers.gradleProperty("${PROP_PREFIX}${PROP_EXPORT_OUTPUT_PATH}").map { path -> projectDirectory.file(path) }.orElse(
+                        providers.gradleProperty("${PROP_PREFIX}${PROP_EXPORT_PATH}").map { path -> projectDirectory.dir(path).file(outputFileName) }.orElse(
+                            providers.gradleProperty(PROP_EXPORT_PATH).map { path -> projectDirectory.dir(path).file(outputFileName) }).orElse(
+                            extension.export.outputFile.orElse(
+                                buildDirectory.dir("generated/aboutLibraries/").map { it.file(outputFileName) }
+                            )
                         )
                     )
                 )

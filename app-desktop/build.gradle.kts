@@ -39,8 +39,8 @@ aboutLibraries {
         registerAndroidTasks = false
     }
     export {
-        exportVariant = "jvmMain"
+        variant = "jvmMain"
         prettyPrint = true
-        outputPath = file("src/commonMain/composeResources/files/aboutlibraries.json")
+        outputFile = file("src/commonMain/composeResources/files/aboutlibraries.json")
     }
 }
