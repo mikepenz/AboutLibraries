@@ -10,6 +10,7 @@ import org.gradle.api.artifacts.Configuration
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.provider.MapProperty
 import org.gradle.api.provider.Property
+import org.gradle.api.provider.SetProperty
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputDirectory
 import org.gradle.api.tasks.Internal
@@ -72,27 +73,45 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     @Optional
     val gitHubApiToken = extension.collect.gitHubApiToken
 
-    @Input
-    val excludeFields = extension.export.excludeFields
+    @get:Input
+    abstract val excludeFields: SetProperty<String>
 
-    @Input
-    val includeMetaData = extension.export.includeMetaData
+    @get:Input
+    abstract val includeMetaData: Property<Boolean>
 
-    @Input
-    val prettyPrint = extension.export.prettyPrint
+    @get:Input
+    abstract val prettyPrint: Property<Boolean>
 
     @Optional
     @PathSensitive(value = PathSensitivity.RELATIVE)
     @InputDirectory
     val configPath: DirectoryProperty = extension.collect.configPath
 
-    // @get:Input
-    // internal abstract val dependencyCoordinates: ListProperty<DependencyCoordinates>
-
     @get:Internal
     internal abstract val variantToDependencyData: MapProperty<String, List<DependencyData>>
 
     open fun configure() {
+        if (!excludeFields.isPresent) {
+            excludeFields.set(project.provider {
+                val config = extension.exports.findByName(variant.getOrElse(""))
+                config?.excludeFields?.orNull ?: extension.export.excludeFields.get()
+            })
+        }
+
+        if (!includeMetaData.isPresent) {
+            includeMetaData.set(project.provider {
+                val config = extension.exports.findByName(variant.getOrElse(""))
+                config?.includeMetaData?.orNull ?: extension.export.includeMetaData.get()
+            })
+        }
+
+        if (!prettyPrint.isPresent) {
+            prettyPrint.set(project.provider {
+                val config = extension.exports.findByName(variant.getOrElse(""))
+                config?.prettyPrint?.orNull ?: extension.export.prettyPrint.get()
+            })
+        }
+
         if (!variant.isPresent) {
             variant.set(
                 project.providers.gradleProperty("${PROP_PREFIX}${PROP_EXPORT_VARIANT}").orElse(

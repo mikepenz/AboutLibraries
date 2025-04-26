@@ -1,6 +1,7 @@
 package com.mikepenz.aboutlibraries.plugin
 
 import org.gradle.api.Action
+import org.gradle.api.NamedDomainObjectContainer
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.MapProperty
@@ -26,6 +27,13 @@ abstract class AboutLibrariesExtension {
 
     fun export(action: Action<ExportConfig>) {
         action.execute(export)
+    }
+
+    @get:Nested
+    abstract val exports: NamedDomainObjectContainer<ExportConfig>
+
+    fun exports(action: Action<NamedDomainObjectContainer<ExportConfig>>) {
+        action.execute(exports)
     }
 
     @get:Nested
@@ -412,7 +420,7 @@ abstract class CollectorConfig @Inject constructor() {
     abstract val filterVariants: SetProperty<String>
 }
 
-abstract class ExportConfig @Inject constructor() {
+abstract class ExportConfig @Inject constructor(val name: String = "") {
 
     /**
      * The full path (file path, including file name) at which the generated metadata file will be stored.
@@ -455,8 +463,7 @@ abstract class ExportConfig @Inject constructor() {
     @Deprecated("Use `outputFile` instead, which is the full path including file name")
     @get:Optional
     abstract val outputFileName: Property<String>
-
-
+    
     /**
      * The default export variant to use for this module.
      * Can be overwritten with the `-PaboutLibraries.exportVariant` command line argument.

@@ -53,30 +53,6 @@
             ]
         },
         {
-            "uniqueId": "org.jetbrains.kotlin:kotlin-stdlib-wasm-js",
-            "funding": [
-                
-            ],
-            "developers": [
-                {
-                    "organisationUrl": "https://www.jetbrains.com",
-                    "name": "Kotlin Team"
-                }
-            ],
-            "artifactVersion": "2.1.20",
-            "description": "Kotlin Standard Library for experimental WebAssembly JS platform",
-            "scm": {
-                "connection": "scm:git:https://github.com/JetBrains/kotlin.git",
-                "url": "https://github.com/JetBrains/kotlin",
-                "developerConnection": "scm:git:https://github.com/JetBrains/kotlin.git"
-            },
-            "name": "Kotlin Stdlib Wasm Js",
-            "website": "https://kotlinlang.org/",
-            "licenses": [
-                "Apache-2.0"
-            ]
-        },
-        {
             "uniqueId": "org.jetbrains:annotations",
             "funding": [
                 
