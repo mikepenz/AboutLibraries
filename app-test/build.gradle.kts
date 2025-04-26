@@ -1,3 +1,7 @@
+@file:OptIn(ExperimentalWasmDsl::class)
+
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
+
 plugins {
     kotlin("multiplatform")
     id("com.mikepenz.aboutlibraries.plugin")
@@ -5,6 +9,9 @@ plugins {
 
 kotlin {
     jvm()
+    wasmJs {
+        nodejs()
+    }
 
     sourceSets {
         jvmMain {
@@ -19,5 +26,16 @@ kotlin {
 aboutLibraries {
     collect {
         fetchRemoteLicense = true
+    }
+    export {
+        prettyPrint = true
+    }
+    exports {
+        create("jvm") {
+            outputFile = file("files/jvm/aboutLibraries.json")
+        }
+        create("wasmJs") {
+            outputFile = file("files/wasmJs/aboutLibraries.json")
+        }
     }
 }

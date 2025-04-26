@@ -44,16 +44,26 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
             val buildDirectory = project.layout.buildDirectory
 
             @Suppress("DEPRECATION")
-            val outputFileName = extension.export.outputFileName.get()
+            val fileNameProvider = project.provider {
+                val config = extension.exports.findByName(variant.getOrElse(""))
+                config?.outputFileName?.orNull ?: extension.export.outputFileName.get()
+            }
+
+            val outputFileProvider = project.provider {
+                val config = extension.exports.findByName(variant.getOrElse(""))
+                config?.outputFile?.orNull ?: extension.export.outputFile.orNull
+            }
+
             val providers = project.providers
 
+            @Suppress("DEPRECATION")
             this.outputFile.set(
                 providers.gradleProperty("${PROP_PREFIX}${PROP_EXPORT_OUTPUT_FILE}").map { path -> projectDirectory.file(path) }.orElse(
                     providers.gradleProperty("${PROP_PREFIX}${PROP_EXPORT_OUTPUT_PATH}").map { path -> projectDirectory.file(path) }.orElse(
-                        providers.gradleProperty("${PROP_PREFIX}${PROP_EXPORT_PATH}").map { path -> projectDirectory.dir(path).file(outputFileName) }.orElse(
-                            providers.gradleProperty(PROP_EXPORT_PATH).map { path -> projectDirectory.dir(path).file(outputFileName) }).orElse(
-                            extension.export.outputFile.orElse(
-                                buildDirectory.dir("generated/aboutLibraries/").map { it.file(outputFileName) }
+                        providers.gradleProperty("${PROP_PREFIX}${PROP_EXPORT_PATH}").map { path -> projectDirectory.dir(path).file(fileNameProvider.get()) }.orElse(
+                            providers.gradleProperty(PROP_EXPORT_PATH).map { path -> projectDirectory.dir(path).file(fileNameProvider.get()) }).orElse(
+                            outputFileProvider.orElse(
+                                buildDirectory.dir("generated/aboutLibraries/").map { it.file(fileNameProvider.get()) }
                             )
                         )
                     )
