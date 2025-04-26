@@ -66,7 +66,7 @@ abstract class AboutLibrariesExtension {
     // -------
     // DEPRECATED APIs
     // -------
-    @Deprecated("Use `export.outputFile` instead", ReplaceWith("export.outputPath"))
+    @Deprecated("Use `export.outputFile` instead", ReplaceWith("export.outputFile"))
     var outputPath: String?
         get() = export.outputFile.get().asFile.path
         set(value) {
