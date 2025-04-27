@@ -91,12 +91,10 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     internal abstract val variantToDependencyData: MapProperty<String, List<DependencyData>>
 
     open fun configure() {
-        if (!excludeFields.isPresent) {
-            excludeFields.set(project.provider {
-                val config = extension.exports.findByName(variant.getOrElse(""))
-                config?.excludeFields?.orNull ?: extension.export.excludeFields.get()
-            })
-        }
+        excludeFields.set(project.provider {
+            val config = extension.exports.findByName(variant.getOrElse(""))
+            config?.excludeFields?.orNull?.takeIf { it.isNotEmpty() } ?: extension.export.excludeFields.get()
+        })
 
         if (!includeMetaData.isPresent) {
             includeMetaData.set(project.provider {
