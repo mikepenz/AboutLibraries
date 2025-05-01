@@ -26,5 +26,6 @@
       ]
     }
   ],
+  "template": "#{{CHANGELOG}}\n## Contributors:\n- #{{CONTRIBUTORS}}",
   "max_tags_to_fetch": 500
 }

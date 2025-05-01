@@ -67,6 +67,11 @@ fun ResultContainer.writeToDisk(outputFile: File, includeMetaData: Boolean, excl
         .addConverter(PartialObjectConverter(excludedQualifiedFieldNames))
         .build()
     PrintWriter(OutputStreamWriter(outputFile.outputStream(), StandardCharsets.UTF_8), true).use {
-        it.write(jsonGenerator.toJson(this).let { json -> if (prettyPrint) JsonOutput.prettyPrint(json) else json })
+        // copy prior to writing to ensure consistent order
+        val sorted = copy(
+            libraries = this.libraries.sortedBy { lib -> lib.uniqueId },
+            licenses = this.licenses.toSortedMap(),
+        )
+        it.write(jsonGenerator.toJson(sorted).let { json -> if (prettyPrint) JsonOutput.prettyPrint(json) else json })
     }
 }

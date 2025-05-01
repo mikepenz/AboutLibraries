@@ -1,6 +1,7 @@
 package com.mikepenz.aboutlibraries.plugin
 
 import org.gradle.api.Action
+import org.gradle.api.NamedDomainObjectContainer
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.MapProperty
@@ -26,6 +27,13 @@ abstract class AboutLibrariesExtension {
 
     fun export(action: Action<ExportConfig>) {
         action.execute(export)
+    }
+
+    @get:Nested
+    abstract val exports: NamedDomainObjectContainer<ExportConfig>
+
+    fun exports(action: Action<NamedDomainObjectContainer<ExportConfig>>) {
+        action.execute(exports)
     }
 
     @get:Nested
@@ -66,13 +74,13 @@ abstract class AboutLibrariesExtension {
     // -------
     // DEPRECATED APIs
     // -------
-    @Deprecated("Use `export.outputPath` instead", ReplaceWith("export.outputPath"))
+    @Deprecated("Use `export.outputFile` instead", ReplaceWith("export.outputFile"))
     var outputPath: String?
-        get() = export.outputPath.get().asFile.path
+        get() = export.outputFile.get().asFile.path
         set(value) {
             @Suppress("DEPRECATION")
-            if (value != null) export.outputPath.set(File(value, outputFileName))
-            else throw IllegalArgumentException("outputPath must not be null")
+            if (value != null) export.outputFile.set(File(value, outputFileName))
+            else throw IllegalArgumentException("outputFile must not be null")
         }
 
     @Deprecated("Use `export.outputFileName` instead", ReplaceWith("export.outputFileName"))
@@ -84,11 +92,11 @@ abstract class AboutLibrariesExtension {
             export.outputFileName.set(value)
         }
 
-    @Deprecated("Use `export.exportVariant` instead", ReplaceWith("export.exportVariant"))
+    @Deprecated("Use `export.variant` instead", ReplaceWith("export.variant"))
     var exportVariant: String?
-        get() = export.exportVariant.get()
+        get() = export.variant.get()
         set(value) {
-            export.exportVariant.set(value)
+            export.variant.set(value)
         }
 
     @Deprecated("Use `android.registerAndroidTasks` instead", ReplaceWith("android.registerAndroidTasks"))
@@ -232,12 +240,14 @@ abstract class AboutLibrariesExtension {
     fun applyConvention() {
         offlineMode.convention(false)
         collect {
+            it.all.convention(false)
             it.includePlatform.convention(true)
             it.fetchRemoteLicense.convention(false)
             it.fetchRemoteFunding.convention(false)
             it.filterVariants.convention(emptySet())
         }
         export {
+            // it.variant.convention("") (mp) intentionally not set, we use it as `orNull` in places
             it.includeMetaData.convention(false)
             it.excludeFields.convention(emptySet())
             it.prettyPrint.convention(false)
@@ -256,6 +266,9 @@ abstract class AboutLibrariesExtension {
             it.additionalLicenses.convention(emptySet())
             it.strictMode.convention(StrictMode.IGNORE)
         }
+        android {
+            it.registerAndroidTasks.convention(true)
+        }
     }
 
     companion object {
@@ -264,7 +277,10 @@ abstract class AboutLibrariesExtension {
         internal const val PROP_EXPORT_VARIANT = "exportVariant"
         internal const val PROP_EXPORT_PATH = "exportPath"
         internal const val PROP_EXPORT_ARTIFACT_GROUPS = "artifactGroups"
+
+        @Deprecated("Use `PROP_EXPORT_OUTPUT_FILE` instead")
         internal const val PROP_EXPORT_OUTPUT_PATH = "outputPath"
+        internal const val PROP_EXPORT_OUTPUT_FILE = "outputFile"
     }
 }
 
@@ -306,6 +322,21 @@ abstract class CollectorConfig @Inject constructor() {
      */
     @get:Optional
     abstract val configPath: DirectoryProperty
+
+    /**
+     * Enabling this will collect all configurations found in the project, skipping the usual `runtime` and `compile` filters.
+     * This will still filter based on the provided filter, and also skip test configurations.
+     *
+     * ```
+     * aboutLibraries {
+     *   collect {
+     *      all = false
+     *   }
+     * }
+     * ```
+     */
+    @get:Optional
+    abstract val all: Property<Boolean>
 
     /**
      * Enable the inclusion of platform dependencies in the report.
@@ -389,35 +420,38 @@ abstract class CollectorConfig @Inject constructor() {
     abstract val filterVariants: SetProperty<String>
 }
 
-abstract class ExportConfig @Inject constructor() {
+abstract class ExportConfig @Inject constructor(val name: String = "") {
 
     /**
-     * The path to the directory where the generated meta data file will be stored.
+     * The full path (file path, including file name) at which the generated metadata file will be stored.
      *
      * This path is relative to the modules project directory.
      *
-     * Adjusts the output file name for the generated meta data file.
-     * Adjusting the file name will break the automatic discovery for supported platforms.
-     * Ensure to use the respective APIs of the core module.
+     * This setting specifies both the path and file name for the generated metadata file.
+     * Adjusting this will break the automatic discovery for supported platforms (Android).
      *
-     * This can also be overwritten with the `-PaboutLibraries.outputPath` command line argument.
+     * This can also be overwritten with the `-PaboutLibraries.outputFile` command line argument.
      *
      * ```
      * aboutLibraries {
      *   export {
-     *      outputPath = "src/commonMain/composeResources/files/aboutlibraries.json"
+     *      outputFile = "src/commonMain/composeResources/files/aboutlibraries.json"
      *   }
      * }
      * ```
      */
     @get:Optional
-    abstract val outputPath: RegularFileProperty
+    abstract val outputFile: RegularFileProperty
+
+    /** Alias for [outputFile] */
+    @get:Optional
+    val outputPath: RegularFileProperty get() = outputFile
 
     /**
      * The output file name for the generated meta data file.
      * Adjusting the file name will break the automatic discovery for supported platforms.
      *
-     * Note: This API has no effect if `outputPath` is used. (unless the property is passed)
+     * Note: This API has no effect if `outputFile` is used. (unless the property is passed)
      * ```
      * aboutLibraries {
      *   export {
@@ -426,10 +460,10 @@ abstract class ExportConfig @Inject constructor() {
      * }
      * ```
      */
-    @Deprecated("Use `outputPath` instead, which is the full path including file name")
+    @Deprecated("Use `outputFile` instead, which is the full path including file name")
     @get:Optional
     abstract val outputFileName: Property<String>
-
+    
     /**
      * The default export variant to use for this module.
      * Can be overwritten with the `-PaboutLibraries.exportVariant` command line argument.
@@ -437,13 +471,17 @@ abstract class ExportConfig @Inject constructor() {
      * ```
      * aboutLibraries {
      *   export {
-     *      exportVariant = "jvm"
+     *      variant = "jvm"
      *   }
      * }
      * ```
      */
     @get:Optional
-    abstract val exportVariant: Property<String>
+    abstract val variant: Property<String>
+
+    /** Alias for [variant] */
+    @get:Optional
+    val exportVariant: Property<String> get() = variant
 
     /**
      * Enable the inclusion of generated MetaData.

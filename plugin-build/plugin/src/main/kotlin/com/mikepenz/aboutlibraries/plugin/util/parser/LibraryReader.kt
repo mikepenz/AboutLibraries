@@ -1,6 +1,10 @@
 package com.mikepenz.aboutlibraries.plugin.util.parser
 
-import com.mikepenz.aboutlibraries.plugin.mapping.*
+import com.mikepenz.aboutlibraries.plugin.mapping.Developer
+import com.mikepenz.aboutlibraries.plugin.mapping.Funding
+import com.mikepenz.aboutlibraries.plugin.mapping.Library
+import com.mikepenz.aboutlibraries.plugin.mapping.Organization
+import com.mikepenz.aboutlibraries.plugin.mapping.Scm
 import groovy.json.JsonSlurper
 import org.slf4j.LoggerFactory
 import java.io.File

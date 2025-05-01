@@ -437,7 +437,7 @@ enum class SpdxLicense(
 
     companion object {
         internal fun find(key: String): SpdxLicense? {
-            for (l: SpdxLicense in SpdxLicense.values()) {
+            for (l: SpdxLicense in entries) {
                 if (l.id.equals(key, true) || l.name.equals(key, true) || l.fullName.equals(key, true)) {
                     return l
                 }
@@ -446,7 +446,7 @@ enum class SpdxLicense(
         }
 
         internal fun getById(id: String): SpdxLicense {
-            return SpdxLicense.values().first { it.id.equals(id, true) }
+            return entries.first { it.id.equals(id, true) }
         }
     }
 }

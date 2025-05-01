@@ -1,5 +1,6 @@
 package com.mikepenz.aboutlibraries.plugin
 
+import com.mikepenz.aboutlibraries.plugin.AboutLibrariesExtension.Companion.PROP_EXPORT_OUTPUT_FILE
 import com.mikepenz.aboutlibraries.plugin.AboutLibrariesExtension.Companion.PROP_EXPORT_OUTPUT_PATH
 import com.mikepenz.aboutlibraries.plugin.AboutLibrariesExtension.Companion.PROP_EXPORT_PATH
 import com.mikepenz.aboutlibraries.plugin.AboutLibrariesExtension.Companion.PROP_PREFIX
@@ -10,9 +11,11 @@ import com.mikepenz.aboutlibraries.plugin.model.writeToDisk
 import com.mikepenz.aboutlibraries.plugin.util.forLicense
 import org.gradle.api.file.RegularFile
 import org.gradle.api.file.RegularFileProperty
+import org.gradle.api.provider.Property
 import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
 import org.slf4j.LoggerFactory
@@ -26,8 +29,12 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
     @get:OutputFile
     protected abstract val outputFile: RegularFileProperty
 
-    override fun getDescription(): String = "Writes the relevant meta data for the AboutLibraries plugin to display dependencies"
-    override fun getGroup(): String = "Build"
+    @get:Optional
+    @get:Input
+    abstract val deprecated: Property<Boolean>
+
+    override fun getDescription(): String = "Exports dependency meta data from the current module.${variant.orNull?.let { " Filtered by variant: '$it'." } ?: ""}"
+    override fun getGroup(): String = super.group ?: org.gradle.language.base.plugins.LifecycleBasePlugin.BUILD_GROUP
 
     fun configureOutputFile(outputFile: Provider<RegularFile>? = null) {
         if (outputFile != null && outputFile.isPresent) {
@@ -37,14 +44,27 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
             val buildDirectory = project.layout.buildDirectory
 
             @Suppress("DEPRECATION")
-            val outputFileName = extension.export.outputFileName.get()
+            val fileNameProvider = project.provider {
+                val config = extension.exports.findByName(variant.getOrElse(""))
+                config?.outputFileName?.orNull ?: extension.export.outputFileName.get()
+            }
+
+            val outputFileProvider = project.provider {
+                val config = extension.exports.findByName(variant.getOrElse(""))
+                config?.outputFile?.orNull ?: extension.export.outputFile.orNull
+            }
+
             val providers = project.providers
+
+            @Suppress("DEPRECATION")
             this.outputFile.set(
-                providers.gradleProperty("${PROP_PREFIX}${PROP_EXPORT_OUTPUT_PATH}").map { path -> projectDirectory.file(path) }.orElse(
-                    providers.gradleProperty("${PROP_PREFIX}${PROP_EXPORT_PATH}").map { path -> projectDirectory.dir(path).file(outputFileName) }.orElse(
-                        providers.gradleProperty(PROP_EXPORT_PATH).map { path -> projectDirectory.dir(path).file(outputFileName) }).orElse(
-                        extension.export.outputPath.orElse(
-                            buildDirectory.dir("generated/aboutLibraries/").map { it.file(outputFileName) }
+                providers.gradleProperty("${PROP_PREFIX}${PROP_EXPORT_OUTPUT_FILE}").map { path -> projectDirectory.file(path) }.orElse(
+                    providers.gradleProperty("${PROP_PREFIX}${PROP_EXPORT_OUTPUT_PATH}").map { path -> projectDirectory.file(path) }.orElse(
+                        providers.gradleProperty("${PROP_PREFIX}${PROP_EXPORT_PATH}").map { path -> projectDirectory.dir(path).file(fileNameProvider.get()) }.orElse(
+                            providers.gradleProperty(PROP_EXPORT_PATH).map { path -> projectDirectory.dir(path).file(fileNameProvider.get()) }).orElse(
+                            outputFileProvider.orElse(
+                                buildDirectory.dir("generated/aboutLibraries/").map { it.file(fileNameProvider.get()) }
+                            )
                         )
                     )
                 )
@@ -54,17 +74,22 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
 
     @TaskAction
     fun action() {
+        if (deprecated.isPresent && deprecated.get()) {
+            LOGGER.warn("`generateLibraryDefinitions${variant.orElse("")}` is deprecated. Please use `exportLibraryDefinitions${variant.orElse("")}` instead.")
+        }
+
         val output = outputFile.get().asFile
         if (!output.parentFile.exists()) {
             output.parentFile.mkdirs() // verify output exists
         }
 
-        val libraries = libraries.get()
-        val licenses = licenses.get()
+        val postProcessedLibraryData = createLibraryPostProcessor().process()
+        val libraries = postProcessedLibraryData.libraries
+        val licenses = postProcessedLibraryData.licenses
 
         // validate found licenses match expectation
-        val allowedLicenses = allowedLicenses.getOrElse(emptySet()).map { it.lowercase(Locale.ENGLISH) }
-        if (allowedLicenses.isNotEmpty() && strictMode.getOrElse(StrictMode.IGNORE) != StrictMode.IGNORE) {
+        val allowedLicenses = allowedLicenses.get().map { it.lowercase(Locale.ENGLISH) }
+        if (allowedLicenses.isNotEmpty() && strictMode.get() != StrictMode.IGNORE) {
             // detect all missing licenses
             val missing = mutableListOf<License>()
             licenses.values.forEach {
@@ -114,7 +139,7 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
                 repeat(2) {
                     message.appendLine("=======================================")
                 }
-                if (strictMode.getOrElse(StrictMode.IGNORE) == StrictMode.FAIL) {
+                if (strictMode.get() == StrictMode.FAIL) {
                     throw IllegalStateException(message.toString())
                 } else {
                     LOGGER.warn(message.toString())
@@ -123,7 +148,12 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
         }
 
         // write to disk
-        ResultContainer(libraries, licenses).writeToDisk(output, includeMetaData.get(), excludeFields.get(), prettyPrint.get())
+        ResultContainer(libraries, licenses).writeToDisk(
+            outputFile = output,
+            includeMetaData = includeMetaData.get(),
+            excludeFields = excludeFields.get(),
+            prettyPrint = prettyPrint.get()
+        )
     }
 
     companion object {
