@@ -208,7 +208,10 @@ internal class DependencyCollector(
         if (artifactVersion.isNullOrBlank()) LOGGER.info("----> Failed to identify version for: $uniqueId")
         val libraryWebsite = chooseStringValue(pom, parentRawModel) { it.url }
 
-        val licenses = chooseValue(pom, parentRawModel) { it.licenses }?.map { License(it.name ?: "", it.url) }?.toHashSet() ?: emptySet()
+        val licenses = chooseValue(pom, parentRawModel) { it.licenses }?.map {
+            if (it.name == null) LOGGER.info("----> License name was null url: ${it.url} for: $uniqueId")
+            License(it.name ?: "", it.url)
+        }?.toHashSet() ?: emptySet()
         val scm = chooseValue(pom, parentRawModel) { it.scm }?.let { Scm(it.connection, it.developerConnection, it.url) }
         val developers = chooseValue(pom, parentRawModel) { it.developers }?.map { Developer(it.name, it.organizationUrl) }?.toHashSet()?.toList() ?: emptyList()
         val organization = chooseValue(pom, parentRawModel) { it.organization }?.let { Organization(it.name, it.url) }
