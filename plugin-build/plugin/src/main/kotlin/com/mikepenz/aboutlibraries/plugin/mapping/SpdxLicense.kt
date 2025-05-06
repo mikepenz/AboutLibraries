@@ -151,6 +151,7 @@ enum class SpdxLicense(
     EPL_1_0("Eclipse Public License 1.0", "EPL-1.0"),
     EPL_2_0("Eclipse Public License 2.0", "EPL-2.0", "epl_2_0", customMatcher = { _, url ->
         url == "https://www.eclipse.org/legal/epl-v20.html"
+            || url == "https://www.eclipse.org/org/documents/epl-2.0/EPL-2.0.txt"
     }),
     ErlPL_1_1("Erlang Public License v1.1", "ErlPL-1.1"),
     etalab_2_0("Etalab Open License 2.0", "etalab-2.0"),
@@ -392,7 +393,8 @@ enum class SpdxLicense(
 
     // Special handling section
     Apache_2_0("Apache License 2.0", "Apache-2.0", customMatcher = { name, url ->
-        name.contains("Apache", true) || url?.endsWith("LICENSE-2.0.txt") == true
+        name.contains("Apache", true)
+            || url?.endsWith("LICENSE-2.0.txt") == true
     }),
     BSD_2_Clause("BSD 2-Clause \"Simplified\" License", "BSD-2-Clause", customMatcher = { name, url ->
         name.equals("BSD 2-Clause License", true)
@@ -400,11 +402,10 @@ enum class SpdxLicense(
             || url?.endsWith("opensource.org/licenses/bsd-license", true) == true
     }),
     BSD_3_Clause("BSD 3-Clause \"New\" or \"Revised\" License", "BSD-3-Clause", customMatcher = { name, url ->
-        name.equals("New BSD License", true) || name.equals("Modified BSD License", true) || name.equals(
-            "BSD 3-clause",
-            true
-        ) ||
-            url?.endsWith("opensource.org/licenses/BSD-3-Clause", true) == true
+        name.equals("New BSD License", true)
+            || name.equals("Modified BSD License", true)
+            || name.equals("BSD 3-clause", true)
+            || url?.endsWith("opensource.org/licenses/BSD-3-Clause", true) == true
     }),
     MIT("MIT License", "MIT", customMatcher = { name, _ ->
         name.contains("MIT", true)
@@ -426,7 +427,10 @@ enum class SpdxLicense(
     GPL_2_0_CPE(
         "GNU General Public License, version 2, with the Classpath Exception",
         "GPL-2.0-CPE",
-        customUrl = "https://openjdk.org/legal/gplv2+ce.html"
+        customUrl = "https://openjdk.org/legal/gplv2+ce.html",
+        customMatcher = { name, url ->
+            url?.equals("https://www.gnu.org/software/classpath/license.html") == true
+        }
     );
 
     fun getUrl(): String = customUrl ?: "https://spdx.org/licenses/$id.html"
