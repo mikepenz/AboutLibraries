@@ -208,9 +208,9 @@ internal class DependencyCollector(
         if (artifactVersion.isNullOrBlank()) LOGGER.info("----> Failed to identify version for: $uniqueId")
         val libraryWebsite = chooseStringValue(pom, parentRawModel) { it.url }
 
-        val licenses = combineValues(pom, parentRawModel) { it.licenses }.mapNotNull { License(it.name ?: "", it.url) }.toHashSet()
+        val licenses = chooseValue(pom, parentRawModel) { it.licenses }?.map { License(it.name ?: "", it.url) }?.toHashSet() ?: emptySet()
         val scm = chooseValue(pom, parentRawModel) { it.scm }?.let { Scm(it.connection, it.developerConnection, it.url) }
-        val developers = combineValues(pom, parentRawModel) { it.developers }.map { Developer(it.name, it.organizationUrl) }.toHashSet().toList()
+        val developers = chooseValue(pom, parentRawModel) { it.developers }?.map { Developer(it.name, it.organizationUrl) }?.toHashSet()?.toList() ?: emptyList()
         val organization = chooseValue(pom, parentRawModel) { it.organization }?.let { Organization(it.name, it.url) }
         return DependencyData(
             dependencyCoordinates = coordinates,
@@ -232,13 +232,6 @@ internal class DependencyCollector(
     }
 
     private fun <T> chooseValue(pom: Model, parentRawModel: List<Model>, block: (Model) -> T?): T? = pom.let(block) ?: parentRawModel.firstOrNull()?.let(block)
-
-    private fun <T> combineValues(pom: Model, parentRawModel: List<Model>, block: (Model) -> List<T>): List<T> {
-        val combined = mutableListOf<T>()
-        pom.let(block).also { combined.addAll(it) }
-        parentRawModel.onEach { block(it).also { value -> combined.addAll(value) } }
-        return combined
-    }
 
     /**
      * Fetches the pom files for all [ResolvedVariantResult]s.
