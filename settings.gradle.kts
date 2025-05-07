@@ -35,6 +35,7 @@ include(":app")
 include(":app-desktop")
 include(":app-wasm")
 include(":app-test")
+include(":app-jvm-test")
 
 includeBuild("plugin-build") {
     dependencySubstitution {
