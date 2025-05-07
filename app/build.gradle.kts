@@ -125,8 +125,6 @@ dependencies {
     implementation(compose.components.resources)
     implementation(compose.materialIconsExtended)
 
-    implementation(libs.bundles.accompanist)
-
     //used to generate the drawer on the left
     //https://github.com/mikepenz/MaterialDrawer
     implementation(libs.materialDrawer.core)
