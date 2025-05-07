@@ -53,7 +53,7 @@ public abstract interface class com/mikepenz/aboutlibraries/ui/compose/LibraryTe
 	public abstract fun getLicensesTextStyle ()Landroidx/compose/ui/text/TextStyle;
 	public abstract fun getNameMaxLines ()I
 	public abstract fun getNameOverflow-gIe3tQ8 ()I
-	public abstract fun getNameTextStyles ()Landroidx/compose/ui/text/TextStyle;
+	public abstract fun getNameTextStyle ()Landroidx/compose/ui/text/TextStyle;
 	public abstract fun getVersionMaxLines ()I
 	public abstract fun getVersionTextStyle ()Landroidx/compose/ui/text/TextStyle;
 }
