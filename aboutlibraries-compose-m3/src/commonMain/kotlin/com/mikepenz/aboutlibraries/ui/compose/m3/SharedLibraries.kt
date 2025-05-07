@@ -304,7 +304,7 @@ fun Library(
         name = {
             Text(
                 text = library.name,
-                style = typography.titleLarge,
+                style = textStyles.nameTextStyle ?: typography.titleLarge,
                 color = colors.contentColor,
                 maxLines = textStyles.nameMaxLines,
                 overflow = textStyles.nameOverflow,
@@ -315,7 +315,7 @@ fun Library(
             if (version != null && showVersion) {
                 Text(
                     text = version,
-                    style = typography.bodyMedium,
+                    style = textStyles.versionTextStyle ?: typography.bodyMedium,
                     color = colors.contentColor,
                     maxLines = textStyles.versionMaxLines,
                     textAlign = TextAlign.Center,
@@ -328,7 +328,7 @@ fun Library(
             if (showAuthor && author.isNotBlank()) {
                 Text(
                     text = author,
-                    style = typography.bodyMedium,
+                    style = textStyles.authorTextStyle ?: typography.bodyMedium,
                     color = colors.contentColor,
                     maxLines = textStyles.authorMaxLines,
                     overflow = textStyles.defaultOverflow,
@@ -340,7 +340,7 @@ fun Library(
             if (showDescription && !description.isNullOrBlank()) {
                 Text(
                     text = description,
-                    style = typography.bodySmall,
+                    style = textStyles.descriptionTextStyle ?: typography.bodySmall,
                     color = colors.contentColor,
                     maxLines = textStyles.descriptionMaxLines,
                     overflow = textStyles.defaultOverflow,

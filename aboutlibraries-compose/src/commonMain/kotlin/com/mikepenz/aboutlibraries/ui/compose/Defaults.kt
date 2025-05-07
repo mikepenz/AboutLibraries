@@ -57,15 +57,20 @@ object LibraryDefaults {
      * Creates a [LibraryTextStyles] that represents the default configurations used in a [Library]
      *
      * @param defaultOverflow the default text overflow for all line limited texts
+     * @param nameTextStyle the text styles for the name text
      * @param nameMaxLines the max lines allowed for the name text
      * @param nameOverflow the text overflow for the name text
+     * @param versionTextStyle the text styles for the version text
      * @param versionMaxLines the max lines allowed for the version text
+     * @param authorTextStyle the text styles for the author text
      * @param authorMaxLines the max lines allowed for the author text
+     * @param descriptionTextStyle the text styles for the description text
      * @param descriptionMaxLines the max lines allowed for the description text
+     * @param licensesTextStyle the text styles for the licenses text
      */
     fun libraryTextStyles(
         defaultOverflow: TextOverflow = TextOverflow.Ellipsis,
-        nameTextStyles: TextStyle? = null,
+        nameTextStyle: TextStyle? = null,
         nameMaxLines: Int = 1,
         nameOverflow: TextOverflow = defaultOverflow,
         versionTextStyle: TextStyle? = null,
@@ -77,7 +82,7 @@ object LibraryDefaults {
         licensesTextStyle: TextStyle? = null,
     ): LibraryTextStyles = DefaultLibraryTextStyles(
         defaultOverflow = defaultOverflow,
-        nameTextStyles = nameTextStyles,
+        nameTextStyle = nameTextStyle,
         nameMaxLines = nameMaxLines,
         nameOverflow = nameOverflow,
         versionTextStyle = versionTextStyle,
@@ -188,7 +193,7 @@ interface LibraryTextStyles {
     val defaultOverflow: TextOverflow
 
     /** Represents the text styles for the name text */
-    val nameTextStyles: TextStyle?
+    val nameTextStyle: TextStyle?
 
     /** Represents the max lines allowed for the name text */
     val nameMaxLines: Int
@@ -224,7 +229,7 @@ interface LibraryTextStyles {
 @Immutable
 private class DefaultLibraryTextStyles(
     override val defaultOverflow: TextOverflow,
-    override val nameTextStyles: TextStyle?,
+    override val nameTextStyle: TextStyle?,
     override val nameMaxLines: Int,
     override val nameOverflow: TextOverflow,
     override val versionTextStyle: TextStyle?,

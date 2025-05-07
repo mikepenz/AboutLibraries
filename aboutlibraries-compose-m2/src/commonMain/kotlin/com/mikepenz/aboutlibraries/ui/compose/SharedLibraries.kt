@@ -291,7 +291,7 @@ fun Library(
         name = {
             Text(
                 text = library.name,
-                style = textStyles.nameTextStyles ?: typography.h6,
+                style = textStyles.nameTextStyle ?: typography.h6,
                 color = colors.contentColor,
                 maxLines = textStyles.nameMaxLines,
                 overflow = textStyles.nameOverflow,
