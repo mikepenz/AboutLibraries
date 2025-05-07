@@ -75,7 +75,7 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
     @TaskAction
     fun action() {
         if (deprecated.isPresent && deprecated.get()) {
-            LOGGER.warn("`generateLibraryDefinitions${variant.orElse("")}` is deprecated. Please use `exportLibraryDefinitions${variant.orElse("")}` instead.")
+            LOGGER.warn("`generateLibraryDefinitions${variant.orElse("").get()}` is deprecated. Please use `exportLibraryDefinitions${variant.orElse("").get()}` instead.")
         }
 
         val output = outputFile.get().asFile
