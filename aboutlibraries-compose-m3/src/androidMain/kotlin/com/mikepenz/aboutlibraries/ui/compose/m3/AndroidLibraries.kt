@@ -16,6 +16,7 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.fromHtml
 import androidx.compose.ui.unit.dp
 import com.mikepenz.aboutlibraries.Libs
+import com.mikepenz.aboutlibraries.entity.Funding
 import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.ui.compose.LibraryColors
 import com.mikepenz.aboutlibraries.ui.compose.LibraryDefaults
@@ -33,6 +34,7 @@ import kotlinx.coroutines.withContext
 @Composable
 fun LibrariesContainer(
     modifier: Modifier = Modifier,
+    libraryModifier: Modifier = Modifier,
     librariesBlock: (Context) -> Libs = { context ->
         Libs.Builder().withContext(context).build()
     },
@@ -42,6 +44,7 @@ fun LibrariesContainer(
     showDescription: Boolean = false,
     showVersion: Boolean = true,
     showLicenseBadges: Boolean = true,
+    showFundingBadges: Boolean = false,
     colors: LibraryColors = LibraryDefaults.libraryColors(),
     padding: LibraryPadding = LibraryDefaults.libraryPadding(),
     dimensions: LibraryDimensions = LibraryDefaults.libraryDimensions(),
@@ -50,6 +53,7 @@ fun LibrariesContainer(
     divider: (@Composable LazyItemScope.() -> Unit)? = null,
     footer: (LazyListScope.() -> Unit)? = null,
     onLibraryClick: ((Library) -> Unit)? = null,
+    onFundingClick: ((Funding) -> Unit)? = null,
 ) {
     val context = LocalContext.current
 
@@ -61,12 +65,14 @@ fun LibrariesContainer(
     LibrariesContainer(
         libraries = libraries.value,
         modifier = modifier,
+        libraryModifier = libraryModifier,
         lazyListState = lazyListState,
         contentPadding = contentPadding,
         showAuthor = showAuthor,
         showDescription = showDescription,
         showVersion = showVersion,
         showLicenseBadges = showLicenseBadges,
+        showFundingBadges = showFundingBadges,
         colors = colors,
         padding = padding,
         dimensions = dimensions,
@@ -75,9 +81,12 @@ fun LibrariesContainer(
         divider = divider,
         footer = footer,
         onLibraryClick = onLibraryClick,
+        onFundingClick = onFundingClick,
         licenseDialogBody = { library ->
             val license = remember(library) {
-                library.htmlReadyLicenseContent.takeIf { it.isNotEmpty() }?.let { AnnotatedString.fromHtml(it) }
+                library.htmlReadyLicenseContent
+                    .takeIf { it.isNotEmpty() }
+                    ?.let { AnnotatedString.fromHtml(it) }
             }
             if (license != null) {
                 Text(

@@ -35,6 +35,7 @@ fun LibraryScaffoldLayout(
     author: @Composable BoxScope.() -> Unit,
     description: @Composable BoxScope.() -> Unit,
     licenses: @Composable FlowRowScope.() -> Unit,
+    actions: @Composable FlowRowScope.() -> Unit,
     modifier: Modifier = Modifier,
     libraryPadding: LibraryPadding = LibraryDefaults.libraryPadding(),
 ) {
@@ -45,7 +46,10 @@ fun LibraryScaffoldLayout(
             Box(Modifier.layoutId(LibraryLayoutContent.Version).padding(libraryPadding.versionPadding), content = version)
             Box(Modifier.layoutId(LibraryLayoutContent.Author), content = author)
             Box(Modifier.layoutId(LibraryLayoutContent.Description), content = description)
-            FlowRow(Modifier.layoutId(LibraryLayoutContent.Licenses), content = licenses)
+            FlowRow(Modifier.layoutId(LibraryLayoutContent.Actions), content = {
+                licenses()
+                actions()
+            })
         },
     ) { measurables, constraints ->
         // don't allow version to take more than 30%
@@ -65,7 +69,7 @@ fun LibraryScaffoldLayout(
         val descriptionPlaceable = measurables.fastFirst { it.layoutId == LibraryLayoutContent.Description }.measure(constraints.copy(minWidth = 0))
 
         val descriptionGuideline = authorGuideline + descriptionPlaceable.height + libraryPadding.verticalPadding.toPx().toInt()
-        val licensesPlaceable = measurables.fastFirst { it.layoutId == LibraryLayoutContent.Licenses }.measure(constraints.copy(minWidth = 0))
+        val licensesPlaceable = measurables.fastFirst { it.layoutId == LibraryLayoutContent.Actions }.measure(constraints.copy(minWidth = 0))
 
         val layoutHeight = descriptionGuideline + licensesPlaceable.height
 
@@ -80,5 +84,5 @@ fun LibraryScaffoldLayout(
 }
 
 private enum class LibraryLayoutContent {
-    Name, Version, Author, Description, Licenses
+    Name, Version, Author, Description, Actions
 }

@@ -18,13 +18,14 @@ fun main() = application {
     Window(title = "AboutLibraries Sample", onCloseRequest = ::exitApplication) {
         SampleTheme {
             Scaffold(
-                topBar = { TopAppBar(title = { Text("AboutLibraries Compose Desktop Sample") }) }) {
+                topBar = { TopAppBar(title = { Text("AboutLibraries Compose Desktop Sample", maxLines = 1) }) }) {
                 val libraries by rememberLibraries {
                     Res.readBytes("files/aboutlibraries.json").decodeToString()
                 }
                 LibrariesContainer(
                     libraries = libraries,
                     modifier = Modifier.fillMaxSize(),
+                    showFundingBadges = true,
                     // divider = { Divider(modifier = Modifier.fillMaxWidth()) }
                 )
             }

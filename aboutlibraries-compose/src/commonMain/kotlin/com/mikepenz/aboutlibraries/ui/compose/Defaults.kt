@@ -80,6 +80,7 @@ object LibraryDefaults {
         descriptionTextStyle: TextStyle? = null,
         descriptionMaxLines: Int = 3,
         licensesTextStyle: TextStyle? = null,
+        fundingTextStyle: TextStyle? = null,
     ): LibraryTextStyles = DefaultLibraryTextStyles(
         defaultOverflow = defaultOverflow,
         nameTextStyle = nameTextStyle,
@@ -92,6 +93,7 @@ object LibraryDefaults {
         descriptionTextStyle = descriptionTextStyle,
         descriptionMaxLines = descriptionMaxLines,
         licensesTextStyle = licensesTextStyle,
+        fundingTextStyle = fundingTextStyle,
     )
 }
 
@@ -106,11 +108,17 @@ interface LibraryColors {
     /** Represents the content color for this library item. */
     val contentColor: Color
 
-    /** Represents the badge background color for this library item. */
+    /** Represents the license badge background color for this library item. */
     val badgeBackgroundColor: Color
 
-    /** Represents the badge content color for this library item. */
+    /** Represents the license badge content color for this library item. */
     val badgeContentColor: Color
+
+    /** Represents the funding badge background color for this library item. */
+    val fundingBadgeBackgroundColor: Color
+
+    /** Represents the funding badge content color for this library item. */
+    val fundingBadgeContentColor: Color
 
     /** Represents the text color of the dialog's confirm button  */
     val dialogConfirmButtonColor: Color
@@ -125,6 +133,8 @@ class DefaultLibraryColors(
     override val contentColor: Color,
     override val badgeBackgroundColor: Color,
     override val badgeContentColor: Color,
+    override val fundingBadgeBackgroundColor: Color,
+    override val fundingBadgeContentColor: Color,
     override val dialogConfirmButtonColor: Color,
 ) : LibraryColors
 
@@ -219,8 +229,11 @@ interface LibraryTextStyles {
     /** Represents the max lines allowed for the description text */
     val descriptionMaxLines: Int
 
-    /** Represents the text styles for the description text */
+    /** Represents the text styles for the licenses badge text */
     val licensesTextStyle: TextStyle?
+
+    /** Represents the text styles for the funding badge text */
+    val fundingTextStyle: TextStyle?
 }
 
 /**
@@ -239,4 +252,5 @@ private class DefaultLibraryTextStyles(
     override val descriptionTextStyle: TextStyle?,
     override val descriptionMaxLines: Int,
     override val licensesTextStyle: TextStyle?,
+    override val fundingTextStyle: TextStyle?,
 ) : LibraryTextStyles
