@@ -144,6 +144,10 @@ dependencies {
 
     // used only tho showcase multi flavor support
     "stagingImplementation"(libs.okhttp.core)
+
+    // used to test matching of license names
+    implementation("com.github.librepdf:openpdf:1.3.43")
+    implementation("com.google.android.play:app-update-ktx:2.1.0")
 }
 
 configurations.configureEach {
