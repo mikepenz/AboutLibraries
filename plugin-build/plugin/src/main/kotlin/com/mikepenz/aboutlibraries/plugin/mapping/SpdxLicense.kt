@@ -210,14 +210,17 @@ enum class SpdxLicense(
     LGPL_2_0_or_later("GNU Library General Public License v2 or later", "LGPL-2.0-or-later"),
     LGPL_2_1_only("GNU Lesser General Public License v2.1 only", "LGPL-2.1-only",
         customMatcher = { name, _ ->
-            Regex(
-                "GNU Lesser General Public License( \\(LGPL\\))?,? (v|Version) ?2\\.1( only)?",
-                RegexOption.IGNORE_CASE
-            ).containsMatchIn(name)
+            name.equals("GNU Lesser General Public License v2.1 only", true)
+                    || name.equals("GNU Lesser General Public License (LGPL), Version 2.1", true)
         }
     ),
     LGPL_2_1_or_later("GNU Lesser General Public License v2.1 or later", "LGPL-2.1-or-later"),
-    LGPL_3_0_only("GNU Lesser General Public License v3.0 only", "LGPL-3.0-only"),
+    LGPL_3_0_only("GNU Lesser General Public License v3.0 only", "LGPL-3.0-only",
+        customMatcher = { name, _ ->
+            name.equals("GNU Lesser General Public License v3.0 only", true)
+                    || name.equals("GNU General Lesser Public License (LGPL) version 3.0", true)
+        }
+    ),
     LGPL_3_0_or_later("GNU Lesser General Public License v3.0 or later", "LGPL-3.0-or-later"),
     LGPLLR("Lesser General Public License For Linguistic Resources", "LGPLLR"),
     Libpng("libpng License", "Libpng"),
@@ -247,11 +250,10 @@ enum class SpdxLicense(
     MPL_1_0("Mozilla Public License 1.0", "MPL-1.0"),
     MPL_1_1("Mozilla Public License 1.1", "MPL-1.1"),
     MPL_2_0("Mozilla Public License 2.0", "MPL-2.0",
-        customMatcher = { name, _ ->
-            Regex(
-                "Mozilla Public License( Version)? 2\\.0",
-                RegexOption.IGNORE_CASE
-            ).containsMatchIn(name)
+        customMatcher = { name, url ->
+            name.contains("Mozilla Public License", true)
+                    && url?.contains("mozilla.org", true) == true
+                    && url.contains("MPL/2.0", true)
         }
     ),
     MPL_2_0_no_copyleft_exception(
