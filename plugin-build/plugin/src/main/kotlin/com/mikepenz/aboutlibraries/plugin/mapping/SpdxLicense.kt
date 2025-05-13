@@ -211,6 +211,7 @@ enum class SpdxLicense(
     LGPL_2_1_only("GNU Lesser General Public License v2.1 only", "LGPL-2.1-only", customMatcher = { name, _ ->
         name.contains("GNU Lesser General Public License", true)
                 && name.contains("2.1", true)
+                && !name.contains("later")
     }),
     LGPL_2_1_or_later("GNU Lesser General Public License v2.1 or later", "LGPL-2.1-or-later"),
     LGPL_3_0_only("GNU Lesser General Public License v3.0 only", "LGPL-3.0-only"),
