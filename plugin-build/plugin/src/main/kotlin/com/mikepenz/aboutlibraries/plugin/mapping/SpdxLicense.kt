@@ -208,11 +208,14 @@ enum class SpdxLicense(
     Leptonica("Leptonica License", "Leptonica"),
     LGPL_2_0_only("GNU Library General Public License v2 only", "LGPL-2.0-only"),
     LGPL_2_0_or_later("GNU Library General Public License v2 or later", "LGPL-2.0-or-later"),
-    LGPL_2_1_only("GNU Lesser General Public License v2.1 only", "LGPL-2.1-only", customMatcher = { name, _ ->
-        name.contains("GNU Lesser General Public License", true)
-                && name.contains("2.1", true)
-                && !name.contains("later")
-    }),
+    LGPL_2_1_only("GNU Lesser General Public License v2.1 only", "LGPL-2.1-only",
+        customMatcher = { name, _ ->
+            Regex(
+                "GNU Lesser General Public License( \\(LGPL\\))?,? (v|Version) ?2\\.1( only)?",
+                RegexOption.IGNORE_CASE
+            ).containsMatchIn(name)
+        }
+    ),
     LGPL_2_1_or_later("GNU Lesser General Public License v2.1 or later", "LGPL-2.1-or-later"),
     LGPL_3_0_only("GNU Lesser General Public License v3.0 only", "LGPL-3.0-only"),
     LGPL_3_0_or_later("GNU Lesser General Public License v3.0 or later", "LGPL-3.0-or-later"),
@@ -243,10 +246,14 @@ enum class SpdxLicense(
     mpich2("mpich2 License", "mpich2"),
     MPL_1_0("Mozilla Public License 1.0", "MPL-1.0"),
     MPL_1_1("Mozilla Public License 1.1", "MPL-1.1"),
-    MPL_2_0("Mozilla Public License 2.0", "MPL-2.0", customMatcher = { name, _ ->
-        name.contains("Mozilla Public License", true)
-                && name.contains("2.0", true)
-    }),
+    MPL_2_0("Mozilla Public License 2.0", "MPL-2.0",
+        customMatcher = { name, _ ->
+            Regex(
+                "Mozilla Public License( Version)? 2\\.0",
+                RegexOption.IGNORE_CASE
+            ).containsMatchIn(name)
+        }
+    ),
     MPL_2_0_no_copyleft_exception(
         "Mozilla Public License 2.0 (no copyleft exception)",
         "MPL-2.0-no-copyleft-exception"
