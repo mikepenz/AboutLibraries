@@ -208,9 +208,17 @@ enum class SpdxLicense(
     Leptonica("Leptonica License", "Leptonica"),
     LGPL_2_0_only("GNU Library General Public License v2 only", "LGPL-2.0-only"),
     LGPL_2_0_or_later("GNU Library General Public License v2 or later", "LGPL-2.0-or-later"),
-    LGPL_2_1_only("GNU Lesser General Public License v2.1 only", "LGPL-2.1-only"),
+    LGPL_2_1_only("GNU Lesser General Public License v2.1 only", "LGPL-2.1-only",
+        customMatcher = { name, _ ->
+            name.equals("GNU Lesser General Public License (LGPL), Version 2.1", true)
+        }
+    ),
     LGPL_2_1_or_later("GNU Lesser General Public License v2.1 or later", "LGPL-2.1-or-later"),
-    LGPL_3_0_only("GNU Lesser General Public License v3.0 only", "LGPL-3.0-only"),
+    LGPL_3_0_only("GNU Lesser General Public License v3.0 only", "LGPL-3.0-only",
+        customMatcher = { name, _ ->
+            name.equals("GNU General Lesser Public License (LGPL) version 3.0", true)
+        }
+    ),
     LGPL_3_0_or_later("GNU Lesser General Public License v3.0 or later", "LGPL-3.0-or-later"),
     LGPLLR("Lesser General Public License For Linguistic Resources", "LGPLLR"),
     Libpng("libpng License", "Libpng"),
@@ -239,7 +247,13 @@ enum class SpdxLicense(
     mpich2("mpich2 License", "mpich2"),
     MPL_1_0("Mozilla Public License 1.0", "MPL-1.0"),
     MPL_1_1("Mozilla Public License 1.1", "MPL-1.1"),
-    MPL_2_0("Mozilla Public License 2.0", "MPL-2.0"),
+    MPL_2_0("Mozilla Public License 2.0", "MPL-2.0",
+        customMatcher = { name, url ->
+            name.contains("Mozilla Public License", true)
+                    && url?.contains("mozilla.org", true) == true
+                    && url.contains("MPL/2.0", true)
+        }
+    ),
     MPL_2_0_no_copyleft_exception(
         "Mozilla Public License 2.0 (no copyleft exception)",
         "MPL-2.0-no-copyleft-exception"
@@ -421,8 +435,19 @@ enum class SpdxLicense(
     }),
 
     // Special proprietary libraries section
-    ASDKL("Android Software Development Kit License", "ASDKL"),
-    CTS("Crashlytics Terms of Service", "CTS"),
+    ASDKL(
+        "Android Software Development Kit License",
+        "ASDKL",
+        customUrl = "https://developer.android.com/studio/terms.html",
+        customMatcher = { name, _ ->
+            name.contains("Android Software Development Kit License", false)
+        }
+    ),
+    CTS(
+        "Crashlytics Terms of Service",
+        "CTS",
+        customUrl = "https://firebase.google.com/terms/crashlytics.html",
+    ),
     FSSA("Fabric Software and Services Agreement", "FSSA"),
     GPL_2_0_CPE(
         "GNU General Public License, version 2, with the Classpath Exception",
@@ -430,6 +455,14 @@ enum class SpdxLicense(
         customUrl = "https://openjdk.org/legal/gplv2+ce.html",
         customMatcher = { name, url ->
             url?.equals("https://www.gnu.org/software/classpath/license.html") == true
+        }
+    ),
+    PCSDKToS(
+        "Play Core Software Development Kit Terms of Service",
+        "PCSDKToS",
+        customUrl = "https://developer.android.com/guide/playcore.html#license",
+        customMatcher = { name, _ ->
+            name.contains("Play Core Software Development Kit", true)
         }
     );
 

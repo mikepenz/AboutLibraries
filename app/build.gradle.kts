@@ -125,12 +125,12 @@ dependencies {
     implementation(compose.components.resources)
     implementation(compose.materialIconsExtended)
 
-    //used to generate the drawer on the left
-    //https://github.com/mikepenz/MaterialDrawer
+    // used to generate the drawer on the left
+    // https://github.com/mikepenz/MaterialDrawer
     implementation(libs.materialDrawer.core)
 
-    //used to provide different itemAnimators for the RecyclerView
-    //https://github.com/mikepenz/ItemAnimators
+    // used to provide different itemAnimators for the RecyclerView
+    // https://github.com/mikepenz/ItemAnimators
     implementation(libs.itemAnimators.core)
 
     // used to provide out of the box icon font support. simplifies development,
@@ -138,12 +138,16 @@ dependencies {
     // https://github.com/mikepenz/Android-Iconics
     implementation(libs.iconics.core)
 
-    //used to display the icons in the drawer
-    //https://github.com/mikepenz/Android-Iconicsx`
+    // used to display the icons in the drawer
+    // https://github.com/mikepenz/Android-Iconicsx`
     implementation("com.mikepenz:material-design-iconic-typeface:2.2.0.8-kotlin@aar")
 
     // used only tho showcase multi flavor support
     "stagingImplementation"(libs.okhttp.core)
+
+    // used to test matching of license names
+//    implementation("com.github.librepdf:openpdf:1.3.43")
+//    implementation("com.google.android.play:app-update-ktx:2.1.0")
 }
 
 configurations.configureEach {
