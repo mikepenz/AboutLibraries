@@ -30,6 +30,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.PointerIcon
+import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -82,6 +84,8 @@ fun LibrariesContainer(
             LibraryChip(
                 modifier = Modifier.padding(padding.versionPadding.containerPadding),
                 minHeight = dimensions.chipMinHeight,
+                backgroundColor = colors.versionChipColors.containerColor,
+                contentColor = colors.versionChipColors.contentColor,
                 shape = shapes.chipShape,
             ) {
                 Text(
@@ -122,8 +126,8 @@ fun LibrariesContainer(
             LibraryChip(
                 modifier = Modifier.padding(padding.licensePadding.containerPadding),
                 minHeight = dimensions.chipMinHeight,
-                backgroundColor = colors.badgeBackgroundColor,
-                contentColor = colors.badgeContentColor,
+                backgroundColor = colors.licenseChipColors.containerColor,
+                contentColor = colors.licenseChipColors.contentColor,
                 shape = shapes.chipShape,
             ) {
                 Text(
@@ -140,7 +144,7 @@ fun LibrariesContainer(
         if (showFundingBadges) {
             val uriHandler = LocalUriHandler.current
             LibraryChip(
-                modifier = Modifier.padding(padding.fundingPadding.containerPadding),
+                modifier = Modifier.padding(padding.fundingPadding.containerPadding).pointerHoverIcon(PointerIcon.Hand),
                 onClick = {
                     if (onFundingClick != null) {
                         onFundingClick(funding)
@@ -153,8 +157,8 @@ fun LibrariesContainer(
                     }
                 },
                 minHeight = dimensions.chipMinHeight,
-                backgroundColor = colors.fundingBadgeContentColor,
-                contentColor = colors.fundingBadgeBackgroundColor,
+                backgroundColor = colors.fundingChipColors.containerColor,
+                contentColor = colors.fundingChipColors.contentColor,
                 shape = shapes.chipShape,
             ) {
                 Text(
@@ -284,25 +288,62 @@ internal fun LicenseDialogBody(library: Library, colors: LibraryColors, modifier
  * @param contentColor the content color of this [Library]
  * @param badgeBackgroundColor the badge background color of this [Library]
  * @param badgeContentColor the badge content color of this [Library]
- * @param fundingBadgeBackgroundColor the funding badge background color of this [Library]
- * @param fundingBadgeContentColor the funding badge content color of this [Library]
+ * @param dialogConfirmButtonColor the dialog's confirm button color of this [Library]
+ */
+@Deprecated("Use libraryColors() instead with `ChipColors` arguments.")
+@Composable
+fun LibraryDefaults.libraryColors(
+    backgroundColor: Color,
+    contentColor: Color = contentColorFor(backgroundColor),
+    badgeBackgroundColor: Color = MaterialTheme.colors.primary,
+    badgeContentColor: Color = contentColorFor(badgeBackgroundColor),
+    dialogConfirmButtonColor: Color = MaterialTheme.colors.primary,
+): LibraryColors = libraryColors(
+    backgroundColor = backgroundColor,
+    contentColor = contentColor,
+    versionChipColors = chipColors(containerColor = backgroundColor),
+    licenseChipColors = chipColors(badgeBackgroundColor, badgeContentColor),
+    dialogConfirmButtonColor = dialogConfirmButtonColor,
+)
+
+/**
+ * Creates a [LibraryColors] that represents the default colors used in a [Library].
+ *
+ * @param backgroundColor the background color of this [Library]
+ * @param contentColor the content color of this [Library]
+ * @param versionChipColors the colors used for the version chip
+ * @param licenseChipColors the colors used for the license chip
+ * @param fundingChipColors the colors used for the funding chip
  * @param dialogConfirmButtonColor the dialog's confirm button color of this [Library]
  */
 @Composable
 fun LibraryDefaults.libraryColors(
     backgroundColor: Color = MaterialTheme.colors.background,
     contentColor: Color = contentColorFor(backgroundColor),
-    badgeBackgroundColor: Color = MaterialTheme.colors.primary,
-    badgeContentColor: Color = contentColorFor(badgeBackgroundColor),
-    fundingBadgeBackgroundColor: Color = MaterialTheme.colors.secondary,
-    fundingBadgeContentColor: Color = contentColorFor(fundingBadgeBackgroundColor),
+    versionChipColors: ChipColors = chipColors(containerColor = backgroundColor),
+    licenseChipColors: ChipColors = chipColors(),
+    fundingChipColors: ChipColors = chipColors(
+        containerColor = MaterialTheme.colors.secondary,
+        contentColor = contentColorFor(MaterialTheme.colors.secondary),
+    ),
     dialogConfirmButtonColor: Color = MaterialTheme.colors.primary,
 ): LibraryColors = DefaultLibraryColors(
     backgroundColor = backgroundColor,
     contentColor = contentColor,
-    badgeBackgroundColor = badgeBackgroundColor,
-    badgeContentColor = badgeContentColor,
-    fundingBadgeBackgroundColor = fundingBadgeBackgroundColor,
-    fundingBadgeContentColor = fundingBadgeContentColor,
+    versionChipColors = versionChipColors,
+    licenseChipColors = licenseChipColors,
+    fundingChipColors = fundingChipColors,
     dialogConfirmButtonColor = dialogConfirmButtonColor,
+)
+
+/**
+ * Creates a [ChipColors] that represents the colors to use for a chip.
+ */
+@Composable
+fun LibraryDefaults.chipColors(
+    containerColor: Color = MaterialTheme.colors.primary,
+    contentColor: Color = contentColorFor(containerColor),
+): ChipColors = DefaultChipColors(
+    containerColor = containerColor,
+    contentColor = contentColor,
 )

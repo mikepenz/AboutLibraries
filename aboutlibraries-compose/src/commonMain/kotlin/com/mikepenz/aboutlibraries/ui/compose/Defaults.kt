@@ -180,17 +180,14 @@ interface LibraryColors {
     /** Represents the content color for this library item. */
     val contentColor: Color
 
-    /** Represents the license badge background color for this library item. */
-    val badgeBackgroundColor: Color
+    /** Represents the colors used for the [Library.artifactVersion] chip. */
+    val versionChipColors: ChipColors
 
-    /** Represents the license badge content color for this library item. */
-    val badgeContentColor: Color
+    /** Represents the colors used for the [Library.licenses] chip. */
+    val licenseChipColors: ChipColors
 
-    /** Represents the funding badge background color for this library item. */
-    val fundingBadgeBackgroundColor: Color
-
-    /** Represents the funding badge content color for this library item. */
-    val fundingBadgeContentColor: Color
+    /** Represents the colors used for the [Library.funding] chip. */
+    val fundingChipColors: ChipColors
 
     /** Represents the text color of the dialog's confirm button  */
     val dialogConfirmButtonColor: Color
@@ -203,13 +200,30 @@ interface LibraryColors {
 class DefaultLibraryColors(
     override val backgroundColor: Color,
     override val contentColor: Color,
-    override val badgeBackgroundColor: Color,
-    override val badgeContentColor: Color,
-    override val fundingBadgeBackgroundColor: Color,
-    override val fundingBadgeContentColor: Color,
+    override val versionChipColors: ChipColors,
+    override val licenseChipColors: ChipColors,
+    override val fundingChipColors: ChipColors,
     override val dialogConfirmButtonColor: Color,
 ) : LibraryColors
 
+/** Represents the color values used for a chip.*/
+@Stable
+interface ChipColors {
+    /** Represents the background color of the Chip */
+    val containerColor: Color
+
+    /** Represents the color inside the Chip UI element (for the text) */
+    val contentColor: Color
+}
+
+/**
+ * Default [ChipColors].
+ */
+@Immutable
+class DefaultChipColors(
+    override val containerColor: Color,
+    override val contentColor: Color,
+) : ChipColors
 
 /**
  * Represents the padding values used in a library.
