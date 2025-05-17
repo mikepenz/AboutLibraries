@@ -1,10 +1,13 @@
 package com.mikepenz.aboutlibraries.ui.compose
 
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.shape.CornerSize
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
@@ -100,11 +103,15 @@ object LibraryDefaults {
      * Creates a [LibraryDimensions] that represents the default dimensions used in a [Library]
      *
      * @param itemSpacing the spacing between items in the [Library]
+     * @param chipMinHeight the default min height of chip containers in the [Library]
      */
+    @Composable
     fun libraryDimensions(
         itemSpacing: Dp = 0.dp,
+        chipMinHeight: Dp = 16.dp,
     ): LibraryDimensions = DefaultLibraryDimensions(
         itemSpacing = itemSpacing,
+        chipMinHeight = chipMinHeight
     )
 
     /**
@@ -122,6 +129,7 @@ object LibraryDefaults {
      * @param descriptionMaxLines the max lines allowed for the description text
      * @param licensesTextStyle the text styles for the licenses text
      */
+    @Composable
     fun libraryTextStyles(
         defaultOverflow: TextOverflow = TextOverflow.Ellipsis,
         nameTextStyle: TextStyle? = null,
@@ -148,6 +156,16 @@ object LibraryDefaults {
         descriptionMaxLines = descriptionMaxLines,
         licensesTextStyle = licensesTextStyle,
         fundingTextStyle = fundingTextStyle,
+    )
+
+    /**
+     * Creates a [LibraryShapes] that represents the default shapes used in a [Library]
+     */
+    @Composable
+    fun libraryShapes(
+        chipShape: Shape = RoundedCornerShape(CornerSize(percent = 50)),
+    ): LibraryShapes = DefaultLibraryShapes(
+        chipShape = chipShape,
     )
 }
 
@@ -256,6 +274,9 @@ private class DefaultChipPadding(
 interface LibraryDimensions {
     /** Represents the spacing between items in the [Library] */
     val itemSpacing: Dp
+
+    /** Represents the default min height of chip containers in the [Library] */
+    val chipMinHeight: Dp
 }
 
 /**
@@ -264,6 +285,7 @@ interface LibraryDimensions {
 @Immutable
 private class DefaultLibraryDimensions(
     override val itemSpacing: Dp,
+    override val chipMinHeight: Dp,
 ) : LibraryDimensions
 
 /**
@@ -326,3 +348,21 @@ private class DefaultLibraryTextStyles(
     override val licensesTextStyle: TextStyle?,
     override val fundingTextStyle: TextStyle?,
 ) : LibraryTextStyles
+
+
+/**
+ * Represents the shape used for chips in a library.
+ */
+@Stable
+interface LibraryShapes {
+    /** The [Shape] used for chips. */
+    val chipShape: Shape
+}
+
+/**
+ * Default [LibraryShapes].
+ */
+@Immutable
+private class DefaultLibraryShapes(
+    override val chipShape: Shape,
+) : LibraryShapes

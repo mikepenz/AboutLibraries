@@ -3,6 +3,7 @@
 #### v12.2.0
 
 - **Breaking Change**: Renamed `nameTextStyles` in `libraryTextStyles`/`LibraryTextStyles` to `nameTextStyle` (to align with other styles).
+- **Breaking Change**: Introduced new `libraryPadding()` default function to replace the existing one. This moves to use a new class to hold chip paddings.
 - 
 #### v12.0.0
 

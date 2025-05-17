@@ -6,6 +6,7 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.mikepenz.aboutlibraries.Libs
@@ -42,7 +43,9 @@ fun LibrariesContainer(
     onLibraryClick: ((Library) -> Unit)? = null,
     onFundingClick: ((Funding) -> Unit)? = null,
 ) {
-    val libs = Libs.Builder().withJson(aboutLibsJson).build()
+    val libs = remember(aboutLibsJson) {
+        Libs.Builder().withJson(aboutLibsJson).build()
+    }
     LibrariesContainer(
         libs,
         modifier = modifier,

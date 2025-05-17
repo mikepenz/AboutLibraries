@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -52,13 +53,13 @@ fun LibrariesContainer(
 ) {
     val context = LocalContext.current
 
-    val libraries = produceState<Libs?>(null) {
+    val libraries by produceState<Libs?>(null) {
         value = withContext(Dispatchers.IO) {
             librariesBlock(context)
         }
     }
     LibrariesContainer(
-        libraries = libraries.value,
+        libraries = libraries,
         modifier = modifier,
         libraryModifier = libraryModifier,
         lazyListState = lazyListState,

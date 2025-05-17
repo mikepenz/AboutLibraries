@@ -5,8 +5,10 @@ import androidx.compose.foundation.focusable
 import androidx.compose.foundation.indication
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRowScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyItemScope
@@ -21,6 +23,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.Typography
 import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -36,12 +39,14 @@ import androidx.compose.ui.window.DialogProperties
 import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.entity.Funding
 import com.mikepenz.aboutlibraries.entity.Library
+import com.mikepenz.aboutlibraries.entity.License
 import com.mikepenz.aboutlibraries.ui.compose.DefaultLibraryColors
 import com.mikepenz.aboutlibraries.ui.compose.LibrariesScaffold
 import com.mikepenz.aboutlibraries.ui.compose.LibraryColors
 import com.mikepenz.aboutlibraries.ui.compose.LibraryDefaults
 import com.mikepenz.aboutlibraries.ui.compose.LibraryDimensions
 import com.mikepenz.aboutlibraries.ui.compose.LibraryPadding
+import com.mikepenz.aboutlibraries.ui.compose.LibraryShapes
 import com.mikepenz.aboutlibraries.ui.compose.LibraryTextStyles
 import com.mikepenz.aboutlibraries.ui.compose.m3.component.LibraryChip
 import com.mikepenz.aboutlibraries.ui.compose.util.htmlReadyLicenseContent
@@ -64,20 +69,122 @@ fun LibrariesContainer(
     showVersion: Boolean = true,
     showLicenseBadges: Boolean = true,
     showFundingBadges: Boolean = false,
+    typography: Typography = MaterialTheme.typography,
     colors: LibraryColors = LibraryDefaults.libraryColors(),
     padding: LibraryPadding = LibraryDefaults.libraryPadding(),
     dimensions: LibraryDimensions = LibraryDefaults.libraryDimensions(),
     textStyles: LibraryTextStyles = LibraryDefaults.libraryTextStyles(),
+    shapes: LibraryShapes = LibraryDefaults.libraryShapes(),
+    onLibraryClick: ((Library) -> Unit)? = null,
+    onFundingClick: ((Funding) -> Unit)? = null,
+    name: @Composable BoxScope.(name: String) -> Unit = { libraryName ->
+        Text(
+            text = libraryName,
+            style = textStyles.nameTextStyle ?: typography.titleLarge,
+            color = colors.contentColor,
+            maxLines = textStyles.nameMaxLines,
+            overflow = textStyles.nameOverflow,
+        )
+    },
+    version: (@Composable BoxScope.(version: String) -> Unit)? = { version ->
+        if (showVersion) {
+            LibraryChip(
+                modifier = Modifier.padding(padding.versionPadding.containerPadding),
+                minHeight = dimensions.chipMinHeight,
+                shape = shapes.chipShape,
+            ) {
+                Text(
+                    modifier = Modifier.padding(padding.versionPadding.contentPadding),
+                    text = version,
+                    style = textStyles.versionTextStyle ?: typography.bodyMedium,
+                    maxLines = textStyles.versionMaxLines,
+                    textAlign = TextAlign.Center,
+                    overflow = textStyles.defaultOverflow,
+                )
+            }
+        }
+    },
+    author: (@Composable BoxScope.(authors: String) -> Unit)? = { author ->
+        if (showAuthor && author.isNotBlank()) {
+            Text(
+                text = author,
+                style = textStyles.authorTextStyle ?: typography.bodyMedium,
+                color = colors.contentColor,
+                maxLines = textStyles.authorMaxLines,
+                overflow = textStyles.defaultOverflow,
+            )
+        }
+    },
+    description: (@Composable BoxScope.(description: String) -> Unit)? = { description ->
+        if (showDescription) {
+            Text(
+                text = description,
+                style = textStyles.descriptionTextStyle ?: typography.bodySmall,
+                color = colors.contentColor,
+                maxLines = textStyles.descriptionMaxLines,
+                overflow = textStyles.defaultOverflow,
+            )
+        }
+    },
+    license: (@Composable FlowRowScope.(license: License) -> Unit)? = { license ->
+        if (showLicenseBadges) {
+            LibraryChip(
+                modifier = Modifier.padding(padding.licensePadding.containerPadding),
+                minHeight = dimensions.chipMinHeight,
+                contentColor = colors.badgeContentColor,
+                containerColor = colors.badgeBackgroundColor,
+                shape = shapes.chipShape,
+            ) {
+                Text(
+                    modifier = Modifier.padding(padding.licensePadding.contentPadding),
+                    maxLines = 1,
+                    text = license.name,
+                    style = textStyles.licensesTextStyle ?: LocalTextStyle.current,
+                    textAlign = TextAlign.Center,
+                    overflow = textStyles.defaultOverflow,
+                )
+            }
+        }
+    },
+    funding: (@Composable FlowRowScope.(funding: Funding) -> Unit)? = { funding ->
+        if (showFundingBadges) {
+            val uriHandler = LocalUriHandler.current
+            LibraryChip(
+                modifier = Modifier.padding(padding.fundingPadding.containerPadding),
+                onClick = {
+                    if (onFundingClick != null) {
+                        onFundingClick(funding)
+                    } else {
+                        try {
+                            uriHandler.openUri(funding.url)
+                        } catch (t: Throwable) {
+                            println("Failed to open funding url: ${funding.url} // ${t.message}")
+                        }
+                    }
+                },
+                minHeight = dimensions.chipMinHeight,
+                contentColor = colors.fundingBadgeContentColor,
+                containerColor = colors.fundingBadgeBackgroundColor,
+                shape = shapes.chipShape,
+            ) {
+                Text(
+                    modifier = Modifier.padding(padding.fundingPadding.contentPadding),
+                    maxLines = 1,
+                    text = funding.platform,
+                    style = textStyles.fundingTextStyle ?: LocalTextStyle.current,
+                    textAlign = TextAlign.Center,
+                    overflow = textStyles.defaultOverflow,
+                )
+            }
+        }
+    },
+    actions: (@Composable FlowRowScope.(library: Library) -> Unit)? = null,
     header: (LazyListScope.() -> Unit)? = null,
     divider: (@Composable LazyItemScope.() -> Unit)? = null,
     footer: (LazyListScope.() -> Unit)? = null,
-    onLibraryClick: ((Library) -> Unit)? = null,
-    onFundingClick: ((Funding) -> Unit)? = null,
     licenseDialogBody: (@Composable (Library) -> Unit)? = { library -> LicenseDialogBody(library = library, colors = colors) },
     licenseDialogConfirmText: String = "OK",
 ) {
-    val uriHandler = LocalUriHandler.current
-    val typography = MaterialTheme.typography
     val libs = libraries?.libraries ?: persistentListOf()
     val openDialog = remember { mutableStateOf<Library?>(null) }
 
@@ -89,100 +196,13 @@ fun LibrariesContainer(
         contentPadding = contentPadding,
         padding = padding,
         dimensions = dimensions,
-        name = { libraryName ->
-            Text(
-                text = libraryName,
-                style = textStyles.nameTextStyle ?: typography.titleLarge,
-                color = colors.contentColor,
-                maxLines = textStyles.nameMaxLines,
-                overflow = textStyles.nameOverflow,
-            )
-        },
-        version = { version ->
-            if (showVersion) {
-                LibraryChip(
-                    modifier = Modifier.padding(padding.versionPadding.containerPadding),
-                ) {
-                    Text(
-                        modifier = Modifier.padding(padding.versionPadding.contentPadding),
-                        text = version,
-                        style = textStyles.versionTextStyle ?: typography.bodyMedium,
-                        maxLines = textStyles.versionMaxLines,
-                        textAlign = TextAlign.Center,
-                        overflow = textStyles.defaultOverflow,
-                    )
-                }
-            }
-        },
-        author = { author ->
-            if (showAuthor && author.isNotBlank()) {
-                Text(
-                    text = author,
-                    style = textStyles.authorTextStyle ?: typography.bodyMedium,
-                    color = colors.contentColor,
-                    maxLines = textStyles.authorMaxLines,
-                    overflow = textStyles.defaultOverflow,
-                )
-            }
-        },
-        description = { description ->
-            if (showDescription) {
-                Text(
-                    text = description,
-                    style = textStyles.descriptionTextStyle ?: typography.bodySmall,
-                    color = colors.contentColor,
-                    maxLines = textStyles.descriptionMaxLines,
-                    overflow = textStyles.defaultOverflow,
-                )
-            }
-        },
-        license = { license ->
-            if (showLicenseBadges) {
-                LibraryChip(
-                    modifier = Modifier.padding(padding.licensePadding.containerPadding),
-                    contentColor = colors.badgeContentColor,
-                    containerColor = colors.badgeBackgroundColor
-                ) {
-                    Text(
-                        modifier = Modifier.padding(padding.licensePadding.contentPadding),
-                        maxLines = 1,
-                        text = license.name,
-                        style = textStyles.licensesTextStyle ?: LocalTextStyle.current,
-                        textAlign = TextAlign.Center,
-                        overflow = textStyles.defaultOverflow,
-                    )
-                }
-            }
-        },
-        funding = { funding ->
-            if (showFundingBadges) {
-                LibraryChip(
-                    modifier = Modifier.padding(padding.fundingPadding.containerPadding),
-                    onClick = {
-                        if (onFundingClick != null) {
-                            onFundingClick(funding)
-                        } else {
-                            try {
-                                uriHandler.openUri(funding.url)
-                            } catch (t: Throwable) {
-                                println("Failed to open funding url: ${funding.url} // ${t.message}")
-                            }
-                        }
-                    },
-                    contentColor = colors.fundingBadgeContentColor,
-                    containerColor = colors.fundingBadgeBackgroundColor
-                ) {
-                    Text(
-                        modifier = Modifier.padding(padding.fundingPadding.contentPadding),
-                        maxLines = 1,
-                        text = funding.platform,
-                        style = textStyles.fundingTextStyle ?: LocalTextStyle.current,
-                        textAlign = TextAlign.Center,
-                        overflow = textStyles.defaultOverflow,
-                    )
-                }
-            }
-        },
+        name = name,
+        version = version,
+        author = author,
+        description = description,
+        license = license,
+        funding = funding,
+        actions = actions,
         header = header,
         divider = divider,
         footer = footer,
