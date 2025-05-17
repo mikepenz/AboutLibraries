@@ -188,7 +188,7 @@ fun LibrariesContainer(
     header: (LazyListScope.() -> Unit)? = null,
     divider: (@Composable LazyItemScope.() -> Unit)? = null,
     footer: (LazyListScope.() -> Unit)? = null,
-    licenseDialogBody: (@Composable (Library) -> Unit)? = { library -> LicenseDialogBody(library = library, colors = colors) },
+    licenseDialogBody: (@Composable (Library, Modifier) -> Unit)? = { library, modifier -> LicenseDialogBody(library = library, colors = colors, modifier = modifier) },
     licenseDialogConfirmText: String = "OK",
 ) {
     val libs = libraries?.libraries ?: persistentListOf()
@@ -229,6 +229,7 @@ fun LibrariesContainer(
         LicenseDialog(
             library = library,
             colors = colors,
+            padding = padding,
             confirmText = licenseDialogConfirmText,
             body = licenseDialogBody
         ) {
@@ -242,8 +243,9 @@ fun LibrariesContainer(
 fun LicenseDialog(
     library: Library,
     colors: LibraryColors = LibraryDefaults.libraryColors(),
+    padding: LibraryPadding = LibraryDefaults.libraryPadding(),
     confirmText: String = "OK",
-    body: @Composable (Library) -> Unit,
+    body: @Composable (Library, Modifier) -> Unit,
     onDismiss: () -> Unit,
 ) {
     val scrollState = rememberScrollState()
@@ -255,19 +257,20 @@ fun LicenseDialog(
             Surface(
                 shape = MaterialTheme.shapes.medium,
                 color = colors.backgroundColor,
-                contentColor = colors.contentColor
+                contentColor = colors.contentColor,
+                modifier = Modifier.padding(8.dp),
             ) {
                 Column {
                     val interactionSource = remember { MutableInteractionSource() }
+
                     Box(
                         modifier = Modifier
                             .indication(interactionSource, LocalIndication.current)
                             .focusable(interactionSource = interactionSource)
+                            .weight(1f, fill = false)
                             .verticalScroll(scrollState)
-                            .padding(8.dp)
-                            .weight(1f)
                     ) {
-                        body(library)
+                        body(library, Modifier.padding(padding.licenseDialogContentPadding))
                     }
                     TextButton(
                         modifier = Modifier
@@ -287,7 +290,10 @@ fun LicenseDialog(
 }
 
 @Composable
-internal fun LicenseDialogBody(library: Library, colors: LibraryColors, modifier: Modifier = Modifier) {
+expect fun LicenseDialogBody(library: Library, colors: LibraryColors, modifier: Modifier = Modifier)
+
+@Composable
+internal fun DefaultLicenseDialogBody(library: Library, colors: LibraryColors, modifier: Modifier = Modifier) {
     val license = remember(library) { library.strippedLicenseContent.takeIf { it.isNotEmpty() } }
     if (license != null) {
         Text(

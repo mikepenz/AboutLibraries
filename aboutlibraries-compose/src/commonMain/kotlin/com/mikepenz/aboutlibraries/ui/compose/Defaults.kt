@@ -75,6 +75,7 @@ object LibraryDefaults {
         licensePadding: ChipPadding = chipPadding(),
         fundingPadding: ChipPadding = chipPadding(),
         verticalPadding: Dp = 2.dp,
+        licenseDialogContentPadding: Dp = 8.dp,
     ): LibraryPadding = DefaultLibraryPadding(
         contentPadding = contentPadding,
         namePadding = namePadding,
@@ -82,6 +83,7 @@ object LibraryDefaults {
         licensePadding = licensePadding,
         fundingPadding = fundingPadding,
         verticalPadding = verticalPadding,
+        licenseDialogContentPadding = licenseDialogContentPadding,
     )
 
     /**
@@ -247,6 +249,9 @@ interface LibraryPadding {
 
     /** Represents the vertical padding between the individual items in the library element */
     val verticalPadding: Dp
+
+    /** Represents the padding used for the content in the license dialog. */
+    val licenseDialogContentPadding: Dp
 }
 
 /**
@@ -260,6 +265,7 @@ private class DefaultLibraryPadding(
     override val licensePadding: ChipPadding,
     override val fundingPadding: ChipPadding,
     override val verticalPadding: Dp,
+    override val licenseDialogContentPadding: Dp,
 ) : LibraryPadding
 
 /** Represents the padding values used for a chip.*/

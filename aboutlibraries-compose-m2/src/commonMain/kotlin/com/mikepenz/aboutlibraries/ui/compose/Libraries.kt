@@ -6,7 +6,7 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.mikepenz.aboutlibraries.Libs
@@ -16,6 +16,7 @@ import com.mikepenz.aboutlibraries.entity.Library
 /**
  * Displays all provided libraries in a simple list.
  */
+@Deprecated("Use `LibrariesContainer` variant with `Libs` instead. Use `rememberLibraries` to load the libraries.")
 @Composable
 fun LibrariesContainer(
     aboutLibsJson: String,
@@ -38,11 +39,9 @@ fun LibrariesContainer(
     onLibraryClick: ((Library) -> Unit)? = null,
     onFundingClick: ((Funding) -> Unit)? = null,
 ) {
-    val libs = remember(aboutLibsJson) {
-        Libs.Builder().withJson(aboutLibsJson).build()
-    }
+    val libs by rememberLibraries(aboutLibsJson)
     LibrariesContainer(
-        libs,
+        libraries = libs,
         modifier = modifier,
         libraryModifier = libraryModifier,
         lazyListState = lazyListState,
@@ -67,6 +66,7 @@ fun LibrariesContainer(
 /**
  * Displays all provided libraries in a simple list.
  */
+@Deprecated("Use `LibrariesContainer` variant with `Libs` instead. Use `rememberLibraries` to load the libraries.")
 @Composable
 fun LibrariesContainer(
     librariesBlock: () -> Libs,

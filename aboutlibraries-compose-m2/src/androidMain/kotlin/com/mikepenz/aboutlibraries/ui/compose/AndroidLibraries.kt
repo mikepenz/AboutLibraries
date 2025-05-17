@@ -6,20 +6,15 @@ import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.produceState
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.fromHtml
 import androidx.compose.ui.unit.dp
 import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.entity.Funding
 import com.mikepenz.aboutlibraries.entity.Library
-import com.mikepenz.aboutlibraries.ui.compose.util.htmlReadyLicenseContent
 import com.mikepenz.aboutlibraries.util.withContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -27,6 +22,7 @@ import kotlinx.coroutines.withContext
 /**
  * Displays all provided libraries in a simple list.
  */
+@Deprecated("Use `LibrariesContainer` variant with `Libs` instead. Use `rememberLibraries` to load the libraries.")
 @Composable
 fun LibrariesContainer(
     modifier: Modifier = Modifier,
@@ -78,16 +74,8 @@ fun LibrariesContainer(
         footer = footer,
         onLibraryClick = onLibraryClick,
         onFundingClick = onFundingClick,
-        licenseDialogBody = { library ->
-            val license = remember(library) {
-                library.htmlReadyLicenseContent.takeIf { it.isNotEmpty() }?.let { AnnotatedString.fromHtml(it) }
-            }
-            if (license != null) {
-                Text(
-                    text = license,
-                    color = colors.contentColor
-                )
-            }
+        licenseDialogBody = { library, modifier ->
+            LicenseDialogBody(library, colors, modifier)
         }
     )
 }

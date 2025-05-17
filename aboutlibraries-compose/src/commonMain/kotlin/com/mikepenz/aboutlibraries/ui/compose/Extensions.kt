@@ -36,3 +36,20 @@ fun rememberLibraries(
         }
     }
 }
+
+
+/**
+ * Creates a State<Libs?> that holds the [Libs] as loaded by the [libraries].
+ *
+ * @see Libs
+ */
+@Composable
+fun rememberLibraries(
+    libraries: String,
+): State<Libs?> {
+    return produceState<Libs?>(initialValue = null) {
+        value = withContext(Dispatchers.Default) {
+            Libs.Builder().withJson(libraries).build()
+        }
+    }
+}
