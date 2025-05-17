@@ -1,13 +1,11 @@
 package com.mikepenz.aboutlibraries.ui.compose
 
 import androidx.compose.foundation.LocalIndication
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.indication
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyItemScope
@@ -15,9 +13,7 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Badge
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.LocalTextStyle
 import androidx.compose.material.MaterialTheme
@@ -30,7 +26,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.style.TextAlign
@@ -40,6 +35,7 @@ import androidx.compose.ui.window.DialogProperties
 import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.entity.Funding
 import com.mikepenz.aboutlibraries.entity.Library
+import com.mikepenz.aboutlibraries.ui.compose.component.LibrariesChip
 import com.mikepenz.aboutlibraries.ui.compose.util.htmlReadyLicenseContent
 import com.mikepenz.aboutlibraries.ui.compose.util.strippedLicenseContent
 import kotlinx.collections.immutable.persistentListOf
@@ -96,12 +92,11 @@ fun LibrariesContainer(
         },
         version = { version ->
             if (showVersion) {
-                Badge(
+                LibrariesChip(
                     modifier = Modifier.padding(padding.badgePadding),
-                    contentColor = MaterialTheme.colors.onSurface,
-                    backgroundColor = MaterialTheme.colors.surface,
                 ) {
                     Text(
+                        modifier = Modifier.padding(padding.versionBadgePadding),
                         text = version,
                         style = textStyles.versionTextStyle ?: typography.body2,
                         color = colors.contentColor,
@@ -136,10 +131,10 @@ fun LibrariesContainer(
         },
         license = { license ->
             if (showLicenseBadges) {
-                Badge(
+                LibrariesChip(
                     modifier = Modifier.padding(padding.badgePadding),
+                    backgroundColor = colors.badgeBackgroundColor,
                     contentColor = colors.badgeContentColor,
-                    backgroundColor = colors.badgeBackgroundColor
                 ) {
                     Text(
                         modifier = Modifier.padding(padding.badgeContentPadding),
@@ -151,23 +146,21 @@ fun LibrariesContainer(
         },
         funding = { funding ->
             if (showFundingBadges) {
-                Badge(
-                    modifier = Modifier
-                        .padding(padding.badgePadding)
-                        .clip(RoundedCornerShape(percent = 50))
-                        .clickable {
-                            if (onFundingClick != null) {
-                                onFundingClick(funding)
-                            } else {
-                                try {
-                                    uriHandler.openUri(funding.url)
-                                } catch (t: Throwable) {
-                                    println("Failed to open funding url: ${funding.url} // ${t.message}")
-                                }
+                LibrariesChip(
+                    modifier = Modifier.padding(padding.badgePadding),
+                    onClick = {
+                        if (onFundingClick != null) {
+                            onFundingClick(funding)
+                        } else {
+                            try {
+                                uriHandler.openUri(funding.url)
+                            } catch (t: Throwable) {
+                                println("Failed to open funding url: ${funding.url} // ${t.message}")
                             }
-                        },
-                    contentColor = colors.fundingBadgeContentColor,
-                    backgroundColor = colors.fundingBadgeBackgroundColor
+                        }
+                    },
+                    backgroundColor = colors.fundingBadgeContentColor,
+                    contentColor = colors.fundingBadgeBackgroundColor,
                 ) {
                     Text(
                         modifier = Modifier.padding(padding.badgeContentPadding),
@@ -205,7 +198,6 @@ fun LibrariesContainer(
     }
 }
 
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun LicenseDialog(
     library: Library,
@@ -221,7 +213,9 @@ fun LicenseDialog(
         properties = DialogProperties(),
         content = {
             Surface(
-                shape = MaterialTheme.shapes.medium, color = colors.backgroundColor, contentColor = colors.contentColor
+                shape = MaterialTheme.shapes.medium,
+                color = colors.backgroundColor,
+                contentColor = colors.contentColor
             ) {
                 Column {
                     val interactionSource = remember { MutableInteractionSource() }

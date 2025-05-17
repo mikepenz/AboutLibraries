@@ -30,13 +30,15 @@ object LibraryDefaults {
         contentPadding: PaddingValues = PaddingValues(16.dp),
         namePadding: PaddingValues = PaddingValues(0.dp),
         versionPadding: PaddingValues = PaddingValues(start = 8.dp),
+        versionBadgePadding: PaddingValues = PaddingValues(horizontal = 6.dp),
         badgePadding: PaddingValues = PaddingValues(top = 8.dp, end = 4.dp),
-        badgeContentPadding: PaddingValues = PaddingValues(0.dp),
+        badgeContentPadding: PaddingValues = PaddingValues(horizontal = 8.dp, vertical = 0.dp),
         verticalPadding: Dp = 2.dp,
     ): LibraryPadding = DefaultLibraryPadding(
         contentPadding = contentPadding,
         namePadding = namePadding,
         versionPadding = versionPadding,
+        versionBadgePadding = versionBadgePadding,
         badgePadding = badgePadding,
         badgeContentPadding = badgeContentPadding,
         verticalPadding = verticalPadding,
@@ -153,6 +155,9 @@ interface LibraryPadding {
     /** Represents the padding around the version shown as part of a [Library] */
     val versionPadding: PaddingValues
 
+    /** Represents the padding around the version text shown as part of a [Library] */
+    val versionBadgePadding: PaddingValues
+
     /** Represents the padding around a badge element shown as part of a [Library] */
     val badgePadding: PaddingValues
 
@@ -171,6 +176,7 @@ private class DefaultLibraryPadding(
     override val contentPadding: PaddingValues,
     override val namePadding: PaddingValues,
     override val versionPadding: PaddingValues,
+    override val versionBadgePadding: PaddingValues,
     override val badgePadding: PaddingValues,
     override val badgeContentPadding: PaddingValues,
     override val verticalPadding: Dp,
