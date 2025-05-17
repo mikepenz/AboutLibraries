@@ -43,7 +43,7 @@ import com.mikepenz.aboutlibraries.ui.compose.LibraryDefaults
 import com.mikepenz.aboutlibraries.ui.compose.LibraryDimensions
 import com.mikepenz.aboutlibraries.ui.compose.LibraryPadding
 import com.mikepenz.aboutlibraries.ui.compose.LibraryTextStyles
-import com.mikepenz.aboutlibraries.ui.compose.m3.component.LibrariesChip
+import com.mikepenz.aboutlibraries.ui.compose.m3.component.LibraryChip
 import com.mikepenz.aboutlibraries.ui.compose.util.htmlReadyLicenseContent
 import com.mikepenz.aboutlibraries.ui.compose.util.strippedLicenseContent
 import kotlinx.collections.immutable.persistentListOf
@@ -100,14 +100,13 @@ fun LibrariesContainer(
         },
         version = { version ->
             if (showVersion) {
-                LibrariesChip(
-                    modifier = Modifier.padding(padding.badgePadding),
+                LibraryChip(
+                    modifier = Modifier.padding(padding.versionPadding.containerPadding),
                 ) {
                     Text(
-                        modifier = Modifier.padding(padding.versionBadgePadding),
+                        modifier = Modifier.padding(padding.versionPadding.contentPadding),
                         text = version,
                         style = textStyles.versionTextStyle ?: typography.bodyMedium,
-                        color = colors.contentColor,
                         maxLines = textStyles.versionMaxLines,
                         textAlign = TextAlign.Center,
                         overflow = textStyles.defaultOverflow,
@@ -139,24 +138,26 @@ fun LibrariesContainer(
         },
         license = { license ->
             if (showLicenseBadges) {
-                LibrariesChip(
-                    modifier = Modifier.padding(padding.badgePadding),
+                LibraryChip(
+                    modifier = Modifier.padding(padding.licensePadding.containerPadding),
                     contentColor = colors.badgeContentColor,
                     containerColor = colors.badgeBackgroundColor
                 ) {
                     Text(
-                        modifier = Modifier.padding(padding.badgeContentPadding),
+                        modifier = Modifier.padding(padding.licensePadding.contentPadding),
                         maxLines = 1,
                         text = license.name,
                         style = textStyles.licensesTextStyle ?: LocalTextStyle.current,
+                        textAlign = TextAlign.Center,
+                        overflow = textStyles.defaultOverflow,
                     )
                 }
             }
         },
         funding = { funding ->
             if (showFundingBadges) {
-                LibrariesChip(
-                    modifier = Modifier.padding(padding.badgePadding),
+                LibraryChip(
+                    modifier = Modifier.padding(padding.fundingPadding.containerPadding),
                     onClick = {
                         if (onFundingClick != null) {
                             onFundingClick(funding)
@@ -172,10 +173,12 @@ fun LibrariesContainer(
                     containerColor = colors.fundingBadgeBackgroundColor
                 ) {
                     Text(
-                        modifier = Modifier.padding(padding.badgeContentPadding),
+                        modifier = Modifier.padding(padding.fundingPadding.contentPadding),
                         maxLines = 1,
                         text = funding.platform,
                         style = textStyles.fundingTextStyle ?: LocalTextStyle.current,
+                        textAlign = TextAlign.Center,
+                        overflow = textStyles.defaultOverflow,
                     )
                 }
             }

@@ -25,23 +25,75 @@ object LibraryDefaults {
      * @param badgeContentPadding the padding around the content of a badge element shown as part of a [Library]
      * @param verticalPadding the vertical padding between the individual items in the library element
      */
+    @Deprecated("Use libraryPadding() with chipPadding() arguments instead", level = DeprecationLevel.WARNING)
+    @Composable
+    fun libraryPadding(
+        contentPadding: PaddingValues, // Remove default to not conflict with new API. PaddingValues(16.dp)
+        namePadding: PaddingValues = PaddingValues(0.dp),
+        versionPadding: PaddingValues = PaddingValues(start = 8.dp),
+        badgePadding: PaddingValues = PaddingValues(top = 8.dp, end = 4.dp),
+        badgeContentPadding: PaddingValues = PaddingValues(horizontal = 8.dp, vertical = 0.dp),
+        verticalPadding: Dp = 2.dp,
+    ): LibraryPadding = libraryPadding(
+        contentPadding = contentPadding,
+        namePadding = namePadding,
+        versionPadding = chipPadding(
+            containerPadding = versionPadding,
+            contentPadding = badgeContentPadding,
+        ),
+        licensePadding = chipPadding(
+            containerPadding = badgePadding,
+            contentPadding = badgeContentPadding,
+        ),
+        fundingPadding = chipPadding(
+            containerPadding = badgePadding,
+            contentPadding = badgeContentPadding,
+        ),
+        verticalPadding = verticalPadding,
+    )
+
+    /**
+     * Creates a [LibraryPadding] that represents the default paddings used in a [Library]
+     *
+     * @param contentPadding the padding inside the [Library] ui element
+     * @param namePadding the padding around the name shown as part of a [Library]
+     * @param versionPadding the padding in and around the version shown as part of a [Library]
+     * @param licensePadding the padding in and around the license shown as part of a [Library]
+     * @param fundingPadding the padding in and around the funding shown as part of a [Library]
+     * @param verticalPadding the vertical padding between the individual items in the library element
+     */
     @Composable
     fun libraryPadding(
         contentPadding: PaddingValues = PaddingValues(16.dp),
         namePadding: PaddingValues = PaddingValues(0.dp),
-        versionPadding: PaddingValues = PaddingValues(start = 8.dp),
-        versionBadgePadding: PaddingValues = PaddingValues(horizontal = 6.dp),
-        badgePadding: PaddingValues = PaddingValues(top = 8.dp, end = 4.dp),
-        badgeContentPadding: PaddingValues = PaddingValues(horizontal = 8.dp, vertical = 0.dp),
+        versionPadding: ChipPadding = chipPadding(
+            containerPadding = PaddingValues(start = 8.dp),
+        ),
+        licensePadding: ChipPadding = chipPadding(),
+        fundingPadding: ChipPadding = chipPadding(),
         verticalPadding: Dp = 2.dp,
     ): LibraryPadding = DefaultLibraryPadding(
         contentPadding = contentPadding,
         namePadding = namePadding,
         versionPadding = versionPadding,
-        versionBadgePadding = versionBadgePadding,
-        badgePadding = badgePadding,
-        badgeContentPadding = badgeContentPadding,
+        licensePadding = licensePadding,
+        fundingPadding = fundingPadding,
         verticalPadding = verticalPadding,
+    )
+
+    /**
+     * Creates a ChipPadding that represents the default paddings used in a chip in a [Library].
+     *
+     * @param containerPadding the padding around the Chip UI Element
+     * @param contentPadding the padding inside the Chip UI element
+     */
+    @Composable
+    fun chipPadding(
+        containerPadding: PaddingValues = PaddingValues(top = 8.dp, end = 4.dp),
+        contentPadding: PaddingValues = PaddingValues(horizontal = 6.dp, vertical = 0.dp),
+    ): ChipPadding = DefaultChipPadding(
+        containerPadding = containerPadding,
+        contentPadding = contentPadding,
     )
 
     /**
@@ -152,17 +204,14 @@ interface LibraryPadding {
     /** Represents the padding around the name shown as part of a [Library] */
     val namePadding: PaddingValues
 
-    /** Represents the padding around the version shown as part of a [Library] */
-    val versionPadding: PaddingValues
+    /** Represents the padding values used for the chip containing the [Library.artifactVersion] */
+    val versionPadding: ChipPadding
 
-    /** Represents the padding around the version text shown as part of a [Library] */
-    val versionBadgePadding: PaddingValues
+    /** Represents the padding values used for the chip containing the [Library.licenses] */
+    val licensePadding: ChipPadding
 
-    /** Represents the padding around a badge element shown as part of a [Library] */
-    val badgePadding: PaddingValues
-
-    /** Represents the padding around the content of a badge element shown as part of a [Library] */
-    val badgeContentPadding: PaddingValues
+    /** Represents the padding values used for the chip containing the [Library.funding] funding */
+    val fundingPadding: ChipPadding
 
     /** Represents the vertical padding between the individual items in the library element */
     val verticalPadding: Dp
@@ -175,13 +224,30 @@ interface LibraryPadding {
 private class DefaultLibraryPadding(
     override val contentPadding: PaddingValues,
     override val namePadding: PaddingValues,
-    override val versionPadding: PaddingValues,
-    override val versionBadgePadding: PaddingValues,
-    override val badgePadding: PaddingValues,
-    override val badgeContentPadding: PaddingValues,
+    override val versionPadding: ChipPadding,
+    override val licensePadding: ChipPadding,
+    override val fundingPadding: ChipPadding,
     override val verticalPadding: Dp,
 ) : LibraryPadding
 
+/** Represents the padding values used for a chip.*/
+@Stable
+interface ChipPadding {
+    /** Represents the padding around the Chip UI Element */
+    val containerPadding: PaddingValues
+
+    /** Represents the padding inside the Chip UI element */
+    val contentPadding: PaddingValues
+}
+
+/**
+ * Default [ChipPadding].
+ */
+@Immutable
+private class DefaultChipPadding(
+    override val containerPadding: PaddingValues,
+    override val contentPadding: PaddingValues,
+) : ChipPadding
 
 /**
  * Represents the padding values used in a library.

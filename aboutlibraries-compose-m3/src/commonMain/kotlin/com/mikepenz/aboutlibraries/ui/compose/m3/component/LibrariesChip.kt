@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun LibrariesChip(
+internal fun LibraryChip(
     modifier: Modifier = Modifier,
     interactionSource: MutableInteractionSource? = null,
     shape: Shape = MaterialTheme.shapes.small.copy(CornerSize(percent = 50)),

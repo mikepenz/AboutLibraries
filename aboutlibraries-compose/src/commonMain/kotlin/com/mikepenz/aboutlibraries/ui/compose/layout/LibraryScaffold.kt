@@ -43,7 +43,7 @@ fun LibraryScaffoldLayout(
         modifier = modifier.padding(libraryPadding.contentPadding),
         content = {
             Box(Modifier.layoutId(LibraryLayoutContent.Name).padding(libraryPadding.namePadding).fillMaxWidth(), content = name)
-            Box(Modifier.layoutId(LibraryLayoutContent.Version).padding(libraryPadding.versionPadding), content = version)
+            Box(Modifier.layoutId(LibraryLayoutContent.Version), content = version)
             Box(Modifier.layoutId(LibraryLayoutContent.Author), content = author)
             Box(Modifier.layoutId(LibraryLayoutContent.Description), content = description)
             FlowRow(Modifier.layoutId(LibraryLayoutContent.Actions), content = {
