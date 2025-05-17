@@ -1,7 +1,6 @@
 [versions]
 # kotlin
 kotlinxSerialization = "1.8.1"
-kotlinxCollections = "0.3.8"
 # androidx
 activity = "1.10.1"
 cardview = "1.0.0"
@@ -27,7 +26,6 @@ navSafeArgs = { id = "androidx.navigation.safeargs", version.ref = "navigation" 
 [libraries]
 # kotlin
 kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
-kotlinx-collections = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "kotlinxCollections" }
 # androidx
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity" }
 androidx-cardView = { module = "androidx.cardview:cardview", version.ref = "cardview" }
