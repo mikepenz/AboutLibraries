@@ -25,17 +25,18 @@ fun main() = application {
     Window(title = "AboutLibraries M3 Sample", onCloseRequest = ::exitApplication) {
         AppTheme {
             Scaffold(
-                topBar = { TopAppBar(title = { Text("AboutLibraries Compose M3 Desktop Sample") }) }) {
+                topBar = { TopAppBar(title = { Text("AboutLibraries Compose M3 Desktop Sample", maxLines = 1) }) }) {
                 val libraries by rememberLibraries {
                     Res.readBytes("files/aboutlibraries.json").decodeToString()
                 }
                 LibrariesContainer(
                     libraries = libraries,
                     modifier = Modifier.fillMaxSize().padding(it),
+                    showFundingBadges = true,
                     header = {
                         item {
                             Box(modifier = Modifier.fillMaxWidth().padding(16.dp), contentAlignment = Alignment.Center) {
-                                Text("Hello Header")
+                                Text("Hello Header", maxLines = 1)
                             }
                         }
                     },
@@ -43,7 +44,7 @@ fun main() = application {
                     footer = {
                         item {
                             Box(modifier = Modifier.fillMaxWidth().padding(16.dp), contentAlignment = Alignment.Center) {
-                                Text("Hello Footer")
+                                Text("Hello Footer", maxLines = 1)
                             }
                         }
                     }
