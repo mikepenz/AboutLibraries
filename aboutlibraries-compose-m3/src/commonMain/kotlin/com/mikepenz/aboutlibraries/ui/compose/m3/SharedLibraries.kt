@@ -1,7 +1,6 @@
 package com.mikepenz.aboutlibraries.ui.compose.m3
 
 import androidx.compose.foundation.LocalIndication
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.indication
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -15,9 +14,7 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Badge
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
@@ -30,7 +27,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.style.TextAlign
@@ -47,6 +43,7 @@ import com.mikepenz.aboutlibraries.ui.compose.LibraryDefaults
 import com.mikepenz.aboutlibraries.ui.compose.LibraryDimensions
 import com.mikepenz.aboutlibraries.ui.compose.LibraryPadding
 import com.mikepenz.aboutlibraries.ui.compose.LibraryTextStyles
+import com.mikepenz.aboutlibraries.ui.compose.m3.component.LibrariesChip
 import com.mikepenz.aboutlibraries.ui.compose.util.htmlReadyLicenseContent
 import com.mikepenz.aboutlibraries.ui.compose.util.strippedLicenseContent
 import kotlinx.collections.immutable.persistentListOf
@@ -103,12 +100,11 @@ fun LibrariesContainer(
         },
         version = { version ->
             if (showVersion) {
-                Badge(
+                LibrariesChip(
                     modifier = Modifier.padding(padding.badgePadding),
-                    contentColor = MaterialTheme.colorScheme.onSurface,
-                    containerColor = MaterialTheme.colorScheme.surfaceContainer,
                 ) {
                     Text(
+                        modifier = Modifier.padding(padding.versionBadgePadding),
                         text = version,
                         style = textStyles.versionTextStyle ?: typography.bodyMedium,
                         color = colors.contentColor,
@@ -143,7 +139,7 @@ fun LibrariesContainer(
         },
         license = { license ->
             if (showLicenseBadges) {
-                Badge(
+                LibrariesChip(
                     modifier = Modifier.padding(padding.badgePadding),
                     contentColor = colors.badgeContentColor,
                     containerColor = colors.badgeBackgroundColor
@@ -159,21 +155,19 @@ fun LibrariesContainer(
         },
         funding = { funding ->
             if (showFundingBadges) {
-                Badge(
-                    modifier = Modifier
-                        .padding(padding.badgePadding)
-                        .clip(RoundedCornerShape(percent = 50))
-                        .clickable {
-                            if (onFundingClick != null) {
-                                onFundingClick(funding)
-                            } else {
-                                try {
-                                    uriHandler.openUri(funding.url)
-                                } catch (t: Throwable) {
-                                    println("Failed to open funding url: ${funding.url} // ${t.message}")
-                                }
+                LibrariesChip(
+                    modifier = Modifier.padding(padding.badgePadding),
+                    onClick = {
+                        if (onFundingClick != null) {
+                            onFundingClick(funding)
+                        } else {
+                            try {
+                                uriHandler.openUri(funding.url)
+                            } catch (t: Throwable) {
+                                println("Failed to open funding url: ${funding.url} // ${t.message}")
                             }
-                        },
+                        }
+                    },
                     contentColor = colors.fundingBadgeContentColor,
                     containerColor = colors.fundingBadgeBackgroundColor
                 ) {
