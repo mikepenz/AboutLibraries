@@ -4,7 +4,9 @@
 
 - **Breaking Change**: Renamed `nameTextStyles` in `libraryTextStyles`/`LibraryTextStyles` to `nameTextStyle` (to align with other styles).
 - **Breaking Change**: Introduced new `libraryPadding()` default function to replace the existing one. This moves to use a new class to hold chip paddings.
-- 
+- **Breaking Change**: Wrappers around the `LibrariesContainer` were deprecated in favor of `remember*` functions. To be removed in release `13.x.y`.
+- **Breaking Change**: The `LicenseDialogBody` now also accepts the `Modifier` to include padding in text instead of scrollable container
+
 #### v12.0.0
 
 - **Dependency Upgrade**: Kotlin 2.1.20
