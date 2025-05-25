@@ -39,6 +39,7 @@ public final class com/mikepenz/aboutlibraries/ui/compose/ExtensionsKt {
 }
 
 public final class com/mikepenz/aboutlibraries/ui/compose/Extensions_androidKt {
+	public static final fun rememberLibraries (ILandroidx/compose/runtime/Composer;I)Landroidx/compose/runtime/State;
 	public static final fun rememberLibraries (Lkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;II)Landroidx/compose/runtime/State;
 }
 
