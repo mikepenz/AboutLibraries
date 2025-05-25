@@ -17,7 +17,6 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -30,10 +29,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.pointer.PointerIcon
-import androidx.compose.ui.input.pointer.pointerHoverIcon
-import androidx.compose.ui.platform.LocalUriHandler
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
@@ -51,11 +46,15 @@ import com.mikepenz.aboutlibraries.ui.compose.LibraryDimensions
 import com.mikepenz.aboutlibraries.ui.compose.LibraryPadding
 import com.mikepenz.aboutlibraries.ui.compose.LibraryShapes
 import com.mikepenz.aboutlibraries.ui.compose.LibraryTextStyles
-import com.mikepenz.aboutlibraries.ui.compose.m3.component.LibraryChip
+import com.mikepenz.aboutlibraries.ui.compose.m3.component.DefaultLibraryAuthor
+import com.mikepenz.aboutlibraries.ui.compose.m3.component.DefaultLibraryDescription
+import com.mikepenz.aboutlibraries.ui.compose.m3.component.DefaultLibraryFunding
+import com.mikepenz.aboutlibraries.ui.compose.m3.component.DefaultLibraryLicense
+import com.mikepenz.aboutlibraries.ui.compose.m3.component.DefaultLibraryName
+import com.mikepenz.aboutlibraries.ui.compose.m3.component.DefaultLibraryVersion
 import com.mikepenz.aboutlibraries.ui.compose.util.htmlReadyLicenseContent
 import com.mikepenz.aboutlibraries.ui.compose.util.strippedLicenseContent
 import kotlinx.collections.immutable.persistentListOf
-
 
 /**
  * Displays all provided libraries in a simple list.
@@ -80,108 +79,21 @@ fun LibrariesContainer(
     shapes: LibraryShapes = LibraryDefaults.libraryShapes(),
     onLibraryClick: ((Library) -> Unit)? = null,
     onFundingClick: ((Funding) -> Unit)? = null,
-    name: @Composable BoxScope.(name: String) -> Unit = { libraryName ->
-        Text(
-            text = libraryName,
-            style = textStyles.nameTextStyle ?: typography.titleLarge,
-            color = colors.contentColor,
-            maxLines = textStyles.nameMaxLines,
-            overflow = textStyles.nameOverflow,
-        )
-    },
+    name: @Composable BoxScope.(name: String) -> Unit = { DefaultLibraryName(it, textStyles, colors, typography) },
     version: (@Composable BoxScope.(version: String) -> Unit)? = { version ->
-        if (showVersion) {
-            LibraryChip(
-                modifier = Modifier.padding(padding.versionPadding.containerPadding),
-                minHeight = dimensions.chipMinHeight,
-                containerColor = colors.versionChipColors.containerColor,
-                contentColor = colors.versionChipColors.contentColor,
-                shape = shapes.chipShape,
-            ) {
-                Text(
-                    modifier = Modifier.padding(padding.versionPadding.contentPadding),
-                    text = version,
-                    style = textStyles.versionTextStyle ?: typography.bodyMedium,
-                    maxLines = textStyles.versionMaxLines,
-                    textAlign = TextAlign.Center,
-                    overflow = textStyles.defaultOverflow,
-                )
-            }
-        }
+        if (showVersion) DefaultLibraryVersion(version, textStyles, colors, typography, padding, dimensions, shapes)
     },
     author: (@Composable BoxScope.(authors: String) -> Unit)? = { author ->
-        if (showAuthor && author.isNotBlank()) {
-            Text(
-                text = author,
-                style = textStyles.authorTextStyle ?: typography.bodyMedium,
-                color = colors.contentColor,
-                maxLines = textStyles.authorMaxLines,
-                overflow = textStyles.defaultOverflow,
-            )
-        }
+        if (showAuthor && author.isNotBlank()) DefaultLibraryAuthor(author, textStyles, colors, typography)
     },
     description: (@Composable BoxScope.(description: String) -> Unit)? = { description ->
-        if (showDescription) {
-            Text(
-                text = description,
-                style = textStyles.descriptionTextStyle ?: typography.bodySmall,
-                color = colors.contentColor,
-                maxLines = textStyles.descriptionMaxLines,
-                overflow = textStyles.defaultOverflow,
-            )
-        }
+        if (showDescription) DefaultLibraryDescription(description, textStyles, colors, typography)
     },
     license: (@Composable FlowRowScope.(license: License) -> Unit)? = { license ->
-        if (showLicenseBadges) {
-            LibraryChip(
-                modifier = Modifier.padding(padding.licensePadding.containerPadding),
-                minHeight = dimensions.chipMinHeight,
-                containerColor = colors.licenseChipColors.containerColor,
-                contentColor = colors.licenseChipColors.contentColor,
-                shape = shapes.chipShape,
-            ) {
-                Text(
-                    modifier = Modifier.padding(padding.licensePadding.contentPadding),
-                    maxLines = 1,
-                    text = license.name,
-                    style = textStyles.licensesTextStyle ?: LocalTextStyle.current,
-                    textAlign = TextAlign.Center,
-                    overflow = textStyles.defaultOverflow,
-                )
-            }
-        }
+        if (showLicenseBadges) DefaultLibraryLicense(license, textStyles, colors, padding, dimensions, shapes)
     },
     funding: (@Composable FlowRowScope.(funding: Funding) -> Unit)? = { funding ->
-        if (showFundingBadges) {
-            val uriHandler = LocalUriHandler.current
-            LibraryChip(
-                modifier = Modifier.padding(padding.fundingPadding.containerPadding).pointerHoverIcon(PointerIcon.Hand),
-                onClick = {
-                    if (onFundingClick != null) {
-                        onFundingClick(funding)
-                    } else {
-                        try {
-                            uriHandler.openUri(funding.url)
-                        } catch (t: Throwable) {
-                            println("Failed to open funding url: ${funding.url} // ${t.message}")
-                        }
-                    }
-                },
-                minHeight = dimensions.chipMinHeight,
-                containerColor = colors.fundingChipColors.containerColor,
-                contentColor = colors.fundingChipColors.contentColor,
-                shape = shapes.chipShape,
-            ) {
-                Text(
-                    modifier = Modifier.padding(padding.fundingPadding.contentPadding),
-                    maxLines = 1,
-                    text = funding.platform,
-                    style = textStyles.fundingTextStyle ?: LocalTextStyle.current,
-                    textAlign = TextAlign.Center,
-                    overflow = textStyles.defaultOverflow,
-                )
-            }
-        }
+        if (showFundingBadges) DefaultLibraryFunding(funding, textStyles, colors, padding, dimensions, shapes, onFundingClick)
     },
     actions: (@Composable FlowRowScope.(library: Library) -> Unit)? = null,
     header: (LazyListScope.() -> Unit)? = null,
