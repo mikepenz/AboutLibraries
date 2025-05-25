@@ -7,7 +7,6 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRowScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
@@ -213,14 +212,16 @@ fun LibrariesContainer(
         divider = divider,
         footer = footer,
         onLibraryClick = { library ->
-            val license = library.licenses.firstOrNull()
             if (onLibraryClick != null) {
                 onLibraryClick(library)
                 true
-            } else if (!license?.htmlReadyLicenseContent.isNullOrBlank()) {
-                openDialog.value = library
-                true
-            } else false
+            } else {
+                val license = library.licenses.firstOrNull()
+                if (!license?.htmlReadyLicenseContent.isNullOrBlank()) {
+                    openDialog.value = library
+                    true
+                } else false
+            }
         },
     )
 
@@ -238,7 +239,6 @@ fun LibrariesContainer(
     }
 }
 
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun LicenseDialog(
     library: Library,

@@ -200,14 +200,16 @@ fun LibrariesContainer(
         divider = divider,
         footer = footer,
         onLibraryClick = { library ->
-            val license = library.licenses.firstOrNull()
             if (onLibraryClick != null) {
                 onLibraryClick(library)
                 true
-            } else if (!license?.htmlReadyLicenseContent.isNullOrBlank()) {
-                openDialog.value = library
-                true
-            } else false
+            } else {
+                val license = library.licenses.firstOrNull()
+                if (!license?.htmlReadyLicenseContent.isNullOrBlank()) {
+                    openDialog.value = library
+                    true
+                } else false
+            }
         },
     )
 
