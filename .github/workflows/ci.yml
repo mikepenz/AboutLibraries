@@ -44,17 +44,14 @@ jobs:
           restore-keys: |
             gradle-${{ runner.os }}-
 
-      - name: Prepare Gradle Publish properties
-        if: matrix.os == 'macos-latest'
-        run: |
-          echo "gradle.publish.key=${{ secrets.GRADLE_PUBLISH_KEY }}" >> ~/.gradle/gradle.properties
-          echo "gradle.publish.secret=${{ secrets.GRADLE_PUBLISH_SECRET }}" >> ~/.gradle/gradle.properties
-
       - name: Release Plugin
         if: matrix.os == 'macos-latest' && !contains(github.ref, '+')
         run: |
           cd plugin-build
           ./gradlew publishPlugins --no-configuration-cache | true
+        env:
+          GRADLE_PUBLISH_KEY: ${{ secrets.GRADLE_PUBLISH_KEY }}
+          GRADLE_PUBLISH_SECRET: ${{ secrets.GRADLE_PUBLISH_SECRET }}
 
       - name: Publish the macOS artifacts
         if: matrix.os == 'macos-latest'
