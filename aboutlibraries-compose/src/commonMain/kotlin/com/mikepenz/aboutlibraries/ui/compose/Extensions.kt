@@ -28,7 +28,7 @@ fun rememberLibraries(
 fun rememberLibraries(
     block: suspend () -> String,
 ): State<Libs?> {
-    return produceState<Libs?>(initialValue = null) {
+    return produceState(initialValue = null) {
         value = withContext(Dispatchers.Default) {
             Libs.Builder()
                 .withJson(block())
@@ -47,7 +47,7 @@ fun rememberLibraries(
 fun rememberLibraries(
     libraries: String,
 ): State<Libs?> {
-    return produceState<Libs?>(initialValue = null) {
+    return produceState(initialValue = null) {
         value = withContext(Dispatchers.Default) {
             Libs.Builder().withJson(libraries).build()
         }

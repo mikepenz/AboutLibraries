@@ -315,10 +315,9 @@ implementation(libs.aboutlibraries.compose.m3) // Material 3
 ### Usage
 
 ```kotlin
-// Android: Auto-discovery using default resource location (src/main/res/raw/aboutlibraries.json)
-LibrariesContainer(
-    Modifier.fillMaxSize()
-)
+// Android: Provide resource identifier for the `R.raw.aboutlibraries` file.
+val libraries by rememberLibraries(R.raw.aboutlibraries)
+LibrariesContainer(libraries, Modifier.fillMaxSize())
 
 // Multiplatform: Using compose-resources API (e.g., src/commonMain/composeResources/files/aboutlibraries.json)
 val libraries by rememberLibraries {

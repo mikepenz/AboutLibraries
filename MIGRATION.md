@@ -6,7 +6,8 @@
 - **Breaking Change**: Introduced new `libraryPadding()` default function to replace the existing one. This moves to use a new class to hold chip paddings.
 - **Breaking Change**: Wrappers around the `LibrariesContainer` were deprecated in favor of `remember*` functions. To be removed in release `13.x.y`.
 - **Breaking Change**: The `LicenseDialogBody` now also accepts the `Modifier` to include padding in text instead of scrollable container
-- **Deprecate**: Deprecate serious of APIs to cleanup and simplify API surface, and simplify maintainance.
+- **Deprecate**: Deprecate serious of APIs to cleanup and simplify API surface, and simplify maintenance.
+- **Note**: Updated README to suggest new non deprecated API for using `LibrariesContainer` on Android.
 
 #### v12.0.0
 
