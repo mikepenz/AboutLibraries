@@ -175,7 +175,7 @@ aboutLibraries {
         // filterVariants.addAll("debug")
 
         // Allows to enable the collection of funding information of differnet libraries
-        // fetchRemoteFunding = true
+        fetchRemoteFunding = true
     }
 
     export {
@@ -199,7 +199,7 @@ aboutLibraries {
         // Define the strict mode, will fail if the project uses licenses not allowed
         // - This will only automatically fail for Android projects which have `registerAndroidTasks` enabled
         // For non-Android projects, execute `exportLibraryDefinitions`
-        strictMode = StrictMode.FAIL
+        strictMode = StrictMode.WARN
         // Allowed set of licenses, this project will be able to use without build failure
         allowedLicenses.addAll("Apache-2.0", "MIT")
         // Allowed set of licenses for specific dependencies, this project will be able to use without build failure

@@ -47,6 +47,10 @@ dependencies {
     implementation(libs.ivy.core)
     implementation(libs.maven.modelBuilder)
 
+    // YAML parser
+    implementation("com.charleskorn.kaml:kaml:0.55.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.5.1")
+
     // add better android support
     compileOnly(baseLibs.android.gradlePlugin)
 

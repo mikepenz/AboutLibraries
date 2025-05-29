@@ -2,6 +2,7 @@ package com.mikepenz.aboutlibraries.plugin.util.parser
 
 import com.mikepenz.aboutlibraries.plugin.mapping.Developer
 import com.mikepenz.aboutlibraries.plugin.mapping.Funding
+import com.mikepenz.aboutlibraries.plugin.mapping.FundingPlatform
 import com.mikepenz.aboutlibraries.plugin.mapping.Library
 import com.mikepenz.aboutlibraries.plugin.mapping.Organization
 import com.mikepenz.aboutlibraries.plugin.mapping.Scm
@@ -46,7 +47,9 @@ object LibraryReader {
 
             val funding = mutableSetOf<Funding>()
             (c["funding"] as? List<Map<String, String>>)?.forEach {
-                funding.add(Funding(it["platform"] ?: "", it["url"] ?: ""))
+                val platform = it["platform"] ?: ""
+                val fundingPlatform = FundingPlatform.fromString(platform)
+                funding.add(Funding(fundingPlatform.name, it["url"] ?: ""))
             }
 
             Library(

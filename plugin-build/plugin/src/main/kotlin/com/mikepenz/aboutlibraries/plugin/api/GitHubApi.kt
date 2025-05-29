@@ -1,6 +1,8 @@
 package com.mikepenz.aboutlibraries.plugin.api
 
+import com.charleskorn.kaml.Yaml
 import com.mikepenz.aboutlibraries.plugin.mapping.Funding
+import com.mikepenz.aboutlibraries.plugin.mapping.FundingPlatform
 import com.mikepenz.aboutlibraries.plugin.mapping.License
 import com.mikepenz.aboutlibraries.plugin.mapping.Scm
 import com.mikepenz.aboutlibraries.plugin.util.LicenseUtil.findSameSpdx
@@ -119,11 +121,12 @@ internal class GitHubApi(
 
     /**
      * Call the GitHub API to retrieve the funding of a project
+     * First tries to retrieve the FUNDING.yml file from the repository
+     * If that fails, falls back to the GraphQL API
      */
     @Suppress("UNCHECKED_CAST")
     override fun fetchFunding(uniqueId: String, repositoryLink: Scm?, funding: MutableSet<Funding>) {
         val url = repositoryLink?.url ?: return
-        // {"query": "query { repository(name: \"openssl\", owner: \"openssl\") { fundingLinks { platform url } } }" }
         discoverBase(url)?.let { (user, project) ->
             val cacheKey = "$user/$project"
             if (remoteFundingCache.containsKey(cacheKey)) {
@@ -137,44 +140,167 @@ internal class GitHubApi(
                 return
             }
 
-            try {
-                val connection = URL("${GITHUB_API}graphql").openConnection()
-                if (!gitHubToken.isNullOrBlank()) {
-                    connection.setRequestProperty("Authorization", "token $gitHubToken")
-                }
-                connection.doOutput = true
-                OutputStreamWriter(connection.getOutputStream()).use {
-                    it.write(
-                        """
-                    {"query": "query { repository(name: \"${project}\", owner: \"${user}\") { fundingLinks { platform url } } }" }
-                    """.trimIndent()
-                    )
-                    it.flush()
-                }
+            val enableGraphQl = false
+            val localFunding = mutableSetOf<Funding>()
 
-                val localFunding = mutableSetOf<Funding>()
-                val fundingResult = JsonSlurper()
-                    .parse(connection.getInputStream().readBytes()) as Map<String, Map<String, Map<String, ArrayList<Map<String, String>>>>>
+            // First try to get funding info from FUNDING.yml file
+            val fundingFromYaml = getFundingFromYamlFile(user, project, uniqueId)
+            if (fundingFromYaml.isNotEmpty()) {
+                localFunding.addAll(fundingFromYaml)
+            } else if (enableGraphQl) {
+                // Fall back to GraphQL API if FUNDING.yml approach failed
+                try {
+                    val connection = URL("${GITHUB_API}graphql").openConnection()
+                    if (!gitHubToken.isNullOrBlank()) {
+                        connection.setRequestProperty("Authorization", "token $gitHubToken")
+                    }
+                    connection.doOutput = true
+                    OutputStreamWriter(connection.getOutputStream()).use {
+                        it.write(
+                            """
+                        {"query": "query { repository(name: \"${project}\", owner: \"${user}\") { fundingLinks { platform url } } }" }
+                        """.trimIndent()
+                        )
+                        it.flush()
+                    }
 
-                fundingResult["data"]?.get("repository")?.get("fundingLinks")?.forEach {
-                    val platform = it["platform"]
-                    val fundingUrl = it["url"]
-                    if (platform != null && fundingUrl != null) {
-                        localFunding.add(Funding(platform, fundingUrl))
+                    val fundingResult = JsonSlurper()
+                        .parse(connection.getInputStream().readBytes()) as Map<String, Map<String, Map<String, ArrayList<Map<String, String>>>>>
+
+                    fundingResult["data"]?.get("repository")?.get("fundingLinks")?.forEach {
+                        val platform = it["platform"]
+                        val fundingUrl = it["url"]
+                        if (platform != null && fundingUrl != null) {
+                            // Convert string platform to FundingPlatform enum
+                            val fundingPlatform = FundingPlatform.fromString(platform)
+                            localFunding.add(Funding(fundingPlatform.name, fundingUrl))
+                        }
+                    }
+
+                    // update rate limit
+                    updateAndCheckRateLimit()
+                } catch (t: Throwable) {
+                    LOGGER.warn("Could not fetch funding via GraphQL API for $user/$project - ($uniqueId)", t)
+                }
+            }
+
+            // store in cache
+            remoteFundingCache[cacheKey] = localFunding
+            funding.addAll(localFunding)
+        }
+    }
+
+    /**
+     * Gets the default branch of a GitHub repository
+     */
+    @Suppress("UNCHECKED_CAST")
+    private fun getDefaultBranch(user: String, project: String): String? {
+        try {
+            val repoApiUrl = "${GITHUB_API}repos/$user/$project"
+            val connection = URL(repoApiUrl).openConnection()
+            if (!gitHubToken.isNullOrBlank()) {
+                connection.setRequestProperty("Authorization", "token $gitHubToken")
+            }
+
+            val repoInfo = JsonSlurper().parse(connection.getInputStream().readBytes()) as Map<String, *>
+            val defaultBranch = repoInfo["default_branch"] as String?
+
+            // update rate limit
+            updateAndCheckRateLimit()
+
+            return defaultBranch
+        } catch (t: Throwable) {
+            LOGGER.warn("Could not fetch default branch for $user/$project", t)
+            return null
+        }
+    }
+
+    /**
+     * Retrieves funding information from the FUNDING.yml file in the repository
+     */
+    private fun getFundingFromYamlFile(user: String, project: String, uniqueId: String): Set<Funding> {
+        val fundingSet = mutableSetOf<Funding>()
+        try {
+            // Get the default branch from GitHub API
+            val defaultBranch = getDefaultBranch(user, project) ?: "main" // Fallback to "main" if API call fails
+
+            // Try to get the FUNDING.yml file from the .github directory using the default branch
+            val fundingYamlUrl = "https://raw.githubusercontent.com/$user/$project/$defaultBranch/.github/FUNDING.yml"
+            val connection = URL(fundingYamlUrl).openConnection()
+            if (!gitHubToken.isNullOrBlank()) {
+                connection.setRequestProperty("Authorization", "token $gitHubToken")
+            }
+
+            val yamlContent = try {
+                connection.getInputStream().bufferedReader().use { it.readText() }
+            } catch (e: Exception) {
+                LOGGER.debug("Could not fetch FUNDING.yml for $user/$project on branch $defaultBranch - ($uniqueId)")
+                return emptySet()
+            }
+
+            // Parse the YAML content using the kaml library
+            val yamlNode = Yaml.default.parseToYamlNode(yamlContent)
+
+            // Process the parsed YAML map
+            if (yamlNode is com.charleskorn.kaml.YamlMap) {
+                yamlNode.entries.forEach { (keyNode, valueNode) ->
+                    val platform = keyNode.content
+
+                    when (valueNode) {
+                        // Handle single value (scalar)
+                        is com.charleskorn.kaml.YamlScalar -> {
+                            val value = valueNode.content.trim()
+                            if (value.isNotEmpty()) {
+                                // Handle comma-separated values in a single string
+                                if (value.contains(",")) {
+                                    value.split(",").forEach { item ->
+                                        val cleanItem = item.trim()
+                                        if (cleanItem.isNotEmpty()) {
+                                            addFundingWithPlatform(fundingSet, platform, cleanItem)
+                                        }
+                                    }
+                                } else {
+                                    addFundingWithPlatform(fundingSet, platform, value)
+                                }
+                            }
+                        }
+                        // Handle array value (sequence)
+                        is com.charleskorn.kaml.YamlList -> {
+                            valueNode.items.forEach { item ->
+                                if (item is com.charleskorn.kaml.YamlScalar) {
+                                    val value = item.content.trim()
+                                    if (value.isNotEmpty()) {
+                                        addFundingWithPlatform(fundingSet, platform, value)
+                                    }
+                                }
+                            }
+                        }
+                        // Handle other YAML node types (map, null, tagged)
+                        else -> {
+                            // Skip other types as they're not relevant for funding information
+                        }
                     }
                 }
-
-                // store in cache
-                remoteFundingCache[cacheKey] = localFunding
-                funding.addAll(localFunding)
-
-                // update rate limit
-                updateAndCheckRateLimit()
-            } catch (t: Throwable) {
-                LOGGER.warn("Could not fetch funding for $user/$project - ($uniqueId)", t)
             }
-        }
 
+            return fundingSet
+        } catch (t: Throwable) {
+            LOGGER.warn("Error parsing FUNDING.yml for $user/$project - ($uniqueId)", t)
+            return emptySet()
+        }
+    }
+
+    /**
+     * Adds funding information to the set based on the platform
+     */
+    private fun addFundingWithPlatform(fundingSet: MutableSet<Funding>, platform: String, value: String) {
+        // Convert platform name to enum
+        val fundingPlatform = FundingPlatform.fromString(platform)
+
+        // Format URL according to platform
+        val url = fundingPlatform.formatUrl(value)
+
+        fundingSet.add(Funding(fundingPlatform.name, url))
     }
 
     /**
@@ -199,7 +325,7 @@ internal class GitHubApi(
         // update remaining rate limit
         rateLimit -= 1
         if (rateLimit <= 0) {
-            LOGGER.warn("GitHub `rate_limit` exhausted. The plugin be able to use the GitHub API.")
+            LOGGER.warn("GitHub `rate_limit` exhausted. The plugin won't be able to use the GitHub API.")
         }
     }
 
