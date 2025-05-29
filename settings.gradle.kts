@@ -35,9 +35,8 @@ include(":aboutlibraries-compose")
 include(":aboutlibraries-compose-m2")
 include(":aboutlibraries-compose-m3")
 
+
 include(":app")
-include(":app-desktop")
-include(":app-wasm")
 include(":app-test")
 
 includeBuild("plugin-build") {
