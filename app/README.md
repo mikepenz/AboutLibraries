@@ -41,3 +41,11 @@
 ```bash
 ./gradlew :app:wasmJsBrowserDevelopmentRun
 ```
+
+## iOS app
+
+### Generate Dependency Information
+
+```bash
+./gradlew :app:exportLibraryDefinitionsIosArm64
+```
