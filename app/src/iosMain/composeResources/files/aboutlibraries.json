@@ -10,9 +10,6 @@
                     "name": "The Android Open Source Project"
                 }
             ],
-            "associated": [
-                "androidx.annotation:annotation"
-            ],
             "artifactVersion": "1.9.1",
             "description": "Provides source annotations for tooling and readability.",
             "scm": {
@@ -29,7 +26,7 @@
             }
         },
         {
-            "uniqueId": "androidx.annotation:annotation-wasm-js",
+            "uniqueId": "androidx.arch.core:core-common",
             "funding": [
                 
             ],
@@ -38,23 +35,17 @@
                     "name": "The Android Open Source Project"
                 }
             ],
-            "associated": [
-                "androidx.annotation:annotation-wasm-js"
-            ],
-            "artifactVersion": "1.9.1",
-            "description": "Provides source annotations for tooling and readability.",
+            "artifactVersion": "2.2.0",
+            "description": "Android Arch-Common",
             "scm": {
                 "connection": "scm:git:https://android.googlesource.com/platform/frameworks/support",
                 "url": "https://cs.android.com/androidx/platform/frameworks/support"
             },
-            "name": "Annotation",
-            "website": "https://developer.android.com/jetpack/androidx/releases/annotation#1.9.1",
+            "name": "Android Arch-Common",
+            "website": "https://developer.android.com/jetpack/androidx/releases/arch-core#2.2.0",
             "licenses": [
                 "Apache-2.0"
-            ],
-            "organization": {
-                "name": "The Android Open Source Project"
-            }
+            ]
         },
         {
             "uniqueId": "androidx.collection:collection",
@@ -65,37 +56,6 @@
                 {
                     "name": "The Android Open Source Project"
                 }
-            ],
-            "associated": [
-                "androidx.collection:collection"
-            ],
-            "artifactVersion": "1.5.0",
-            "description": "Standalone efficient collections.",
-            "scm": {
-                "connection": "scm:git:https://android.googlesource.com/platform/frameworks/support",
-                "url": "https://cs.android.com/androidx/platform/frameworks/support"
-            },
-            "name": "collections",
-            "website": "https://developer.android.com/jetpack/androidx/releases/collection#1.5.0",
-            "licenses": [
-                "Apache-2.0"
-            ],
-            "organization": {
-                "name": "The Android Open Source Project"
-            }
-        },
-        {
-            "uniqueId": "androidx.collection:collection-wasm-js",
-            "funding": [
-                
-            ],
-            "developers": [
-                {
-                    "name": "The Android Open Source Project"
-                }
-            ],
-            "associated": [
-                "androidx.collection:collection-wasm-js"
             ],
             "artifactVersion": "1.5.0",
             "description": "Standalone efficient collections.",
@@ -160,36 +120,6 @@
                     "name": "Compose Multiplatform Team"
                 }
             ],
-            "associated": [
-                "org.jetbrains.androidx.lifecycle:lifecycle-common"
-            ],
-            "artifactVersion": "2.8.4",
-            "description": "Android Lifecycle-Common",
-            "scm": {
-                "connection": "scm:git:https://github.com/JetBrains/compose-jb.git",
-                "url": "https://github.com/JetBrains/compose-jb",
-                "developerConnection": "scm:git:https://github.com/JetBrains/compose-jb.git"
-            },
-            "name": "Lifecycle-Common",
-            "website": "https://github.com/JetBrains/compose-jb",
-            "licenses": [
-                "Apache-2.0"
-            ]
-        },
-        {
-            "uniqueId": "org.jetbrains.androidx.lifecycle:lifecycle-common-wasm-js",
-            "funding": [
-                
-            ],
-            "developers": [
-                {
-                    "organisationUrl": "https://www.jetbrains.com",
-                    "name": "Compose Multiplatform Team"
-                }
-            ],
-            "associated": [
-                "org.jetbrains.androidx.lifecycle:lifecycle-common-wasm-js"
-            ],
             "artifactVersion": "2.8.4",
             "description": "Android Lifecycle-Common",
             "scm": {
@@ -213,9 +143,6 @@
                     "organisationUrl": "https://www.jetbrains.com",
                     "name": "Compose Multiplatform Team"
                 }
-            ],
-            "associated": [
-                "org.jetbrains.androidx.lifecycle:lifecycle-runtime"
             ],
             "artifactVersion": "2.8.4",
             "description": "Android Lifecycle Runtime",
@@ -241,9 +168,6 @@
                     "name": "Compose Multiplatform Team"
                 }
             ],
-            "associated": [
-                "org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose"
-            ],
             "artifactVersion": "2.8.4",
             "description": "Compose integration with Lifecycle",
             "scm": {
@@ -252,60 +176,6 @@
                 "developerConnection": "scm:git:https://github.com/JetBrains/compose-jb.git"
             },
             "name": "Lifecycle Runtime Compose",
-            "website": "https://github.com/JetBrains/compose-jb",
-            "licenses": [
-                "Apache-2.0"
-            ]
-        },
-        {
-            "uniqueId": "org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose-wasm-js",
-            "funding": [
-                
-            ],
-            "developers": [
-                {
-                    "organisationUrl": "https://www.jetbrains.com",
-                    "name": "Compose Multiplatform Team"
-                }
-            ],
-            "associated": [
-                "org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose-wasm-js"
-            ],
-            "artifactVersion": "2.8.4",
-            "description": "Compose integration with Lifecycle",
-            "scm": {
-                "connection": "scm:git:https://github.com/JetBrains/compose-jb.git",
-                "url": "https://github.com/JetBrains/compose-jb",
-                "developerConnection": "scm:git:https://github.com/JetBrains/compose-jb.git"
-            },
-            "name": "Lifecycle Runtime Compose",
-            "website": "https://github.com/JetBrains/compose-jb",
-            "licenses": [
-                "Apache-2.0"
-            ]
-        },
-        {
-            "uniqueId": "org.jetbrains.androidx.lifecycle:lifecycle-runtime-wasm-js",
-            "funding": [
-                
-            ],
-            "developers": [
-                {
-                    "organisationUrl": "https://www.jetbrains.com",
-                    "name": "Compose Multiplatform Team"
-                }
-            ],
-            "associated": [
-                "org.jetbrains.androidx.lifecycle:lifecycle-runtime-wasm-js"
-            ],
-            "artifactVersion": "2.8.4",
-            "description": "Android Lifecycle Runtime",
-            "scm": {
-                "connection": "scm:git:https://github.com/JetBrains/compose-jb.git",
-                "url": "https://github.com/JetBrains/compose-jb",
-                "developerConnection": "scm:git:https://github.com/JetBrains/compose-jb.git"
-            },
-            "name": "Lifecycle Runtime",
             "website": "https://github.com/JetBrains/compose-jb",
             "licenses": [
                 "Apache-2.0"
@@ -321,36 +191,6 @@
                     "organisationUrl": "https://www.jetbrains.com",
                     "name": "Compose Multiplatform Team"
                 }
-            ],
-            "associated": [
-                "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel"
-            ],
-            "artifactVersion": "2.8.4",
-            "description": "Android Lifecycle ViewModel",
-            "scm": {
-                "connection": "scm:git:https://github.com/JetBrains/compose-jb.git",
-                "url": "https://github.com/JetBrains/compose-jb",
-                "developerConnection": "scm:git:https://github.com/JetBrains/compose-jb.git"
-            },
-            "name": "Lifecycle ViewModel",
-            "website": "https://github.com/JetBrains/compose-jb",
-            "licenses": [
-                "Apache-2.0"
-            ]
-        },
-        {
-            "uniqueId": "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-wasm-js",
-            "funding": [
-                
-            ],
-            "developers": [
-                {
-                    "organisationUrl": "https://www.jetbrains.com",
-                    "name": "Compose Multiplatform Team"
-                }
-            ],
-            "associated": [
-                "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-wasm-js"
             ],
             "artifactVersion": "2.8.4",
             "description": "Android Lifecycle ViewModel",
@@ -376,9 +216,6 @@
                     "name": "Compose Multiplatform Team"
                 }
             ],
-            "associated": [
-                "org.jetbrains.compose.animation:animation"
-            ],
             "artifactVersion": "1.8.1",
             "description": "Compose animation library",
             "scm": {
@@ -403,9 +240,6 @@
                     "name": "Compose Multiplatform Team"
                 }
             ],
-            "associated": [
-                "org.jetbrains.compose.animation:animation-core"
-            ],
             "artifactVersion": "1.8.1",
             "description": "Animation engine and animation primitives that are the building blocks of the Compose animation library",
             "scm": {
@@ -414,60 +248,6 @@
                 "developerConnection": "scm:git:https://github.com/JetBrains/compose-jb.git"
             },
             "name": "Compose Animation Core",
-            "website": "https://github.com/JetBrains/compose-jb",
-            "licenses": [
-                "Apache-2.0"
-            ]
-        },
-        {
-            "uniqueId": "org.jetbrains.compose.animation:animation-core-wasm-js",
-            "funding": [
-                
-            ],
-            "developers": [
-                {
-                    "organisationUrl": "https://www.jetbrains.com",
-                    "name": "Compose Multiplatform Team"
-                }
-            ],
-            "associated": [
-                "org.jetbrains.compose.animation:animation-core-wasm-js"
-            ],
-            "artifactVersion": "1.8.1",
-            "description": "Animation engine and animation primitives that are the building blocks of the Compose animation library",
-            "scm": {
-                "connection": "scm:git:https://github.com/JetBrains/compose-jb.git",
-                "url": "https://github.com/JetBrains/compose-jb",
-                "developerConnection": "scm:git:https://github.com/JetBrains/compose-jb.git"
-            },
-            "name": "Compose Animation Core",
-            "website": "https://github.com/JetBrains/compose-jb",
-            "licenses": [
-                "Apache-2.0"
-            ]
-        },
-        {
-            "uniqueId": "org.jetbrains.compose.animation:animation-wasm-js",
-            "funding": [
-                
-            ],
-            "developers": [
-                {
-                    "organisationUrl": "https://www.jetbrains.com",
-                    "name": "Compose Multiplatform Team"
-                }
-            ],
-            "associated": [
-                "org.jetbrains.compose.animation:animation-wasm-js"
-            ],
-            "artifactVersion": "1.8.1",
-            "description": "Compose animation library",
-            "scm": {
-                "connection": "scm:git:https://github.com/JetBrains/compose-jb.git",
-                "url": "https://github.com/JetBrains/compose-jb",
-                "developerConnection": "scm:git:https://github.com/JetBrains/compose-jb.git"
-            },
-            "name": "Compose Animation",
             "website": "https://github.com/JetBrains/compose-jb",
             "licenses": [
                 "Apache-2.0"
@@ -484,37 +264,7 @@
                     "name": "Compose Multiplatform Team"
                 }
             ],
-            "associated": [
-                "org.jetbrains.compose.annotation-internal:annotation"
-            ],
-            "artifactVersion": "1.6.11",
-            "description": "Provides source annotations for tooling and readability.",
-            "scm": {
-                "connection": "scm:git:https://github.com/JetBrains/compose-jb.git",
-                "url": "https://github.com/JetBrains/compose-jb",
-                "developerConnection": "scm:git:https://github.com/JetBrains/compose-jb.git"
-            },
-            "name": "Annotation",
-            "website": "https://github.com/JetBrains/compose-jb",
-            "licenses": [
-                "Apache-2.0"
-            ]
-        },
-        {
-            "uniqueId": "org.jetbrains.compose.annotation-internal:annotation-wasm-js",
-            "funding": [
-                
-            ],
-            "developers": [
-                {
-                    "organisationUrl": "https://www.jetbrains.com",
-                    "name": "Compose Multiplatform Team"
-                }
-            ],
-            "associated": [
-                "org.jetbrains.compose.annotation-internal:annotation-wasm-js"
-            ],
-            "artifactVersion": "1.6.11",
+            "artifactVersion": "1.8.1",
             "description": "Provides source annotations for tooling and readability.",
             "scm": {
                 "connection": "scm:git:https://github.com/JetBrains/compose-jb.git",
@@ -537,36 +287,6 @@
                     "organisationUrl": "https://www.jetbrains.com",
                     "name": "Compose Multiplatform Team"
                 }
-            ],
-            "associated": [
-                "org.jetbrains.compose.collection-internal:collection"
-            ],
-            "artifactVersion": "1.8.1",
-            "description": "Standalone efficient collections.",
-            "scm": {
-                "connection": "scm:git:https://github.com/JetBrains/compose-jb.git",
-                "url": "https://github.com/JetBrains/compose-jb",
-                "developerConnection": "scm:git:https://github.com/JetBrains/compose-jb.git"
-            },
-            "name": "collections",
-            "website": "https://github.com/JetBrains/compose-jb",
-            "licenses": [
-                "Apache-2.0"
-            ]
-        },
-        {
-            "uniqueId": "org.jetbrains.compose.collection-internal:collection-wasm-js",
-            "funding": [
-                
-            ],
-            "developers": [
-                {
-                    "organisationUrl": "https://www.jetbrains.com",
-                    "name": "Compose Multiplatform Team"
-                }
-            ],
-            "associated": [
-                "org.jetbrains.compose.collection-internal:collection-wasm-js"
             ],
             "artifactVersion": "1.8.1",
             "description": "Standalone efficient collections.",
@@ -592,36 +312,6 @@
                     "name": "Compose Multiplatform Team"
                 }
             ],
-            "associated": [
-                "org.jetbrains.compose.components:components-resources"
-            ],
-            "artifactVersion": "1.8.1",
-            "description": "Resources for Compose JB",
-            "scm": {
-                "connection": "scm:git:https://github.com/JetBrains/compose-jb.git",
-                "url": "https://github.com/JetBrains/compose-jb",
-                "developerConnection": "scm:git:https://github.com/JetBrains/compose-jb.git"
-            },
-            "name": "Resources for Compose JB",
-            "website": "https://github.com/JetBrains/compose-jb",
-            "licenses": [
-                "Apache-2.0"
-            ]
-        },
-        {
-            "uniqueId": "org.jetbrains.compose.components:components-resources-wasmJs",
-            "funding": [
-                
-            ],
-            "developers": [
-                {
-                    "organisationUrl": "https://www.jetbrains.com",
-                    "name": "Compose Multiplatform Team"
-                }
-            ],
-            "associated": [
-                "org.jetbrains.compose.components:components-resources-wasmJs"
-            ],
             "artifactVersion": "1.8.1",
             "description": "Resources for Compose JB",
             "scm": {
@@ -645,36 +335,6 @@
                     "organisationUrl": "https://www.jetbrains.com",
                     "name": "Compose Multiplatform Team"
                 }
-            ],
-            "associated": [
-                "org.jetbrains.compose.components:components-ui-tooling-preview"
-            ],
-            "artifactVersion": "1.8.1",
-            "description": "Experimental Compose Multiplatform tooling library API. This library provides the API required to declare @Preview composables in user apps.",
-            "scm": {
-                "connection": "scm:git:https://github.com/JetBrains/compose-jb.git",
-                "url": "https://github.com/JetBrains/compose-jb",
-                "developerConnection": "scm:git:https://github.com/JetBrains/compose-jb.git"
-            },
-            "name": "Experimental Compose Multiplatform tooling library API. This library provides the API required to declare @Preview composables in user apps.",
-            "website": "https://github.com/JetBrains/compose-jb",
-            "licenses": [
-                "Apache-2.0"
-            ]
-        },
-        {
-            "uniqueId": "org.jetbrains.compose.components:components-ui-tooling-preview-wasmJs",
-            "funding": [
-                
-            ],
-            "developers": [
-                {
-                    "organisationUrl": "https://www.jetbrains.com",
-                    "name": "Compose Multiplatform Team"
-                }
-            ],
-            "associated": [
-                "org.jetbrains.compose.components:components-ui-tooling-preview-wasmJs"
             ],
             "artifactVersion": "1.8.1",
             "description": "Experimental Compose Multiplatform tooling library API. This library provides the API required to declare @Preview composables in user apps.",
@@ -700,9 +360,6 @@
                     "name": "Compose Multiplatform Team"
                 }
             ],
-            "associated": [
-                "org.jetbrains.compose.foundation:foundation"
-            ],
             "artifactVersion": "1.8.1",
             "description": "Higher level abstractions of the Compose UI primitives. This library is design system agnostic, providing the high-level building blocks for both application and design-system developers",
             "scm": {
@@ -727,9 +384,6 @@
                     "name": "Compose Multiplatform Team"
                 }
             ],
-            "associated": [
-                "org.jetbrains.compose.foundation:foundation-layout"
-            ],
             "artifactVersion": "1.8.1",
             "description": "Compose layout implementations",
             "scm": {
@@ -738,60 +392,6 @@
                 "developerConnection": "scm:git:https://github.com/JetBrains/compose-jb.git"
             },
             "name": "Compose Layouts",
-            "website": "https://github.com/JetBrains/compose-jb",
-            "licenses": [
-                "Apache-2.0"
-            ]
-        },
-        {
-            "uniqueId": "org.jetbrains.compose.foundation:foundation-layout-wasm-js",
-            "funding": [
-                
-            ],
-            "developers": [
-                {
-                    "organisationUrl": "https://www.jetbrains.com",
-                    "name": "Compose Multiplatform Team"
-                }
-            ],
-            "associated": [
-                "org.jetbrains.compose.foundation:foundation-layout-wasm-js"
-            ],
-            "artifactVersion": "1.8.1",
-            "description": "Compose layout implementations",
-            "scm": {
-                "connection": "scm:git:https://github.com/JetBrains/compose-jb.git",
-                "url": "https://github.com/JetBrains/compose-jb",
-                "developerConnection": "scm:git:https://github.com/JetBrains/compose-jb.git"
-            },
-            "name": "Compose Layouts",
-            "website": "https://github.com/JetBrains/compose-jb",
-            "licenses": [
-                "Apache-2.0"
-            ]
-        },
-        {
-            "uniqueId": "org.jetbrains.compose.foundation:foundation-wasm-js",
-            "funding": [
-                
-            ],
-            "developers": [
-                {
-                    "organisationUrl": "https://www.jetbrains.com",
-                    "name": "Compose Multiplatform Team"
-                }
-            ],
-            "associated": [
-                "org.jetbrains.compose.foundation:foundation-wasm-js"
-            ],
-            "artifactVersion": "1.8.1",
-            "description": "Higher level abstractions of the Compose UI primitives. This library is design system agnostic, providing the high-level building blocks for both application and design-system developers",
-            "scm": {
-                "connection": "scm:git:https://github.com/JetBrains/compose-jb.git",
-                "url": "https://github.com/JetBrains/compose-jb",
-                "developerConnection": "scm:git:https://github.com/JetBrains/compose-jb.git"
-            },
-            "name": "Compose Foundation",
             "website": "https://github.com/JetBrains/compose-jb",
             "licenses": [
                 "Apache-2.0"
@@ -807,36 +407,6 @@
                     "organisationUrl": "https://www.jetbrains.com",
                     "name": "Compose Multiplatform Team"
                 }
-            ],
-            "associated": [
-                "org.jetbrains.compose.material3:material3"
-            ],
-            "artifactVersion": "1.8.1",
-            "description": "Compose Material You Design Components library",
-            "scm": {
-                "connection": "scm:git:https://github.com/JetBrains/compose-jb.git",
-                "url": "https://github.com/JetBrains/compose-jb",
-                "developerConnection": "scm:git:https://github.com/JetBrains/compose-jb.git"
-            },
-            "name": "Compose Material3 Components",
-            "website": "https://github.com/JetBrains/compose-jb",
-            "licenses": [
-                "Apache-2.0"
-            ]
-        },
-        {
-            "uniqueId": "org.jetbrains.compose.material3:material3-wasm-js",
-            "funding": [
-                
-            ],
-            "developers": [
-                {
-                    "organisationUrl": "https://www.jetbrains.com",
-                    "name": "Compose Multiplatform Team"
-                }
-            ],
-            "associated": [
-                "org.jetbrains.compose.material3:material3-wasm-js"
             ],
             "artifactVersion": "1.8.1",
             "description": "Compose Material You Design Components library",
@@ -862,9 +432,6 @@
                     "name": "Compose Multiplatform Team"
                 }
             ],
-            "associated": [
-                "org.jetbrains.compose.material:material"
-            ],
             "artifactVersion": "1.8.1",
             "description": "Compose Material Design Components library",
             "scm": {
@@ -889,9 +456,6 @@
                     "name": "Compose Multiplatform Team"
                 }
             ],
-            "associated": [
-                "org.jetbrains.compose.material:material-ripple"
-            ],
             "artifactVersion": "1.8.1",
             "description": "Material ripple used to build interactive components",
             "scm": {
@@ -900,60 +464,6 @@
                 "developerConnection": "scm:git:https://github.com/JetBrains/compose-jb.git"
             },
             "name": "Compose Material Ripple",
-            "website": "https://github.com/JetBrains/compose-jb",
-            "licenses": [
-                "Apache-2.0"
-            ]
-        },
-        {
-            "uniqueId": "org.jetbrains.compose.material:material-ripple-wasm-js",
-            "funding": [
-                
-            ],
-            "developers": [
-                {
-                    "organisationUrl": "https://www.jetbrains.com",
-                    "name": "Compose Multiplatform Team"
-                }
-            ],
-            "associated": [
-                "org.jetbrains.compose.material:material-ripple-wasm-js"
-            ],
-            "artifactVersion": "1.8.1",
-            "description": "Material ripple used to build interactive components",
-            "scm": {
-                "connection": "scm:git:https://github.com/JetBrains/compose-jb.git",
-                "url": "https://github.com/JetBrains/compose-jb",
-                "developerConnection": "scm:git:https://github.com/JetBrains/compose-jb.git"
-            },
-            "name": "Compose Material Ripple",
-            "website": "https://github.com/JetBrains/compose-jb",
-            "licenses": [
-                "Apache-2.0"
-            ]
-        },
-        {
-            "uniqueId": "org.jetbrains.compose.material:material-wasm-js",
-            "funding": [
-                
-            ],
-            "developers": [
-                {
-                    "organisationUrl": "https://www.jetbrains.com",
-                    "name": "Compose Multiplatform Team"
-                }
-            ],
-            "associated": [
-                "org.jetbrains.compose.material:material-wasm-js"
-            ],
-            "artifactVersion": "1.8.1",
-            "description": "Compose Material Design Components library",
-            "scm": {
-                "connection": "scm:git:https://github.com/JetBrains/compose-jb.git",
-                "url": "https://github.com/JetBrains/compose-jb",
-                "developerConnection": "scm:git:https://github.com/JetBrains/compose-jb.git"
-            },
-            "name": "Compose Material Components",
             "website": "https://github.com/JetBrains/compose-jb",
             "licenses": [
                 "Apache-2.0"
@@ -969,9 +479,6 @@
                     "organisationUrl": "https://www.jetbrains.com",
                     "name": "Compose Multiplatform Team"
                 }
-            ],
-            "associated": [
-                "org.jetbrains.compose.runtime:runtime"
             ],
             "artifactVersion": "1.8.1",
             "description": "Tree composition support for code generated by the Compose compiler plugin and corresponding public API",
@@ -997,9 +504,6 @@
                     "name": "Compose Multiplatform Team"
                 }
             ],
-            "associated": [
-                "org.jetbrains.compose.runtime:runtime-saveable"
-            ],
             "artifactVersion": "1.8.1",
             "description": "Compose components that allow saving and restoring the local ui state",
             "scm": {
@@ -1008,60 +512,6 @@
                 "developerConnection": "scm:git:https://github.com/JetBrains/compose-jb.git"
             },
             "name": "Compose Saveable",
-            "website": "https://github.com/JetBrains/compose-jb",
-            "licenses": [
-                "Apache-2.0"
-            ]
-        },
-        {
-            "uniqueId": "org.jetbrains.compose.runtime:runtime-saveable-wasm-js",
-            "funding": [
-                
-            ],
-            "developers": [
-                {
-                    "organisationUrl": "https://www.jetbrains.com",
-                    "name": "Compose Multiplatform Team"
-                }
-            ],
-            "associated": [
-                "org.jetbrains.compose.runtime:runtime-saveable-wasm-js"
-            ],
-            "artifactVersion": "1.8.1",
-            "description": "Compose components that allow saving and restoring the local ui state",
-            "scm": {
-                "connection": "scm:git:https://github.com/JetBrains/compose-jb.git",
-                "url": "https://github.com/JetBrains/compose-jb",
-                "developerConnection": "scm:git:https://github.com/JetBrains/compose-jb.git"
-            },
-            "name": "Compose Saveable",
-            "website": "https://github.com/JetBrains/compose-jb",
-            "licenses": [
-                "Apache-2.0"
-            ]
-        },
-        {
-            "uniqueId": "org.jetbrains.compose.runtime:runtime-wasm-js",
-            "funding": [
-                
-            ],
-            "developers": [
-                {
-                    "organisationUrl": "https://www.jetbrains.com",
-                    "name": "Compose Multiplatform Team"
-                }
-            ],
-            "associated": [
-                "org.jetbrains.compose.runtime:runtime-wasm-js"
-            ],
-            "artifactVersion": "1.8.1",
-            "description": "Tree composition support for code generated by the Compose compiler plugin and corresponding public API",
-            "scm": {
-                "connection": "scm:git:https://github.com/JetBrains/compose-jb.git",
-                "url": "https://github.com/JetBrains/compose-jb",
-                "developerConnection": "scm:git:https://github.com/JetBrains/compose-jb.git"
-            },
-            "name": "Compose Runtime",
             "website": "https://github.com/JetBrains/compose-jb",
             "licenses": [
                 "Apache-2.0"
@@ -1077,9 +527,6 @@
                     "organisationUrl": "https://www.jetbrains.com",
                     "name": "Compose Multiplatform Team"
                 }
-            ],
-            "associated": [
-                "org.jetbrains.compose.ui:ui"
             ],
             "artifactVersion": "1.8.1",
             "description": "Compose UI primitives. This library contains the primitives that form the Compose UI Toolkit, such as drawing, measurement and layout.",
@@ -1105,36 +552,6 @@
                     "name": "Compose Multiplatform Team"
                 }
             ],
-            "associated": [
-                "org.jetbrains.compose.ui:ui-backhandler"
-            ],
-            "artifactVersion": "1.8.1",
-            "description": "Provides BackHandler in Compose Multiplatform projects",
-            "scm": {
-                "connection": "scm:git:https://github.com/JetBrains/compose-jb.git",
-                "url": "https://github.com/JetBrains/compose-jb",
-                "developerConnection": "scm:git:https://github.com/JetBrains/compose-jb.git"
-            },
-            "name": "Compose Multiplatform BackHandler",
-            "website": "https://github.com/JetBrains/compose-jb",
-            "licenses": [
-                "Apache-2.0"
-            ]
-        },
-        {
-            "uniqueId": "org.jetbrains.compose.ui:ui-backhandler-wasm-js",
-            "funding": [
-                
-            ],
-            "developers": [
-                {
-                    "organisationUrl": "https://www.jetbrains.com",
-                    "name": "Compose Multiplatform Team"
-                }
-            ],
-            "associated": [
-                "org.jetbrains.compose.ui:ui-backhandler-wasm-js"
-            ],
             "artifactVersion": "1.8.1",
             "description": "Provides BackHandler in Compose Multiplatform projects",
             "scm": {
@@ -1158,36 +575,6 @@
                     "organisationUrl": "https://www.jetbrains.com",
                     "name": "Compose Multiplatform Team"
                 }
-            ],
-            "associated": [
-                "org.jetbrains.compose.ui:ui-geometry"
-            ],
-            "artifactVersion": "1.8.1",
-            "description": "Compose classes related to dimensions without units",
-            "scm": {
-                "connection": "scm:git:https://github.com/JetBrains/compose-jb.git",
-                "url": "https://github.com/JetBrains/compose-jb",
-                "developerConnection": "scm:git:https://github.com/JetBrains/compose-jb.git"
-            },
-            "name": "Compose Geometry",
-            "website": "https://github.com/JetBrains/compose-jb",
-            "licenses": [
-                "Apache-2.0"
-            ]
-        },
-        {
-            "uniqueId": "org.jetbrains.compose.ui:ui-geometry-wasm-js",
-            "funding": [
-                
-            ],
-            "developers": [
-                {
-                    "organisationUrl": "https://www.jetbrains.com",
-                    "name": "Compose Multiplatform Team"
-                }
-            ],
-            "associated": [
-                "org.jetbrains.compose.ui:ui-geometry-wasm-js"
             ],
             "artifactVersion": "1.8.1",
             "description": "Compose classes related to dimensions without units",
@@ -1213,36 +600,6 @@
                     "name": "Compose Multiplatform Team"
                 }
             ],
-            "associated": [
-                "org.jetbrains.compose.ui:ui-graphics"
-            ],
-            "artifactVersion": "1.8.1",
-            "description": "Compose graphics",
-            "scm": {
-                "connection": "scm:git:https://github.com/JetBrains/compose-jb.git",
-                "url": "https://github.com/JetBrains/compose-jb",
-                "developerConnection": "scm:git:https://github.com/JetBrains/compose-jb.git"
-            },
-            "name": "Compose Graphics",
-            "website": "https://github.com/JetBrains/compose-jb",
-            "licenses": [
-                "Apache-2.0"
-            ]
-        },
-        {
-            "uniqueId": "org.jetbrains.compose.ui:ui-graphics-wasm-js",
-            "funding": [
-                
-            ],
-            "developers": [
-                {
-                    "organisationUrl": "https://www.jetbrains.com",
-                    "name": "Compose Multiplatform Team"
-                }
-            ],
-            "associated": [
-                "org.jetbrains.compose.ui:ui-graphics-wasm-js"
-            ],
             "artifactVersion": "1.8.1",
             "description": "Compose graphics",
             "scm": {
@@ -1267,9 +624,6 @@
                     "name": "Compose Multiplatform Team"
                 }
             ],
-            "associated": [
-                "org.jetbrains.compose.ui:ui-text"
-            ],
             "artifactVersion": "1.8.1",
             "description": "Compose Text primitives and utilities",
             "scm": {
@@ -1284,7 +638,7 @@
             ]
         },
         {
-            "uniqueId": "org.jetbrains.compose.ui:ui-text-wasm-js",
+            "uniqueId": "org.jetbrains.compose.ui:ui-uikit",
             "funding": [
                 
             ],
@@ -1294,17 +648,14 @@
                     "name": "Compose Multiplatform Team"
                 }
             ],
-            "associated": [
-                "org.jetbrains.compose.ui:ui-text-wasm-js"
-            ],
             "artifactVersion": "1.8.1",
-            "description": "Compose Text primitives and utilities",
+            "description": "Internal iOS UIKit utilities including Objective-C library.",
             "scm": {
                 "connection": "scm:git:https://github.com/JetBrains/compose-jb.git",
                 "url": "https://github.com/JetBrains/compose-jb",
                 "developerConnection": "scm:git:https://github.com/JetBrains/compose-jb.git"
             },
-            "name": "Compose UI Text",
+            "name": "Compose UIKit Utils",
             "website": "https://github.com/JetBrains/compose-jb",
             "licenses": [
                 "Apache-2.0"
@@ -1320,36 +671,6 @@
                     "organisationUrl": "https://www.jetbrains.com",
                     "name": "Compose Multiplatform Team"
                 }
-            ],
-            "associated": [
-                "org.jetbrains.compose.ui:ui-unit"
-            ],
-            "artifactVersion": "1.8.1",
-            "description": "Compose classes for simple units",
-            "scm": {
-                "connection": "scm:git:https://github.com/JetBrains/compose-jb.git",
-                "url": "https://github.com/JetBrains/compose-jb",
-                "developerConnection": "scm:git:https://github.com/JetBrains/compose-jb.git"
-            },
-            "name": "Compose Unit",
-            "website": "https://github.com/JetBrains/compose-jb",
-            "licenses": [
-                "Apache-2.0"
-            ]
-        },
-        {
-            "uniqueId": "org.jetbrains.compose.ui:ui-unit-wasm-js",
-            "funding": [
-                
-            ],
-            "developers": [
-                {
-                    "organisationUrl": "https://www.jetbrains.com",
-                    "name": "Compose Multiplatform Team"
-                }
-            ],
-            "associated": [
-                "org.jetbrains.compose.ui:ui-unit-wasm-js"
             ],
             "artifactVersion": "1.8.1",
             "description": "Compose classes for simple units",
@@ -1375,9 +696,6 @@
                     "name": "Compose Multiplatform Team"
                 }
             ],
-            "associated": [
-                "org.jetbrains.compose.ui:ui-util"
-            ],
             "artifactVersion": "1.8.1",
             "description": "Internal Compose utilities used by other modules",
             "scm": {
@@ -1386,60 +704,6 @@
                 "developerConnection": "scm:git:https://github.com/JetBrains/compose-jb.git"
             },
             "name": "Compose Util",
-            "website": "https://github.com/JetBrains/compose-jb",
-            "licenses": [
-                "Apache-2.0"
-            ]
-        },
-        {
-            "uniqueId": "org.jetbrains.compose.ui:ui-util-wasm-js",
-            "funding": [
-                
-            ],
-            "developers": [
-                {
-                    "organisationUrl": "https://www.jetbrains.com",
-                    "name": "Compose Multiplatform Team"
-                }
-            ],
-            "associated": [
-                "org.jetbrains.compose.ui:ui-util-wasm-js"
-            ],
-            "artifactVersion": "1.8.1",
-            "description": "Internal Compose utilities used by other modules",
-            "scm": {
-                "connection": "scm:git:https://github.com/JetBrains/compose-jb.git",
-                "url": "https://github.com/JetBrains/compose-jb",
-                "developerConnection": "scm:git:https://github.com/JetBrains/compose-jb.git"
-            },
-            "name": "Compose Util",
-            "website": "https://github.com/JetBrains/compose-jb",
-            "licenses": [
-                "Apache-2.0"
-            ]
-        },
-        {
-            "uniqueId": "org.jetbrains.compose.ui:ui-wasm-js",
-            "funding": [
-                
-            ],
-            "developers": [
-                {
-                    "organisationUrl": "https://www.jetbrains.com",
-                    "name": "Compose Multiplatform Team"
-                }
-            ],
-            "associated": [
-                "org.jetbrains.compose.ui:ui-wasm-js"
-            ],
-            "artifactVersion": "1.8.1",
-            "description": "Compose UI primitives. This library contains the primitives that form the Compose UI Toolkit, such as drawing, measurement and layout.",
-            "scm": {
-                "connection": "scm:git:https://github.com/JetBrains/compose-jb.git",
-                "url": "https://github.com/JetBrains/compose-jb",
-                "developerConnection": "scm:git:https://github.com/JetBrains/compose-jb.git"
-            },
-            "name": "Compose UI primitives",
             "website": "https://github.com/JetBrains/compose-jb",
             "licenses": [
                 "Apache-2.0"
@@ -1470,30 +734,6 @@
             ]
         },
         {
-            "uniqueId": "org.jetbrains.kotlin:kotlin-stdlib-wasm-js",
-            "funding": [
-                
-            ],
-            "developers": [
-                {
-                    "organisationUrl": "https://www.jetbrains.com",
-                    "name": "Kotlin Team"
-                }
-            ],
-            "artifactVersion": "2.1.21",
-            "description": "Kotlin Standard Library for experimental WebAssembly JS platform",
-            "scm": {
-                "connection": "scm:git:https://github.com/JetBrains/kotlin.git",
-                "url": "https://github.com/JetBrains/kotlin",
-                "developerConnection": "scm:git:https://github.com/JetBrains/kotlin.git"
-            },
-            "name": "Kotlin Stdlib Wasm Js",
-            "website": "https://kotlinlang.org/",
-            "licenses": [
-                "Apache-2.0"
-            ]
-        },
-        {
             "uniqueId": "org.jetbrains.kotlinx:atomicfu",
             "funding": [
                 
@@ -1504,91 +744,13 @@
                     "name": "JetBrains Team"
                 }
             ],
-            "associated": [
-                "org.jetbrains.kotlinx:atomicfu"
-            ],
-            "artifactVersion": "0.26.1",
+            "artifactVersion": "0.23.2",
             "description": "AtomicFU utilities",
             "scm": {
                 "url": "https://github.com/Kotlin/kotlinx.atomicfu"
             },
             "name": "atomicfu",
             "website": "https://github.com/Kotlin/kotlinx.atomicfu",
-            "licenses": [
-                "Apache-2.0"
-            ]
-        },
-        {
-            "uniqueId": "org.jetbrains.kotlinx:atomicfu-wasm-js",
-            "funding": [
-                
-            ],
-            "developers": [
-                {
-                    "organisationUrl": "https://www.jetbrains.com",
-                    "name": "JetBrains Team"
-                }
-            ],
-            "associated": [
-                "org.jetbrains.kotlinx:atomicfu-wasm-js"
-            ],
-            "artifactVersion": "0.26.1",
-            "description": "AtomicFU utilities",
-            "scm": {
-                "url": "https://github.com/Kotlin/kotlinx.atomicfu"
-            },
-            "name": "atomicfu",
-            "website": "https://github.com/Kotlin/kotlinx.atomicfu",
-            "licenses": [
-                "Apache-2.0"
-            ]
-        },
-        {
-            "uniqueId": "org.jetbrains.kotlinx:kotlinx-browser",
-            "funding": [
-                
-            ],
-            "developers": [
-                {
-                    "organisationUrl": "https://www.jetbrains.com",
-                    "name": "JetBrains Team"
-                }
-            ],
-            "associated": [
-                "org.jetbrains.kotlinx:kotlinx-browser"
-            ],
-            "artifactVersion": "0.3",
-            "description": "Kotlinx Browser",
-            "scm": {
-                "url": "https://github.com/Kotlin/kotlinx-browser"
-            },
-            "name": "kotlinx-browser",
-            "website": "https://github.com/Kotlin/kotlinx-browser",
-            "licenses": [
-                "Apache-2.0"
-            ]
-        },
-        {
-            "uniqueId": "org.jetbrains.kotlinx:kotlinx-browser-wasm-js",
-            "funding": [
-                
-            ],
-            "developers": [
-                {
-                    "organisationUrl": "https://www.jetbrains.com",
-                    "name": "JetBrains Team"
-                }
-            ],
-            "associated": [
-                "org.jetbrains.kotlinx:kotlinx-browser-wasm-js"
-            ],
-            "artifactVersion": "0.3",
-            "description": "Kotlinx Browser",
-            "scm": {
-                "url": "https://github.com/Kotlin/kotlinx-browser"
-            },
-            "name": "kotlinx-browser",
-            "website": "https://github.com/Kotlin/kotlinx-browser",
             "licenses": [
                 "Apache-2.0"
             ]
@@ -1603,34 +765,6 @@
                     "organisationUrl": "https://www.jetbrains.com",
                     "name": "JetBrains Team"
                 }
-            ],
-            "associated": [
-                "org.jetbrains.kotlinx:kotlinx-collections-immutable"
-            ],
-            "artifactVersion": "0.4.0",
-            "description": "Kotlin Immutable Collections multiplatform library",
-            "scm": {
-                "url": "https://github.com/Kotlin/kotlinx.collections.immutable"
-            },
-            "name": "kotlinx-collections-immutable",
-            "website": "https://github.com/Kotlin/kotlinx.collections.immutable",
-            "licenses": [
-                "Apache-2.0"
-            ]
-        },
-        {
-            "uniqueId": "org.jetbrains.kotlinx:kotlinx-collections-immutable-wasm-js",
-            "funding": [
-                
-            ],
-            "developers": [
-                {
-                    "organisationUrl": "https://www.jetbrains.com",
-                    "name": "JetBrains Team"
-                }
-            ],
-            "associated": [
-                "org.jetbrains.kotlinx:kotlinx-collections-immutable-wasm-js"
             ],
             "artifactVersion": "0.4.0",
             "description": "Kotlin Immutable Collections multiplatform library",
@@ -1654,34 +788,6 @@
                     "name": "JetBrains Team"
                 }
             ],
-            "associated": [
-                "org.jetbrains.kotlinx:kotlinx-coroutines-core"
-            ],
-            "artifactVersion": "1.10.2",
-            "description": "Coroutines support libraries for Kotlin",
-            "scm": {
-                "url": "https://github.com/Kotlin/kotlinx.coroutines"
-            },
-            "name": "kotlinx-coroutines-core",
-            "website": "https://github.com/Kotlin/kotlinx.coroutines",
-            "licenses": [
-                "Apache-2.0"
-            ]
-        },
-        {
-            "uniqueId": "org.jetbrains.kotlinx:kotlinx-coroutines-core-wasm-js",
-            "funding": [
-                
-            ],
-            "developers": [
-                {
-                    "organisationUrl": "https://www.jetbrains.com",
-                    "name": "JetBrains Team"
-                }
-            ],
-            "associated": [
-                "org.jetbrains.kotlinx:kotlinx-coroutines-core-wasm-js"
-            ],
             "artifactVersion": "1.10.2",
             "description": "Coroutines support libraries for Kotlin",
             "scm": {
@@ -1703,34 +809,6 @@
                     "organisationUrl": "https://www.jetbrains.com",
                     "name": "JetBrains Team"
                 }
-            ],
-            "associated": [
-                "org.jetbrains.kotlinx:kotlinx-datetime"
-            ],
-            "artifactVersion": "0.6.0",
-            "description": "Kotlin Datetime Library",
-            "scm": {
-                "url": "https://github.com/Kotlin/kotlinx-datetime"
-            },
-            "name": "kotlinx-datetime",
-            "website": "https://github.com/Kotlin/kotlinx-datetime",
-            "licenses": [
-                "Apache-2.0"
-            ]
-        },
-        {
-            "uniqueId": "org.jetbrains.kotlinx:kotlinx-datetime-wasm-js",
-            "funding": [
-                
-            ],
-            "developers": [
-                {
-                    "organisationUrl": "https://www.jetbrains.com",
-                    "name": "JetBrains Team"
-                }
-            ],
-            "associated": [
-                "org.jetbrains.kotlinx:kotlinx-datetime-wasm-js"
             ],
             "artifactVersion": "0.6.0",
             "description": "Kotlin Datetime Library",
@@ -1754,34 +832,6 @@
                     "name": "JetBrains Team"
                 }
             ],
-            "associated": [
-                "org.jetbrains.kotlinx:kotlinx-serialization-core"
-            ],
-            "artifactVersion": "1.8.1",
-            "description": "Kotlin multiplatform serialization runtime library",
-            "scm": {
-                "url": "https://github.com/Kotlin/kotlinx.serialization"
-            },
-            "name": "kotlinx-serialization-core",
-            "website": "https://github.com/Kotlin/kotlinx.serialization",
-            "licenses": [
-                "Apache-2.0"
-            ]
-        },
-        {
-            "uniqueId": "org.jetbrains.kotlinx:kotlinx-serialization-core-wasm-js",
-            "funding": [
-                
-            ],
-            "developers": [
-                {
-                    "organisationUrl": "https://www.jetbrains.com",
-                    "name": "JetBrains Team"
-                }
-            ],
-            "associated": [
-                "org.jetbrains.kotlinx:kotlinx-serialization-core-wasm-js"
-            ],
             "artifactVersion": "1.8.1",
             "description": "Kotlin multiplatform serialization runtime library",
             "scm": {
@@ -1803,34 +853,6 @@
                     "organisationUrl": "https://www.jetbrains.com",
                     "name": "JetBrains Team"
                 }
-            ],
-            "associated": [
-                "org.jetbrains.kotlinx:kotlinx-serialization-json"
-            ],
-            "artifactVersion": "1.8.1",
-            "description": "Kotlin multiplatform serialization runtime library",
-            "scm": {
-                "url": "https://github.com/Kotlin/kotlinx.serialization"
-            },
-            "name": "kotlinx-serialization-json",
-            "website": "https://github.com/Kotlin/kotlinx.serialization",
-            "licenses": [
-                "Apache-2.0"
-            ]
-        },
-        {
-            "uniqueId": "org.jetbrains.kotlinx:kotlinx-serialization-json-wasm-js",
-            "funding": [
-                
-            ],
-            "developers": [
-                {
-                    "organisationUrl": "https://www.jetbrains.com",
-                    "name": "JetBrains Team"
-                }
-            ],
-            "associated": [
-                "org.jetbrains.kotlinx:kotlinx-serialization-json-wasm-js"
             ],
             "artifactVersion": "1.8.1",
             "description": "Kotlin multiplatform serialization runtime library",
@@ -1862,54 +884,6 @@
                 "developerConnection": "scm:git:https://www.github.com/JetBrains/skiko.git"
             },
             "name": "Skiko MPP",
-            "website": "https://www.github.com/JetBrains/skiko",
-            "licenses": [
-                "Apache-2.0"
-            ]
-        },
-        {
-            "uniqueId": "org.jetbrains.skiko:skiko-js-wasm-runtime",
-            "funding": [
-                
-            ],
-            "developers": [
-                {
-                    "organisationUrl": "https://www.jetbrains.com",
-                    "name": "Compose Multiplatform Team"
-                }
-            ],
-            "artifactVersion": "0.9.4.2",
-            "description": "Kotlin Skia bindings",
-            "scm": {
-                "connection": "scm:git:https://www.github.com/JetBrains/skiko.git",
-                "url": "https://www.github.com/JetBrains/skiko",
-                "developerConnection": "scm:git:https://www.github.com/JetBrains/skiko.git"
-            },
-            "name": "Skiko WASM Runtime",
-            "website": "https://www.github.com/JetBrains/skiko",
-            "licenses": [
-                "Apache-2.0"
-            ]
-        },
-        {
-            "uniqueId": "org.jetbrains.skiko:skiko-wasm-js",
-            "funding": [
-                
-            ],
-            "developers": [
-                {
-                    "organisationUrl": "https://www.jetbrains.com",
-                    "name": "Compose Multiplatform Team"
-                }
-            ],
-            "artifactVersion": "0.9.4.2",
-            "description": "Kotlin Skia bindings",
-            "scm": {
-                "connection": "scm:git:https://www.github.com/JetBrains/skiko.git",
-                "url": "https://www.github.com/JetBrains/skiko",
-                "developerConnection": "scm:git:https://www.github.com/JetBrains/skiko.git"
-            },
-            "name": "Skiko WasmJs",
             "website": "https://www.github.com/JetBrains/skiko",
             "licenses": [
                 "Apache-2.0"

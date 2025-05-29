@@ -47,5 +47,5 @@
 ### Generate Dependency Information
 
 ```bash
-./gradlew :app:exportLibraryDefinitionsIosArm64
+./gradlew :app:exportLibraryDefinitions -PaboutLibraries.exportPath=src/iosMain/composeResources/files/ -PaboutLibraries.exportVariant=metadata
 ```
