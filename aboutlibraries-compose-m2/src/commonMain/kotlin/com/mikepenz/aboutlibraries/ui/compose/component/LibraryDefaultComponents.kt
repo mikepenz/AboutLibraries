@@ -87,6 +87,7 @@ internal val DefaultLibraryLicense: @Composable FlowRowScope.(license: License, 
                 style = textStyles.licensesTextStyle ?: LocalTextStyle.current,
                 textAlign = TextAlign.Center,
                 overflow = textStyles.defaultOverflow,
+                maxLines = 1,
             )
         }
     }
@@ -118,6 +119,7 @@ internal val DefaultLibraryFunding: @Composable FlowRowScope.(funding: Funding, 
                 style = textStyles.fundingTextStyle ?: LocalTextStyle.current,
                 textAlign = TextAlign.Center,
                 overflow = textStyles.defaultOverflow,
+                maxLines = 1,
             )
         }
     }

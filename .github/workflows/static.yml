@@ -45,13 +45,13 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
       - name: Build Page
         run: |
-          ./gradlew :app-wasm:exportLibraryDefinitions -PaboutLibraries.exportPath=src/commonMain/composeResources/files/
-          ./gradlew :app-wasm:wasmJsBrowserDistribution --no-configuration-cache
+          ./gradlew :app:exportLibraryDefinitionsWasmJs
+          ./gradlew :app:wasmJsBrowserDistribution --no-configuration-cache
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: 'app-wasm/build/dist/wasmJs/productionExecutable'
+          path: 'app/build/dist/wasmJs/productionExecutable'
 
       - name: Deploy to GitHub Pages
         id: deployment
