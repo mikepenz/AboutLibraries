@@ -1,6 +1,5 @@
 package com.mikepenz.aboutlibraries.plugin
 
-import com.mikepenz.aboutlibraries.plugin.util.configure
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.util.GradleVersion
@@ -23,33 +22,40 @@ class AboutLibrariesPlugin : Plugin<Project> {
         extension.applyConvention()
 
         // task to output funding options for included libraries
-        project.tasks.configure("fundLibraries", AboutLibrariesFundingTask::class.java) {
-            it.configure()
+        val fundLibrariesTask = project.tasks.register("fundLibraries", AboutLibrariesFundingTask::class.java) { task ->
+            task.extension.set(extension)
+            task.configureTask()
         }
 
         // task to fetch and export funding information for included libraries
-        project.tasks.configure("exportFunding", AboutLibrariesExportFundingTask::class.java) {
-            it.configure()
+        val exportFundingTask = project.tasks.register("exportFunding", AboutLibrariesExportFundingTask::class.java) { task ->
+            task.extension.set(extension)
+            task.configureTask()
         }
 
         // task to output library names with ids for further actions
-        project.tasks.configure("findLibraries", AboutLibrariesIdTask::class.java) {
-            it.configure()
+        val findLibrariesTask = project.tasks.register("findLibraries", AboutLibrariesIdTask::class.java) { task ->
+            task.extension.set(extension)
+            task.configureTask()
         }
 
         // task to output libraries, and their license in CSV format to the CLI
-        project.tasks.configure("exportLibraries", AboutLibrariesExportTask::class.java) {
-            it.configure()
+        val exportLibrariesTask = project.tasks.register("exportLibraries", AboutLibrariesExportTask::class.java) { task ->
+            task.extension.set(extension)
+            task.configureTask()
         }
 
         // register a global task to generate library definitions
-        project.tasks.configure("exportLibraryDefinitions", AboutLibrariesTask::class.java) {
-            it.configureOutputFile()
-            it.configure()
+        val exportLibraryDefinitionsTask = project.tasks.register("exportLibraryDefinitions", AboutLibrariesTask::class.java) { task ->
+            task.extension.set(extension)
+            task.configureOutputFile()
+            task.configureTask()
         }
 
         configureKotlinMultiplatformTasks(project, extension)
 
+        // Use finalizeValue to ensure this is evaluated during configuration
+        extension.android.registerAndroidTasks.finalizeValueOnRead()
         if (extension.android.registerAndroidTasks.get()) {
             LOGGER.debug("Enabled Android task registration")
             configureAndroidTasks(project, extension)
@@ -65,10 +71,11 @@ class AboutLibrariesPlugin : Plugin<Project> {
                 if (target.platformType == androidJvm) return@configureEach // handled by android logic.
 
                 val suffix = target.name.replaceFirstChar { it.uppercase() }
-                project.tasks.configure("exportLibraryDefinitions${suffix}", AboutLibrariesTask::class.java) {
-                    it.variant.set(target.name)
-                    it.configureOutputFile()
-                    it.configure()
+                project.tasks.register("exportLibraryDefinitions${suffix}", AboutLibrariesTask::class.java) { task ->
+                    task.extension.set(extension)
+                    task.variant.set(target.name)
+                    task.configureOutputFile()
+                    task.configureTask()
                 }
             }
         }
