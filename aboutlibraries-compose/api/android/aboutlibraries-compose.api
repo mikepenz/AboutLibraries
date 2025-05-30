@@ -38,11 +38,6 @@ public final class com/mikepenz/aboutlibraries/ui/compose/ExtensionsKt {
 	public static final fun rememberLibraries ([BLandroidx/compose/runtime/Composer;I)Landroidx/compose/runtime/State;
 }
 
-public final class com/mikepenz/aboutlibraries/ui/compose/Extensions_androidKt {
-	public static final fun rememberLibraries (ILandroidx/compose/runtime/Composer;I)Landroidx/compose/runtime/State;
-	public static final fun rememberLibraries (Lkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;II)Landroidx/compose/runtime/State;
-}
-
 public final class com/mikepenz/aboutlibraries/ui/compose/LibrariesScaffoldKt {
 	public static final fun LibrariesScaffold (Lkotlinx/collections/immutable/ImmutableList;Landroidx/compose/ui/Modifier;Landroidx/compose/ui/Modifier;Landroidx/compose/foundation/lazy/LazyListState;Landroidx/compose/foundation/layout/PaddingValues;Lcom/mikepenz/aboutlibraries/ui/compose/LibraryPadding;Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDimensions;Lkotlin/jvm/functions/Function4;Lkotlin/jvm/functions/Function4;Lkotlin/jvm/functions/Function4;Lkotlin/jvm/functions/Function4;Lkotlin/jvm/functions/Function4;Lkotlin/jvm/functions/Function4;Lkotlin/jvm/functions/Function4;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;III)V
 }
@@ -99,6 +94,11 @@ public abstract interface class com/mikepenz/aboutlibraries/ui/compose/LibraryTe
 	public abstract fun getNameTextStyle ()Landroidx/compose/ui/text/TextStyle;
 	public abstract fun getVersionMaxLines ()I
 	public abstract fun getVersionTextStyle ()Landroidx/compose/ui/text/TextStyle;
+}
+
+public final class com/mikepenz/aboutlibraries/ui/compose/android/Extensions_androidKt {
+	public static final fun rememberLibraries (ILandroidx/compose/runtime/Composer;I)Landroidx/compose/runtime/State;
+	public static final fun rememberLibraries (Lkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;II)Landroidx/compose/runtime/State;
 }
 
 public final class com/mikepenz/aboutlibraries/ui/compose/layout/LibraryScaffoldKt {
