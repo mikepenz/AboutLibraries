@@ -38,7 +38,7 @@ abstract class AboutLibrariesExportFundingTask : BaseAboutLibrariesTask() {
         val allFunding = mutableMapOf<String, Set<Funding>>()
         libraries.forEach {
             if (it.funding.isNotEmpty()) {
-                allFunding.put(it.uniqueId, it.funding)
+                allFunding[it.uniqueId] = it.funding
             }
         }
         val sortedFunding = allFunding.toSortedMap()

@@ -18,7 +18,7 @@ object FundingReader {
                     value.forEach {
                         fundingSet.add(Funding(it["platform"] ?: "", it["url"] ?: ""))
                     }
-                    allFunding.put(uniqueId, fundingSet)
+                    allFunding[uniqueId] = fundingSet
                 }
             } catch (t: Throwable) {
                 LOGGER.warn("Could not read the funding file", t)
