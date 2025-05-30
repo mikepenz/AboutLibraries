@@ -198,8 +198,7 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
                 }
             }
         }.associate { config ->
-            config.name to DependencyCollector(includePlatform.get())
-                .loadDependenciesFromConfiguration(project, config.incoming.resolutionResult.rootComponent)
+            config.name to DependencyCollector(includePlatform.get()).loadDependenciesFromConfiguration(project, config.incoming.resolutionResult.rootComponent)
         }
 
         variantToDependencyData.set(project.providers.provider {

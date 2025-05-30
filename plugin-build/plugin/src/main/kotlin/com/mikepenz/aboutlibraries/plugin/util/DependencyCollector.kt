@@ -42,8 +42,8 @@ internal class DependencyCollector(
         project: Project,
         root: Provider<ResolvedComponentResult>,
         configurations: ConfigurationContainer = project.configurations,
+        dependencies: DependencyHandler = project.dependencies,
     ): Provider<List<DependencyData>> {
-        val dependencies = project.dependencies
         val pomInfos: Provider<List<DependencyData>> = root.map { root ->
             val directDependencies = loadDependencyCoordinates(root)
             val directPomFiles = directDependencies.fetchPomFiles(root.variants, dependencies, configurations)
