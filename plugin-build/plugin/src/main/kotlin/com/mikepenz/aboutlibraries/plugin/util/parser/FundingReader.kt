@@ -13,12 +13,12 @@ object FundingReader {
             val allFunding = mutableMapOf<String, Set<Funding>>()
             try {
                 val funding = fundingFile.inputStream().use { JsonSlurper().parse(it) as Map<String, List<Map<String, String>>> }
-                funding.forEach { (key, value) ->
+                funding.forEach { (uniqueId, value) ->
                     val fundingSet = mutableSetOf<Funding>()
                     value.forEach {
                         fundingSet.add(Funding(it["platform"] ?: "", it["url"] ?: ""))
                     }
-                    allFunding.put(key, fundingSet)
+                    allFunding.put(uniqueId, fundingSet)
                 }
             } catch (t: Throwable) {
                 LOGGER.warn("Could not read the funding file", t)

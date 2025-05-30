@@ -141,12 +141,12 @@ internal class LibraryPostProcessor(
                 }
             }
 
-            FundingReader.readFunding(configFolder).forEach { (libraryId, fundings) ->
-                val library = librariesMap[libraryId]
+            FundingReader.readFunding(configFolder).forEach { (uniqueId, fundingSet) ->
+                val library = librariesMap[uniqueId]
                 if (library != null) {
-                    library.funding = library.funding + fundings
+                    library.funding = library.funding + fundingSet
                 } else {
-                    LOGGER.debug("No library found for provided funding information: $libraryId")
+                    LOGGER.debug("No library found for provided funding information of library: $uniqueId")
                 }
             }
         }
