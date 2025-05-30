@@ -54,8 +54,6 @@ class AboutLibrariesPlugin : Plugin<Project> {
 
         configureKotlinMultiplatformTasks(project, extension)
 
-        // Use finalizeValue to ensure this is evaluated during configuration
-        extension.android.registerAndroidTasks.finalizeValueOnRead()
         if (extension.android.registerAndroidTasks.get()) {
             LOGGER.debug("Enabled Android task registration")
             configureAndroidTasks(project, extension)

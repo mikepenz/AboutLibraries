@@ -6,9 +6,6 @@ import com.mikepenz.aboutlibraries.plugin.util.configure
 import org.gradle.api.Project
 
 internal fun configureAndroidTasks(project: Project, extension: AboutLibrariesExtension) {
-    // Finalize the value to ensure it's evaluated during configuration
-    extension.export.outputFileName.finalizeValueOnRead()
-
     project.pluginManager.withPlugin("com.android.application") {
         AboutLibrariesPlugin.LOGGER.debug("Registering Android task for Application")
         val app = project.extensions.findByType(AppExtension::class.java)
