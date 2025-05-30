@@ -168,6 +168,9 @@ aboutLibraries {
         // (optional) GitHub token to raise API request limit to allow fetching more licenses
         gitHubApiToken = if (hasProperty("github.pat")) property("github.pat")?.toString() else null
 
+        // Set to offline mode, skipping remote requests to fetch licenses or funding information
+        // offlineMode = true
+
         // enable fetching of "remote" licenses. Uses the GitHub API
         fetchRemoteLicense = false
 
