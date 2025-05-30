@@ -60,11 +60,11 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
 
     @Suppress("HasPlatformType")
     @Input
-    val fetchRemoteLicense = extension.collect.fetchRemoteLicense.map { it && !offlineMode.get() }
+    open val fetchRemoteLicense = extension.collect.fetchRemoteLicense.map { it && !offlineMode.get() }
 
     @Suppress("HasPlatformType")
     @Input
-    val fetchRemoteFunding = extension.collect.fetchRemoteFunding.map { it && !offlineMode.get() }
+    open val fetchRemoteFunding = extension.collect.fetchRemoteFunding.map { it && !offlineMode.get() }
 
     @Input
     val additionalLicenses = extension.license.additionalLicenses
@@ -164,23 +164,11 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
                 .loadDependenciesFromConfiguration(project, config.incoming.resolutionResult.rootComponent)
         }
 
-        // dependencyCoordinates.set(
-        //     project.providers.provider {
-        //         dependencies.flatMap {
-        //             it.value.get().map {
-        //                 it.dependencyCoordinates
-        //             }
-        //         }
-        //     }
-        // )
-
         variantToDependencyData.set(project.providers.provider {
             val target = mutableMapOf<String, List<DependencyData>>()
             dependencies.onEach { (name, result) -> target[name] = result.get() }
             target
         })
-
-        // LOGGER.info("Collected ${resultContainer.libraries.size} libraries and ${resultContainer.licenses.size} licenses")
     }
 
     internal fun createLibraryPostProcessor(): LibraryPostProcessor {

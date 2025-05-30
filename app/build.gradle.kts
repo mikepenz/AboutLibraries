@@ -169,7 +169,7 @@ aboutLibraries {
         gitHubApiToken = if (hasProperty("github.pat")) property("github.pat")?.toString() else null
 
         // enable fetching of "remote" licenses. Uses the GitHub API
-        fetchRemoteLicense = true
+        fetchRemoteLicense = false
 
         // Allows to only collect dependencies of specific variants during the `collectDependencies` step.
         // filterVariants.addAll("debug")
