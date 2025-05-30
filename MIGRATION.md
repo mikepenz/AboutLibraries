@@ -1,9 +1,18 @@
 ### Upgrade Notes
 
+#### v12.2.0
+
+- **Breaking Change**: Renamed `nameTextStyles` in `libraryTextStyles`/`LibraryTextStyles` to `nameTextStyle` (to align with other styles).
+- **Breaking Change**: Introduced new `libraryPadding()` default function to replace the existing one. This moves to use a new class to hold chip paddings.
+- **Breaking Change**: Wrappers around the `LibrariesContainer` were deprecated in favor of `remember*` functions. To be removed in release `13.x.y`.
+- **Breaking Change**: The `LicenseDialogBody` now also accepts the `Modifier` to include padding in text instead of scrollable container
+- **Deprecate**: Deprecate series of APIs to cleanup and simplify API surface, and simplify maintenance.
+- **Note**: Updated README to suggest new non deprecated API for using `LibrariesContainer` on Android.
+
 #### v12.0.0
 
 - **Dependency Upgrade**: Kotlin 2.1.20
-- **Breaking Changes**: The `Gradle Plugin` and `Compose UI` library have undergone significant changes, including multiple breaking API changes.
+- **Breaking Change**: The `Gradle Plugin` and `Compose UI` library have undergone significant changes, including multiple breaking API changes.
 - **Breaking Change**: The `Gradle Plugin` has moved to a `Property` based configuration schema with nested configs for better organization.
 - **Breaking Change**: The `Gradle Plugin's` configuration options which were `Array` or `List` types have been changed to `Set` types.
 - **Breaking Change**: The `Gradle Plugin` now only has a singular `outputPath` property, to specify where the generated file should be written to.

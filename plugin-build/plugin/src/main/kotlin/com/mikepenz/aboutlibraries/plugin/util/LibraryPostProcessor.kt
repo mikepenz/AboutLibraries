@@ -9,6 +9,7 @@ import com.mikepenz.aboutlibraries.plugin.mapping.License
 import com.mikepenz.aboutlibraries.plugin.mapping.SpdxLicense
 import com.mikepenz.aboutlibraries.plugin.model.ResultContainer
 import com.mikepenz.aboutlibraries.plugin.util.LicenseUtil.loadSpdxLicense
+import com.mikepenz.aboutlibraries.plugin.util.parser.FundingReader
 import com.mikepenz.aboutlibraries.plugin.util.parser.LibraryReader
 import com.mikepenz.aboutlibraries.plugin.util.parser.LicenseReader
 import org.slf4j.Logger
@@ -103,8 +104,9 @@ internal class LibraryPostProcessor(
                 }
             }
 
+            // helper map to efficiently access libraries
+            val librariesMap = librariesList.associateBy { it.uniqueId }.toMutableMap()
             LibraryReader.readLibraries(configFolder).takeIf { it.isNotEmpty() }?.also { customLibs ->
-                val librariesMap = librariesList.associateBy { it.uniqueId }
                 customLibs.forEach { lib ->
                     /** Make sure we fetch any additional needed licenses */
                     fun Library.handleLicenses() {
@@ -133,8 +135,18 @@ internal class LibraryPostProcessor(
                         } else {
                             lib.handleLicenses()
                             librariesList.add(lib)
+                            librariesMap[lib.uniqueId] = lib
                         }
                     }
+                }
+            }
+
+            FundingReader.readFunding(configFolder).forEach { (uniqueId, fundingSet) ->
+                val library = librariesMap[uniqueId]
+                if (library != null) {
+                    library.funding = library.funding + fundingSet
+                } else {
+                    LOGGER.debug("No library found for provided funding information of library: $uniqueId")
                 }
             }
         }

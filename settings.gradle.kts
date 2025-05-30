@@ -11,6 +11,10 @@ pluginManagement {
     }
 }
 
+plugins {
+    id("org.gradle.toolchains.foojay-resolver") version "1.0.0"
+}
+
 dependencyResolutionManagement {
     repositories {
         google()
@@ -20,7 +24,7 @@ dependencyResolutionManagement {
 
     versionCatalogs {
         create("baseLibs") {
-            from("com.mikepenz:version-catalog:0.3.4")
+            from("com.mikepenz:version-catalog:0.3.9")
         }
     }
 }
@@ -31,9 +35,8 @@ include(":aboutlibraries-compose")
 include(":aboutlibraries-compose-m2")
 include(":aboutlibraries-compose-m3")
 
+
 include(":app")
-include(":app-desktop")
-include(":app-wasm")
 include(":app-test")
 
 includeBuild("plugin-build") {

@@ -32,30 +32,36 @@ fun LibraryScaffoldLayoutPreview() {
         version = {
             BasicText(
                 text = "Version",
-                modifier = Modifier
-                    .background(Color.Green)
+                modifier = Modifier.background(Color.Green)
             )
         },
         author = {
             BasicText(
                 text = "Author",
-                modifier = Modifier
-                    .background(Color.Cyan)
+                modifier = Modifier.background(Color.Cyan)
             )
         },
         description = {
             BasicText(
                 text = "Description Description Description Description Description",
-                modifier = Modifier
-                    .background(Color.Magenta)
+                modifier = Modifier.background(Color.Magenta)
             )
         },
         licenses = {
             BasicText(
                 text = "Apache 2.0",
-                modifier = Modifier
-                    .background(Color.Yellow)
+                modifier = Modifier.background(Color.Yellow)
+            )
+            BasicText(
+                text = "MIT",
+                modifier = Modifier.background(Color.Yellow)
             )
         },
+        actions = {
+            BasicText(
+                text = "Action",
+                modifier = Modifier.background(Color.White)
+            )
+        }
     )
 }
