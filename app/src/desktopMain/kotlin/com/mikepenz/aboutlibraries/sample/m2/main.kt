@@ -25,7 +25,7 @@ fun main() = application {
                 LibrariesContainer(
                     libraries = libraries,
                     modifier = Modifier.fillMaxSize(),
-                    showFundingBadges = true,
+                    showFundingBadges = false,
                     // divider = { Divider(modifier = Modifier.fillMaxWidth()) }
                 )
             }
