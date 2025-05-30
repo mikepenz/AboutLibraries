@@ -1,16 +1,20 @@
 package com.mikepenz.aboutlibraries.plugin
 
+import org.gradle.api.provider.Property
 import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.CacheableTask
+import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.TaskAction
 
 @CacheableTask
 abstract class AboutLibrariesIdTask : BaseAboutLibrariesTask() {
     // Disable fetching remote licenses for this task, not applicable
-    override val fetchRemoteLicense: Provider<Boolean?> = project.provider { false }
+    @get:Input
+    override val fetchRemoteLicense: Property<Boolean> = project.objects.property(Boolean::class.java).convention(false)
 
     // Force fetch remote funding all the time
-    override val fetchRemoteFunding: Provider<Boolean?> = project.provider { false }
+    @get:Input
+    override val fetchRemoteFunding: Property<Boolean> = project.objects.property(Boolean::class.java).convention(false)
 
     override fun getDescription(): String = "Prints all retrieved variants and its libraries to the CLI."
     override fun getGroup(): String = "Help"
