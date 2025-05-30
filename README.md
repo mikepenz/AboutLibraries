@@ -120,11 +120,13 @@ aboutLibraries {
 
         // Enable fetching of "remote" licenses.  Uses the API of supported source hosts
         // See https://github.com/mikepenz/AboutLibraries#special-repository-support
-        fetchRemoteLicense = true
+        // A `gitHubApiToken` is required for this to work as it fetches information from GitHub's API.
+        fetchRemoteLicense = false
 
         // Enables fetching of "remote" funding information. Uses the API of supported source hosts
         // See https://github.com/mikepenz/AboutLibraries#special-repository-support
-        fetchRemoteFunding = true
+        // A `gitHubApiToken` is required for this to work as it fetches information from GitHub's API.
+        fetchRemoteFunding = false
 
         // Allows to only collect dependencies of specific variants during the `collectDependencies` step.
         // filterVariants.addAll("debug", "release")
@@ -147,7 +149,7 @@ aboutLibraries {
         // Enable pretty printing for the generated JSON file
         prettyPrint = true
     }
-  
+
     exports {
         // Define export configuration per variant.
         create("jvm") {
@@ -187,7 +189,9 @@ aboutLibraries {
 ```
 
 Full documentation of all available gradle plugin
-configurations can be found in the [AboutLibrariesExtension.kt](https://github.com/mikepenz/AboutLibraries/blob/develop/plugin-build/plugin/src/main/kotlin/com/mikepenz/aboutlibraries/plugin/AboutLibrariesExtension.kt) source file.
+configurations can be found in
+the [AboutLibrariesExtension.kt](https://github.com/mikepenz/AboutLibraries/blob/develop/plugin-build/plugin/src/main/kotlin/com/mikepenz/aboutlibraries/plugin/AboutLibrariesExtension.kt)
+source file.
 
 </p>
 </details>
@@ -200,6 +204,16 @@ configurations can be found in the [AboutLibrariesExtension.kt](https://github.c
 The plugin offers the ability to add or override library and license details by placing JSON files
 in the `libraries` and `licenses` directories within the configured `configPath`.
 See the [config directory](https://github.com/mikepenz/AboutLibraries/blob/develop/config/) for examples.
+
+## Provide funding information
+
+The plugin offers the ability to add or override funding details by placing a `funding.json` JSON file in the `funding` directory within the configured `configPath`.
+Alternatively the `exportFunding` task can be used to generate this data automatically (ensure to provide a GitHub API Key).
+The task will automatically write the file in the respective folder. Note: It will overwrite the file if it already exists.
+
+```bash
+./gradlew app:exportFunding
+```
 
 ### Libraries
 
@@ -502,7 +516,8 @@ Create a custom style for the AboutLibraries UI.
 
 ## Enterprise / Manual JSON Handling
 
-For environments requiring full control over the included `aboutlibraries.json` (e.g., manual verification, CI generation), you can disable automatic task registration and handle generation manually.
+For environments requiring full control over the included `aboutlibraries.json` (e.g., manual verification, CI generation), you can disable automatic task registration and handle
+generation manually.
 
 ```kts
 // build.gradle.kts

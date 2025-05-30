@@ -32,7 +32,7 @@ fun main() = application {
                 LibrariesContainer(
                     libraries = libraries,
                     modifier = Modifier.fillMaxSize().padding(it),
-                    showFundingBadges = true,
+                    showFundingBadges = false,
                     header = {
                         item {
                             Box(modifier = Modifier.fillMaxWidth().padding(16.dp), contentAlignment = Alignment.Center) {

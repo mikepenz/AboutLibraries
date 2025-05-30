@@ -27,6 +27,11 @@ class AboutLibrariesPlugin : Plugin<Project> {
             it.configure()
         }
 
+        // task to fetch and export funding information for included libraries
+        project.tasks.configure("exportFunding", AboutLibrariesExportFundingTask::class.java) {
+            it.configure()
+        }
+
         // task to output library names with ids for further actions
         project.tasks.configure("findLibraries", AboutLibrariesIdTask::class.java) {
             it.configure()
