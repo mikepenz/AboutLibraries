@@ -157,7 +157,7 @@ compose.desktop {
 
 aboutLibraries {
     android {
-        registerAndroidTasks = false
+        registerAndroidTasks = true
     }
 
     collect {
