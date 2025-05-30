@@ -1,4 +1,4 @@
-package com.mikepenz.aboutlibraries.ui.compose
+package com.mikepenz.aboutlibraries.ui.compose.android
 
 import android.content.Context
 import androidx.annotation.RawRes
