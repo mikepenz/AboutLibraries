@@ -18,60 +18,59 @@ import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.PathSensitive
 import org.gradle.api.tasks.PathSensitivity
 import org.slf4j.LoggerFactory
+import java.util.regex.Pattern
 
 abstract class BaseAboutLibrariesTask : DefaultTask() {
 
-    @Internal
-    protected val extension = project.extensions.findByType(AboutLibrariesExtension::class.java)!!
+    @get:Internal
+    abstract val extension: Property<AboutLibrariesExtension>
 
-    @Input
-    val collectAll = extension.collect.all
+    @get:Input
+    abstract val collectAll: Property<Boolean>
 
-    @Input
-    val includePlatform = extension.collect.includePlatform
+    @get:Input
+    abstract val includePlatform: Property<Boolean>
 
-    @Input
-    val filterVariants = extension.collect.filterVariants
+    @get:Input
+    abstract val filterVariants: SetProperty<String>
 
     @get:Optional
     @get:Input
     abstract val variant: Property<String?>
 
-    @Input
-    val exclusionPatterns = extension.library.exclusionPatterns
+    @get:Input
+    abstract val exclusionPatterns: SetProperty<Pattern>
 
-    @Input
-    val duplicationMode = extension.library.duplicationMode
+    @get:Input
+    abstract val duplicationMode: Property<DuplicateMode>
 
-    @Input
-    val duplicationRule = extension.library.duplicationRule
+    @get:Input
+    abstract val duplicationRule: Property<DuplicateRule>
 
-    @Input
-    val mapLicensesToSpdx = extension.license.mapLicensesToSpdx
+    @get:Input
+    abstract val mapLicensesToSpdx: Property<Boolean>
 
-    @Input
-    val allowedLicenses = extension.license.allowedLicenses
+    @get:Input
+    abstract val allowedLicenses: SetProperty<String>
 
-    @Input
-    val allowedLicensesMap = extension.license.allowedLicensesMap
+    @get:Input
+    abstract val allowedLicensesMap: MapProperty<String, List<String>>
 
-    @Input
-    val offlineMode = extension.offlineMode
+    @get:Input
+    abstract val offlineMode: Property<Boolean>
 
-    @Suppress("HasPlatformType")
-    @Input
-    open val fetchRemoteLicense = extension.collect.fetchRemoteLicense.map { it && !offlineMode.get() }
+    @get:Input
+    abstract val fetchRemoteLicense: Property<Boolean>
 
-    @Suppress("HasPlatformType")
-    @Input
-    open val fetchRemoteFunding = extension.collect.fetchRemoteFunding.map { it && !offlineMode.get() }
+    @get:Input
+    abstract val fetchRemoteFunding: Property<Boolean>
 
-    @Input
-    val additionalLicenses = extension.license.additionalLicenses
+    @get:Input
+    abstract val additionalLicenses: SetProperty<String>
 
-    @Input
-    @Optional
-    val gitHubApiToken = extension.collect.gitHubApiToken
+    @get:Input
+    @get:Optional
+    abstract val gitHubApiToken: Property<String>
 
     @get:Input
     abstract val excludeFields: SetProperty<String>
@@ -82,31 +81,62 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     @get:Input
     abstract val prettyPrint: Property<Boolean>
 
-    @Optional
-    @PathSensitive(value = PathSensitivity.RELATIVE)
-    @InputDirectory
-    val configPath: DirectoryProperty = extension.collect.configPath
+    @get:Optional
+    @get:PathSensitive(value = PathSensitivity.RELATIVE)
+    @get:InputDirectory
+    abstract val configPath: DirectoryProperty
 
     @get:Internal
     internal abstract val variantToDependencyData: MapProperty<String, List<DependencyData>>
 
-    open fun configure() {
+    @get:Internal
+    abstract val configurations: SetProperty<Configuration>
+
+    /**
+     * Configure the task with values from the extension
+     */
+    open fun configureTask() {
+        val ext = extension.get()
+
+        // Set basic properties from extension
+        collectAll.set(ext.collect.all)
+        includePlatform.set(ext.collect.includePlatform)
+        filterVariants.set(ext.collect.filterVariants)
+        exclusionPatterns.set(ext.library.exclusionPatterns)
+        duplicationMode.set(ext.library.duplicationMode)
+        duplicationRule.set(ext.library.duplicationRule)
+        mapLicensesToSpdx.set(ext.license.mapLicensesToSpdx)
+        allowedLicenses.set(ext.license.allowedLicenses)
+        allowedLicensesMap.set(ext.license.allowedLicensesMap)
+        offlineMode.set(ext.offlineMode)
+        additionalLicenses.set(ext.license.additionalLicenses)
+        gitHubApiToken.set(ext.collect.gitHubApiToken)
+        configPath.set(ext.collect.configPath)
+
+        // Set derived properties
+        fetchRemoteLicense.set(ext.collect.fetchRemoteLicense.map { it && !ext.offlineMode.get() })
+        fetchRemoteFunding.set(ext.collect.fetchRemoteFunding.map { it && !ext.offlineMode.get() })
+
+        // Configure export properties
         excludeFields.set(project.provider {
-            val config = extension.exports.findByName(variant.getOrElse(""))
-            config?.excludeFields?.orNull?.takeIf { it.isNotEmpty() } ?: extension.export.excludeFields.get()
+            val variantName = variant.getOrElse("")
+            val config = ext.exports.findByName(variantName)
+            config?.excludeFields?.orNull?.takeIf { it.isNotEmpty() } ?: ext.export.excludeFields.get()
         })
 
         if (!includeMetaData.isPresent) {
             includeMetaData.set(project.provider {
-                val config = extension.exports.findByName(variant.getOrElse(""))
-                config?.includeMetaData?.orNull ?: extension.export.includeMetaData.get()
+                val variantName = variant.getOrElse("")
+                val config = ext.exports.findByName(variantName)
+                config?.includeMetaData?.orNull ?: ext.export.includeMetaData.get()
             })
         }
 
         if (!prettyPrint.isPresent) {
             prettyPrint.set(project.provider {
-                val config = extension.exports.findByName(variant.getOrElse(""))
-                config?.prettyPrint?.orNull ?: extension.export.prettyPrint.get()
+                val variantName = variant.getOrElse("")
+                val config = ext.exports.findByName(variantName)
+                config?.prettyPrint?.orNull ?: ext.export.prettyPrint.get()
             })
         }
 
@@ -114,15 +144,23 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
             variant.set(
                 project.providers.gradleProperty("${PROP_PREFIX}${PROP_EXPORT_VARIANT}").orElse(
                     project.providers.gradleProperty(PROP_EXPORT_VARIANT).orElse(
-                        extension.export.variant
+                        ext.export.variant
                     )
                 )
             )
         }
 
+        // Set configurations property
+        configurations.set(project.configurations.filter { it.isCanBeResolved })
+
+        // Call the original configure method to set up dependencies
+        configure()
+    }
+
+    open fun configure() {
         val filter = filterVariants.get() + (variant.orNull?.let { arrayOf(it) } ?: emptyArray())
 
-        val dependencies = project.configurations.filterNot { config ->
+        val dependencies = configurations.get().filterNot { config ->
             config.shouldSkip()
         }.filter { config ->
             val cn = config.name
@@ -160,8 +198,7 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
                 }
             }
         }.associate { config ->
-            config.name to DependencyCollector(includePlatform.get())
-                .loadDependenciesFromConfiguration(project, config.incoming.resolutionResult.rootComponent)
+            config.name to DependencyCollector(includePlatform.get()).loadDependenciesFromConfiguration(project, config.incoming.resolutionResult.rootComponent)
         }
 
         variantToDependencyData.set(project.providers.provider {
