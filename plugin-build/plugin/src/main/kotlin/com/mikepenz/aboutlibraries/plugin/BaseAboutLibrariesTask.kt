@@ -151,7 +151,7 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
         }
 
         // Set configurations property
-        configurations.set(project.configurations)
+        configurations.set(project.configurations.filter { it.isCanBeResolved })
 
         // Call the original configure method to set up dependencies
         configure()
