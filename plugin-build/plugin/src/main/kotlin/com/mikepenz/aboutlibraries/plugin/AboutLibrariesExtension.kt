@@ -257,6 +257,7 @@ abstract class AboutLibrariesExtension {
             it.outputFileName.convention(DEFAULT_OUTPUT_NAME)
         }
         library {
+            it.requireLicense.convention(false)
             it.exclusionPatterns.convention(emptySet())
             it.duplicationMode.convention(DuplicateMode.KEEP)
             it.duplicationRule.convention(DuplicateRule.SIMPLE)
@@ -537,6 +538,21 @@ abstract class ExportConfig @Inject constructor(val name: String = "") {
 }
 
 abstract class LibraryConfig @Inject constructor() {
+
+    /**
+     * Warn or fail the build if a library does not have license information attached.
+     * The specific behavior depends on the `StrictMode` as configured in the license block.
+     *
+     * ```
+     * aboutLibraries {
+     *   library {
+     *      requireLicense = true
+     *   }
+     * }
+     * ```
+     */
+    @get:Optional
+    abstract val requireLicense: Property<Boolean>
 
     /**
      * A list of patterns (matching on the library `uniqueId` ($groupId:$artifactId)) to exclude libraries.
