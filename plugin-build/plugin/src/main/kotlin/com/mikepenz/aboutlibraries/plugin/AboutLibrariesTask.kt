@@ -124,25 +124,51 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
                 missing.forEach { missingMapped[it] = libraries.forLicense(it) }
             }
 
+            val librariesWithoutLicense = if (requireLicense.get()) libraries.filter { it.licenses.isEmpty() } else emptyList()
+
+            fun StringBuilder.buildLogForLibrariesWithoutLicense() {
+                if (librariesWithoutLicense.isNotEmpty()) {
+                    appendLine("Detected libraries without license information!")
+                    librariesWithoutLicense.forEach { library ->
+                        appendLine("    ${library.uniqueId}")
+                    }
+                    repeat(2) {
+                        appendLine("=======================================")
+                    }
+                }
+            }
+
             if (missingMapped.isEmpty()) {
-                LOGGER.info("No libraries detected using a license not allowed.")
-            } else {
-                val message = StringBuilder()
-                repeat(2) {
-                    message.appendLine("=======================================")
-                }
-                message.appendLine("Detected usage of not allowed licenses!")
-                missingMapped.forEach { (license, libraries) ->
-                    message.appendLine("-> License: ${license.name} | ${license.spdxId ?: "-"} (${license.url}), used by:")
-                    libraries.forEach { lib -> message.appendLine("    ${lib.uniqueId}") }
-                }
-                repeat(2) {
-                    message.appendLine("=======================================")
-                }
-                if (strictMode.get() == StrictMode.FAIL) {
-                    throw IllegalStateException(message.toString())
+                if (librariesWithoutLicense.isEmpty()) {
+                    LOGGER.info("No libraries detected using a license not allowed.")
                 } else {
-                    LOGGER.warn(message.toString())
+                    val message = buildString { buildLogForLibrariesWithoutLicense() }
+                    if (strictMode.get() == StrictMode.FAIL) {
+                        throw IllegalStateException(message)
+                    } else {
+                        LOGGER.warn(message)
+                    }
+                }
+            } else {
+                val message = buildString {
+                    repeat(2) {
+                        appendLine("=======================================")
+                    }
+                    appendLine("Detected usage of not allowed licenses!")
+                    missingMapped.forEach { (license, libraries) ->
+                        appendLine("-> License: ${license.name} | ${license.spdxId ?: "-"} (${license.url}), used by:")
+                        libraries.forEach { lib -> appendLine("    ${lib.uniqueId}") }
+                    }
+                    repeat(2) {
+                        appendLine("=======================================")
+                    }
+                    buildLogForLibrariesWithoutLicense()
+                }
+
+                if (strictMode.get() == StrictMode.FAIL) {
+                    throw IllegalStateException(message)
+                } else {
+                    LOGGER.warn(message)
                 }
             }
         }
