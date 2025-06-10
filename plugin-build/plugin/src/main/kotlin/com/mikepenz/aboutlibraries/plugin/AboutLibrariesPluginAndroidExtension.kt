@@ -35,13 +35,12 @@ private fun configureAndroidTasks(project: Project, extension: AboutLibrariesExt
     // task to write the general definitions information
     val task = project.tasks.configure("prepareLibraryDefinitions${variantName}", AboutLibrariesTask::class.java) {
         it.group = ""
-        it.extension.set(extension)
         it.variant.set(variant.name)
         it.configureOutputFile(resultsDirectory.map { dir ->
             @Suppress("DEPRECATION")
             dir.file(extension.export.outputFileName.get())
         })
-        it.configureTask()
+        it.configure()
     }
 
     // This is necessary for backwards compatibility with versions of gradle that do not support this new API.
@@ -68,40 +67,36 @@ private fun configureAndroidTasks(project: Project, extension: AboutLibrariesExt
 
     // task to generate libraries, and their license into the build folder (not hooked to the build task)
     project.tasks.configure("exportLibraryDefinitions${variantName}", AboutLibrariesTask::class.java) {
-        it.extension.set(extension)
         it.variant.set(variant.name)
         it.configureOutputFile(resultsDirectory.map { dir ->
             @Suppress("DEPRECATION")
             dir.file(extension.export.outputFileName.get())
         })
-        it.configureTask()
+        it.configure()
     }
 
     // backwards compatibility, to be removed in v13.0.0
     project.tasks.configure("generateLibraryDefinitions${variantName}", AboutLibrariesTask::class.java) {
         it.group = ""
-        it.extension.set(extension)
         it.deprecated.set(true)
         it.variant.set(variant.name)
         it.configureOutputFile(resultsDirectory.map { dir ->
             @Suppress("DEPRECATION")
             dir.file(extension.export.outputFileName.get())
         })
-        it.configureTask()
+        it.configure()
     }
 
     // task to output libraries, and their license in CSV format to the CLI
     project.tasks.configure("exportLibraries${variantName}", AboutLibrariesExportTask::class.java) {
-        it.extension.set(extension)
         it.variant.set(variant.name)
-        it.configureTask()
+        it.configure()
     }
 
     // task to output libraries, their license in CSV format and source to a given location
     project.tasks.configure("exportComplianceLibraries${variantName}", AboutLibrariesExportComplianceTask::class.java) {
-        it.extension.set(extension)
         it.variant.set(variant.name)
         it.projectDirectory.set(project.layout.projectDirectory)
-        it.configureTask()
+        it.configure()
     }
 }

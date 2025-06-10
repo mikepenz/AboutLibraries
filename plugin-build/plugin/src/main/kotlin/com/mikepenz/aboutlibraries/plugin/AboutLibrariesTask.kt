@@ -23,9 +23,8 @@ import java.util.Locale
 
 @CacheableTask
 abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
-    @get:Input
-    val strictMode = project.objects.property(StrictMode::class.java)
-        .convention(project.provider { extension.get().license.strictMode.get() })
+    @Input
+    val strictMode = extension.license.strictMode
 
     @get:OutputFile
     protected abstract val outputFile: RegularFileProperty
@@ -46,47 +45,30 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
 
             @Suppress("DEPRECATION")
             val fileNameProvider = project.provider {
-                val ext = extension.get()
-                val config = ext.exports.findByName(variant.getOrElse(""))
-                config?.outputFileName?.orNull ?: ext.export.outputFileName.get()
+                val config = extension.exports.findByName(variant.getOrElse(""))
+                config?.outputFileName?.orNull ?: extension.export.outputFileName.get()
             }
 
             val outputFileProvider = project.provider {
-                val ext = extension.get()
-                val config = ext.exports.findByName(variant.getOrElse(""))
-                config?.outputFile?.orNull ?: ext.export.outputFile.orNull
+                val config = extension.exports.findByName(variant.getOrElse(""))
+                config?.outputFile?.orNull ?: extension.export.outputFile.orNull
             }
 
             val providers = project.providers
 
-            // Chain of fallbacks for output file location
-            @Suppress("DEPRECATION") val outputFile = providers.gradleProperty("${PROP_PREFIX}${PROP_EXPORT_OUTPUT_FILE}")
-                .map { path -> projectDirectory.file(path) }
-                .orElse(
-                    providers.gradleProperty("${PROP_PREFIX}${PROP_EXPORT_OUTPUT_PATH}")
-                    .map { path -> projectDirectory.file(path) }
-                    .orElse(
-                        providers.gradleProperty("${PROP_PREFIX}${PROP_EXPORT_PATH}")
-                        .flatMap { path ->
-                            fileNameProvider.map { fileName -> projectDirectory.dir(path).file(fileName) }
-                        }
-                        .orElse(
-                            providers.gradleProperty(PROP_EXPORT_PATH)
-                            .flatMap { path ->
-                                fileNameProvider.map { fileName -> projectDirectory.dir(path).file(fileName) }
-                            }
-                            .orElse(
-                                outputFileProvider
-                                    .orElse(fileNameProvider.map { fileName ->
-                                        buildDirectory.dir("generated/aboutLibraries/").get().file(fileName)
-                                    })
+            @Suppress("DEPRECATION")
+            this.outputFile.set(
+                providers.gradleProperty("${PROP_PREFIX}${PROP_EXPORT_OUTPUT_FILE}").map { path -> projectDirectory.file(path) }.orElse(
+                    providers.gradleProperty("${PROP_PREFIX}${PROP_EXPORT_OUTPUT_PATH}").map { path -> projectDirectory.file(path) }.orElse(
+                        providers.gradleProperty("${PROP_PREFIX}${PROP_EXPORT_PATH}").map { path -> projectDirectory.dir(path).file(fileNameProvider.get()) }.orElse(
+                            providers.gradleProperty(PROP_EXPORT_PATH).map { path -> projectDirectory.dir(path).file(fileNameProvider.get()) }).orElse(
+                            outputFileProvider.orElse(
+                                buildDirectory.dir("generated/aboutLibraries/").map { it.file(fileNameProvider.get()) }
                             )
                         )
                     )
                 )
-
-            @Suppress("DEPRECATION")
-            this.outputFile.set(outputFile)
+            )
         }
     }
 
