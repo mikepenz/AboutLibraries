@@ -5,10 +5,8 @@ import com.mikepenz.aboutlibraries.plugin.util.parser.FundingReader.FUNDING_DIR
 import com.mikepenz.aboutlibraries.plugin.util.parser.FundingReader.FUNDING_FILE
 import groovy.json.JsonGenerator
 import groovy.json.JsonOutput
-import org.gradle.api.provider.Property
 import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.CacheableTask
-import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.TaskAction
 import java.io.OutputStreamWriter
 import java.io.PrintWriter
@@ -17,12 +15,10 @@ import java.nio.charset.StandardCharsets
 @CacheableTask
 abstract class AboutLibrariesExportFundingTask : BaseAboutLibrariesTask() {
     // Disable fetching remote licenses for this task, not applicable
-    @get:Input
-    override val fetchRemoteLicense: Property<Boolean> = project.objects.property(Boolean::class.java).convention(false)
+    override val fetchRemoteLicense: Provider<Boolean?> = project.provider { false }
 
     // Force fetch remote funding all the time
-    @get:Input
-    override val fetchRemoteFunding: Property<Boolean> = project.objects.property(Boolean::class.java).convention(true)
+    override val fetchRemoteFunding: Provider<Boolean?> = project.provider { true }
 
     override fun getDescription(): String = "Exports the funding options for all used dependencies to the config folder"
     override fun getGroup(): String = "Help"
