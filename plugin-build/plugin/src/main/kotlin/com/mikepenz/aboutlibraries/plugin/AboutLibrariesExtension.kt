@@ -50,9 +50,11 @@ abstract class AboutLibrariesExtension {
         action.execute(license)
     }
 
+    @Deprecated("Removed, no-op - Use the aboutlibsAndroidPlugin instead.")
     @get:Nested
     abstract val android: AndroidConfig
 
+    @Deprecated("Removed, no-op - Use the aboutlibsAndroidPlugin instead.")
     fun android(action: Action<AndroidConfig>) {
         action.execute(android)
     }
@@ -284,6 +286,7 @@ abstract class AboutLibrariesExtension {
     }
 }
 
+@Deprecated("Removed, no-op - Use the aboutlibsAndroidPlugin instead.")
 abstract class AndroidConfig @Inject constructor() {
 
     /**
@@ -300,6 +303,7 @@ abstract class AndroidConfig @Inject constructor() {
      *
      * The resulting file can for example be added as part of the SCM.
      */
+    @Deprecated("Removed, no-op - Use the aboutlibsAndroidPlugin instead.")
     @get:Optional
     abstract val registerAndroidTasks: Property<Boolean> // = true
 }
@@ -463,7 +467,7 @@ abstract class ExportConfig @Inject constructor(val name: String = "") {
     @Deprecated("Use `outputFile` instead, which is the full path including file name")
     @get:Optional
     abstract val outputFileName: Property<String>
-    
+
     /**
      * The default export variant to use for this module.
      * Can be overwritten with the `-PaboutLibraries.exportVariant` command line argument.

@@ -10,6 +10,7 @@ plugins {
     id("com.mikepenz.convention.android-application")
     id("com.mikepenz.convention.compose")
     id("com.mikepenz.aboutlibraries.plugin")
+    id("com.mikepenz.aboutlibraries.plugin.android")
 }
 
 android {
@@ -156,10 +157,6 @@ compose.desktop {
 }
 
 aboutLibraries {
-    android {
-        registerAndroidTasks = true
-    }
-
     collect {
         // define the path configuration files are located in. E.g. additional libraries, licenses to add to the target .json
         // relative to module root (`../` for parent folder)

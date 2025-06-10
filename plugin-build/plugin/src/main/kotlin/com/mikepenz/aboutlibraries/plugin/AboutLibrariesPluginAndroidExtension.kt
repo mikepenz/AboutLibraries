@@ -5,12 +5,16 @@ import com.android.build.gradle.LibraryExtension
 import com.mikepenz.aboutlibraries.plugin.util.configure
 import org.gradle.api.Project
 
-internal fun configureAndroidTasks(project: Project, extension: AboutLibrariesExtension) {
+internal fun configureAndroidTasks(
+    project: Project,
+    extension: AboutLibrariesExtension,
+    block: (Project, AboutLibrariesExtension, @Suppress("DEPRECATION") com.android.build.gradle.api.BaseVariant) -> Unit = ::configureAndroidTasks,
+) {
     project.pluginManager.withPlugin("com.android.application") {
         AboutLibrariesPlugin.LOGGER.debug("Registering Android task for Application")
         val app = project.extensions.findByType(AppExtension::class.java)
         if (app != null) {
-            app.applicationVariants.configureEach { variant -> configureAndroidTasks(project, extension, variant) }
+            app.applicationVariants.configureEach { variant -> block(project, extension, variant) }
         } else {
             AboutLibrariesPlugin.LOGGER.warn("No Android AppExtension found. Skipping Android tasks registration. Please ensure your Android Gradle plugin is applied BEFORE the AboutLibraries plugin.")
         }
@@ -19,7 +23,7 @@ internal fun configureAndroidTasks(project: Project, extension: AboutLibrariesEx
         AboutLibrariesPlugin.LOGGER.debug("Registering Android task for Library")
         val lib = project.extensions.findByType(LibraryExtension::class.java)
         if (lib != null) {
-            lib.libraryVariants.configureEach { variant -> configureAndroidTasks(project, extension, variant) }
+            lib.libraryVariants.configureEach { variant -> block(project, extension, variant) }
         } else {
             AboutLibrariesPlugin.LOGGER.warn("No Android LibraryExtension found. Skipping Android tasks registration. Please ensure your Android Gradle plugin is applied BEFORE the AboutLibraries plugin.")
         }
@@ -31,39 +35,6 @@ private fun configureAndroidTasks(project: Project, extension: AboutLibrariesExt
 
     val resultsResDirectory = project.layout.buildDirectory.dir("generated/aboutLibraries/${variant.name}/res/")
     val resultsDirectory = resultsResDirectory.map { it.dir("raw/") }
-
-    // task to write the general definitions information
-    val task = project.tasks.configure("prepareLibraryDefinitions${variantName}", AboutLibrariesTask::class.java) {
-        it.group = ""
-        it.variant.set(variant.name)
-        it.configureOutputFile(resultsDirectory.map { dir ->
-            @Suppress("DEPRECATION")
-            dir.file(extension.export.outputFileName.get())
-        })
-        it.configure()
-    }
-
-    // This is necessary for backwards compatibility with versions of gradle that do not support this new API.
-    try {
-        variant.registerGeneratedResFolders(project.files(resultsResDirectory).builtBy(task))
-        try {
-            variant.mergeResourcesProvider.configure { it.dependsOn(task) }
-        } catch (t: Throwable) {
-            AboutLibrariesPlugin.LOGGER.error(
-                "Couldn't register mergeResourcesProvider task dependency. This is a bug in AGP. Please report it to the Android team. ${t.message}",
-                t
-            )
-            @Suppress("DEPRECATION") variant.mergeResources.dependsOn(task)
-        }
-    } catch (t: Throwable) {
-        AboutLibrariesPlugin.LOGGER.warn(
-            "Using deprecated API to register task, `registerGeneratedResFolders` is not supported by the environment. Upgrade your AGP version., ${t.message}",
-            t
-        )
-        @Suppress("DEPRECATION")
-        // noinspection EagerGradleConfiguration
-        variant.registerResGeneratingTask(task.get(), resultsResDirectory.get().asFile)
-    }
 
     // task to generate libraries, and their license into the build folder (not hooked to the build task)
     project.tasks.configure("exportLibraryDefinitions${variantName}", AboutLibrariesTask::class.java) {

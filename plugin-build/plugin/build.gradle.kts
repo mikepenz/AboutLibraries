@@ -23,6 +23,13 @@ gradlePlugin {
             implementationClass = "$group.AboutLibrariesPlugin"
             description = "Resolve all dependencies used in a gradle module, with associated license and further information."
             displayName = "AboutLibraries Library Gradle Plugin"
+            tags = listOf("libraries", "licenses")
+        }
+        create("aboutlibsAndroidPlugin") {
+            id = "$group.android"
+            implementationClass = "$group.AboutLibrariesPluginAndroid"
+            description = "Resolve all dependencies used in a gradle module, and automatically generates the definition file as part of the Android build."
+            displayName = "AboutLibraries Library Android Gradle Plugin"
             tags = listOf("libraries", "licenses", "android")
         }
     }
