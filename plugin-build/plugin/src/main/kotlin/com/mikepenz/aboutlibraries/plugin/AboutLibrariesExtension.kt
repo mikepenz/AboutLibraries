@@ -50,9 +50,11 @@ abstract class AboutLibrariesExtension {
         action.execute(license)
     }
 
+    @Deprecated("Removed, no-op - Use the aboutlibsAndroidPlugin instead.")
     @get:Nested
     abstract val android: AndroidConfig
 
+    @Deprecated("Removed, no-op - Use the aboutlibsAndroidPlugin instead.")
     fun android(action: Action<AndroidConfig>) {
         action.execute(android)
     }
@@ -255,6 +257,7 @@ abstract class AboutLibrariesExtension {
             it.outputFileName.convention(DEFAULT_OUTPUT_NAME)
         }
         library {
+            it.requireLicense.convention(false)
             it.exclusionPatterns.convention(emptySet())
             it.duplicationMode.convention(DuplicateMode.KEEP)
             it.duplicationRule.convention(DuplicateRule.SIMPLE)
@@ -284,6 +287,7 @@ abstract class AboutLibrariesExtension {
     }
 }
 
+@Deprecated("Removed, no-op - Use the aboutlibsAndroidPlugin instead.")
 abstract class AndroidConfig @Inject constructor() {
 
     /**
@@ -300,6 +304,7 @@ abstract class AndroidConfig @Inject constructor() {
      *
      * The resulting file can for example be added as part of the SCM.
      */
+    @Deprecated("Removed, no-op - Use the aboutlibsAndroidPlugin instead.")
     @get:Optional
     abstract val registerAndroidTasks: Property<Boolean> // = true
 }
@@ -463,7 +468,7 @@ abstract class ExportConfig @Inject constructor(val name: String = "") {
     @Deprecated("Use `outputFile` instead, which is the full path including file name")
     @get:Optional
     abstract val outputFileName: Property<String>
-    
+
     /**
      * The default export variant to use for this module.
      * Can be overwritten with the `-PaboutLibraries.exportVariant` command line argument.
@@ -533,6 +538,21 @@ abstract class ExportConfig @Inject constructor(val name: String = "") {
 }
 
 abstract class LibraryConfig @Inject constructor() {
+
+    /**
+     * Warn or fail the build if a library does not have license information attached.
+     * The specific behavior depends on the `StrictMode` as configured in the license block.
+     *
+     * ```
+     * aboutLibraries {
+     *   library {
+     *      requireLicense = true
+     *   }
+     * }
+     * ```
+     */
+    @get:Optional
+    abstract val requireLicense: Property<Boolean>
 
     /**
      * A list of patterns (matching on the library `uniqueId` ($groupId:$artifactId)) to exclude libraries.
