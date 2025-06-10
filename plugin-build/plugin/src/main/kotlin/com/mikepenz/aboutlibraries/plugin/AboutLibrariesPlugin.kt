@@ -50,11 +50,7 @@ class AboutLibrariesPlugin : Plugin<Project> {
         }
 
         configureKotlinMultiplatformTasks(project, extension)
-
-        if (extension.android.registerAndroidTasks.get()) {
-            LOGGER.debug("Enabled Android task registration")
-            configureAndroidTasks(project, extension)
-        }
+        configureAndroidTasks(project, extension)
     }
 
     private fun configureKotlinMultiplatformTasks(project: Project, extension: AboutLibrariesExtension) {
