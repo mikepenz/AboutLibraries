@@ -1,5 +1,13 @@
 ### Upgrade Notes
 
+#### v13.0.0
+
+- **Breaking Change**: The `Gradle Plugin` was split into 2. The main one registering all the manual tasks, and an Android specific one automatically registering the Android auto
+  generation task.
+```kotlin
+id("com.mikepenz.aboutlibraries.plugin.android")
+```
+
 #### v12.2.0
 
 - **Breaking Change**: Renamed `nameTextStyles` in `libraryTextStyles`/`LibraryTextStyles` to `nameTextStyle` (to align with other styles).
