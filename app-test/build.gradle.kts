@@ -24,9 +24,6 @@ kotlin {
 }
 
 aboutLibraries {
-    android {
-        registerAndroidTasks = false
-    }
     collect {
         fetchRemoteLicense = true
     }
