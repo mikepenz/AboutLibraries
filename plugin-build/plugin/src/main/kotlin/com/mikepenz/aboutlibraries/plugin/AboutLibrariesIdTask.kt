@@ -17,8 +17,6 @@ abstract class AboutLibrariesIdTask : BaseAboutLibrariesTask() {
 
     @TaskAction
     fun action() {
-        offlineMode.set(true) // Force offline mode
-
         val result = createLibraryPostProcessor().process()
         val libraries = result.libraries
         variantToDependencyData.get().keys.forEach {
