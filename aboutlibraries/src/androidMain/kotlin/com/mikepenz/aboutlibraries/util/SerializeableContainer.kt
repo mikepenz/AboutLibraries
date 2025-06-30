@@ -91,7 +91,7 @@ internal data class SerializableLicense(
 ) : Serializable
 
 internal data class SerializableOrganization(
-    val name: String,
+    val name: String?,
     val url: String?,
 ) : Serializable
 
