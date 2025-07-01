@@ -11,6 +11,10 @@
 // To use the Android auto registering plugin - add the following to your module:
 id("com.mikepenz.aboutlibraries.plugin.android")
 ```
+- **Breaking Change**: Reworked the `LibraryColors` interface to be more descriptive and more flexible
+  - Renamed `backgroundColor` to `libraryBackgroundColor`
+  - Renamed `contentColor` to `libraryContentColor`
+  - Added new background, content color variants for the dialog
 
 #### v12.2.0
 
