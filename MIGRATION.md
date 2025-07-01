@@ -2,9 +2,13 @@
 
 #### v13.0.0
 
-- **Breaking Change**: The `Gradle Plugin` was split into 2. The main one registering all the manual tasks, and an Android specific one automatically registering the Android auto
+- **Breaking Change**: Deprecated APIs from v12.x.y were removed
+- **Breaking Change**: The `Gradle Plugin` was split into 2. The main plugin that is registering all the manual tasks, and an Android specific one automatically registering the Android auto
   generation task.
+  - For most projects the manual tasks are recommended. Only if you require or want to use the generation as part of the android build, use the `.android` plugin.
+
 ```kotlin
+// To use the Android auto registering plugin - add the following to your module:
 id("com.mikepenz.aboutlibraries.plugin.android")
 ```
 

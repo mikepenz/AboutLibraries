@@ -46,13 +46,20 @@ This library collects dependency details, including licenses at compile time, an
 
 ## Gradle Plugin
 
+This is the *recommended* way of using the plugin. It provides tasks to generate the meta data used by the ui plugin.
+Note: It will not automatically generate the meta-data. For Android see the android specific plugin.
+
 > The Gradle plugin is hosted via the [Gradle Plugin Portal](https://plugins.gradle.org/plugin/com.mikepenz.aboutlibraries.plugin).
 > Using the `plugins` DSL is the recommended approach.
+
+> [!NOTE]  
+> v13.x.y or newer moves the Android specific task registration into its own plugin.
+> Please see the migration guide for more details.
 
 <details open><summary><b>Using the plugins DSL (Recommended)</b></summary>
 <p>
 
-```gradle
+```kts
 // Root build.gradle.kts
 id("com.mikepenz.aboutlibraries.plugin") version "${latestAboutLibsRelease}" apply false
 
@@ -66,7 +73,7 @@ id("com.mikepenz.aboutlibraries.plugin")
 <details><summary><b>Using the plugins DSL (Apply to all subprojects)</b></summary>
 <p>
 
-```gradle
+```kts
 // Root build.gradle
 id("com.mikepenz.aboutlibraries.plugin") version "${latestAboutLibsRelease}"
 ```
@@ -91,6 +98,16 @@ apply plugin: 'com.mikepenz.aboutlibraries.plugin'
 <details><summary><b>Gradle Plugin Configuration Options</b></summary>
 <p>
 
+## Gradle Plugin - Android
+
+To improve configuration cache compatibility and reduce unintended behavior, the auto registering as part of the Android build was moved into its own plugin. 
+When using the `.android` plugin variant, the `registerAndroidTasks` configuration does no longer exist, as it now happens by default. If you do not need the meta data to be generated as part of the android build - the default plugin is recommended.
+
+```kotlin
+// App build.gradle.kts
+id("com.mikepenz.aboutlibraries.plugin.android")
+```
+
 ## Gradle Plugin Configuration
 
 The plugin allows customization via the `aboutLibraries` extension in your build script.
@@ -99,14 +116,6 @@ The plugin allows customization via the `aboutLibraries` extension in your build
 aboutLibraries {
     // Allow to enable "offline mode", will disable any network check of the plugin (including [fetchRemoteLicense] or pulling spdx license texts)
     offlineMode = false
-
-    android {
-        // - If the automatic registered android tasks are disabled, a similar thing can be achieved manually
-        // - `./gradlew app:exportLibraryDefinitions -PaboutLibraries.outputFile=src/main/res/raw/aboutlibraries.json`
-        // - the resulting file can for example be added as part of the SCM
-        // - the `outputFile` can also be changed by setting `outputFile` via the DSL.
-        registerAndroidTasks = false
-    }
 
     collect {
         // Define the path configuration files are located in. E.g. additional libraries, licenses to add to the target .json
@@ -389,7 +398,7 @@ The `app-desktop` and `app-wasm` modules demonstrate usage outside of Android, i
 
 ### Generate Dependency Information
 
-Manually export the definitions using the Gradle task. This is typically needed for non-Android platforms or when `registerAndroidTasks` is disabled.
+Manually export the definitions using the Gradle task. This is typically needed for non-Android platforms or when not using the android specific plugin.
 
 ```bash
 # Export definitions to the specified file (e.g., for desktop)
@@ -416,115 +425,17 @@ Manually export the definitions using the Gradle task. This is typically needed 
 </p>
 </details>
 
-## (Legacy) UI-module (View-based)
+### Legacy Usage
 
-> [!WARNING]
-> **Deprecated:** The legacy View-based UI module (`com.mikepenz:aboutlibraries`) is deprecated and will receive limited support.
-> Please migrate to the [Compose UI module](#ui-module-compose).
-> For embedding Compose in Views, consider using [ComposeView](https://developer.android.com/develop/ui/compose/migrate/interoperability-apis/compose-in-views).
-> While newer Gradle plugin versions *might* be compatible with older UI modules regarding the data format, migration is strongly recommended.
-
-```gradle
-// build.gradle.kts
-// Recommended: Using version catalog
-implementation(libs.aboutlibraries.view)
-
-// Alternative: Direct dependency declaration
-// implementation("com.mikepenz:aboutlibraries:${latestAboutLibsRelease}")
-```
-
-<details><summary><b>Legacy Usage</b></summary>
-<p>
-
-### Usage
-
-Use this library in a few different ways. Create a custom activity, including a custom style or just
-use its generated information. Or simply use the built-in Activity or Fragment and just pass the
-libs to include.
-
-> **Note**: The new version requires the new Material3 theme as base.
-
-#### Activity
-
-```kotlin
-LibsBuilder()
-    .start(this) // start the activity
-```
-
-The activity uses a toolbar, which requires the appropriate theme.
-See [Style the AboutLibraries](#style-the-aboutlibraries-%EF%B8%8F) for more details
-
-#### Fragment
-
-```kotlin
-val fragment = LibsBuilder()
-    .supportFragment()
-```
-
-#### About this App UI
-
-The `AboutLibraries` library also offers the ability to create an `About this app` screen.
-Add the following .xml file (or just the strings - the key must be the same) to the project.
-
-```xml
-
-<resources>
-    <string name="aboutLibraries_description_showIcon">true</string>
-    <string name="aboutLibraries_description_showVersion">true</string>
-    <string name="aboutLibraries_description_text">Place the description here :D</string>
-</resources>
-```
-
-or use the builder and add following:
-
-```kotlin
-.withAboutIconShown(true)
-    .withAboutVersionShown(true)
-    .withAboutDescription("This is a small sample which can be set in the about my app description file.<br /><b>Style this with html markup :D</b>")
-```
-
-#### Style the AboutLibraries 🖌️
-
-Create a custom style for the AboutLibraries UI.
-
-```xml
-// define a custom style
-<style name="CustomAboutLibrariesStyle" parent="">
-    <!-- AboutLibraries specific values -->
-    <item name="aboutLibrariesCardBackground">?cardBackgroundColor</item>
-    <item name="aboutLibrariesDescriptionTitle">?android:textColorPrimary</item>
-    <item name="aboutLibrariesDescriptionText">?android:textColorSecondary</item>
-    <item name="aboutLibrariesDescriptionDivider">@color/opensource_divider</item>
-    <item name="aboutLibrariesOpenSourceTitle">?android:textColorPrimary</item>
-    <item name="aboutLibrariesOpenSourceText">?android:textColorSecondary</item>
-    <item name="aboutLibrariesSpecialButtonText">?android:textColorPrimary</item>
-    <item name="aboutLibrariesOpenSourceDivider">@color/opensource_divider</item>
-</style>
-
-        // define the custom styles for the theme
-
-<style name="SampleApp" parent="Theme.MaterialComponents.Light.NoActionBar">
-...
-<item name="aboutLibrariesStyle">@style/CustomAboutLibrariesStyle</item>
-...
-</style>
-```
-
-</p>
-</details>
+The legacy view based UI is deprecated. You can find more details in [README-DEPRECATED.md](README-DEPRECATED.md), however please remember these APIs will be deleted in a future release.
 
 ## Enterprise / Manual JSON Handling
 
-For environments requiring full control over the included `aboutlibraries.json` (e.g., manual verification, CI generation), you can disable automatic task registration and handle
-generation manually.
+For environments requiring full control over the included `aboutlibraries.json` (e.g., manual verification, CI generation), you can handle generation manually.
 
 ```kts
 // build.gradle.kts
 aboutLibraries {
-    android {
-        // Disable automatic task registration for Android builds
-        registerAndroidTasks = false
-    }
     export {
         // Define the output path for manual generation
         // Adjust the path based on your project structure (e.g., composeResources, Android res/raw)
