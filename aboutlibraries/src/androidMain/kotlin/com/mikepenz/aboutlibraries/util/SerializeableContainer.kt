@@ -1,7 +1,12 @@
 package com.mikepenz.aboutlibraries.util
 
 import com.mikepenz.aboutlibraries.Libs
-import com.mikepenz.aboutlibraries.entity.*
+import com.mikepenz.aboutlibraries.entity.Developer
+import com.mikepenz.aboutlibraries.entity.Funding
+import com.mikepenz.aboutlibraries.entity.Library
+import com.mikepenz.aboutlibraries.entity.License
+import com.mikepenz.aboutlibraries.entity.Organization
+import com.mikepenz.aboutlibraries.entity.Scm
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.collections.immutable.toImmutableSet
 import java.io.Serializable
@@ -38,7 +43,7 @@ internal fun SerializableLibs.toLibs() = Libs(
             lib.description,
             lib.website,
             lib.developers.map { Developer(it.name, it.organisationUrl) }.toImmutableList(),
-            lib.organization?.let { Organization(it.name, it.url) },
+            lib.organization?.let { Organization(it.name ?: "", it.url) },
             lib.scm?.let { Scm(it.connection, it.developerConnection, it.url) },
             lib.licenses.map {
                 License(it.name, it.url, it.year, it.spdxId, it.licenseContent, it.hash)
