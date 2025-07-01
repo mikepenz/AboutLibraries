@@ -14,5 +14,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Organization(
     @SerialName("name") val name: String,
-    @SerialName("url") val url: String?
+    @SerialName("url") val url: String?,
 )

@@ -34,7 +34,7 @@ actual fun parseData(json: String): Result {
                 Developer(optString("name"), optString("organisationUrl"))
             } ?: emptyList()
             val organization = optJSONObject("organization")?.let {
-                Organization(it.getString("name"), it.optString("url"))
+                Organization(it.optString("name") ?: "", it.optString("url"))
             }
             val scm = optJSONObject("scm")?.let {
                 Scm(
