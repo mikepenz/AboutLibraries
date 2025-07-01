@@ -22,7 +22,7 @@ actual fun LicenseDialogBody(
         Text(
             text = license,
             modifier = modifier,
-            color = colors.contentColor
+            color = colors.dialogContentColor
         )
     }
 }
