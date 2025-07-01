@@ -89,7 +89,9 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
 
         // validate found licenses match expectation
         val allowedLicenses = allowedLicenses.get().map { it.lowercase(Locale.ENGLISH) }
-        if (allowedLicenses.isNotEmpty() && strictMode.get() != StrictMode.IGNORE) {
+        if (allowedLicenses.isEmpty() && strictMode.get() == StrictMode.FAIL) {
+            throw IllegalStateException("No allowed licenses were specified, and `strictMode` is set to `FAIL`. This is likely an error!")
+        } else if (allowedLicenses.isNotEmpty() && strictMode.get() != StrictMode.IGNORE) {
             // detect all missing licenses
             val missing = mutableListOf<License>()
             licenses.values.forEach {
