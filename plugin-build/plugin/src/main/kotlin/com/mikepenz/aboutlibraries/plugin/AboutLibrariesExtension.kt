@@ -9,7 +9,6 @@ import org.gradle.api.provider.Property
 import org.gradle.api.provider.SetProperty
 import org.gradle.api.tasks.Nested
 import org.gradle.api.tasks.Optional
-import java.io.File
 import java.util.regex.Pattern
 import javax.inject.Inject
 
@@ -50,9 +49,11 @@ abstract class AboutLibrariesExtension {
         action.execute(license)
     }
 
+    @Deprecated("Removed, no-op - Use the aboutlibsAndroidPlugin instead.")
     @get:Nested
     abstract val android: AndroidConfig
 
+    @Deprecated("Removed, no-op - Use the aboutlibsAndroidPlugin instead.")
     fun android(action: Action<AndroidConfig>) {
         action.execute(android)
     }
@@ -70,169 +71,6 @@ abstract class AboutLibrariesExtension {
      */
     @get:Optional
     abstract val offlineMode: Property<Boolean>
-
-    // -------
-    // DEPRECATED APIs
-    // -------
-    @Deprecated("Use `export.outputFile` instead", ReplaceWith("export.outputFile"))
-    var outputPath: String?
-        get() = export.outputFile.get().asFile.path
-        set(value) {
-            @Suppress("DEPRECATION")
-            if (value != null) export.outputFile.set(File(value, outputFileName))
-            else throw IllegalArgumentException("outputFile must not be null")
-        }
-
-    @Deprecated("Use `export.outputFileName` instead", ReplaceWith("export.outputFileName"))
-    var outputFileName: String
-        @Suppress("DEPRECATION")
-        get() = export.outputFileName.get()
-        set(value) {
-            @Suppress("DEPRECATION")
-            export.outputFileName.set(value)
-        }
-
-    @Deprecated("Use `export.variant` instead", ReplaceWith("export.variant"))
-    var exportVariant: String?
-        get() = export.variant.get()
-        set(value) {
-            export.variant.set(value)
-        }
-
-    @Deprecated("Use `android.registerAndroidTasks` instead", ReplaceWith("android.registerAndroidTasks"))
-    var registerAndroidTasks: Boolean
-        get() = android.registerAndroidTasks.get()
-        set(value) {
-            android.registerAndroidTasks.set(value)
-        }
-
-    @Deprecated("Use `collect.configPath` instead. Warning: the new property is relative to the module directory (not project root)", ReplaceWith("collect.configPath"))
-    var configPath: String?
-        get() = collect.configPath.get().asFile.path
-        set(value) {
-            if (value != null) {
-                collect.configPath.set(
-                    if (value.startsWith(File.pathSeparator)) {
-                        File(value)
-                    } else {
-                        File("../${value}")
-                    }
-                )
-            } else throw IllegalArgumentException("configPath must not be null")
-        }
-
-    @Deprecated("Use `library.exclusionPatterns` instead", ReplaceWith("library.exclusionPatterns"))
-    var exclusionPatterns: List<Pattern>
-        get() = library.exclusionPatterns.get().toList()
-        set(value) {
-            library.exclusionPatterns.set(value)
-        }
-
-    @Deprecated("Use `collect.includePlatform` instead", ReplaceWith("collect.includePlatform"))
-    var includePlatform: Boolean
-        get() = collect.includePlatform.get()
-        set(value) {
-            collect.includePlatform.set(value)
-        }
-
-    @Deprecated("Use `license.additionalLicenses` instead", ReplaceWith("license.additionalLicenses"))
-    var additionalLicenses: Array<String>
-        get() = license.additionalLicenses.get().toTypedArray()
-        set(value) {
-            license.additionalLicenses.set(value.toSet())
-        }
-
-    @Deprecated("Use `license.strictMode` instead", ReplaceWith("license.strictMode"))
-    var strictMode: StrictMode
-        get() = license.strictMode.get()
-        set(value) {
-            license.strictMode.set(value)
-        }
-
-    @Deprecated("Use `license.mapLicensesToSpdx` instead", ReplaceWith("license.mapLicensesToSpdx"))
-    var mapLicensesToSpdx: Boolean
-        get() = license.mapLicensesToSpdx.get()
-        set(value) {
-            license.mapLicensesToSpdx.set(value)
-        }
-
-    @Deprecated("Use `license.allowedLicenses` instead", ReplaceWith("license.allowedLicenses"))
-    var allowedLicenses: Array<String>
-        get() = license.allowedLicenses.get().toTypedArray()
-        set(value) {
-            license.allowedLicenses.set(value.toSet())
-        }
-
-    @Deprecated("Use `license.allowedLicensesMap` instead", ReplaceWith("license.allowedLicensesMap"))
-    var allowedLicensesMap: Map<String, List<String>>
-        get() = license.allowedLicensesMap.get()
-        set(value) {
-            license.allowedLicensesMap.set(value)
-        }
-
-    @Deprecated("Use `library.duplicationMode` instead", ReplaceWith("library.duplicationMode"))
-    var duplicationMode: DuplicateMode
-        get() = library.duplicationMode.get()
-        set(value) {
-            library.duplicationMode.set(value)
-        }
-
-    @Deprecated("Use `library.duplicationRule` instead", ReplaceWith("library.duplicationRule"))
-    var duplicationRule: DuplicateRule
-        get() = library.duplicationRule.get()
-        set(value) {
-            library.duplicationRule.set(value)
-        }
-
-    @Deprecated("Use `collect.fetchRemoteLicense` instead", ReplaceWith("collect.fetchRemoteLicense"))
-    var fetchRemoteLicense: Boolean
-        get() = collect.fetchRemoteLicense.get()
-        set(value) {
-            collect.fetchRemoteLicense.set(value)
-        }
-
-    @Deprecated("Use `collect.fetchRemoteFunding` instead", ReplaceWith("collect.fetchRemoteFunding"))
-    var fetchRemoteFunding: Boolean
-        get() = collect.fetchRemoteFunding.get()
-        set(value) {
-            collect.fetchRemoteFunding.set(value)
-        }
-
-    @Deprecated("Use `collect.gitHubApiToken` instead", ReplaceWith("collect.gitHubApiToken"))
-    var gitHubApiToken: String?
-        get() = collect.gitHubApiToken.get()
-        set(value) {
-            collect.gitHubApiToken.set(value)
-        }
-
-    @Deprecated("Use `export.includeMetaData` instead", ReplaceWith("export.includeMetaData"))
-    var includeMetaData: Boolean
-        get() = export.includeMetaData.get()
-        set(value) {
-            export.includeMetaData.set(value)
-        }
-
-    @Deprecated("Use `export.excludeFields` instead", ReplaceWith("export.excludeFields"))
-    var excludeFields: Array<String>
-        get() = export.excludeFields.get().toTypedArray()
-        set(value) {
-            export.excludeFields.set(value.toSet())
-        }
-
-    @Deprecated("Use `export.prettyPrint` instead", ReplaceWith("export.prettyPrint"))
-    var prettyPrint: Boolean
-        get() = export.prettyPrint.get()
-        set(value) {
-            export.prettyPrint.set(value)
-        }
-
-    @Deprecated("Use `collect.filterVariants` instead", ReplaceWith("collect.filterVariants"))
-    var filterVariants: Array<String>
-        get() = collect.filterVariants.get().toTypedArray()
-        set(value) {
-            collect.filterVariants.set(value.toSet())
-        }
-
 
     /**
      * Helper API to apply the default convention for the extension.
@@ -284,6 +122,7 @@ abstract class AboutLibrariesExtension {
     }
 }
 
+@Deprecated("Removed, no-op - Use the aboutlibsAndroidPlugin instead.")
 abstract class AndroidConfig @Inject constructor() {
 
     /**
@@ -300,6 +139,7 @@ abstract class AndroidConfig @Inject constructor() {
      *
      * The resulting file can for example be added as part of the SCM.
      */
+    @Deprecated("Removed, no-op - Use the aboutlibsAndroidPlugin instead.")
     @get:Optional
     abstract val registerAndroidTasks: Property<Boolean> // = true
 }
@@ -463,7 +303,7 @@ abstract class ExportConfig @Inject constructor(val name: String = "") {
     @Deprecated("Use `outputFile` instead, which is the full path including file name")
     @get:Optional
     abstract val outputFileName: Property<String>
-    
+
     /**
      * The default export variant to use for this module.
      * Can be overwritten with the `-PaboutLibraries.exportVariant` command line argument.
