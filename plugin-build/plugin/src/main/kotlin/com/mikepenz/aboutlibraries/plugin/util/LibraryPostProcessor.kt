@@ -15,6 +15,7 @@ import com.mikepenz.aboutlibraries.plugin.util.parser.LicenseReader
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.File
+import java.util.Locale
 import java.util.regex.Pattern
 
 internal class LibraryPostProcessor(
@@ -117,6 +118,32 @@ internal class LibraryPostProcessor(
                         }
                     }
 
+                    /** Converts license identifiers to their corresponding hashes from licensesMap */
+                    fun Library.convertLicenseIdentifiersToHashes() {
+                        // Convert license identifiers (like "MIT", "Apache-2.0", "asdkl") to their corresponding hashes
+                        val convertedLicenses = mutableSetOf<String>()
+                        this.licenses.forEach { licenseId ->
+                            // First check if the licenseId is already a hash key in licensesMap
+                            val licenseHash = if (licensesMap.containsKey(licenseId)) {
+                                licenseId // it's already a hash
+                            } else {
+                                // Try to find the license by matching spdxId, name, or URL
+                                licensesMap.values.find { license ->
+                                    val id = license.spdxId?.lowercase(Locale.ENGLISH) ?: ""
+                                    val name = license.name.lowercase(Locale.ENGLISH)
+                                    val url = license.url?.lowercase(Locale.ENGLISH) ?: ""
+                                    val licenseIdLower = licenseId.lowercase(Locale.ENGLISH)
+                                    
+                                    licenseIdLower == id || licenseIdLower == name || 
+                                    (url.isNotEmpty() && licenseIdLower == url)
+                                }?.hash ?: licenseId // fallback to original if not found
+                            }
+                            
+                            convertedLicenses.add(licenseHash)
+                        }
+                        this.licenses = convertedLicenses
+                    }
+
                     /** Merges this [Library] with the provided other [Library] */
                     fun Library.mergeWithCustom() {
                         this.merge(lib)
@@ -128,12 +155,18 @@ internal class LibraryPostProcessor(
                         val matchedLibraries = librariesMap.filterKeys {
                             it.contains(matchRegex)
                         }
+                        // Convert license identifiers to hashes for the config library first
+                        lib.convertLicenseIdentifiersToHashes()
                         matchedLibraries.values.forEach { it.mergeWithCustom() }
                     } else {
                         if (librariesMap.containsKey(lib.uniqueId)) {
+                            // Convert license identifiers to hashes for the config library first
+                            lib.convertLicenseIdentifiersToHashes()
                             librariesMap[lib.uniqueId]?.mergeWithCustom()
                         } else {
                             lib.handleLicenses()
+                            // Convert license identifiers to hashes for standalone config libraries
+                            lib.convertLicenseIdentifiersToHashes()
                             librariesList.add(lib)
                             librariesMap[lib.uniqueId] = lib
                         }
