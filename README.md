@@ -41,6 +41,7 @@ This library collects dependency details, including licenses at compile time, an
 
 ## Latest releases 🛠
 
+- Split Gradle Plugin | [v13.0.0](https://github.com/mikepenz/AboutLibraries/tree/13.0.0)
 - Compose 1.8.x | Refined Compose UI Design | [v12.2.4](https://github.com/mikepenz/AboutLibraries/tree/12.2.4)
 - Compose UI updates | Gradle Plugin refresh | [v12.0.1](https://github.com/mikepenz/AboutLibraries/tree/12.0.1)
 
@@ -52,12 +53,21 @@ Note: It will not automatically generate the meta-data. For Android see the andr
 > The Gradle plugin is hosted via the [Gradle Plugin Portal](https://plugins.gradle.org/plugin/com.mikepenz.aboutlibraries.plugin).
 > Using the `plugins` DSL is the recommended approach.
 
-> [!NOTE]  
-> v13.x.y or newer moves the Android specific task registration into its own plugin.
-> Please see the migration guide for more details.
+> [!IMPORTANT]  
+> In v13.x.y, the Gradle Plugin was split into two separate plugins:
+>
+> 1. **Main Plugin** (`com.mikepenz.aboutlibraries.plugin`): Provides manual tasks for generating library definitions
+> 2. **Android Plugin** (`com.mikepenz.aboutlibraries.plugin.android`): Automatically hooks into the Android build process
+>
+> For most projects, the main plugin is recommended. Only use the Android plugin if you specifically need the library definitions to be generated as part of the Android build
+> process.
+>
+> See the [migration guide](MIGRATION.md) for more details.
 
 <details open><summary><b>Using the plugins DSL (Recommended)</b></summary>
 <p>
+
+## Default Gradle Plugin - Multiplatform
 
 ```kts
 // Root build.gradle.kts
@@ -66,6 +76,23 @@ id("com.mikepenz.aboutlibraries.plugin") version "${latestAboutLibsRelease}" app
 // App build.gradle.kts
 id("com.mikepenz.aboutlibraries.plugin")
 ```
+
+## Gradle Plugin - Android
+
+To improve configuration cache compatibility and reduce unintended behavior, the auto registering as part of the Android build was moved into its own plugin in v13.x.y.
+
+```kotlin
+// App build.gradle.kts
+id("com.mikepenz.aboutlibraries.plugin.android")
+```
+
+When using the `.android` plugin variant:
+
+- The library definitions are automatically generated as part of the Android build process
+- The `registerAndroidTasks` configuration no longer exists, as it now happens by default
+- The generated file is automatically included in your Android resources
+- No manual execution of tasks is required
+
 
 </p>
 </details>
@@ -97,16 +124,6 @@ apply plugin: 'com.mikepenz.aboutlibraries.plugin'
 
 <details><summary><b>Gradle Plugin Configuration Options</b></summary>
 <p>
-
-## Gradle Plugin - Android
-
-To improve configuration cache compatibility and reduce unintended behavior, the auto registering as part of the Android build was moved into its own plugin. 
-When using the `.android` plugin variant, the `registerAndroidTasks` configuration does no longer exist, as it now happens by default. If you do not need the meta data to be generated as part of the android build - the default plugin is recommended.
-
-```kotlin
-// App build.gradle.kts
-id("com.mikepenz.aboutlibraries.plugin.android")
-```
 
 ## Gradle Plugin Configuration
 
@@ -170,8 +187,8 @@ aboutLibraries {
 
     license {
         // Define the strict mode, will fail if the project uses licenses not allowed
-        // - This will only automatically fail for Android projects which have `registerAndroidTasks` enabled
-        // For non Android projects, execute `exportLibraryDefinitions`
+        // - This will only automatically fail for Android projects using the Android-specific plugin (com.mikepenz.aboutlibraries.plugin.android)
+        // For other projects, execute `exportLibraryDefinitions` manually
         strictMode = com.mikepenz.aboutlibraries.plugin.StrictMode.FAIL
 
         // Allowed set of licenses, this project will be able to use without build failure
