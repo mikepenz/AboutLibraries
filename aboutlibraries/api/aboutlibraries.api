@@ -320,5 +320,7 @@ public final class com/mikepenz/aboutlibraries/viewmodel/LibsViewModel : android
 public final class com/mikepenz/aboutlibraries/viewmodel/LibsViewModelFactory : androidx/lifecycle/ViewModelProvider$Factory {
 	public fun <init> (Landroid/content/Context;Lcom/mikepenz/aboutlibraries/LibsBuilder;Lcom/mikepenz/aboutlibraries/Libs$Builder;)V
 	public fun create (Ljava/lang/Class;)Landroidx/lifecycle/ViewModel;
+	public fun create (Ljava/lang/Class;Landroidx/lifecycle/viewmodel/CreationExtras;)Landroidx/lifecycle/ViewModel;
+	public fun create (Lkotlin/reflect/KClass;Landroidx/lifecycle/viewmodel/CreationExtras;)Landroidx/lifecycle/ViewModel;
 }
 
