@@ -12,7 +12,7 @@ public final class com/mikepenz/aboutlibraries/Libs {
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class com/mikepenz/aboutlibraries/Libs$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class com/mikepenz/aboutlibraries/Libs$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lcom/mikepenz/aboutlibraries/Libs$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/mikepenz/aboutlibraries/Libs;
@@ -20,6 +20,7 @@ public synthetic class com/mikepenz/aboutlibraries/Libs$$serializer : kotlinx/se
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/mikepenz/aboutlibraries/Libs;)V
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class com/mikepenz/aboutlibraries/Libs$Builder {
@@ -46,7 +47,7 @@ public final class com/mikepenz/aboutlibraries/entity/Developer {
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class com/mikepenz/aboutlibraries/entity/Developer$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class com/mikepenz/aboutlibraries/entity/Developer$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lcom/mikepenz/aboutlibraries/entity/Developer$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/mikepenz/aboutlibraries/entity/Developer;
@@ -54,6 +55,7 @@ public synthetic class com/mikepenz/aboutlibraries/entity/Developer$$serializer 
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/mikepenz/aboutlibraries/entity/Developer;)V
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class com/mikepenz/aboutlibraries/entity/Developer$Companion {
@@ -74,7 +76,7 @@ public final class com/mikepenz/aboutlibraries/entity/Funding {
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class com/mikepenz/aboutlibraries/entity/Funding$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class com/mikepenz/aboutlibraries/entity/Funding$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lcom/mikepenz/aboutlibraries/entity/Funding$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/mikepenz/aboutlibraries/entity/Funding;
@@ -82,6 +84,7 @@ public synthetic class com/mikepenz/aboutlibraries/entity/Funding$$serializer : 
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/mikepenz/aboutlibraries/entity/Funding;)V
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class com/mikepenz/aboutlibraries/entity/Funding$Companion {
@@ -123,7 +126,7 @@ public final class com/mikepenz/aboutlibraries/entity/Library {
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class com/mikepenz/aboutlibraries/entity/Library$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class com/mikepenz/aboutlibraries/entity/Library$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lcom/mikepenz/aboutlibraries/entity/Library$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/mikepenz/aboutlibraries/entity/Library;
@@ -131,6 +134,7 @@ public synthetic class com/mikepenz/aboutlibraries/entity/Library$$serializer : 
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/mikepenz/aboutlibraries/entity/Library;)V
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class com/mikepenz/aboutlibraries/entity/Library$Companion {
@@ -160,7 +164,7 @@ public final class com/mikepenz/aboutlibraries/entity/License {
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class com/mikepenz/aboutlibraries/entity/License$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class com/mikepenz/aboutlibraries/entity/License$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lcom/mikepenz/aboutlibraries/entity/License$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/mikepenz/aboutlibraries/entity/License;
@@ -168,6 +172,7 @@ public synthetic class com/mikepenz/aboutlibraries/entity/License$$serializer : 
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/mikepenz/aboutlibraries/entity/License;)V
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class com/mikepenz/aboutlibraries/entity/License$Companion {
@@ -188,7 +193,7 @@ public final class com/mikepenz/aboutlibraries/entity/Organization {
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class com/mikepenz/aboutlibraries/entity/Organization$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class com/mikepenz/aboutlibraries/entity/Organization$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lcom/mikepenz/aboutlibraries/entity/Organization$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/mikepenz/aboutlibraries/entity/Organization;
@@ -196,6 +201,7 @@ public synthetic class com/mikepenz/aboutlibraries/entity/Organization$$serializ
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/mikepenz/aboutlibraries/entity/Organization;)V
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class com/mikepenz/aboutlibraries/entity/Organization$Companion {
@@ -218,7 +224,7 @@ public final class com/mikepenz/aboutlibraries/entity/Scm {
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class com/mikepenz/aboutlibraries/entity/Scm$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class com/mikepenz/aboutlibraries/entity/Scm$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lcom/mikepenz/aboutlibraries/entity/Scm$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/mikepenz/aboutlibraries/entity/Scm;
@@ -226,6 +232,7 @@ public synthetic class com/mikepenz/aboutlibraries/entity/Scm$$serializer : kotl
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/mikepenz/aboutlibraries/entity/Scm;)V
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class com/mikepenz/aboutlibraries/entity/Scm$Companion {
