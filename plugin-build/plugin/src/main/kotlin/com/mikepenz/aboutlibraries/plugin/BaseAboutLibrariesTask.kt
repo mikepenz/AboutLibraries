@@ -38,6 +38,9 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     abstract val variant: Property<String?>
 
     @Input
+    val requireLicense = extension.library.requireLicense
+
+    @Input
     val exclusionPatterns = extension.library.exclusionPatterns
 
     @Input
