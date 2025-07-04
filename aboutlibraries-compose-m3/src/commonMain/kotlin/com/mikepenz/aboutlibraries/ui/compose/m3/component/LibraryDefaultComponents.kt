@@ -24,7 +24,7 @@ internal val DefaultLibraryName: @Composable BoxScope.(name: String, textStyles:
         Text(
             text = libraryName,
             style = textStyles.nameTextStyle ?: typography.titleLarge,
-            color = colors.contentColor,
+            color = colors.libraryContentColor,
             maxLines = textStyles.nameMaxLines,
             overflow = textStyles.nameOverflow,
         )
@@ -55,7 +55,7 @@ internal val DefaultLibraryAuthor: @Composable BoxScope.(author: String, textSty
         Text(
             text = author,
             style = textStyles.authorTextStyle ?: typography.bodyMedium,
-            color = colors.contentColor,
+            color = colors.libraryContentColor,
             maxLines = textStyles.authorMaxLines,
             overflow = textStyles.defaultOverflow,
         )
@@ -66,7 +66,7 @@ internal val DefaultLibraryDescription: @Composable BoxScope.(description: Strin
         Text(
             text = description,
             style = textStyles.descriptionTextStyle ?: typography.bodySmall,
-            color = colors.contentColor,
+            color = colors.libraryContentColor,
             maxLines = textStyles.descriptionMaxLines,
             overflow = textStyles.defaultOverflow,
         )

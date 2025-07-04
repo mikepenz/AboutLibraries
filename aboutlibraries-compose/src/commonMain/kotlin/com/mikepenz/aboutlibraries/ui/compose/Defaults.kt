@@ -22,42 +22,6 @@ object LibraryDefaults {
     /**
      * Creates a [LibraryPadding] that represents the default paddings used in a [Library]
      *
-     * @param namePadding the padding around the name shown as part of a [Library]
-     * @param versionPadding the padding around the version shown as part of a [Library]
-     * @param badgePadding the padding around a badge element shown as part of a [Library]
-     * @param badgeContentPadding the padding around the content of a badge element shown as part of a [Library]
-     * @param verticalPadding the vertical padding between the individual items in the library element
-     */
-    @Deprecated("Use libraryPadding() with chipPadding() arguments instead", level = DeprecationLevel.WARNING)
-    @Composable
-    fun libraryPadding(
-        contentPadding: PaddingValues, // Remove default to not conflict with new API. PaddingValues(16.dp)
-        namePadding: PaddingValues = PaddingValues(0.dp),
-        versionPadding: PaddingValues = PaddingValues(start = 8.dp),
-        badgePadding: PaddingValues = PaddingValues(top = 8.dp, end = 4.dp),
-        badgeContentPadding: PaddingValues = PaddingValues(horizontal = 8.dp, vertical = 0.dp),
-        verticalPadding: Dp = 2.dp,
-    ): LibraryPadding = libraryPadding(
-        contentPadding = contentPadding,
-        namePadding = namePadding,
-        versionPadding = chipPadding(
-            containerPadding = versionPadding,
-            contentPadding = badgeContentPadding,
-        ),
-        licensePadding = chipPadding(
-            containerPadding = badgePadding,
-            contentPadding = badgeContentPadding,
-        ),
-        fundingPadding = chipPadding(
-            containerPadding = badgePadding,
-            contentPadding = badgeContentPadding,
-        ),
-        verticalPadding = verticalPadding,
-    )
-
-    /**
-     * Creates a [LibraryPadding] that represents the default paddings used in a [Library]
-     *
      * @param contentPadding the padding inside the [Library] ui element
      * @param namePadding the padding around the name shown as part of a [Library]
      * @param versionPadding the padding in and around the version shown as part of a [Library]
@@ -177,10 +141,10 @@ object LibraryDefaults {
 @Stable
 interface LibraryColors {
     /** Represents the background color for this library item. */
-    val backgroundColor: Color
+    val libraryBackgroundColor: Color
 
     /** Represents the content color for this library item. */
-    val contentColor: Color
+    val libraryContentColor: Color
 
     /** Represents the colors used for the [Library.artifactVersion] chip. */
     val versionChipColors: ChipColors
@@ -191,6 +155,12 @@ interface LibraryColors {
     /** Represents the colors used for the [Library.funding] chip. */
     val fundingChipColors: ChipColors
 
+    /** Represents the background color of the dialog. */
+    val dialogBackgroundColor: Color
+
+    /** Represents the content color of the dialog. */
+    val dialogContentColor: Color
+
     /** Represents the text color of the dialog's confirm button  */
     val dialogConfirmButtonColor: Color
 }
@@ -200,11 +170,13 @@ interface LibraryColors {
  */
 @Immutable
 class DefaultLibraryColors(
-    override val backgroundColor: Color,
-    override val contentColor: Color,
+    override val libraryBackgroundColor: Color,
+    override val libraryContentColor: Color,
     override val versionChipColors: ChipColors,
     override val licenseChipColors: ChipColors,
     override val fundingChipColors: ChipColors,
+    override val dialogBackgroundColor: Color,
+    override val dialogContentColor: Color,
     override val dialogConfirmButtonColor: Color,
 ) : LibraryColors
 

@@ -1,6 +1,7 @@
 package com.mikepenz.aboutlibraries.ui.compose
 
 import androidx.compose.foundation.LocalIndication
+import androidx.compose.foundation.background
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.indication
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -99,7 +100,7 @@ fun LibrariesContainer(
     LibrariesScaffold(
         libraries = libs,
         modifier = modifier,
-        libraryModifier = libraryModifier,
+        libraryModifier = libraryModifier.background(colors.libraryBackgroundColor),
         lazyListState = lazyListState,
         contentPadding = contentPadding,
         padding = padding,
@@ -158,8 +159,8 @@ fun LicenseDialog(
         content = {
             Surface(
                 shape = MaterialTheme.shapes.medium,
-                color = colors.backgroundColor,
-                contentColor = colors.contentColor,
+                color = colors.dialogBackgroundColor,
+                contentColor = colors.dialogContentColor,
                 modifier = Modifier.padding(8.dp),
             ) {
                 Column {
@@ -198,7 +199,7 @@ internal fun DefaultLicenseDialogBody(library: Library, colors: LibraryColors, m
         Text(
             text = license,
             modifier = modifier,
-            color = colors.contentColor
+            color = colors.dialogContentColor
         )
     }
 }
@@ -206,55 +207,36 @@ internal fun DefaultLicenseDialogBody(library: Library, colors: LibraryColors, m
 /**
  * Creates a [LibraryColors] that represents the default colors used in a [Library].
  *
- * @param backgroundColor the background color of this [Library]
- * @param contentColor the content color of this [Library]
- * @param badgeBackgroundColor the badge background color of this [Library]
- * @param badgeContentColor the badge content color of this [Library]
- * @param dialogConfirmButtonColor the dialog's confirm button color of this [Library]
- */
-@Deprecated("Use libraryColors() instead with `ChipColors` arguments.")
-@Composable
-fun LibraryDefaults.libraryColors(
-    backgroundColor: Color,
-    contentColor: Color = contentColorFor(backgroundColor),
-    badgeBackgroundColor: Color = MaterialTheme.colors.primary,
-    badgeContentColor: Color = contentColorFor(badgeBackgroundColor),
-    dialogConfirmButtonColor: Color = MaterialTheme.colors.primary,
-): LibraryColors = libraryColors(
-    backgroundColor = backgroundColor,
-    contentColor = contentColor,
-    versionChipColors = chipColors(containerColor = backgroundColor),
-    licenseChipColors = chipColors(badgeBackgroundColor, badgeContentColor),
-    dialogConfirmButtonColor = dialogConfirmButtonColor,
-)
-
-/**
- * Creates a [LibraryColors] that represents the default colors used in a [Library].
- *
- * @param backgroundColor the background color of this [Library]
- * @param contentColor the content color of this [Library]
+ * @param libraryBackgroundColor the background color of this [Library]
+ * @param libraryContentColor the content color of this [Library]
  * @param versionChipColors the colors used for the version chip
  * @param licenseChipColors the colors used for the license chip
  * @param fundingChipColors the colors used for the funding chip
+ * @param dialogBackgroundColor the dialog background color of this [Library]
+ * @param dialogContentColor the dialog content color of this [Library]
  * @param dialogConfirmButtonColor the dialog's confirm button color of this [Library]
  */
 @Composable
 fun LibraryDefaults.libraryColors(
-    backgroundColor: Color = MaterialTheme.colors.background,
-    contentColor: Color = contentColorFor(backgroundColor),
-    versionChipColors: ChipColors = chipColors(containerColor = backgroundColor),
+    libraryBackgroundColor: Color = MaterialTheme.colors.background,
+    libraryContentColor: Color = contentColorFor(libraryBackgroundColor),
+    versionChipColors: ChipColors = chipColors(containerColor = libraryBackgroundColor),
     licenseChipColors: ChipColors = chipColors(),
     fundingChipColors: ChipColors = chipColors(
         containerColor = MaterialTheme.colors.secondary,
         contentColor = contentColorFor(MaterialTheme.colors.secondary),
     ),
+    dialogBackgroundColor: Color = libraryBackgroundColor,
+    dialogContentColor: Color = contentColorFor(dialogBackgroundColor),
     dialogConfirmButtonColor: Color = MaterialTheme.colors.primary,
 ): LibraryColors = DefaultLibraryColors(
-    backgroundColor = backgroundColor,
-    contentColor = contentColor,
+    libraryBackgroundColor = libraryBackgroundColor,
+    libraryContentColor = libraryContentColor,
     versionChipColors = versionChipColors,
     licenseChipColors = licenseChipColors,
     fundingChipColors = fundingChipColors,
+    dialogBackgroundColor = dialogBackgroundColor,
+    dialogContentColor = dialogContentColor,
     dialogConfirmButtonColor = dialogConfirmButtonColor,
 )
 
