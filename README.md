@@ -19,7 +19,7 @@ This library collects dependency details, including licenses at compile time, an
 
 -------
 
-### What's included 🚀
+### What's included 🚀hdjjkdj 
 
 - Kotlin Multiplatform support (including wasm)
 - Lightweight multiplatform core module
