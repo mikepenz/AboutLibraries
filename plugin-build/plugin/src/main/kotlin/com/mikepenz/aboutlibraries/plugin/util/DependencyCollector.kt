@@ -1,19 +1,11 @@
 package com.mikepenz.aboutlibraries.plugin.util
 
-import com.mikepenz.aboutlibraries.plugin.mapping.Developer
-import com.mikepenz.aboutlibraries.plugin.mapping.Funding
-import com.mikepenz.aboutlibraries.plugin.mapping.License
-import com.mikepenz.aboutlibraries.plugin.mapping.Organization
-import com.mikepenz.aboutlibraries.plugin.mapping.Scm
+import com.mikepenz.aboutlibraries.plugin.mapping.*
 import org.apache.maven.model.Dependency
 import org.apache.maven.model.Model
 import org.apache.maven.model.Parent
 import org.apache.maven.model.Repository
-import org.apache.maven.model.building.DefaultModelBuilderFactory
-import org.apache.maven.model.building.DefaultModelBuildingRequest
-import org.apache.maven.model.building.FileModelSource
-import org.apache.maven.model.building.ModelBuildingRequest
-import org.apache.maven.model.building.ModelSource2
+import org.apache.maven.model.building.*
 import org.apache.maven.model.resolution.ModelResolver
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Configuration
@@ -26,9 +18,7 @@ import org.gradle.api.artifacts.result.ResolvedComponentResult
 import org.gradle.api.artifacts.result.ResolvedDependencyResult
 import org.gradle.api.artifacts.result.ResolvedVariantResult
 import org.gradle.api.attributes.Attribute
-import org.gradle.api.attributes.Category.CATEGORY_ATTRIBUTE
-import org.gradle.api.attributes.Category.ENFORCED_PLATFORM
-import org.gradle.api.attributes.Category.REGULAR_PLATFORM
+import org.gradle.api.attributes.Category.*
 import org.gradle.api.provider.Provider
 import org.slf4j.LoggerFactory
 import java.io.File
@@ -256,7 +246,7 @@ internal class DependencyCollector(
                     val variantAttrs = variant.attributes
                     for (attrs in variantAttrs.keySet()) {
                         @Suppress("UNCHECKED_CAST")
-                        it.attribute(attrs as Attribute<Any?>, variantAttrs.getAttribute(attrs)!!)
+                        it.attribute(attrs as Attribute<Any>, variantAttrs.getAttribute(attrs)!!)
                     }
                 }
             }

@@ -17,7 +17,7 @@ android {
     namespace = "com.mikepenz.aboutlibraries.sample"
 
     defaultConfig {
-        setProperty("archivesBaseName", "AboutLibraries-v$versionName-c$versionCode")
+        base.archivesName = "AboutLibraries-v$versionName-c$versionCode"
     }
 
     buildTypes {

@@ -15,22 +15,17 @@ import java.nio.charset.StandardCharsets
 @CacheableTask
 abstract class AboutLibrariesExportFundingTask : BaseAboutLibrariesTask() {
     // Disable fetching remote licenses for this task, not applicable
-    override val fetchRemoteLicense: Provider<Boolean?> = project.provider { false }
+    override val fetchRemoteLicense: Provider<Boolean> = project.provider { false }
 
     // Force fetch remote funding all the time
-    override val fetchRemoteFunding: Provider<Boolean?> = project.provider { true }
+    override val fetchRemoteFunding: Provider<Boolean> = project.provider { true }
 
     override fun getDescription(): String = "Exports the funding options for all used dependencies to the config folder"
     override fun getGroup(): String = "Help"
 
     @TaskAction
     fun action() {
-        val configDirectory = configPath.orNull
-
-        if (configDirectory == null) {
-            throw IllegalArgumentException("The `configPath` has to be configured for this task to work.")
-        }
-
+        val configDirectory = configPath.orNull ?: throw IllegalArgumentException("The `configPath` has to be configured for this task to work.")
         val result = createLibraryPostProcessor().process()
         val libraries = result.libraries
 
