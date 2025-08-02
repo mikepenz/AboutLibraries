@@ -17,8 +17,6 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: |
-            11
-            15
             17
 
       - name: Copy CI gradle.properties
