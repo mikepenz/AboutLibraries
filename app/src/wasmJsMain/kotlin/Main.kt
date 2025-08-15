@@ -6,14 +6,14 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.window.CanvasBasedWindow
+import androidx.compose.ui.window.ComposeViewport
 import com.mikepenz.aboutlibraries.ui.compose.LibrariesContainer
 import com.mikepenz.aboutlibraries.ui.compose.rememberLibraries
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalResourceApi::class)
 fun main() {
-    CanvasBasedWindow("AboutLibraries", canvasElementId = "aboutLibsCanvas") {
+    ComposeViewport {
         SampleTheme {
             Scaffold(
                 topBar = { TopAppBar(title = { Text("AboutLibraries Compose Desktop Sample") }) }
