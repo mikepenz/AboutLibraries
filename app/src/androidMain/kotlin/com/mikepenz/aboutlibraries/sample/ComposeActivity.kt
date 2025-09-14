@@ -75,7 +75,7 @@ import com.mikepenz.aboutlibraries.LibsBuilder
 import com.mikepenz.aboutlibraries.LibsConfiguration
 import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.sample.icons.Github
-import com.mikepenz.aboutlibraries.ui.compose.android.rememberLibraries
+import com.mikepenz.aboutlibraries.ui.compose.android.produceLibraries
 import com.mikepenz.aboutlibraries.ui.compose.m3.LibrariesContainer
 import com.mikepenz.aboutlibraries.util.SpecialButton
 import kotlinx.coroutines.launch
@@ -107,7 +107,7 @@ fun MainLayout() {
 
         val drawerState = rememberDrawerState(DrawerValue.Closed)
         val bottomDrawerState = rememberBottomDrawerState(BottomDrawerValue.Closed)
-        val libraries by rememberLibraries(R.raw.aboutlibraries)
+        val libraries by produceLibraries(R.raw.aboutlibraries)
 
         val scope = rememberCoroutineScope()
         val context = LocalContext.current

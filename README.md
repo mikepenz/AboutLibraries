@@ -355,18 +355,18 @@ implementation(libs.aboutlibraries.compose.m3) // Material 3
 
 ```kotlin
 // Android: Provide resource identifier for the `R.raw.aboutlibraries` file.
-val libraries by rememberLibraries(R.raw.aboutlibraries)
+val libraries by produceLibraries(R.raw.aboutlibraries)
 LibrariesContainer(libraries, Modifier.fillMaxSize())
 
 // Multiplatform: Using compose-resources API (e.g., src/commonMain/composeResources/files/aboutlibraries.json)
-val libraries by rememberLibraries {
+val libraries by produceLibraries {
     Res.readBytes("files/aboutlibraries.json").decodeToString()
 }
 LibrariesContainer(libraries, Modifier.fillMaxSize())
 
 
 // Multiplatform: Manually loading JSON
-val libraries by rememberLibraries {
+val libraries by produceLibraries {
     // Replace with your specific resource loading logic
     useResource("aboutlibraries.json") { res -> res.bufferedReader().readText() }
 }

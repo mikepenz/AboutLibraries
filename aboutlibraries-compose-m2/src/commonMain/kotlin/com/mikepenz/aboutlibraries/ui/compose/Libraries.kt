@@ -16,7 +16,7 @@ import com.mikepenz.aboutlibraries.entity.Library
 /**
  * Displays all provided libraries in a simple list.
  */
-@Deprecated("Use `LibrariesContainer` variant with `Libs` instead. Use `rememberLibraries` to load the libraries.")
+@Deprecated("Use `LibrariesContainer` variant with `Libs` instead. Use `produceLibraries` to load the libraries.")
 @Composable
 fun LibrariesContainer(
     aboutLibsJson: String,
@@ -39,7 +39,7 @@ fun LibrariesContainer(
     onLibraryClick: ((Library) -> Unit)? = null,
     onFundingClick: ((Funding) -> Unit)? = null,
 ) {
-    val libs by rememberLibraries(aboutLibsJson)
+    val libs by produceLibraries(aboutLibsJson)
     LibrariesContainer(
         libraries = libs,
         modifier = modifier,
@@ -66,7 +66,7 @@ fun LibrariesContainer(
 /**
  * Displays all provided libraries in a simple list.
  */
-@Deprecated("Use `LibrariesContainer` variant with `Libs` instead. Use `rememberLibraries` to load the libraries.")
+@Deprecated("Use `LibrariesContainer` variant with `Libs` instead. Use `produceLibraries` to load the libraries.")
 @Composable
 fun LibrariesContainer(
     librariesBlock: () -> Libs,
