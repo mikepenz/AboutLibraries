@@ -206,7 +206,7 @@ aboutLibraries {
 
     library {
         // Enable the duplication mode, allows to merge, or link dependencies which relate
-        duplicationMode = com.mikepenz.aboutlibraries.plugin.DuplicateMode.LINK
+        duplicationMode = com.mikepenz.aboutlibraries.plugin.DuplicateMode.MERGE
         // Configure the duplication rule, to match "duplicates" with
         duplicationRule = com.mikepenz.aboutlibraries.plugin.DuplicateRule.SIMPLE
     }
