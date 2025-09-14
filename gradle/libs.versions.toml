@@ -2,15 +2,15 @@
 # kotlin
 kotlinxSerialization = "1.9.0"
 # androidx
-activity = "1.10.1"
+activity = "1.11.0"
 cardview = "1.0.0"
 constraintLayout = "2.2.1"
 core = "1.17.0"
-lifecycle = { require = "2.8.7" }
-navigation = "2.9.3"
+lifecycle = { require = "2.9.3" }
+navigation = "2.9.4"
 recyclerView = "1.4.0"
 # google
-material = "1.12.0"
+material = "1.13.0"
 # other
 fastAdapter = "5.7.0"
 iconics = "5.4.0"
