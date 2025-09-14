@@ -16,12 +16,12 @@ import kotlinx.coroutines.withContext
 /**
  * Creates a State<Libs?> that holds the [Libs] as loaded from Android using the [Context].
  * Warning: This API uses the name of the resource to find the libraries. Ensure R8 does not obfuscate the `aboutlibraries` RAW resource identifier.
- * Alternatively use the `rememberLibraries(resId: Int)` API instead.
+ * Alternatively use the `produceLibraries(resId: Int)` API instead.
  *
  * @see Libs
  */
 @Composable
-fun rememberLibraries(
+fun produceLibraries(
     block: suspend (Context) -> Libs = { context ->
         Libs.Builder().withContext(context).build()
     },
@@ -41,7 +41,7 @@ fun rememberLibraries(
  * @see Libs
  */
 @Composable
-fun rememberLibraries(
+fun produceLibraries(
     @RawRes
     resId: Int,
 ): State<Libs?> {
@@ -52,4 +52,25 @@ fun rememberLibraries(
         }
     }
 }
+
+// --- Deprecated wrappers to assist migration from rememberLibraries to produceLibraries ---
+/**
+ * Deprecated. Use produceLibraries(block: suspend (Context) -> Libs) instead.
+ */
+@Deprecated(
+    message = "Use produceLibraries(block)",
+    replaceWith = ReplaceWith("produceLibraries(block)"),
+)
+@Composable
+fun rememberLibraries(block: suspend (Context) -> Libs): State<Libs?> = produceLibraries(block)
+
+/**
+ * Deprecated. Use produceLibraries(resId: Int) instead.
+ */
+@Deprecated(
+    message = "Use produceLibraries(resId)",
+    replaceWith = ReplaceWith("produceLibraries(resId)"),
+)
+@Composable
+fun rememberLibraries(@RawRes resId: Int): State<Libs?> = produceLibraries(resId)
 

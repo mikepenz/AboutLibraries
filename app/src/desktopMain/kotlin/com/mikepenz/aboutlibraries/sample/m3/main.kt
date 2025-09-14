@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import com.mikepenz.aboutlibraries.ui.compose.m3.LibrariesContainer
-import com.mikepenz.aboutlibraries.ui.compose.rememberLibraries
+import com.mikepenz.aboutlibraries.ui.compose.produceLibraries
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalResourceApi::class)
@@ -26,7 +26,7 @@ fun main() = application {
         AppTheme {
             Scaffold(
                 topBar = { TopAppBar(title = { Text("AboutLibraries Compose M3 Desktop Sample", maxLines = 1) }) }) {
-                val libraries by rememberLibraries {
+                val libraries by produceLibraries {
                     Res.readBytes("files/aboutlibraries.json").decodeToString()
                 }
                 LibrariesContainer(

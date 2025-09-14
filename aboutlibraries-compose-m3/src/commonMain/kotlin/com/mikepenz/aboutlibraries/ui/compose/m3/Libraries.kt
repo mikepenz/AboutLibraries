@@ -17,12 +17,12 @@ import com.mikepenz.aboutlibraries.ui.compose.LibraryDefaults
 import com.mikepenz.aboutlibraries.ui.compose.LibraryDimensions
 import com.mikepenz.aboutlibraries.ui.compose.LibraryPadding
 import com.mikepenz.aboutlibraries.ui.compose.LibraryTextStyles
-import com.mikepenz.aboutlibraries.ui.compose.rememberLibraries
+import com.mikepenz.aboutlibraries.ui.compose.produceLibraries
 
 /**
  * Displays all provided libraries in a simple list.
  */
-@Deprecated("Use `LibrariesContainer` variant with `Libs` instead. Use `rememberLibraries` to load the libraries.")
+@Deprecated("Use `LibrariesContainer` variant with `Libs` instead. Use `produceLibraries` to load the libraries.")
 @Composable
 fun LibrariesContainer(
     aboutLibsJson: String,
@@ -44,7 +44,7 @@ fun LibrariesContainer(
     onLibraryClick: ((Library) -> Unit)? = null,
     onFundingClick: ((Funding) -> Unit)? = null,
 ) {
-    val libs by rememberLibraries(aboutLibsJson)
+    val libs by produceLibraries(aboutLibsJson)
     LibrariesContainer(
         libraries = libs,
         modifier = modifier,
@@ -70,7 +70,7 @@ fun LibrariesContainer(
 /**
  * Displays all provided libraries in a simple list.
  */
-@Deprecated("Use `LibrariesContainer` variant with `Libs` instead. Use `rememberLibraries` to load the libraries.")
+@Deprecated("Use `LibrariesContainer` variant with `Libs` instead. Use `produceLibraries` to load the libraries.")
 @Composable
 fun LibrariesContainer(
     librariesBlock: () -> Libs,

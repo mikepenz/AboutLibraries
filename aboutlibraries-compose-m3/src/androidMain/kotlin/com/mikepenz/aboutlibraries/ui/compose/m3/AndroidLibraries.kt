@@ -27,7 +27,7 @@ import kotlinx.coroutines.withContext
 /**
  * Displays all provided libraries in a simple list.
  */
-@Deprecated("Use `LibrariesContainer` variant with `Libs` instead. Use `rememberLibraries` to load the libraries.")
+@Deprecated("Use `LibrariesContainer` variant with `Libs` instead. Use `produceLibraries` to load the libraries.")
 @Composable
 fun LibrariesContainer(
     modifier: Modifier = Modifier,
