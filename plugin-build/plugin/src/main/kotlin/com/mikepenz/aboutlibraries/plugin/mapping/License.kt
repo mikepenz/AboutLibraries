@@ -57,7 +57,7 @@ data class License(
  * Ensures and applies fixes to the library names (shorten, ...)
  */
 private fun resolveLicenseId(name: String, url: String?): String? {
-    for (l: SpdxLicense in SpdxLicense.entries) {
+    for (l: SpdxLicense in SpdxLicense.values()) {
         val matcher = l.customMatcher
         if (l.id.equals(name, true) || l.name.equals(name, true) || l.fullName.equals(name, true) || (matcher != null && matcher.invoke(name, url))) {
             return l.id

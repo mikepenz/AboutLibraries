@@ -34,7 +34,7 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
     abstract val deprecated: Property<Boolean>
 
     override fun getDescription(): String = "Exports dependency meta data from the current module.${variant.orNull?.let { " Filtered by variant: '$it'." } ?: ""}"
-    override fun getGroup(): String = super.group ?: org.gradle.language.base.plugins.LifecycleBasePlugin.BUILD_GROUP
+    override fun getGroup(): String = super.getGroup() ?: org.gradle.language.base.plugins.LifecycleBasePlugin.BUILD_GROUP
 
     fun configureOutputFile(outputFile: Provider<RegularFile>? = null) {
         if (outputFile != null && outputFile.isPresent) {
