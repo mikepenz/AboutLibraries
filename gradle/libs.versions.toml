@@ -7,7 +7,7 @@ cardview = "1.0.0"
 constraintLayout = "2.2.1"
 core = "1.17.0"
 lifecycle = { require = "2.9.3" }
-navigation = "2.9.4"
+navigation = "2.9.5"
 recyclerView = "1.4.0"
 # google
 material = "1.13.0"
@@ -18,7 +18,7 @@ itemAnimators = "1.1.0"
 ivy = "2.5.3"
 modelBuilder = "3.9.11"
 materialDrawer = "9.0.2"
-okhttp = "5.1.0"
+okhttp = "5.2.1"
 
 [plugins]
 navSafeArgs = { id = "androidx.navigation.safeargs", version.ref = "navigation" }
