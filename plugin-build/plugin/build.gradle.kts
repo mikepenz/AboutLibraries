@@ -1,4 +1,5 @@
 import com.vanniktech.maven.publish.GradlePublishPlugin
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_1_8
 
 plugins {
     id("com.android.lint")
@@ -42,6 +43,10 @@ java {
 
 kotlin {
     jvmToolchain(11)
+    compilerOptions {
+        apiVersion.set(KOTLIN_1_8)
+        languageVersion.set(KOTLIN_1_8)
+    }
 }
 
 dependencies {
