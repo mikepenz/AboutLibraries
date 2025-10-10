@@ -17,7 +17,7 @@ internal fun ByteArray.toHex(): String {
 }
 
 internal fun List<Library>.forLicense(license: License): List<Library> {
-    return filter { it.licenses.contains(license.hash) }
+    return filter { it.licenses.contains(license.hash) || it.licenses.contains(license.internalHash) }
 }
 
 /**

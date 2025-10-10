@@ -13,9 +13,9 @@ import kotlinx.coroutines.withContext
  * @see Libs
  */
 @Composable
-fun rememberLibraries(
+fun produceLibraries(
     libraries: ByteArray,
-): State<Libs?> = rememberLibraries {
+): State<Libs?> = produceLibraries {
     libraries.decodeToString()
 }
 
@@ -25,7 +25,7 @@ fun rememberLibraries(
  * @see Libs
  */
 @Composable
-fun rememberLibraries(
+fun produceLibraries(
     block: suspend () -> String,
 ): State<Libs?> {
     return produceState(initialValue = null) {
@@ -44,7 +44,7 @@ fun rememberLibraries(
  * @see Libs
  */
 @Composable
-fun rememberLibraries(
+fun produceLibraries(
     libraries: String,
 ): State<Libs?> {
     return produceState(initialValue = null) {
@@ -53,3 +53,34 @@ fun rememberLibraries(
         }
     }
 }
+
+// --- Deprecated wrappers to assist migration from rememberLibraries to produceLibraries ---
+/**
+ * Deprecated. Use produceLibraries(libraries: ByteArray) instead.
+ */
+@Deprecated(
+    message = "Use produceLibraries(libraries: ByteArray)",
+    replaceWith = ReplaceWith("produceLibraries(libraries)"),
+)
+@Composable
+fun rememberLibraries(libraries: ByteArray): State<Libs?> = produceLibraries(libraries)
+
+/**
+ * Deprecated. Use produceLibraries(block: suspend () -> String) instead.
+ */
+@Deprecated(
+    message = "Use produceLibraries(block: suspend () -> String)",
+    replaceWith = ReplaceWith("produceLibraries(block)"),
+)
+@Composable
+fun rememberLibraries(block: suspend () -> String): State<Libs?> = produceLibraries(block)
+
+/**
+ * Deprecated. Use produceLibraries(libraries: String) instead.
+ */
+@Deprecated(
+    message = "Use produceLibraries(libraries: String)",
+    replaceWith = ReplaceWith("produceLibraries(libraries)"),
+)
+@Composable
+fun rememberLibraries(libraries: String): State<Libs?> = produceLibraries(libraries)

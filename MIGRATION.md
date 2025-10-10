@@ -1,5 +1,24 @@
 ### Upgrade Notes
 
+#### v13.0.0
+
+- **Breaking Change**: Deprecated APIs from v12.x.y were removed
+- **Breaking Change**: The `Gradle Plugin` was split into 2. The main plugin that is registering all the manual tasks, and an Android specific one automatically registering the Android auto
+  generation task.
+  - For most projects the manual tasks are recommended. Only if you require or want to use the generation as part of the android build, use the `.android` plugin.
+  - The main plugin (`com.mikepenz.aboutlibraries.plugin`) provides tasks like `exportLibraryDefinitions` that need to be manually executed
+  - The Android plugin (`com.mikepenz.aboutlibraries.plugin.android`) automatically hooks into the Android build process
+
+```kotlin
+// To use the Android auto registering plugin - add the following to your module:
+id("com.mikepenz.aboutlibraries.plugin.android")
+```
+- **Breaking Change**: The `AndroidConfig` class and its `registerAndroidTasks` property were removed, replaced by the Android-specific plugin
+- **Breaking Change**: Reworked the `LibraryColors` interface to be more descriptive and more flexible
+  - Renamed `backgroundColor` to `libraryBackgroundColor`
+  - Renamed `contentColor` to `libraryContentColor`
+  - Added new background, content color variants for the dialog
+
 #### v12.2.0
 
 - **Breaking Change**: Renamed `nameTextStyles` in `libraryTextStyles`/`LibraryTextStyles` to `nameTextStyle` (to align with other styles).

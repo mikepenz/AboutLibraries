@@ -11,12 +11,7 @@ import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.provider.MapProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.provider.SetProperty
-import org.gradle.api.tasks.Input
-import org.gradle.api.tasks.InputDirectory
-import org.gradle.api.tasks.Internal
-import org.gradle.api.tasks.Optional
-import org.gradle.api.tasks.PathSensitive
-import org.gradle.api.tasks.PathSensitivity
+import org.gradle.api.tasks.*
 import org.slf4j.LoggerFactory
 
 abstract class BaseAboutLibrariesTask : DefaultTask() {
@@ -35,7 +30,10 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
 
     @get:Optional
     @get:Input
-    abstract val variant: Property<String?>
+    abstract val variant: Property<String>
+
+    @Input
+    val requireLicense = extension.library.requireLicense
 
     @Input
     val exclusionPatterns = extension.library.exclusionPatterns

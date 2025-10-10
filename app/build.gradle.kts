@@ -10,13 +10,14 @@ plugins {
     id("com.mikepenz.convention.android-application")
     id("com.mikepenz.convention.compose")
     id("com.mikepenz.aboutlibraries.plugin")
+    id("com.mikepenz.aboutlibraries.plugin.android")
 }
 
 android {
     namespace = "com.mikepenz.aboutlibraries.sample"
 
     defaultConfig {
-        setProperty("archivesBaseName", "AboutLibraries-v$versionName-c$versionCode")
+        base.archivesName = "AboutLibraries-v$versionName-c$versionCode"
     }
 
     buildTypes {
@@ -156,10 +157,6 @@ compose.desktop {
 }
 
 aboutLibraries {
-    android {
-        registerAndroidTasks = true
-    }
-
     collect {
         // define the path configuration files are located in. E.g. additional libraries, licenses to add to the target .json
         // relative to module root (`../` for parent folder)
@@ -217,7 +214,7 @@ aboutLibraries {
 
     library {
         // Enable the duplication mode, allows to merge, or link dependencies which relate
-        duplicationMode = DuplicateMode.LINK
+        duplicationMode = DuplicateMode.MERGE
         // Configure the duplication rule, to match "duplicates" with
         duplicationRule = DuplicateRule.SIMPLE
     }

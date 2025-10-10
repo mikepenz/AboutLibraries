@@ -8,7 +8,7 @@ import org.gradle.api.tasks.TaskAction
 abstract class AboutLibrariesFundingTask : BaseAboutLibrariesTask() {
 
     // Disable fetching remote licenses for this task, not applicable
-    override val fetchRemoteLicense: Provider<Boolean?> = project.provider { false }
+    override val fetchRemoteLicense: Provider<Boolean> = project.provider { false }
 
     override fun getDescription(): String = "Outputs the funding options for used dependencies"
     override fun getGroup(): String = "Help"

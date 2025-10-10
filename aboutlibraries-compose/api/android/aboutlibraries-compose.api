@@ -23,16 +23,21 @@ public final class com/mikepenz/aboutlibraries/ui/compose/DefaultChipColors : co
 
 public final class com/mikepenz/aboutlibraries/ui/compose/DefaultLibraryColors : com/mikepenz/aboutlibraries/ui/compose/LibraryColors {
 	public static final field $stable I
-	public synthetic fun <init> (JJLcom/mikepenz/aboutlibraries/ui/compose/ChipColors;Lcom/mikepenz/aboutlibraries/ui/compose/ChipColors;Lcom/mikepenz/aboutlibraries/ui/compose/ChipColors;JLkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public fun getBackgroundColor-0d7_KjU ()J
-	public fun getContentColor-0d7_KjU ()J
+	public synthetic fun <init> (JJLcom/mikepenz/aboutlibraries/ui/compose/ChipColors;Lcom/mikepenz/aboutlibraries/ui/compose/ChipColors;Lcom/mikepenz/aboutlibraries/ui/compose/ChipColors;JJJLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun getDialogBackgroundColor-0d7_KjU ()J
 	public fun getDialogConfirmButtonColor-0d7_KjU ()J
+	public fun getDialogContentColor-0d7_KjU ()J
 	public fun getFundingChipColors ()Lcom/mikepenz/aboutlibraries/ui/compose/ChipColors;
+	public fun getLibraryBackgroundColor-0d7_KjU ()J
+	public fun getLibraryContentColor-0d7_KjU ()J
 	public fun getLicenseChipColors ()Lcom/mikepenz/aboutlibraries/ui/compose/ChipColors;
 	public fun getVersionChipColors ()Lcom/mikepenz/aboutlibraries/ui/compose/ChipColors;
 }
 
 public final class com/mikepenz/aboutlibraries/ui/compose/ExtensionsKt {
+	public static final fun produceLibraries (Ljava/lang/String;Landroidx/compose/runtime/Composer;I)Landroidx/compose/runtime/State;
+	public static final fun produceLibraries (Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;I)Landroidx/compose/runtime/State;
+	public static final fun produceLibraries ([BLandroidx/compose/runtime/Composer;I)Landroidx/compose/runtime/State;
 	public static final fun rememberLibraries (Ljava/lang/String;Landroidx/compose/runtime/Composer;I)Landroidx/compose/runtime/State;
 	public static final fun rememberLibraries (Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;I)Landroidx/compose/runtime/State;
 	public static final fun rememberLibraries ([BLandroidx/compose/runtime/Composer;I)Landroidx/compose/runtime/State;
@@ -43,10 +48,12 @@ public final class com/mikepenz/aboutlibraries/ui/compose/LibrariesScaffoldKt {
 }
 
 public abstract interface class com/mikepenz/aboutlibraries/ui/compose/LibraryColors {
-	public abstract fun getBackgroundColor-0d7_KjU ()J
-	public abstract fun getContentColor-0d7_KjU ()J
+	public abstract fun getDialogBackgroundColor-0d7_KjU ()J
 	public abstract fun getDialogConfirmButtonColor-0d7_KjU ()J
+	public abstract fun getDialogContentColor-0d7_KjU ()J
 	public abstract fun getFundingChipColors ()Lcom/mikepenz/aboutlibraries/ui/compose/ChipColors;
+	public abstract fun getLibraryBackgroundColor-0d7_KjU ()J
+	public abstract fun getLibraryContentColor-0d7_KjU ()J
 	public abstract fun getLicenseChipColors ()Lcom/mikepenz/aboutlibraries/ui/compose/ChipColors;
 	public abstract fun getVersionChipColors ()Lcom/mikepenz/aboutlibraries/ui/compose/ChipColors;
 }
@@ -56,7 +63,6 @@ public final class com/mikepenz/aboutlibraries/ui/compose/LibraryDefaults {
 	public static final field INSTANCE Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDefaults;
 	public final fun chipPadding (Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/runtime/Composer;II)Lcom/mikepenz/aboutlibraries/ui/compose/ChipPadding;
 	public final fun libraryDimensions-ixp7dh8 (FFLandroidx/compose/runtime/Composer;II)Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDimensions;
-	public final fun libraryPadding-HYR8e34 (Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;FLandroidx/compose/runtime/Composer;II)Lcom/mikepenz/aboutlibraries/ui/compose/LibraryPadding;
 	public final fun libraryPadding-nbWgWpA (Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;Lcom/mikepenz/aboutlibraries/ui/compose/ChipPadding;Lcom/mikepenz/aboutlibraries/ui/compose/ChipPadding;Lcom/mikepenz/aboutlibraries/ui/compose/ChipPadding;FFLandroidx/compose/runtime/Composer;II)Lcom/mikepenz/aboutlibraries/ui/compose/LibraryPadding;
 	public final fun libraryShapes (Landroidx/compose/ui/graphics/Shape;Landroidx/compose/runtime/Composer;II)Lcom/mikepenz/aboutlibraries/ui/compose/LibraryShapes;
 	public final fun libraryTextStyles-ruFcyfU (ILandroidx/compose/ui/text/TextStyle;IILandroidx/compose/ui/text/TextStyle;ILandroidx/compose/ui/text/TextStyle;ILandroidx/compose/ui/text/TextStyle;ILandroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/runtime/Composer;III)Lcom/mikepenz/aboutlibraries/ui/compose/LibraryTextStyles;
@@ -97,8 +103,10 @@ public abstract interface class com/mikepenz/aboutlibraries/ui/compose/LibraryTe
 }
 
 public final class com/mikepenz/aboutlibraries/ui/compose/android/Extensions_androidKt {
+	public static final fun produceLibraries (ILandroidx/compose/runtime/Composer;I)Landroidx/compose/runtime/State;
+	public static final fun produceLibraries (Lkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;II)Landroidx/compose/runtime/State;
 	public static final fun rememberLibraries (ILandroidx/compose/runtime/Composer;I)Landroidx/compose/runtime/State;
-	public static final fun rememberLibraries (Lkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;II)Landroidx/compose/runtime/State;
+	public static final fun rememberLibraries (Lkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;I)Landroidx/compose/runtime/State;
 }
 
 public final class com/mikepenz/aboutlibraries/ui/compose/layout/LibraryScaffoldKt {

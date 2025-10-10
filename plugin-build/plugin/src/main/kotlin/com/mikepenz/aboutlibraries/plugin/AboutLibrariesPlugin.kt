@@ -13,8 +13,8 @@ import org.slf4j.LoggerFactory
 class AboutLibrariesPlugin : Plugin<Project> {
 
     override fun apply(project: Project) {
-        if (GradleVersion.current() < GradleVersion.version("7.0")) {
-            project.logger.error("Gradle 7.0 or greater is required to apply this plugin.")
+        if (GradleVersion.current() < GradleVersion.version("8.8")) {
+            project.logger.error("Gradle 8.8 or greater is required to apply this plugin.")
             return
         }
 
@@ -50,11 +50,7 @@ class AboutLibrariesPlugin : Plugin<Project> {
         }
 
         configureKotlinMultiplatformTasks(project, extension)
-
-        if (extension.android.registerAndroidTasks.get()) {
-            LOGGER.debug("Enabled Android task registration")
-            configureAndroidTasks(project, extension)
-        }
+        configureAndroidTasks(project, extension)
     }
 
     private fun configureKotlinMultiplatformTasks(project: Project, extension: AboutLibrariesExtension) {

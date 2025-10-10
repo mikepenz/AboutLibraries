@@ -34,7 +34,7 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
     abstract val deprecated: Property<Boolean>
 
     override fun getDescription(): String = "Exports dependency meta data from the current module.${variant.orNull?.let { " Filtered by variant: '$it'." } ?: ""}"
-    override fun getGroup(): String = super.group ?: org.gradle.language.base.plugins.LifecycleBasePlugin.BUILD_GROUP
+    override fun getGroup(): String = super.getGroup() ?: org.gradle.language.base.plugins.LifecycleBasePlugin.BUILD_GROUP
 
     fun configureOutputFile(outputFile: Provider<RegularFile>? = null) {
         if (outputFile != null && outputFile.isPresent) {
@@ -89,7 +89,9 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
 
         // validate found licenses match expectation
         val allowedLicenses = allowedLicenses.get().map { it.lowercase(Locale.ENGLISH) }
-        if (allowedLicenses.isNotEmpty() && strictMode.get() != StrictMode.IGNORE) {
+        if (allowedLicenses.isEmpty() && strictMode.get() == StrictMode.FAIL) {
+            throw IllegalStateException("No allowed licenses were specified, and `strictMode` is set to `FAIL`. This is likely an error!")
+        } else if (allowedLicenses.isNotEmpty() && strictMode.get() != StrictMode.IGNORE) {
             // detect all missing licenses
             val missing = mutableListOf<License>()
             licenses.values.forEach {
@@ -124,25 +126,51 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
                 missing.forEach { missingMapped[it] = libraries.forLicense(it) }
             }
 
+            val librariesWithoutLicense = if (requireLicense.get()) libraries.filter { it.licenses.isEmpty() } else emptyList()
+
+            fun StringBuilder.buildLogForLibrariesWithoutLicense() {
+                if (librariesWithoutLicense.isNotEmpty()) {
+                    appendLine("Detected libraries without license information!")
+                    librariesWithoutLicense.forEach { library ->
+                        appendLine("    ${library.uniqueId}")
+                    }
+                    repeat(2) {
+                        appendLine("=======================================")
+                    }
+                }
+            }
+
             if (missingMapped.isEmpty()) {
-                LOGGER.info("No libraries detected using a license not allowed.")
-            } else {
-                val message = StringBuilder()
-                repeat(2) {
-                    message.appendLine("=======================================")
-                }
-                message.appendLine("Detected usage of not allowed licenses!")
-                missingMapped.forEach { (license, libraries) ->
-                    message.appendLine("-> License: ${license.name} | ${license.spdxId ?: "-"} (${license.url}), used by:")
-                    libraries.forEach { lib -> message.appendLine("    ${lib.uniqueId}") }
-                }
-                repeat(2) {
-                    message.appendLine("=======================================")
-                }
-                if (strictMode.get() == StrictMode.FAIL) {
-                    throw IllegalStateException(message.toString())
+                if (librariesWithoutLicense.isEmpty()) {
+                    LOGGER.info("No libraries detected using a license not allowed.")
                 } else {
-                    LOGGER.warn(message.toString())
+                    val message = buildString { buildLogForLibrariesWithoutLicense() }
+                    if (strictMode.get() == StrictMode.FAIL) {
+                        throw IllegalStateException(message)
+                    } else {
+                        LOGGER.warn(message)
+                    }
+                }
+            } else {
+                val message = buildString {
+                    repeat(2) {
+                        appendLine("=======================================")
+                    }
+                    appendLine("Detected usage of not allowed licenses!")
+                    missingMapped.forEach { (license, libraries) ->
+                        appendLine("-> License: ${license.name} | ${license.spdxId ?: "-"} (${license.url}), used by:")
+                        libraries.forEach { lib -> appendLine("    ${lib.uniqueId}") }
+                    }
+                    repeat(2) {
+                        appendLine("=======================================")
+                    }
+                    buildLogForLibrariesWithoutLicense()
+                }
+
+                if (strictMode.get() == StrictMode.FAIL) {
+                    throw IllegalStateException(message)
+                } else {
+                    LOGGER.warn(message)
                 }
             }
         }

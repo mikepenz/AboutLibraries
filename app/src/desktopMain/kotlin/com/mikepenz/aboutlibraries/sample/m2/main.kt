@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import com.mikepenz.aboutlibraries.ui.compose.LibrariesContainer
-import com.mikepenz.aboutlibraries.ui.compose.rememberLibraries
+import com.mikepenz.aboutlibraries.ui.compose.produceLibraries
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 
 @OptIn(ExperimentalResourceApi::class)
@@ -19,7 +19,7 @@ fun main() = application {
         SampleTheme {
             Scaffold(
                 topBar = { TopAppBar(title = { Text("AboutLibraries Compose Desktop Sample", maxLines = 1) }) }) {
-                val libraries by rememberLibraries {
+                val libraries by produceLibraries {
                     Res.readBytes("files/aboutlibraries.json").decodeToString()
                 }
                 LibrariesContainer(
