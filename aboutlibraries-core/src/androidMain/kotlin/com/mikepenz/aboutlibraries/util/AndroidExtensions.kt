@@ -19,6 +19,15 @@ fun Libs.Builder.withJson(byteArray: ByteArray): Libs.Builder {
  * Auto discover the generated library definition data by the default name and location
  * `res/raw/aboutlibraries.json`
  *
+ * Please remember to disable resource shrinking when using this API.
+ * https://developer.android.com/topic/performance/app-optimization/customize-which-resources-to-keep
+ *
+ * ```
+ * <?xml version="1.0" encoding="utf-8"?>
+ * <resources xmlns:tools="http://schemas.android.com/tools"
+ *     tools:keep="@raw/aboutlibraries.json" />
+ * ```
+ *
  * @param ctx context used to retrieve the resource
  */
 fun Libs.Builder.withContext(ctx: Context): Libs.Builder {
@@ -35,10 +44,12 @@ fun Libs.Builder.withJson(ctx: Context, rawResId: Int): Libs.Builder {
     try {
         withJson(ctx.resources.openRawResource(rawResId).bufferedReader().use { it.readText() })
     } catch (t: Throwable) {
-        Log.e("AboutLibraries", """
+        Log.e(
+            "AboutLibraries", """
             Unable to retrieve library information given the `raw` resource identifier. 
             Please make sure either the gradle plugin is properly set up, or the file is manually provided. 
-        """.trimIndent())
+        """.trimIndent()
+        )
         println("Could not retrieve libraries")
     }
     return this
