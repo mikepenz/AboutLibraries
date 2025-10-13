@@ -79,6 +79,7 @@ abstract class AboutLibrariesExtension {
         offlineMode.convention(false)
         collect {
             it.all.convention(false)
+            it.includeTestVariants.convention(false)
             it.includePlatform.convention(true)
             it.fetchRemoteLicense.convention(false)
             it.fetchRemoteFunding.convention(false)
@@ -95,8 +96,8 @@ abstract class AboutLibrariesExtension {
         library {
             it.requireLicense.convention(false)
             it.exclusionPatterns.convention(emptySet())
-            it.duplicationMode.convention(DuplicateMode.KEEP)
-            it.duplicationRule.convention(DuplicateRule.SIMPLE)
+            it.duplicationMode.convention(DuplicateMode.MERGE)
+            it.duplicationRule.convention(DuplicateRule.EXACT)
         }
         license {
             it.mapLicensesToSpdx.convention(true)
@@ -166,7 +167,7 @@ abstract class CollectorConfig @Inject constructor() {
 
     /**
      * Enabling this will collect all configurations found in the project, skipping the usual `runtime` and `compile` filters.
-     * This will still filter based on the provided filter, and also skip test configurations.
+     * This will still filter based on the provided filter, and also by default skip test configurations (this can be changed via `includeTestVariants = true`).
      *
      * ```
      * aboutLibraries {
@@ -178,6 +179,21 @@ abstract class CollectorConfig @Inject constructor() {
      */
     @get:Optional
     abstract val all: Property<Boolean>
+
+    /**
+     * Enable the inclusion of test variants in the report.
+     * By default `test` variants are excluded in the report.
+     *
+     * ```
+     * aboutLibraries {
+     *   collect {
+     *      includeTestVariants = false
+     *   }
+     * }
+     * ```
+     */
+    @get:Optional
+    abstract val includeTestVariants: Property<Boolean>
 
     /**
      * Enable the inclusion of platform dependencies in the report.
@@ -406,7 +422,7 @@ abstract class LibraryConfig @Inject constructor() {
 
     /**
      * Defines the plugins behavior in case of duplicates.
-     * By default duplicates are kept, no duplicate discovery enabled.
+     * By default duplicates are merged.
      * Please check [duplicationRule] on the discovery rule.
      *
      * - [DuplicateMode.KEEP]
@@ -429,6 +445,7 @@ abstract class LibraryConfig @Inject constructor() {
     /**
      * Specifies which approach the plugin takes on detecting duplicates.
      *
+     * - [DuplicateRule.GROUP]
      * - [DuplicateRule.EXACT]
      * - [DuplicateRule.SIMPLE]
      *
@@ -437,7 +454,7 @@ abstract class LibraryConfig @Inject constructor() {
      * ```
      * aboutLibraries {
      *   library {
-     *      duplicationRule = DuplicateRule.SIMPLE
+     *      duplicationRule = DuplicateRule.EXACT
      *   }
      * }
      * ```
