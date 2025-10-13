@@ -216,6 +216,6 @@ aboutLibraries {
         // Enable the duplication mode, allows to merge, or link dependencies which relate
         duplicationMode = DuplicateMode.MERGE
         // Configure the duplication rule, to match "duplicates" with
-        duplicationRule = DuplicateRule.SIMPLE
+        duplicationRule = DuplicateRule.EXACT
     }
 }
