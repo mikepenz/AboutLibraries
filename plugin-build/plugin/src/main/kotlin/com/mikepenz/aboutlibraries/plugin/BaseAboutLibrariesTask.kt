@@ -11,7 +11,12 @@ import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.provider.MapProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.provider.SetProperty
-import org.gradle.api.tasks.*
+import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.InputDirectory
+import org.gradle.api.tasks.Internal
+import org.gradle.api.tasks.Optional
+import org.gradle.api.tasks.PathSensitive
+import org.gradle.api.tasks.PathSensitivity
 import org.slf4j.LoggerFactory
 
 abstract class BaseAboutLibrariesTask : DefaultTask() {
@@ -21,6 +26,9 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
 
     @Input
     val collectAll = extension.collect.all
+
+    @Input
+    val includeTestVariants = extension.collect.includeTestVariants
 
     @Input
     val includePlatform = extension.collect.includePlatform
@@ -121,7 +129,7 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
         val filter = filterVariants.get() + (variant.orNull?.let { arrayOf(it) } ?: emptyArray())
 
         val dependencies = project.configurations.filterNot { config ->
-            config.shouldSkip()
+            config.shouldSkip(includeTestVariants.get())
         }.filter { config ->
             val cn = config.name
             if (collectAll.get()) {
@@ -196,7 +204,7 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     }
 
     /** Skip test and non resolvable configurations */
-    private fun Configuration.shouldSkip() = !isCanBeResolved || isTest
+    private fun Configuration.shouldSkip(includeTestVariants: Boolean) = !isCanBeResolved || (!includeTestVariants && isTest)
 
     /**
      * Based on the gist by @eygraber https://gist.github.com/eygraber/482e9942d5812e9efa5ace016aac4197
