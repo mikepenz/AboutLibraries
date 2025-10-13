@@ -79,6 +79,7 @@ abstract class AboutLibrariesExtension {
         offlineMode.convention(false)
         collect {
             it.all.convention(false)
+            it.includeTestVariants.convention(false)
             it.includePlatform.convention(true)
             it.fetchRemoteLicense.convention(false)
             it.fetchRemoteFunding.convention(false)
@@ -178,6 +179,21 @@ abstract class CollectorConfig @Inject constructor() {
      */
     @get:Optional
     abstract val all: Property<Boolean>
+
+    /**
+     * Enable the inclusion of test variants in the report.
+     * By default `test` variants are excluded in the report.
+     *
+     * ```
+     * aboutLibraries {
+     *   collect {
+     *      includeTestVariants = false
+     *   }
+     * }
+     * ```
+     */
+    @get:Optional
+    abstract val includeTestVariants: Property<Boolean>
 
     /**
      * Enable the inclusion of platform dependencies in the report.
