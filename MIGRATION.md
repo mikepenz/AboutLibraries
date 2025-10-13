@@ -1,5 +1,20 @@
 ### Upgrade Notes
 
+#### v13.1.0
+
+- **Behaviour Change**: The `Gradle Plugin` now by default enables MERGING duplicates with EXACT matches. In prior releases, duplicates would be kept.
+```kotlin
+// To enable the prior behavior you can simply configure this in your build script
+aboutLibraries {
+    library {
+        duplicationMode = DuplicateMode.KEEP
+        duplicationRule = DuplicateRule.SIMPLE
+    }
+}
+
+```
+
+
 #### v13.0.0
 
 - **Breaking Change**: Deprecated APIs from v12.x.y were removed
