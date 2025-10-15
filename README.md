@@ -82,6 +82,9 @@ id("com.mikepenz.aboutlibraries.plugin")
 To improve configuration cache compatibility and reduce unintended behavior, the auto registering as part of the Android build was moved into its own plugin in v13.x.y.
 
 ```kotlin
+// Root build.gradle.kts
+id("com.mikepenz.aboutlibraries.plugin.android") version "${latestAboutLibsRelease}" apply false
+
 // App build.gradle.kts
 id("com.mikepenz.aboutlibraries.plugin.android")
 ```
