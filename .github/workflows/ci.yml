@@ -165,7 +165,7 @@ jobs:
           find . -name "*-release.aab" -type f -exec cp {} "artifacts" \;
 
       - name: Archive Artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: "App-Artifacts"
           path: artifacts/*
