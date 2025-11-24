@@ -20,7 +20,7 @@ jobs:
 
     steps:
       - name: Checkout the repo
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - uses: actions/setup-java@v5
         with:
@@ -92,7 +92,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           fetch-depth: 100
 
