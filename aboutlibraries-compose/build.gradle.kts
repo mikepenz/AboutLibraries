@@ -9,6 +9,12 @@ android {
     namespace = "com.mikepenz.aboutlibraries.ui.compose.core"
 }
 
+composeCompiler {
+    stabilityConfigurationFiles.addAll(
+        rootProject.layout.projectDirectory.file("stability_config.conf"),
+    )
+}
+
 kotlin {
     applyDefaultHierarchyTemplate()
 
