@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.mikepenz.aboutlibraries.sample
 
 import android.content.Intent
@@ -311,7 +313,6 @@ private fun ColumnScope.DrawerItems() {
                 }
             }
 
-            @Suppress("DEPRECATION")
             LibsBuilder().withLicenseShown(true).withVersionShown(true).withActivityTitle("Open Source").withEdgeToEdge(true).withListener(libsListener)
                 .withUiListener(libsUIListener)
                 .withSearchEnabled(true).start(context)
@@ -320,7 +321,6 @@ private fun ColumnScope.DrawerItems() {
     Spacer(Modifier.height(12.dp))
     NavigationDrawerItem(
         label = { Text(stringResource(R.string.action_minimalactivity)) }, badge = { Badge { Text("Deprecated") } }, selected = false, onClick = {
-            @Suppress("DEPRECATION")
             LibsBuilder().withAboutMinimalDesign(true).withEdgeToEdge(true).withActivityTitle("Open Source").withAboutIconShown(false).withSearchEnabled(true).start(context)
         }, modifier = Modifier.padding(horizontal = 12.dp)
     )
