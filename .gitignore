@@ -1,23 +1,14 @@
-build/
-.gradle
-local.properties
-.idea/
-*.iml
-.DS_Store
-functiongraphic.psd
-.classpath
-.project
-.settings
-.vscode/
-bin/
-captures/
-*.podspec
-
-# docs
-docs
-
-/.bundle/
-/vendor/*
-/.kotlin/
-
-iosApp/iosApp.xcodeproj
+Exclude all
+adt$*
+asf$*
+apple$*
+mit$*
+rules
+!
+*
+*$goo.gl
+null
+*$m4$*
+pay
+root-only
+!/.gitignore
