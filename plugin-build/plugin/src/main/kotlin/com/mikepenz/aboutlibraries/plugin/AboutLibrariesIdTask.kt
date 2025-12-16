@@ -12,6 +12,10 @@ abstract class AboutLibrariesIdTask : BaseAboutLibrariesTask() {
     // Force fetch remote funding all the time
     override val fetchRemoteFunding: Provider<Boolean> = project.provider { false }
 
+    init {
+        offlineMode.convention(false)
+    }
+
     override fun getDescription(): String = "Prints all retrieved variants and its libraries to the CLI."
     override fun getGroup(): String = "Help"
 

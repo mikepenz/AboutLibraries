@@ -61,8 +61,8 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     @Input
     val allowedLicensesMap = extension.license.allowedLicensesMap
 
-    @Input
-    val offlineMode = extension.offlineMode
+    @get:Input
+    abstract val offlineMode: Property<Boolean>
 
     @Suppress("HasPlatformType")
     @Input
@@ -95,6 +95,10 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
 
     @get:Internal
     internal abstract val variantToDependencyData: MapProperty<String, List<DependencyData>>
+
+    init {
+        offlineMode.convention(extension.offlineMode)
+    }
 
     open fun configure() {
         excludeFields.set(project.provider {
