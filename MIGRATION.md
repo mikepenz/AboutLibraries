@@ -1,10 +1,17 @@
 ### Upgrade Notes
 
+#### v13.2.0
+
+- **Breaking Change**: Some underlying APIs start to require API 23 instead of 21.
+    - `org.jetbrains.compose.components.resources`
+- **Dependency Upgrade**: Kotlin 2.3.0
+- **Dependency Upgrade**: Compose 1.10.x
+
 #### v13.1.0
 
 - **Behaviour Change**: The `Gradle Plugin` now by default enables MERGING duplicates with EXACT matches. In prior releases, duplicates would be kept.
 ```kotlin
-// To enable the prior behavior you can simply configure this in your build script
+// To enable the prior behavior, you can simply configure this in your build script
 aboutLibraries {
     library {
         duplicationMode = DuplicateMode.KEEP
