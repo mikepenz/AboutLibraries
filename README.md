@@ -41,7 +41,7 @@ This library collects dependency details, including licenses at compile time, an
 
 ## Latest releases 🛠
 
-- Compose 1.10.x | [v13.2.0](https://github.com/mikepenz/AboutLibraries/tree/13.2.0)
+- Compose 1.10.x | [v13.2.1](https://github.com/mikepenz/AboutLibraries/tree/13.2.1)
 - Compose 1.9.x | Split Gradle Plugin | [v13.1.0](https://github.com/mikepenz/AboutLibraries/tree/13.1.0)
 - Compose 1.8.x | Refined Compose UI Design | [v12.2.4](https://github.com/mikepenz/AboutLibraries/tree/12.2.4)
 
