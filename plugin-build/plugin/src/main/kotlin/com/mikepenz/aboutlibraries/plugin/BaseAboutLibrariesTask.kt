@@ -11,12 +11,7 @@ import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.provider.MapProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.provider.SetProperty
-import org.gradle.api.tasks.Input
-import org.gradle.api.tasks.InputDirectory
-import org.gradle.api.tasks.Internal
-import org.gradle.api.tasks.Optional
-import org.gradle.api.tasks.PathSensitive
-import org.gradle.api.tasks.PathSensitivity
+import org.gradle.api.tasks.*
 import org.slf4j.LoggerFactory
 
 abstract class BaseAboutLibrariesTask : DefaultTask() {
@@ -62,7 +57,7 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     val allowedLicensesMap = extension.license.allowedLicensesMap
 
     @Input
-    val offlineMode = extension.offlineMode
+    open val offlineMode = extension.offlineMode
 
     @Suppress("HasPlatformType")
     @Input

@@ -1,11 +1,15 @@
 package com.mikepenz.aboutlibraries.plugin
 
+import org.gradle.api.provider.Property
 import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.TaskAction
 
 @CacheableTask
 abstract class AboutLibrariesIdTask : BaseAboutLibrariesTask() {
+    // Force offline mode
+    override val offlineMode: Property<Boolean> = project.objects.property(Boolean::class.java).apply { set(true) }
+
     // Disable fetching remote licenses for this task, not applicable
     override val fetchRemoteLicense: Provider<Boolean> = project.provider { false }
 
