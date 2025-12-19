@@ -134,6 +134,9 @@ dependencies {
     // used only tho showcase multi flavor support
     "stagingImplementation"(libs.okhttp.core)
 
+    // https://mvnrepository.com/artifact/androidx.compose.material/material-icons-core
+    implementation("androidx.compose.material:material-icons-extended:1.7.8")
+
     // used to test matching of license names
 //    implementation("com.github.librepdf:openpdf:1.3.43")
 //    implementation("com.google.android.play:app-update-ktx:2.1.0")

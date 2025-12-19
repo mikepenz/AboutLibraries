@@ -41,9 +41,9 @@ This library collects dependency details, including licenses at compile time, an
 
 ## Latest releases 🛠
 
+- Compose 1.10.x | [v13.2.0](https://github.com/mikepenz/AboutLibraries/tree/13.2.0)
 - Compose 1.9.x | Split Gradle Plugin | [v13.1.0](https://github.com/mikepenz/AboutLibraries/tree/13.1.0)
 - Compose 1.8.x | Refined Compose UI Design | [v12.2.4](https://github.com/mikepenz/AboutLibraries/tree/12.2.4)
-- Compose UI updates | Gradle Plugin refresh | [v12.0.1](https://github.com/mikepenz/AboutLibraries/tree/12.0.1)
 
 ## Gradle Plugin
 
@@ -82,6 +82,9 @@ id("com.mikepenz.aboutlibraries.plugin")
 To improve configuration cache compatibility and reduce unintended behavior, the auto registering as part of the Android build was moved into its own plugin in v13.x.y.
 
 ```kotlin
+// Root build.gradle.kts
+id("com.mikepenz.aboutlibraries.plugin.android") version "${latestAboutLibsRelease}" apply false
+
 // App build.gradle.kts
 id("com.mikepenz.aboutlibraries.plugin.android")
 ```

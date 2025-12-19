@@ -2,7 +2,6 @@
 
 package com.mikepenz.aboutlibraries.viewmodel
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageInfo
 import android.os.Build
@@ -24,7 +23,7 @@ import kotlinx.coroutines.withContext
 
 class LibsViewModel(
     // TODO replace with non ctx solution?
-    @SuppressLint("StaticFieldLeak") private val ctx: Context,
+    @Suppress("StaticFieldLeak") private val ctx: Context,
     internal val builder: LibsBuilder, // ui module
     private val libsBuilder: Libs.Builder,
 ) : ViewModel() {

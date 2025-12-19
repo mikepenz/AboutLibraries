@@ -19,3 +19,5 @@ docs
 /.bundle/
 /vendor/*
 /.kotlin/
+
+iosApp/iosApp.xcodeproj

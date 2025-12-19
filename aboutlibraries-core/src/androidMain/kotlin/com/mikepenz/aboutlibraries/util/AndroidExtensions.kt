@@ -16,7 +16,7 @@ fun Libs.Builder.withJson(byteArray: ByteArray): Libs.Builder {
 }
 
 /**
- * Auto discover the generated library definition data by the default name and location
+ * Auto-discover the generated library definition data by the default name and location
  * `res/raw/aboutlibraries.json`
  *
  * Please remember to disable resource shrinking when using this API.
@@ -25,7 +25,7 @@ fun Libs.Builder.withJson(byteArray: ByteArray): Libs.Builder {
  * ```
  * <?xml version="1.0" encoding="utf-8"?>
  * <resources xmlns:tools="http://schemas.android.com/tools"
- *     tools:keep="@raw/aboutlibraries.json" />
+ *     tools:keep="@raw/aboutlibraries" />
  * ```
  *
  * @param ctx context used to retrieve the resource
