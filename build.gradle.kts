@@ -8,6 +8,7 @@ plugins {
     alias(baseLibs.plugins.conventionPlugin)
     alias(baseLibs.plugins.androidApplication) apply false
     alias(baseLibs.plugins.androidLibrary) apply false
+    alias(baseLibs.plugins.androidKmpLibrary) apply false
     alias(baseLibs.plugins.composeMultiplatform) apply false
     alias(baseLibs.plugins.composeCompiler) apply false
     alias(baseLibs.plugins.composeHotreload) apply false
