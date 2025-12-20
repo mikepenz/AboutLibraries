@@ -1,5 +1,8 @@
 package com.mikepenz.aboutlibraries.entity
 
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.ImmutableSet
+import kotlinx.collections.immutable.persistentSetOf
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -24,11 +27,11 @@ data class Library(
     @SerialName("name") val name: String,
     @SerialName("description") val description: String?,
     @SerialName("website") val website: String?,
-    @SerialName("developers") val developers: List<Developer>,
+    @SerialName("developers") val developers: ImmutableList<Developer>,
     @SerialName("organization") val organization: Organization?,
     @SerialName("scm") val scm: Scm?,
-    @SerialName("licenses") val licenses: Set<License> = emptySet(),
-    @SerialName("funding") val funding: Set<Funding> = emptySet(),
+    @SerialName("licenses") val licenses: ImmutableSet<License> = persistentSetOf(),
+    @SerialName("funding") val funding: ImmutableSet<Funding> = persistentSetOf(),
     @SerialName("tag") val tag: String? = null,
 ) {
     /**

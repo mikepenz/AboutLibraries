@@ -55,6 +55,7 @@ import com.mikepenz.aboutlibraries.ui.compose.m3.component.DefaultLibraryName
 import com.mikepenz.aboutlibraries.ui.compose.m3.component.DefaultLibraryVersion
 import com.mikepenz.aboutlibraries.ui.compose.util.htmlReadyLicenseContent
 import com.mikepenz.aboutlibraries.ui.compose.util.strippedLicenseContent
+import kotlinx.collections.immutable.persistentListOf
 
 /**
  * Displays all provided libraries in a simple list.
@@ -102,7 +103,7 @@ fun LibrariesContainer(
     licenseDialogBody: (@Composable (Library, Modifier) -> Unit)? = { library, modifier -> LicenseDialogBody(library = library, colors = colors, modifier = modifier) },
     licenseDialogConfirmText: String = "OK",
 ) {
-    val libs = libraries?.libraries.orEmpty()
+    val libs = libraries?.libraries ?: persistentListOf()
     val openDialog = remember { mutableStateOf<Library?>(null) }
 
     LibrariesScaffold(

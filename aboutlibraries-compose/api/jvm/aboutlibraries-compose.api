@@ -11,7 +11,7 @@ public abstract interface class com/mikepenz/aboutlibraries/ui/compose/ChipPaddi
 public final class com/mikepenz/aboutlibraries/ui/compose/ComposableSingletons$LibrariesScaffoldKt {
 	public static final field INSTANCE Lcom/mikepenz/aboutlibraries/ui/compose/ComposableSingletons$LibrariesScaffoldKt;
 	public fun <init> ()V
-	public final fun getLambda$1041307645$aboutlibraries_compose ()Lkotlin/jvm/functions/Function4;
+	public final fun getLambda$1463237379$aboutlibraries_compose ()Lkotlin/jvm/functions/Function4;
 }
 
 public final class com/mikepenz/aboutlibraries/ui/compose/DefaultChipColors : com/mikepenz/aboutlibraries/ui/compose/ChipColors {
@@ -44,7 +44,7 @@ public final class com/mikepenz/aboutlibraries/ui/compose/ExtensionsKt {
 }
 
 public final class com/mikepenz/aboutlibraries/ui/compose/LibrariesScaffoldKt {
-	public static final fun LibrariesScaffold (Ljava/util/List;Landroidx/compose/ui/Modifier;Landroidx/compose/ui/Modifier;Landroidx/compose/foundation/lazy/LazyListState;Landroidx/compose/foundation/layout/PaddingValues;Lcom/mikepenz/aboutlibraries/ui/compose/LibraryPadding;Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDimensions;Lkotlin/jvm/functions/Function4;Lkotlin/jvm/functions/Function4;Lkotlin/jvm/functions/Function4;Lkotlin/jvm/functions/Function4;Lkotlin/jvm/functions/Function4;Lkotlin/jvm/functions/Function4;Lkotlin/jvm/functions/Function4;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;III)V
+	public static final fun LibrariesScaffold (Lkotlinx/collections/immutable/ImmutableList;Landroidx/compose/ui/Modifier;Landroidx/compose/ui/Modifier;Landroidx/compose/foundation/lazy/LazyListState;Landroidx/compose/foundation/layout/PaddingValues;Lcom/mikepenz/aboutlibraries/ui/compose/LibraryPadding;Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDimensions;Lkotlin/jvm/functions/Function4;Lkotlin/jvm/functions/Function4;Lkotlin/jvm/functions/Function4;Lkotlin/jvm/functions/Function4;Lkotlin/jvm/functions/Function4;Lkotlin/jvm/functions/Function4;Lkotlin/jvm/functions/Function4;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;III)V
 }
 
 public abstract interface class com/mikepenz/aboutlibraries/ui/compose/LibraryColors {

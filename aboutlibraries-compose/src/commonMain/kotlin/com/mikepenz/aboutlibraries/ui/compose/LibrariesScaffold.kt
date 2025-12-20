@@ -20,6 +20,7 @@ import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.entity.License
 import com.mikepenz.aboutlibraries.ui.compose.layout.LibraryScaffoldLayout
 import com.mikepenz.aboutlibraries.ui.compose.util.author
+import kotlinx.collections.immutable.ImmutableList
 
 /**
  * A composable function that displays a scaffolded list of libraries with customizable content.
@@ -45,7 +46,7 @@ import com.mikepenz.aboutlibraries.ui.compose.util.author
  */
 @Composable
 fun LibrariesScaffold(
-    libraries: List<Library>,
+    libraries: ImmutableList<Library>,
     modifier: Modifier = Modifier,
     libraryModifier: Modifier = Modifier,
     lazyListState: LazyListState = rememberLazyListState(),

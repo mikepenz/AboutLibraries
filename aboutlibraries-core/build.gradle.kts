@@ -17,6 +17,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(libs.kotlinx.serialization)
+                api(baseLibs.kotlinx.collections.immutable)
             }
         }
         val multiplatformMain by creating {
