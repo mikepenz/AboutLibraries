@@ -22,7 +22,7 @@ kotlin {
     android {
         namespace = "com.mikepenz.aboutlibraries.ui.compose.m3"
         compileSdk = baseLibs.versions.compileSdk.get().toInt()
-        minSdk = project.readPropertyOrElse("com.mikepenz.android.minSdk", "${baseLibs.versions.minSdk.get().toInt()}", null).toString().toInt()
+        minSdk = project.readPropertyOrElse("com.mikepenz.android.minSdk", baseLibs.versions.minSdk.get(), null)?.toInt()
     }
 
     sourceSets {
