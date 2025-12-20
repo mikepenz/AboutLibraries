@@ -1635,10 +1635,10 @@
         },
         {
             "uniqueId": "androidx.navigation:navigation-common",
-            "artifactVersion": "2.9.4",
+            "artifactVersion": "2.9.5",
             "name": "Navigation Common",
             "description": "Android Navigation-Common",
-            "website": "https://developer.android.com/jetpack/androidx/releases/navigation#2.9.4",
+            "website": "https://developer.android.com/jetpack/androidx/releases/navigation#2.9.5",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -1660,10 +1660,10 @@
         },
         {
             "uniqueId": "androidx.navigation:navigation-fragment",
-            "artifactVersion": "2.9.4",
+            "artifactVersion": "2.9.5",
             "name": "Navigation Fragment",
             "description": "Android Navigation-Fragment",
-            "website": "https://developer.android.com/jetpack/androidx/releases/navigation#2.9.4",
+            "website": "https://developer.android.com/jetpack/androidx/releases/navigation#2.9.5",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -1685,10 +1685,10 @@
         },
         {
             "uniqueId": "androidx.navigation:navigation-runtime",
-            "artifactVersion": "2.9.4",
+            "artifactVersion": "2.9.5",
             "name": "Navigation Runtime",
             "description": "Android Navigation-Runtime",
-            "website": "https://developer.android.com/jetpack/androidx/releases/navigation#2.9.4",
+            "website": "https://developer.android.com/jetpack/androidx/releases/navigation#2.9.5",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -2477,7 +2477,7 @@
         },
         {
             "uniqueId": "com.squareup.okhttp3:okhttp",
-            "artifactVersion": "5.1.0",
+            "artifactVersion": "5.2.1",
             "name": "okhttp",
             "description": "Square\u2019s meticulous HTTP client for Java and Kotlin.",
             "website": "https://square.github.io/okhttp/",
@@ -2500,7 +2500,7 @@
         },
         {
             "uniqueId": "com.squareup.okio:okio",
-            "artifactVersion": "3.15.0",
+            "artifactVersion": "3.16.1",
             "name": "okio",
             "description": "A modern I/O library for Android, Java, and Kotlin Multiplatform.",
             "website": "https://github.com/square/okio/",
@@ -2548,7 +2548,7 @@
         },
         {
             "uniqueId": "org.jetbrains.androidx.lifecycle:lifecycle-common",
-            "artifactVersion": "2.9.4-rc01",
+            "artifactVersion": "2.9.4",
             "name": "Lifecycle-Common",
             "description": "Android Lifecycle-Common",
             "website": "https://github.com/JetBrains/compose-jb",
@@ -2572,7 +2572,7 @@
         },
         {
             "uniqueId": "org.jetbrains.androidx.lifecycle:lifecycle-runtime",
-            "artifactVersion": "2.9.4-rc01",
+            "artifactVersion": "2.9.4",
             "name": "Lifecycle Runtime",
             "description": "Android Lifecycle Runtime",
             "website": "https://github.com/JetBrains/compose-jb",
@@ -2596,7 +2596,7 @@
         },
         {
             "uniqueId": "org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose",
-            "artifactVersion": "2.9.4-rc01",
+            "artifactVersion": "2.9.4",
             "name": "Lifecycle Runtime Compose",
             "description": "Compose integration with Lifecycle",
             "website": "https://github.com/JetBrains/compose-jb",
@@ -2620,7 +2620,7 @@
         },
         {
             "uniqueId": "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel",
-            "artifactVersion": "2.9.4-rc01",
+            "artifactVersion": "2.9.4",
             "name": "Lifecycle ViewModel",
             "description": "Android Lifecycle ViewModel",
             "website": "https://github.com/JetBrains/compose-jb",
@@ -2644,7 +2644,7 @@
         },
         {
             "uniqueId": "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-savedstate",
-            "artifactVersion": "2.9.4-rc01",
+            "artifactVersion": "2.9.4",
             "name": "Lifecycle ViewModel with SavedState",
             "description": "Android Lifecycle ViewModel",
             "website": "https://github.com/JetBrains/compose-jb",
@@ -2668,7 +2668,7 @@
         },
         {
             "uniqueId": "org.jetbrains.androidx.savedstate:savedstate",
-            "artifactVersion": "1.3.4-rc01",
+            "artifactVersion": "1.3.4",
             "name": "Saved State",
             "description": "Android Lifecycle Saved State",
             "website": "https://github.com/JetBrains/compose-jb",
@@ -2692,7 +2692,7 @@
         },
         {
             "uniqueId": "org.jetbrains.androidx.savedstate:savedstate-compose",
-            "artifactVersion": "1.3.4-rc01",
+            "artifactVersion": "1.3.4",
             "name": "Saved State Compose",
             "description": "Compose integration with Saved State",
             "website": "https://github.com/JetBrains/compose-jb",
@@ -2716,7 +2716,7 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.animation:animation",
-            "artifactVersion": "1.9.0-rc02",
+            "artifactVersion": "1.9.0",
             "name": "Compose Animation",
             "description": "Compose animation library",
             "website": "https://github.com/JetBrains/compose-jb",
@@ -2740,7 +2740,7 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.animation:animation-core",
-            "artifactVersion": "1.9.0-rc02",
+            "artifactVersion": "1.9.0",
             "name": "Compose Animation Core",
             "description": "Animation engine and animation primitives that are the building blocks of the Compose animation library",
             "website": "https://github.com/JetBrains/compose-jb",
@@ -2764,7 +2764,7 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.annotation-internal:annotation",
-            "artifactVersion": "1.9.0-rc02",
+            "artifactVersion": "1.9.0",
             "name": "Annotation",
             "description": "Provides source annotations for tooling and readability.",
             "website": "https://github.com/JetBrains/compose-jb",
@@ -2788,7 +2788,7 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.collection-internal:collection",
-            "artifactVersion": "1.9.0-rc02",
+            "artifactVersion": "1.9.0",
             "name": "collections",
             "description": "Standalone efficient collections.",
             "website": "https://github.com/JetBrains/compose-jb",
@@ -2812,7 +2812,7 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.components:components-resources",
-            "artifactVersion": "1.9.0-rc02",
+            "artifactVersion": "1.9.0",
             "name": "Resources for Compose JB",
             "description": "Resources for Compose JB",
             "website": "https://github.com/JetBrains/compose-jb",
@@ -2836,7 +2836,7 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.components:components-ui-tooling-preview",
-            "artifactVersion": "1.9.0-rc02",
+            "artifactVersion": "1.9.0",
             "name": "Experimental Compose Multiplatform tooling library API. This library provides the API required to declare @Preview composables in user apps.",
             "description": "Experimental Compose Multiplatform tooling library API. This library provides the API required to declare @Preview composables in user apps.",
             "website": "https://github.com/JetBrains/compose-jb",
@@ -2860,7 +2860,7 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.desktop:desktop-jvm-macos-arm64",
-            "artifactVersion": "1.9.0-rc02",
+            "artifactVersion": "1.9.0",
             "name": "Compose Desktop",
             "description": "Compose Desktop",
             "website": "https://github.com/JetBrains/compose-jb",
@@ -2884,7 +2884,7 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.foundation:foundation",
-            "artifactVersion": "1.9.0-rc02",
+            "artifactVersion": "1.9.0",
             "name": "Compose Foundation",
             "description": "Higher level abstractions of the Compose UI primitives. This library is design system agnostic, providing the high-level building blocks for both application and design-system developers",
             "website": "https://github.com/JetBrains/compose-jb",
@@ -2908,7 +2908,7 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.foundation:foundation-layout",
-            "artifactVersion": "1.9.0-rc02",
+            "artifactVersion": "1.9.0",
             "name": "Compose Layouts",
             "description": "Compose layout implementations",
             "website": "https://github.com/JetBrains/compose-jb",
@@ -2932,7 +2932,7 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.hot-reload:hot-reload-annotations",
-            "artifactVersion": "1.0.0-beta06",
+            "artifactVersion": "1.0.0-rc01",
             "name": "hot-reload-annotations",
             "description": "Compose Hot Reload implementation",
             "website": "https://github.com/JetBrains/compose-hot-reload",
@@ -2954,7 +2954,7 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.hot-reload:hot-reload-core",
-            "artifactVersion": "1.0.0-beta06",
+            "artifactVersion": "1.0.0-rc01",
             "name": "hot-reload-core",
             "description": "Compose Hot Reload implementation",
             "website": "https://github.com/JetBrains/compose-hot-reload",
@@ -2976,7 +2976,7 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.hot-reload:hot-reload-devtools-api",
-            "artifactVersion": "1.0.0-beta06",
+            "artifactVersion": "1.0.0-rc01",
             "name": "hot-reload-devtools-api",
             "description": "Compose Hot Reload implementation",
             "website": "https://github.com/JetBrains/compose-hot-reload",
@@ -2998,7 +2998,7 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.hot-reload:hot-reload-orchestration",
-            "artifactVersion": "1.0.0-beta06",
+            "artifactVersion": "1.0.0-rc01",
             "name": "hot-reload-orchestration",
             "description": "Compose Hot Reload implementation",
             "website": "https://github.com/JetBrains/compose-hot-reload",
@@ -3020,7 +3020,7 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.hot-reload:hot-reload-runtime-api",
-            "artifactVersion": "1.0.0-beta06",
+            "artifactVersion": "1.0.0-rc01",
             "name": "hot-reload-runtime-api",
             "description": "Compose Hot Reload implementation",
             "website": "https://github.com/JetBrains/compose-hot-reload",
@@ -3042,7 +3042,7 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.hot-reload:hot-reload-runtime-jvm",
-            "artifactVersion": "1.0.0-beta06",
+            "artifactVersion": "1.0.0-rc01",
             "name": "hot-reload-runtime-jvm",
             "description": "Compose Hot Reload implementation",
             "website": "https://github.com/JetBrains/compose-hot-reload",
@@ -3088,7 +3088,7 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.material:material",
-            "artifactVersion": "1.9.0-rc02",
+            "artifactVersion": "1.9.0",
             "name": "Compose Material Components",
             "description": "Compose Material Design Components library",
             "website": "https://github.com/JetBrains/compose-jb",
@@ -3112,7 +3112,7 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.material:material-ripple",
-            "artifactVersion": "1.9.0-rc02",
+            "artifactVersion": "1.9.0",
             "name": "Compose Material Ripple",
             "description": "Material ripple used to build interactive components",
             "website": "https://github.com/JetBrains/compose-jb",
@@ -3136,7 +3136,7 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.runtime:runtime",
-            "artifactVersion": "1.9.0-rc02",
+            "artifactVersion": "1.9.0",
             "name": "Compose Runtime",
             "description": "Tree composition support for code generated by the Compose compiler plugin and corresponding public API",
             "website": "https://github.com/JetBrains/compose-jb",
@@ -3160,7 +3160,7 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.runtime:runtime-saveable",
-            "artifactVersion": "1.9.0-rc02",
+            "artifactVersion": "1.9.0",
             "name": "Compose Saveable",
             "description": "Compose components that allow saving and restoring the local ui state",
             "website": "https://github.com/JetBrains/compose-jb",
@@ -3184,7 +3184,7 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.ui:ui",
-            "artifactVersion": "1.9.0-rc02",
+            "artifactVersion": "1.9.0",
             "name": "Compose UI primitives",
             "description": "Compose UI primitives. This library contains the primitives that form the Compose UI Toolkit, such as drawing, measurement and layout.",
             "website": "https://github.com/JetBrains/compose-jb",
@@ -3232,7 +3232,7 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.ui:ui-geometry",
-            "artifactVersion": "1.9.0-rc02",
+            "artifactVersion": "1.9.0",
             "name": "Compose Geometry",
             "description": "Compose classes related to dimensions without units",
             "website": "https://github.com/JetBrains/compose-jb",
@@ -3256,7 +3256,7 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.ui:ui-graphics",
-            "artifactVersion": "1.9.0-rc02",
+            "artifactVersion": "1.9.0",
             "name": "Compose Graphics",
             "description": "Compose graphics",
             "website": "https://github.com/JetBrains/compose-jb",
@@ -3280,7 +3280,7 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.ui:ui-text",
-            "artifactVersion": "1.9.0-rc02",
+            "artifactVersion": "1.9.0",
             "name": "Compose UI Text",
             "description": "Compose Text primitives and utilities",
             "website": "https://github.com/JetBrains/compose-jb",
@@ -3304,7 +3304,7 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.ui:ui-tooling",
-            "artifactVersion": "1.9.0-rc02",
+            "artifactVersion": "1.9.0",
             "name": "Compose Tooling",
             "description": "Compose tooling library. This library exposes information to our tools for better IDE support.",
             "website": "https://github.com/JetBrains/compose-jb",
@@ -3328,7 +3328,7 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.ui:ui-tooling-data",
-            "artifactVersion": "1.9.0-rc02",
+            "artifactVersion": "1.9.0",
             "name": "Compose Tooling Data",
             "description": "Compose tooling library data. This library provides data about compose for different tooling purposes.",
             "website": "https://github.com/JetBrains/compose-jb",
@@ -3352,7 +3352,7 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.ui:ui-tooling-preview",
-            "artifactVersion": "1.9.0-rc02",
+            "artifactVersion": "1.9.0",
             "name": "Compose UI Preview Tooling",
             "description": "Compose tooling library API. This library provides the API required to declare @Preview composables in user apps.",
             "website": "https://github.com/JetBrains/compose-jb",
@@ -3376,7 +3376,7 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.ui:ui-uikit",
-            "artifactVersion": "1.9.0-rc02",
+            "artifactVersion": "1.9.0",
             "name": "Compose UIKit Utils",
             "description": "Internal iOS UIKit utilities including Objective-C library.",
             "website": "https://github.com/JetBrains/compose-jb",
@@ -3400,7 +3400,7 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.ui:ui-unit",
-            "artifactVersion": "1.9.0-rc02",
+            "artifactVersion": "1.9.0",
             "name": "Compose Unit",
             "description": "Compose classes for simple units",
             "website": "https://github.com/JetBrains/compose-jb",
@@ -3424,7 +3424,7 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.ui:ui-util",
-            "artifactVersion": "1.9.0-rc02",
+            "artifactVersion": "1.9.0",
             "name": "Compose Util",
             "description": "Internal Compose utilities used by other modules",
             "website": "https://github.com/JetBrains/compose-jb",
@@ -3742,28 +3742,6 @@
             ],
             "scm": {
                 "url": "https://github.com/Kotlin/kotlinx-browser"
-            },
-            "licenses": [
-                "Apache-2.0"
-            ],
-            "funding": [
-                
-            ]
-        },
-        {
-            "uniqueId": "org.jetbrains.kotlinx:kotlinx-collections-immutable",
-            "artifactVersion": "0.4.0",
-            "name": "kotlinx-collections-immutable",
-            "description": "Kotlin Immutable Collections multiplatform library",
-            "website": "https://github.com/Kotlin/kotlinx.collections.immutable",
-            "developers": [
-                {
-                    "name": "JetBrains Team",
-                    "organisationUrl": "https://www.jetbrains.com"
-                }
-            ],
-            "scm": {
-                "url": "https://github.com/Kotlin/kotlinx.collections.immutable"
             },
             "licenses": [
                 "Apache-2.0"

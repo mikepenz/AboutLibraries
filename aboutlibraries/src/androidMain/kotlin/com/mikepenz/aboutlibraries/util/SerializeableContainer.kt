@@ -7,8 +7,6 @@ import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.entity.License
 import com.mikepenz.aboutlibraries.entity.Organization
 import com.mikepenz.aboutlibraries.entity.Scm
-import kotlinx.collections.immutable.toImmutableList
-import kotlinx.collections.immutable.toImmutableSet
 import java.io.Serializable
 
 internal fun Libs.toSerializable() = SerializableLibs(
@@ -42,19 +40,19 @@ internal fun SerializableLibs.toLibs() = Libs(
             lib.name,
             lib.description,
             lib.website,
-            lib.developers.map { Developer(it.name, it.organisationUrl) }.toImmutableList(),
+            lib.developers.map { Developer(it.name, it.organisationUrl) },
             lib.organization?.let { Organization(it.name ?: "", it.url) },
             lib.scm?.let { Scm(it.connection, it.developerConnection, it.url) },
             lib.licenses.map {
                 License(it.name, it.url, it.year, it.spdxId, it.licenseContent, it.hash)
-            }.toImmutableSet(),
-            lib.funding.map { Funding(it.platform, it.url) }.toImmutableSet(),
+            }.toSet(),
+            lib.funding.map { Funding(it.platform, it.url) }.toSet(),
             lib.tag
         )
-    }.toImmutableList(),
+    },
     licenses.map {
         License(it.name, it.url, it.year, it.spdxId, it.licenseContent, it.hash)
-    }.toImmutableSet()
+    }.toSet()
 )
 
 internal data class SerializableLibs(

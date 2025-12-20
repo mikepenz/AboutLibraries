@@ -40,6 +40,12 @@ android {
     }
 }
 
+composeCompiler {
+    stabilityConfigurationFiles.addAll(
+        rootProject.layout.projectDirectory.file("stability_config.conf"),
+    )
+}
+
 kotlin {
     androidTarget()
 

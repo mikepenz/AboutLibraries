@@ -7,8 +7,6 @@ import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.entity.License
 import com.mikepenz.aboutlibraries.entity.Organization
 import com.mikepenz.aboutlibraries.entity.Scm
-import kotlinx.collections.immutable.toImmutableList
-import kotlinx.collections.immutable.toImmutableSet
 import org.json.JSONObject
 
 actual fun parseData(json: String): Result {
@@ -53,11 +51,11 @@ actual fun parseData(json: String): Result {
                 optString("name", id),
                 optString("description"),
                 optString("website"),
-                developers.toImmutableList(),
+                developers,
                 organization,
                 scm,
-                libLicenses.toImmutableSet(),
-                funding.toImmutableSet(),
+                libLicenses,
+                funding,
                 optString("tag")
             )
         }
