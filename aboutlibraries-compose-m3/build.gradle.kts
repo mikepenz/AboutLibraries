@@ -5,6 +5,7 @@ plugins {
     alias(baseLibs.plugins.androidKmpLibrary)
     id("com.mikepenz.convention.compose")
     id("com.mikepenz.convention.publishing")
+    alias(baseLibs.plugins.stabilityAnalyzer)
 }
 
 composeCompiler {
