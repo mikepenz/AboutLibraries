@@ -67,5 +67,6 @@ actual fun parseData(json: String): Result {
 }
 
 private fun JSONObject.optStringOrNull(name: String): String? {
-    return opt(name)?.toString()
+    val value = opt(name)
+    return if (value == null || value == JSONObject.NULL) null else value.toString()
 }
