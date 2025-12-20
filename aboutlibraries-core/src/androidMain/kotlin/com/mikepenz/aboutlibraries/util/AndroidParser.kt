@@ -16,10 +16,10 @@ actual fun parseData(json: String): Result {
         val licenses = metaData.getJSONObject("licenses").forEachObject { key ->
             License(
                 getString("name"),
-                optString("url"),
-                optString("year"),
-                optString("spdxId"),
-                optString("content"),
+                optStringOrNull("url"),
+                optStringOrNull("year"),
+                optStringOrNull("spdxId"),
+                optStringOrNull("content"),
                 key
             )
         }
@@ -29,16 +29,16 @@ actual fun parseData(json: String): Result {
                 optJSONArray("licenses").forEachString { mappedLicenses[this] }.mapNotNull { it }
                     .toHashSet()
             val developers = optJSONArray("developers")?.forEachObject {
-                Developer(optString("name"), optString("organisationUrl"))
+                Developer(optStringOrNull("name"), optStringOrNull("organisationUrl"))
             } ?: emptyList()
             val organization = optJSONObject("organization")?.let {
-                Organization(it.optString("name") ?: "", it.optString("url"))
+                Organization(it.optString("name") ?: "", it.optStringOrNull("url"))
             }
             val scm = optJSONObject("scm")?.let {
                 Scm(
-                    it.optString("connection"),
-                    it.optString("developerConnection"),
-                    it.optString("url")
+                    it.optStringOrNull("connection"),
+                    it.optStringOrNull("developerConnection"),
+                    it.optStringOrNull("url")
                 )
             }
             val funding = optJSONArray("funding").forEachObject {
@@ -47,16 +47,16 @@ actual fun parseData(json: String): Result {
             val id = getString("uniqueId")
             Library(
                 id,
-                optString("artifactVersion"),
+                optStringOrNull("artifactVersion"),
                 optString("name", id),
-                optString("description"),
-                optString("website"),
+                optStringOrNull("description"),
+                optStringOrNull("website"),
                 developers,
                 organization,
                 scm,
                 libLicenses,
                 funding,
-                optString("tag")
+                optStringOrNull("tag")
             )
         }
         return Result(libraries, licenses)
@@ -64,4 +64,9 @@ actual fun parseData(json: String): Result {
         Log.e("AboutLibraries", "Failed to parse the meta data *.json file: $t")
     }
     return Result(emptyList(), emptyList())
+}
+
+private fun JSONObject.optStringOrNull(name: String): String? {
+    val value = opt(name)
+    return if (value == null || value == JSONObject.NULL) null else value.toString()
 }
