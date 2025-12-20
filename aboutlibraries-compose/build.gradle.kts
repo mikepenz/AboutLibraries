@@ -5,6 +5,7 @@ plugins {
     alias(baseLibs.plugins.androidKmpLibrary)
     id("com.mikepenz.convention.compose")
     id("com.mikepenz.convention.publishing")
+    alias(baseLibs.plugins.stabilityAnalyzer)
 }
 
 composeCompiler {
@@ -22,7 +23,7 @@ kotlin {
     android {
         namespace = "com.mikepenz.aboutlibraries.ui.compose.core"
         compileSdk = baseLibs.versions.compileSdk.get().toInt()
-        minSdk = project.readPropertyOrElse("com.mikepenz.android.minSdk", "${baseLibs.versions.minSdk.get().toInt()}", null).toString().toInt()
+        minSdk = project.readPropertyOrElse("com.mikepenz.android.minSdk", baseLibs.versions.minSdk.get(), null)?.toInt()
     }
 
     sourceSets {

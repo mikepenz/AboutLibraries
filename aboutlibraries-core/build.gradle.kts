@@ -11,7 +11,7 @@ kotlin {
     android {
         namespace = "com.mikepenz.aboutlibraries.core"
         compileSdk = baseLibs.versions.compileSdk.get().toInt()
-        minSdk = project.readPropertyOrElse("com.mikepenz.android.minSdk", "${baseLibs.versions.minSdk.get().toInt()}", null).toString().toInt()
+        minSdk = project.readPropertyOrElse("com.mikepenz.android.minSdk", baseLibs.versions.minSdk.get(), null)?.toInt()
         lint {
             abortOnError = false
         }
