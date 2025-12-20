@@ -1,18 +1,22 @@
+import com.mikepenz.gradle.utils.readPropertyOrElse
+
 plugins {
-    id("com.mikepenz.convention.android-library")
     id("com.mikepenz.convention.kotlin-multiplatform")
+    alias(baseLibs.plugins.androidKmpLibrary)
     id("com.mikepenz.convention.publishing")
     kotlin("plugin.serialization") version baseLibs.versions.kotlin.get()
 }
 
-android {
-    namespace = "com.mikepenz.aboutlibraries.core"
-    lint {
-        abortOnError = false
-    }
-}
-
 kotlin {
+    android {
+        namespace = "com.mikepenz.aboutlibraries.core"
+        compileSdk = baseLibs.versions.compileSdk.get().toInt()
+        minSdk = project.readPropertyOrElse("com.mikepenz.android.minSdk", "${baseLibs.versions.minSdk.get().toInt()}", null).toString().toInt()
+        lint {
+            abortOnError = false
+        }
+    }
+
     sourceSets {
         val commonMain by getting {
             dependencies {
