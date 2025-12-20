@@ -1,27 +1,29 @@
+import com.mikepenz.gradle.utils.readPropertyOrElse
+
 plugins {
-    id("com.mikepenz.convention.android-library")
     id("com.mikepenz.convention.kotlin-multiplatform")
+    alias(baseLibs.plugins.androidKmpLibrary)
     id("com.mikepenz.convention.compose")
     id("com.mikepenz.convention.publishing")
-    alias(baseLibs.plugins.screenshot)
-}
-
-android {
-    namespace = "com.mikepenz.aboutlibraries.ui.compose"
-
-    @Suppress("UnstableApiUsage")
-    experimentalProperties["android.experimental.enableScreenshotTest"] = true
+    alias(baseLibs.plugins.stabilityAnalyzer)
 }
 
 composeCompiler {
     stabilityConfigurationFiles.addAll(
         rootProject.layout.projectDirectory.file("stability_config.conf"),
     )
-    reportsDestination = layout.buildDirectory.dir("compose_build_reports")
+    reportsDestination = layout.buildDirectory.dir("compose_compiler")
+    metricsDestination = layout.buildDirectory.dir("compose_compiler")
 }
 
 kotlin {
     applyDefaultHierarchyTemplate()
+
+    android {
+        namespace = "com.mikepenz.aboutlibraries.ui.compose"
+        compileSdk = baseLibs.versions.compileSdk.get().toInt()
+        minSdk = project.readPropertyOrElse("com.mikepenz.android.minSdk", baseLibs.versions.minSdk.get(), null)?.toInt()
+    }
 
     sourceSets {
         val commonMain by getting {
@@ -43,15 +45,6 @@ kotlin {
             }
         }
     }
-}
-
-dependencies {
-    debugImplementation(compose.uiTooling)
-
-    screenshotTestImplementation(compose.runtime)
-    screenshotTestImplementation(compose.ui)
-    screenshotTestImplementation(compose.foundation)
-    screenshotTestImplementation(compose.material)
 }
 
 configurations.configureEach {
