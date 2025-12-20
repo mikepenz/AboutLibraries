@@ -17,6 +17,7 @@ composeCompiler {
     stabilityConfigurationFiles.addAll(
         rootProject.layout.projectDirectory.file("stability_config.conf"),
     )
+    reportsDestination = layout.buildDirectory.dir("compose_build_reports")
 }
 
 kotlin {
