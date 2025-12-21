@@ -41,7 +41,7 @@ include(":sample:android")
 include(":sample:desktop")
 include(":sample:web")
 
-// include(":app")
+include(":app")
 include(":app-test")
 
 includeBuild("plugin-build") {

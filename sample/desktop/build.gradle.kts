@@ -4,6 +4,7 @@ plugins {
     id("com.mikepenz.convention.kotlin-multiplatform")
     id("com.mikepenz.convention.compose")
     id("com.mikepenz.aboutlibraries.plugin")
+    alias(baseLibs.plugins.composeHotreload)
 }
 
 kotlin {

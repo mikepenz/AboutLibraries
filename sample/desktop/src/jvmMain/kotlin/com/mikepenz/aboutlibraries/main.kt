@@ -9,7 +9,7 @@ import com.mikepenz.aboutlibraries.ui.compose.produceLibraries
 
 
 fun main() = application {
-    Window(onCloseRequest = ::exitApplication, title = "Markdown Sample") {
+    Window(onCloseRequest = ::exitApplication, title = "AboutLibraries Sample") {
         val libraries by produceLibraries {
             Res.readBytes("files/aboutlibraries.json").decodeToString()
         }
