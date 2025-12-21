@@ -121,7 +121,7 @@ jobs:
           ./gradlew plugin-build:plugin:lint
 
       - name: Build Debug
-        run: ./gradlew app:assembleDebug
+        run: ./gradlew :sample:android:assembleDebug
 
       - name: Run Api Validation
         if: github.event_name  == 'pull_request'
@@ -150,11 +150,11 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         run: |
           echo "${{ secrets.KEYSTORE }}" > opensource.jks.asc
-          gpg -d --passphrase "${{ secrets.KEYSTORE_PASSPHRASE }}" --batch "opensource.jks.asc" > "app/opensource.jks"
+          gpg -d --passphrase "${{ secrets.KEYSTORE_PASSPHRASE }}" --batch "opensource.jks.asc" > "sample/android/opensource.jks"
 
       - name: Build Release App
         if: startsWith(github.ref, 'refs/tags/')
-        run: ./gradlew app:assembleStaging app:assembleRelease app:bundleRelease -P"com.mikepenz.android.signing.enabled"="true" -P"com.mikepenz.android.signing.storeFile"="opensource.jks" -P"com.mikepenz.android.signing.storePassword"="${{ secrets.STORE_PASSWORD }}" -P"com.mikepenz.android.signing.keyAlias"="${{ secrets.KEY_ALIAS }}" -P"com.mikepenz.android.signing.keyPassword"="${{ secrets.KEY_PASSWORD }}"
+        run: ./gradlew sample:android:assembleStaging sample:android:assembleRelease sample:android:bundleRelease -P"com.mikepenz.android.signing.enabled"="true" -P"com.mikepenz.android.signing.storeFile"="opensource.jks" -P"com.mikepenz.android.signing.storePassword"="${{ secrets.STORE_PASSWORD }}" -P"com.mikepenz.android.signing.keyAlias"="${{ secrets.KEY_ALIAS }}" -P"com.mikepenz.android.signing.keyPassword"="${{ secrets.KEY_PASSWORD }}"
 
       - name: Collect artifacts
         run: |

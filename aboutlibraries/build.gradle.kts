@@ -1,8 +1,7 @@
 plugins {
     id("com.mikepenz.convention.android-library")
-    id("com.mikepenz.convention.kotlin-multiplatform")
     id("com.mikepenz.convention.publishing")
-    id("androidx.navigation.safeargs.kotlin")
+    // id("androidx.navigation.safeargs.kotlin")
 }
 
 android {

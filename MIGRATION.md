@@ -1,5 +1,10 @@
 ### Upgrade Notes
 
+#### v14.0.0
+
+- **Breaking Change**: The `core` plugin no longer depends on the kotlinx.immutable collections library.
+    - Collections are marked as stable via the stability config file instead: https://github.com/mikepenz/AboutLibraries/pull/1267
+  
 #### v13.2.0
 
 - **Breaking Change**: Some underlying APIs start to require API 23 instead of 21.
