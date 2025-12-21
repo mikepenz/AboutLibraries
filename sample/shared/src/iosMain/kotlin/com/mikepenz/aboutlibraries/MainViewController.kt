@@ -1,4 +1,4 @@
-package com.mikepenz.markdown
+package com.mikepenz.aboutlibraries
 
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.window.ComposeUIViewController

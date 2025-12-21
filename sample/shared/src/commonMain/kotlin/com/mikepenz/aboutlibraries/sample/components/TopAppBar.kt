@@ -1,4 +1,4 @@
-package com.mikepenz.aboutlibraries.sample
+package com.mikepenz.aboutlibraries.sample.components
 
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
@@ -17,20 +17,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
-import com.mikepenz.markdown.sample.icon.Github
+import com.mikepenz.aboutlibraries.sample.icon.Github
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun TopAppBar(
     useDarkTheme: Boolean,
     onThemeToggle: (Boolean) -> Unit,
-    isV3: Boolean,
+    useV3: Boolean,
     onV3Toggle: (Boolean) -> Unit,
     onSettingsClick: () -> Unit,
 ) {
     val uriHandler = LocalUriHandler.current
 
-    if (isV3) {
+    if (useV3) {
         TopAppBar(
             title = { Text("AboutLibraries Compose Sample", maxLines = 1) },
             actions = {
@@ -40,7 +40,7 @@ internal fun TopAppBar(
                     modifier = Modifier.padding(end = 16.dp)
                 )
                 Switch(
-                    checked = isV3,
+                    checked = useV3,
                     onCheckedChange = onV3Toggle,
                     modifier = Modifier.padding(end = 16.dp)
                 )
@@ -73,7 +73,7 @@ internal fun TopAppBar(
                     modifier = Modifier.padding(end = 16.dp)
                 )
                 androidx.compose.material.Switch(
-                    checked = isV3,
+                    checked = useV3,
                     onCheckedChange = onV3Toggle,
                     modifier = Modifier.padding(end = 16.dp)
                 )

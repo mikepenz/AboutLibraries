@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@android:style/Theme.Material.Light.NoActionBar">
         <activity
-            android:name="com.mikepenz.markdown.MainActivity"
+            android:name="com.mikepenz.aboutlibraries.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

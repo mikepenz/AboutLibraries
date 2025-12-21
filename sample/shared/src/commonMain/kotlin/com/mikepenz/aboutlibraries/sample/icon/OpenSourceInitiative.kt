@@ -1,4 +1,4 @@
-package com.mikepenz.markdown.sample.icon
+package com.mikepenz.aboutlibraries.sample.icon
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathFillType

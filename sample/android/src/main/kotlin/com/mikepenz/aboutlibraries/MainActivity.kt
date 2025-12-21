@@ -1,4 +1,4 @@
-package com.mikepenz.markdown
+package com.mikepenz.aboutlibraries
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
