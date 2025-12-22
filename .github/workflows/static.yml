@@ -44,13 +44,13 @@ jobs:
         uses: gradle/actions/setup-gradle@v5
       - name: Build Page
         run: |
-          ./gradlew :app:exportLibraryDefinitionsWasmJs
-          ./gradlew :app:wasmJsBrowserDistribution --no-configuration-cache
+          ./gradlew :sample:web:exportLibraryDefinitionsWasmJs
+          ./gradlew :sample:web:wasmJsBrowserDistribution --no-configuration-cache
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          path: 'app/build/dist/wasmJs/productionExecutable'
+          path: 'sample/web/build/dist/wasmJs/productionExecutable'
 
       - name: Deploy to GitHub Pages
         id: deployment

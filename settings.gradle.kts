@@ -25,7 +25,7 @@ dependencyResolutionManagement {
 
     versionCatalogs {
         create("baseLibs") {
-            from("com.mikepenz:version-catalog:0.10.4")
+            from("com.mikepenz:version-catalog:0.11.2")
         }
     }
 }
@@ -36,6 +36,10 @@ include(":aboutlibraries-compose")
 include(":aboutlibraries-compose-m2")
 include(":aboutlibraries-compose-m3")
 
+include(":sample:shared")
+include(":sample:android")
+include(":sample:desktop")
+include(":sample:web")
 
 include(":app")
 include(":app-test")

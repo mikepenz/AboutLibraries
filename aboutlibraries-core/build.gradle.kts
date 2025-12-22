@@ -1,8 +1,6 @@
-import com.mikepenz.gradle.utils.readPropertyOrElse
-
 plugins {
     id("com.mikepenz.convention.kotlin-multiplatform")
-    alias(baseLibs.plugins.androidKmpLibrary)
+    id("com.mikepenz.convention.android-kmp-library")
     id("com.mikepenz.convention.publishing")
     kotlin("plugin.serialization") version baseLibs.versions.kotlin.get()
 }
@@ -10,8 +8,6 @@ plugins {
 kotlin {
     android {
         namespace = "com.mikepenz.aboutlibraries.core"
-        compileSdk = baseLibs.versions.compileSdk.get().toInt()
-        minSdk = project.readPropertyOrElse("com.mikepenz.android.minSdk", baseLibs.versions.minSdk.get(), null)?.toInt()
         lint {
             abortOnError = false
         }

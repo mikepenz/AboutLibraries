@@ -2,7 +2,7 @@ import com.mikepenz.gradle.utils.readPropertyOrElse
 
 plugins {
     id("com.mikepenz.convention.kotlin-multiplatform")
-    alias(baseLibs.plugins.androidKmpLibrary)
+    id("com.mikepenz.convention.android-kmp-library")
     id("com.mikepenz.convention.compose")
     id("com.mikepenz.convention.publishing")
     alias(baseLibs.plugins.stabilityAnalyzer)
@@ -22,8 +22,6 @@ kotlin {
 
     android {
         namespace = "com.mikepenz.aboutlibraries.ui.compose.core"
-        compileSdk = baseLibs.versions.compileSdk.get().toInt()
-        minSdk = project.readPropertyOrElse("com.mikepenz.android.minSdk", baseLibs.versions.minSdk.get(), null)?.toInt()
     }
 
     sourceSets {

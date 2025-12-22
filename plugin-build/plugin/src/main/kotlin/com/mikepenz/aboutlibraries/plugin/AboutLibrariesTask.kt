@@ -9,6 +9,7 @@ import com.mikepenz.aboutlibraries.plugin.mapping.License
 import com.mikepenz.aboutlibraries.plugin.model.ResultContainer
 import com.mikepenz.aboutlibraries.plugin.model.writeToDisk
 import com.mikepenz.aboutlibraries.plugin.util.forLicense
+import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.RegularFile
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.Property
@@ -16,6 +17,7 @@ import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.Optional
+import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
 import org.slf4j.LoggerFactory
@@ -28,6 +30,10 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
 
     @get:OutputFile
     protected abstract val outputFile: RegularFileProperty
+
+    @get:Optional
+    @get:OutputDirectory
+    abstract val outputDirectory: DirectoryProperty
 
     @get:Optional
     @get:Input
