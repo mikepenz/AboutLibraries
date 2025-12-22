@@ -1,5 +1,3 @@
-import com.mikepenz.gradle.utils.readPropertyOrElse
-
 plugins {
     id("com.mikepenz.convention.kotlin-multiplatform")
     id("com.mikepenz.convention.android-kmp-library")
@@ -17,9 +15,6 @@ composeCompiler {
 }
 
 kotlin {
-    applyDefaultHierarchyTemplate()
-
-
     android {
         namespace = "com.mikepenz.aboutlibraries.ui.compose.core"
     }
