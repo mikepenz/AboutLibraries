@@ -35,6 +35,7 @@ include(":aboutlibraries")
 include(":aboutlibraries-compose")
 include(":aboutlibraries-compose-m2")
 include(":aboutlibraries-compose-m3")
+include(":aboutlibraries-compose-wear-m3")
 
 include(":sample:shared")
 include(":sample:android")
