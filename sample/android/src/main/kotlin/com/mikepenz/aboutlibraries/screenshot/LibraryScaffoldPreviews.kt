@@ -1,4 +1,4 @@
-package com.mikepenz.aboutlibraries.ui.compose.layout
+package com.mikepenz.aboutlibraries.screenshot
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -11,6 +11,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.mikepenz.aboutlibraries.ui.compose.LibraryDefaults
+import com.mikepenz.aboutlibraries.ui.compose.layout.LibraryScaffoldLayout
 
 
 @OptIn(ExperimentalLayoutApi::class)
