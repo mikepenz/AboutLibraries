@@ -81,6 +81,8 @@ aboutLibraries {
         // Allowed set of licenses for specific dependencies, this project will be able to use without build failure
         allowedLicensesMap = mapOf(
             "asdkl" to listOf("androidx.jetpack.library"),
+            "BSD-3-Clause" to listOf("org.hamcrest:hamcrest-core"),
+            "EPL-1.0" to listOf("junit:junit"),
             "NOASSERTION" to listOf("org.jetbrains.kotlinx"),
         )
 
