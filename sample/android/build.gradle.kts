@@ -7,6 +7,7 @@ plugins {
     id("com.mikepenz.convention.compose")
     id("com.mikepenz.aboutlibraries.plugin")
     id("com.mikepenz.aboutlibraries.plugin.android")
+    id("com.mikepenz.convention.composable-preview-scanner.paparazzi-plugin")
 }
 
 android {
@@ -20,6 +21,8 @@ android {
 
 dependencies {
     implementation(project(":aboutlibraries-compose"))
+    implementation(project(":aboutlibraries-compose-m2"))
+    implementation(project(":aboutlibraries-compose-m3"))
     implementation(project(":sample:shared"))
     implementation(compose.foundation)
     implementation(compose.material)
@@ -31,6 +34,14 @@ dependencies {
 
 compose.resources {
     packageOfResClass = "com.mikepenz.aboutlibraries.sample.resources"
+}
+
+composablePreviewPaparazzi {
+    enable = true
+    packages = listOf("com.mikepenz.aboutlibraries.screenshot")
+    includePrivatePreviews = false
+    testClassName = "PaparazziTests"
+    testPackageName = "com.mikepenz.aboutlibraries.screenshot.generated.tests"
 }
 
 aboutLibraries {
@@ -70,6 +81,8 @@ aboutLibraries {
         // Allowed set of licenses for specific dependencies, this project will be able to use without build failure
         allowedLicensesMap = mapOf(
             "asdkl" to listOf("androidx.jetpack.library"),
+            "BSD-3-Clause" to listOf("org.hamcrest:hamcrest-core"),
+            "EPL-1.0" to listOf("junit:junit"),
             "NOASSERTION" to listOf("org.jetbrains.kotlinx"),
         )
 

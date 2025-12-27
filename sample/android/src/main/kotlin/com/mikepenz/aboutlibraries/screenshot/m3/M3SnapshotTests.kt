@@ -1,4 +1,4 @@
-package com.mikepenz.aboutlibraries.ui.compose.m3
+package com.mikepenz.aboutlibraries.screenshot.m3
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -10,7 +10,8 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.LayoutDirection
-import com.mikepenz.aboutlibraries.ui.compose.m3.data.fakeData
+import com.mikepenz.aboutlibraries.screenshot.fakeData
+import com.mikepenz.aboutlibraries.ui.compose.m3.LibrariesContainer
 
 @Composable
 fun Theme(isDarkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) = MaterialTheme(if (isDarkTheme) darkColorScheme() else lightColorScheme()) { content() }
@@ -19,10 +20,7 @@ fun Theme(isDarkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () 
 @Composable
 fun PreviewLibraries() = Theme {
     Surface {
-        Libraries(
-            fakeData.libraries,
-            showDescription = true
-        )
+        LibrariesContainer(libraries = fakeData, showDescription = true)
     }
 }
 
@@ -30,19 +28,7 @@ fun PreviewLibraries() = Theme {
 @Composable
 fun PreviewLibrariesOff() = Theme {
     Surface {
-        Libraries(fakeData.libraries, showAuthor = false, showLicenseBadges = false)
-    }
-}
-
-@PreviewLightDark
-@Composable
-fun PreviewLibrary() = Theme {
-    Surface {
-        Library(
-            fakeData.libraries.first()
-        ) {
-            // on-click
-        }
+        LibrariesContainer(libraries = fakeData, showAuthor = false, showLicenseBadges = false)
     }
 }
 
@@ -51,11 +37,7 @@ fun PreviewLibrary() = Theme {
 fun PreviewLibraryRTL() = Theme {
     CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
         Surface {
-            Library(
-                fakeData.libraries.first()
-            ) {
-                // on-click
-            }
+            LibrariesContainer(fakeData)
         }
     }
 }
