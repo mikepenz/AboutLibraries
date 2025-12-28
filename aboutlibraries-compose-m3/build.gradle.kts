@@ -1,6 +1,5 @@
 plugins {
     id("com.mikepenz.convention.kotlin-multiplatform")
-    id("com.mikepenz.convention.android-kmp-library")
     id("com.mikepenz.convention.compose")
     id("com.mikepenz.convention.publishing")
     alias(baseLibs.plugins.stabilityAnalyzer)
@@ -15,8 +14,6 @@ composeCompiler {
 }
 
 kotlin {
-    applyDefaultHierarchyTemplate()
-
     android {
         namespace = "com.mikepenz.aboutlibraries.ui.compose.m3"
     }

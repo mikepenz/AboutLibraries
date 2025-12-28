@@ -1,6 +1,5 @@
 plugins {
     id("com.mikepenz.convention.kotlin-multiplatform")
-    id("com.mikepenz.convention.android-kmp-library")
     id("com.mikepenz.convention.publishing")
     kotlin("plugin.serialization") version baseLibs.versions.kotlin.get()
 }
