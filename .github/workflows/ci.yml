@@ -64,6 +64,7 @@ jobs:
           ./gradlew aboutlibraries-compose:publishAllPublicationsToMavenCentralRepository -x test -x lint -Plibrary_compose_only --no-configure-on-demand --no-parallel --no-configuration-cache
           ./gradlew aboutlibraries-compose-m2:publishAllPublicationsToMavenCentralRepository -x test -x lint -Plibrary_compose_only --no-configure-on-demand --no-parallel --no-configuration-cache
           ./gradlew aboutlibraries-compose-m3:publishAllPublicationsToMavenCentralRepository -x test -x lint -Plibrary_compose_m3_only --no-configure-on-demand --no-parallel --no-configuration-cache
+          ./gradlew aboutlibraries-compose-wear-m3:publishAllPublicationsToMavenCentralRepository -x test -x lint -Plibrary_compose_wear_m3_only --no-configure-on-demand --no-parallel --no-configuration-cache
           ./gradlew aboutlibraries:publishAllPublicationsToMavenCentralRepository -x test -x lint -Plibrary_only --no-configure-on-demand --no-parallel --no-configuration-cache
 
       - name: Publish the windows artifact
