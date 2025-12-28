@@ -79,7 +79,7 @@ fun WearLibrariesScaffold(
         header?.invoke(this)
         itemsIndexed(libraries) { index, library ->
             Card(
-                modifier = Modifier.height(IntrinsicSize.Min),
+                modifier = libraryModifier.height(IntrinsicSize.Min),
                 onClick = {
                     val license = library.licenses.firstOrNull()
                     val handled = onLibraryClick?.invoke(library) ?: false
