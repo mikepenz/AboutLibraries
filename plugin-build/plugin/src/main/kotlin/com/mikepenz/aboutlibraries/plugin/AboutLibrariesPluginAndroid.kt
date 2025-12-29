@@ -14,6 +14,13 @@ class AboutLibrariesPluginAndroid : Plugin<Project> {
             return
         }
 
+        try {
+            Class.forName("com.android.build.api.variant.AndroidComponentsExtension")
+        } catch (t: Throwable) {
+            project.logger.error("Android Gradle Plugin 7.0.0 or greater is required to apply this plugin.")
+            return
+        }
+
         // create the extension for the about libraries plugin
         val extension = project.extensions.findByType(AboutLibrariesExtension::class.java) ?: project.extensions.create("aboutLibraries", AboutLibrariesExtension::class.java)
         extension.applyConvention()
