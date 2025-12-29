@@ -2,7 +2,6 @@ import com.mikepenz.gradle.utils.readPropertyOrElse
 
 plugins {
     id("com.mikepenz.convention.kotlin-multiplatform")
-    alias(baseLibs.plugins.androidKmpLibrary)
     id("com.mikepenz.convention.compose")
     id("com.mikepenz.aboutlibraries.plugin")
 }
@@ -22,6 +21,7 @@ kotlin {
         namespace = "com.mikepenz.aboutlibraries.sample.shared"
         compileSdk = baseLibs.versions.compileSdk.get().toInt()
         minSdk = project.readPropertyOrElse("com.mikepenz.android.minSdk", baseLibs.versions.minSdk.get(), null)?.toInt()
+        experimentalProperties["android.experimental.kmp.enableAndroidResources"] = true
     }
 
     listOf(
