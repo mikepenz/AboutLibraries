@@ -12,7 +12,6 @@ import com.mikepenz.aboutlibraries.plugin.util.forLicense
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.RegularFile
 import org.gradle.api.file.RegularFileProperty
-import org.gradle.api.provider.Property
 import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.Input
@@ -34,10 +33,6 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
     @get:Optional
     @get:OutputDirectory
     abstract val outputDirectory: DirectoryProperty
-
-    @get:Optional
-    @get:Input
-    abstract val deprecated: Property<Boolean>
 
     override fun getDescription(): String = "Exports dependency meta data from the current module.${variant.orNull?.let { " Filtered by variant: '$it'." } ?: ""}"
     override fun getGroup(): String = super.getGroup() ?: org.gradle.language.base.plugins.LifecycleBasePlugin.BUILD_GROUP
@@ -80,10 +75,6 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
 
     @TaskAction
     fun action() {
-        if (deprecated.isPresent && deprecated.get()) {
-            LOGGER.warn("`generateLibraryDefinitions${variant.orElse("").get()}` is deprecated. Please use `exportLibraryDefinitions${variant.orElse("").get()}` instead.")
-        }
-
         val output = outputFile.get().asFile
         if (!output.parentFile.exists()) {
             output.parentFile.mkdirs() // verify output exists

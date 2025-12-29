@@ -2,7 +2,6 @@ import com.mikepenz.gradle.utils.readPropertyOrElse
 
 plugins {
     id("com.mikepenz.convention.kotlin-multiplatform")
-    alias(baseLibs.plugins.androidKmpLibrary)
     id("com.mikepenz.convention.compose")
     id("com.mikepenz.aboutlibraries.plugin")
 }
