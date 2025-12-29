@@ -21,6 +21,7 @@ kotlin {
         namespace = "com.mikepenz.aboutlibraries.sample.shared"
         compileSdk = baseLibs.versions.compileSdk.get().toInt()
         minSdk = project.readPropertyOrElse("com.mikepenz.android.minSdk", baseLibs.versions.minSdk.get(), null)?.toInt()
+        experimentalProperties["android.experimental.kmp.enableAndroidResources"] = true
     }
 
     listOf(
