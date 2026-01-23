@@ -280,6 +280,26 @@ Provide additional or modify existing licenses via a `.json` file per license.
 </p>
 </details>
 
+<details><summary><b>Optimized Resource Shrinking / AGP 9.0</b></summary>
+<p>
+
+## Optimized Resource Shrinking / AGP 9.0
+
+When [optimized resource shrinking](https://developer.android.com/topic/performance/app-optimization/enable-app-optimization#optimized-resource-shrinking-2)
+is enabled — or when using AGP 9.0, where it is enabled by default — the generated 
+`aboutlibraries.json` file may be removed during the shrinking step. To prevent this, add 
+a [resource keep file](https://developer.android.com/topic/performance/app-optimization/customize-which-resources-to-keep)
+with the following contents:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:keep="@raw/aboutlibraries" />
+```
+
+</p>
+</details>
+
 ## Dependencies
 
 > The AboutLibraries libraries are published to [Maven Central](https://search.maven.org/artifact/com.mikepenz/aboutlibraries-core).
