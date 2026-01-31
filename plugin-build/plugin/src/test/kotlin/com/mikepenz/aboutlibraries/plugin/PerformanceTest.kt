@@ -22,6 +22,7 @@ class PerformanceTest {
 
         // Measure configuration time by running 'help' task which doesn't execute our tasks
         val startTime = System.currentTimeMillis()
+        @Suppress("WithPluginClasspathUsage")
         val result = GradleRunner.create()
             .withProjectDir(projectDir)
             .withArguments("help", "--stacktrace")
@@ -41,6 +42,7 @@ class PerformanceTest {
         setupProject(projectDir)
 
         // Run a task that doesn't execute our plugin's tasks
+        @Suppress("WithPluginClasspathUsage")
         val result = GradleRunner.create()
             .withProjectDir(projectDir)
             .withArguments("tasks", "--info", "--stacktrace")
@@ -58,6 +60,7 @@ class PerformanceTest {
         setupProject(projectDir)
 
         // First build
+        @Suppress("WithPluginClasspathUsage")
         GradleRunner.create()
             .withProjectDir(projectDir)
             .withArguments("exportLibraryDefinitions", "--stacktrace")
@@ -66,6 +69,7 @@ class PerformanceTest {
 
         // Second build should be instant
         val startTime = System.currentTimeMillis()
+        @Suppress("WithPluginClasspathUsage")
         val result = GradleRunner.create()
             .withProjectDir(projectDir)
             .withArguments("exportLibraryDefinitions", "--stacktrace")

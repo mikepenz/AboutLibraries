@@ -20,6 +20,7 @@ class ConfigurationTimeResolutionTest {
         setupInstrumentedProject(projectDir)
 
         // Run with --dry-run - this ONLY runs configuration phase
+        @Suppress("WithPluginClasspathUsage")
         val result = GradleRunner.create()
             .withProjectDir(projectDir)
             .withArguments("exportLibraryDefinitions", "--dry-run", "--stacktrace")
@@ -43,6 +44,7 @@ class ConfigurationTimeResolutionTest {
         setupInstrumentedProject(projectDir)
 
         // Running 'tasks' should only do configuration, no execution
+        @Suppress("WithPluginClasspathUsage")
         val result = GradleRunner.create()
             .withProjectDir(projectDir)
             .withArguments("tasks", "--stacktrace")
@@ -66,6 +68,7 @@ class ConfigurationTimeResolutionTest {
         setupInstrumentedProject(projectDir)
 
         // First run with configuration cache
+        @Suppress("WithPluginClasspathUsage")
         val firstRun = GradleRunner.create()
             .withProjectDir(projectDir)
             .withArguments("exportLibraryDefinitions", "--configuration-cache", "--stacktrace")
@@ -75,6 +78,7 @@ class ConfigurationTimeResolutionTest {
         assertTrue(firstRun.output.contains("Configuration cache entry stored"))
 
         // Second run should reuse cache
+        @Suppress("WithPluginClasspathUsage")
         val secondRun = GradleRunner.create()
             .withProjectDir(projectDir)
             .withArguments("exportLibraryDefinitions", "--configuration-cache", "--stacktrace")

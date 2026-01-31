@@ -19,6 +19,7 @@ class FunctionalTest {
     fun `plugin should generate library definitions successfully`() {
         setupProject(projectDir)
 
+        @Suppress("WithPluginClasspathUsage")
         val result = GradleRunner.create()
             .withProjectDir(projectDir)
             .withArguments("exportLibraryDefinitions", "--stacktrace")
@@ -42,6 +43,7 @@ class FunctionalTest {
     fun `plugin should respect offline mode`() {
         setupProject(projectDir, offlineMode = true)
 
+        @Suppress("WithPluginClasspathUsage")
         val result = GradleRunner.create()
             .withProjectDir(projectDir)
             .withArguments("exportLibraryDefinitions", "--stacktrace")
@@ -58,6 +60,7 @@ class FunctionalTest {
     fun `plugin should handle variant filtering`() {
         setupProject(projectDir)
 
+        @Suppress("WithPluginClasspathUsage")
         val result = GradleRunner.create()
             .withProjectDir(projectDir)
             .withArguments("exportLibraryDefinitions", "-PaboutLibraries.exportVariant=main", "--stacktrace")
@@ -74,6 +77,7 @@ class FunctionalTest {
     fun `plugin should work with no dependencies`() {
         setupProjectWithNoDependencies(projectDir)
 
+        @Suppress("WithPluginClasspathUsage")
         val result = GradleRunner.create()
             .withProjectDir(projectDir)
             .withArguments("exportLibraryDefinitions", "--stacktrace")
@@ -90,6 +94,7 @@ class FunctionalTest {
     fun `plugin should handle platform dependencies`() {
         setupProjectWithPlatform(projectDir)
 
+        @Suppress("WithPluginClasspathUsage")
         val result = GradleRunner.create()
             .withProjectDir(projectDir)
             .withArguments("exportLibraryDefinitions", "--stacktrace")
@@ -107,6 +112,7 @@ class FunctionalTest {
         setupProject(projectDir)
 
         // First build - may be SUCCESS or FROM_CACHE if cache is populated from previous tests
+        @Suppress("WithPluginClasspathUsage")
         val firstRun = GradleRunner.create()
             .withProjectDir(projectDir)
             .withArguments("exportLibraryDefinitions", "--build-cache", "--stacktrace")
@@ -121,6 +127,7 @@ class FunctionalTest {
         // Clean and rebuild - should use cache
         File(projectDir, "build").deleteRecursively()
 
+        @Suppress("WithPluginClasspathUsage")
         val secondRun = GradleRunner.create()
             .withProjectDir(projectDir)
             .withArguments("exportLibraryDefinitions", "--build-cache", "--stacktrace")

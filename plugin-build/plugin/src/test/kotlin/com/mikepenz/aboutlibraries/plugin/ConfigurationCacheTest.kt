@@ -23,6 +23,7 @@ class ConfigurationCacheTest {
         setupProject(projectDir)
 
         // First build - populate configuration cache
+        @Suppress("WithPluginClasspathUsage")
         val firstRun = GradleRunner.create()
             .withProjectDir(projectDir)
             .withArguments("exportLibraryDefinitions", "--configuration-cache", "--stacktrace")
@@ -33,6 +34,7 @@ class ConfigurationCacheTest {
         assertEquals(TaskOutcome.SUCCESS, firstRun.task(":exportLibraryDefinitions")?.outcome)
 
         // Second build - should reuse configuration cache
+        @Suppress("WithPluginClasspathUsage")
         val secondRun = GradleRunner.create()
             .withProjectDir(projectDir)
             .withArguments("exportLibraryDefinitions", "--configuration-cache", "--stacktrace")
@@ -47,6 +49,7 @@ class ConfigurationCacheTest {
     fun `plugin should not resolve configurations during configuration phase`() {
         setupProject(projectDir)
 
+        @Suppress("WithPluginClasspathUsage")
         val result = GradleRunner.create()
             .withProjectDir(projectDir)
             .withArguments("tasks", "--configuration-cache", "--stacktrace")
@@ -61,6 +64,7 @@ class ConfigurationCacheTest {
     fun `configuration cache should work with multiple variants`() {
         setupProjectWithMultipleVariants(projectDir)
 
+        @Suppress("WithPluginClasspathUsage")
         val firstRun = GradleRunner.create()
             .withProjectDir(projectDir)
             .withArguments("exportLibraryDefinitions", "--configuration-cache", "--stacktrace")
@@ -69,6 +73,7 @@ class ConfigurationCacheTest {
 
         assertTrue(firstRun.output.contains("Configuration cache entry stored"))
 
+        @Suppress("WithPluginClasspathUsage")
         val secondRun = GradleRunner.create()
             .withProjectDir(projectDir)
             .withArguments("exportLibraryDefinitions", "--configuration-cache", "--stacktrace")
