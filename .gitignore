@@ -21,3 +21,5 @@ docs
 .kotlin/
 
 iosApp/iosApp.xcodeproj
+/gradle-user-home/
+/tmp/
