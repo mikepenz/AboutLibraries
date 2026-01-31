@@ -8,10 +8,16 @@ import com.mikepenz.aboutlibraries.plugin.util.LibraryPostProcessor
 import org.gradle.api.DefaultTask
 import org.gradle.api.artifacts.Configuration
 import org.gradle.api.file.DirectoryProperty
+import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.MapProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.provider.SetProperty
-import org.gradle.api.tasks.*
+import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.InputDirectory
+import org.gradle.api.tasks.Internal
+import org.gradle.api.tasks.Optional
+import org.gradle.api.tasks.PathSensitive
+import org.gradle.api.tasks.PathSensitivity
 import org.slf4j.LoggerFactory
 
 abstract class BaseAboutLibrariesTask : DefaultTask() {
@@ -91,6 +97,9 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     @get:Internal
     internal abstract val variantToDependencyData: MapProperty<String, List<DependencyData>>
 
+    @get:Internal
+    internal abstract val configurationNames: ListProperty<String>
+
     open fun configure() {
         excludeFields.set(project.provider {
             val config = extension.exports.findByName(variant.getOrElse(""))
@@ -123,7 +132,9 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
 
         val filter = filterVariants.get() + (variant.orNull?.let { arrayOf(it) } ?: emptyArray())
 
-        val dependencies = project.configurations.filterNot { config ->
+        // PERFORMANCE: Store only configuration names during configuration time
+        // Actual resolution happens during task execution when variantToDependencyData is accessed
+        val selectedConfigNames = project.configurations.filterNot { config ->
             config.shouldSkip(includeTestVariants.get())
         }.filter { config ->
             val cn = config.name
@@ -160,14 +171,25 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
                     false
                 }
             }
-        }.associate { config ->
-            config.name to DependencyCollector(includePlatform.get())
-                .loadDependenciesFromConfiguration(project, config.incoming.resolutionResult.rootComponent)
-        }
+        }.map { it.name }
 
+        configurationNames.set(selectedConfigNames)
+
+        // PERFORMANCE: Wrap resolution in a provider that's only evaluated during task execution
         variantToDependencyData.set(project.providers.provider {
+            LOGGER.debug("==> ABOUTLIBRARIES: Provider evaluated - dependency resolution starting (EXECUTION TIME)")
             val target = mutableMapOf<String, List<DependencyData>>()
-            dependencies.onEach { (name, result) -> target[name] = result.get() }
+            for (configName in configurationNames.get()) {
+                val config = project.configurations.getByName(configName)
+                // Resolution happens HERE during task execution, not during configuration
+                val dependencyData = DependencyCollector(includePlatform.get())
+                    .loadDependenciesFromConfiguration(
+                        project,
+                        config.incoming.resolutionResult.rootComponent
+                    ).get()
+                target[configName] = dependencyData
+            }
+            LOGGER.debug("==> ABOUTLIBRARIES: Provider evaluation complete")
             target
         })
     }
