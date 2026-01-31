@@ -177,7 +177,7 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
 
         // PERFORMANCE: Wrap resolution in a provider that's only evaluated during task execution
         variantToDependencyData.set(project.providers.provider {
-            LOGGER.debug("==> ABOUTLIBRARIES: Provider evaluated - dependency resolution starting (EXECUTION TIME)")
+            if (LOGGER.isDebugEnabled) LOGGER.debug("==> ABOUTLIBRARIES: Provider evaluated - dependency resolution starting (EXECUTION TIME)")
             val target = mutableMapOf<String, List<DependencyData>>()
             for (configName in configurationNames.get()) {
                 val config = project.configurations.getByName(configName)
@@ -189,7 +189,7 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
                     ).get()
                 target[configName] = dependencyData
             }
-            LOGGER.debug("==> ABOUTLIBRARIES: Provider evaluation complete")
+            if (LOGGER.isDebugEnabled) LOGGER.debug("==> ABOUTLIBRARIES: Provider evaluation complete")
             target
         })
     }

@@ -1,11 +1,19 @@
 package com.mikepenz.aboutlibraries.plugin.util
 
-import com.mikepenz.aboutlibraries.plugin.mapping.*
+import com.mikepenz.aboutlibraries.plugin.mapping.Developer
+import com.mikepenz.aboutlibraries.plugin.mapping.Funding
+import com.mikepenz.aboutlibraries.plugin.mapping.License
+import com.mikepenz.aboutlibraries.plugin.mapping.Organization
+import com.mikepenz.aboutlibraries.plugin.mapping.Scm
 import org.apache.maven.model.Dependency
 import org.apache.maven.model.Model
 import org.apache.maven.model.Parent
 import org.apache.maven.model.Repository
-import org.apache.maven.model.building.*
+import org.apache.maven.model.building.DefaultModelBuilderFactory
+import org.apache.maven.model.building.DefaultModelBuildingRequest
+import org.apache.maven.model.building.FileModelSource
+import org.apache.maven.model.building.ModelBuildingRequest
+import org.apache.maven.model.building.ModelSource2
 import org.apache.maven.model.resolution.ModelResolver
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Configuration
@@ -18,7 +26,9 @@ import org.gradle.api.artifacts.result.ResolvedComponentResult
 import org.gradle.api.artifacts.result.ResolvedDependencyResult
 import org.gradle.api.artifacts.result.ResolvedVariantResult
 import org.gradle.api.attributes.Attribute
-import org.gradle.api.attributes.Category.*
+import org.gradle.api.attributes.Category.CATEGORY_ATTRIBUTE
+import org.gradle.api.attributes.Category.ENFORCED_PLATFORM
+import org.gradle.api.attributes.Category.REGULAR_PLATFORM
 import org.gradle.api.provider.Provider
 import org.slf4j.LoggerFactory
 import java.io.File
@@ -240,14 +250,14 @@ internal class DependencyCollector(
         dependencies: DependencyHandler,
         configurations: ConfigurationContainer,
     ): List<DependencyCoordinatesWithPomFile> {
-        if (LOGGER.isInfoEnabled) LOGGER.info("==> ABOUTLIBRARIES: fetchPomFiles called - resolving ${this.size} dependencies")
+        if (LOGGER.isDebugEnabled) LOGGER.debug("==> ABOUTLIBRARIES: fetchPomFiles called - resolving ${this.size} dependencies")
         // Use ArtifactView API which is configuration-cache compatible and lazy
         fun Configuration.artifactsViaView() = incoming.artifactView { config ->
             config.lenient(true)
         }.artifacts.map { it.file to it.id.componentIdentifier }
 
         val pomDependencies = map { dependencies.create(it.pomCoordinate()) }.toTypedArray()
-        
+
         val withVariants = configurations.detachedConfiguration(*pomDependencies).apply {
             isCanBeConsumed = false
             isCanBeResolved = true
@@ -266,7 +276,7 @@ internal class DependencyCollector(
             isCanBeConsumed = false
             isCanBeResolved = true
         }.artifactsViaView()
-        
+
         return (withVariants + withoutVariants).mapNotNull { (file, componentId) ->
             // Only process module components (not project components)
             if (componentId is ModuleComponentIdentifier) {
