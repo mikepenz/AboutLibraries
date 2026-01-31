@@ -35,6 +35,7 @@ compose.resources {
 aboutLibraries {
     export {
         exportVariant = "wasmJs"
+        prettyPrint = true
         outputPath = file("src/commonMain/composeResources/files/aboutlibraries.json")
     }
     library {
