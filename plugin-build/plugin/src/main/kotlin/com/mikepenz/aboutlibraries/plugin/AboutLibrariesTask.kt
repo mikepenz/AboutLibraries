@@ -43,16 +43,21 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
         } else {
             val projectDirectory = project.layout.projectDirectory
             val buildDirectory = project.layout.buildDirectory
+            
+            // Capture extension values during configuration time to avoid accessing
+            // extension (which references project) during Provider evaluation
+            val exports = extension.exports
+            val export = extension.export
 
             @Suppress("DEPRECATION")
             val fileNameProvider = project.provider {
-                val config = extension.exports.findByName(variant.getOrElse(""))
-                config?.outputFileName?.orNull ?: extension.export.outputFileName.get()
+                val config = exports.findByName(variant.getOrElse(""))
+                config?.outputFileName?.orNull ?: export.outputFileName.get()
             }
 
             val outputFileProvider = project.provider {
-                val config = extension.exports.findByName(variant.getOrElse(""))
-                config?.outputFile?.orNull ?: extension.export.outputFile.orNull
+                val config = exports.findByName(variant.getOrElse(""))
+                config?.outputFile?.orNull ?: export.outputFile.orNull
             }
 
             val providers = project.providers
@@ -61,10 +66,10 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
             this.outputFile.set(
                 providers.gradleProperty("${PROP_PREFIX}${PROP_EXPORT_OUTPUT_FILE}").map { path -> projectDirectory.file(path) }.orElse(
                     providers.gradleProperty("${PROP_PREFIX}${PROP_EXPORT_OUTPUT_PATH}").map { path -> projectDirectory.file(path) }.orElse(
-                        providers.gradleProperty("${PROP_PREFIX}${PROP_EXPORT_PATH}").map { path -> projectDirectory.dir(path).file(fileNameProvider.get()) }.orElse(
-                            providers.gradleProperty(PROP_EXPORT_PATH).map { path -> projectDirectory.dir(path).file(fileNameProvider.get()) }).orElse(
+                        providers.gradleProperty("${PROP_PREFIX}${PROP_EXPORT_PATH}").flatMap { path -> fileNameProvider.map { filename -> projectDirectory.dir(path).file(filename) } }.orElse(
+                            providers.gradleProperty(PROP_EXPORT_PATH).flatMap { path -> fileNameProvider.map { filename -> projectDirectory.dir(path).file(filename) } }).orElse(
                             outputFileProvider.orElse(
-                                buildDirectory.dir("generated/aboutLibraries/").map { it.file(fileNameProvider.get()) }
+                                buildDirectory.dir("generated/aboutLibraries/").flatMap { dir -> fileNameProvider.map { filename -> dir.file(filename) } }
                             )
                         )
                     )
