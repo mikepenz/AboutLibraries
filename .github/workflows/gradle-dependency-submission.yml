@@ -18,6 +18,7 @@ jobs:
           distribution: 'zulu'
           java-version: |
             17
+            21
 
       - name: Copy CI gradle.properties
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties

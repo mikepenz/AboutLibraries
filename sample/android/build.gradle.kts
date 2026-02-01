@@ -36,6 +36,7 @@ compose.resources {
     packageOfResClass = "com.mikepenz.aboutlibraries.sample.resources"
 }
 
+/*
 composablePreviewPaparazzi {
     enable = true
     packages = listOf("com.mikepenz.aboutlibraries.screenshot")
@@ -43,6 +44,7 @@ composablePreviewPaparazzi {
     testClassName = "PaparazziTests"
     testPackageName = "com.mikepenz.aboutlibraries.screenshot.generated.tests"
 }
+ */
 
 aboutLibraries {
     collect {
