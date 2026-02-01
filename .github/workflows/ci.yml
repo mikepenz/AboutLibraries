@@ -27,6 +27,7 @@ jobs:
           distribution: 'zulu'
           java-version: |
             17
+            21
 
       - name: Copy CI gradle.properties
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
@@ -102,6 +103,7 @@ jobs:
           distribution: 'zulu'
           java-version: |
             17
+            21
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v5
@@ -138,6 +140,26 @@ jobs:
       - name: Run Api Validation
         if: github.event_name  == 'pull_request'
         run: ./gradlew apiCheck
+
+      - name: Run Tests
+        run: |
+          ./gradlew :sample:android:verifyPaparazzi
+
+      - name: Publish Test Report
+        if: false && (failure() || success()) && github.event_name == 'pull_request'
+        uses: mikepenz/action-junit-report@v6
+        with:
+          report_paths: '**/sample/android/build/test-results/testDebugUnitTest/TEST-*.xml'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          fail_on_failure: true
+          annotate_only: true
+          detailed_summary: true
+
+      - name: Archive Test Report
+        uses: actions/upload-artifact@v6
+        with:
+          name: "Test-Artifacts"
+          path: "sample/android/build/reports/paparazzi/debug/"
 
       - name: Run Lint
         if: github.event_name  == 'pull_request'
