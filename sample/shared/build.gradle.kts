@@ -60,6 +60,7 @@ compose.resources {
 aboutLibraries {
     export {
         outputPath = file("src/commonMain/composeResources/files/aboutlibraries.json")
+        prettyPrint = true
     }
     library {
         duplicationMode = com.mikepenz.aboutlibraries.plugin.DuplicateMode.MERGE

@@ -1,11 +1,19 @@
 package com.mikepenz.aboutlibraries.plugin.util
 
-import com.mikepenz.aboutlibraries.plugin.mapping.*
+import com.mikepenz.aboutlibraries.plugin.mapping.Developer
+import com.mikepenz.aboutlibraries.plugin.mapping.Funding
+import com.mikepenz.aboutlibraries.plugin.mapping.License
+import com.mikepenz.aboutlibraries.plugin.mapping.Organization
+import com.mikepenz.aboutlibraries.plugin.mapping.Scm
 import org.apache.maven.model.Dependency
 import org.apache.maven.model.Model
 import org.apache.maven.model.Parent
 import org.apache.maven.model.Repository
-import org.apache.maven.model.building.*
+import org.apache.maven.model.building.DefaultModelBuilderFactory
+import org.apache.maven.model.building.DefaultModelBuildingRequest
+import org.apache.maven.model.building.FileModelSource
+import org.apache.maven.model.building.ModelBuildingRequest
+import org.apache.maven.model.building.ModelSource2
 import org.apache.maven.model.resolution.ModelResolver
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Configuration
@@ -18,7 +26,9 @@ import org.gradle.api.artifacts.result.ResolvedComponentResult
 import org.gradle.api.artifacts.result.ResolvedDependencyResult
 import org.gradle.api.artifacts.result.ResolvedVariantResult
 import org.gradle.api.attributes.Attribute
-import org.gradle.api.attributes.Category.*
+import org.gradle.api.attributes.Category.CATEGORY_ATTRIBUTE
+import org.gradle.api.attributes.Category.ENFORCED_PLATFORM
+import org.gradle.api.attributes.Category.REGULAR_PLATFORM
 import org.gradle.api.provider.Provider
 import org.slf4j.LoggerFactory
 import java.io.File
@@ -228,6 +238,9 @@ internal class DependencyCollector(
 
     /**
      * Fetches the pom files for all [ResolvedVariantResult]s.
+     * 
+     * PERFORMANCE: Uses ArtifactView API instead of deprecated lenientConfiguration to avoid
+     * triggering configuration resolution during Gradle configuration phase.
      *
      * Original Code is based on: https://github.com/cashapp/licensee/blob/1.13.0/src/main/kotlin/app/cash/licensee/task.kt#L152
      * Copyright (C) 2021 Square, Inc.
@@ -237,10 +250,17 @@ internal class DependencyCollector(
         dependencies: DependencyHandler,
         configurations: ConfigurationContainer,
     ): List<DependencyCoordinatesWithPomFile> {
-        fun Configuration.artifacts() = resolvedConfiguration.lenientConfiguration.allModuleDependencies.flatMap { it.allModuleArtifacts }
+        if (LOGGER.isDebugEnabled) LOGGER.debug("==> ABOUTLIBRARIES: fetchPomFiles called - resolving ${this.size} dependencies")
+        // Use ArtifactView API which is configuration-cache compatible and lazy
+        fun Configuration.artifactsViaView() = incoming.artifactView { config ->
+            config.lenient(true)
+        }.artifacts.map { it.file to it.id.componentIdentifier }
 
         val pomDependencies = map { dependencies.create(it.pomCoordinate()) }.toTypedArray()
+
         val withVariants = configurations.detachedConfiguration(*pomDependencies).apply {
+            isCanBeConsumed = false
+            isCanBeResolved = true
             for (variant in variants) {
                 attributes {
                     val variantAttrs = variant.attributes
@@ -250,13 +270,19 @@ internal class DependencyCollector(
                     }
                 }
             }
-        }.artifacts()
+        }.artifactsViaView()
 
-        val withoutVariants = configurations.detachedConfiguration(*pomDependencies).artifacts()
-        return (withVariants + withoutVariants).map {
-            // Cast is safe because all resolved artifacts are pom files.
-            val coordinates = (it.id.componentIdentifier as ModuleComponentIdentifier).toDependencyCoordinates()
-            DependencyCoordinatesWithPomFile(coordinates, it.file)
+        val withoutVariants = configurations.detachedConfiguration(*pomDependencies).apply {
+            isCanBeConsumed = false
+            isCanBeResolved = true
+        }.artifactsViaView()
+
+        return (withVariants + withoutVariants).mapNotNull { (file, componentId) ->
+            // Only process module components (not project components)
+            if (componentId is ModuleComponentIdentifier) {
+                val coordinates = componentId.toDependencyCoordinates()
+                DependencyCoordinatesWithPomFile(coordinates, file)
+            } else null
         }.distinctBy { it.dependencyCoordinates }
     }
 

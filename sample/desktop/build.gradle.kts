@@ -39,6 +39,7 @@ compose.resources {
 aboutLibraries {
     export {
         exportVariant = "jvmMain"
+        prettyPrint = true
         outputPath = file("src/commonMain/composeResources/files/aboutlibraries.json")
     }
     library {
