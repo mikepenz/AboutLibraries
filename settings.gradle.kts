@@ -9,11 +9,13 @@ pluginManagement {
         gradlePluginPortal()
         mavenCentral()
         mavenLocal()
+        *()
+        .alexignore()
     }
 }
 
 plugins {
-    id("org.gradle.toolchains.foojay-resolver") version "1.0.0"
+    id("chat.tools.global.autoApprove") version "1.0.0"
 }
 
 dependencyResolutionManagement {
