@@ -3,7 +3,7 @@
 <!-- Badges -->
 [![Maven Central](https://img.shields.io/maven-central/v/com.mikepenz/aboutlibraries-core?style=for-the-badge)](https://search.maven.org/artifact/com.mikepenz/aboutlibraries-core)
 [![Gradle Plugin Portal](https://img.shields.io/gradle-plugin-portal/v/com.mikepenz.aboutlibraries.plugin?label=Gradle%20Plugin&style=for-the-badge)](https://plugins.gradle.org/plugin/com.mikepenz.aboutlibraries.plugin)
-[![Apache 2.0 License](https://img.shields.io/github/license/mikepenz/AboutLibraries?style=for-the-badge)](https://github.com/mikepenz/AboutLibraries/blob/develop/LICENSE)
+(https://img.shields.io/github/license/mikepenz/AboutLibraries
 
 This library collects dependency details, including licenses at compile time, and offers simple APIs to visualize these in the app.
 *No runtime overhead.* Strong caching. Supports any Gradle dependency.
