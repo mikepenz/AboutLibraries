@@ -3,10 +3,6 @@ package com.mikepenz.aboutlibraries
 import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.entity.License
 import com.mikepenz.aboutlibraries.util.parseData
-import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.ImmutableSet
-import kotlinx.collections.immutable.toImmutableList
-import kotlinx.collections.immutable.toImmutableSet
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -16,8 +12,8 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class Libs constructor(
-    @SerialName("libraries") val libraries: ImmutableList<Library>,
-    @SerialName("licenses") val licenses: ImmutableSet<License>,
+    @SerialName("libraries") val libraries: List<Library>,
+    @SerialName("licenses") val licenses: Set<License>,
 ) {
     /**
      * Builder used to automatically parse and interpret the generated library data from the plugin.
@@ -51,8 +47,8 @@ data class Libs constructor(
                 )
             }
             return Libs(
-                libraries.sortedBy { it.name.lowercase() }.toImmutableList(),
-                licenses.toImmutableSet()
+                libraries.sortedBy { it.name.lowercase() },
+                licenses.toSet()
             )
         }
     }

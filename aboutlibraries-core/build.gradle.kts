@@ -1,23 +1,21 @@
 plugins {
-    id("com.mikepenz.convention.android-library")
     id("com.mikepenz.convention.kotlin-multiplatform")
     id("com.mikepenz.convention.publishing")
     kotlin("plugin.serialization") version baseLibs.versions.kotlin.get()
 }
 
-android {
-    namespace = "com.mikepenz.aboutlibraries.core"
-    lint {
-        abortOnError = false
-    }
-}
-
 kotlin {
+    android {
+        namespace = "com.mikepenz.aboutlibraries.core"
+        lint {
+            abortOnError = false
+        }
+    }
+
     sourceSets {
         val commonMain by getting {
             dependencies {
                 implementation(libs.kotlinx.serialization)
-                api(baseLibs.kotlinx.collections.immutable)
             }
         }
         val multiplatformMain by creating {

@@ -27,6 +27,7 @@ jobs:
           distribution: 'zulu'
           java-version: |
             17
+            21
 
       - name: Copy CI gradle.properties
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
@@ -35,7 +36,7 @@ jobs:
         uses: gradle/actions/setup-gradle@v5
 
       - name: Cache konan
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.konan
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
@@ -64,6 +65,7 @@ jobs:
           ./gradlew aboutlibraries-compose:publishAllPublicationsToMavenCentralRepository -x test -x lint -Plibrary_compose_only --no-configure-on-demand --no-parallel --no-configuration-cache
           ./gradlew aboutlibraries-compose-m2:publishAllPublicationsToMavenCentralRepository -x test -x lint -Plibrary_compose_only --no-configure-on-demand --no-parallel --no-configuration-cache
           ./gradlew aboutlibraries-compose-m3:publishAllPublicationsToMavenCentralRepository -x test -x lint -Plibrary_compose_m3_only --no-configure-on-demand --no-parallel --no-configuration-cache
+          ./gradlew aboutlibraries-compose-wear-m3:publishAllPublicationsToMavenCentralRepository -x test -x lint -Plibrary_compose_wear_m3_only --no-configure-on-demand --no-parallel --no-configuration-cache
           ./gradlew aboutlibraries:publishAllPublicationsToMavenCentralRepository -x test -x lint -Plibrary_only --no-configure-on-demand --no-parallel --no-configuration-cache
 
       - name: Publish the windows artifact
@@ -101,6 +103,7 @@ jobs:
           distribution: 'zulu'
           java-version: |
             17
+            21
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v5
@@ -110,6 +113,17 @@ jobs:
 
       - name: Copy CI gradle.properties
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+
+      - name: Run Gradle Plugin Tests
+        run: |
+          cd plugin-build
+          ./gradlew test
+
+      - name: Publish Test Report
+        uses: mikepenz/action-junit-report@v6
+        if: success() || failure() # always run even if the previous step fails
+        with:
+          report_paths: 'plugin-build/plugin/build/test-results/test/TEST-*.xml'
 
       - name: Publish plugin locally
         run: |
@@ -121,11 +135,31 @@ jobs:
           ./gradlew plugin-build:plugin:lint
 
       - name: Build Debug
-        run: ./gradlew app:assembleDebug
+        run: ./gradlew :sample:android:assembleDebug
 
       - name: Run Api Validation
         if: github.event_name  == 'pull_request'
         run: ./gradlew apiCheck
+
+      - name: Run Tests
+        run: |
+          ./gradlew :sample:android:verifyPaparazzi
+
+      - name: Publish Test Report
+        if: false && (failure() || success()) && github.event_name == 'pull_request'
+        uses: mikepenz/action-junit-report@v6
+        with:
+          report_paths: '**/sample/android/build/test-results/testDebugUnitTest/TEST-*.xml'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          fail_on_failure: true
+          annotate_only: true
+          detailed_summary: true
+
+      - name: Archive Test Report
+        uses: actions/upload-artifact@v6
+        with:
+          name: "Test-Artifacts"
+          path: "sample/android/build/reports/paparazzi/debug/"
 
       - name: Run Lint
         if: github.event_name  == 'pull_request'
@@ -150,11 +184,11 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         run: |
           echo "${{ secrets.KEYSTORE }}" > opensource.jks.asc
-          gpg -d --passphrase "${{ secrets.KEYSTORE_PASSPHRASE }}" --batch "opensource.jks.asc" > "app/opensource.jks"
+          gpg -d --passphrase "${{ secrets.KEYSTORE_PASSPHRASE }}" --batch "opensource.jks.asc" > "sample/android/opensource.jks"
 
       - name: Build Release App
         if: startsWith(github.ref, 'refs/tags/')
-        run: ./gradlew app:assembleStaging app:assembleRelease app:bundleRelease -P"com.mikepenz.android.signing.enabled"="true" -P"com.mikepenz.android.signing.storeFile"="opensource.jks" -P"com.mikepenz.android.signing.storePassword"="${{ secrets.STORE_PASSWORD }}" -P"com.mikepenz.android.signing.keyAlias"="${{ secrets.KEY_ALIAS }}" -P"com.mikepenz.android.signing.keyPassword"="${{ secrets.KEY_PASSWORD }}"
+        run: ./gradlew sample:android:assembleRelease sample:android:bundleRelease -P"com.mikepenz.android.signing.enabled"="true" -P"com.mikepenz.android.signing.storeFile"="opensource.jks" -P"com.mikepenz.android.signing.storePassword"="${{ secrets.STORE_PASSWORD }}" -P"com.mikepenz.android.signing.keyAlias"="${{ secrets.KEY_ALIAS }}" -P"com.mikepenz.android.signing.keyPassword"="${{ secrets.KEY_PASSWORD }}"
 
       - name: Collect artifacts
         run: |
@@ -165,7 +199,7 @@ jobs:
           find . -name "*-release.aab" -type f -exec cp {} "artifacts" \;
 
       - name: Archive Artifacts
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: "App-Artifacts"
           path: artifacts/*

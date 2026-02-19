@@ -1,10 +1,25 @@
 ### Upgrade Notes
 
+#### v14.0.0
+
+- **Breaking Change**: The `core` plugin no longer depends on the `kotlinx.immutable` collections library.
+    - Collections are marked as stable via the stability config file instead: https://github.com/mikepenz/AboutLibraries/pull/1267
+- **Breaking Change**: The already deprecated `generateLibraryDefinitions*` tasks are now removed
+- **Breaking Change**: The plugin will now only work for projects that use AGP 7 or newer, with the new variants API via `AndroidComponentsExtension` available
+- **Breaking Change**: Due to Paparazzi requiring Java 21 - This project is now also compiled with Java 21
+
+#### v13.2.0
+
+- **Breaking Change**: Some underlying APIs start to require API 23 instead of 21.
+    - `org.jetbrains.compose.components.resources`
+- **Dependency Upgrade**: Kotlin 2.3.0
+- **Dependency Upgrade**: Compose 1.10.x
+
 #### v13.1.0
 
 - **Behaviour Change**: The `Gradle Plugin` now by default enables MERGING duplicates with EXACT matches. In prior releases, duplicates would be kept.
 ```kotlin
-// To enable the prior behavior you can simply configure this in your build script
+// To enable the prior behavior, you can simply configure this in your build script
 aboutLibraries {
     library {
         duplicationMode = DuplicateMode.KEEP

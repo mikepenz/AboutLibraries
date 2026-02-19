@@ -64,6 +64,19 @@ dependencies {
 
     // lint rules
     lintChecks(baseLibs.android.lint.gradle)
+
+    // test dependencies
+    testImplementation(gradleTestKit())
+    testImplementation(kotlin("test"))
+    testImplementation("org.junit.jupiter:junit-jupiter:5.10.1")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+}
+
+tasks.named<Test>("test") {
+    useJUnitPlatform()
+    javaLauncher.set(javaToolchains.launcherFor {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    })
 }
 
 mavenPublishing {

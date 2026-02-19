@@ -2,23 +2,23 @@
 # kotlin
 kotlinxSerialization = "1.9.0"
 # androidx
-activity = "1.11.0"
+activity = "1.12.2"
 cardview = "1.0.0"
 constraintLayout = "2.2.1"
 core = "1.17.0"
-lifecycle = { require = "2.9.3" }
-navigation = "2.9.5"
+lifecycle = { require = "2.10.0" }
+navigation = "2.9.6"
 recyclerView = "1.4.0"
 # google
 material = "1.13.0"
 # other
 fastAdapter = "5.7.0"
-iconics = "5.4.0"
+iconics = "5.5.0"
 itemAnimators = "1.1.0"
 ivy = "2.5.3"
-modelBuilder = "3.9.11"
+modelBuilder = "3.9.12"
 materialDrawer = "9.0.2"
-okhttp = "5.2.1"
+okhttp = "5.3.2"
 
 [plugins]
 navSafeArgs = { id = "androidx.navigation.safeargs", version.ref = "navigation" }

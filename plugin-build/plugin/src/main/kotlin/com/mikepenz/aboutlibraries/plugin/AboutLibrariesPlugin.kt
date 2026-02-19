@@ -34,7 +34,6 @@ class AboutLibrariesPlugin : Plugin<Project> {
 
         // task to output library names with ids for further actions
         project.tasks.configure("findLibraries", AboutLibrariesIdTask::class.java) {
-            it.offlineMode.set(true) // Force offline mode
             it.configure()
         }
 
