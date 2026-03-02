@@ -1,0 +1,281 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, js, linuxArm64, linuxX64, macosArm64, macosX64, mingwX64, tvosArm64, tvosSimulatorArm64, tvosX64, wasmJs, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64, watchosX64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <AboutLibraries:aboutlibraries-core>
+final class com.mikepenz.aboutlibraries.entity/Developer { // com.mikepenz.aboutlibraries.entity/Developer|null[0]
+    constructor <init>(kotlin/String?, kotlin/String?) // com.mikepenz.aboutlibraries.entity/Developer.<init>|<init>(kotlin.String?;kotlin.String?){}[0]
+
+    final val name // com.mikepenz.aboutlibraries.entity/Developer.name|{}name[0]
+        final fun <get-name>(): kotlin/String? // com.mikepenz.aboutlibraries.entity/Developer.name.<get-name>|<get-name>(){}[0]
+    final val organisationUrl // com.mikepenz.aboutlibraries.entity/Developer.organisationUrl|{}organisationUrl[0]
+        final fun <get-organisationUrl>(): kotlin/String? // com.mikepenz.aboutlibraries.entity/Developer.organisationUrl.<get-organisationUrl>|<get-organisationUrl>(){}[0]
+
+    final fun component1(): kotlin/String? // com.mikepenz.aboutlibraries.entity/Developer.component1|component1(){}[0]
+    final fun component2(): kotlin/String? // com.mikepenz.aboutlibraries.entity/Developer.component2|component2(){}[0]
+    final fun copy(kotlin/String? = ..., kotlin/String? = ...): com.mikepenz.aboutlibraries.entity/Developer // com.mikepenz.aboutlibraries.entity/Developer.copy|copy(kotlin.String?;kotlin.String?){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.mikepenz.aboutlibraries.entity/Developer.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.mikepenz.aboutlibraries.entity/Developer.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // com.mikepenz.aboutlibraries.entity/Developer.toString|toString(){}[0]
+
+    final object $serializer : kotlinx.serialization.internal/GeneratedSerializer<com.mikepenz.aboutlibraries.entity/Developer> { // com.mikepenz.aboutlibraries.entity/Developer.$serializer|null[0]
+        final val descriptor // com.mikepenz.aboutlibraries.entity/Developer.$serializer.descriptor|{}descriptor[0]
+            final fun <get-descriptor>(): kotlinx.serialization.descriptors/SerialDescriptor // com.mikepenz.aboutlibraries.entity/Developer.$serializer.descriptor.<get-descriptor>|<get-descriptor>(){}[0]
+
+        final fun childSerializers(): kotlin/Array<kotlinx.serialization/KSerializer<*>> // com.mikepenz.aboutlibraries.entity/Developer.$serializer.childSerializers|childSerializers(){}[0]
+        final fun deserialize(kotlinx.serialization.encoding/Decoder): com.mikepenz.aboutlibraries.entity/Developer // com.mikepenz.aboutlibraries.entity/Developer.$serializer.deserialize|deserialize(kotlinx.serialization.encoding.Decoder){}[0]
+        final fun serialize(kotlinx.serialization.encoding/Encoder, com.mikepenz.aboutlibraries.entity/Developer) // com.mikepenz.aboutlibraries.entity/Developer.$serializer.serialize|serialize(kotlinx.serialization.encoding.Encoder;com.mikepenz.aboutlibraries.entity.Developer){}[0]
+    }
+
+    final object Companion { // com.mikepenz.aboutlibraries.entity/Developer.Companion|null[0]
+        final fun serializer(): kotlinx.serialization/KSerializer<com.mikepenz.aboutlibraries.entity/Developer> // com.mikepenz.aboutlibraries.entity/Developer.Companion.serializer|serializer(){}[0]
+    }
+}
+
+final class com.mikepenz.aboutlibraries.entity/Funding { // com.mikepenz.aboutlibraries.entity/Funding|null[0]
+    constructor <init>(kotlin/String, kotlin/String) // com.mikepenz.aboutlibraries.entity/Funding.<init>|<init>(kotlin.String;kotlin.String){}[0]
+
+    final val platform // com.mikepenz.aboutlibraries.entity/Funding.platform|{}platform[0]
+        final fun <get-platform>(): kotlin/String // com.mikepenz.aboutlibraries.entity/Funding.platform.<get-platform>|<get-platform>(){}[0]
+    final val url // com.mikepenz.aboutlibraries.entity/Funding.url|{}url[0]
+        final fun <get-url>(): kotlin/String // com.mikepenz.aboutlibraries.entity/Funding.url.<get-url>|<get-url>(){}[0]
+
+    final fun component1(): kotlin/String // com.mikepenz.aboutlibraries.entity/Funding.component1|component1(){}[0]
+    final fun component2(): kotlin/String // com.mikepenz.aboutlibraries.entity/Funding.component2|component2(){}[0]
+    final fun copy(kotlin/String = ..., kotlin/String = ...): com.mikepenz.aboutlibraries.entity/Funding // com.mikepenz.aboutlibraries.entity/Funding.copy|copy(kotlin.String;kotlin.String){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.mikepenz.aboutlibraries.entity/Funding.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.mikepenz.aboutlibraries.entity/Funding.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // com.mikepenz.aboutlibraries.entity/Funding.toString|toString(){}[0]
+
+    final object $serializer : kotlinx.serialization.internal/GeneratedSerializer<com.mikepenz.aboutlibraries.entity/Funding> { // com.mikepenz.aboutlibraries.entity/Funding.$serializer|null[0]
+        final val descriptor // com.mikepenz.aboutlibraries.entity/Funding.$serializer.descriptor|{}descriptor[0]
+            final fun <get-descriptor>(): kotlinx.serialization.descriptors/SerialDescriptor // com.mikepenz.aboutlibraries.entity/Funding.$serializer.descriptor.<get-descriptor>|<get-descriptor>(){}[0]
+
+        final fun childSerializers(): kotlin/Array<kotlinx.serialization/KSerializer<*>> // com.mikepenz.aboutlibraries.entity/Funding.$serializer.childSerializers|childSerializers(){}[0]
+        final fun deserialize(kotlinx.serialization.encoding/Decoder): com.mikepenz.aboutlibraries.entity/Funding // com.mikepenz.aboutlibraries.entity/Funding.$serializer.deserialize|deserialize(kotlinx.serialization.encoding.Decoder){}[0]
+        final fun serialize(kotlinx.serialization.encoding/Encoder, com.mikepenz.aboutlibraries.entity/Funding) // com.mikepenz.aboutlibraries.entity/Funding.$serializer.serialize|serialize(kotlinx.serialization.encoding.Encoder;com.mikepenz.aboutlibraries.entity.Funding){}[0]
+    }
+
+    final object Companion { // com.mikepenz.aboutlibraries.entity/Funding.Companion|null[0]
+        final fun serializer(): kotlinx.serialization/KSerializer<com.mikepenz.aboutlibraries.entity/Funding> // com.mikepenz.aboutlibraries.entity/Funding.Companion.serializer|serializer(){}[0]
+    }
+}
+
+final class com.mikepenz.aboutlibraries.entity/Library { // com.mikepenz.aboutlibraries.entity/Library|null[0]
+    constructor <init>(kotlin/String, kotlin/String?, kotlin/String, kotlin/String?, kotlin/String?, kotlin.collections/List<com.mikepenz.aboutlibraries.entity/Developer>, com.mikepenz.aboutlibraries.entity/Organization?, com.mikepenz.aboutlibraries.entity/Scm?, kotlin.collections/Set<com.mikepenz.aboutlibraries.entity/License> = ..., kotlin.collections/Set<com.mikepenz.aboutlibraries.entity/Funding> = ..., kotlin/String? = ...) // com.mikepenz.aboutlibraries.entity/Library.<init>|<init>(kotlin.String;kotlin.String?;kotlin.String;kotlin.String?;kotlin.String?;kotlin.collections.List<com.mikepenz.aboutlibraries.entity.Developer>;com.mikepenz.aboutlibraries.entity.Organization?;com.mikepenz.aboutlibraries.entity.Scm?;kotlin.collections.Set<com.mikepenz.aboutlibraries.entity.License>;kotlin.collections.Set<com.mikepenz.aboutlibraries.entity.Funding>;kotlin.String?){}[0]
+
+    final val artifactId // com.mikepenz.aboutlibraries.entity/Library.artifactId|{}artifactId[0]
+        final fun <get-artifactId>(): kotlin/String // com.mikepenz.aboutlibraries.entity/Library.artifactId.<get-artifactId>|<get-artifactId>(){}[0]
+    final val artifactVersion // com.mikepenz.aboutlibraries.entity/Library.artifactVersion|{}artifactVersion[0]
+        final fun <get-artifactVersion>(): kotlin/String? // com.mikepenz.aboutlibraries.entity/Library.artifactVersion.<get-artifactVersion>|<get-artifactVersion>(){}[0]
+    final val description // com.mikepenz.aboutlibraries.entity/Library.description|{}description[0]
+        final fun <get-description>(): kotlin/String? // com.mikepenz.aboutlibraries.entity/Library.description.<get-description>|<get-description>(){}[0]
+    final val developers // com.mikepenz.aboutlibraries.entity/Library.developers|{}developers[0]
+        final fun <get-developers>(): kotlin.collections/List<com.mikepenz.aboutlibraries.entity/Developer> // com.mikepenz.aboutlibraries.entity/Library.developers.<get-developers>|<get-developers>(){}[0]
+    final val funding // com.mikepenz.aboutlibraries.entity/Library.funding|{}funding[0]
+        final fun <get-funding>(): kotlin.collections/Set<com.mikepenz.aboutlibraries.entity/Funding> // com.mikepenz.aboutlibraries.entity/Library.funding.<get-funding>|<get-funding>(){}[0]
+    final val licenses // com.mikepenz.aboutlibraries.entity/Library.licenses|{}licenses[0]
+        final fun <get-licenses>(): kotlin.collections/Set<com.mikepenz.aboutlibraries.entity/License> // com.mikepenz.aboutlibraries.entity/Library.licenses.<get-licenses>|<get-licenses>(){}[0]
+    final val name // com.mikepenz.aboutlibraries.entity/Library.name|{}name[0]
+        final fun <get-name>(): kotlin/String // com.mikepenz.aboutlibraries.entity/Library.name.<get-name>|<get-name>(){}[0]
+    final val openSource // com.mikepenz.aboutlibraries.entity/Library.openSource|{}openSource[0]
+        final fun <get-openSource>(): kotlin/Boolean // com.mikepenz.aboutlibraries.entity/Library.openSource.<get-openSource>|<get-openSource>(){}[0]
+    final val organization // com.mikepenz.aboutlibraries.entity/Library.organization|{}organization[0]
+        final fun <get-organization>(): com.mikepenz.aboutlibraries.entity/Organization? // com.mikepenz.aboutlibraries.entity/Library.organization.<get-organization>|<get-organization>(){}[0]
+    final val scm // com.mikepenz.aboutlibraries.entity/Library.scm|{}scm[0]
+        final fun <get-scm>(): com.mikepenz.aboutlibraries.entity/Scm? // com.mikepenz.aboutlibraries.entity/Library.scm.<get-scm>|<get-scm>(){}[0]
+    final val tag // com.mikepenz.aboutlibraries.entity/Library.tag|{}tag[0]
+        final fun <get-tag>(): kotlin/String? // com.mikepenz.aboutlibraries.entity/Library.tag.<get-tag>|<get-tag>(){}[0]
+    final val uniqueId // com.mikepenz.aboutlibraries.entity/Library.uniqueId|{}uniqueId[0]
+        final fun <get-uniqueId>(): kotlin/String // com.mikepenz.aboutlibraries.entity/Library.uniqueId.<get-uniqueId>|<get-uniqueId>(){}[0]
+    final val website // com.mikepenz.aboutlibraries.entity/Library.website|{}website[0]
+        final fun <get-website>(): kotlin/String? // com.mikepenz.aboutlibraries.entity/Library.website.<get-website>|<get-website>(){}[0]
+
+    final fun component1(): kotlin/String // com.mikepenz.aboutlibraries.entity/Library.component1|component1(){}[0]
+    final fun component10(): kotlin.collections/Set<com.mikepenz.aboutlibraries.entity/Funding> // com.mikepenz.aboutlibraries.entity/Library.component10|component10(){}[0]
+    final fun component11(): kotlin/String? // com.mikepenz.aboutlibraries.entity/Library.component11|component11(){}[0]
+    final fun component2(): kotlin/String? // com.mikepenz.aboutlibraries.entity/Library.component2|component2(){}[0]
+    final fun component3(): kotlin/String // com.mikepenz.aboutlibraries.entity/Library.component3|component3(){}[0]
+    final fun component4(): kotlin/String? // com.mikepenz.aboutlibraries.entity/Library.component4|component4(){}[0]
+    final fun component5(): kotlin/String? // com.mikepenz.aboutlibraries.entity/Library.component5|component5(){}[0]
+    final fun component6(): kotlin.collections/List<com.mikepenz.aboutlibraries.entity/Developer> // com.mikepenz.aboutlibraries.entity/Library.component6|component6(){}[0]
+    final fun component7(): com.mikepenz.aboutlibraries.entity/Organization? // com.mikepenz.aboutlibraries.entity/Library.component7|component7(){}[0]
+    final fun component8(): com.mikepenz.aboutlibraries.entity/Scm? // com.mikepenz.aboutlibraries.entity/Library.component8|component8(){}[0]
+    final fun component9(): kotlin.collections/Set<com.mikepenz.aboutlibraries.entity/License> // com.mikepenz.aboutlibraries.entity/Library.component9|component9(){}[0]
+    final fun copy(kotlin/String = ..., kotlin/String? = ..., kotlin/String = ..., kotlin/String? = ..., kotlin/String? = ..., kotlin.collections/List<com.mikepenz.aboutlibraries.entity/Developer> = ..., com.mikepenz.aboutlibraries.entity/Organization? = ..., com.mikepenz.aboutlibraries.entity/Scm? = ..., kotlin.collections/Set<com.mikepenz.aboutlibraries.entity/License> = ..., kotlin.collections/Set<com.mikepenz.aboutlibraries.entity/Funding> = ..., kotlin/String? = ...): com.mikepenz.aboutlibraries.entity/Library // com.mikepenz.aboutlibraries.entity/Library.copy|copy(kotlin.String;kotlin.String?;kotlin.String;kotlin.String?;kotlin.String?;kotlin.collections.List<com.mikepenz.aboutlibraries.entity.Developer>;com.mikepenz.aboutlibraries.entity.Organization?;com.mikepenz.aboutlibraries.entity.Scm?;kotlin.collections.Set<com.mikepenz.aboutlibraries.entity.License>;kotlin.collections.Set<com.mikepenz.aboutlibraries.entity.Funding>;kotlin.String?){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.mikepenz.aboutlibraries.entity/Library.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.mikepenz.aboutlibraries.entity/Library.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // com.mikepenz.aboutlibraries.entity/Library.toString|toString(){}[0]
+
+    final object $serializer : kotlinx.serialization.internal/GeneratedSerializer<com.mikepenz.aboutlibraries.entity/Library> { // com.mikepenz.aboutlibraries.entity/Library.$serializer|null[0]
+        final val descriptor // com.mikepenz.aboutlibraries.entity/Library.$serializer.descriptor|{}descriptor[0]
+            final fun <get-descriptor>(): kotlinx.serialization.descriptors/SerialDescriptor // com.mikepenz.aboutlibraries.entity/Library.$serializer.descriptor.<get-descriptor>|<get-descriptor>(){}[0]
+
+        final fun childSerializers(): kotlin/Array<kotlinx.serialization/KSerializer<*>> // com.mikepenz.aboutlibraries.entity/Library.$serializer.childSerializers|childSerializers(){}[0]
+        final fun deserialize(kotlinx.serialization.encoding/Decoder): com.mikepenz.aboutlibraries.entity/Library // com.mikepenz.aboutlibraries.entity/Library.$serializer.deserialize|deserialize(kotlinx.serialization.encoding.Decoder){}[0]
+        final fun serialize(kotlinx.serialization.encoding/Encoder, com.mikepenz.aboutlibraries.entity/Library) // com.mikepenz.aboutlibraries.entity/Library.$serializer.serialize|serialize(kotlinx.serialization.encoding.Encoder;com.mikepenz.aboutlibraries.entity.Library){}[0]
+    }
+
+    final object Companion { // com.mikepenz.aboutlibraries.entity/Library.Companion|null[0]
+        final val $childSerializers // com.mikepenz.aboutlibraries.entity/Library.Companion.$childSerializers|{}$childSerializers[0]
+
+        final fun serializer(): kotlinx.serialization/KSerializer<com.mikepenz.aboutlibraries.entity/Library> // com.mikepenz.aboutlibraries.entity/Library.Companion.serializer|serializer(){}[0]
+    }
+}
+
+final class com.mikepenz.aboutlibraries.entity/License { // com.mikepenz.aboutlibraries.entity/License|null[0]
+    constructor <init>(kotlin/String, kotlin/String?, kotlin/String? = ..., kotlin/String? = ..., kotlin/String? = ..., kotlin/String) // com.mikepenz.aboutlibraries.entity/License.<init>|<init>(kotlin.String;kotlin.String?;kotlin.String?;kotlin.String?;kotlin.String?;kotlin.String){}[0]
+
+    final val hash // com.mikepenz.aboutlibraries.entity/License.hash|{}hash[0]
+        final fun <get-hash>(): kotlin/String // com.mikepenz.aboutlibraries.entity/License.hash.<get-hash>|<get-hash>(){}[0]
+    final val licenseContent // com.mikepenz.aboutlibraries.entity/License.licenseContent|{}licenseContent[0]
+        final fun <get-licenseContent>(): kotlin/String? // com.mikepenz.aboutlibraries.entity/License.licenseContent.<get-licenseContent>|<get-licenseContent>(){}[0]
+    final val name // com.mikepenz.aboutlibraries.entity/License.name|{}name[0]
+        final fun <get-name>(): kotlin/String // com.mikepenz.aboutlibraries.entity/License.name.<get-name>|<get-name>(){}[0]
+    final val spdxId // com.mikepenz.aboutlibraries.entity/License.spdxId|{}spdxId[0]
+        final fun <get-spdxId>(): kotlin/String? // com.mikepenz.aboutlibraries.entity/License.spdxId.<get-spdxId>|<get-spdxId>(){}[0]
+    final val url // com.mikepenz.aboutlibraries.entity/License.url|{}url[0]
+        final fun <get-url>(): kotlin/String? // com.mikepenz.aboutlibraries.entity/License.url.<get-url>|<get-url>(){}[0]
+    final val year // com.mikepenz.aboutlibraries.entity/License.year|{}year[0]
+        final fun <get-year>(): kotlin/String? // com.mikepenz.aboutlibraries.entity/License.year.<get-year>|<get-year>(){}[0]
+
+    final fun component1(): kotlin/String // com.mikepenz.aboutlibraries.entity/License.component1|component1(){}[0]
+    final fun component2(): kotlin/String? // com.mikepenz.aboutlibraries.entity/License.component2|component2(){}[0]
+    final fun component3(): kotlin/String? // com.mikepenz.aboutlibraries.entity/License.component3|component3(){}[0]
+    final fun component4(): kotlin/String? // com.mikepenz.aboutlibraries.entity/License.component4|component4(){}[0]
+    final fun component5(): kotlin/String? // com.mikepenz.aboutlibraries.entity/License.component5|component5(){}[0]
+    final fun component6(): kotlin/String // com.mikepenz.aboutlibraries.entity/License.component6|component6(){}[0]
+    final fun copy(kotlin/String = ..., kotlin/String? = ..., kotlin/String? = ..., kotlin/String? = ..., kotlin/String? = ..., kotlin/String = ...): com.mikepenz.aboutlibraries.entity/License // com.mikepenz.aboutlibraries.entity/License.copy|copy(kotlin.String;kotlin.String?;kotlin.String?;kotlin.String?;kotlin.String?;kotlin.String){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.mikepenz.aboutlibraries.entity/License.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.mikepenz.aboutlibraries.entity/License.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // com.mikepenz.aboutlibraries.entity/License.toString|toString(){}[0]
+
+    final object $serializer : kotlinx.serialization.internal/GeneratedSerializer<com.mikepenz.aboutlibraries.entity/License> { // com.mikepenz.aboutlibraries.entity/License.$serializer|null[0]
+        final val descriptor // com.mikepenz.aboutlibraries.entity/License.$serializer.descriptor|{}descriptor[0]
+            final fun <get-descriptor>(): kotlinx.serialization.descriptors/SerialDescriptor // com.mikepenz.aboutlibraries.entity/License.$serializer.descriptor.<get-descriptor>|<get-descriptor>(){}[0]
+
+        final fun childSerializers(): kotlin/Array<kotlinx.serialization/KSerializer<*>> // com.mikepenz.aboutlibraries.entity/License.$serializer.childSerializers|childSerializers(){}[0]
+        final fun deserialize(kotlinx.serialization.encoding/Decoder): com.mikepenz.aboutlibraries.entity/License // com.mikepenz.aboutlibraries.entity/License.$serializer.deserialize|deserialize(kotlinx.serialization.encoding.Decoder){}[0]
+        final fun serialize(kotlinx.serialization.encoding/Encoder, com.mikepenz.aboutlibraries.entity/License) // com.mikepenz.aboutlibraries.entity/License.$serializer.serialize|serialize(kotlinx.serialization.encoding.Encoder;com.mikepenz.aboutlibraries.entity.License){}[0]
+    }
+
+    final object Companion { // com.mikepenz.aboutlibraries.entity/License.Companion|null[0]
+        final fun serializer(): kotlinx.serialization/KSerializer<com.mikepenz.aboutlibraries.entity/License> // com.mikepenz.aboutlibraries.entity/License.Companion.serializer|serializer(){}[0]
+    }
+}
+
+final class com.mikepenz.aboutlibraries.entity/Organization { // com.mikepenz.aboutlibraries.entity/Organization|null[0]
+    constructor <init>(kotlin/String, kotlin/String?) // com.mikepenz.aboutlibraries.entity/Organization.<init>|<init>(kotlin.String;kotlin.String?){}[0]
+
+    final val name // com.mikepenz.aboutlibraries.entity/Organization.name|{}name[0]
+        final fun <get-name>(): kotlin/String // com.mikepenz.aboutlibraries.entity/Organization.name.<get-name>|<get-name>(){}[0]
+    final val url // com.mikepenz.aboutlibraries.entity/Organization.url|{}url[0]
+        final fun <get-url>(): kotlin/String? // com.mikepenz.aboutlibraries.entity/Organization.url.<get-url>|<get-url>(){}[0]
+
+    final fun component1(): kotlin/String // com.mikepenz.aboutlibraries.entity/Organization.component1|component1(){}[0]
+    final fun component2(): kotlin/String? // com.mikepenz.aboutlibraries.entity/Organization.component2|component2(){}[0]
+    final fun copy(kotlin/String = ..., kotlin/String? = ...): com.mikepenz.aboutlibraries.entity/Organization // com.mikepenz.aboutlibraries.entity/Organization.copy|copy(kotlin.String;kotlin.String?){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.mikepenz.aboutlibraries.entity/Organization.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.mikepenz.aboutlibraries.entity/Organization.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // com.mikepenz.aboutlibraries.entity/Organization.toString|toString(){}[0]
+
+    final object $serializer : kotlinx.serialization.internal/GeneratedSerializer<com.mikepenz.aboutlibraries.entity/Organization> { // com.mikepenz.aboutlibraries.entity/Organization.$serializer|null[0]
+        final val descriptor // com.mikepenz.aboutlibraries.entity/Organization.$serializer.descriptor|{}descriptor[0]
+            final fun <get-descriptor>(): kotlinx.serialization.descriptors/SerialDescriptor // com.mikepenz.aboutlibraries.entity/Organization.$serializer.descriptor.<get-descriptor>|<get-descriptor>(){}[0]
+
+        final fun childSerializers(): kotlin/Array<kotlinx.serialization/KSerializer<*>> // com.mikepenz.aboutlibraries.entity/Organization.$serializer.childSerializers|childSerializers(){}[0]
+        final fun deserialize(kotlinx.serialization.encoding/Decoder): com.mikepenz.aboutlibraries.entity/Organization // com.mikepenz.aboutlibraries.entity/Organization.$serializer.deserialize|deserialize(kotlinx.serialization.encoding.Decoder){}[0]
+        final fun serialize(kotlinx.serialization.encoding/Encoder, com.mikepenz.aboutlibraries.entity/Organization) // com.mikepenz.aboutlibraries.entity/Organization.$serializer.serialize|serialize(kotlinx.serialization.encoding.Encoder;com.mikepenz.aboutlibraries.entity.Organization){}[0]
+    }
+
+    final object Companion { // com.mikepenz.aboutlibraries.entity/Organization.Companion|null[0]
+        final fun serializer(): kotlinx.serialization/KSerializer<com.mikepenz.aboutlibraries.entity/Organization> // com.mikepenz.aboutlibraries.entity/Organization.Companion.serializer|serializer(){}[0]
+    }
+}
+
+final class com.mikepenz.aboutlibraries.entity/Scm { // com.mikepenz.aboutlibraries.entity/Scm|null[0]
+    constructor <init>(kotlin/String?, kotlin/String?, kotlin/String?) // com.mikepenz.aboutlibraries.entity/Scm.<init>|<init>(kotlin.String?;kotlin.String?;kotlin.String?){}[0]
+
+    final val connection // com.mikepenz.aboutlibraries.entity/Scm.connection|{}connection[0]
+        final fun <get-connection>(): kotlin/String? // com.mikepenz.aboutlibraries.entity/Scm.connection.<get-connection>|<get-connection>(){}[0]
+    final val developerConnection // com.mikepenz.aboutlibraries.entity/Scm.developerConnection|{}developerConnection[0]
+        final fun <get-developerConnection>(): kotlin/String? // com.mikepenz.aboutlibraries.entity/Scm.developerConnection.<get-developerConnection>|<get-developerConnection>(){}[0]
+    final val url // com.mikepenz.aboutlibraries.entity/Scm.url|{}url[0]
+        final fun <get-url>(): kotlin/String? // com.mikepenz.aboutlibraries.entity/Scm.url.<get-url>|<get-url>(){}[0]
+
+    final fun component1(): kotlin/String? // com.mikepenz.aboutlibraries.entity/Scm.component1|component1(){}[0]
+    final fun component2(): kotlin/String? // com.mikepenz.aboutlibraries.entity/Scm.component2|component2(){}[0]
+    final fun component3(): kotlin/String? // com.mikepenz.aboutlibraries.entity/Scm.component3|component3(){}[0]
+    final fun copy(kotlin/String? = ..., kotlin/String? = ..., kotlin/String? = ...): com.mikepenz.aboutlibraries.entity/Scm // com.mikepenz.aboutlibraries.entity/Scm.copy|copy(kotlin.String?;kotlin.String?;kotlin.String?){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.mikepenz.aboutlibraries.entity/Scm.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.mikepenz.aboutlibraries.entity/Scm.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // com.mikepenz.aboutlibraries.entity/Scm.toString|toString(){}[0]
+
+    final object $serializer : kotlinx.serialization.internal/GeneratedSerializer<com.mikepenz.aboutlibraries.entity/Scm> { // com.mikepenz.aboutlibraries.entity/Scm.$serializer|null[0]
+        final val descriptor // com.mikepenz.aboutlibraries.entity/Scm.$serializer.descriptor|{}descriptor[0]
+            final fun <get-descriptor>(): kotlinx.serialization.descriptors/SerialDescriptor // com.mikepenz.aboutlibraries.entity/Scm.$serializer.descriptor.<get-descriptor>|<get-descriptor>(){}[0]
+
+        final fun childSerializers(): kotlin/Array<kotlinx.serialization/KSerializer<*>> // com.mikepenz.aboutlibraries.entity/Scm.$serializer.childSerializers|childSerializers(){}[0]
+        final fun deserialize(kotlinx.serialization.encoding/Decoder): com.mikepenz.aboutlibraries.entity/Scm // com.mikepenz.aboutlibraries.entity/Scm.$serializer.deserialize|deserialize(kotlinx.serialization.encoding.Decoder){}[0]
+        final fun serialize(kotlinx.serialization.encoding/Encoder, com.mikepenz.aboutlibraries.entity/Scm) // com.mikepenz.aboutlibraries.entity/Scm.$serializer.serialize|serialize(kotlinx.serialization.encoding.Encoder;com.mikepenz.aboutlibraries.entity.Scm){}[0]
+    }
+
+    final object Companion { // com.mikepenz.aboutlibraries.entity/Scm.Companion|null[0]
+        final fun serializer(): kotlinx.serialization/KSerializer<com.mikepenz.aboutlibraries.entity/Scm> // com.mikepenz.aboutlibraries.entity/Scm.Companion.serializer|serializer(){}[0]
+    }
+}
+
+final class com.mikepenz.aboutlibraries.util/Result { // com.mikepenz.aboutlibraries.util/Result|null[0]
+    constructor <init>(kotlin.collections/List<com.mikepenz.aboutlibraries.entity/Library>, kotlin.collections/List<com.mikepenz.aboutlibraries.entity/License>) // com.mikepenz.aboutlibraries.util/Result.<init>|<init>(kotlin.collections.List<com.mikepenz.aboutlibraries.entity.Library>;kotlin.collections.List<com.mikepenz.aboutlibraries.entity.License>){}[0]
+
+    final val libraries // com.mikepenz.aboutlibraries.util/Result.libraries|{}libraries[0]
+        final fun <get-libraries>(): kotlin.collections/List<com.mikepenz.aboutlibraries.entity/Library> // com.mikepenz.aboutlibraries.util/Result.libraries.<get-libraries>|<get-libraries>(){}[0]
+    final val licenses // com.mikepenz.aboutlibraries.util/Result.licenses|{}licenses[0]
+        final fun <get-licenses>(): kotlin.collections/List<com.mikepenz.aboutlibraries.entity/License> // com.mikepenz.aboutlibraries.util/Result.licenses.<get-licenses>|<get-licenses>(){}[0]
+
+    final fun component1(): kotlin.collections/List<com.mikepenz.aboutlibraries.entity/Library> // com.mikepenz.aboutlibraries.util/Result.component1|component1(){}[0]
+    final fun component2(): kotlin.collections/List<com.mikepenz.aboutlibraries.entity/License> // com.mikepenz.aboutlibraries.util/Result.component2|component2(){}[0]
+}
+
+final class com.mikepenz.aboutlibraries/Libs { // com.mikepenz.aboutlibraries/Libs|null[0]
+    constructor <init>(kotlin.collections/List<com.mikepenz.aboutlibraries.entity/Library>, kotlin.collections/Set<com.mikepenz.aboutlibraries.entity/License>) // com.mikepenz.aboutlibraries/Libs.<init>|<init>(kotlin.collections.List<com.mikepenz.aboutlibraries.entity.Library>;kotlin.collections.Set<com.mikepenz.aboutlibraries.entity.License>){}[0]
+
+    final val libraries // com.mikepenz.aboutlibraries/Libs.libraries|{}libraries[0]
+        final fun <get-libraries>(): kotlin.collections/List<com.mikepenz.aboutlibraries.entity/Library> // com.mikepenz.aboutlibraries/Libs.libraries.<get-libraries>|<get-libraries>(){}[0]
+    final val licenses // com.mikepenz.aboutlibraries/Libs.licenses|{}licenses[0]
+        final fun <get-licenses>(): kotlin.collections/Set<com.mikepenz.aboutlibraries.entity/License> // com.mikepenz.aboutlibraries/Libs.licenses.<get-licenses>|<get-licenses>(){}[0]
+
+    final fun component1(): kotlin.collections/List<com.mikepenz.aboutlibraries.entity/Library> // com.mikepenz.aboutlibraries/Libs.component1|component1(){}[0]
+    final fun component2(): kotlin.collections/Set<com.mikepenz.aboutlibraries.entity/License> // com.mikepenz.aboutlibraries/Libs.component2|component2(){}[0]
+    final fun copy(kotlin.collections/List<com.mikepenz.aboutlibraries.entity/Library> = ..., kotlin.collections/Set<com.mikepenz.aboutlibraries.entity/License> = ...): com.mikepenz.aboutlibraries/Libs // com.mikepenz.aboutlibraries/Libs.copy|copy(kotlin.collections.List<com.mikepenz.aboutlibraries.entity.Library>;kotlin.collections.Set<com.mikepenz.aboutlibraries.entity.License>){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.mikepenz.aboutlibraries/Libs.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.mikepenz.aboutlibraries/Libs.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // com.mikepenz.aboutlibraries/Libs.toString|toString(){}[0]
+
+    final class Builder { // com.mikepenz.aboutlibraries/Libs.Builder|null[0]
+        constructor <init>() // com.mikepenz.aboutlibraries/Libs.Builder.<init>|<init>(){}[0]
+
+        final fun build(): com.mikepenz.aboutlibraries/Libs // com.mikepenz.aboutlibraries/Libs.Builder.build|build(){}[0]
+        final fun withJson(kotlin/String): com.mikepenz.aboutlibraries/Libs.Builder // com.mikepenz.aboutlibraries/Libs.Builder.withJson|withJson(kotlin.String){}[0]
+    }
+
+    final object $serializer : kotlinx.serialization.internal/GeneratedSerializer<com.mikepenz.aboutlibraries/Libs> { // com.mikepenz.aboutlibraries/Libs.$serializer|null[0]
+        final val descriptor // com.mikepenz.aboutlibraries/Libs.$serializer.descriptor|{}descriptor[0]
+            final fun <get-descriptor>(): kotlinx.serialization.descriptors/SerialDescriptor // com.mikepenz.aboutlibraries/Libs.$serializer.descriptor.<get-descriptor>|<get-descriptor>(){}[0]
+
+        final fun childSerializers(): kotlin/Array<kotlinx.serialization/KSerializer<*>> // com.mikepenz.aboutlibraries/Libs.$serializer.childSerializers|childSerializers(){}[0]
+        final fun deserialize(kotlinx.serialization.encoding/Decoder): com.mikepenz.aboutlibraries/Libs // com.mikepenz.aboutlibraries/Libs.$serializer.deserialize|deserialize(kotlinx.serialization.encoding.Decoder){}[0]
+        final fun serialize(kotlinx.serialization.encoding/Encoder, com.mikepenz.aboutlibraries/Libs) // com.mikepenz.aboutlibraries/Libs.$serializer.serialize|serialize(kotlinx.serialization.encoding.Encoder;com.mikepenz.aboutlibraries.Libs){}[0]
+    }
+
+    final object Companion { // com.mikepenz.aboutlibraries/Libs.Companion|null[0]
+        final val $childSerializers // com.mikepenz.aboutlibraries/Libs.Companion.$childSerializers|{}$childSerializers[0]
+
+        final fun serializer(): kotlinx.serialization/KSerializer<com.mikepenz.aboutlibraries/Libs> // com.mikepenz.aboutlibraries/Libs.Companion.serializer|serializer(){}[0]
+    }
+}
+
+final fun com.mikepenz.aboutlibraries.util/parseData(kotlin/String): com.mikepenz.aboutlibraries.util/Result // com.mikepenz.aboutlibraries.util/parseData|parseData(kotlin.String){}[0]

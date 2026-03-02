@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="header_item_id" type="id" />
+    <item name="library_item_id" type="id" />
+    <item name="library_simple_item_id" type="id" />
+    <item name="loader_item_id" type="id" />
+</resources>

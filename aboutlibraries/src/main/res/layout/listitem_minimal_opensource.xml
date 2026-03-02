@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/libraryName"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:ellipsize="end"
+    android:focusable="true"
+    android:foreground="?selectableItemBackgroundBorderless"
+    android:gravity="center_vertical"
+    android:maxLines="1"
+    android:paddingStart="16dp"
+    android:paddingTop="20dp"
+    android:paddingEnd="16dp"
+    android:paddingBottom="20dp"
+    android:textAppearance="?textAppearanceHeadline6"
+    tools:text="Library name" />

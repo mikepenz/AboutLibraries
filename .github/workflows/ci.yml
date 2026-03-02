@@ -1,0 +1,225 @@
+# Thanks to https://github.com/coil-kt/coil/blob/master/.github/workflows/ci.yml
+name: CI
+
+on:
+  push:
+    tags:
+      - '*'
+  pull_request:
+
+jobs:
+  publish_archives:
+    name: Publish Archives
+    if: startsWith(github.ref, 'refs/tags/')
+
+    strategy:
+      matrix:
+        os: [ macos-latest ] # , ubuntu-latest, windows-latest
+
+    runs-on: ${{matrix.os}}
+
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v6
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: 'zulu'
+          java-version: |
+            17
+            21
+
+      - name: Copy CI gradle.properties
+        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v5
+
+      - name: Cache konan
+        uses: actions/cache@v5
+        with:
+          path: ~/.konan
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            gradle-${{ runner.os }}-
+
+      - name: Release Plugin
+        if: matrix.os == 'macos-latest' && !contains(github.ref, '+')
+        run: |
+          cd plugin-build
+          ./gradlew publishPlugins --no-configuration-cache | true
+        env:
+          GRADLE_PUBLISH_KEY: ${{ secrets.GRADLE_PUBLISH_KEY }}
+          GRADLE_PUBLISH_SECRET: ${{ secrets.GRADLE_PUBLISH_SECRET }}
+
+      - name: Publish the macOS artifacts
+        if: matrix.os == 'macos-latest'
+        env:
+          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.NEXUS_USERNAME }}
+          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.NEXUS_PASSWORD }}
+          ORG_GRADLE_PROJECT_signingInMemoryKeyId: ${{ secrets.SIGNING_KEY_ID }}
+          ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.SIGNING_PRIVATE_KEY }}
+          ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGNING_PASSWORD }}
+        run: |
+          ./gradlew aboutlibraries-core:publishAllPublicationsToMavenCentralRepository --no-daemon -Plibrary_core_only --no-configure-on-demand --no-parallel --no-configuration-cache
+          ./gradlew aboutlibraries-compose:publishAllPublicationsToMavenCentralRepository -x test -x lint -Plibrary_compose_only --no-configure-on-demand --no-parallel --no-configuration-cache
+          ./gradlew aboutlibraries-compose-m2:publishAllPublicationsToMavenCentralRepository -x test -x lint -Plibrary_compose_only --no-configure-on-demand --no-parallel --no-configuration-cache
+          ./gradlew aboutlibraries-compose-m3:publishAllPublicationsToMavenCentralRepository -x test -x lint -Plibrary_compose_m3_only --no-configure-on-demand --no-parallel --no-configuration-cache
+          ./gradlew aboutlibraries-compose-wear-m3:publishAllPublicationsToMavenCentralRepository -x test -x lint -Plibrary_compose_wear_m3_only --no-configure-on-demand --no-parallel --no-configuration-cache
+          ./gradlew aboutlibraries:publishAllPublicationsToMavenCentralRepository -x test -x lint -Plibrary_only --no-configure-on-demand --no-parallel --no-configuration-cache
+
+      - name: Publish the windows artifact
+        if: matrix.os == 'windows-latest'
+        env:
+          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.NEXUS_USERNAME }}
+          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.NEXUS_PASSWORD }}
+          ORG_GRADLE_PROJECT_signingInMemoryKeyId: ${{ secrets.SIGNING_KEY_ID }}
+          ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.SIGNING_PRIVATE_KEY }}
+          ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGNING_PASSWORD }}
+        run: ./gradlew aboutlibraries-core:publishMingwX64PublicationToMavenCentralRepository -Plibrary_core_only --no-configure-on-demand --no-parallel --no-configuration-cache
+
+      - name: Publish the linux artifact
+        if: matrix.os == 'ubuntu-latest'
+        env:
+          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.NEXUS_USERNAME }}
+          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.NEXUS_PASSWORD }}
+          ORG_GRADLE_PROJECT_signingInMemoryKeyId: ${{ secrets.SIGNING_KEY_ID }}
+          ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.SIGNING_PRIVATE_KEY }}
+          ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGNING_PASSWORD }}
+        run: |
+          ./gradlew aboutlibraries-core:publishLinuxX64PublicationToMavenCentralRepository -Plibrary_core_only --no-configure-on-demand --no-parallel --no-configuration-cache
+
+  build:
+    name: Build
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 100
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: 'zulu'
+          java-version: |
+            17
+            21
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v5
+
+      - name: Validate gradle wrapper
+        uses: gradle/actions/wrapper-validation@v5
+
+      - name: Copy CI gradle.properties
+        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+
+      - name: Run Gradle Plugin Tests
+        run: |
+          cd plugin-build
+          ./gradlew test
+
+      - name: Publish Test Report
+        uses: mikepenz/action-junit-report@v6
+        if: success() || failure() # always run even if the previous step fails
+        with:
+          report_paths: 'plugin-build/plugin/build/test-results/test/TEST-*.xml'
+
+      - name: Publish plugin locally
+        run: |
+          cd plugin-build
+          ./gradlew publishToMavenLocal --no-configuration-cache
+
+      - name: Run Lint on Gradle Plugin
+        run: |
+          ./gradlew plugin-build:plugin:lint
+
+      - name: Build Debug
+        run: ./gradlew :sample:android:assembleDebug
+
+      - name: Run Api Validation
+        if: github.event_name  == 'pull_request'
+        run: ./gradlew apiCheck
+
+      - name: Run Tests
+        run: |
+          ./gradlew :sample:android:verifyPaparazzi
+
+      - name: Publish Test Report
+        if: false && (failure() || success()) && github.event_name == 'pull_request'
+        uses: mikepenz/action-junit-report@v6
+        with:
+          report_paths: '**/sample/android/build/test-results/testDebugUnitTest/TEST-*.xml'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          fail_on_failure: true
+          annotate_only: true
+          detailed_summary: true
+
+      - name: Archive Test Report
+        uses: actions/upload-artifact@v6
+        with:
+          name: "Test-Artifacts"
+          path: "sample/android/build/reports/paparazzi/debug/"
+
+      - name: Run Lint
+        if: github.event_name  == 'pull_request'
+        run: ./gradlew lintDebug
+
+      - name: Setup Ruby
+        if: github.event_name  == 'pull_request'
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+
+      - name: Run Danger
+        if: github.event_name  == 'pull_request'
+        run: |
+          gem install danger
+          bundle exec danger --dangerfile=Dangerfile --danger_id=danger-pr
+        env:
+          DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Prepare Keystore and Local.
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          echo "${{ secrets.KEYSTORE }}" > opensource.jks.asc
+          gpg -d --passphrase "${{ secrets.KEYSTORE_PASSPHRASE }}" --batch "opensource.jks.asc" > "sample/android/opensource.jks"
+
+      - name: Build Release App
+        if: startsWith(github.ref, 'refs/tags/')
+        run: ./gradlew sample:android:assembleRelease sample:android:bundleRelease -P"com.mikepenz.android.signing.enabled"="true" -P"com.mikepenz.android.signing.storeFile"="opensource.jks" -P"com.mikepenz.android.signing.storePassword"="${{ secrets.STORE_PASSWORD }}" -P"com.mikepenz.android.signing.keyAlias"="${{ secrets.KEY_ALIAS }}" -P"com.mikepenz.android.signing.keyPassword"="${{ secrets.KEY_PASSWORD }}"
+
+      - name: Collect artifacts
+        run: |
+          COLLECT_PWD=${PWD}
+          mkdir -p "artifacts"
+          find . -name "*-staging.apk" -type f -exec cp {} "artifacts" \;
+          find . -name "*-release.apk" -type f -exec cp {} "artifacts" \;
+          find . -name "*-release.aab" -type f -exec cp {} "artifacts" \;
+
+      - name: Archive Artifacts
+        uses: actions/upload-artifact@v6
+        with:
+          name: "App-Artifacts"
+          path: artifacts/*
+
+      - name: Build Changelog
+        id: github_release
+        uses: mikepenz/release-changelog-builder-action@v6
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          configuration: ".github/config/configuration.json"
+          ignorePreReleases: ${{ !contains(github.ref, '-') }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Release
+        uses: mikepenz/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          body: ${{steps.github_release.outputs.changelog}}
+          prerelease: ${{ contains(github.ref, '-rc') || contains(github.ref, '-b') || contains(github.ref, '-a') }}
+          files: artifacts/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

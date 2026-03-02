@@ -1,0 +1,44 @@
+{
+  "com.mikepenz:fastadapter": [
+    {
+      "platform": "GITHUB",
+      "url": "https://github.com/mikepenz"
+    }
+  ],
+  "com.mikepenz:fastadapter-extensions-expandable": [
+    {
+      "platform": "GITHUB",
+      "url": "https://github.com/mikepenz"
+    }
+  ],
+  "com.mikepenz:iconics-core": [
+    {
+      "platform": "GITHUB",
+      "url": "https://github.com/mikepenz"
+    }
+  ],
+  "com.mikepenz:iconics-typeface-api": [
+    {
+      "platform": "GITHUB",
+      "url": "https://github.com/mikepenz"
+    }
+  ],
+  "com.mikepenz:itemanimators": [
+    {
+      "platform": "GITHUB",
+      "url": "https://github.com/mikepenz"
+    }
+  ],
+  "com.mikepenz:material-design-iconic-typeface": [
+    {
+      "platform": "GITHUB",
+      "url": "https://github.com/mikepenz"
+    }
+  ],
+  "com.mikepenz:materialdrawer": [
+    {
+      "platform": "GITHUB",
+      "url": "https://github.com/mikepenz"
+    }
+  ]
+}

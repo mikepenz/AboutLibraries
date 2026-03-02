@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="AboutLibrariesTheme">
+        <attr name="aboutLibrariesStyle" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="AboutLibraries">
+        <attr name="aboutLibrariesCardBackground" format="color|reference" />
+        <attr name="aboutLibrariesDescriptionTitle" format="color|reference" />
+        <attr name="aboutLibrariesDescriptionText" format="color|reference" />
+        <attr name="aboutLibrariesDescriptionDivider" format="color|reference" />
+        <attr name="aboutLibrariesOpenSourceTitle" format="color|reference" />
+        <attr name="aboutLibrariesOpenSourceText" format="color|reference" />
+        <attr name="aboutLibrariesSpecialButtonText" format="color|reference" />
+        <attr name="aboutLibrariesOpenSourceDivider" format="color|reference" />
+    </declare-styleable>
+</resources>

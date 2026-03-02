@@ -1,0 +1,18 @@
+{
+  "uniqueId": "com.mikepenz:materialdrawer",
+  "developers": [
+    {
+      "name": "Mike Penz",
+      "organisationUrl": "https://mikepenz.dev"
+    }
+  ],
+  "funding": [
+    {
+      "platform": "GITHUB",
+      "url": "https://github.com/mikepenz"
+    }
+  ],
+  "description": "(Merged) The flexible, easy to use, all in one drawer library for your Android project.",
+  "name": "ABC MaterialDrawer Library",
+  "website": "https://github.com/mikepenz/MaterialDrawer"
+}

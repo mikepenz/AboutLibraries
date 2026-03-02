@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:focusable="true"
+    android:orientation="vertical"
+    android:paddingStart="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingEnd="@dimen/activity_horizontal_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin">
+
+    <ImageView
+        android:id="@+id/aboutIcon"
+        android:layout_width="@dimen/aboutImage_openSource"
+        android:layout_height="@dimen/aboutImage_openSource"
+        android:layout_gravity="center"
+        tools:src="@drawable/button_rect_normal" />
+
+    <TextView
+        android:id="@+id/aboutName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:gravity="center"
+        android:textAppearance="?textAppearanceHeadline5"
+        tools:text="About AppName" />
+
+    <TextView
+        android:id="@+id/aboutVersion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:gravity="center"
+        android:textAppearance="?textAppearanceSubtitle1"
+        tools:text="About version" />
+
+    <LinearLayout
+        android:id="@+id/aboutSpecialContainer"
+        style="?android:buttonBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/aboutSpecial1"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="6dp"
+            android:layout_marginRight="6dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:lines="1"
+            tools:text="Special 1" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/aboutSpecial2"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:lines="1"
+            tools:text="Special 2" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/aboutSpecial3"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginLeft="6dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:lines="1"
+            tools:text="Special 3" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/aboutDivider"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="4dp" />
+
+    <TextView
+        android:id="@+id/aboutDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:gravity="center"
+        android:padding="8dp"
+        android:textAppearance="?textAppearanceBody2"
+        tools:text="About description" />
+</LinearLayout>

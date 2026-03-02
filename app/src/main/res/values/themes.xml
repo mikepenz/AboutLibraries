@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="SampleApp.DayNight" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="aboutLibrariesStyle">@style/AboutLibrariesStyle</item>
+
+        <item name="android:windowTranslucentStatus">true</item>
+
+        <item name="android:statusBarColor">@color/immersive_bars</item>
+        <item name="android:navigationBarColor">@color/nav_bar</item>
+
+        <!-- CAB :D -->
+        <item name="windowActionModeOverlay">true</item>
+
+        <item name="toolbarStyle">@style/CustomToolbarStyle</item>
+        <item name="colorControlNormal">@color/customTestColor</item>
+    </style>
+
+    <style name="CustomToolbarStyle" parent="Widget.Material3.Toolbar">
+        <item name="android:background">?colorPrimary</item>
+        <item name="titleTextAppearance">@style/CustomTitleTextAppearance</item>
+        <item name="subtitleTextAppearance">@style/CustomSubTitleTextAppearance</item>
+    </style>
+
+    <style name="CustomTitleTextAppearance" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textColor">@color/customTestColor</item>
+    </style>
+
+    <style name="CustomSubTitleTextAppearance" parent="TextAppearance.Widget.AppCompat.Toolbar.Subtitle">
+        <item name="android:textColor">@color/customTestColor</item>
+    </style>
+</resources>

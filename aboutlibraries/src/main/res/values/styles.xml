@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AboutLibrariesStyle" parent="">
+        <!-- AboutLibraries specific values -->
+        <item name="aboutLibrariesCardBackground">?colorSurface</item>
+        <item name="aboutLibrariesDescriptionTitle">?android:textColorPrimary</item>
+        <item name="aboutLibrariesDescriptionText">?android:textColorSecondary</item>
+        <item name="aboutLibrariesDescriptionDivider">@color/description_divider</item>
+        <item name="aboutLibrariesOpenSourceTitle">?android:textColorPrimary</item>
+        <item name="aboutLibrariesOpenSourceText">?android:textColorSecondary</item>
+        <item name="aboutLibrariesSpecialButtonText">?android:textColorPrimary</item>
+        <item name="aboutLibrariesOpenSourceDivider">@color/opensource_divider</item>
+    </style>
+</resources>
