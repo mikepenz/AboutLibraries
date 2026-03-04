@@ -297,6 +297,19 @@ with the following contents:
     tools:keep="@raw/aboutlibraries" />
 ```
 
+If you are using a custom `values/aboutlibraries_description.xml` to configure the library description UI, the string resources it defines will also be removed by resource shrinking. Add them to the keep file as well:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:keep="@raw/aboutlibraries,
+                @string/aboutLibraries_showLicense,
+                @string/aboutLibraries_showVersion,
+                @string/aboutLibraries_description_name,
+                @string/aboutLibraries_description_showIcon,
+                @string/aboutLibraries_description_showVersion" />
+```
+
 </p>
 </details>
 
