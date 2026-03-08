@@ -297,6 +297,10 @@ with the following contents:
     tools:keep="@raw/aboutlibraries" />
 ```
 
+<details><summary><b>Legacy view-based UI: keeping description resource strings</b></summary>
+
+> **Note:** This only applies to the deprecated legacy view-based UI module (`aboutlibraries`). Consider migrating to the Compose-based UI instead.
+
 If you are using a custom `values/aboutlibraries_description.xml` to configure the library description UI, the string resources it defines will also be removed by resource shrinking. Add them to the keep file as well:
 
 ```xml
@@ -309,6 +313,8 @@ If you are using a custom `values/aboutlibraries_description.xml` to configure t
                 @string/aboutLibraries_description_showIcon,
                 @string/aboutLibraries_description_showVersion" />
 ```
+
+</details>
 
 </p>
 </details>
