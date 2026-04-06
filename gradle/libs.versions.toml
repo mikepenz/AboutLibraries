@@ -1,13 +1,13 @@
 [versions]
 # kotlin
-kotlinxSerialization = "1.9.0"
+kotlinxSerialization = "1.10.0"
 # androidx
-activity = "1.12.2"
+activity = "1.13.0"
 cardview = "1.0.0"
 constraintLayout = "2.2.1"
-core = "1.17.0"
+core = "1.18.0"
 lifecycle = { require = "2.10.0" }
-navigation = "2.9.6"
+navigation = "2.9.7"
 recyclerView = "1.4.0"
 # google
 material = "1.13.0"
@@ -16,7 +16,7 @@ fastAdapter = "5.7.0"
 iconics = "5.5.0"
 itemAnimators = "1.1.0"
 ivy = "2.5.3"
-modelBuilder = "3.9.12"
+modelBuilder = "3.9.14"
 materialDrawer = "9.0.2"
 okhttp = "5.3.2"
 
