@@ -92,6 +92,9 @@ jobs:
   build:
     name: Build
     runs-on: macos-latest
+    permissions:
+      contents: read
+      security-events: write
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -138,7 +141,7 @@ jobs:
         run: ./gradlew :sample:android:assembleDebug
 
       - name: Run Api Validation
-        if: github.event_name  == 'pull_request'
+        if: github.event_name == 'pull_request'
         run: ./gradlew apiCheck
 
       - name: Run Tests
@@ -162,23 +165,36 @@ jobs:
           path: "sample/android/build/reports/paparazzi/debug/"
 
       - name: Run Lint
-        if: github.event_name  == 'pull_request'
+        if: github.event_name == 'pull_request'
         run: ./gradlew lintDebug
 
-      - name: Setup Ruby
-        if: github.event_name  == 'pull_request'
-        uses: ruby/setup-ruby@v1
+      - name: Upload Lint SARIF (aboutlibraries)
+        if: always() && github.event_name == 'pull_request' && hashFiles('aboutlibraries/build/reports/lint-results-debug.sarif') != ''
+        uses: github/codeql-action/upload-sarif@v4
         with:
-          ruby-version: '3.3'
-          bundler-cache: true
+          sarif_file: 'aboutlibraries/build/reports/lint-results-debug.sarif'
+          category: lint-aboutlibraries
 
-      - name: Run Danger
-        if: github.event_name  == 'pull_request'
-        run: |
-          gem install danger
-          bundle exec danger --dangerfile=Dangerfile --danger_id=danger-pr
-        env:
-          DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload Lint SARIF (aboutlibraries-compose-wear-m3)
+        if: always() && github.event_name == 'pull_request' && hashFiles('aboutlibraries-compose-wear-m3/build/reports/lint-results-debug.sarif') != ''
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: 'aboutlibraries-compose-wear-m3/build/reports/lint-results-debug.sarif'
+          category: lint-aboutlibraries-compose-wear-m3
+
+      - name: Upload Lint SARIF (app)
+        if: always() && github.event_name == 'pull_request' && hashFiles('app/build/reports/lint-results-debug.sarif') != ''
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: 'app/build/reports/lint-results-debug.sarif'
+          category: lint-app
+
+      - name: Upload Lint SARIF (sample/android)
+        if: always() && github.event_name == 'pull_request' && hashFiles('sample/android/build/reports/lint-results-debug.sarif') != ''
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: 'sample/android/build/reports/lint-results-debug.sarif'
+          category: lint-sample-android
 
       - name: Prepare Keystore and Local.
         if: startsWith(github.ref, 'refs/tags/')
