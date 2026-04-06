@@ -168,21 +168,24 @@ jobs:
         if: github.event_name == 'pull_request'
         run: ./gradlew lintDebug
 
-      - name: Collect Lint SARIF reports
-        if: github.event_name == 'pull_request'
-        run: |
-          mkdir -p sarif-reports
-          find . -name "lint-results-debug.sarif" | while read f; do
-            module=$(echo "$f" | sed 's|^\./||' | sed 's|/build/reports/.*||' | sed 's|/|-|g')
-            cp "$f" "sarif-reports/${module}-lint.sarif"
-          done
-
       - name: Upload Lint SARIF
         if: always() && github.event_name == 'pull_request'
-        uses: github/codeql-action/upload-sarif@v4
-        with:
-          sarif_file: 'sarif-reports'
-          category: android-lint
+        run: |
+          find . -name "lint-results-debug.sarif" | while read f; do
+            module=$(echo "$f" | sed 's|^\./||' | sed 's|/build/reports/.*||' | sed 's|/|-|g')
+            echo "Uploading SARIF for module: ${module}"
+            gh api \
+              --method POST \
+              -H "Accept: application/vnd.github+json" \
+              -H "X-GitHub-Api-Version: 2022-11-28" \
+              /repos/${{ github.repository }}/code-scanning/sarifs \
+              -f "commit_sha=${{ github.event.pull_request.head.sha }}" \
+              -f "ref=refs/pull/${{ github.event.pull_request.number }}/head" \
+              -f "sarif=$(gzip -c "$f" | base64 -w0)" \
+              -f "category=android-lint-${module}" || true
+          done
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Prepare Keystore and Local.
         if: startsWith(github.ref, 'refs/tags/')
