@@ -1,0 +1,53 @@
+{
+  "$schema": "https://docs.renovateapp.com/renovate-schema.json",
+  "extends": [
+    "config:recommended"
+  ],
+  "pinDigests": true,
+  "osvVulnerabilityAlerts": true,
+  "vulnerabilityAlerts": {
+    "labels": [
+      "dependencies",
+      "security"
+    ],
+    "automerge": false,
+    "minimumReleaseAge": "0 days"
+  },
+  "labels": [
+    "dependencies"
+  ],
+  "minimumReleaseAge": "7 days",
+  "schedule": [
+    "before 6am on Monday"
+  ],
+  "timezone": "Europe/Berlin",
+  "packageRules": [
+    {
+      "matchDepTypes": [
+        "devDependencies"
+      ],
+      "matchUpdateTypes": [
+        "patch",
+        "minor"
+      ],
+      "automerge": true,
+      "platformAutomerge": false,
+      "groupName": "devDependency non-major updates",
+      "labels": [
+        "dependencies",
+        "javascript"
+      ]
+    },
+    {
+      "matchManagers": [
+        "github-actions"
+      ],
+      "automerge": true,
+      "groupName": "GitHub Actions updates",
+      "labels": [
+        "dependencies",
+        "github-actions"
+      ]
+    }
+  ]
+}
