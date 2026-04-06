@@ -41,9 +41,9 @@ This library collects dependency details, including licenses at compile time, an
 
 ## Latest releases 🛠
 
+- Compose 1.10.x | AGP 9 | [v14.0.0](https://github.com/mikepenz/AboutLibraries/tree/14.0.0)
 - Compose 1.10.x | [v13.2.1](https://github.com/mikepenz/AboutLibraries/tree/13.2.1)
 - Compose 1.9.x | Split Gradle Plugin | [v13.1.0](https://github.com/mikepenz/AboutLibraries/tree/13.1.0)
-- Compose 1.8.x | Refined Compose UI Design | [v12.2.4](https://github.com/mikepenz/AboutLibraries/tree/12.2.4)
 
 ## Gradle Plugin
 
@@ -275,6 +275,45 @@ Provide additional or modify existing licenses via a `.json` file per license.
   "name": "Android Software Development Kit License Agreement"
 }
 ```
+
+</p>
+</details>
+
+<details><summary><b>Optimized Resource Shrinking / AGP 9.0</b></summary>
+<p>
+
+## Optimized Resource Shrinking / AGP 9.0
+
+When [optimized resource shrinking](https://developer.android.com/topic/performance/app-optimization/enable-app-optimization#optimized-resource-shrinking-2)
+is enabled — or when using AGP 9.0, where it is enabled by default — the generated 
+`aboutlibraries.json` file may be removed during the shrinking step. To prevent this, add 
+a [resource keep file](https://developer.android.com/topic/performance/app-optimization/customize-which-resources-to-keep)
+with the following contents:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:keep="@raw/aboutlibraries" />
+```
+
+<details><summary><b>Legacy view-based UI: keeping description resource strings</b></summary>
+
+> **Note:** This only applies to the deprecated legacy view-based UI module (`aboutlibraries`). Consider migrating to the Compose-based UI instead.
+
+If you are using a custom `values/aboutlibraries_description.xml` to configure the library description UI, the string resources it defines will also be removed by resource shrinking. Add them to the keep file as well:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:keep="@raw/aboutlibraries,
+                @string/aboutLibraries_showLicense,
+                @string/aboutLibraries_showVersion,
+                @string/aboutLibraries_description_name,
+                @string/aboutLibraries_description_showIcon,
+                @string/aboutLibraries_description_showVersion" />
+```
+
+</details>
 
 </p>
 </details>

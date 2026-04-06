@@ -18,6 +18,8 @@ docs
 
 /.bundle/
 /vendor/*
-/.kotlin/
+.kotlin/
 
 iosApp/iosApp.xcodeproj
+/gradle-user-home/
+/tmp/

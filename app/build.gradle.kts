@@ -1,20 +1,17 @@
 import com.mikepenz.aboutlibraries.plugin.DuplicateMode
 import com.mikepenz.aboutlibraries.plugin.DuplicateRule
 import com.mikepenz.aboutlibraries.plugin.StrictMode
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
-import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 
 plugins {
-    id("com.mikepenz.convention.kotlin-multiplatform")
     id("com.mikepenz.convention.android-application")
     id("com.mikepenz.convention.compose")
     id("com.mikepenz.aboutlibraries.plugin")
     id("com.mikepenz.aboutlibraries.plugin.android")
+    alias(baseLibs.plugins.stabilityAnalyzer)
 }
 
 android {
-    namespace = "com.mikepenz.aboutlibraries.sample"
+    namespace = "com.mikepenz.aboutlibraries.sample.legacy"
 
     defaultConfig {
         base.archivesName = "AboutLibraries-v$versionName-c$versionCode"
@@ -30,6 +27,7 @@ android {
 
     buildFeatures {
         viewBinding = true
+        dataBinding = true
     }
 
     packaging {
@@ -40,73 +38,33 @@ android {
     }
 }
 
-kotlin {
-    androidTarget()
-
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64()
-    ).forEach { iosTarget ->
-        iosTarget.binaries.framework {
-            baseName = "ComposeApp"
-            isStatic = true
-        }
-    }
-
-    jvm("desktop")
-
-    @OptIn(ExperimentalWasmDsl::class)
-    wasmJs {
-        outputModuleName = "composeApp"
-        browser {
-            val rootDirPath = project.rootDir.path
-            val projectDirPath = project.projectDir.path
-            commonWebpackConfig {
-                outputFileName = "composeApp.js"
-                devServer = (devServer ?: KotlinWebpackConfig.DevServer()).apply {
-                    static = (static ?: mutableListOf()).apply {
-                        // Serve sources to debug inside browser
-                        add(rootDirPath)
-                        add(projectDirPath)
-                    }
-                }
-            }
-        }
-        binaries.executable()
-    }
-
-    sourceSets {
-        val desktopMain by getting
-
-        commonMain.dependencies {
-            // implementation(compose.desktop.currentOs)
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.material)
-            implementation(compose.material3)
-            implementation(compose.components.resources)
-            implementation(compose.components.uiToolingPreview)
-
-            implementation(project(":aboutlibraries-core"))
-            implementation(project(":aboutlibraries-compose-m2"))
-            implementation(project(":aboutlibraries-compose-m3"))
-
-            // Coroutines
-            implementation(baseLibs.kotlinx.coroutines.core)
-
-            // example for parent via a parent
-            // implementation("org.apache.commons:commons-csv:1.9.0")
-        }
-        desktopMain.dependencies {
-            implementation(compose.desktop.currentOs)
-            // implementation(libs.kotlinx.coroutinesSwing)
-        }
-    }
+composeCompiler {
+    stabilityConfigurationFiles.addAll(
+        rootProject.layout.projectDirectory.file("stability_config.conf"),
+    )
+    reportsDestination = layout.buildDirectory.dir("compose_compiler")
+    metricsDestination = layout.buildDirectory.dir("compose_compiler")
 }
 
 dependencies {
+    // implementation(compose.desktop.currentOs)
+    implementation(compose.runtime)
+    implementation(compose.foundation)
+    implementation(compose.material)
+    implementation(compose.material3)
+    implementation(compose.components.resources)
+    implementation(compose.components.uiToolingPreview)
+
     implementation(project(":aboutlibraries"))
+    implementation(project(":aboutlibraries-core"))
+    implementation(project(":aboutlibraries-compose-m2"))
+    implementation(project(":aboutlibraries-compose-m3"))
+
+    // Coroutines
+    implementation(baseLibs.kotlinx.coroutines.core)
+
+    // example for parent via a parent
+    // implementation("org.apache.commons:commons-csv:1.9.0")
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.cardView)
@@ -147,18 +105,6 @@ configurations.configureEach {
     resolutionStrategy.force(libs.iconics.core)
 }
 
-compose.desktop {
-    application {
-        mainClass = "com.mikepenz.aboutlibraries.sample.m3.MainKt"
-
-        nativeDistributions {
-            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "com.mikepenz.aboutlibraries.sample"
-            packageVersion = "1.0.0"
-        }
-    }
-}
-
 aboutLibraries {
     collect {
         // define the path configuration files are located in. E.g. additional libraries, licenses to add to the target .json
@@ -179,23 +125,6 @@ aboutLibraries {
 
         // Allows to enable the collection of funding information of differnet libraries
         // fetchRemoteFunding = true
-    }
-
-    export {
-        prettyPrint = true
-        outputFile = file("src/androidMain/composeResources/files/aboutlibraries.json")
-    }
-
-    exports {
-        create("desktop") {
-            prettyPrint = true
-            outputFile = file("src/desktopMain/composeResources/files/aboutlibraries.json")
-        }
-
-        create("wasmJs") {
-            prettyPrint = true
-            outputFile = file("src/wasmJsMain/composeResources/files/aboutlibraries.json")
-        }
     }
 
     license {

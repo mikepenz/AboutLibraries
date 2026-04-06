@@ -9,13 +9,14 @@ import com.mikepenz.aboutlibraries.plugin.mapping.License
 import com.mikepenz.aboutlibraries.plugin.model.ResultContainer
 import com.mikepenz.aboutlibraries.plugin.model.writeToDisk
 import com.mikepenz.aboutlibraries.plugin.util.forLicense
+import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.RegularFile
 import org.gradle.api.file.RegularFileProperty
-import org.gradle.api.provider.Property
 import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.Optional
+import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
 import org.slf4j.LoggerFactory
@@ -30,8 +31,8 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
     protected abstract val outputFile: RegularFileProperty
 
     @get:Optional
-    @get:Input
-    abstract val deprecated: Property<Boolean>
+    @get:OutputDirectory
+    abstract val outputDirectory: DirectoryProperty
 
     override fun getDescription(): String = "Exports dependency meta data from the current module.${variant.orNull?.let { " Filtered by variant: '$it'." } ?: ""}"
     override fun getGroup(): String = super.getGroup() ?: org.gradle.language.base.plugins.LifecycleBasePlugin.BUILD_GROUP
@@ -42,16 +43,21 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
         } else {
             val projectDirectory = project.layout.projectDirectory
             val buildDirectory = project.layout.buildDirectory
+            
+            // Capture extension values during configuration time to avoid accessing
+            // extension (which references project) during Provider evaluation
+            val exports = extension.exports
+            val export = extension.export
 
             @Suppress("DEPRECATION")
             val fileNameProvider = project.provider {
-                val config = extension.exports.findByName(variant.getOrElse(""))
-                config?.outputFileName?.orNull ?: extension.export.outputFileName.get()
+                val config = exports.findByName(variant.getOrElse(""))
+                config?.outputFileName?.orNull ?: export.outputFileName.get()
             }
 
             val outputFileProvider = project.provider {
-                val config = extension.exports.findByName(variant.getOrElse(""))
-                config?.outputFile?.orNull ?: extension.export.outputFile.orNull
+                val config = exports.findByName(variant.getOrElse(""))
+                config?.outputFile?.orNull ?: export.outputFile.orNull
             }
 
             val providers = project.providers
@@ -60,10 +66,10 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
             this.outputFile.set(
                 providers.gradleProperty("${PROP_PREFIX}${PROP_EXPORT_OUTPUT_FILE}").map { path -> projectDirectory.file(path) }.orElse(
                     providers.gradleProperty("${PROP_PREFIX}${PROP_EXPORT_OUTPUT_PATH}").map { path -> projectDirectory.file(path) }.orElse(
-                        providers.gradleProperty("${PROP_PREFIX}${PROP_EXPORT_PATH}").map { path -> projectDirectory.dir(path).file(fileNameProvider.get()) }.orElse(
-                            providers.gradleProperty(PROP_EXPORT_PATH).map { path -> projectDirectory.dir(path).file(fileNameProvider.get()) }).orElse(
+                        providers.gradleProperty("${PROP_PREFIX}${PROP_EXPORT_PATH}").flatMap { path -> fileNameProvider.map { filename -> projectDirectory.dir(path).file(filename) } }.orElse(
+                            providers.gradleProperty(PROP_EXPORT_PATH).flatMap { path -> fileNameProvider.map { filename -> projectDirectory.dir(path).file(filename) } }).orElse(
                             outputFileProvider.orElse(
-                                buildDirectory.dir("generated/aboutLibraries/").map { it.file(fileNameProvider.get()) }
+                                buildDirectory.dir("generated/aboutLibraries/").flatMap { dir -> fileNameProvider.map { filename -> dir.file(filename) } }
                             )
                         )
                     )
@@ -74,10 +80,6 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
 
     @TaskAction
     fun action() {
-        if (deprecated.isPresent && deprecated.get()) {
-            LOGGER.warn("`generateLibraryDefinitions${variant.orElse("").get()}` is deprecated. Please use `exportLibraryDefinitions${variant.orElse("").get()}` instead.")
-        }
-
         val output = outputFile.get().asFile
         if (!output.parentFile.exists()) {
             output.parentFile.mkdirs() // verify output exists

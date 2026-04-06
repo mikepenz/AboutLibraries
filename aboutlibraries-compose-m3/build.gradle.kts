@@ -1,20 +1,22 @@
 plugins {
-    id("com.mikepenz.convention.android-library")
     id("com.mikepenz.convention.kotlin-multiplatform")
     id("com.mikepenz.convention.compose")
     id("com.mikepenz.convention.publishing")
-    alias(baseLibs.plugins.screenshot)
+    alias(baseLibs.plugins.stabilityAnalyzer)
 }
 
-android {
-    namespace = "com.mikepenz.aboutlibraries.ui.compose.m3"
-
-    @Suppress("UnstableApiUsage")
-    experimentalProperties["android.experimental.enableScreenshotTest"] = true
+composeCompiler {
+    stabilityConfigurationFiles.addAll(
+        rootProject.layout.projectDirectory.file("stability_config.conf"),
+    )
+    reportsDestination = layout.buildDirectory.dir("compose_compiler")
+    metricsDestination = layout.buildDirectory.dir("compose_compiler")
 }
 
 kotlin {
-    applyDefaultHierarchyTemplate()
+    android {
+        namespace = "com.mikepenz.aboutlibraries.ui.compose.m3"
+    }
 
     sourceSets {
         val commonMain by getting {
@@ -36,15 +38,6 @@ kotlin {
             }
         }
     }
-}
-
-dependencies {
-    debugImplementation(compose.uiTooling)
-
-    screenshotTestImplementation(compose.runtime)
-    screenshotTestImplementation(compose.ui)
-    screenshotTestImplementation(compose.foundation)
-    screenshotTestImplementation(compose.material3)
 }
 
 configurations.configureEach {
