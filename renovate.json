@@ -23,24 +23,13 @@
   "timezone": "Europe/Berlin",
   "packageRules": [
     {
-      "matchDepTypes": [
-        "devDependencies"
-      ],
-      "matchUpdateTypes": [
-        "patch",
-        "minor"
-      ],
-      "automerge": true,
-      "platformAutomerge": false,
-      "groupName": "devDependency non-major updates",
-      "labels": [
-        "dependencies",
-        "javascript"
-      ]
-    },
-    {
       "matchManagers": [
         "github-actions"
+      ],
+      "matchUpdateTypes": [
+        "digest",
+        "patch",
+        "minor"
       ],
       "automerge": true,
       "groupName": "GitHub Actions updates",
