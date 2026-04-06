@@ -168,20 +168,33 @@ jobs:
         if: github.event_name == 'pull_request'
         run: ./gradlew lintDebug
 
-      - name: Merge Lint SARIF reports
-        if: always() && github.event_name == 'pull_request'
-        run: |
-          files=$(find . -name "lint-results-debug.sarif" | tr '\n' ' ')
-          if [ -n "$files" ]; then
-            jq -s '{version: .[0].version, runs: [.[].runs[]]}' $files > merged-lint.sarif
-          fi
-
-      - name: Upload Lint SARIF
-        if: always() && github.event_name == 'pull_request' && hashFiles('merged-lint.sarif') != ''
+      - name: Upload Lint SARIF (aboutlibraries)
+        if: always() && github.event_name == 'pull_request' && hashFiles('aboutlibraries/build/reports/lint-results-debug.sarif') != ''
         uses: github/codeql-action/upload-sarif@v4
         with:
-          sarif_file: 'merged-lint.sarif'
-          category: android-lint
+          sarif_file: 'aboutlibraries/build/reports/lint-results-debug.sarif'
+          category: lint-aboutlibraries
+
+      - name: Upload Lint SARIF (aboutlibraries-compose-wear-m3)
+        if: always() && github.event_name == 'pull_request' && hashFiles('aboutlibraries-compose-wear-m3/build/reports/lint-results-debug.sarif') != ''
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: 'aboutlibraries-compose-wear-m3/build/reports/lint-results-debug.sarif'
+          category: lint-aboutlibraries-compose-wear-m3
+
+      - name: Upload Lint SARIF (app)
+        if: always() && github.event_name == 'pull_request' && hashFiles('app/build/reports/lint-results-debug.sarif') != ''
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: 'app/build/reports/lint-results-debug.sarif'
+          category: lint-app
+
+      - name: Upload Lint SARIF (sample/android)
+        if: always() && github.event_name == 'pull_request' && hashFiles('sample/android/build/reports/lint-results-debug.sarif') != ''
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: 'sample/android/build/reports/lint-results-debug.sarif'
+          category: lint-sample-android
 
       - name: Prepare Keystore and Local.
         if: startsWith(github.ref, 'refs/tags/')
