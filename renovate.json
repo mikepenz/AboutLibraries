@@ -24,6 +24,24 @@
   "packageRules": [
     {
       "matchManagers": [
+        "gradle",
+        "gradle-wrapper",
+        "maven"
+      ],
+      "matchUpdateTypes": [
+        "patch",
+        "minor"
+      ],
+      "automerge": true,
+      "platformAutomerge": true,
+      "groupName": "gradle/maven non-major updates",
+      "labels": [
+        "dependencies",
+        "gradle"
+      ]
+    },
+    {
+      "matchManagers": [
         "github-actions"
       ],
       "matchUpdateTypes": [
