@@ -87,7 +87,7 @@ dependencies {
 
     // used to display the icons in the drawer
     // https://github.com/mikepenz/Android-Iconicsx`
-    implementation("com.mikepenz:material-design-iconic-typeface:2.2.0.8-kotlin@aar")
+    implementation("com.mikepenz:material-design-iconic-typeface:2.2.0.10-kotlin@aar")
 
     // used only tho showcase multi flavor support
     "stagingImplementation"(libs.okhttp.core)
