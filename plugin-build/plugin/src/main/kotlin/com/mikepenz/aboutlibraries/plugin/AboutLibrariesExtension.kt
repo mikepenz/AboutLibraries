@@ -9,7 +9,6 @@ import org.gradle.api.provider.Property
 import org.gradle.api.provider.SetProperty
 import org.gradle.api.tasks.Nested
 import org.gradle.api.tasks.Optional
-import java.util.regex.Pattern
 import javax.inject.Inject
 
 abstract class AboutLibrariesExtension {
@@ -407,18 +406,20 @@ abstract class LibraryConfig @Inject constructor() {
     abstract val requireLicense: Property<Boolean>
 
     /**
-     * A list of patterns (matching on the library `uniqueId` ($groupId:$artifactId)) to exclude libraries.
+     * A list of regex patterns (matching on the library `uniqueId` ($groupId:$artifactId)) to exclude libraries.
+     *
+     * Each string is compiled to a [Regex] at execution time, so standard Java/Kotlin regex syntax applies.
      *
      * ```
      * aboutLibraries {
      *   library {
-     *      exclusionPatterns.addAll(Pattern.compile("com\.company\..*")))
+     *      exclusionPatterns.addAll("com\\.company\\..*")
      *   }
      * }
      * ```
      */
     @get:Optional
-    abstract val exclusionPatterns: SetProperty<Pattern>
+    abstract val exclusionPatterns: SetProperty<String>
 
     /**
      * Defines the plugins behavior in case of duplicates.

@@ -60,6 +60,108 @@ class ConfigurationCacheTest {
         assertTrue(result.output.contains("Configuration cache entry stored"))
     }
 
+    /**
+     * Verifies that the configuration cache survives across builds even when the plugin needs to
+     * resolve parent POMs with overlapping group:artifact but different versions
+     * (e.g. `guava-parent:33.3.1-jre` and `guava-parent:26.0-android`).
+     */
+    @Test
+    fun `configuration cache works with multi-version parent POMs`() {
+        File(projectDir, "settings.gradle.kts").writeText("""rootProject.name = "test-project"""")
+        File(projectDir, "build.gradle.kts").writeText(
+            """
+            plugins {
+                id("java-library")
+                id("com.mikepenz.aboutlibraries.plugin")
+            }
+            repositories { mavenCentral() }
+            dependencies {
+                // guava pulls failureaccess (whose parent is guava-parent:26.0-android)
+                // and itself uses guava-parent:33.3.1-jre — both must resolve.
+                implementation("com.google.guava:guava:33.3.1-jre")
+            }
+            aboutLibraries { offlineMode = true }
+            """.trimIndent()
+        )
+
+        @Suppress("WithPluginClasspathUsage")
+        val first = GradleRunner.create()
+            .withProjectDir(projectDir)
+            .withArguments("exportLibraryDefinitions", "--configuration-cache", "--stacktrace")
+            .withPluginClasspath()
+            .build()
+        assertTrue(first.output.contains("Configuration cache entry stored"))
+        assertEquals(TaskOutcome.SUCCESS, first.task(":exportLibraryDefinitions")?.outcome)
+
+        val firstOutput = File(projectDir, "build/generated/aboutLibraries/aboutlibraries.json").readText()
+        assertTrue(firstOutput.contains("Kevin Bourrillion"), "Should inherit dev from guava-parent")
+
+        @Suppress("WithPluginClasspathUsage")
+        val second = GradleRunner.create()
+            .withProjectDir(projectDir)
+            .withArguments("exportLibraryDefinitions", "--configuration-cache", "--stacktrace")
+            .withPluginClasspath()
+            .build()
+        assertTrue(second.output.contains("Configuration cache entry reused"))
+        assertEquals(TaskOutcome.UP_TO_DATE, second.task(":exportLibraryDefinitions")?.outcome)
+    }
+
+    /**
+     * Project isolation is the strict-mode evolution of configuration cache. Tasks must not
+     * reach across project boundaries at execution time. This test enables both
+     * `--configuration-cache` and `org.gradle.unsafe.isolated-projects=true` and confirms the
+     * plugin's task graph is registered without isolation problems.
+     */
+    @Test
+    fun `plugin should work with project isolation enabled`() {
+        File(projectDir, "settings.gradle.kts").writeText("""rootProject.name = "test-project"""")
+        File(projectDir, "gradle.properties").writeText(
+            """
+            org.gradle.unsafe.isolated-projects=true
+            org.gradle.configuration-cache=true
+            """.trimIndent()
+        )
+        File(projectDir, "build.gradle.kts").writeText(
+            """
+            plugins {
+                id("java-library")
+                id("com.mikepenz.aboutlibraries.plugin")
+            }
+            repositories { mavenCentral() }
+            dependencies {
+                implementation("com.google.code.gson:gson:2.11.0")
+            }
+            aboutLibraries { offlineMode = true }
+            """.trimIndent()
+        )
+
+        @Suppress("WithPluginClasspathUsage")
+        val first = GradleRunner.create()
+            .withProjectDir(projectDir)
+            .withArguments("exportLibraryDefinitions", "--stacktrace")
+            .withPluginClasspath()
+            .build()
+        assertEquals(TaskOutcome.SUCCESS, first.task(":exportLibraryDefinitions")?.outcome)
+        // Project isolation should NOT discard the cache entry due to plugin code.
+        assertFalse(
+            first.output.contains("Configuration cache entry discarded"),
+            "Plugin must not cause project-isolation problems. Output: ${first.output}"
+        )
+
+        // Second run reuses the cache.
+        @Suppress("WithPluginClasspathUsage")
+        val second = GradleRunner.create()
+            .withProjectDir(projectDir)
+            .withArguments("exportLibraryDefinitions", "--stacktrace")
+            .withPluginClasspath()
+            .build()
+        assertTrue(
+            second.output.contains("Configuration cache entry reused") ||
+                second.output.contains("Reusing configuration cache"),
+            "Cache should be reused on second run. Output: ${second.output}"
+        )
+    }
+
     @Test
     fun `configuration cache should work with multiple variants`() {
         setupProjectWithMultipleVariants(projectDir)
@@ -102,8 +204,8 @@ class ConfigurationCacheTest {
             }
             
             dependencies {
-                implementation("com.google.code.gson:gson:2.10.1")
-                implementation("org.slf4j:slf4j-api:2.0.9")
+                implementation("com.google.code.gson:gson:2.11.0")
+                implementation("org.slf4j:slf4j-api:2.0.16")
             }
             
             aboutLibraries {
@@ -136,7 +238,7 @@ class ConfigurationCacheTest {
             }
             
             dependencies {
-                implementation("com.google.code.gson:gson:2.10.1")
+                implementation("com.google.code.gson:gson:2.11.0")
                 "customConfig"("junit:junit:4.13.2")
                 testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
             }
