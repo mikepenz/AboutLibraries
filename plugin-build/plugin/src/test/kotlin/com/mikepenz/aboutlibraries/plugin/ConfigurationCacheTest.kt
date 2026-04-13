@@ -267,6 +267,217 @@ class ConfigurationCacheTest {
         assertFalse(output.contains("io.mockk:mockk"), "mockk from desktopTest classpath must NOT leak into output")
     }
 
+    /**
+     * The previous CC tests only proved the *reuse* path. This locks in the *invalidation* path:
+     * when a declared dependency version changes, the @Input `configToCoordinates` map value
+     * differs, so both the configuration cache entry AND the task up-to-date state must
+     * invalidate, the task must re-run, and the new version must show up in the output.
+     */
+    @Test
+    fun `configuration cache invalidates when dependency version changes`() {
+        File(projectDir, "settings.gradle.kts").writeText("""rootProject.name = "test-project"""")
+        val buildFile = File(projectDir, "build.gradle.kts")
+        fun writeBuild(gsonVersion: String) {
+            buildFile.writeText(
+                """
+                plugins {
+                    id("java-library")
+                    id("com.mikepenz.aboutlibraries.plugin")
+                }
+                repositories { mavenCentral() }
+                dependencies {
+                    implementation("com.google.code.gson:gson:$gsonVersion")
+                }
+                aboutLibraries { offlineMode = true }
+                """.trimIndent()
+            )
+        }
+
+        writeBuild("2.11.0")
+        @Suppress("WithPluginClasspathUsage")
+        val first = GradleRunner.create()
+            .withProjectDir(projectDir)
+            .withArguments("exportLibraryDefinitions", "--configuration-cache", "--stacktrace")
+            .withPluginClasspath()
+            .build()
+        assertTrue(first.output.contains("Configuration cache entry stored"))
+        assertEquals(TaskOutcome.SUCCESS, first.task(":exportLibraryDefinitions")?.outcome)
+        val firstOutput = File(projectDir, "build/generated/aboutLibraries/aboutlibraries.json").readText()
+        assertTrue(firstOutput.contains("\"artifactVersion\":\"2.11.0\""), "First run should contain gson 2.11.0")
+
+        // Bump the version. CC must invalidate, task must re-run, output must reflect 2.10.1.
+        writeBuild("2.10.1")
+        @Suppress("WithPluginClasspathUsage")
+        val second = GradleRunner.create()
+            .withProjectDir(projectDir)
+            .withArguments("exportLibraryDefinitions", "--configuration-cache", "--stacktrace")
+            .withPluginClasspath()
+            .build()
+        assertFalse(
+            second.output.contains("Configuration cache entry reused"),
+            "CC must NOT be reused after a dependency version change. Output: ${second.output}"
+        )
+        assertEquals(
+            TaskOutcome.SUCCESS,
+            second.task(":exportLibraryDefinitions")?.outcome,
+            "Task must re-execute after dependency version change"
+        )
+        val secondOutput = File(projectDir, "build/generated/aboutLibraries/aboutlibraries.json").readText()
+        assertTrue(secondOutput.contains("\"artifactVersion\":\"2.10.1\""), "Second run should reflect gson 2.10.1")
+        assertFalse(secondOutput.contains("\"artifactVersion\":\"2.11.0\""), "Stale 2.11.0 must not remain")
+    }
+
+    /**
+     * Adding a new `exclusionPatterns` entry must invalidate the CC entry (the @Input
+     * `exclusionPatterns` value differs), re-run the task, and remove the matching library
+     * from the output JSON.
+     */
+    @Test
+    fun `configuration cache invalidates when exclusionPatterns is added`() {
+        File(projectDir, "settings.gradle.kts").writeText("""rootProject.name = "test-project"""")
+        val buildFile = File(projectDir, "build.gradle.kts")
+        fun writeBuild(withExclusion: Boolean) {
+            val exclusionBlock = if (withExclusion) {
+                """library { exclusionPatterns.add("com\\.google\\.code\\.gson:.*") }"""
+            } else ""
+            buildFile.writeText(
+                """
+                plugins {
+                    id("java-library")
+                    id("com.mikepenz.aboutlibraries.plugin")
+                }
+                repositories { mavenCentral() }
+                dependencies {
+                    implementation("com.google.code.gson:gson:2.11.0")
+                    implementation("org.slf4j:slf4j-api:2.0.16")
+                }
+                aboutLibraries {
+                    offlineMode = true
+                    $exclusionBlock
+                }
+                """.trimIndent()
+            )
+        }
+
+        writeBuild(withExclusion = false)
+        @Suppress("WithPluginClasspathUsage")
+        val first = GradleRunner.create()
+            .withProjectDir(projectDir)
+            .withArguments("exportLibraryDefinitions", "--configuration-cache", "--stacktrace")
+            .withPluginClasspath()
+            .build()
+        assertTrue(first.output.contains("Configuration cache entry stored"))
+        assertTrue(
+            File(projectDir, "build/generated/aboutLibraries/aboutlibraries.json").readText()
+                .contains("com.google.code.gson:gson"),
+            "gson should be present before exclusion"
+        )
+
+        writeBuild(withExclusion = true)
+        @Suppress("WithPluginClasspathUsage")
+        val second = GradleRunner.create()
+            .withProjectDir(projectDir)
+            .withArguments("exportLibraryDefinitions", "--configuration-cache", "--stacktrace")
+            .withPluginClasspath()
+            .build()
+        assertFalse(
+            second.output.contains("Configuration cache entry reused"),
+            "CC must invalidate when exclusionPatterns changes. Output: ${second.output}"
+        )
+        assertEquals(TaskOutcome.SUCCESS, second.task(":exportLibraryDefinitions")?.outcome)
+        val secondOutput = File(projectDir, "build/generated/aboutLibraries/aboutlibraries.json").readText()
+        assertFalse(secondOutput.contains("com.google.code.gson:gson"), "gson must be excluded")
+        assertTrue(secondOutput.contains("org.slf4j:slf4j-api"), "slf4j must remain")
+    }
+
+    /**
+     * The previous `plugin should work with project isolation enabled` test is single-project,
+     * so isolated-projects is effectively a no-op there. This test exercises the real property:
+     * a multi-module build (`include(":a", ":b")`) where each subproject applies the plugin
+     * independently. With `isolated-projects=true` + CC, both tasks must run, neither must
+     * cause an isolation violation, and their outputs must NOT cross-contaminate.
+     */
+    @Test
+    fun `plugin works in multi-module build with project isolation enabled`() {
+        File(projectDir, "settings.gradle.kts").writeText(
+            """
+            rootProject.name = "test-multi"
+            include(":moda", ":modb")
+            """.trimIndent()
+        )
+        File(projectDir, "gradle.properties").writeText(
+            """
+            org.gradle.unsafe.isolated-projects=true
+            org.gradle.configuration-cache=true
+            """.trimIndent()
+        )
+        File(projectDir, "build.gradle.kts").writeText("")
+        File(projectDir, "moda").mkdirs()
+        File(projectDir, "moda/build.gradle.kts").writeText(
+            """
+            plugins {
+                id("java-library")
+                id("com.mikepenz.aboutlibraries.plugin")
+            }
+            repositories { mavenCentral() }
+            dependencies {
+                implementation("com.google.code.gson:gson:2.11.0")
+            }
+            aboutLibraries { offlineMode = true }
+            """.trimIndent()
+        )
+        File(projectDir, "modb").mkdirs()
+        File(projectDir, "modb/build.gradle.kts").writeText(
+            """
+            plugins {
+                id("java-library")
+                id("com.mikepenz.aboutlibraries.plugin")
+            }
+            repositories { mavenCentral() }
+            dependencies {
+                implementation("org.slf4j:slf4j-api:2.0.16")
+            }
+            aboutLibraries { offlineMode = true }
+            """.trimIndent()
+        )
+
+        @Suppress("WithPluginClasspathUsage")
+        val first = GradleRunner.create()
+            .withProjectDir(projectDir)
+            .withArguments(":moda:exportLibraryDefinitions", ":modb:exportLibraryDefinitions", "--stacktrace")
+            .withPluginClasspath()
+            .build()
+        assertEquals(TaskOutcome.SUCCESS, first.task(":moda:exportLibraryDefinitions")?.outcome)
+        assertEquals(TaskOutcome.SUCCESS, first.task(":modb:exportLibraryDefinitions")?.outcome)
+        assertFalse(
+            first.output.contains("Configuration cache entry discarded"),
+            "Plugin must not cause isolated-projects violations across subprojects. Output: ${first.output}"
+        )
+
+        // Per-module output isolation: each module only sees its own deps.
+        val modaJson = File(projectDir, "moda/build/generated/aboutLibraries/aboutlibraries.json").readText()
+        val modbJson = File(projectDir, "modb/build/generated/aboutLibraries/aboutlibraries.json").readText()
+        assertTrue(modaJson.contains("com.google.code.gson:gson"), "moda must contain gson")
+        assertFalse(modaJson.contains("org.slf4j:slf4j-api"), "moda must NOT contain modb's slf4j")
+        assertTrue(modbJson.contains("org.slf4j:slf4j-api"), "modb must contain slf4j")
+        assertFalse(modbJson.contains("com.google.code.gson:gson"), "modb must NOT contain moda's gson")
+
+        // Second run must reuse CC and both tasks must be UP-TO-DATE.
+        @Suppress("WithPluginClasspathUsage")
+        val second = GradleRunner.create()
+            .withProjectDir(projectDir)
+            .withArguments(":moda:exportLibraryDefinitions", ":modb:exportLibraryDefinitions", "--stacktrace")
+            .withPluginClasspath()
+            .build()
+        assertTrue(
+            second.output.contains("Configuration cache entry reused") ||
+                second.output.contains("Reusing configuration cache"),
+            "CC should be reused on second run. Output: ${second.output}"
+        )
+        assertEquals(TaskOutcome.UP_TO_DATE, second.task(":moda:exportLibraryDefinitions")?.outcome)
+        assertEquals(TaskOutcome.UP_TO_DATE, second.task(":modb:exportLibraryDefinitions")?.outcome)
+    }
+
     @Test
     fun `configuration cache should work with multiple variants`() {
         setupProjectWithMultipleVariants(projectDir)
