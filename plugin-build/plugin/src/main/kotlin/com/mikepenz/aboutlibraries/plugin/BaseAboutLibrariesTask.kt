@@ -226,7 +226,9 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
             val coordKeysProvider = config.incoming.resolutionResult.rootComponent.map { root ->
                 DependencyCollector(capturedIncludePlatform)
                     .loadDependencyCoordinates(root)
-                    .joinToString("|") { it.cacheKey() }
+                    .map { it.cacheKey() }
+                    .sorted()
+                    .joinToString("|")
             }
             configToCoordinateKeys.put(config.name, coordKeysProvider)
         }
@@ -286,10 +288,19 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
         val parentsToFetch = ArrayDeque<DependencyCoordinates>()
         val attempted = mutableSetOf<String>()
 
-        // Phase 2: fetch the initial coordinates as a single batch. Direct dependencies come from
-        // a single resolution result so they are already deduplicated by Gradle and cannot have
-        // version conflicts among themselves.
-        fetchPomBatch(initialCoordinates.toList(), pomMap, parentsToFetch, attempted)
+        // Phase 2: fetch the initial coordinates. Coordinates are aggregated across multiple
+        // configurations (e.g. debugCompileClasspath + releaseRuntimeClasspath), which can
+        // legitimately contribute the same `group:artifact` at different versions. Adding all
+        // versions to a single detached configuration would let Gradle's conflict resolver
+        // pick one version and silently discard the others. Partition by `group:artifact`:
+        // batch all g:a that have a single version (the common case — fast path), and fetch any
+        // g:a with multiple versions one coordinate at a time (same approach as Phase 3).
+        val byGa = initialCoordinates.groupBy { "${it.group}:${it.artifact}" }
+        val (uniqueGa, conflictingGa) = byGa.values.partition { it.size == 1 }
+        fetchPomBatch(uniqueGa.flatten(), pomMap, parentsToFetch, attempted)
+        conflictingGa.flatten().forEach { coord ->
+            fetchPomBatch(listOf(coord), pomMap, parentsToFetch, attempted)
+        }
 
         // Phase 3: fetch parent POMs ONE AT A TIME. Parents from different dependencies can
         // legitimately reference different versions of the same group:artifact (e.g.
@@ -343,7 +354,7 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
                 }
             }
         } catch (e: Exception) {
-            LOGGER.debug("Failed to resolve POM batch: ${e.message}")
+            LOGGER.warn("Failed to resolve POM batch (${batch.joinToString { it.cacheKey() }}); some library metadata may be incomplete", e)
         }
     }
 
@@ -413,19 +424,18 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     private fun Configuration.shouldSkip(includeTestVariants: Boolean) = !isCanBeResolved || (!includeTestVariants && isTest)
 
     /**
-     * Determines whether a configuration is a test configuration by its name prefix.
+     * Determines whether a configuration is a test configuration by its name.
      *
-     * Previously this also traversed `config.hierarchy` to catch configurations that extend
+     * Previously this traversed `config.hierarchy` to catch configurations that extend
      * `testCompile`/`androidTestCompile` without having "test" in their own name. That traversal
-     * was removed because it forced configuration graph realisation and had measurable cost on
-     * large projects. The name-prefix check covers the overwhelming majority of real-world cases.
-     *
-     * Based on the gist by @eygraber https://gist.github.com/eygraber/482e9942d5812e9efa5ace016aac4197
-     * Via https://github.com/google/play-services-plugins/blob/master/oss-licenses-plugin/src/main/groovy/com/google/android/gms/oss/licenses/plugin/LicensesTask.groovy
+     * was removed because it forced configuration graph realisation. We instead match by name,
+     * covering both JVM (`testCompileClasspath`, `testRuntimeClasspath`) and Android variant
+     * naming (`debugAndroidTestCompileClasspath`, `releaseUnitTestRuntimeClasspath`, etc.).
      */
     private val Configuration.isTest
         get() = name.startsWith("test", ignoreCase = true) ||
-            name.startsWith("androidTest", ignoreCase = true)
+            name.contains("androidTest", ignoreCase = true) ||
+            name.contains("unitTest", ignoreCase = true)
 
     companion object {
         private val LOGGER = LoggerFactory.getLogger(BaseAboutLibrariesTask::class.java)!!

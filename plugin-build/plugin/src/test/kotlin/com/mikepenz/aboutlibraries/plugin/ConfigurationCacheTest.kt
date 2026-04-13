@@ -162,6 +162,104 @@ class ConfigurationCacheTest {
         )
     }
 
+    /**
+     * Regression test: when two configurations contribute the SAME `group:artifact` at different
+     * versions (e.g. `commons-io:2.11.0` in one config and `commons-io:2.16.1` in another),
+     * batching all coordinates into a single detached configuration would let Gradle's conflict
+     * resolver pick one version and silently drop the POM for the other, leaving the dropped
+     * version with synthetic (metadata-less) data. The plugin must fetch each conflicting
+     * `group:artifact` version individually so both POMs are resolved.
+     */
+    @Test
+    fun `multi-version same artifact across configurations both resolve`() {
+        File(projectDir, "settings.gradle.kts").writeText("""rootProject.name = "test-project"""")
+        File(projectDir, "build.gradle.kts").writeText(
+            """
+            plugins {
+                id("java-library")
+                id("com.mikepenz.aboutlibraries.plugin")
+            }
+            repositories { mavenCentral() }
+            configurations {
+                create("variantA") { isCanBeResolved = true; isCanBeConsumed = false }
+                create("variantB") { isCanBeResolved = true; isCanBeConsumed = false }
+            }
+            dependencies {
+                "variantA"("commons-io:commons-io:2.11.0")
+                "variantB"("commons-io:commons-io:2.16.1")
+            }
+            aboutLibraries {
+                collect.all = true
+                offlineMode = true
+            }
+            """.trimIndent()
+        )
+
+        @Suppress("WithPluginClasspathUsage")
+        val result = GradleRunner.create()
+            .withProjectDir(projectDir)
+            .withArguments("exportLibraryDefinitions", "--configuration-cache", "--stacktrace")
+            .withPluginClasspath()
+            .build()
+
+        assertEquals(TaskOutcome.SUCCESS, result.task(":exportLibraryDefinitions")?.outcome)
+        assertFalse(
+            result.output.contains("Failed to resolve POM batch"),
+            "No POM batch should fail; both versions must be fetched individually. Output: ${result.output}"
+        )
+
+        // The output should contain commons-io with proper metadata inherited from its real POM
+        // (Apache organization), not the synthetic fallback. Synthetic POMs have no organization.
+        val output = File(projectDir, "build/generated/aboutLibraries/aboutlibraries.json").readText()
+        assertTrue(output.contains("commons-io:commons-io"), "commons-io should be in the output")
+        assertTrue(output.contains("Apache", ignoreCase = true), "commons-io metadata (Apache) should be inherited from its real POM, not synthetic")
+    }
+
+    /**
+     * Regression test: Android variant test configurations are named with the variant prefix
+     * (e.g. `debugAndroidTestCompileClasspath`, `releaseUnitTestCompileClasspath`) and do NOT
+     * start with `test` or `androidTest`. The `isTest` heuristic must catch these so they are
+     * excluded by default (when `includeTestVariants = false`).
+     */
+    @Test
+    fun `android variant test configurations are excluded by default`() {
+        File(projectDir, "settings.gradle.kts").writeText("""rootProject.name = "test-project"""")
+        File(projectDir, "build.gradle.kts").writeText(
+            """
+            plugins {
+                id("java-library")
+                id("com.mikepenz.aboutlibraries.plugin")
+            }
+            repositories { mavenCentral() }
+            configurations {
+                // Mimic AGP-generated test classpaths: these end in `CompileClasspath` so they
+                // would otherwise be picked up by the default (non-collect-all) filter.
+                create("debugAndroidTestCompileClasspath") { isCanBeResolved = true; isCanBeConsumed = false }
+                create("releaseUnitTestCompileClasspath") { isCanBeResolved = true; isCanBeConsumed = false }
+            }
+            dependencies {
+                implementation("com.google.code.gson:gson:2.11.0")
+                "debugAndroidTestCompileClasspath"("junit:junit:4.13.2")
+                "releaseUnitTestCompileClasspath"("org.mockito:mockito-core:5.12.0")
+            }
+            aboutLibraries { offlineMode = true }
+            """.trimIndent()
+        )
+
+        @Suppress("WithPluginClasspathUsage")
+        val result = GradleRunner.create()
+            .withProjectDir(projectDir)
+            .withArguments("exportLibraryDefinitions", "--stacktrace")
+            .withPluginClasspath()
+            .build()
+
+        assertEquals(TaskOutcome.SUCCESS, result.task(":exportLibraryDefinitions")?.outcome)
+        val output = File(projectDir, "build/generated/aboutLibraries/aboutlibraries.json").readText()
+        assertTrue(output.contains("com.google.code.gson:gson"), "Production dep should be present")
+        assertFalse(output.contains("junit:junit"), "junit from debugAndroidTest classpath must NOT leak into output")
+        assertFalse(output.contains("org.mockito:mockito-core"), "mockito from releaseUnitTest classpath must NOT leak into output")
+    }
+
     @Test
     fun `configuration cache should work with multiple variants`() {
         setupProjectWithMultipleVariants(projectDir)
