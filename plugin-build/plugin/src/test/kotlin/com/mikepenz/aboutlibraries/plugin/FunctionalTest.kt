@@ -29,7 +29,7 @@ class FunctionalTest {
         assertEquals(TaskOutcome.SUCCESS, result.task(":exportLibraryDefinitions")?.outcome)
 
         // Verify output file was created
-        val outputFile = File(projectDir, "build/generated/aboutLibraries/aboutLibraries.json")
+        val outputFile = File(projectDir, "build/generated/aboutLibraries/aboutlibraries.json")
         assertTrue(outputFile.exists(), "Output file should be created")
         assertTrue(outputFile.length() > 0, "Output file should not be empty")
 
@@ -88,7 +88,7 @@ class FunctionalTest {
 
         assertEquals(TaskOutcome.SUCCESS, result.task(":exportLibraryDefinitions")?.outcome)
 
-        val outputFile = File(projectDir, "build/generated/aboutLibraries/aboutLibraries.json")
+        val outputFile = File(projectDir, "build/generated/aboutLibraries/aboutlibraries.json")
         assertTrue(outputFile.exists())
     }
 
@@ -105,7 +105,7 @@ class FunctionalTest {
 
         assertEquals(TaskOutcome.SUCCESS, result.task(":exportLibraryDefinitions")?.outcome)
 
-        val outputFile = File(projectDir, "build/generated/aboutLibraries/aboutLibraries.json")
+        val outputFile = File(projectDir, "build/generated/aboutLibraries/aboutlibraries.json")
         assertTrue(outputFile.exists())
         
         // Validate JSON structure even with no dependencies
@@ -133,7 +133,7 @@ class FunctionalTest {
 
         assertEquals(TaskOutcome.SUCCESS, result.task(":exportLibraryDefinitions")?.outcome)
 
-        val outputFile = File(projectDir, "build/generated/aboutLibraries/aboutLibraries.json")
+        val outputFile = File(projectDir, "build/generated/aboutLibraries/aboutlibraries.json")
         assertTrue(outputFile.exists())
         
         // Validate platform dependencies are included
@@ -194,7 +194,7 @@ class FunctionalTest {
 
         assertEquals(TaskOutcome.SUCCESS, result.task(":exportLibraryDefinitions")?.outcome)
 
-        val outputFile = File(projectDir, "build/generated/aboutLibraries/aboutLibraries.json")
+        val outputFile = File(projectDir, "build/generated/aboutLibraries/aboutlibraries.json")
         val content = outputFile.readText()
         
         // Validate JSON can be parsed
@@ -238,7 +238,7 @@ class FunctionalTest {
 
         assertEquals(TaskOutcome.SUCCESS, result.task(":exportLibraryDefinitions")?.outcome)
 
-        val outputFile = File(projectDir, "build/generated/aboutLibraries/aboutLibraries.json")
+        val outputFile = File(projectDir, "build/generated/aboutLibraries/aboutlibraries.json")
         val content = outputFile.readText()
         
         // Validate licenses section exists
@@ -288,8 +288,8 @@ class FunctionalTest {
             }
             
             dependencies {
-                implementation("com.google.code.gson:gson:2.10.1")
-                implementation("org.slf4j:slf4j-api:2.0.9")
+                implementation("com.google.code.gson:gson:2.11.0")
+                implementation("org.slf4j:slf4j-api:2.0.16")
             }
             
             aboutLibraries {
@@ -343,7 +343,7 @@ class FunctionalTest {
             }
             
             dependencies {
-                implementation(platform("com.fasterxml.jackson:jackson-bom:2.15.3"))
+                implementation(platform("com.fasterxml.jackson:jackson-bom:2.18.2"))
                 implementation("com.fasterxml.jackson.core:jackson-databind")
             }
             
@@ -376,8 +376,8 @@ class FunctionalTest {
             }
             
             dependencies {
-                implementation("com.google.code.gson:gson:2.10.1")
-                implementation("org.slf4j:slf4j-api:2.0.9")
+                implementation("com.google.code.gson:gson:2.11.0")
+                implementation("org.slf4j:slf4j-api:2.0.16")
             }
             
             aboutLibraries {

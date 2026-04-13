@@ -1,10 +1,12 @@
 import com.vanniktech.maven.publish.GradlePublishPlugin
+import org.gradle.plugin.compatibility.compatibility
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 
 plugins {
     id("com.android.lint")
     kotlin("jvm")
     id("com.gradle.plugin-publish")
+    id("org.gradle.plugin-compatibility")
     id("java-gradle-plugin")
     id("org.jetbrains.dokka")
     id("com.vanniktech.maven.publish")
@@ -25,6 +27,11 @@ gradlePlugin {
             description = "Resolve all dependencies used in a gradle module, with associated license and further information."
             displayName = "AboutLibraries Library Gradle Plugin"
             tags = listOf("libraries", "licenses")
+            compatibility {
+                features {
+                    configurationCache.set(true)
+                }
+            }
         }
         create("aboutlibsAndroidPlugin") {
             id = "$group.android"

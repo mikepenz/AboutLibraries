@@ -3,10 +3,14 @@ package com.mikepenz.aboutlibraries.plugin
 import com.mikepenz.aboutlibraries.plugin.AboutLibrariesExtension.Companion.PROP_EXPORT_VARIANT
 import com.mikepenz.aboutlibraries.plugin.AboutLibrariesExtension.Companion.PROP_PREFIX
 import com.mikepenz.aboutlibraries.plugin.util.DependencyCollector
+import com.mikepenz.aboutlibraries.plugin.util.DependencyCoordinates
 import com.mikepenz.aboutlibraries.plugin.util.DependencyData
 import com.mikepenz.aboutlibraries.plugin.util.LibraryPostProcessor
 import org.gradle.api.DefaultTask
 import org.gradle.api.artifacts.Configuration
+import org.gradle.api.artifacts.component.ModuleComponentIdentifier
+import org.apache.maven.model.io.xpp3.MavenXpp3Reader
+import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.MapProperty
@@ -14,11 +18,13 @@ import org.gradle.api.provider.Property
 import org.gradle.api.provider.SetProperty
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputDirectory
+import org.gradle.api.tasks.InputFiles
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.PathSensitive
 import org.gradle.api.tasks.PathSensitivity
 import org.slf4j.LoggerFactory
+import java.io.File
 
 abstract class BaseAboutLibrariesTask : DefaultTask() {
 
@@ -94,11 +100,51 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     @InputDirectory
     val configPath: DirectoryProperty = extension.collect.configPath
 
-    @get:Internal
-    internal abstract val variantToDependencyData: MapProperty<String, List<DependencyData>>
-
+    /**
+     * Names of the Gradle configurations selected during [configure].
+     */
     @get:Internal
     internal abstract val configurationNames: ListProperty<String>
+
+    /**
+     * Maps configuration name → pipe-separated "group:artifact:version" coordinate keys.
+     *
+     * Marked `@Input` so the task build-cache key reflects which dependency versions are present.
+     * A version change produces a different value and triggers a cache miss.
+     *
+     * Populated lazily via `resolutionResult.rootComponent.map {}` — fully config-cache safe.
+     */
+    @get:Input
+    internal abstract val configToCoordinateKeys: MapProperty<String, String>
+
+    /**
+     * Maps "group:artifact:version" → absolute path of the resolved POM file for every external
+     * module dependency (including transitively discovered parent POMs).
+     *
+     * Populated at configuration time via detached configurations with `@pom` notation, wrapped
+     * in a `project.provider {}` so the actual resolution is deferred until Gradle realises this
+     * property. The resolution is evaluated at configuration time (during config-cache store),
+     * so no `Project` access happens at execution time.
+     *
+     * Approach mirrors google/play-services-plugins#365 (`oss-licenses-plugin`), which pre-resolves
+     * artifact-to-file mappings at configuration time and exposes them as a lazy task property.
+     *
+     * Marked `@Internal` because the actual file content is tracked via [pomFiles]; this map
+     * only stores the coordinate→path lookup for execution-time use.
+     */
+    @get:Internal
+    internal abstract val pomFileMap: MapProperty<String, String>
+
+    /**
+     * Resolved POM files for all external module dependencies.
+     *
+     * This is the proper Gradle input declaration for content-addressed UP-TO-DATE tracking:
+     * if any POM file's content changes (or new POMs are added/removed) the task will be
+     * re-executed. Path-sensitivity is `NONE` so cache keys are portable across machines.
+     */
+    @get:InputFiles
+    @get:PathSensitive(PathSensitivity.NONE)
+    abstract val pomFiles: ConfigurableFileCollection
 
     open fun configure() {
         excludeFields.set(project.provider {
@@ -132,9 +178,7 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
 
         val filter = filterVariants.get() + (variant.orNull?.let { arrayOf(it) } ?: emptyArray())
 
-        // PERFORMANCE: Store only configuration names during configuration time
-        // Actual resolution happens during task execution when variantToDependencyData is accessed
-        val selectedConfigNames = project.configurations.filterNot { config ->
+        val selectedConfigs = project.configurations.filterNot { config ->
             config.shouldSkip(includeTestVariants.get())
         }.filter { config ->
             val cn = config.name
@@ -171,29 +215,170 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
                     false
                 }
             }
-        }.map { it.name }
+        }
 
-        configurationNames.set(selectedConfigNames)
+        configurationNames.set(selectedConfigs.map { it.name })
 
-        // PERFORMANCE: Wrap resolution in a provider that's only evaluated during task execution
-        variantToDependencyData.set(project.providers.provider {
-            if (LOGGER.isDebugEnabled) LOGGER.debug("==> ABOUTLIBRARIES: Provider evaluated - dependency resolution starting (EXECUTION TIME)")
-            val target = mutableMapOf<String, List<DependencyData>>()
-            for (configName in configurationNames.get()) {
-                val config = project.configurations.getByName(configName)
-                // Resolution happens HERE during task execution, not during configuration
-                val dependencyData = DependencyCollector(includePlatform.get())
-                    .loadDependenciesFromConfiguration(
-                        project,
-                        config.incoming.resolutionResult.rootComponent
-                    ).get()
-                target[configName] = dependencyData
+        val capturedIncludePlatform = includePlatform.get()
+        for (config in selectedConfigs) {
+            // Per-config coordinate keys: resolved lazily from the resolution result.
+            // Encoded as "|"-separated "group:artifact:version" strings so the MapProperty value
+            // type stays a plain String — fully config-cache serializable.
+            val coordKeysProvider = config.incoming.resolutionResult.rootComponent.map { root ->
+                DependencyCollector(capturedIncludePlatform)
+                    .loadDependencyCoordinates(root)
+                    .map { it.cacheKey() }
+                    .sorted()
+                    .joinToString("|")
             }
-            if (LOGGER.isDebugEnabled) LOGGER.debug("==> ABOUTLIBRARIES: Provider evaluation complete")
-            target
-        })
+            configToCoordinateKeys.put(config.name, coordKeysProvider)
+        }
+
+        // Populate pomFileMap via detached configurations + parent POM walking, wrapped in
+        // `project.provider {}`. The provider is evaluated at configuration time (when the value
+        // is realised during config-cache store), so all project access happens during the
+        // configuration phase — never at task execution time.
+        //
+        // This pattern mirrors google/play-services-plugins#365 (the oss-licenses-plugin), which
+        // uses the same approach for config-cache-compatible POM resolution.
+        pomFileMap.putAll(project.provider { resolvePomFiles(selectedConfigs) })
+
+        // Register the actual POM files as @InputFiles for content-addressed UP-TO-DATE tracking.
+        // Derive from `pomFileMap` (rather than re-running `resolvePomFiles`) so the heavy
+        // resolution happens exactly once.  `MapProperty.map {}` shares the underlying value with
+        // any other consumer of the same property.
+        pomFiles.from(pomFileMap.map { map -> map.values.map { path -> File(path) } })
+        pomFiles.finalizeValueOnRead()
     }
 
+    /**
+     * Resolves POM files for every external module dependency in [configs], including parent
+     * POMs reachable via the `<parent>` element.
+     *
+     * Approach (similar to the OLD detached-configuration pattern but evaluated at configuration
+     * time so it remains config-cache safe):
+     *
+     *  1. Walk every [configs] resolution result and gather module coordinates with
+     *     [DependencyCollector.loadDependencyCoordinates] (this also picks up platform / BOM
+     *     dependencies, which are otherwise filtered out by attribute-typed artifact views).
+     *
+     *  2. Fetch each coordinate's POM via a detached configuration using `@pom` notation. This is
+     *     the only Gradle API that reliably returns POM files for all module types (regular libs,
+     *     platforms, BOMs, classifier deps).
+     *
+     *  3. Parse each fetched POM with [MavenXpp3Reader], collect parent coordinates, queue any
+     *     unseen parents, and repeat steps 2-3 until the queue is empty. This pre-resolves the
+     *     full parent-POM hierarchy so the execution-time Maven Model Builder can produce the
+     *     same library metadata (developers, organization, scm, …) the OLD code produced via
+     *     its on-demand `ModelResolver`.
+     */
+    private fun resolvePomFiles(configs: List<Configuration>): Map<String, String> {
+        val capturedIncludePlatform = includePlatform.get()
+
+        // Phase 1: collect coordinates for every resolved external dependency.
+        val initialCoordinates = mutableSetOf<DependencyCoordinates>()
+        for (config in configs) {
+            val root = config.incoming.resolutionResult.rootComponent.get()
+            DependencyCollector(capturedIncludePlatform)
+                .loadDependencyCoordinates(root)
+                .forEach { initialCoordinates.add(it) }
+        }
+        if (initialCoordinates.isEmpty()) return emptyMap()
+
+        val pomMap = mutableMapOf<String, String>()
+        val parentsToFetch = ArrayDeque<DependencyCoordinates>()
+        val attempted = mutableSetOf<String>()
+
+        // Phase 2: fetch the initial coordinates. Coordinates are aggregated across multiple
+        // configurations (e.g. debugCompileClasspath + releaseRuntimeClasspath), which can
+        // legitimately contribute the same `group:artifact` at different versions. Adding all
+        // versions to a single detached configuration would let Gradle's conflict resolver
+        // pick one version and silently discard the others. Partition by `group:artifact`:
+        // batch all g:a that have a single version (the common case — fast path), and fetch any
+        // g:a with multiple versions one coordinate at a time (same approach as Phase 3).
+        val byGa = initialCoordinates.groupBy { "${it.group}:${it.artifact}" }
+        val (uniqueGa, conflictingGa) = byGa.values.partition { it.size == 1 }
+        fetchPomBatch(uniqueGa.flatten(), pomMap, parentsToFetch, attempted)
+        conflictingGa.flatten().forEach { coord ->
+            fetchPomBatch(listOf(coord), pomMap, parentsToFetch, attempted)
+        }
+
+        // Phase 3: fetch parent POMs ONE AT A TIME. Parents from different dependencies can
+        // legitimately reference different versions of the same group:artifact (e.g.
+        // guava-parent:33.3.1-jre vs guava-parent:26.0-android). Adding both to a single detached
+        // configuration causes Gradle to silently pick one and discard the other, so each parent
+        // gets its own detached configuration.
+        while (parentsToFetch.isNotEmpty()) {
+            val coord = parentsToFetch.removeFirst()
+            if (!attempted.add(coord.cacheKey())) continue
+            fetchPomBatch(listOf(coord), pomMap, parentsToFetch, attempted)
+        }
+
+        return pomMap
+    }
+
+    /**
+     * Resolves the [batch] of POM coordinates into a single detached configuration, populating
+     * [pomMap] with `<group:artifact:version> → absolute path` entries and queueing any newly
+     * discovered parent coordinates onto [parentsToFetch].
+     */
+    private fun fetchPomBatch(
+        batch: List<DependencyCoordinates>,
+        pomMap: MutableMap<String, String>,
+        parentsToFetch: ArrayDeque<DependencyCoordinates>,
+        attempted: MutableSet<String>,
+    ) {
+        if (batch.isEmpty()) return
+        // Mark every coordinate in this batch as attempted so we don't requeue them on failure.
+        batch.forEach { attempted.add(it.cacheKey()) }
+
+        val pomDeps = batch.map { project.dependencies.create("${it.group}:${it.artifact}:${it.version}@pom") }.toTypedArray()
+        val detached = project.configurations.detachedConfiguration(*pomDeps).apply {
+            isCanBeConsumed = false
+            isCanBeResolved = true
+        }
+
+        try {
+            val artifacts = detached.incoming.artifactView { view -> view.lenient(true) }.artifacts
+            for (artifact in artifacts) {
+                val id = artifact.id.componentIdentifier as? ModuleComponentIdentifier ?: continue
+                val key = "${id.group}:${id.module}:${id.version}"
+                if (pomMap.containsKey(key)) continue
+                val file = artifact.file
+                pomMap[key] = file.absolutePath
+
+                // Parse the POM to discover the parent and queue it for individual fetching.
+                val parent = readParent(file) ?: continue
+                val parentCoords = DependencyCoordinates(parent.first, parent.second, parent.third)
+                if (!attempted.contains(parentCoords.cacheKey())) {
+                    parentsToFetch.add(parentCoords)
+                }
+            }
+        } catch (e: Exception) {
+            LOGGER.warn("Failed to resolve POM batch (${batch.joinToString { it.cacheKey() }}); some library metadata may be incomplete", e)
+        }
+    }
+
+    /** Returns the parent (groupId, artifactId, version) of [pomFile], or null if absent. */
+    private fun readParent(pomFile: File): Triple<String, String, String>? {
+        return try {
+            val model = pomFile.inputStream().use { MavenXpp3Reader().read(it) }
+            val p = model.parent ?: return null
+            if (p.groupId.isNullOrEmpty() || p.artifactId.isNullOrEmpty() || p.version.isNullOrEmpty()) null
+            else Triple(p.groupId, p.artifactId, p.version)
+        } catch (e: Exception) {
+            LOGGER.debug("Failed to parse POM ${pomFile.name}: ${e.message}")
+            null
+        }
+    }
+
+    /**
+     * Builds a [LibraryPostProcessor] using only serialized task properties — no [project] access.
+     *
+     * Both [configToCoordinateKeys] and [pomFileMap] are `@Input` properties whose values were
+     * computed at configuration time. At execution time we simply read them, making the method
+     * fully compatible with Gradle's configuration cache and project-isolation requirements.
+     */
     internal fun createLibraryPostProcessor(): LibraryPostProcessor {
         val configDirectory = configPath.orNull
         val realPath = if (configDirectory != null) {
@@ -204,8 +389,33 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
             }
         } else null
 
+        if (LOGGER.isDebugEnabled) LOGGER.debug("==> ABOUTLIBRARIES: Resolving dependency data at execution time")
+
+        val resolvedKeyMap: Map<String, String> = configToCoordinateKeys.get()
+        val resolvedPomFileMap: Map<String, File> = pomFileMap.get().mapValues { (_, path) -> File(path) }
+
+        // Parse each unique coordinate exactly once across all configurations. Without this,
+        // overlapping classpaths (e.g. compile + runtime sharing the same deps) would re-run
+        // the Maven Model Builder for each occurrence — a measurable execution-time cost on
+        // larger projects.
+        val perConfigCoords: Map<String, Set<DependencyCoordinates>> = resolvedKeyMap.mapValues { (_, coordKeysStr) ->
+            coordKeysStr.split("|").filter { it.isNotEmpty() }.mapNotNull { key ->
+                val parts = key.split(":")
+                if (parts.size == 3) DependencyCoordinates(parts[0], parts[1], parts[2]) else null
+            }.toSet()
+        }
+        val allCoords: Set<DependencyCoordinates> = perConfigCoords.values.flatten().toSet()
+        val parsedByKey: Map<String, DependencyData> = DependencyCollector(includePlatform.get())
+            .loadDependenciesFromCoordinates(allCoords, resolvedPomFileMap)
+            .associateBy { it.dependencyCoordinates.cacheKey() }
+        val variantToDependencyData = perConfigCoords.mapValues { (_, coords) ->
+            coords.mapNotNull { parsedByKey[it.cacheKey()] }
+        }
+
+        if (LOGGER.isDebugEnabled) LOGGER.debug("==> ABOUTLIBRARIES: Dependency resolution complete")
+
         return LibraryPostProcessor(
-            variantToDependencyData = variantToDependencyData.get(),
+            variantToDependencyData = variantToDependencyData,
             configFolder = realPath,
             exclusionPatterns = exclusionPatterns.get(),
             offlineMode = offlineMode.get(),
@@ -220,20 +430,37 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
         )
     }
 
-    /** Skip test and non resolvable configurations */
+    /** Skip test and non-resolvable configurations */
     private fun Configuration.shouldSkip(includeTestVariants: Boolean) = !isCanBeResolved || (!includeTestVariants && isTest)
 
     /**
+     * Determines whether a configuration is a test configuration.
+     *
+     * Combines three independent checks so all real-world Gradle/AGP/KMP test classpath naming
+     * conventions are caught:
+     *
+     *  1. `name.startsWith("test", ignoreCase)` — plain JVM (`testCompileClasspath`,
+     *     `testRuntimeClasspath`) and any variant beginning with "test".
+     *  2. `name.contains("Test")` (case-sensitive) — camelCase test configs that don't start
+     *     with "test", including KMP source sets (`jvmTestCompileClasspath`,
+     *     `desktopTestRuntimeClasspath`, `iosTestCompileClasspath`, …) and Android variants
+     *     (`debugAndroidTestCompileClasspath`, `releaseUnitTestRuntimeClasspath`,
+     *     `androidUnitTestRuntimeClasspath`, …). Case-sensitive matching avoids false positives
+     *     on unrelated names like `attestation` or `latest`.
+     *  3. Hierarchy traversal — safety net for non-standard configs that extend `testCompile`
+     *     or `androidTestCompile` without having "test" in their own name. This forces some
+     *     configuration realisation, but it is necessary for correctness on edge cases.
+     *
      * Based on the gist by @eygraber https://gist.github.com/eygraber/482e9942d5812e9efa5ace016aac4197
      * Via https://github.com/google/play-services-plugins/blob/master/oss-licenses-plugin/src/main/groovy/com/google/android/gms/oss/licenses/plugin/LicensesTask.groovy
      */
     private val Configuration.isTest
         get() = name.startsWith("test", ignoreCase = true) ||
-            name.startsWith("androidTest", ignoreCase = true) ||
-            hierarchy.any { configurationHierarchy ->
-                setOf("testCompile", "androidTestCompile").any { configurationHierarchy.name.contains(it, ignoreCase = true) }
+            name.contains("Test") ||
+            hierarchy.any { parent ->
+                parent.name.contains("testCompile", ignoreCase = true) ||
+                    parent.name.contains("androidTestCompile", ignoreCase = true)
             }
-
 
     companion object {
         private val LOGGER = LoggerFactory.getLogger(BaseAboutLibrariesTask::class.java)!!

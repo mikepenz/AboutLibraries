@@ -9,7 +9,6 @@ import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputDirectory
-import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.TaskAction
 import org.gradle.util.GradleVersion
@@ -49,16 +48,12 @@ abstract class AboutLibrariesExportComplianceTask : BaseAboutLibrariesTask() {
         project.providers.gradleProperty(PROP_EXPORT_ARTIFACT_GROUPS)
     ).orElse("")
 
-    @Internal
-    var neededLicenses = HashSet<SpdxLicense>()
-
-    @Internal
-    var librariesWithoutLicenses = HashSet<String>()
-
-    private var unknownLicenses = HashMap<String, HashSet<String>>()
-
     @TaskAction
     fun action() {
+        val neededLicenses = HashSet<SpdxLicense>()
+        val librariesWithoutLicenses = HashSet<String>()
+        val unknownLicenses = HashMap<String, HashSet<String>>()
+
         val result = createLibraryPostProcessor().process()
         val libraries = result.libraries
         val licenses = result.licenses

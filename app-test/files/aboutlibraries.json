@@ -30,7 +30,7 @@
         },
         {
             "uniqueId": "org.jetbrains.kotlin:kotlin-stdlib",
-            "artifactVersion": "2.2.20",
+            "artifactVersion": "2.3.20",
             "name": "Kotlin Stdlib",
             "description": "Kotlin Standard Library",
             "website": "https://kotlinlang.org/",
@@ -54,7 +54,7 @@
         },
         {
             "uniqueId": "org.jetbrains.kotlin:kotlin-stdlib-wasm-js",
-            "artifactVersion": "2.2.20",
+            "artifactVersion": "2.3.20",
             "name": "Kotlin Stdlib Wasm Js",
             "description": "Kotlin Standard Library for experimental WebAssembly JS platform",
             "website": "https://kotlinlang.org/",

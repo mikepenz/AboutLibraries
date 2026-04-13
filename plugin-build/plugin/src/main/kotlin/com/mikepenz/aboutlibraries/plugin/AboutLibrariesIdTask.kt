@@ -23,7 +23,7 @@ abstract class AboutLibrariesIdTask : BaseAboutLibrariesTask() {
     fun action() {
         val result = createLibraryPostProcessor().process()
         val libraries = result.libraries
-        variantToDependencyData.get().keys.forEach {
+        configurationNames.get().forEach {
             println("variant: $it")
         }
         println("")

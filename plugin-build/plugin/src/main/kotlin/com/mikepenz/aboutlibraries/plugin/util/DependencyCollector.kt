@@ -15,52 +15,56 @@ import org.apache.maven.model.building.FileModelSource
 import org.apache.maven.model.building.ModelBuildingRequest
 import org.apache.maven.model.building.ModelSource2
 import org.apache.maven.model.resolution.ModelResolver
-import org.gradle.api.Project
-import org.gradle.api.artifacts.Configuration
-import org.gradle.api.artifacts.ConfigurationContainer
 import org.gradle.api.artifacts.component.ComponentIdentifier
 import org.gradle.api.artifacts.component.ModuleComponentIdentifier
 import org.gradle.api.artifacts.component.ProjectComponentIdentifier
-import org.gradle.api.artifacts.dsl.DependencyHandler
 import org.gradle.api.artifacts.result.ResolvedComponentResult
 import org.gradle.api.artifacts.result.ResolvedDependencyResult
-import org.gradle.api.artifacts.result.ResolvedVariantResult
 import org.gradle.api.attributes.Attribute
 import org.gradle.api.attributes.Category.CATEGORY_ATTRIBUTE
 import org.gradle.api.attributes.Category.ENFORCED_PLATFORM
 import org.gradle.api.attributes.Category.REGULAR_PLATFORM
-import org.gradle.api.provider.Provider
 import org.slf4j.LoggerFactory
+import java.io.ByteArrayInputStream
 import java.io.File
+import java.io.InputStream
 
 internal class DependencyCollector(
     private val includePlatform: Boolean = false,
 ) {
-    private val handledLibraries = HashSet<String>()
 
-    internal fun loadDependenciesFromConfiguration(
-        project: Project,
-        root: Provider<ResolvedComponentResult>,
-    ): Provider<List<DependencyData>> {
-        val dependencies = project.dependencies
-        val configurations = project.configurations
-        val pomInfos: Provider<List<DependencyData>> = root.map { root ->
-            val directDependencies = loadDependencyCoordinates(root)
-            val directPomFiles = directDependencies.fetchPomFiles(root.variants, dependencies, configurations)
-            directPomFiles.getPomInfo(root.variants, dependencies, configurations)
-        }
-        return pomInfos
-    }
-
-    /** Loads dependency coordinates from the given root component. */
-    private fun loadDependencyCoordinates(root: ResolvedComponentResult): Set<DependencyCoordinates> {
+    /**
+     * Phase 1 (configuration time): extract the set of dependency coordinates from [root].
+     *
+     * This is called inside a `resolutionResult.rootComponent.map {}` provider chain so the
+     * result is captured as a config-cache-serializable `Provider<List<DependencyCoordinates>>`.
+     * No project-derived objects are retained after this call.
+     */
+    internal fun loadDependencyCoordinates(root: ResolvedComponentResult): Set<DependencyCoordinates> {
         val coordinates = mutableSetOf<DependencyCoordinates>()
         loadDependencyCoordinates(root, coordinates, mutableSetOf())
         return coordinates
     }
 
     /**
-     * Loads dependency coordinates from the given root component.
+     * Phase 2 (execution time): parse POM metadata for the given [coordinates] using the
+     * pre-resolved [pomFileMap] ("group:artifact:version" → local [File]).
+     *
+     * Parent POMs not present in [pomFileMap] are satisfied with a minimal synthetic POM so that
+     * the Maven Model Builder can complete without triggering any network access.
+     *
+     * No [org.gradle.api.Project] or other project-derived objects are required here, making this
+     * call fully config-cache and project-isolation safe.
+     */
+    internal fun loadDependenciesFromCoordinates(
+        coordinates: Set<DependencyCoordinates>,
+        pomFileMap: Map<String, File>,
+    ): List<DependencyData> {
+        return coordinates.getPomInfo(pomFileMap)
+    }
+
+    /**
+     * Loads dependency coordinates from the given root component (recursive).
      * Original Code is based on: https://github.com/cashapp/licensee/blob/1.13.0/src/main/kotlin/app/cash/licensee/dependencyGraph.kt#L42C14-L42C39
      * Copyright (C) 2021 Square, Inc.
      */
@@ -127,32 +131,43 @@ internal class DependencyCollector(
     }
 
     /**
-     * Fetches the pom files for all dependencies.
+     * Parses POM metadata for all coordinates using the pre-resolved [pomFileMap].
+     *
      * Uses: https://maven.apache.org/ref/3.8.8/maven-model-builder/ to construct the pom model.
+     * Parent POMs not present in [pomFileMap] fall back to a synthetic minimal POM.
      *
      * Original Code is based on: https://github.com/cashapp/licensee/blob/1.13.0/src/main/kotlin/app/cash/licensee/dependencyGraph.kt#L42C14-L42C39
      * Copyright (C) 2021 Square, Inc.
      */
-    private fun Iterable<DependencyCoordinatesWithPomFile>.getPomInfo(
-        variants: List<ResolvedVariantResult>,
-        dependencies: DependencyHandler,
-        configurations: ConfigurationContainer,
+    private fun Set<DependencyCoordinates>.getPomInfo(
+        pomFileMap: Map<String, File>,
     ): List<DependencyData> {
         val builder = DefaultModelBuilderFactory().newInstance()
         val resolver = object : ModelResolver {
-            fun resolve(dependencyCoordinates: DependencyCoordinates): FileModelSource {
-                return FileModelSource(setOf(dependencyCoordinates).fetchPomFiles(variants, dependencies, configurations).single().pomFile)
+            fun resolve(coords: DependencyCoordinates): ModelSource2 {
+                val file = pomFileMap[coords.cacheKey()]
+                return if (file != null) FileModelSource(file) else syntheticModelSource(coords)
             }
 
-            override fun resolveModel(groupId: String, artifactId: String, version: String): ModelSource2 = resolve(DependencyCoordinates(groupId, artifactId, version))
-            override fun resolveModel(parent: Parent): ModelSource2 = resolve(DependencyCoordinates(parent.groupId, parent.artifactId, parent.version))
-            override fun resolveModel(dependency: Dependency): ModelSource2 = resolve(DependencyCoordinates(dependency.groupId, dependency.artifactId, dependency.version))
+            override fun resolveModel(groupId: String, artifactId: String, version: String): ModelSource2 =
+                resolve(DependencyCoordinates(groupId, artifactId, version))
+
+            override fun resolveModel(parent: Parent): ModelSource2 =
+                resolve(DependencyCoordinates(parent.groupId, parent.artifactId, parent.version))
+
+            override fun resolveModel(dependency: Dependency): ModelSource2 =
+                resolve(DependencyCoordinates(dependency.groupId, dependency.artifactId, dependency.version))
+
             override fun addRepository(repository: Repository) {}
             override fun addRepository(repository: Repository, replace: Boolean) {}
             override fun newCopy(): ModelResolver = this
         }
 
-        return mapNotNull { (coordinates, file) ->
+        return mapNotNull { coordinates ->
+            val file = pomFileMap[coordinates.cacheKey()] ?: run {
+                LOGGER.debug("No POM file found for {}, skipping", coordinates.cacheKey())
+                return@mapNotNull null
+            }
             val req = DefaultModelBuildingRequest().apply {
                 isProcessPlugins = false
                 pomFile = file
@@ -200,7 +215,7 @@ internal class DependencyCollector(
         if (shouldSkip(uniqueId)) return null
 
         val libraryName = chooseStringValue(pom, parentRawModel) { it.name } ?: run {
-            LOGGER.info("Could not get the name for ${uniqueId}! Fallback to2 '$uniqueId'")
+            LOGGER.info("Could not get the name for ${uniqueId}! Fallback to '$uniqueId'")
             uniqueId
         }
         val libraryDescription = chooseStringValue(pom, parentRawModel) { it.description } ?: ""
@@ -234,57 +249,8 @@ internal class DependencyCollector(
         return chooseValue(pom, parentRawModel) { block(it).takeIf { v -> v?.isNotEmpty() == true } }
     }
 
-    private fun <T> chooseValue(pom: Model, parentRawModel: List<Model>, block: (Model) -> T?): T? = pom.let(block) ?: parentRawModel.firstOrNull()?.let(block)
-
-    /**
-     * Fetches the pom files for all [ResolvedVariantResult]s.
-     * 
-     * PERFORMANCE: Uses ArtifactView API instead of deprecated lenientConfiguration to avoid
-     * triggering configuration resolution during Gradle configuration phase.
-     *
-     * Original Code is based on: https://github.com/cashapp/licensee/blob/1.13.0/src/main/kotlin/app/cash/licensee/task.kt#L152
-     * Copyright (C) 2021 Square, Inc.
-     */
-    private fun Set<DependencyCoordinates>.fetchPomFiles(
-        variants: List<ResolvedVariantResult>,
-        dependencies: DependencyHandler,
-        configurations: ConfigurationContainer,
-    ): List<DependencyCoordinatesWithPomFile> {
-        if (LOGGER.isDebugEnabled) LOGGER.debug("==> ABOUTLIBRARIES: fetchPomFiles called - resolving ${this.size} dependencies")
-        // Use ArtifactView API which is configuration-cache compatible and lazy
-        fun Configuration.artifactsViaView() = incoming.artifactView { config ->
-            config.lenient(true)
-        }.artifacts.map { it.file to it.id.componentIdentifier }
-
-        val pomDependencies = map { dependencies.create(it.pomCoordinate()) }.toTypedArray()
-
-        val withVariants = configurations.detachedConfiguration(*pomDependencies).apply {
-            isCanBeConsumed = false
-            isCanBeResolved = true
-            for (variant in variants) {
-                attributes {
-                    val variantAttrs = variant.attributes
-                    for (attrs in variantAttrs.keySet()) {
-                        @Suppress("UNCHECKED_CAST")
-                        it.attribute(attrs as Attribute<Any>, variantAttrs.getAttribute(attrs)!!)
-                    }
-                }
-            }
-        }.artifactsViaView()
-
-        val withoutVariants = configurations.detachedConfiguration(*pomDependencies).apply {
-            isCanBeConsumed = false
-            isCanBeResolved = true
-        }.artifactsViaView()
-
-        return (withVariants + withoutVariants).mapNotNull { (file, componentId) ->
-            // Only process module components (not project components)
-            if (componentId is ModuleComponentIdentifier) {
-                val coordinates = componentId.toDependencyCoordinates()
-                DependencyCoordinatesWithPomFile(coordinates, file)
-            } else null
-        }.distinctBy { it.dependencyCoordinates }
-    }
+    private fun <T> chooseValue(pom: Model, parentRawModel: List<Model>, block: (Model) -> T?): T? =
+        pom.let(block) ?: parentRawModel.firstOrNull()?.let(block)
 
     private fun ModuleComponentIdentifier.toDependencyCoordinates() = DependencyCoordinates(group, module, version)
 
@@ -298,20 +264,40 @@ internal class DependencyCollector(
         }
     }
 
-    /** Skip libraries which have a core dependency and we don't want it to show up more than necessary */
+    /** Skip the AboutLibraries library itself so it doesn't appear in its own output. */
     private fun shouldSkip(uniqueId: String): Boolean {
-        return handledLibraries.contains(uniqueId) || uniqueId == "com.mikepenz:aboutlibraries" || uniqueId == "com.mikepenz:aboutlibraries-definitions"
+        return uniqueId == "com.mikepenz:aboutlibraries" || uniqueId == "com.mikepenz:aboutlibraries-definitions"
     }
 
     companion object {
         private val LOGGER = LoggerFactory.getLogger(DependencyCollector::class.java)!!
+
+        /**
+         * Returns a minimal valid POM [ModelSource2] for [coords] when the real POM file is not
+         * available in the pre-fetched set (e.g. parent POMs that were not resolved as direct
+         * dependencies).  This prevents the Maven Model Builder from attempting network access.
+         */
+        internal fun syntheticModelSource(coords: DependencyCoordinates): ModelSource2 {
+            val xml = """
+                <?xml version="1.0" encoding="UTF-8"?>
+                <project>
+                  <modelVersion>4.0.0</modelVersion>
+                  <groupId>${coords.group}</groupId>
+                  <artifactId>${coords.artifact}</artifactId>
+                  <version>${coords.version}</version>
+                </project>
+            """.trimIndent()
+            val bytes = xml.toByteArray(Charsets.UTF_8)
+            val location = coords.cacheKey()
+            return object : ModelSource2 {
+                override fun getInputStream(): InputStream = ByteArrayInputStream(bytes)
+                override fun getLocation(): String = location
+                override fun getLocationURI(): java.net.URI = java.net.URI.create("synthetic:$location")
+                override fun getRelatedSource(relPath: String): ModelSource2? = null
+            }
+        }
     }
 }
-
-private data class DependencyCoordinatesWithPomFile(
-    val dependencyCoordinates: DependencyCoordinates,
-    val pomFile: File,
-)
 
 internal data class DependencyCoordinates(
     val group: String,
@@ -319,6 +305,7 @@ internal data class DependencyCoordinates(
     val version: String,
 ) : java.io.Serializable {
     fun pomCoordinate() = "$group:$artifact:$version@pom"
+    fun cacheKey() = "$group:$artifact:$version"
 }
 
 internal data class DependencyData(
