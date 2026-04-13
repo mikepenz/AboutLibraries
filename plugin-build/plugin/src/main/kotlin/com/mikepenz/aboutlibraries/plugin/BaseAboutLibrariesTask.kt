@@ -434,18 +434,33 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     private fun Configuration.shouldSkip(includeTestVariants: Boolean) = !isCanBeResolved || (!includeTestVariants && isTest)
 
     /**
-     * Determines whether a configuration is a test configuration by its name.
+     * Determines whether a configuration is a test configuration.
      *
-     * Previously this traversed `config.hierarchy` to catch configurations that extend
-     * `testCompile`/`androidTestCompile` without having "test" in their own name. That traversal
-     * was removed because it forced configuration graph realisation. We instead match by name,
-     * covering both JVM (`testCompileClasspath`, `testRuntimeClasspath`) and Android variant
-     * naming (`debugAndroidTestCompileClasspath`, `releaseUnitTestRuntimeClasspath`, etc.).
+     * Combines three independent checks so all real-world Gradle/AGP/KMP test classpath naming
+     * conventions are caught:
+     *
+     *  1. `name.startsWith("test", ignoreCase)` — plain JVM (`testCompileClasspath`,
+     *     `testRuntimeClasspath`) and any variant beginning with "test".
+     *  2. `name.contains("Test")` (case-sensitive) — camelCase test configs that don't start
+     *     with "test", including KMP source sets (`jvmTestCompileClasspath`,
+     *     `desktopTestRuntimeClasspath`, `iosTestCompileClasspath`, …) and Android variants
+     *     (`debugAndroidTestCompileClasspath`, `releaseUnitTestRuntimeClasspath`,
+     *     `androidUnitTestRuntimeClasspath`, …). Case-sensitive matching avoids false positives
+     *     on unrelated names like `attestation` or `latest`.
+     *  3. Hierarchy traversal — safety net for non-standard configs that extend `testCompile`
+     *     or `androidTestCompile` without having "test" in their own name. This forces some
+     *     configuration realisation, but it is necessary for correctness on edge cases.
+     *
+     * Based on the gist by @eygraber https://gist.github.com/eygraber/482e9942d5812e9efa5ace016aac4197
+     * Via https://github.com/google/play-services-plugins/blob/master/oss-licenses-plugin/src/main/groovy/com/google/android/gms/oss/licenses/plugin/LicensesTask.groovy
      */
     private val Configuration.isTest
         get() = name.startsWith("test", ignoreCase = true) ||
-            name.contains("androidTest", ignoreCase = true) ||
-            name.contains("unitTest", ignoreCase = true)
+            name.contains("Test") ||
+            hierarchy.any { parent ->
+                parent.name.contains("testCompile", ignoreCase = true) ||
+                    parent.name.contains("androidTestCompile", ignoreCase = true)
+            }
 
     companion object {
         private val LOGGER = LoggerFactory.getLogger(BaseAboutLibrariesTask::class.java)!!

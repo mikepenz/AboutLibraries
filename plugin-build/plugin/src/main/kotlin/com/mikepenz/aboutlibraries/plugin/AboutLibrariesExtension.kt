@@ -417,7 +417,7 @@ abstract class LibraryConfig @Inject constructor() {
      *      // single pattern
      *      exclusionPatterns.add("com\\.company\\..*")
      *      // multiple patterns
-     *      exclusionPatterns.addAll("org\\.internal\\..*", "io\\.legacy\\..*")
+     *      exclusionPatterns.addAll(listOf("org\\.internal\\..*", "io\\.legacy\\..*"))
      *   }
      * }
      * ```

@@ -216,13 +216,14 @@ class ConfigurationCacheTest {
     }
 
     /**
-     * Regression test: Android variant test configurations are named with the variant prefix
-     * (e.g. `debugAndroidTestCompileClasspath`, `releaseUnitTestCompileClasspath`) and do NOT
-     * start with `test` or `androidTest`. The `isTest` heuristic must catch these so they are
-     * excluded by default (when `includeTestVariants = false`).
+     * Regression test: variant/source-set test configurations are named with a prefix
+     * (Android: `debugAndroidTestCompileClasspath`, `releaseUnitTestCompileClasspath`;
+     * KMP: `jvmTestCompileClasspath`, `desktopTestRuntimeClasspath`) and do NOT start with
+     * `test`. The `isTest` heuristic must catch all of these so they are excluded by default
+     * (when `includeTestVariants = false`).
      */
     @Test
-    fun `android variant test configurations are excluded by default`() {
+    fun `variant and source set test configurations are excluded by default`() {
         File(projectDir, "settings.gradle.kts").writeText("""rootProject.name = "test-project"""")
         File(projectDir, "build.gradle.kts").writeText(
             """
@@ -232,15 +233,19 @@ class ConfigurationCacheTest {
             }
             repositories { mavenCentral() }
             configurations {
-                // Mimic AGP-generated test classpaths: these end in `CompileClasspath` so they
-                // would otherwise be picked up by the default (non-collect-all) filter.
+                // Mimic AGP-generated variant test classpaths.
                 create("debugAndroidTestCompileClasspath") { isCanBeResolved = true; isCanBeConsumed = false }
                 create("releaseUnitTestCompileClasspath") { isCanBeResolved = true; isCanBeConsumed = false }
+                // Mimic KMP source-set test classpaths.
+                create("jvmTestCompileClasspath") { isCanBeResolved = true; isCanBeConsumed = false }
+                create("desktopTestRuntimeClasspath") { isCanBeResolved = true; isCanBeConsumed = false }
             }
             dependencies {
                 implementation("com.google.code.gson:gson:2.11.0")
                 "debugAndroidTestCompileClasspath"("junit:junit:4.13.2")
                 "releaseUnitTestCompileClasspath"("org.mockito:mockito-core:5.12.0")
+                "jvmTestCompileClasspath"("org.assertj:assertj-core:3.25.3")
+                "desktopTestRuntimeClasspath"("io.mockk:mockk:1.13.10")
             }
             aboutLibraries { offlineMode = true }
             """.trimIndent()
@@ -258,6 +263,8 @@ class ConfigurationCacheTest {
         assertTrue(output.contains("com.google.code.gson:gson"), "Production dep should be present")
         assertFalse(output.contains("junit:junit"), "junit from debugAndroidTest classpath must NOT leak into output")
         assertFalse(output.contains("org.mockito:mockito-core"), "mockito from releaseUnitTest classpath must NOT leak into output")
+        assertFalse(output.contains("org.assertj:assertj-core"), "assertj from jvmTest classpath must NOT leak into output")
+        assertFalse(output.contains("io.mockk:mockk"), "mockk from desktopTest classpath must NOT leak into output")
     }
 
     @Test
