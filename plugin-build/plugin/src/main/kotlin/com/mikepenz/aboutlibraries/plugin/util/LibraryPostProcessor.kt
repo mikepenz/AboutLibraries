@@ -40,7 +40,17 @@ internal class LibraryPostProcessor(
 
         // Compile regex patterns once per process() call; patterns are stored as strings
         // (java.util.regex.Pattern is not config-cache serializable, so we use String inputs).
-        val compiledPatterns = exclusionPatterns.map { it.toRegex() }
+        // Wrap any compilation failure so the user sees which pattern is invalid.
+        val compiledPatterns = exclusionPatterns.map { pattern ->
+            try {
+                pattern.toRegex()
+            } catch (e: java.util.regex.PatternSyntaxException) {
+                throw IllegalArgumentException(
+                    "Invalid regex in aboutLibraries.library.exclusionPatterns: \"$pattern\" — ${e.description}",
+                    e
+                )
+            }
+        }
 
         val variant = variant
         val dependencyDataForVariant = if (variant.isNullOrBlank()) {

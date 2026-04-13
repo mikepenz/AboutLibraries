@@ -4,6 +4,7 @@ import com.mikepenz.aboutlibraries.plugin.AboutLibrariesExtension.Companion.PROP
 import com.mikepenz.aboutlibraries.plugin.AboutLibrariesExtension.Companion.PROP_PREFIX
 import com.mikepenz.aboutlibraries.plugin.util.DependencyCollector
 import com.mikepenz.aboutlibraries.plugin.util.DependencyCoordinates
+import com.mikepenz.aboutlibraries.plugin.util.DependencyData
 import com.mikepenz.aboutlibraries.plugin.util.LibraryPostProcessor
 import org.gradle.api.DefaultTask
 import org.gradle.api.artifacts.Configuration
@@ -393,13 +394,22 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
         val resolvedKeyMap: Map<String, String> = configToCoordinateKeys.get()
         val resolvedPomFileMap: Map<String, File> = pomFileMap.get().mapValues { (_, path) -> File(path) }
 
-        val variantToDependencyData = resolvedKeyMap.mapValues { (_, coordKeysStr) ->
-            val coords = coordKeysStr.split("|").filter { it.isNotEmpty() }.mapNotNull { key ->
+        // Parse each unique coordinate exactly once across all configurations. Without this,
+        // overlapping classpaths (e.g. compile + runtime sharing the same deps) would re-run
+        // the Maven Model Builder for each occurrence — a measurable execution-time cost on
+        // larger projects.
+        val perConfigCoords: Map<String, Set<DependencyCoordinates>> = resolvedKeyMap.mapValues { (_, coordKeysStr) ->
+            coordKeysStr.split("|").filter { it.isNotEmpty() }.mapNotNull { key ->
                 val parts = key.split(":")
                 if (parts.size == 3) DependencyCoordinates(parts[0], parts[1], parts[2]) else null
             }.toSet()
-            DependencyCollector(includePlatform.get())
-                .loadDependenciesFromCoordinates(coords, resolvedPomFileMap)
+        }
+        val allCoords: Set<DependencyCoordinates> = perConfigCoords.values.flatten().toSet()
+        val parsedByKey: Map<String, DependencyData> = DependencyCollector(includePlatform.get())
+            .loadDependenciesFromCoordinates(allCoords, resolvedPomFileMap)
+            .associateBy { it.dependencyCoordinates.cacheKey() }
+        val variantToDependencyData = perConfigCoords.mapValues { (_, coords) ->
+            coords.mapNotNull { parsedByKey[it.cacheKey()] }
         }
 
         if (LOGGER.isDebugEnabled) LOGGER.debug("==> ABOUTLIBRARIES: Dependency resolution complete")

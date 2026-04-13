@@ -406,14 +406,18 @@ abstract class LibraryConfig @Inject constructor() {
     abstract val requireLicense: Property<Boolean>
 
     /**
-     * A list of regex patterns (matching on the library `uniqueId` ($groupId:$artifactId)) to exclude libraries.
+     * A set of regex patterns (matching on the library `uniqueId` ($groupId:$artifactId)) to exclude libraries.
      *
      * Each string is compiled to a [Regex] at execution time, so standard Java/Kotlin regex syntax applies.
+     * An invalid pattern fails the task with a clear error indicating the offending entry.
      *
      * ```
      * aboutLibraries {
      *   library {
-     *      exclusionPatterns.addAll("com\\.company\\..*")
+     *      // single pattern
+     *      exclusionPatterns.add("com\\.company\\..*")
+     *      // multiple patterns
+     *      exclusionPatterns.addAll("org\\.internal\\..*", "io\\.legacy\\..*")
      *   }
      * }
      * ```
