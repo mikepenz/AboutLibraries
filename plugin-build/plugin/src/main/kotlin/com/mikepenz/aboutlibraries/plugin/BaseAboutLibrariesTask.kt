@@ -6,15 +6,16 @@ import com.mikepenz.aboutlibraries.plugin.util.DependencyCollector
 import com.mikepenz.aboutlibraries.plugin.util.DependencyCoordinates
 import com.mikepenz.aboutlibraries.plugin.util.DependencyData
 import com.mikepenz.aboutlibraries.plugin.util.LibraryPostProcessor
+import org.apache.maven.model.io.xpp3.MavenXpp3Reader
 import org.gradle.api.DefaultTask
 import org.gradle.api.artifacts.Configuration
 import org.gradle.api.artifacts.component.ModuleComponentIdentifier
-import org.apache.maven.model.io.xpp3.MavenXpp3Reader
 import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.MapProperty
 import org.gradle.api.provider.Property
+import org.gradle.api.provider.Provider
 import org.gradle.api.provider.SetProperty
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputDirectory
@@ -23,13 +24,22 @@ import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.PathSensitive
 import org.gradle.api.tasks.PathSensitivity
+import org.gradle.work.DisableCachingByDefault
 import org.slf4j.LoggerFactory
 import java.io.File
 
+@DisableCachingByDefault(because = "Abstract base task; concrete subclasses opt in via @CacheableTask")
 abstract class BaseAboutLibrariesTask : DefaultTask() {
 
-    @Internal
-    protected val extension = project.extensions.findByType(AboutLibrariesExtension::class.java)!!
+    /**
+     * Getter-only accessor for the project extension. Implemented as a `get()` (not a backing
+     * field) so the extension instance is not serialized into the configuration cache. Each
+     * call resolves it fresh from `project.extensions`, which is only safe during the
+     * configuration phase — every consumer below is field-initializer or [configure] scoped.
+     */
+    @get:Internal
+    protected val extension: AboutLibrariesExtension
+        get() = project.extensions.getByType(AboutLibrariesExtension::class.java)
 
     @Input
     val collectAll = extension.collect.all
@@ -69,15 +79,13 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     val allowedLicensesMap = extension.license.allowedLicensesMap
 
     @Input
-    open val offlineMode = extension.offlineMode
+    open val offlineMode: Property<Boolean> = extension.offlineMode
 
-    @Suppress("HasPlatformType")
     @Input
-    open val fetchRemoteLicense = extension.collect.fetchRemoteLicense.map { it && !offlineMode.get() }
+    open val fetchRemoteLicense: Provider<Boolean> = extension.collect.fetchRemoteLicense.map { it && !offlineMode.get() }
 
-    @Suppress("HasPlatformType")
     @Input
-    open val fetchRemoteFunding = extension.collect.fetchRemoteFunding.map { it && !offlineMode.get() }
+    open val fetchRemoteFunding: Provider<Boolean> = extension.collect.fetchRemoteFunding.map { it && !offlineMode.get() }
 
     @Input
     val additionalLicenses = extension.license.additionalLicenses
@@ -107,27 +115,31 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     internal abstract val configurationNames: ListProperty<String>
 
     /**
-     * Maps configuration name → pipe-separated "group:artifact:version" coordinate keys.
+     * Maps configuration name → list of [DependencyCoordinates] for all external module
+     * dependencies in that configuration.
      *
-     * Marked `@Input` so the task build-cache key reflects which dependency versions are present.
-     * A version change produces a different value and triggers a cache miss.
+     * Stored as a typed `MapProperty<String, List<DependencyCoordinates>>` (rather than a
+     * pipe-encoded `MapProperty<String, String>`) so the value is consumed without any
+     * string parsing at execution time. [DependencyCoordinates] is `java.io.Serializable`,
+     * which is all the configuration cache requires.
      *
-     * Populated lazily via `resolutionResult.rootComponent.map {}` — fully config-cache safe.
+     * Marked `@Input` so the task build-cache key reflects which dependency versions are
+     * present — a version change produces a different value and triggers a cache miss.
      */
     @get:Input
-    internal abstract val configToCoordinateKeys: MapProperty<String, String>
+    internal abstract val configToCoordinates: MapProperty<String, List<DependencyCoordinates>>
 
     /**
      * Maps "group:artifact:version" → absolute path of the resolved POM file for every external
      * module dependency (including transitively discovered parent POMs).
      *
-     * Populated at configuration time via detached configurations with `@pom` notation, wrapped
-     * in a `project.provider {}` so the actual resolution is deferred until Gradle realises this
-     * property. The resolution is evaluated at configuration time (during config-cache store),
-     * so no `Project` access happens at execution time.
+     * Populated eagerly during [configure] via detached configurations + parent POM walking.
+     * Eager evaluation guarantees no `Configuration` instances are captured into provider
+     * closures and serialized into the configuration cache.
      *
-     * Approach mirrors google/play-services-plugins#365 (`oss-licenses-plugin`), which pre-resolves
-     * artifact-to-file mappings at configuration time and exposes them as a lazy task property.
+     * Approach mirrors google/play-services-plugins#365 (`oss-licenses-plugin`), which
+     * pre-resolves artifact-to-file mappings at configuration time and exposes them as a lazy
+     * task property.
      *
      * Marked `@Internal` because the actual file content is tracked via [pomFiles]; this map
      * only stores the coordinate→path lookup for execution-time use.
@@ -219,108 +231,102 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
 
         configurationNames.set(selectedConfigs.map { it.name })
 
+        // Single-pass dependency-graph walk: compute per-configuration coordinates AND the
+        // union set used for POM resolution in one traversal per configuration. The previous
+        // implementation walked the graph twice (once for `configToCoordinateKeys`, once
+        // inside `resolvePomFiles`).
         val capturedIncludePlatform = includePlatform.get()
+        val collector = DependencyCollector(capturedIncludePlatform)
+        val perConfigCoords = LinkedHashMap<String, List<DependencyCoordinates>>(selectedConfigs.size)
+        val unionCoords = LinkedHashSet<DependencyCoordinates>()
         for (config in selectedConfigs) {
-            // Per-config coordinate keys: resolved lazily from the resolution result.
-            // Encoded as "|"-separated "group:artifact:version" strings so the MapProperty value
-            // type stays a plain String — fully config-cache serializable.
-            val coordKeysProvider = config.incoming.resolutionResult.rootComponent.map { root ->
-                DependencyCollector(capturedIncludePlatform)
-                    .loadDependencyCoordinates(root)
-                    .map { it.cacheKey() }
-                    .sorted()
-                    .joinToString("|")
-            }
-            configToCoordinateKeys.put(config.name, coordKeysProvider)
+            val root = config.incoming.resolutionResult.rootComponent.get()
+            val coords = collector.loadDependencyCoordinates(root)
+            perConfigCoords[config.name] = coords.toList()
+            unionCoords.addAll(coords)
         }
+        configToCoordinates.set(perConfigCoords)
 
-        // Populate pomFileMap via detached configurations + parent POM walking, wrapped in
-        // `project.provider {}`. The provider is evaluated at configuration time (when the value
-        // is realised during config-cache store), so all project access happens during the
-        // configuration phase — never at task execution time.
-        //
-        // This pattern mirrors google/play-services-plugins#365 (the oss-licenses-plugin), which
-        // uses the same approach for config-cache-compatible POM resolution.
-        pomFileMap.putAll(project.provider { resolvePomFiles(selectedConfigs) })
+        // Resolve POM files eagerly at configuration time. Eager resolution avoids capturing
+        // any `Configuration` references inside a `project.provider {}` closure (which would
+        // otherwise live in the configuration-cache state until store time). All Gradle API
+        // access happens here, in [configure], which itself runs lazily via the
+        // `tasks.named { … }` task-realization mechanism.
+        val resolvedPomMap = if (unionCoords.isEmpty()) emptyMap() else resolvePomFiles(unionCoords)
+        pomFileMap.set(resolvedPomMap)
 
         // Register the actual POM files as @InputFiles for content-addressed UP-TO-DATE tracking.
-        // Derive from `pomFileMap` (rather than re-running `resolvePomFiles`) so the heavy
-        // resolution happens exactly once.  `MapProperty.map {}` shares the underlying value with
-        // any other consumer of the same property.
-        pomFiles.from(pomFileMap.map { map -> map.values.map { path -> File(path) } })
+        pomFiles.from(resolvedPomMap.values.map { File(it) })
         pomFiles.finalizeValueOnRead()
     }
 
     /**
-     * Resolves POM files for every external module dependency in [configs], including parent
-     * POMs reachable via the `<parent>` element.
+     * Resolves POM files for every coordinate in [initialCoordinates], including parent POMs
+     * reachable via the `<parent>` element.
      *
-     * Approach (similar to the OLD detached-configuration pattern but evaluated at configuration
-     * time so it remains config-cache safe):
+     * Detached configurations are batched in **version slots** to keep their count bounded by
+     * the maximum number of conflicting versions per `group:artifact`, rather than the total
+     * coordinate count. Slot 0 contains the first version of each `g:a`, slot 1 the second,
+     * and so on. Within a slot every coordinate is unique by `g:a`, so Gradle's conflict
+     * resolver cannot silently discard versions.
      *
-     *  1. Walk every [configs] resolution result and gather module coordinates with
-     *     [DependencyCollector.loadDependencyCoordinates] (this also picks up platform / BOM
-     *     dependencies, which are otherwise filtered out by attribute-typed artifact views).
-     *
-     *  2. Fetch each coordinate's POM via a detached configuration using `@pom` notation. This is
-     *     the only Gradle API that reliably returns POM files for all module types (regular libs,
-     *     platforms, BOMs, classifier deps).
-     *
-     *  3. Parse each fetched POM with [MavenXpp3Reader], collect parent coordinates, queue any
-     *     unseen parents, and repeat steps 2-3 until the queue is empty. This pre-resolves the
-     *     full parent-POM hierarchy so the execution-time Maven Model Builder can produce the
-     *     same library metadata (developers, organization, scm, …) the OLD code produced via
-     *     its on-demand `ModelResolver`.
+     * Phase 1 fetches the initial union of coordinates collected from every configuration.
+     * Phase 2 repeatedly drains the parent-POM queue and fetches each level in slot batches
+     * until no new parents are discovered.
      */
-    private fun resolvePomFiles(configs: List<Configuration>): Map<String, String> {
-        val capturedIncludePlatform = includePlatform.get()
-
-        // Phase 1: collect coordinates for every resolved external dependency.
-        val initialCoordinates = mutableSetOf<DependencyCoordinates>()
-        for (config in configs) {
-            val root = config.incoming.resolutionResult.rootComponent.get()
-            DependencyCollector(capturedIncludePlatform)
-                .loadDependencyCoordinates(root)
-                .forEach { initialCoordinates.add(it) }
-        }
-        if (initialCoordinates.isEmpty()) return emptyMap()
-
-        val pomMap = mutableMapOf<String, String>()
+    private fun resolvePomFiles(initialCoordinates: Set<DependencyCoordinates>): Map<String, String> {
+        val pomMap = LinkedHashMap<String, String>(initialCoordinates.size * 2)
         val parentsToFetch = ArrayDeque<DependencyCoordinates>()
-        val attempted = mutableSetOf<String>()
+        val attempted = HashSet<String>(initialCoordinates.size * 2)
 
-        // Phase 2: fetch the initial coordinates. Coordinates are aggregated across multiple
-        // configurations (e.g. debugCompileClasspath + releaseRuntimeClasspath), which can
-        // legitimately contribute the same `group:artifact` at different versions. Adding all
-        // versions to a single detached configuration would let Gradle's conflict resolver
-        // pick one version and silently discard the others. Partition by `group:artifact`:
-        // batch all g:a that have a single version (the common case — fast path), and fetch any
-        // g:a with multiple versions one coordinate at a time (same approach as Phase 3).
-        val byGa = initialCoordinates.groupBy { "${it.group}:${it.artifact}" }
-        val (uniqueGa, conflictingGa) = byGa.values.partition { it.size == 1 }
-        fetchPomBatch(uniqueGa.flatten(), pomMap, parentsToFetch, attempted)
-        conflictingGa.flatten().forEach { coord ->
-            fetchPomBatch(listOf(coord), pomMap, parentsToFetch, attempted)
-        }
+        // Phase 1: initial coordinates.
+        fetchInVersionSlots(initialCoordinates, pomMap, parentsToFetch, attempted)
 
-        // Phase 3: fetch parent POMs ONE AT A TIME. Parents from different dependencies can
-        // legitimately reference different versions of the same group:artifact (e.g.
-        // guava-parent:33.3.1-jre vs guava-parent:26.0-android). Adding both to a single detached
-        // configuration causes Gradle to silently pick one and discard the other, so each parent
-        // gets its own detached configuration.
+        // Phase 2: parent POMs, drained one level at a time so parents-of-parents land in
+        // the next iteration. Each level is itself batched into version slots.
         while (parentsToFetch.isNotEmpty()) {
-            val coord = parentsToFetch.removeFirst()
-            if (!attempted.add(coord.cacheKey())) continue
-            fetchPomBatch(listOf(coord), pomMap, parentsToFetch, attempted)
+            val level = ArrayList<DependencyCoordinates>(parentsToFetch.size)
+            while (parentsToFetch.isNotEmpty()) level.add(parentsToFetch.removeFirst())
+            fetchInVersionSlots(level, pomMap, parentsToFetch, attempted)
         }
 
         return pomMap
     }
 
     /**
+     * Partitions [coordinates] by `group:artifact` and fetches them in version slots: each
+     * slot becomes a single detached configuration containing at most one version per
+     * `group:artifact`, so Gradle's conflict resolver leaves every requested version intact.
+     */
+    private fun fetchInVersionSlots(
+        coordinates: Collection<DependencyCoordinates>,
+        pomMap: MutableMap<String, String>,
+        parentsToFetch: ArrayDeque<DependencyCoordinates>,
+        attempted: MutableSet<String>,
+    ) {
+        if (coordinates.isEmpty()) return
+        val byGa = LinkedHashMap<String, ArrayList<DependencyCoordinates>>()
+        for (coord in coordinates) {
+            if (coord.cacheKey() in attempted) continue
+            byGa.getOrPut("${coord.group}:${coord.artifact}") { ArrayList(1) }.add(coord)
+        }
+        if (byGa.isEmpty()) return
+        val maxSlots = byGa.values.maxOf { it.size }
+        for (slot in 0 until maxSlots) {
+            val batch = ArrayList<DependencyCoordinates>(byGa.size)
+            for (versions in byGa.values) {
+                if (slot < versions.size) batch.add(versions[slot])
+            }
+            if (batch.isNotEmpty()) fetchPomBatch(batch, pomMap, parentsToFetch, attempted)
+        }
+    }
+
+    /**
      * Resolves the [batch] of POM coordinates into a single detached configuration, populating
      * [pomMap] with `<group:artifact:version> → absolute path` entries and queueing any newly
      * discovered parent coordinates onto [parentsToFetch].
+     *
+     * The caller guarantees [batch] contains at most one version per `group:artifact`.
      */
     private fun fetchPomBatch(
         batch: List<DependencyCoordinates>,
@@ -336,6 +342,8 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
         val detached = project.configurations.detachedConfiguration(*pomDeps).apply {
             isCanBeConsumed = false
             isCanBeResolved = true
+            // `@pom` deps don't pull transitives, but disabling explicitly skips graph-build.
+            isTransitive = false
         }
 
         try {
@@ -347,10 +355,10 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
                 val file = artifact.file
                 pomMap[key] = file.absolutePath
 
-                // Parse the POM to discover the parent and queue it for individual fetching.
+                // Parse the POM to discover the parent and queue it for the next level.
                 val parent = readParent(file) ?: continue
                 val parentCoords = DependencyCoordinates(parent.first, parent.second, parent.third)
-                if (!attempted.contains(parentCoords.cacheKey())) {
+                if (parentCoords.cacheKey() !in attempted) {
                     parentsToFetch.add(parentCoords)
                 }
             }
@@ -375,7 +383,7 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     /**
      * Builds a [LibraryPostProcessor] using only serialized task properties — no [project] access.
      *
-     * Both [configToCoordinateKeys] and [pomFileMap] are `@Input` properties whose values were
+     * Both [configToCoordinates] and [pomFileMap] are task properties whose values were
      * computed at configuration time. At execution time we simply read them, making the method
      * fully compatible with Gradle's configuration cache and project-isolation requirements.
      */
@@ -391,25 +399,19 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
 
         if (LOGGER.isDebugEnabled) LOGGER.debug("==> ABOUTLIBRARIES: Resolving dependency data at execution time")
 
-        val resolvedKeyMap: Map<String, String> = configToCoordinateKeys.get()
+        val resolvedPerConfigCoords: Map<String, List<DependencyCoordinates>> = configToCoordinates.get()
         val resolvedPomFileMap: Map<String, File> = pomFileMap.get().mapValues { (_, path) -> File(path) }
 
         // Parse each unique coordinate exactly once across all configurations. Without this,
         // overlapping classpaths (e.g. compile + runtime sharing the same deps) would re-run
         // the Maven Model Builder for each occurrence — a measurable execution-time cost on
         // larger projects.
-        val perConfigCoords: Map<String, Set<DependencyCoordinates>> = resolvedKeyMap.mapValues { (_, coordKeysStr) ->
-            coordKeysStr.split("|").filter { it.isNotEmpty() }.mapNotNull { key ->
-                val parts = key.split(":")
-                if (parts.size == 3) DependencyCoordinates(parts[0], parts[1], parts[2]) else null
-            }.toSet()
-        }
-        val allCoords: Set<DependencyCoordinates> = perConfigCoords.values.flatten().toSet()
-        val parsedByKey: Map<String, DependencyData> = DependencyCollector(includePlatform.get())
+        val allCoords: Set<DependencyCoordinates> = resolvedPerConfigCoords.values.flatten().toSet()
+        val parsedByCoord: Map<DependencyCoordinates, DependencyData> = DependencyCollector(includePlatform.get())
             .loadDependenciesFromCoordinates(allCoords, resolvedPomFileMap)
-            .associateBy { it.dependencyCoordinates.cacheKey() }
-        val variantToDependencyData = perConfigCoords.mapValues { (_, coords) ->
-            coords.mapNotNull { parsedByKey[it.cacheKey()] }
+            .associateBy { it.dependencyCoordinates }
+        val variantToDependencyData = resolvedPerConfigCoords.mapValues { (_, coords) ->
+            coords.mapNotNull { parsedByCoord[it] }
         }
 
         if (LOGGER.isDebugEnabled) LOGGER.debug("==> ABOUTLIBRARIES: Dependency resolution complete")
