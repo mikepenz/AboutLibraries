@@ -40,11 +40,16 @@ abstract class AboutLibrariesExportComplianceTask : BaseAboutLibrariesTask() {
             @Suppress("UnstableApiUsage")
             project.isolated.rootProject.projectDirectory
         }
+        // When the user supplies an export path we resolve it relative to the root project.
+        // Otherwise we fall back to a dedicated subdirectory under the current project's build
+        // folder. Defaulting to the root project directory would make Gradle treat the entire
+        // project tree as this task's @OutputDirectory, which both bloats output snapshotting
+        // and makes stale-output cleanup unsafe for unrelated files.
         exportPath.convention(
             project.providers.gradleProperty("${PROP_PREFIX}${PROP_EXPORT_PATH}")
                 .orElse(project.providers.gradleProperty(PROP_EXPORT_PATH))
                 .map { path -> rootDir.dir(path) }
-                .orElse(rootDir)
+                .orElse(project.layout.buildDirectory.dir("aboutlibraries/export-compliance"))
         )
     }
 

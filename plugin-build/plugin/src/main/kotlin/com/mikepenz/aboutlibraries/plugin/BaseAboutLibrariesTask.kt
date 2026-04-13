@@ -241,8 +241,12 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
         val unionCoords = LinkedHashSet<DependencyCoordinates>()
         for (config in selectedConfigs) {
             val root = config.incoming.resolutionResult.rootComponent.get()
-            val coords = collector.loadDependencyCoordinates(root)
-            perConfigCoords[config.name] = coords.toList()
+            // Sort per-config coordinates by cacheKey() so the @Input map value is stable across
+            // runs and machines. The dependency-graph walk visits children in
+            // `ResolvedComponentResult.getDependencies()` iteration order, which is not formally
+            // specified — sorting is what guarantees a portable build-cache key.
+            val coords = collector.loadDependencyCoordinates(root).sortedBy { it.cacheKey() }
+            perConfigCoords[config.name] = coords
             unionCoords.addAll(coords)
         }
         configToCoordinates.set(perConfigCoords)
@@ -283,9 +287,12 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
         fetchInVersionSlots(initialCoordinates, pomMap, parentsToFetch, attempted)
 
         // Phase 2: parent POMs, drained one level at a time so parents-of-parents land in
-        // the next iteration. Each level is itself batched into version slots.
+        // the next iteration. Each level is itself batched into version slots. Drain into a
+        // `LinkedHashSet` so sibling artifacts that share the same parent (e.g. several modules
+        // of one project pointing at the same parent POM) collapse to a single fetch instead of
+        // landing in separate slots.
         while (parentsToFetch.isNotEmpty()) {
-            val level = ArrayList<DependencyCoordinates>(parentsToFetch.size)
+            val level = LinkedHashSet<DependencyCoordinates>(parentsToFetch.size)
             while (parentsToFetch.isNotEmpty()) level.add(parentsToFetch.removeFirst())
             fetchInVersionSlots(level, pomMap, parentsToFetch, attempted)
         }

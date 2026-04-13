@@ -314,7 +314,7 @@ class ConfigurationCacheTest {
             .withPluginClasspath()
             .build()
         assertFalse(
-            second.output.contains("Configuration cache entry reused"),
+            ccReused(second.output),
             "CC must NOT be reused after a dependency version change. Output: ${second.output}"
         )
         assertEquals(
@@ -381,7 +381,7 @@ class ConfigurationCacheTest {
             .withPluginClasspath()
             .build()
         assertFalse(
-            second.output.contains("Configuration cache entry reused"),
+            ccReused(second.output),
             "CC must invalidate when exclusionPatterns changes. Output: ${second.output}"
         )
         assertEquals(TaskOutcome.SUCCESS, second.task(":exportLibraryDefinitions")?.outcome)
@@ -500,6 +500,16 @@ class ConfigurationCacheTest {
 
         assertTrue(secondRun.output.contains("Configuration cache entry reused"))
     }
+
+    /**
+     * Returns true if [output] contains either of the configuration-cache reuse messages
+     * Gradle prints. Both forms are checked because the exact wording can vary across
+     * Gradle versions / TestKit modes — relying on only one is brittle for negative
+     * (`assertFalse`) assertions.
+     */
+    private fun ccReused(output: String): Boolean =
+        output.contains("Configuration cache entry reused") ||
+            output.contains("Reusing configuration cache")
 
     private fun setupProject(projectDir: File) {
         File(projectDir, "settings.gradle.kts").writeText(
