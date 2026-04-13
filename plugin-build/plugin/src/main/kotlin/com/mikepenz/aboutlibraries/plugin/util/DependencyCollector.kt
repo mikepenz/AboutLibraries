@@ -32,7 +32,6 @@ import java.io.InputStream
 internal class DependencyCollector(
     private val includePlatform: Boolean = false,
 ) {
-    private val handledLibraries = HashSet<String>()
 
     /**
      * Phase 1 (configuration time): extract the set of dependency coordinates from [root].
@@ -265,9 +264,9 @@ internal class DependencyCollector(
         }
     }
 
-    /** Skip libraries which have a core dependency and we don't want it to show up more than necessary */
+    /** Skip the AboutLibraries library itself so it doesn't appear in its own output. */
     private fun shouldSkip(uniqueId: String): Boolean {
-        return handledLibraries.contains(uniqueId) || uniqueId == "com.mikepenz:aboutlibraries" || uniqueId == "com.mikepenz:aboutlibraries-definitions"
+        return uniqueId == "com.mikepenz:aboutlibraries" || uniqueId == "com.mikepenz:aboutlibraries-definitions"
     }
 
     companion object {
