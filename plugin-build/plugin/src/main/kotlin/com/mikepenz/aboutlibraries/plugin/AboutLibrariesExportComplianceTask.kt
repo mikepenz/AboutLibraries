@@ -4,49 +4,54 @@ import com.mikepenz.aboutlibraries.plugin.AboutLibrariesExtension.Companion.PROP
 import com.mikepenz.aboutlibraries.plugin.AboutLibrariesExtension.Companion.PROP_EXPORT_PATH
 import com.mikepenz.aboutlibraries.plugin.AboutLibrariesExtension.Companion.PROP_PREFIX
 import com.mikepenz.aboutlibraries.plugin.mapping.SpdxLicense
-import org.gradle.api.file.Directory
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.Input
-import org.gradle.api.tasks.InputDirectory
-import org.gradle.api.tasks.Optional
+import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
 import org.gradle.util.GradleVersion
+import org.gradle.work.DisableCachingByDefault
 import org.slf4j.LoggerFactory
 import java.io.File
 import java.nio.file.Files
 import java.nio.file.StandardCopyOption
 
+@DisableCachingByDefault(because = "Writes ad-hoc CSV/TXT plus copied artifact files to a user-supplied directory; not worth caching")
 abstract class AboutLibrariesExportComplianceTask : BaseAboutLibrariesTask() {
-
-    @get:InputDirectory
-    abstract val projectDirectory: DirectoryProperty
 
     override fun getDescription(): String = "Writes all libraries with their source and their license in CSV format to the configured directory"
     override fun getGroup(): String = "Help"
 
-    @Input
-    @Optional
-    val exportPath: Provider<Directory> = project.providers.gradleProperty("${PROP_PREFIX}${PROP_EXPORT_PATH}")
-        .map { path -> projectDirectory.get().dir(path) }
-        .orElse(project.providers.gradleProperty(PROP_EXPORT_PATH).map { path ->
-            projectDirectory.get().dir(path)
-        })
-        .orElse(
-            if (GradleVersion.current() < GradleVersion.version("8.8")) {
-                LOGGER.info("Fallback to non project isolated safe API for root directory.")
-                // noinspection GradleProjectIsolation
-                project.rootProject.layout.projectDirectory.dir(".")
-            } else {
-                @Suppress("UnstableApiUsage")
-                project.isolated.rootProject.projectDirectory.dir(".")
-            }
-        )
+    @get:OutputDirectory
+    abstract val exportPath: DirectoryProperty
 
     @Input
     val artifactGroups: Provider<String> = project.providers.gradleProperty("${PROP_PREFIX}${PROP_EXPORT_ARTIFACT_GROUPS}").orElse(
         project.providers.gradleProperty(PROP_EXPORT_ARTIFACT_GROUPS)
     ).orElse("")
+
+    override fun configure() {
+        super.configure()
+        val rootDir = if (GradleVersion.current() < GradleVersion.version("8.8")) {
+            LOGGER.info("Fallback to non project isolated safe API for root directory.")
+            // noinspection GradleProjectIsolation
+            project.rootProject.layout.projectDirectory
+        } else {
+            @Suppress("UnstableApiUsage")
+            project.isolated.rootProject.projectDirectory
+        }
+        // When the user supplies an export path we resolve it relative to the root project.
+        // Otherwise we fall back to a dedicated subdirectory under the current project's build
+        // folder. Defaulting to the root project directory would make Gradle treat the entire
+        // project tree as this task's @OutputDirectory, which both bloats output snapshotting
+        // and makes stale-output cleanup unsafe for unrelated files.
+        exportPath.convention(
+            project.providers.gradleProperty("${PROP_PREFIX}${PROP_EXPORT_PATH}")
+                .orElse(project.providers.gradleProperty(PROP_EXPORT_PATH))
+                .map { path -> rootDir.dir(path) }
+                .orElse(project.layout.buildDirectory.dir("aboutlibraries/export-compliance"))
+        )
+    }
 
     @TaskAction
     fun action() {
