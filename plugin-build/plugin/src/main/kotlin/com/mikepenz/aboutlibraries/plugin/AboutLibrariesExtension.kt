@@ -413,9 +413,11 @@ abstract class LibraryConfig @Inject constructor() {
      * The user-facing type is `SetProperty<Pattern>` to preserve source compatibility with plugin
      * versions prior to the configuration-cache refactor. `Pattern` itself is not CC-serialisable,
      * so the downstream task does not consume this property directly as an `@Input`; instead it
-     * derives a CC-safe `Provider<Set<String>>` via
-     * `extension.library.exclusionPatterns.map { it.map(Pattern::pattern) }`, ensuring only
-     * `String` values ever reach the configuration cache.
+     * derives a CC-safe `Provider<Set<String>>` by serialising each `Pattern` with
+     * `toSerializedRegex`, which encodes supported flags (`CASE_INSENSITIVE`, `MULTILINE`,
+     * `LITERAL`, `DOTALL`, `UNIX_LINES`, `COMMENTS`, `UNICODE_CASE`, `UNICODE_CHARACTER_CLASS`)
+     * as inline regex prefixes / [Pattern.quote] wrappers and rejects the unrepresentable
+     * `Pattern.CANON_EQ`. Only `String` values ever reach the configuration cache.
      *
      * ```
      * aboutLibraries {

@@ -418,8 +418,8 @@ class OutputCorrectnessTest {
      * `exclusionPatterns.add(Pattern.compile(...))` and `.addAll(Pattern, ...)` must stay
      * compilable on the user-facing `SetProperty<Pattern>`, and the downstream task must still
      * filter correctly. The task derives a CC-safe `Provider<Set<String>>` over the extension
-     * property via `.map { it.map(Pattern::pattern) }`, so `Pattern` never reaches the
-     * configuration cache.
+     * property via `toSerializedRegex`, which preserves supported `Pattern` flags and rejects
+     * `Pattern.CANON_EQ`, so `Pattern` instances never reach the configuration cache.
      */
     @Test
     fun `exclusionPatterns accepts java util regex Pattern values`() {
@@ -494,13 +494,17 @@ class OutputCorrectnessTest {
 
     /**
      * Flags set on the original [java.util.regex.Pattern] (e.g. `CASE_INSENSITIVE`, `MULTILINE`,
-     * `LITERAL`) must survive the config-cache round trip: the task serialises each Pattern into
-     * an inline flag-prefixed string so downstream recompilation via `String.toRegex()` applies
-     * the same flags. Without this, a pre-14.0.1 build using `Pattern.compile("...",
-     * CASE_INSENSITIVE)` would silently change matching semantics after upgrade.
+     * `LITERAL`) must survive the real `--configuration-cache` serialize/deserialize cycle:
+     * the task serialises each `Pattern` into an inline flag-prefixed string via
+     * `toSerializedRegex` so downstream recompilation with `String.toRegex()` applies the same
+     * flags. Without this, a pre-14.0.1 build using `Pattern.compile("...", CASE_INSENSITIVE)`
+     * would silently change matching semantics after upgrade. This test runs with
+     * `--configuration-cache` explicitly, asserts the CC entry is stored, and then verifies the
+     * filtering reflects case-insensitive matching — proving flags survive the actual CC round
+     * trip, not just the in-memory `Provider.map { }` chain.
      */
     @Test
-    fun `exclusionPatterns preserves Pattern CASE_INSENSITIVE flag across CC boundary`() {
+    fun `exclusionPatterns preserves Pattern CASE_INSENSITIVE flag under configuration cache`() {
         setupProject(
             projectDir,
             deps = """
@@ -511,17 +515,21 @@ class OutputCorrectnessTest {
             extraConfig = """
                 library {
                     // Uppercase regex against lowercase uniqueId — only matches if
-                    // CASE_INSENSITIVE is preserved through the config-cache serialisation.
+                    // CASE_INSENSITIVE is preserved through the CC store/restore cycle.
                     exclusionPatterns.add(Pattern.compile("COM\\.GOOGLE\\.CODE\\.GSON.*", Pattern.CASE_INSENSITIVE))
                 }
             """.trimIndent()
         )
 
-        run("exportLibraryDefinitions")
+        val result = runWithCc("exportLibraryDefinitions")
+        assertTrue(
+            result.output.contains("Configuration cache entry stored"),
+            "CC entry must be stored on first run. Output: ${result.output}"
+        )
         val content = readOutput()
         assertFalse(
             content.contains("com.google.code.gson:gson"),
-            "gson should be excluded by a CASE_INSENSITIVE Pattern — flag must survive CC round trip"
+            "gson should be excluded by a CASE_INSENSITIVE Pattern — flag must survive the CC round trip"
         )
         assertTrue(
             content.contains("org.slf4j:slf4j-api"),
@@ -532,12 +540,15 @@ class OutputCorrectnessTest {
     /**
      * `Pattern.LITERAL` disables regex metacharacters, matching the pattern string literally.
      * After serialisation the task wraps the body in `Pattern.quote(...)`, so the Kotlin
-     * `Regex` built downstream must treat the regex specials as literal characters. A uniqueId
+     * `Regex` built downstream must treat the regex specials as literal characters. This test
+     * runs with `--configuration-cache` explicitly so the assertion covers the real CC
+     * serialize/deserialize cycle, not just the in-memory `Provider.map { }` chain. A uniqueId
      * containing no regex metacharacters like `com.google.code.gson:gson` does not exercise
-     * this, so we use a pattern with a literal `.` that would otherwise match any character.
+     * LITERAL, so we use a pattern with a literal `.*` suffix that would otherwise match any
+     * characters.
      */
     @Test
-    fun `exclusionPatterns preserves Pattern LITERAL flag across CC boundary`() {
+    fun `exclusionPatterns preserves Pattern LITERAL flag under configuration cache`() {
         setupProject(
             projectDir,
             deps = """
@@ -554,11 +565,15 @@ class OutputCorrectnessTest {
             """.trimIndent()
         )
 
-        run("exportLibraryDefinitions")
+        val result = runWithCc("exportLibraryDefinitions")
+        assertTrue(
+            result.output.contains("Configuration cache entry stored"),
+            "CC entry must be stored on first run. Output: ${result.output}"
+        )
         val content = readOutput()
         assertTrue(
             content.contains("com.google.code.gson:gson"),
-            "gson must NOT be excluded: LITERAL flag must survive CC round trip and prevent the pattern from matching anything"
+            "gson must NOT be excluded: LITERAL flag must survive the CC round trip and prevent the pattern from matching anything"
         )
         assertTrue(
             content.contains("org.slf4j:slf4j-api"),
@@ -573,6 +588,14 @@ class OutputCorrectnessTest {
         GradleRunner.create()
             .withProjectDir(projectDir)
             .withArguments(*args, "--stacktrace")
+            .withPluginClasspath()
+            .build()
+
+    private fun runWithCc(vararg args: String) =
+        @Suppress("WithPluginClasspathUsage")
+        GradleRunner.create()
+            .withProjectDir(projectDir)
+            .withArguments(*args, "--configuration-cache", "--stacktrace")
             .withPluginClasspath()
             .build()
 
