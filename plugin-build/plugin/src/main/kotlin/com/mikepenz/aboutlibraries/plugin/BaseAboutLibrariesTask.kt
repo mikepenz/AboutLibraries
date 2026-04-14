@@ -27,6 +27,7 @@ import org.gradle.api.tasks.PathSensitivity
 import org.gradle.work.DisableCachingByDefault
 import org.slf4j.LoggerFactory
 import java.io.File
+import java.util.regex.Pattern
 
 @DisableCachingByDefault(because = "Abstract base task; concrete subclasses opt in via @CacheableTask")
 abstract class BaseAboutLibrariesTask : DefaultTask() {
@@ -60,8 +61,23 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     @Input
     val requireLicense = extension.library.requireLicense
 
-    @Input
-    val exclusionPatterns = extension.library.exclusionPatterns
+    /**
+     * Derived `Provider<Set<String>>` over [AboutLibrariesExtension.library]
+     * [LibraryConfig.exclusionPatterns]. The extension property is typed `SetProperty<Pattern>`
+     * to preserve source compatibility with pre-CC builds; `java.util.regex.Pattern` is not
+     * configuration-cache serialisable, so the task consumes a string-mapped view. Gradle
+     * finalises the provider at CC store time, so only the realised `Set<String>` — not the
+     * upstream `Pattern` values — is written to the configuration cache.
+     *
+     * Flags set on the original [Pattern] (e.g. [Pattern.CASE_INSENSITIVE], [Pattern.MULTILINE],
+     * [Pattern.LITERAL]) are encoded into the serialised string via inline flag prefixes
+     * (`(?imsx...)`) and [Pattern.quote] so downstream recompilation with `String.toRegex()`
+     * preserves matching semantics — see [toSerializedRegex].
+     */
+    @get:Input
+    val exclusionPatterns: Provider<Set<String>> = extension.library.exclusionPatterns.map { patterns ->
+        patterns.mapTo(LinkedHashSet(patterns.size), ::toSerializedRegex)
+    }
 
     @Input
     val duplicationMode = extension.library.duplicationMode
@@ -474,4 +490,34 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     companion object {
         private val LOGGER = LoggerFactory.getLogger(BaseAboutLibrariesTask::class.java)!!
     }
+}
+
+/**
+ * Serialise a [Pattern] into a configuration-cache-safe regex string that, when recompiled via
+ * `String.toRegex()` (or `Pattern.compile(String)`), matches identically to the original.
+ *
+ * Flags are encoded as an inline flag prefix `(?imsx...)` supported by `java.util.regex`.
+ * [Pattern.LITERAL] is expanded by wrapping the body in [Pattern.quote] (Java's regex engine has
+ * no inline equivalent). [Pattern.CANON_EQ] has no inline form in `java.util.regex`, so a
+ * `Pattern` using canonical equivalence matching cannot round-trip through a string and is
+ * rejected with a clear error.
+ */
+internal fun toSerializedRegex(pattern: Pattern): String {
+    val flags = pattern.flags()
+    if ((flags and Pattern.CANON_EQ) != 0) {
+        throw IllegalArgumentException(
+            "aboutLibraries.library.exclusionPatterns: Pattern.CANON_EQ is not supported because it has no inline regex flag equivalent and cannot be round-tripped across the configuration cache. Rewrite the pattern without CANON_EQ or normalise input manually."
+        )
+    }
+    val body = if ((flags and Pattern.LITERAL) != 0) Pattern.quote(pattern.pattern()) else pattern.pattern()
+    val inlineFlags = buildString {
+        if ((flags and Pattern.UNIX_LINES) != 0) append('d')
+        if ((flags and Pattern.CASE_INSENSITIVE) != 0) append('i')
+        if ((flags and Pattern.COMMENTS) != 0) append('x')
+        if ((flags and Pattern.MULTILINE) != 0) append('m')
+        if ((flags and Pattern.DOTALL) != 0) append('s')
+        if ((flags and Pattern.UNICODE_CASE) != 0) append('u')
+        if ((flags and Pattern.UNICODE_CHARACTER_CLASS) != 0) append('U')
+    }
+    return if (inlineFlags.isEmpty()) body else "(?$inlineFlags)$body"
 }

@@ -9,6 +9,7 @@ import org.gradle.api.provider.Property
 import org.gradle.api.provider.SetProperty
 import org.gradle.api.tasks.Nested
 import org.gradle.api.tasks.Optional
+import java.util.regex.Pattern
 import javax.inject.Inject
 
 abstract class AboutLibrariesExtension {
@@ -94,7 +95,7 @@ abstract class AboutLibrariesExtension {
         }
         library {
             it.requireLicense.convention(false)
-            it.exclusionPatterns.convention(emptySet())
+            it.exclusionPatterns.convention(emptySet<Pattern>())
             it.duplicationMode.convention(DuplicateMode.MERGE)
             it.duplicationRule.convention(DuplicateRule.EXACT)
         }
@@ -406,24 +407,32 @@ abstract class LibraryConfig @Inject constructor() {
     abstract val requireLicense: Property<Boolean>
 
     /**
-     * A set of regex patterns (matching on the library `uniqueId` ($groupId:$artifactId)) to exclude libraries.
+     * A set of [java.util.regex.Pattern] entries matching on the library `uniqueId`
+     * (`$groupId:$artifactId`) to exclude libraries from the output.
      *
-     * Each string is compiled to a [Regex] at execution time, so standard Java/Kotlin regex syntax applies.
-     * An invalid pattern fails the task with a clear error indicating the offending entry.
+     * The user-facing type is `SetProperty<Pattern>` to preserve source compatibility with plugin
+     * versions prior to the configuration-cache refactor. `Pattern` itself is not CC-serialisable,
+     * so the downstream task does not consume this property directly as an `@Input`; instead it
+     * derives a CC-safe `Provider<Set<String>>` by serialising each `Pattern` with
+     * `toSerializedRegex`, which encodes supported flags (`CASE_INSENSITIVE`, `MULTILINE`,
+     * `LITERAL`, `DOTALL`, `UNIX_LINES`, `COMMENTS`, `UNICODE_CASE`, `UNICODE_CHARACTER_CLASS`)
+     * as inline regex prefixes / [Pattern.quote] wrappers and rejects the unrepresentable
+     * `Pattern.CANON_EQ`. Only `String` values ever reach the configuration cache.
      *
      * ```
      * aboutLibraries {
      *   library {
-     *      // single pattern
-     *      exclusionPatterns.add("com\\.company\\..*")
-     *      // multiple patterns
-     *      exclusionPatterns.addAll(listOf("org\\.internal\\..*", "io\\.legacy\\..*"))
+     *      exclusionPatterns.add(Pattern.compile("com\\.company\\..*"))
+     *      exclusionPatterns.addAll(
+     *          Pattern.compile("org\\.internal\\..*"),
+     *          Pattern.compile("io\\.legacy\\..*"),
+     *      )
      *   }
      * }
      * ```
      */
     @get:Optional
-    abstract val exclusionPatterns: SetProperty<String>
+    abstract val exclusionPatterns: SetProperty<Pattern>
 
     /**
      * Defines the plugins behavior in case of duplicates.

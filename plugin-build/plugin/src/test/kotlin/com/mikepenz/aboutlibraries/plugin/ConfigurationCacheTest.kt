@@ -338,10 +338,11 @@ class ConfigurationCacheTest {
         val buildFile = File(projectDir, "build.gradle.kts")
         fun writeBuild(withExclusion: Boolean) {
             val exclusionBlock = if (withExclusion) {
-                """library { exclusionPatterns.add("com\\.google\\.code\\.gson:.*") }"""
+                """library { exclusionPatterns.add(Pattern.compile("com\\.google\\.code\\.gson:.*")) }"""
             } else ""
             buildFile.writeText(
                 """
+                import java.util.regex.Pattern
                 plugins {
                     id("java-library")
                     id("com.mikepenz.aboutlibraries.plugin")
@@ -388,6 +389,64 @@ class ConfigurationCacheTest {
         val secondOutput = File(projectDir, "build/generated/aboutLibraries/aboutlibraries.json").readText()
         assertFalse(secondOutput.contains("com.google.code.gson:gson"), "gson must be excluded")
         assertTrue(secondOutput.contains("org.slf4j:slf4j-api"), "slf4j must remain")
+    }
+
+    /**
+     * The user-facing `exclusionPatterns: SetProperty<Pattern>` must not leak
+     * `java.util.regex.Pattern` into the configuration cache: the task consumes a string-mapped
+     * `Provider<Set<String>>` view via `extension.library.exclusionPatterns.map {}`, so only
+     * realised `String` values cross the CC boundary. This test drives the pre-CC
+     * `exclusionPatterns.add(Pattern.compile(...))` form end-to-end and asserts that the CC
+     * entry stores successfully and is reused on the second run.
+     */
+    @Test
+    fun `configuration cache works with Pattern values on exclusionPatterns`() {
+        File(projectDir, "settings.gradle.kts").writeText("""rootProject.name = "test-project"""")
+        File(projectDir, "build.gradle.kts").writeText(
+            """
+            import java.util.regex.Pattern
+            plugins {
+                id("java-library")
+                id("com.mikepenz.aboutlibraries.plugin")
+            }
+            repositories { mavenCentral() }
+            dependencies {
+                implementation("com.google.code.gson:gson:2.11.0")
+                implementation("org.slf4j:slf4j-api:2.0.16")
+            }
+            aboutLibraries {
+                offlineMode = true
+                library {
+                    exclusionPatterns.add(Pattern.compile("com\\.google\\.code\\.gson.*"))
+                }
+            }
+            """.trimIndent()
+        )
+
+        @Suppress("WithPluginClasspathUsage")
+        val first = GradleRunner.create()
+            .withProjectDir(projectDir)
+            .withArguments("exportLibraryDefinitions", "--configuration-cache", "--stacktrace")
+            .withPluginClasspath()
+            .build()
+        assertTrue(
+            first.output.contains("Configuration cache entry stored"),
+            "CC entry must be stored when legacy Pattern overload is used. Output: ${first.output}"
+        )
+        val firstOutput = File(projectDir, "build/generated/aboutLibraries/aboutlibraries.json").readText()
+        assertFalse(firstOutput.contains("com.google.code.gson:gson"), "gson must be excluded via Pattern overload")
+        assertTrue(firstOutput.contains("org.slf4j:slf4j-api"), "slf4j must remain")
+
+        @Suppress("WithPluginClasspathUsage")
+        val second = GradleRunner.create()
+            .withProjectDir(projectDir)
+            .withArguments("exportLibraryDefinitions", "--configuration-cache", "--stacktrace")
+            .withPluginClasspath()
+            .build()
+        assertTrue(
+            ccReused(second.output),
+            "CC entry must be reused on identical second run. Output: ${second.output}"
+        )
     }
 
     /**

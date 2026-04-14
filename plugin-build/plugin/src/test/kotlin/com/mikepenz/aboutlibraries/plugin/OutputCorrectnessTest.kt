@@ -276,9 +276,10 @@ class OutputCorrectnessTest {
                 implementation("com.google.code.gson:gson:2.11.0")
                 implementation("org.slf4j:slf4j-api:2.0.16")
             """.trimIndent(),
+            scriptHeader = """import java.util.regex.Pattern""",
             extraConfig = """
                 library {
-                    exclusionPatterns = setOf("com\\.google\\.code\\.gson.*")
+                    exclusionPatterns.add(Pattern.compile("com\\.google\\.code\\.gson.*"))
                 }
             """.trimIndent()
         )
@@ -399,9 +400,10 @@ class OutputCorrectnessTest {
                 implementation("com.google.code.gson:gson:2.11.0")
                 implementation("org.slf4j:slf4j-api:2.0.16")
             """.trimIndent(),
+            scriptHeader = """import java.util.regex.Pattern""",
             extraConfig = """
                 library {
-                    exclusionPatterns = setOf("(com\\.google.*|org\\.slf4j.*)")
+                    exclusionPatterns.add(Pattern.compile("(com\\.google.*|org\\.slf4j.*)"))
                 }
             """.trimIndent()
         )
@@ -412,6 +414,173 @@ class OutputCorrectnessTest {
         assertFalse(content.contains("org.slf4j:slf4j-api"), "slf4j should be excluded")
     }
 
+    /**
+     * `exclusionPatterns.add(Pattern.compile(...))` and `.addAll(Pattern, ...)` must stay
+     * compilable on the user-facing `SetProperty<Pattern>`, and the downstream task must still
+     * filter correctly. The task derives a CC-safe `Provider<Set<String>>` over the extension
+     * property via `toSerializedRegex`, which preserves supported `Pattern` flags and rejects
+     * `Pattern.CANON_EQ`, so `Pattern` instances never reach the configuration cache.
+     */
+    @Test
+    fun `exclusionPatterns accepts java util regex Pattern values`() {
+        setupProject(
+            projectDir,
+            deps = """
+                implementation("com.google.code.gson:gson:2.11.0")
+                implementation("org.slf4j:slf4j-api:2.0.16")
+                implementation("com.squareup.okio:okio-jvm:3.9.0")
+            """.trimIndent(),
+            scriptHeader = """import java.util.regex.Pattern""",
+            extraConfig = """
+                library {
+                    exclusionPatterns.add(Pattern.compile("com\\.google\\.code\\.gson.*"))
+                    exclusionPatterns.addAll(
+                        Pattern.compile("org\\.slf4j.*"),
+                        Pattern.compile("com\\.squareup\\.okio.*"),
+                    )
+                }
+            """.trimIndent()
+        )
+
+        run("exportLibraryDefinitions")
+        val content = readOutput()
+        assertFalse(
+            content.contains("com.google.code.gson:gson"),
+            "gson should be excluded by Pattern.add(...)"
+        )
+        assertFalse(
+            content.contains("org.slf4j:slf4j-api"),
+            "slf4j should be excluded by Pattern vararg addAll(...)"
+        )
+        assertFalse(
+            content.contains("com.squareup.okio:okio"),
+            "okio should be excluded by Pattern vararg addAll(...)"
+        )
+    }
+
+    /**
+     * The Kotlin DSL lazy-assignment form `exclusionPatterns = setOf(Pattern.compile(...))` —
+     * rewritten by Gradle's Kotlin compiler plugin to `exclusionPatterns.set(setOf(...))` —
+     * must compile and filter identically to the `.add(...)` form. Pinned here so future Gradle
+     * or Kotlin DSL changes can't silently break the pre-14.0.1 assignment syntax.
+     */
+    @Test
+    fun `exclusionPatterns supports Kotlin DSL lazy assignment with Pattern values`() {
+        setupProject(
+            projectDir,
+            deps = """
+                implementation("com.google.code.gson:gson:2.11.0")
+                implementation("org.slf4j:slf4j-api:2.0.16")
+            """.trimIndent(),
+            scriptHeader = """import java.util.regex.Pattern""",
+            extraConfig = """
+                library {
+                    exclusionPatterns = setOf(Pattern.compile("com\\.google\\.code\\.gson.*"))
+                }
+            """.trimIndent()
+        )
+
+        run("exportLibraryDefinitions")
+        val content = readOutput()
+        assertFalse(
+            content.contains("com.google.code.gson:gson"),
+            "gson should be excluded via `= setOf(Pattern.compile(...))`"
+        )
+        assertTrue(
+            content.contains("org.slf4j:slf4j-api"),
+            "slf4j-api should still be present"
+        )
+    }
+
+    /**
+     * Flags set on the original [java.util.regex.Pattern] (e.g. `CASE_INSENSITIVE`, `MULTILINE`,
+     * `LITERAL`) must survive the real `--configuration-cache` serialize/deserialize cycle:
+     * the task serialises each `Pattern` into an inline flag-prefixed string via
+     * `toSerializedRegex` so downstream recompilation with `String.toRegex()` applies the same
+     * flags. Without this, a pre-14.0.1 build using `Pattern.compile("...", CASE_INSENSITIVE)`
+     * would silently change matching semantics after upgrade. This test runs with
+     * `--configuration-cache` explicitly, asserts the CC entry is stored, and then verifies the
+     * filtering reflects case-insensitive matching — proving flags survive the actual CC round
+     * trip, not just the in-memory `Provider.map { }` chain.
+     */
+    @Test
+    fun `exclusionPatterns preserves Pattern CASE_INSENSITIVE flag under configuration cache`() {
+        setupProject(
+            projectDir,
+            deps = """
+                implementation("com.google.code.gson:gson:2.11.0")
+                implementation("org.slf4j:slf4j-api:2.0.16")
+            """.trimIndent(),
+            scriptHeader = """import java.util.regex.Pattern""",
+            extraConfig = """
+                library {
+                    // Uppercase regex against lowercase uniqueId — only matches if
+                    // CASE_INSENSITIVE is preserved through the CC store/restore cycle.
+                    exclusionPatterns.add(Pattern.compile("COM\\.GOOGLE\\.CODE\\.GSON.*", Pattern.CASE_INSENSITIVE))
+                }
+            """.trimIndent()
+        )
+
+        val result = runWithCc("exportLibraryDefinitions")
+        assertTrue(
+            result.output.contains("Configuration cache entry stored"),
+            "CC entry must be stored on first run. Output: ${result.output}"
+        )
+        val content = readOutput()
+        assertFalse(
+            content.contains("com.google.code.gson:gson"),
+            "gson should be excluded by a CASE_INSENSITIVE Pattern — flag must survive the CC round trip"
+        )
+        assertTrue(
+            content.contains("org.slf4j:slf4j-api"),
+            "slf4j-api should still be present"
+        )
+    }
+
+    /**
+     * `Pattern.LITERAL` disables regex metacharacters, matching the pattern string literally.
+     * After serialisation the task wraps the body in `Pattern.quote(...)`, so the Kotlin
+     * `Regex` built downstream must treat the regex specials as literal characters. This test
+     * runs with `--configuration-cache` explicitly so the assertion covers the real CC
+     * serialize/deserialize cycle, not just the in-memory `Provider.map { }` chain. A uniqueId
+     * containing no regex metacharacters like `com.google.code.gson:gson` does not exercise
+     * LITERAL, so we use a pattern with a literal `.*` suffix that would otherwise match any
+     * characters.
+     */
+    @Test
+    fun `exclusionPatterns preserves Pattern LITERAL flag under configuration cache`() {
+        setupProject(
+            projectDir,
+            deps = """
+                implementation("com.google.code.gson:gson:2.11.0")
+                implementation("org.slf4j:slf4j-api:2.0.16")
+            """.trimIndent(),
+            scriptHeader = """import java.util.regex.Pattern""",
+            extraConfig = """
+                library {
+                    // Literal ".*" suffix — without LITERAL this would match everything; with
+                    // LITERAL it must match nothing (no uniqueId ends in the literal string ".*").
+                    exclusionPatterns.add(Pattern.compile("com.google.code.gson.*", Pattern.LITERAL))
+                }
+            """.trimIndent()
+        )
+
+        val result = runWithCc("exportLibraryDefinitions")
+        assertTrue(
+            result.output.contains("Configuration cache entry stored"),
+            "CC entry must be stored on first run. Output: ${result.output}"
+        )
+        val content = readOutput()
+        assertTrue(
+            content.contains("com.google.code.gson:gson"),
+            "gson must NOT be excluded: LITERAL flag must survive the CC round trip and prevent the pattern from matching anything"
+        )
+        assertTrue(
+            content.contains("org.slf4j:slf4j-api"),
+            "slf4j-api should still be present"
+        )
+    }
+
     // ----- helpers -----
 
     private fun run(vararg args: String) =
@@ -419,6 +588,14 @@ class OutputCorrectnessTest {
         GradleRunner.create()
             .withProjectDir(projectDir)
             .withArguments(*args, "--stacktrace")
+            .withPluginClasspath()
+            .build()
+
+    private fun runWithCc(vararg args: String) =
+        @Suppress("WithPluginClasspathUsage")
+        GradleRunner.create()
+            .withProjectDir(projectDir)
+            .withArguments(*args, "--configuration-cache", "--stacktrace")
             .withPluginClasspath()
             .build()
 
@@ -456,6 +633,7 @@ class OutputCorrectnessTest {
         projectDir: File,
         deps: String,
         extraConfig: String = "",
+        scriptHeader: String = "",
     ) {
         File(projectDir, "settings.gradle.kts").writeText(
             """
@@ -464,6 +642,7 @@ class OutputCorrectnessTest {
         )
         File(projectDir, "build.gradle.kts").writeText(
             """
+            $scriptHeader
             plugins {
                 id("java-library")
                 id("com.mikepenz.aboutlibraries.plugin")
