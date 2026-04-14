@@ -27,6 +27,7 @@ import org.gradle.api.tasks.PathSensitivity
 import org.gradle.work.DisableCachingByDefault
 import org.slf4j.LoggerFactory
 import java.io.File
+import java.util.regex.Pattern
 
 @DisableCachingByDefault(because = "Abstract base task; concrete subclasses opt in via @CacheableTask")
 abstract class BaseAboutLibrariesTask : DefaultTask() {
@@ -60,8 +61,18 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     @Input
     val requireLicense = extension.library.requireLicense
 
-    @Input
-    val exclusionPatterns = extension.library.exclusionPatterns
+    /**
+     * Derived `Provider<Set<String>>` over [AboutLibrariesExtension.library]
+     * [LibraryConfig.exclusionPatterns]. The extension property is typed `SetProperty<Pattern>`
+     * to preserve source compatibility with pre-CC builds; `java.util.regex.Pattern` is not
+     * configuration-cache serialisable, so the task consumes a string-mapped view. Gradle
+     * finalises the provider at CC store time, so only the realised `Set<String>` — not the
+     * upstream `Pattern` values — is written to the configuration cache.
+     */
+    @get:Input
+    val exclusionPatterns: Provider<Set<String>> = extension.library.exclusionPatterns.map { patterns ->
+        patterns.mapTo(LinkedHashSet(patterns.size), Pattern::pattern)
+    }
 
     @Input
     val duplicationMode = extension.library.duplicationMode

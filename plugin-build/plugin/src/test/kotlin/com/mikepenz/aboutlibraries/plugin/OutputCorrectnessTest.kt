@@ -276,9 +276,10 @@ class OutputCorrectnessTest {
                 implementation("com.google.code.gson:gson:2.11.0")
                 implementation("org.slf4j:slf4j-api:2.0.16")
             """.trimIndent(),
+            scriptHeader = """import java.util.regex.Pattern""",
             extraConfig = """
                 library {
-                    exclusionPatterns = setOf("com\\.google\\.code\\.gson.*")
+                    exclusionPatterns.add(Pattern.compile("com\\.google\\.code\\.gson.*"))
                 }
             """.trimIndent()
         )
@@ -399,9 +400,10 @@ class OutputCorrectnessTest {
                 implementation("com.google.code.gson:gson:2.11.0")
                 implementation("org.slf4j:slf4j-api:2.0.16")
             """.trimIndent(),
+            scriptHeader = """import java.util.regex.Pattern""",
             extraConfig = """
                 library {
-                    exclusionPatterns = setOf("(com\\.google.*|org\\.slf4j.*)")
+                    exclusionPatterns.add(Pattern.compile("(com\\.google.*|org\\.slf4j.*)"))
                 }
             """.trimIndent()
         )
@@ -410,6 +412,50 @@ class OutputCorrectnessTest {
         val content = readOutput()
         assertFalse(content.contains("com.google.code.gson:gson"), "gson should be excluded")
         assertFalse(content.contains("org.slf4j:slf4j-api"), "slf4j should be excluded")
+    }
+
+    /**
+     * `exclusionPatterns.add(Pattern.compile(...))` and `.addAll(Pattern, ...)` must stay
+     * compilable on the user-facing `SetProperty<Pattern>`, and the downstream task must still
+     * filter correctly. The task derives a CC-safe `Provider<Set<String>>` over the extension
+     * property via `.map { it.map(Pattern::pattern) }`, so `Pattern` never reaches the
+     * configuration cache.
+     */
+    @Test
+    fun `exclusionPatterns accepts java util regex Pattern values`() {
+        setupProject(
+            projectDir,
+            deps = """
+                implementation("com.google.code.gson:gson:2.11.0")
+                implementation("org.slf4j:slf4j-api:2.0.16")
+                implementation("com.squareup.okio:okio-jvm:3.9.0")
+            """.trimIndent(),
+            scriptHeader = """import java.util.regex.Pattern""",
+            extraConfig = """
+                library {
+                    exclusionPatterns.add(Pattern.compile("com\\.google\\.code\\.gson.*"))
+                    exclusionPatterns.addAll(
+                        Pattern.compile("org\\.slf4j.*"),
+                        Pattern.compile("com\\.squareup\\.okio.*"),
+                    )
+                }
+            """.trimIndent()
+        )
+
+        run("exportLibraryDefinitions")
+        val content = readOutput()
+        assertFalse(
+            content.contains("com.google.code.gson:gson"),
+            "gson should be excluded by Pattern.add(...)"
+        )
+        assertFalse(
+            content.contains("org.slf4j:slf4j-api"),
+            "slf4j should be excluded by Pattern vararg addAll(...)"
+        )
+        assertFalse(
+            content.contains("com.squareup.okio:okio"),
+            "okio should be excluded by Pattern vararg addAll(...)"
+        )
     }
 
     // ----- helpers -----
@@ -456,6 +502,7 @@ class OutputCorrectnessTest {
         projectDir: File,
         deps: String,
         extraConfig: String = "",
+        scriptHeader: String = "",
     ) {
         File(projectDir, "settings.gradle.kts").writeText(
             """
@@ -464,6 +511,7 @@ class OutputCorrectnessTest {
         )
         File(projectDir, "build.gradle.kts").writeText(
             """
+            $scriptHeader
             plugins {
                 id("java-library")
                 id("com.mikepenz.aboutlibraries.plugin")
