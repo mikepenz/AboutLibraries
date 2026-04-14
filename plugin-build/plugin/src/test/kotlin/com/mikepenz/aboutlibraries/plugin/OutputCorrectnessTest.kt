@@ -458,6 +458,114 @@ class OutputCorrectnessTest {
         )
     }
 
+    /**
+     * The Kotlin DSL lazy-assignment form `exclusionPatterns = setOf(Pattern.compile(...))` —
+     * rewritten by Gradle's Kotlin compiler plugin to `exclusionPatterns.set(setOf(...))` —
+     * must compile and filter identically to the `.add(...)` form. Pinned here so future Gradle
+     * or Kotlin DSL changes can't silently break the pre-14.0.1 assignment syntax.
+     */
+    @Test
+    fun `exclusionPatterns supports Kotlin DSL lazy assignment with Pattern values`() {
+        setupProject(
+            projectDir,
+            deps = """
+                implementation("com.google.code.gson:gson:2.11.0")
+                implementation("org.slf4j:slf4j-api:2.0.16")
+            """.trimIndent(),
+            scriptHeader = """import java.util.regex.Pattern""",
+            extraConfig = """
+                library {
+                    exclusionPatterns = setOf(Pattern.compile("com\\.google\\.code\\.gson.*"))
+                }
+            """.trimIndent()
+        )
+
+        run("exportLibraryDefinitions")
+        val content = readOutput()
+        assertFalse(
+            content.contains("com.google.code.gson:gson"),
+            "gson should be excluded via `= setOf(Pattern.compile(...))`"
+        )
+        assertTrue(
+            content.contains("org.slf4j:slf4j-api"),
+            "slf4j-api should still be present"
+        )
+    }
+
+    /**
+     * Flags set on the original [java.util.regex.Pattern] (e.g. `CASE_INSENSITIVE`, `MULTILINE`,
+     * `LITERAL`) must survive the config-cache round trip: the task serialises each Pattern into
+     * an inline flag-prefixed string so downstream recompilation via `String.toRegex()` applies
+     * the same flags. Without this, a pre-14.0.1 build using `Pattern.compile("...",
+     * CASE_INSENSITIVE)` would silently change matching semantics after upgrade.
+     */
+    @Test
+    fun `exclusionPatterns preserves Pattern CASE_INSENSITIVE flag across CC boundary`() {
+        setupProject(
+            projectDir,
+            deps = """
+                implementation("com.google.code.gson:gson:2.11.0")
+                implementation("org.slf4j:slf4j-api:2.0.16")
+            """.trimIndent(),
+            scriptHeader = """import java.util.regex.Pattern""",
+            extraConfig = """
+                library {
+                    // Uppercase regex against lowercase uniqueId — only matches if
+                    // CASE_INSENSITIVE is preserved through the config-cache serialisation.
+                    exclusionPatterns.add(Pattern.compile("COM\\.GOOGLE\\.CODE\\.GSON.*", Pattern.CASE_INSENSITIVE))
+                }
+            """.trimIndent()
+        )
+
+        run("exportLibraryDefinitions")
+        val content = readOutput()
+        assertFalse(
+            content.contains("com.google.code.gson:gson"),
+            "gson should be excluded by a CASE_INSENSITIVE Pattern — flag must survive CC round trip"
+        )
+        assertTrue(
+            content.contains("org.slf4j:slf4j-api"),
+            "slf4j-api should still be present"
+        )
+    }
+
+    /**
+     * `Pattern.LITERAL` disables regex metacharacters, matching the pattern string literally.
+     * After serialisation the task wraps the body in `Pattern.quote(...)`, so the Kotlin
+     * `Regex` built downstream must treat the regex specials as literal characters. A uniqueId
+     * containing no regex metacharacters like `com.google.code.gson:gson` does not exercise
+     * this, so we use a pattern with a literal `.` that would otherwise match any character.
+     */
+    @Test
+    fun `exclusionPatterns preserves Pattern LITERAL flag across CC boundary`() {
+        setupProject(
+            projectDir,
+            deps = """
+                implementation("com.google.code.gson:gson:2.11.0")
+                implementation("org.slf4j:slf4j-api:2.0.16")
+            """.trimIndent(),
+            scriptHeader = """import java.util.regex.Pattern""",
+            extraConfig = """
+                library {
+                    // Literal ".*" suffix — without LITERAL this would match everything; with
+                    // LITERAL it must match nothing (no uniqueId ends in the literal string ".*").
+                    exclusionPatterns.add(Pattern.compile("com.google.code.gson.*", Pattern.LITERAL))
+                }
+            """.trimIndent()
+        )
+
+        run("exportLibraryDefinitions")
+        val content = readOutput()
+        assertTrue(
+            content.contains("com.google.code.gson:gson"),
+            "gson must NOT be excluded: LITERAL flag must survive CC round trip and prevent the pattern from matching anything"
+        )
+        assertTrue(
+            content.contains("org.slf4j:slf4j-api"),
+            "slf4j-api should still be present"
+        )
+    }
+
     // ----- helpers -----
 
     private fun run(vararg args: String) =
