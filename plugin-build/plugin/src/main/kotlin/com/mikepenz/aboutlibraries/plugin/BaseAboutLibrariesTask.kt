@@ -107,6 +107,9 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     val additionalLicenses = extension.license.additionalLicenses
 
     @Input
+    val includeLicenses = extension.license.includeLicenses
+
+    @Input
     @Optional
     val gitHubApiToken = extension.collect.gitHubApiToken
 
@@ -443,6 +446,7 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
             variantToDependencyData = variantToDependencyData,
             configFolder = realPath,
             exclusionPatterns = exclusionPatterns.get(),
+            includeLicenses = includeLicenses.get(),
             offlineMode = offlineMode.get(),
             fetchRemoteLicense = fetchRemoteLicense.get(),
             fetchRemoteFunding = fetchRemoteFunding.get(),
