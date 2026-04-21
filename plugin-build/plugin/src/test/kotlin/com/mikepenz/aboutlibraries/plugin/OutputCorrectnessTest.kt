@@ -581,6 +581,89 @@ class OutputCorrectnessTest {
         )
     }
 
+    /**
+     * `includeLicenses` should only keep libraries whose license matches the inclusion set.
+     */
+    @Test
+    fun `includeLicenses filters libraries by license`() {
+        setupProject(
+            projectDir,
+            deps = """
+                implementation("com.google.code.gson:gson:2.11.0")
+                implementation("org.slf4j:slf4j-api:2.0.16")
+            """.trimIndent(),
+            extraConfig = """
+                license {
+                    includeLicenses.addAll("Apache-2.0")
+                }
+            """.trimIndent()
+        )
+
+        run("exportLibraryDefinitions")
+        val content = readOutput()
+        assertTrue(
+            content.contains("com.google.code.gson:gson"),
+            "gson (Apache-2.0) should be included"
+        )
+        assertFalse(
+            content.contains("org.slf4j:slf4j-api"),
+            "slf4j (MIT) should be excluded by license inclusion filter"
+        )
+    }
+
+    /**
+     * Empty `includeLicenses` (default) must include all libraries — no change in behavior.
+     */
+    @Test
+    fun `empty includeLicenses includes all libraries`() {
+        setupProject(
+            projectDir,
+            deps = """
+                implementation("com.google.code.gson:gson:2.11.0")
+                implementation("org.slf4j:slf4j-api:2.0.16")
+            """.trimIndent()
+        )
+
+        run("exportLibraryDefinitions")
+        val content = readOutput()
+        assertTrue(content.contains("com.google.code.gson:gson"), "gson should be present")
+        assertTrue(content.contains("org.slf4j:slf4j-api"), "slf4j should be present")
+    }
+
+    /**
+     * `includeLicenses` and `exclusionPatterns` should both apply independently.
+     */
+    @Test
+    fun `includeLicenses and exclusionPatterns work together`() {
+        setupProject(
+            projectDir,
+            deps = """
+                implementation("com.google.code.gson:gson:2.11.0")
+                implementation("org.slf4j:slf4j-api:2.0.16")
+            """.trimIndent(),
+            scriptHeader = """import java.util.regex.Pattern""",
+            extraConfig = """
+                library {
+                    exclusionPatterns.add(Pattern.compile("com\\.google\\.code\\.gson.*"))
+                }
+                license {
+                    includeLicenses.addAll("Apache-2.0", "MIT")
+                }
+            """.trimIndent()
+        )
+
+        run("exportLibraryDefinitions")
+        val content = readOutput()
+        assertFalse(
+            content.contains("com.google.code.gson:gson"),
+            "gson excluded by exclusionPatterns even though its license is in includeLicenses"
+        )
+        assertTrue(
+            content.contains("org.slf4j:slf4j-api"),
+            "slf4j should pass both filters"
+        )
+    }
+
     // ----- helpers -----
 
     private fun run(vararg args: String) =

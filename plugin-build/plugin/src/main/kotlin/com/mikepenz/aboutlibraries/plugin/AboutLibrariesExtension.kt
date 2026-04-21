@@ -104,6 +104,7 @@ abstract class AboutLibrariesExtension {
             it.allowedLicenses.convention(emptySet())
             it.allowedLicensesMap.convention(emptyMap())
             it.additionalLicenses.convention(emptySet())
+            it.includeLicenses.convention(emptySet())
             it.strictMode.convention(StrictMode.IGNORE)
         }
         android {
@@ -546,6 +547,26 @@ abstract class LicenseConfig @Inject constructor() {
      */
     @get:Optional
     abstract val additionalLicenses: SetProperty<String>
+
+    /**
+     * Defines the licenses to include in the output. When non-empty, only libraries
+     * with at least one license matching this set will appear in the generated JSON.
+     * When empty (default), all libraries are included.
+     *
+     * Matching is case-insensitive and supports SPDX IDs, license names, and license URLs.
+     *
+     * ```
+     * aboutLibraries {
+     *   license {
+     *      includeLicenses.addAll("Apache-2.0", "MIT")
+     *   }
+     * }
+     * ```
+     *
+     * This API accepts spdxId's, license names, or license URLs. A full list is available here: https://spdx.org/licenses/
+     */
+    @get:Optional
+    abstract val includeLicenses: SetProperty<String>
 
     /**
      * Enables an exceptional strictMode which will either log or crash the build in case non allowed licenses are detected.

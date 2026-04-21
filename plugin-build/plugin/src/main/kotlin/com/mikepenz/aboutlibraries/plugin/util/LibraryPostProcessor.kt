@@ -15,11 +15,13 @@ import com.mikepenz.aboutlibraries.plugin.util.parser.LicenseReader
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.File
+import java.util.Locale
 
 internal class LibraryPostProcessor(
     private val variantToDependencyData: Map<String, List<DependencyData>>,
     private val configFolder: File?,
     private val exclusionPatterns: Set<String>,
+    private val includeLicenses: Set<String>,
     private val offlineMode: Boolean,
     private val fetchRemoteLicense: Boolean,
     private val fetchRemoteFunding: Boolean,
@@ -52,6 +54,10 @@ internal class LibraryPostProcessor(
             }
         }
 
+        val lowercaseIncludeLicenses = if (includeLicenses.isNotEmpty()) {
+            includeLicenses.mapTo(HashSet(includeLicenses.size)) { it.lowercase(Locale.ENGLISH) }
+        } else emptySet()
+
         val variant = variant
         val dependencyDataForVariant = if (variant.isNullOrBlank()) {
             variantToDependencyData.flatMap { (_, dependencies) -> dependencies }.deduplicateDependencies() ?: emptySet()
@@ -76,6 +82,22 @@ internal class LibraryPostProcessor(
 
                     if (fetchRemoteLicense) {
                         api.fetchRemoteLicense(dependencyData.uniqueId, dependencyData.scm, licenses, mapLicensesToSpdx)
+                    }
+
+                    // License inclusion filter: skip libraries whose licenses don't match.
+                    if (lowercaseIncludeLicenses.isNotEmpty()) {
+                        val hasMatch = licenses.any { lic ->
+                            val id = lic.spdxId?.lowercase(Locale.ENGLISH)
+                            val name = lic.name.lowercase(Locale.ENGLISH)
+                            val url = lic.url?.lowercase(Locale.ENGLISH)
+                            lowercaseIncludeLicenses.contains(id) ||
+                                lowercaseIncludeLicenses.contains(name) ||
+                                (!url.isNullOrEmpty() && lowercaseIncludeLicenses.contains(url))
+                        }
+                        if (!hasMatch) {
+                            LOGGER.debug("Excluding library ${dependencyData.uniqueId} due to license inclusion filter")
+                            return@onEach
+                        }
                     }
 
                     val funding = mutableSetOf<Funding>()
