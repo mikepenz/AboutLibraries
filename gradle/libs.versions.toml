@@ -16,7 +16,7 @@ fastAdapter = "5.7.0"
 iconics = "5.5.0"
 itemAnimators = "1.1.0"
 ivy = "2.5.3"
-modelBuilder = "3.9.14"
+modelBuilder = "3.9.15"
 materialDrawer = "9.0.2"
 okhttp = "5.3.2"
 
