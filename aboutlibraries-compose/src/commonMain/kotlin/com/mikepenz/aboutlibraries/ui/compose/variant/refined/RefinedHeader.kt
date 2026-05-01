@@ -25,6 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.mikepenz.aboutlibraries.ui.compose.style.LibrariesStyle
 import com.mikepenz.aboutlibraries.ui.compose.style.LibraryStrings
@@ -83,9 +84,9 @@ fun RefinedHeader(
                     Spacer(Modifier.width(10.dp))
                 }
                 Column(modifier = Modifier.weight(1f)) {
-                    BasicText(text = title, style = style.textStyles.headerTitleTextStyle.copy(color = onBg))
+                    BasicText(text = title, style = style.textStyles.headerTitleTextStyle.copy(color = onBg), maxLines = 1, overflow = TextOverflow.Ellipsis)
                     if (!subtitle.isNullOrBlank()) {
-                        BasicText(text = subtitle, style = style.textStyles.headerTaglineTextStyle.copy(color = subtle))
+                        BasicText(text = subtitle, style = style.textStyles.headerTaglineTextStyle.copy(color = subtle), maxLines = 1, overflow = TextOverflow.Ellipsis)
                     }
                 }
                 // Inline search: placed to the right of the title on the same row (compact style).

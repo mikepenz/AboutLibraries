@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -71,9 +72,9 @@ fun TraditionalHeader(
                     Spacer(Modifier.width(12.dp))
                 }
                 Column(modifier = Modifier.weight(1f)) {
-                    BasicText(text = title, style = style.textStyles.headerTitleTextStyle.copy(color = onBg))
+                    BasicText(text = title, style = style.textStyles.headerTitleTextStyle.copy(color = onBg), maxLines = 1, overflow = TextOverflow.Ellipsis)
                     if (!tagline.isNullOrBlank()) {
-                        BasicText(text = tagline, style = style.textStyles.headerTaglineTextStyle.copy(color = subtle))
+                        BasicText(text = tagline, style = style.textStyles.headerTaglineTextStyle.copy(color = subtle), maxLines = 1, overflow = TextOverflow.Ellipsis)
                     }
                 }
                 if (!versionLabel.isNullOrBlank()) {

@@ -159,6 +159,6 @@ private fun LicenseBadge(
             .background(container)
             .padding(horizontal = 10.dp, vertical = 3.dp),
     ) {
-        BasicText(text = text, style = textStyles.licenseTextStyle.copy(color = content))
+        BasicText(text = text, style = textStyles.licenseTextStyle.copy(color = content), maxLines = 1, overflow = TextOverflow.Ellipsis)
     }
 }
