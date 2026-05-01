@@ -88,6 +88,8 @@ fun TraditionalHeader(
                         BasicText(
                             text = versionLabel,
                             style = TextStyle(color = subtle, fontSize = 12.sp, fontWeight = FontWeight.Medium),
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
                         )
                     }
                 }

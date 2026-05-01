@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -75,7 +76,7 @@ fun DefaultSearchField(
         Spacer(Modifier.width(10.dp))
         Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.CenterStart) {
             if (query.isEmpty()) {
-                BasicText(text = placeholder, style = textStyle.copy(color = placeholderColor))
+                BasicText(text = placeholder, style = textStyle.copy(color = placeholderColor), maxLines = 1, overflow = TextOverflow.Ellipsis)
             }
             BasicTextField(
                 value = query,
