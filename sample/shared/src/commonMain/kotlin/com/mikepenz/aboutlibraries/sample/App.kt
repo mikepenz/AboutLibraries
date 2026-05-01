@@ -325,9 +325,9 @@ fun App(libs: Libs?) {
                         }
                     }
 
-                    val showFilterBarFixed = settings.showLicenseFilter
-                        && settings.headerStyle != HeaderStyle.Compact
-                        && settings.headerPosition == HeaderPosition.Fixed
+                    val showFilterBar = settings.showLicenseFilter
+                        && (settings.headerStyle != HeaderStyle.Compact || !settings.showTabsInHeader)
+                    val showFilterBarFixed = showFilterBar && settings.headerPosition == HeaderPosition.Fixed
                     if (showFilterBarFixed) {
                         LicenseFilterBar(
                             tabs = tabs,
@@ -338,7 +338,7 @@ fun App(libs: Libs?) {
                     }
 
                     val needsListHeader = settings.headerPosition != HeaderPosition.Fixed
-                        && (settings.showHeader || (settings.showLicenseFilter && settings.headerStyle != HeaderStyle.Compact))
+                        && (settings.showHeader || showFilterBar)
                     val headerLambda: (LazyListScope.() -> Unit)? = if (needsListHeader) {
                         {
                             val headerContent: @Composable () -> Unit = {
@@ -379,7 +379,7 @@ fun App(libs: Libs?) {
                                     item { headerContent() }
                                 }
                             }
-                            val showFilterBarInList = settings.showLicenseFilter && settings.headerStyle != HeaderStyle.Compact
+                            val showFilterBarInList = showFilterBar
                             if (showFilterBarInList) {
                                 if (settings.headerPosition == HeaderPosition.Sticky) {
                                     stickyHeader {
