@@ -25,11 +25,6 @@ android {
         }
     }
 
-    buildFeatures {
-        viewBinding = true
-        dataBinding = true
-    }
-
     packaging {
         resources {
             excludes.add("META-INF/library-core_release.kotlin_module")
@@ -55,7 +50,6 @@ dependencies {
     implementation(compose.components.resources)
     implementation(compose.components.uiToolingPreview)
 
-    implementation(project(":aboutlibraries"))
     implementation(project(":aboutlibraries-core"))
     implementation(project(":aboutlibraries-compose-m2"))
     implementation(project(":aboutlibraries-compose-m3"))
@@ -67,27 +61,6 @@ dependencies {
     // implementation("org.apache.commons:commons-csv:1.9.0")
 
     implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.cardView)
-    implementation(libs.androidx.recyclerView)
-
-    implementation(libs.google.material)
-
-    // used to generate the drawer on the left
-    // https://github.com/mikepenz/MaterialDrawer
-    implementation(libs.materialDrawer.core)
-
-    // used to provide different itemAnimators for the RecyclerView
-    // https://github.com/mikepenz/ItemAnimators
-    implementation(libs.itemAnimators.core)
-
-    // used to provide out of the box icon font support. simplifies development,
-    // and provides scalable icons. the core is very very light
-    // https://github.com/mikepenz/Android-Iconics
-    implementation(libs.iconics.core)
-
-    // used to display the icons in the drawer
-    // https://github.com/mikepenz/Android-Iconicsx`
-    implementation("com.mikepenz:material-design-iconic-typeface:2.2.0.10-kotlin@aar")
 
     // used only tho showcase multi flavor support
     "stagingImplementation"(libs.okhttp.core)
@@ -100,10 +73,6 @@ dependencies {
 //    implementation("com.google.android.play:app-update-ktx:2.1.0")
 }
 
-configurations.configureEach {
-    resolutionStrategy.force(libs.fastAdapter.core)
-    resolutionStrategy.force(libs.iconics.core)
-}
 
 aboutLibraries {
     collect {

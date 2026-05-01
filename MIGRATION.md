@@ -1,5 +1,12 @@
 ### Upgrade Notes
 
+#### v15.0.0
+
+- **Breaking Change**: The legacy View-based UI module (`com.mikepenz:aboutlibraries`) has been removed.
+    - Migrate to the Compose UI modules: `com.mikepenz:aboutlibraries-compose`, `com.mikepenz:aboutlibraries-compose-m2` (M2) or `com.mikepenz:aboutlibraries-compose-m3` (M3).
+    - Remove `LibsBuilder`, `LibsActivity`, `LibsFragment`, and `LibsConfiguration` usages from your code.
+    - See the [README](README.md) for the Compose UI setup and usage.
+
 #### v14.0.0
 
 - **Breaking Change**: The `core` plugin no longer depends on the `kotlinx.immutable` collections library.
