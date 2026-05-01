@@ -61,6 +61,7 @@ dependencies {
     // implementation("org.apache.commons:commons-csv:1.9.0")
 
     implementation(libs.androidx.activity.compose)
+    implementation(libs.google.material)
 
     // used only tho showcase multi flavor support
     "stagingImplementation"(libs.okhttp.core)
