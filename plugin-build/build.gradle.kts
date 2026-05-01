@@ -6,7 +6,8 @@ plugins {
     alias(baseLibs.plugins.conventionPlugin)
     alias(baseLibs.plugins.dokka)
     alias(baseLibs.plugins.mavenPublish)
-    id("com.gradle.plugin-publish") version "1.3.1" apply false
+    id("com.gradle.plugin-publish") version "2.1.1" apply false
+    id("org.gradle.plugin-compatibility") version "1.0.0" apply false
 }
 
 buildscript {

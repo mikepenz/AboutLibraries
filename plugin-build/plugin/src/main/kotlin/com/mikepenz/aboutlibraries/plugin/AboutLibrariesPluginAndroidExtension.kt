@@ -72,7 +72,6 @@ private fun configureAndroidTasks(project: Project, extension: AboutLibrariesExt
     // task to output libraries, their license in CSV format and source to a given location
     project.tasks.configure("exportComplianceLibraries${variantName}", AboutLibrariesExportComplianceTask::class.java) {
         it.variant.set(variant.name)
-        it.projectDirectory.set(project.layout.projectDirectory)
         it.configure()
     }
 }

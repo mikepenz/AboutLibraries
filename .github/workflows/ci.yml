@@ -36,7 +36,7 @@ jobs:
         uses: gradle/actions/setup-gradle@50e97c2cd7a37755bbfafc9c5b7cafaece252f6e # v6
 
       - name: Cache konan
-        uses: actions/cache@668228422ae6a00e4ad889ee87cd7109ec5666a7 # v5
+        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5
         with:
           path: ~/.konan
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
@@ -159,7 +159,7 @@ jobs:
           detailed_summary: true
 
       - name: Archive Test Report
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           name: "Test-Artifacts"
           path: "sample/android/build/reports/paparazzi/debug/"
@@ -170,28 +170,28 @@ jobs:
 
       - name: Upload Lint SARIF (aboutlibraries)
         if: always() && github.event_name == 'pull_request' && hashFiles('aboutlibraries/build/reports/lint-results-debug.sarif') != ''
-        uses: github/codeql-action/upload-sarif@c10b8064de6f491fea524254123dbe5e09572f13 # v4
+        uses: github/codeql-action/upload-sarif@95e58e9a2cdfd71adc6e0353d5c52f41a045d225 # v4
         with:
           sarif_file: 'aboutlibraries/build/reports/lint-results-debug.sarif'
           category: lint-aboutlibraries
 
       - name: Upload Lint SARIF (aboutlibraries-compose-wear-m3)
         if: always() && github.event_name == 'pull_request' && hashFiles('aboutlibraries-compose-wear-m3/build/reports/lint-results-debug.sarif') != ''
-        uses: github/codeql-action/upload-sarif@c10b8064de6f491fea524254123dbe5e09572f13 # v4
+        uses: github/codeql-action/upload-sarif@95e58e9a2cdfd71adc6e0353d5c52f41a045d225 # v4
         with:
           sarif_file: 'aboutlibraries-compose-wear-m3/build/reports/lint-results-debug.sarif'
           category: lint-aboutlibraries-compose-wear-m3
 
       - name: Upload Lint SARIF (app)
         if: always() && github.event_name == 'pull_request' && hashFiles('app/build/reports/lint-results-debug.sarif') != ''
-        uses: github/codeql-action/upload-sarif@c10b8064de6f491fea524254123dbe5e09572f13 # v4
+        uses: github/codeql-action/upload-sarif@95e58e9a2cdfd71adc6e0353d5c52f41a045d225 # v4
         with:
           sarif_file: 'app/build/reports/lint-results-debug.sarif'
           category: lint-app
 
       - name: Upload Lint SARIF (sample/android)
         if: always() && github.event_name == 'pull_request' && hashFiles('sample/android/build/reports/lint-results-debug.sarif') != ''
-        uses: github/codeql-action/upload-sarif@c10b8064de6f491fea524254123dbe5e09572f13 # v4
+        uses: github/codeql-action/upload-sarif@95e58e9a2cdfd71adc6e0353d5c52f41a045d225 # v4
         with:
           sarif_file: 'sample/android/build/reports/lint-results-debug.sarif'
           category: lint-sample-android
@@ -215,7 +215,7 @@ jobs:
           find . -name "*-release.aab" -type f -exec cp {} "artifacts" \;
 
       - name: Archive Artifacts
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           name: "App-Artifacts"
           path: artifacts/*
@@ -241,7 +241,7 @@ jobs:
 
       - name: Build Changelog
         id: github_release
-        uses: mikepenz/release-changelog-builder-action@2cb9befdbc05f65b8354cc9873cd506509bd0782 # v6
+        uses: mikepenz/release-changelog-builder-action@bcae7115752d4ed746ff92feb666574428a79415 # v6
         with:
           configuration: ".github/config/configuration.json"
           ignorePreReleases: ${{ !contains(github.ref, '-') }}

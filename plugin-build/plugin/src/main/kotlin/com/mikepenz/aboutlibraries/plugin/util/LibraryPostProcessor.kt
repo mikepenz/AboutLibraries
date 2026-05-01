@@ -15,12 +15,13 @@ import com.mikepenz.aboutlibraries.plugin.util.parser.LicenseReader
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.File
-import java.util.regex.Pattern
+import java.util.Locale
 
 internal class LibraryPostProcessor(
     private val variantToDependencyData: Map<String, List<DependencyData>>,
     private val configFolder: File?,
-    private val exclusionPatterns: Set<Pattern>,
+    private val exclusionPatterns: Set<String>,
+    private val includeLicenses: Set<String>,
     private val offlineMode: Boolean,
     private val fetchRemoteLicense: Boolean,
     private val fetchRemoteFunding: Boolean,
@@ -39,6 +40,24 @@ internal class LibraryPostProcessor(
         val librariesList = ArrayList<Library>()
         val licensesMap = sortedMapOf<String, License>(compareBy { it })
 
+        // Compile regex patterns once per process() call; patterns are stored as strings
+        // (java.util.regex.Pattern is not config-cache serializable, so we use String inputs).
+        // Wrap any compilation failure so the user sees which pattern is invalid.
+        val compiledPatterns = exclusionPatterns.map { pattern ->
+            try {
+                pattern.toRegex()
+            } catch (e: java.util.regex.PatternSyntaxException) {
+                throw IllegalArgumentException(
+                    "Invalid regex in aboutLibraries.library.exclusionPatterns: \"$pattern\" — ${e.description}",
+                    e
+                )
+            }
+        }
+
+        val lowercaseIncludeLicenses = if (includeLicenses.isNotEmpty()) {
+            includeLicenses.mapTo(HashSet(includeLicenses.size)) { it.lowercase(Locale.ENGLISH) }
+        } else emptySet()
+
         val variant = variant
         val dependencyDataForVariant = if (variant.isNullOrBlank()) {
             variantToDependencyData.flatMap { (_, dependencies) -> dependencies }.deduplicateDependencies() ?: emptySet()
@@ -52,7 +71,7 @@ internal class LibraryPostProcessor(
 
         if (dependencyDataForVariant != null) {
             dependencyDataForVariant.onEach { dependencyData ->
-                if (exclusionPatterns.isEmpty() || !exclusionPatterns.any { pattern -> pattern.matcher(dependencyData.uniqueId).matches() }) {
+                if (compiledPatterns.isEmpty() || !compiledPatterns.any { pattern -> pattern.matches(dependencyData.uniqueId) }) {
                     val licenses = dependencyData.licenses.map { lic ->
                         if (mapLicensesToSpdx) {
                             // in case this can be tracked back to a spdx id use according hash, doing so will lower the size of the output
@@ -63,6 +82,22 @@ internal class LibraryPostProcessor(
 
                     if (fetchRemoteLicense) {
                         api.fetchRemoteLicense(dependencyData.uniqueId, dependencyData.scm, licenses, mapLicensesToSpdx)
+                    }
+
+                    // License inclusion filter: skip libraries whose licenses don't match.
+                    if (lowercaseIncludeLicenses.isNotEmpty()) {
+                        val hasMatch = licenses.any { lic ->
+                            val id = lic.spdxId?.lowercase(Locale.ENGLISH)
+                            val name = lic.name.lowercase(Locale.ENGLISH)
+                            val url = lic.url?.lowercase(Locale.ENGLISH)
+                            lowercaseIncludeLicenses.contains(id) ||
+                                lowercaseIncludeLicenses.contains(name) ||
+                                (!url.isNullOrEmpty() && lowercaseIncludeLicenses.contains(url))
+                        }
+                        if (!hasMatch) {
+                            LOGGER.debug("Excluding library ${dependencyData.uniqueId} due to license inclusion filter")
+                            return@onEach
+                        }
                     }
 
                     val funding = mutableSetOf<Funding>()

@@ -29,7 +29,7 @@ class FunctionalTest {
         assertEquals(TaskOutcome.SUCCESS, result.task(":exportLibraryDefinitions")?.outcome)
 
         // Verify output file was created
-        val outputFile = File(projectDir, "build/generated/aboutLibraries/aboutLibraries.json")
+        val outputFile = File(projectDir, "build/generated/aboutLibraries/aboutlibraries.json")
         assertTrue(outputFile.exists(), "Output file should be created")
         assertTrue(outputFile.length() > 0, "Output file should not be empty")
 
@@ -88,7 +88,7 @@ class FunctionalTest {
 
         assertEquals(TaskOutcome.SUCCESS, result.task(":exportLibraryDefinitions")?.outcome)
 
-        val outputFile = File(projectDir, "build/generated/aboutLibraries/aboutLibraries.json")
+        val outputFile = File(projectDir, "build/generated/aboutLibraries/aboutlibraries.json")
         assertTrue(outputFile.exists())
     }
 
@@ -105,7 +105,7 @@ class FunctionalTest {
 
         assertEquals(TaskOutcome.SUCCESS, result.task(":exportLibraryDefinitions")?.outcome)
 
-        val outputFile = File(projectDir, "build/generated/aboutLibraries/aboutLibraries.json")
+        val outputFile = File(projectDir, "build/generated/aboutLibraries/aboutlibraries.json")
         assertTrue(outputFile.exists())
         
         // Validate JSON structure even with no dependencies
@@ -133,7 +133,7 @@ class FunctionalTest {
 
         assertEquals(TaskOutcome.SUCCESS, result.task(":exportLibraryDefinitions")?.outcome)
 
-        val outputFile = File(projectDir, "build/generated/aboutLibraries/aboutLibraries.json")
+        val outputFile = File(projectDir, "build/generated/aboutLibraries/aboutlibraries.json")
         assertTrue(outputFile.exists())
         
         // Validate platform dependencies are included
@@ -181,6 +181,84 @@ class FunctionalTest {
         )
     }
 
+    /**
+     * Verifies that the task is truly relocatable in the build cache: a cache entry produced
+     * in one project directory must be reused (FROM_CACHE) in a *different* project directory
+     * with byte-identical build scripts. This exercises `PathSensitivity.NONE` on the
+     * `pomFiles` input — any drift to a relocation-sensitive sensitivity would cause this
+     * test to miss the cache and fall back to SUCCESS.
+     */
+    @Test
+    fun `task is relocatable across project directories via build cache`() {
+        val sharedCache = File(projectDir, "shared-cache").apply { mkdirs() }
+        val dirA = File(projectDir, "dirA").apply { mkdirs() }
+        val dirB = File(projectDir, "dirB").apply { mkdirs() }
+
+        // The cache directory MUST match exactly between dirA and dirB so the same local cache
+        // is used for store and retrieve. We write its absolute path into each settings.gradle.kts.
+        val sharedCachePath = sharedCache.absolutePath.replace("\\", "\\\\")
+        fun setup(target: File) {
+            File(target, "settings.gradle.kts").writeText(
+                """
+                rootProject.name = "test-project"
+                buildCache {
+                    local {
+                        directory = file("$sharedCachePath")
+                        isEnabled = true
+                    }
+                }
+                """.trimIndent()
+            )
+            File(target, "build.gradle.kts").writeText(
+                """
+                plugins {
+                    id("java-library")
+                    id("com.mikepenz.aboutlibraries.plugin")
+                }
+                repositories { mavenCentral() }
+                dependencies {
+                    implementation("com.google.code.gson:gson:2.11.0")
+                    implementation("org.slf4j:slf4j-api:2.0.16")
+                }
+                aboutLibraries { offlineMode = true }
+                """.trimIndent()
+            )
+        }
+        setup(dirA)
+        setup(dirB)
+
+        // Populate the shared cache from dirA.
+        @Suppress("WithPluginClasspathUsage")
+        val firstRun = GradleRunner.create()
+            .withProjectDir(dirA)
+            .withArguments("exportLibraryDefinitions", "--build-cache", "--stacktrace")
+            .withPluginClasspath()
+            .build()
+        assertEquals(
+            TaskOutcome.SUCCESS,
+            firstRun.task(":exportLibraryDefinitions")?.outcome,
+            "First run in dirA must execute and store a cache entry"
+        )
+
+        // Run in a different directory pointing at the same cache. Outcome must be FROM_CACHE,
+        // strictly — any other outcome (SUCCESS) means the task is not actually relocatable.
+        @Suppress("WithPluginClasspathUsage")
+        val secondRun = GradleRunner.create()
+            .withProjectDir(dirB)
+            .withArguments("exportLibraryDefinitions", "--build-cache", "--stacktrace")
+            .withPluginClasspath()
+            .build()
+        assertEquals(
+            TaskOutcome.FROM_CACHE,
+            secondRun.task(":exportLibraryDefinitions")?.outcome,
+            "Run in dirB against the shared cache must be FROM_CACHE (relocatable). Output: ${secondRun.output}"
+        )
+        assertTrue(
+            File(dirB, "build/generated/aboutLibraries/aboutlibraries.json").exists(),
+            "Output file must be restored from the cache into dirB"
+        )
+    }
+
     @Test
     fun `output should contain valid library structure with all required fields`() {
         setupDetailedProject(projectDir)
@@ -194,7 +272,7 @@ class FunctionalTest {
 
         assertEquals(TaskOutcome.SUCCESS, result.task(":exportLibraryDefinitions")?.outcome)
 
-        val outputFile = File(projectDir, "build/generated/aboutLibraries/aboutLibraries.json")
+        val outputFile = File(projectDir, "build/generated/aboutLibraries/aboutlibraries.json")
         val content = outputFile.readText()
         
         // Validate JSON can be parsed
@@ -238,7 +316,7 @@ class FunctionalTest {
 
         assertEquals(TaskOutcome.SUCCESS, result.task(":exportLibraryDefinitions")?.outcome)
 
-        val outputFile = File(projectDir, "build/generated/aboutLibraries/aboutLibraries.json")
+        val outputFile = File(projectDir, "build/generated/aboutLibraries/aboutlibraries.json")
         val content = outputFile.readText()
         
         // Validate licenses section exists
@@ -288,8 +366,8 @@ class FunctionalTest {
             }
             
             dependencies {
-                implementation("com.google.code.gson:gson:2.10.1")
-                implementation("org.slf4j:slf4j-api:2.0.9")
+                implementation("com.google.code.gson:gson:2.11.0")
+                implementation("org.slf4j:slf4j-api:2.0.16")
             }
             
             aboutLibraries {
@@ -343,7 +421,7 @@ class FunctionalTest {
             }
             
             dependencies {
-                implementation(platform("com.fasterxml.jackson:jackson-bom:2.15.3"))
+                implementation(platform("com.fasterxml.jackson:jackson-bom:2.18.2"))
                 implementation("com.fasterxml.jackson.core:jackson-databind")
             }
             
@@ -376,8 +454,8 @@ class FunctionalTest {
             }
             
             dependencies {
-                implementation("com.google.code.gson:gson:2.10.1")
-                implementation("org.slf4j:slf4j-api:2.0.9")
+                implementation("com.google.code.gson:gson:2.11.0")
+                implementation("org.slf4j:slf4j-api:2.0.16")
             }
             
             aboutLibraries {

@@ -12,13 +12,13 @@
 ### Generate reference images for tests
 
 ```bash
-./gradlew :sample:android:updateDebugScreenshotTest
+./gradlew :sample:android:recordPaparazzi
 ```
 
 ### Generate ScreenshotTest report
 
 ```bash
-./gradlew :sample:android:validateDebugScreenshotTest
+./gradlew :sample:android:verifyPaparazzi
 ```
 
 ### Run Android app

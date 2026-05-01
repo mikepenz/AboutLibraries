@@ -95,7 +95,7 @@ abstract class AboutLibrariesExtension {
         }
         library {
             it.requireLicense.convention(false)
-            it.exclusionPatterns.convention(emptySet())
+            it.exclusionPatterns.convention(emptySet<Pattern>())
             it.duplicationMode.convention(DuplicateMode.MERGE)
             it.duplicationRule.convention(DuplicateRule.EXACT)
         }
@@ -104,6 +104,7 @@ abstract class AboutLibrariesExtension {
             it.allowedLicenses.convention(emptySet())
             it.allowedLicensesMap.convention(emptyMap())
             it.additionalLicenses.convention(emptySet())
+            it.includeLicenses.convention(emptySet())
             it.strictMode.convention(StrictMode.IGNORE)
         }
         android {
@@ -407,12 +408,26 @@ abstract class LibraryConfig @Inject constructor() {
     abstract val requireLicense: Property<Boolean>
 
     /**
-     * A list of patterns (matching on the library `uniqueId` ($groupId:$artifactId)) to exclude libraries.
+     * A set of [java.util.regex.Pattern] entries matching on the library `uniqueId`
+     * (`$groupId:$artifactId`) to exclude libraries from the output.
+     *
+     * The user-facing type is `SetProperty<Pattern>` to preserve source compatibility with plugin
+     * versions prior to the configuration-cache refactor. `Pattern` itself is not CC-serialisable,
+     * so the downstream task does not consume this property directly as an `@Input`; instead it
+     * derives a CC-safe `Provider<Set<String>>` by serialising each `Pattern` with
+     * `toSerializedRegex`, which encodes supported flags (`CASE_INSENSITIVE`, `MULTILINE`,
+     * `LITERAL`, `DOTALL`, `UNIX_LINES`, `COMMENTS`, `UNICODE_CASE`, `UNICODE_CHARACTER_CLASS`)
+     * as inline regex prefixes / [Pattern.quote] wrappers and rejects the unrepresentable
+     * `Pattern.CANON_EQ`. Only `String` values ever reach the configuration cache.
      *
      * ```
      * aboutLibraries {
      *   library {
-     *      exclusionPatterns.addAll(Pattern.compile("com\.company\..*")))
+     *      exclusionPatterns.add(Pattern.compile("com\\.company\\..*"))
+     *      exclusionPatterns.addAll(
+     *          Pattern.compile("org\\.internal\\..*"),
+     *          Pattern.compile("io\\.legacy\\..*"),
+     *      )
      *   }
      * }
      * ```
@@ -532,6 +547,26 @@ abstract class LicenseConfig @Inject constructor() {
      */
     @get:Optional
     abstract val additionalLicenses: SetProperty<String>
+
+    /**
+     * Defines the licenses to include in the output. When non-empty, only libraries
+     * with at least one license matching this set will appear in the generated JSON.
+     * When empty (default), all libraries are included.
+     *
+     * Matching is case-insensitive and supports SPDX IDs, license names, and license URLs.
+     *
+     * ```
+     * aboutLibraries {
+     *   license {
+     *      includeLicenses.addAll("Apache-2.0", "MIT")
+     *   }
+     * }
+     * ```
+     *
+     * This API accepts spdxId's, license names, or license URLs. A full list is available here: https://spdx.org/licenses/
+     */
+    @get:Optional
+    abstract val includeLicenses: SetProperty<String>
 
     /**
      * Enables an exceptional strictMode which will either log or crash the build in case non allowed licenses are detected.

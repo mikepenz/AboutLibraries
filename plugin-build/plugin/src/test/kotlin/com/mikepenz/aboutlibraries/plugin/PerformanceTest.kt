@@ -32,9 +32,12 @@ class PerformanceTest {
 
         assertEquals(TaskOutcome.SUCCESS, result.task(":help")?.outcome)
 
-        // Configuration should be fast - under 10 seconds even with many dependencies
+        // Configuration should be reasonably fast even with many dependencies. The threshold
+        // is generous to accommodate cold-daemon startup, fresh dependency downloads, and slow
+        // CI environments — the goal is to detect *plugin*-induced slowness, not measure absolute
+        // configuration speed.
         println("Configuration time: ${duration}ms")
-        assertTrue(duration < 10000, "Configuration took too long: ${duration}ms")
+        assertTrue(duration < 30000, "Configuration took too long: ${duration}ms")
     }
 
     @Test
@@ -102,8 +105,8 @@ class PerformanceTest {
             }
             
             dependencies {
-                implementation("com.google.code.gson:gson:2.10.1")
-                implementation("org.slf4j:slf4j-api:2.0.9")
+                implementation("com.google.code.gson:gson:2.11.0")
+                implementation("org.slf4j:slf4j-api:2.0.16")
             }
             
             aboutLibraries {
@@ -134,12 +137,12 @@ class PerformanceTest {
             
             dependencies {
                 // Multiple popular libraries to simulate real-world project
-                implementation("com.google.code.gson:gson:2.10.1")
-                implementation("org.slf4j:slf4j-api:2.0.9")
+                implementation("com.google.code.gson:gson:2.11.0")
+                implementation("org.slf4j:slf4j-api:2.0.16")
                 implementation("com.squareup.okhttp3:okhttp:4.12.0")
-                implementation("com.google.guava:guava:32.1.3-jre")
-                implementation("org.apache.commons:commons-lang3:3.13.0")
-                implementation("com.fasterxml.jackson.core:jackson-databind:2.15.3")
+                implementation("com.google.guava:guava:33.3.1-jre")
+                implementation("org.apache.commons:commons-lang3:3.16.0")
+                implementation("com.fasterxml.jackson.core:jackson-databind:2.18.2")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
                 testImplementation("junit:junit:4.13.2")
                 testImplementation("org.mockito:mockito-core:5.7.0")
