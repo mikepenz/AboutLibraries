@@ -281,9 +281,24 @@ fun PreviewLicenseFilterBarLight() = AppTheme(useV3 = true, useDarkTheme = false
     )
 }
 
-@Preview(name = "PillToggle row", widthDp = 200, heightDp = 60, showBackground = true, backgroundColor = 0xFF141218)
+@Preview(name = "PillToggle · dark", widthDp = 200, heightDp = 60, showBackground = true, backgroundColor = 0xFF141218)
 @Composable
-fun PreviewPillToggleRow() = AppTheme(useV3 = true, useDarkTheme = true, accent = Accent) {
+fun PreviewPillToggleRowDark() = AppTheme(useV3 = true, useDarkTheme = true, accent = Accent) {
+    Box(
+        modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.surface),
+        contentAlignment = Alignment.Center,
+    ) {
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            PillToggle(on = true, onToggle = {}, textIndicator = "A")
+            PillToggle(on = false, onToggle = {}, textIndicator = "C")
+            PillToggle(on = true, onToggle = {}, textIndicator = "H")
+        }
+    }
+}
+
+@Preview(name = "PillToggle · light", widthDp = 200, heightDp = 60, showBackground = true, backgroundColor = 0xFFFFFBFF)
+@Composable
+fun PreviewPillToggleRowLight() = AppTheme(useV3 = true, useDarkTheme = false, accent = Accent) {
     Box(
         modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.surface),
         contentAlignment = Alignment.Center,

@@ -25,8 +25,10 @@ import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryActionMode
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibrariesDensity
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryActions
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryBadges
+import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryDetailMode
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryInlineDetail
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibrarySheetDetail
+import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryListScaffold
 import com.mikepenz.aboutlibraries.ui.compose.variant.refined.RefinedRow
 import com.mikepenz.aboutlibraries.ui.compose.variant.traditional.TraditionalRow
 
@@ -287,6 +289,100 @@ fun PreviewActionsLinks() = AppTheme(useV3 = true, useDarkTheme = true) {
     WithStyle { style ->
         Box(Modifier.fillMaxWidth().padding(16.dp).background(MaterialTheme.colorScheme.surface)) {
             LibraryActions(SampleLibrary, LibraryActionMode.Links, style, actionLabels = DefaultLibraryActionLabels)
+        }
+    }
+}
+
+// ── Light theme — shows accent-derived badge + dot colors ────────────────────
+
+@Preview(name = "Traditional · light · badge colors", widthDp = 600, heightDp = 130, showBackground = true, backgroundColor = 0xFFFFFBFF)
+@Composable
+fun PreviewTraditionalLightBadgeColors() = AppTheme(useV3 = true, useDarkTheme = false) {
+    Box(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surface)) {
+        WithStyle { style ->
+            Column {
+                TraditionalRow(SampleLibrary, expanded = false, onToggle = {}, density = LibrariesDensity.Cozy, badges = AllBadges, style = style)
+                TraditionalRow(MitLibrary, expanded = false, onToggle = {}, density = LibrariesDensity.Cozy, badges = AllBadges, style = style)
+            }
+        }
+    }
+}
+
+@Preview(name = "Refined · light · badge colors", widthDp = 600, heightDp = 160, showBackground = true, backgroundColor = 0xFFFFFBFF)
+@Composable
+fun PreviewRefinedLightBadgeColors() = AppTheme(useV3 = true, useDarkTheme = false) {
+    Box(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surface)) {
+        WithStyle { style ->
+            Column {
+                RefinedRow(SampleLibrary, expanded = false, onToggle = {}, density = LibrariesDensity.Cozy, badges = AllBadges, style = style)
+                RefinedRow(MitLibrary, expanded = false, onToggle = {}, density = LibrariesDensity.Cozy, badges = AllBadges, style = style)
+            }
+        }
+    }
+}
+
+// ── LibraryListScaffold inline-expand (expanded end state) ───────────────────
+
+@Preview(name = "Scaffold · Traditional · inline expanded", widthDp = 600, heightDp = 320, showBackground = true, backgroundColor = 0xFF141218)
+@Composable
+fun PreviewScaffoldTraditionalInlineExpanded() = AppTheme(useV3 = true, useDarkTheme = true) {
+    Box(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surface)) {
+        WithStyle { style ->
+            LibraryListScaffold(
+                libraries = listOf(MitLibrary, SampleLibrary),
+                expandedLibraryId = SampleLibrary.uniqueId,
+                onExpandedLibraryIdChange = {},
+                row = { library, expanded, toggle ->
+                    TraditionalRow(library, expanded, toggle, LibrariesDensity.Cozy, AllBadges, style)
+                },
+                detailMode = LibraryDetailMode.Inline,
+                inlineDetail = { library ->
+                    LibraryInlineDetail(library, LibraryActionMode.Chips, style, actionLabels = DefaultLibraryActionLabels)
+                },
+            )
+        }
+    }
+}
+
+@Preview(name = "Scaffold · Refined · inline expanded", widthDp = 600, heightDp = 280, showBackground = true, backgroundColor = 0xFF141218)
+@Composable
+fun PreviewScaffoldRefinedInlineExpanded() = AppTheme(useV3 = true, useDarkTheme = true) {
+    Box(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surface)) {
+        WithStyle { style ->
+            LibraryListScaffold(
+                libraries = listOf(MitLibrary, SampleLibrary),
+                expandedLibraryId = SampleLibrary.uniqueId,
+                onExpandedLibraryIdChange = {},
+                row = { library, expanded, toggle ->
+                    RefinedRow(library, expanded, toggle, LibrariesDensity.Cozy, AllBadges, style)
+                },
+                detailMode = LibraryDetailMode.Inline,
+                inlineDetail = { library ->
+                    LibraryInlineDetail(library, LibraryActionMode.Chips, style, actionLabels = DefaultLibraryActionLabels)
+                },
+            )
+        }
+    }
+}
+
+// ── Sheet detail — reordered (description + actions first, license last) ──────
+
+@Preview(name = "Sheet body · reordered · dark", widthDp = 400, heightDp = 420, showBackground = true, backgroundColor = 0xFF272529)
+@Composable
+fun PreviewSheetReordered() = AppTheme(useV3 = true, useDarkTheme = true) {
+    Box(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surfaceContainerHigh)) {
+        WithStyle { style ->
+            LibrarySheetDetail(SampleLibrary, LibraryActionMode.Chips, style, actionLabels = DefaultLibraryActionLabels)
+        }
+    }
+}
+
+@Preview(name = "Sheet body · reordered · light", widthDp = 400, heightDp = 420, showBackground = true, backgroundColor = 0xFFECE6F0)
+@Composable
+fun PreviewSheetReorderedLight() = AppTheme(useV3 = true, useDarkTheme = false) {
+    Box(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surfaceContainerHigh)) {
+        WithStyle { style ->
+            LibrarySheetDetail(SampleLibrary, LibraryActionMode.Chips, style, actionLabels = DefaultLibraryActionLabels)
         }
     }
 }
