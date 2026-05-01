@@ -1,6 +1,6 @@
 package com.mikepenz.aboutlibraries.ui.compose.variant
 
-import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -16,13 +16,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Path
-import androidx.compose.ui.graphics.StrokeCap
-import androidx.compose.ui.graphics.StrokeJoin
-import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.platform.UriHandler
 import androidx.compose.ui.semantics.Role
@@ -78,10 +75,10 @@ fun LibraryActions(
             horizontalArrangement = Arrangement.spacedBy(6.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            if (!source.isNullOrBlank()) ActionIconButton(ActionIcon.Source, actionLabels.source, style) { open(LibraryActionKind.Source, source) }
-            if (!website.isNullOrBlank()) ActionIconButton(ActionIcon.Website, actionLabels.website, style) { open(LibraryActionKind.Website, website) }
-            if (!sponsor.isNullOrBlank()) ActionIconButton(ActionIcon.Sponsor, actionLabels.sponsor, style) { open(LibraryActionKind.Sponsor, sponsor) }
-            if (licensePresent) ActionIconButton(ActionIcon.License, actionLabels.viewLicense, style) { open(LibraryActionKind.License, licenseUrl) }
+            if (!source.isNullOrBlank()) ActionIconButton(actionLabels.sourceIcon, actionLabels.source, style) { open(LibraryActionKind.Source, source) }
+            if (!website.isNullOrBlank()) ActionIconButton(actionLabels.websiteIcon, actionLabels.website, style) { open(LibraryActionKind.Website, website) }
+            if (!sponsor.isNullOrBlank()) ActionIconButton(actionLabels.sponsorIcon, actionLabels.sponsor, style) { open(LibraryActionKind.Sponsor, sponsor) }
+            if (licensePresent) ActionIconButton(actionLabels.viewLicenseIcon, actionLabels.viewLicense, style) { open(LibraryActionKind.License, licenseUrl) }
         }
 
         LibraryActionMode.Links -> Row(
@@ -139,7 +136,7 @@ private fun ActionChip(
 
 @Composable
 private fun ActionIconButton(
-    icon: ActionIcon,
+    icon: ImageVector,
     contentDescription: String,
     style: LibrariesStyle,
     onClick: () -> Unit,
@@ -160,7 +157,12 @@ private fun ActionIconButton(
             },
         contentAlignment = Alignment.Center,
     ) {
-        ActionIconGlyph(icon = icon, color = content, size = style.dimensions.actionIconInnerSize)
+        Image(
+            painter = rememberVectorPainter(icon),
+            contentDescription = null,
+            colorFilter = ColorFilter.tint(content),
+            modifier = Modifier.size(style.dimensions.actionIconInnerSize),
+        )
     }
 }
 
@@ -174,69 +176,4 @@ private fun ActionLink(label: String, style: LibrariesStyle, onClick: () -> Unit
             textDecoration = TextDecoration.Underline,
         ),
     )
-}
-
-private enum class ActionIcon { Source, Website, Sponsor, License }
-
-@Composable
-private fun ActionIconGlyph(icon: ActionIcon, color: Color, size: androidx.compose.ui.unit.Dp) {
-    Canvas(modifier = Modifier.size(size)) {
-        val s = this.size.minDimension
-        val strokeWidth = (s / 12f).coerceAtLeast(1.25f)
-        val stroke = Stroke(width = strokeWidth, cap = StrokeCap.Round, join = StrokeJoin.Round)
-        when (icon) {
-            ActionIcon.Source -> drawSourceGlyph(s, stroke, color)
-            ActionIcon.Website -> drawWebsiteGlyph(s, stroke, color)
-            ActionIcon.Sponsor -> drawHeartGlyph(s, color)
-            ActionIcon.License -> drawDocumentGlyph(s, stroke, color)
-        }
-    }
-}
-
-private fun androidx.compose.ui.graphics.drawscope.DrawScope.drawSourceGlyph(s: Float, stroke: Stroke, color: Color) {
-    // Two angle-bracket strokes "< / >" representing source code.
-    val pad = s * 0.18f
-    val mid = s / 2f
-    val topY = pad
-    val botY = s - pad
-    val left = pad
-    val right = s - pad
-    val midX = s / 2f
-    drawLine(color, Offset(midX - s * 0.12f, topY), Offset(left, mid), strokeWidth = stroke.width, cap = stroke.cap)
-    drawLine(color, Offset(left, mid), Offset(midX - s * 0.12f, botY), strokeWidth = stroke.width, cap = stroke.cap)
-    drawLine(color, Offset(midX + s * 0.12f, topY), Offset(right, mid), strokeWidth = stroke.width, cap = stroke.cap)
-    drawLine(color, Offset(right, mid), Offset(midX + s * 0.12f, botY), strokeWidth = stroke.width, cap = stroke.cap)
-}
-
-private fun androidx.compose.ui.graphics.drawscope.DrawScope.drawWebsiteGlyph(s: Float, stroke: Stroke, color: Color) {
-    val r = s * 0.4f
-    val c = Offset(s / 2f, s / 2f)
-    drawCircle(color = color, radius = r, center = c, style = stroke)
-    // Equator + meridian strokes — simple globe.
-    drawLine(color, Offset(c.x - r, c.y), Offset(c.x + r, c.y), strokeWidth = stroke.width)
-    drawLine(color, Offset(c.x, c.y - r), Offset(c.x, c.y + r), strokeWidth = stroke.width)
-}
-
-private fun androidx.compose.ui.graphics.drawscope.DrawScope.drawHeartGlyph(s: Float, color: Color) {
-    val path = Path().apply {
-        val w = s
-        val h = s
-        moveTo(w * 0.5f, h * 0.85f)
-        cubicTo(w * 0.05f, h * 0.6f, w * 0.05f, h * 0.2f, w * 0.5f, h * 0.35f)
-        cubicTo(w * 0.95f, h * 0.2f, w * 0.95f, h * 0.6f, w * 0.5f, h * 0.85f)
-        close()
-    }
-    drawPath(path = path, color = color)
-}
-
-private fun androidx.compose.ui.graphics.drawscope.DrawScope.drawDocumentGlyph(s: Float, stroke: Stroke, color: Color) {
-    val pad = s * 0.22f
-    val rectSize = Size(s - pad * 2f, s - pad * 1.6f)
-    val origin = Offset(pad, pad * 0.8f)
-    drawRect(color = color, topLeft = origin, size = rectSize, style = stroke)
-    // Two horizontal lines representing text rules.
-    val y1 = origin.y + rectSize.height * 0.4f
-    val y2 = origin.y + rectSize.height * 0.65f
-    drawLine(color, Offset(origin.x + s * 0.08f, y1), Offset(origin.x + rectSize.width - s * 0.08f, y1), strokeWidth = stroke.width)
-    drawLine(color, Offset(origin.x + s * 0.08f, y2), Offset(origin.x + rectSize.width - s * 0.08f, y2), strokeWidth = stroke.width)
 }
