@@ -129,8 +129,8 @@ fun LibraryListScaffold(
             val expanded = detailMode == LibraryDetailMode.Inline && expandedLibraryId == library.uniqueId
 
             val wrapperModifier = if (expanded && expandedBackground != Color.Unspecified) {
-                Modifier.background(expandedBackground)
-            } else Modifier
+                Modifier.animateItem().background(expandedBackground)
+            } else Modifier.animateItem()
             Column(modifier = wrapperModifier) {
                 row(library, expanded, toggle)
                 AnimatedVisibility(
