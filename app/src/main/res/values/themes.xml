@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="SampleApp.DayNight" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorControlNormal">@color/customTestColor</item>
-    </style>
+    <style name="SampleApp.DayNight" parent="Theme.Material3.DayNight.NoActionBar" />
 
 </resources>
