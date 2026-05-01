@@ -55,10 +55,10 @@ import com.mikepenz.aboutlibraries.ui.compose.LibraryDefaults
 import com.mikepenz.aboutlibraries.ui.compose.LibrariesContainer as M2LibrariesContainer
 import com.mikepenz.aboutlibraries.ui.compose.m3.LibrariesContainer as M3LibrariesContainer
 import com.mikepenz.aboutlibraries.ui.compose.m3.style.m3VariantColors
-import com.mikepenz.aboutlibraries.ui.compose.m3.style.m3VariantTextStyles
+import com.mikepenz.aboutlibraries.ui.compose.m3.style.m3LibrariesStyle
 import com.mikepenz.aboutlibraries.ui.compose.style.ContrastLevel
 import com.mikepenz.aboutlibraries.ui.compose.style.m2VariantColors
-import com.mikepenz.aboutlibraries.ui.compose.style.m2VariantTextStyles
+import com.mikepenz.aboutlibraries.ui.compose.style.m2LibrariesStyle
 import com.mikepenz.aboutlibraries.ui.compose.style.DefaultLibraryStrings
 import com.mikepenz.aboutlibraries.ui.compose.style.defaultVariantDimensions
 import com.mikepenz.aboutlibraries.ui.compose.style.defaultVariantPadding
@@ -124,104 +124,10 @@ fun App(libs: Libs?) {
     )
 
     AppTheme(useV3 = settings.useMaterial3, useDarkTheme = settings.darkTheme, accent = animatedAccent) {
-        val fullStyle = if (settings.useMaterial3) {
-            LibraryDefaults.librariesStyle(
-                colors = LibraryDefaults.m3VariantColors(
-                    headerBackground = MaterialTheme.colorScheme.surfaceContainer,
-                ),
-                textStyles = LibraryDefaults.m3VariantTextStyles(
-                    headerTitleTextStyle = MaterialTheme.typography.titleLarge.copy(
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Medium,
-                        letterSpacing = (-0.2).sp,
-                    ),
-                ),
-                padding = remember {
-                    LibraryDefaults.defaultVariantPadding(
-                        headerPadding = PaddingValues(start = 22.dp, top = 18.dp, end = 22.dp, bottom = 16.dp),
-                    )
-                },
-                dimensions = remember {
-                    LibraryDefaults.defaultVariantDimensions(headerIconSize = 44.dp, searchHeight = 40.dp)
-                },
-            )
-        } else {
-            LibraryDefaults.librariesStyle(
-                colors = LibraryDefaults.m2VariantColors(
-                    headerBackground = M2MaterialTheme.colors.surface,
-                ),
-                textStyles = LibraryDefaults.m2VariantTextStyles(
-                    headerTitleTextStyle = M2MaterialTheme.typography.h6.copy(
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Medium,
-                        letterSpacing = (-0.2).sp,
-                    ),
-                ),
-                padding = remember {
-                    LibraryDefaults.defaultVariantPadding(
-                        headerPadding = PaddingValues(start = 22.dp, top = 18.dp, end = 22.dp, bottom = 16.dp),
-                    )
-                },
-                dimensions = remember {
-                    LibraryDefaults.defaultVariantDimensions(headerIconSize = 44.dp, searchHeight = 40.dp)
-                },
-            )
-        }
-        val compactStyle = if (settings.useMaterial3) {
-            LibraryDefaults.librariesStyle(
-                colors = LibraryDefaults.m3VariantColors(
-                    headerBackground = MaterialTheme.colorScheme.surfaceContainerLow,
-                ),
-                textStyles = LibraryDefaults.m3VariantTextStyles(
-                    headerTitleTextStyle = MaterialTheme.typography.titleSmall.copy(
-                        fontSize = 13.sp,
-                        fontWeight = FontWeight.SemiBold,
-                        letterSpacing = 0.sp,
-                    ),
-                    headerTaglineTextStyle = MaterialTheme.typography.bodySmall.copy(fontSize = 11.sp),
-                ),
-                padding = remember {
-                    LibraryDefaults.defaultVariantPadding(
-                        headerPadding = PaddingValues(horizontal = 20.dp, vertical = 12.dp),
-                    )
-                },
-                dimensions = remember {
-                    LibraryDefaults.defaultVariantDimensions(headerIconSize = 28.dp, searchHeight = 30.dp)
-                },
-                shapes = remember {
-                    LibraryDefaults.defaultVariantShapes(
-                        headerSearchShape = androidx.compose.foundation.shape.RoundedCornerShape(8.dp),
-                    )
-                },
-            )
-        } else {
-            LibraryDefaults.librariesStyle(
-                colors = LibraryDefaults.m2VariantColors(
-                    headerBackground = M2MaterialTheme.colors.background,
-                ),
-                textStyles = LibraryDefaults.m2VariantTextStyles(
-                    headerTitleTextStyle = M2MaterialTheme.typography.subtitle2.copy(
-                        fontSize = 13.sp,
-                        fontWeight = FontWeight.SemiBold,
-                        letterSpacing = 0.sp,
-                    ),
-                    headerTaglineTextStyle = M2MaterialTheme.typography.caption.copy(fontSize = 11.sp),
-                ),
-                padding = remember {
-                    LibraryDefaults.defaultVariantPadding(
-                        headerPadding = PaddingValues(horizontal = 20.dp, vertical = 12.dp),
-                    )
-                },
-                dimensions = remember {
-                    LibraryDefaults.defaultVariantDimensions(headerIconSize = 28.dp, searchHeight = 30.dp)
-                },
-                shapes = remember {
-                    LibraryDefaults.defaultVariantShapes(
-                        headerSearchShape = androidx.compose.foundation.shape.RoundedCornerShape(8.dp),
-                    )
-                },
-            )
-        }
+        val fullStyle = if (settings.useMaterial3) LibraryDefaults.m3LibrariesStyle(compact = false)
+        else LibraryDefaults.m2LibrariesStyle(compact = false)
+        val compactStyle = if (settings.useMaterial3) LibraryDefaults.m3LibrariesStyle(compact = true)
+        else LibraryDefaults.m2LibrariesStyle(compact = true)
         val fullAppIcon: @Composable () -> Unit = if (settings.useMaterial3) {
             {
                 AppIconBadge(
