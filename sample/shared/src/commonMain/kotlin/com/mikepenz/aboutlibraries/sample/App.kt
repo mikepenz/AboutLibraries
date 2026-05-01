@@ -18,6 +18,8 @@ import androidx.compose.material.MaterialTheme as M2MaterialTheme
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -116,7 +118,12 @@ fun App(libs: Libs?) {
         }
     }
 
-    AppTheme(useV3 = settings.useMaterial3, useDarkTheme = settings.darkTheme, accent = settings.accent) {
+    val animatedAccent by animateColorAsState(
+        targetValue = settings.accent,
+        animationSpec = tween(durationMillis = 600),
+    )
+
+    AppTheme(useV3 = settings.useMaterial3, useDarkTheme = settings.darkTheme, accent = animatedAccent) {
         val fullStyle = if (settings.useMaterial3) {
             LibraryDefaults.librariesStyle(
                 colors = LibraryDefaults.m3VariantColors(
