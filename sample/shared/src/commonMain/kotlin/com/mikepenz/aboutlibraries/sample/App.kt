@@ -284,7 +284,7 @@ fun App(libs: Libs?) {
             // Desktop / tablet: side drawer floats on the right edge with scrim behind
             if (!isMobile && showSettings) {
                 val focusRequester = remember { FocusRequester() }
-                LaunchedEffect(Unit) { focusRequester.requestFocus() }
+                remember(focusRequester) { focusRequester.requestFocus() }
                 Box(
                     modifier = Modifier
                         .fillMaxSize()

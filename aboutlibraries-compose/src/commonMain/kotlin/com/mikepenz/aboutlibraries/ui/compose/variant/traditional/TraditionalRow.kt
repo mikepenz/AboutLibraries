@@ -5,6 +5,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.ui.draw.drawBehind
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -59,7 +60,7 @@ fun TraditionalRow(
     val colors = style.colors
     val onBg = colors.rowOnBackground.orFallback(Color.Black)
     val subtle = colors.rowSubtleContent.orFallback(onBg.copy(alpha = 0.6f))
-    val rowBg by animateColorAsState(
+    val rowBgState = animateColorAsState(
         targetValue = if (expanded) colors.rowExpandedBackground.orFallback(Color.Transparent)
             else colors.rowBackground.orFallback(Color.Transparent),
         animationSpec = tween(durationMillis = 200),
@@ -74,7 +75,7 @@ fun TraditionalRow(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .background(rowBg)
+            .drawBehind { drawRect(rowBgState.value) }
             .clickable(onClick = onToggle)
             .padding(style.padding.rowPaddingFor(density)),
         verticalArrangement = Arrangement.spacedBy(if (density == LibrariesDensity.Cozy) 4.dp else 2.dp),

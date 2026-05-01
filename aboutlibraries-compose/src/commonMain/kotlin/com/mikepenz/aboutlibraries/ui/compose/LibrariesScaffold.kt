@@ -72,7 +72,11 @@ fun LibrariesScaffold(
         contentPadding = contentPadding
     ) {
         header?.invoke(this)
-        itemsIndexed(libraries) { index, library ->
+        itemsIndexed(
+            items = libraries,
+            key = { _, l -> l.uniqueId },
+            contentType = { _, _ -> "library" },
+        ) { index, library ->
             LibraryScaffoldLayout(
                 modifier = libraryModifier.clickable {
                     val license = library.licenses.firstOrNull()

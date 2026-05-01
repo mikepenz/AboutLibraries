@@ -47,6 +47,11 @@ fun LicenseFilterBar(
             .fillMaxWidth()
             .background(MaterialTheme.colorScheme.surface),
     ) {
+        val activeBg = MaterialTheme.colorScheme.primary.copy(alpha = 0.22f)
+            .compositeOver(MaterialTheme.colorScheme.surfaceContainer)
+        val activeBorderColor = MaterialTheme.colorScheme.primary
+        val idleBg = MaterialTheme.colorScheme.surfaceContainer
+        val idleBorderColor = Color.Transparent
         LazyRow(
             modifier = Modifier.fillMaxWidth(),
             contentPadding = PaddingValues(
@@ -55,17 +60,15 @@ fun LicenseFilterBar(
             ),
             horizontalArrangement = Arrangement.spacedBy(6.dp),
         ) {
-            items(tabs) { tab ->
+            items(tabs, key = { it.spdxId ?: "all" }, contentType = { "tab" }) { tab ->
                 val active = tab.spdxId == selectedSpdxId
                 val hue = tab.spdxId?.let { licenseResolver.colorFor(it) }
-                val activeBg = MaterialTheme.colorScheme.primary.copy(alpha = 0.22f)
-                    .compositeOver(MaterialTheme.colorScheme.surfaceContainer)
-                val border = if (active) MaterialTheme.colorScheme.primary else Color.Transparent
+                val border = if (active) activeBorderColor else idleBorderColor
 
                 Row(
                     modifier = Modifier
                         .clip(RoundedCornerShape(100.dp))
-                        .background(if (active) activeBg else MaterialTheme.colorScheme.surfaceContainer)
+                        .background(if (active) activeBg else idleBg)
                         .border(1.dp, border, RoundedCornerShape(100.dp))
                         .clickable { onSelect(tab.spdxId) }
                         .padding(horizontal = 12.dp, vertical = 6.dp),

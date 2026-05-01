@@ -6,6 +6,8 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -25,7 +27,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
@@ -66,12 +67,12 @@ fun RefinedRow(
         firstLicense?.spdxId?.let { colors.licenseHueResolver.colorFor(it) }
             ?: firstLicense?.name?.let { colors.licenseHueResolver.colorFor(it) }
     }
-    val rowBg by animateColorAsState(
+    val rowBgState = animateColorAsState(
         targetValue = if (expanded) colors.rowExpandedBackground.orFallback(Color.Transparent)
             else colors.rowBackground.orFallback(Color.Transparent),
         animationSpec = tween(durationMillis = 200),
     )
-    val chevronRotation by animateFloatAsState(
+    val chevronRotationState = animateFloatAsState(
         targetValue = if (expanded) 180f else 0f,
         animationSpec = tween(durationMillis = 200),
     )
@@ -88,7 +89,7 @@ fun RefinedRow(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .background(rowBg)
+            .drawBehind { drawRect(rowBgState.value) }
             .clickable(onClick = onToggle),
     ) {
         Row(
@@ -122,7 +123,7 @@ fun RefinedRow(
             ChevronGlyph(
                 color = subtle,
                 size = style.dimensions.chevronSize,
-                rotationDegrees = chevronRotation,
+                rotationDegrees = { chevronRotationState.value },
             )
         }
 
@@ -175,8 +176,8 @@ fun RefinedRowDivider(dividerColor: Color, dimensions: VariantDimensions) {
 }
 
 @Composable
-private fun ChevronGlyph(color: Color, size: Dp, rotationDegrees: Float) {
-    Canvas(modifier = Modifier.size(size).rotate(rotationDegrees)) {
+private fun ChevronGlyph(color: Color, size: Dp, rotationDegrees: () -> Float) {
+    Canvas(modifier = Modifier.size(size).graphicsLayer { rotationZ = rotationDegrees() }) {
         val s = this.size.minDimension
         val strokeWidth = (s / 8f).coerceAtLeast(1.5f)
         val left = Offset(s * 0.2f, s * 0.4f)
