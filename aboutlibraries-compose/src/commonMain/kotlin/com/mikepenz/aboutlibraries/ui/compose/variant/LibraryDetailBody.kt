@@ -7,7 +7,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.BasicText
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -75,7 +77,7 @@ fun LibrarySheetDetail(
     val sheetVariantBg = style.colors.sheetSurfaceVariant.orFallback(onBg.copy(alpha = 0.08f))
 
     Column(
-        modifier = modifier.fillMaxWidth().padding(contentPadding),
+        modifier = modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(contentPadding),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         BasicText(text = library.name, style = style.textStyles.sheetTitleTextStyle.copy(color = onBg))
@@ -94,6 +96,14 @@ fun LibrarySheetDetail(
             BasicText(text = description, style = style.textStyles.sheetBodyTextStyle.copy(color = onBg))
         }
 
+        LibraryActions(
+            library = library,
+            actionMode = actionMode,
+            style = style,
+            actionLabels = actionLabels,
+            onActionClick = onActionClick,
+        )
+
         if (licenseContent != null) {
             Box(
                 modifier = Modifier
@@ -105,13 +115,5 @@ fun LibrarySheetDetail(
                 BasicText(text = licenseContent, style = style.textStyles.sheetBodyTextStyle.copy(color = subtle))
             }
         }
-
-        LibraryActions(
-            library = library,
-            actionMode = actionMode,
-            style = style,
-            actionLabels = actionLabels,
-            onActionClick = onActionClick,
-        )
     }
 }
