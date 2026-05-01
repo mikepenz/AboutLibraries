@@ -27,7 +27,9 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.mikepenz.aboutlibraries.ui.compose.m3.style.DefaultM3LicensePalette
+import androidx.compose.foundation.isSystemInDarkTheme
+import com.mikepenz.aboutlibraries.ui.compose.m3.style.DarkM3LicensePalette
+import com.mikepenz.aboutlibraries.ui.compose.m3.style.LightM3LicensePalette
 
 /**
  * Horizontal scrollable license filter bar with hue dots, from `sample-app.jsx → LicenseFilterBar`.
@@ -56,7 +58,8 @@ fun LicenseFilterBar(
         ) {
             items(tabs) { tab ->
                 val active = tab.spdxId == selectedSpdxId
-                val hue = tab.spdxId?.let { DefaultM3LicensePalette[it] }
+                val palette = if (isSystemInDarkTheme()) DarkM3LicensePalette else LightM3LicensePalette
+                val hue = tab.spdxId?.let { palette[it] }
                 val activeBg = MaterialTheme.colorScheme.primary.copy(alpha = 0.22f)
                     .compositeOver(MaterialTheme.colorScheme.surfaceContainer)
                 val border = if (active) MaterialTheme.colorScheme.primary else Color.Transparent

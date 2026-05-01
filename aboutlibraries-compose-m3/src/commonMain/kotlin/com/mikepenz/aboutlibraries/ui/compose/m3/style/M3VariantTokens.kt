@@ -1,5 +1,6 @@
 package com.mikepenz.aboutlibraries.ui.compose.m3.style
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -18,36 +19,65 @@ import com.mikepenz.aboutlibraries.ui.compose.style.VariantColors
 import com.mikepenz.aboutlibraries.ui.compose.style.VariantTextStyles
 
 /**
- * Static SPDX → hex color palette derived from the design handoff (`m3.jsx`).
+ * SPDX → color palette for **dark** surfaces.
  *
- * Values are picked to read against both light and dark Material 3 surfaces; tweak per app
- * by passing a custom [LicenseHueResolver] to the `Libraries(...)` entry.
+ * Colors are pastel-toned (high value, low-medium saturation) so they read as text on a
+ * dark surface and produce a subtle tinted badge when used at 15% alpha.
+ * Hue identity matches the design handoff's `LICENSE_HUES` (OKLCH angles converted to HSV).
  */
-val DefaultM3LicensePalette: Map<String, Color> = mapOf(
-    "Apache-2.0" to Color(0xFFB69CFF),    // violet
-    "MIT" to Color(0xFF7AC0FF),           // sky
-    "EPL-2.0" to Color(0xFFE4A56A),       // amber-orange
+val DarkM3LicensePalette: Map<String, Color> = mapOf(
+    "Apache-2.0" to Color(0xFFB69CFF),    // violet  — HSV 270°
+    "MIT" to Color(0xFF7AC0FF),           // sky     — HSV 207°
+    "EPL-2.0" to Color(0xFFE4A56A),       // amber   — HSV  30°
     "EPL-1.0" to Color(0xFFE4A56A),
-    "BSD-3-Clause" to Color(0xFF8AD4A4),  // green
+    "BSD-3-Clause" to Color(0xFF8AD4A4),  // green   — HSV 143°
     "BSD-2-Clause" to Color(0xFF8AD4A4),
-    "GPL-3.0" to Color(0xFFFF8E8E),       // red
+    "GPL-3.0" to Color(0xFFFF8E8E),       // red     — HSV   0°
     "GPL-3.0-only" to Color(0xFFFF8E8E),
     "GPL-3.0-or-later" to Color(0xFFFF8E8E),
     "GPL-2.0" to Color(0xFFFF8E8E),
-    "LGPL-2.1" to Color(0xFFFFB088),
+    "LGPL-2.1" to Color(0xFFFFB088),      // orange  — HSV  20°
     "LGPL-3.0" to Color(0xFFFFB088),
-    "MPL-2.0" to Color(0xFFFFD27A),
+    "MPL-2.0" to Color(0xFFFFD27A),       // yellow  — HSV  44°
     "ISC" to Color(0xFF7AC0FF),
     "Unlicense" to Color(0xFFB7B7B7),
     "CC0-1.0" to Color(0xFFB7B7B7),
 )
 
-/** Singleton resolver over [DefaultM3LicensePalette] — referenced by all M3 token defaults. */
-val DefaultM3LicenseHueResolver: LicenseHueResolver = LicenseHueResolver(DefaultM3LicensePalette)
+/**
+ * SPDX → color palette for **light** surfaces.
+ *
+ * Same hue identities as [DarkM3LicensePalette] but deeper/more saturated so they maintain
+ * 4.5:1+ contrast as text on a light surface and still produce a legible tinted badge at 15%.
+ */
+val LightM3LicensePalette: Map<String, Color> = mapOf(
+    "Apache-2.0" to Color(0xFF5C35CC),    // violet  — HSV 258° s=74 v=80
+    "MIT" to Color(0xFF1A6DB5),           // sky     — HSV 208° s=85 v=71
+    "EPL-2.0" to Color(0xFFB06010),       // amber   — HSV  32° s=91 v=69
+    "EPL-1.0" to Color(0xFFB06010),
+    "BSD-3-Clause" to Color(0xFF28834E),  // green   — HSV 143° s=69 v=51
+    "BSD-2-Clause" to Color(0xFF28834E),
+    "GPL-3.0" to Color(0xFFCC2828),       // red     — HSV   0° s=81 v=80
+    "GPL-3.0-only" to Color(0xFFCC2828),
+    "GPL-3.0-or-later" to Color(0xFFCC2828),
+    "GPL-2.0" to Color(0xFFCC2828),
+    "LGPL-2.1" to Color(0xFFB85020),      // orange  — HSV  20° s=83 v=72
+    "LGPL-3.0" to Color(0xFFB85020),
+    "MPL-2.0" to Color(0xFF9E7200),       // yellow  — HSV  43° s=100 v=62
+    "ISC" to Color(0xFF1A6DB5),
+    "Unlicense" to Color(0xFF666666),
+    "CC0-1.0" to Color(0xFF666666),
+)
+
+/** @suppress kept for source compatibility — prefer [DarkM3LicensePalette] for explicit dark theming. */
+val DefaultM3LicensePalette: Map<String, Color> get() = DarkM3LicensePalette
+
+/** Singleton resolver over [DarkM3LicensePalette]. */
+val DefaultM3LicenseHueResolver: LicenseHueResolver = LicenseHueResolver(DarkM3LicensePalette)
 
 /** Convenience factory for building a custom-palette resolver in M3 styling. */
-fun m3LicenseHueResolver(palette: Map<String, Color> = DefaultM3LicensePalette): LicenseHueResolver =
-    if (palette === DefaultM3LicensePalette) DefaultM3LicenseHueResolver else LicenseHueResolver(palette)
+fun m3LicenseHueResolver(palette: Map<String, Color> = DarkM3LicensePalette): LicenseHueResolver =
+    if (palette === DarkM3LicensePalette) DefaultM3LicenseHueResolver else LicenseHueResolver(palette)
 
 /**
  * Builds Material 3 defaults for the variant color tokens.
@@ -79,7 +109,8 @@ fun LibraryDefaults.m3VariantColors(
     sheetSurface: Color = MaterialTheme.colorScheme.surfaceContainerHigh,
     sheetSurfaceVariant: Color = MaterialTheme.colorScheme.surfaceContainerHighest,
     sheetDragHandle: Color = MaterialTheme.colorScheme.outline.copy(alpha = 0.5f),
-    licenseHueResolver: LicenseHueResolver = DefaultM3LicenseHueResolver,
+    licenseHueResolver: LicenseHueResolver = if (isSystemInDarkTheme()) DefaultM3LicenseHueResolver
+        else remember { LicenseHueResolver(LightM3LicensePalette) },
 ): VariantColors = remember(
     headerBackground, headerOnBackground, headerSubtleContent, headerDivider,
     rowBackground, rowExpandedBackground, rowOnBackground, rowSubtleContent, rowDivider,
