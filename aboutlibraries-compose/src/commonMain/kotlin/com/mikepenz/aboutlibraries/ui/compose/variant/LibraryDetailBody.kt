@@ -3,6 +3,7 @@ package com.mikepenz.aboutlibraries.ui.compose.variant
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -76,8 +77,10 @@ fun LibrarySheetDetail(
     val subtle = style.colors.rowSubtleContent.orFallback(onBg.copy(alpha = 0.6f))
     val sheetVariantBg = style.colors.sheetSurfaceVariant.orFallback(onBg.copy(alpha = 0.08f))
 
+    BoxWithConstraints(modifier = modifier.fillMaxWidth()) {
+    val scrollModifier = if (constraints.hasBoundedHeight) Modifier.verticalScroll(rememberScrollState()) else Modifier
     Column(
-        modifier = modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(contentPadding),
+        modifier = Modifier.fillMaxWidth().then(scrollModifier).padding(contentPadding),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         BasicText(text = library.name, style = style.textStyles.sheetTitleTextStyle.copy(color = onBg))
@@ -115,5 +118,6 @@ fun LibrarySheetDetail(
                 BasicText(text = licenseContent, style = style.textStyles.sheetBodyTextStyle.copy(color = subtle))
             }
         }
+    }
     }
 }

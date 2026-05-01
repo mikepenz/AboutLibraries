@@ -5,11 +5,11 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -54,7 +54,7 @@ fun SettingsPanel(
     isMobile: Boolean,
     modifier: Modifier = Modifier,
 ) {
-    Column(
+    BoxWithConstraints(
         modifier = modifier
             .let { if (isMobile) it.fillMaxWidth().wrapContentHeight() else it.fillMaxHeight().width(320.dp) }
             .background(MaterialTheme.colorScheme.surfaceContainer)
@@ -64,8 +64,13 @@ fun SettingsPanel(
                     MaterialTheme.colorScheme.outlineVariant,
                     RoundedCornerShape(0.dp),
                 ) else it
-            }
-            .verticalScroll(rememberScrollState())
+            },
+    ) {
+    val scrollModifier = if (constraints.hasBoundedHeight) Modifier.verticalScroll(rememberScrollState()) else Modifier
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .then(scrollModifier)
             .padding(
                 start = if (isMobile) 18.dp else 20.dp,
                 end = if (isMobile) 18.dp else 20.dp,
@@ -266,6 +271,7 @@ fun SettingsPanel(
             fontSize = 11.sp,
             modifier = Modifier.padding(top = 14.dp),
         )
+    }
     }
 }
 
