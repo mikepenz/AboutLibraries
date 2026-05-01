@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.material.MaterialTheme as M2MaterialTheme
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
@@ -52,8 +53,10 @@ import com.mikepenz.aboutlibraries.ui.compose.LibraryDefaults
 import com.mikepenz.aboutlibraries.ui.compose.LibrariesContainer as M2LibrariesContainer
 import com.mikepenz.aboutlibraries.ui.compose.m3.LibrariesContainer as M3LibrariesContainer
 import com.mikepenz.aboutlibraries.ui.compose.m3.style.m3VariantColors
-import com.mikepenz.aboutlibraries.ui.compose.style.ContrastLevel
 import com.mikepenz.aboutlibraries.ui.compose.m3.style.m3VariantTextStyles
+import com.mikepenz.aboutlibraries.ui.compose.style.ContrastLevel
+import com.mikepenz.aboutlibraries.ui.compose.style.m2VariantColors
+import com.mikepenz.aboutlibraries.ui.compose.style.m2VariantTextStyles
 import com.mikepenz.aboutlibraries.ui.compose.style.DefaultLibraryStrings
 import com.mikepenz.aboutlibraries.ui.compose.style.defaultVariantDimensions
 import com.mikepenz.aboutlibraries.ui.compose.style.defaultVariantPadding
@@ -114,83 +117,149 @@ fun App(libs: Libs?) {
     }
 
     AppTheme(useV3 = settings.useMaterial3, useDarkTheme = settings.darkTheme, accent = settings.accent) {
-        // Full header (TraditionalHeader): surfaceContainer bg, 44dp icon, ~20sp title below.
-        // Design: padding top 18 / H 22 / bottom 16, title 18-20sp / Medium.
-        val fullStyle = LibraryDefaults.librariesStyle(
-            colors = LibraryDefaults.m3VariantColors(
-                headerBackground = MaterialTheme.colorScheme.surfaceContainer,
-            ),
-            textStyles = LibraryDefaults.m3VariantTextStyles(
-                headerTitleTextStyle = MaterialTheme.typography.titleLarge.copy(
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Medium,
-                    letterSpacing = (-0.2).sp,
+        val fullStyle = if (settings.useMaterial3) {
+            LibraryDefaults.librariesStyle(
+                colors = LibraryDefaults.m3VariantColors(
+                    headerBackground = MaterialTheme.colorScheme.surfaceContainer,
                 ),
-            ),
-            padding = remember {
-                LibraryDefaults.defaultVariantPadding(
-                    headerPadding = PaddingValues(start = 22.dp, top = 18.dp, end = 22.dp, bottom = 16.dp),
-                )
-            },
-            dimensions = remember {
-                LibraryDefaults.defaultVariantDimensions(
-                    headerIconSize = 44.dp,
-                    searchHeight = 40.dp,
-                )
-            },
-        )
-        // Compact header (RefinedHeader): surfaceContainerLow bg, 28dp icon, 13sp semibold title inline.
-        // Design: padding 12dp / 20dp H, title 13sp / SemiBold, search inline at height 30.
-        val compactStyle = LibraryDefaults.librariesStyle(
-            colors = LibraryDefaults.m3VariantColors(
-                headerBackground = MaterialTheme.colorScheme.surfaceContainerLow,
-            ),
-            textStyles = LibraryDefaults.m3VariantTextStyles(
-                headerTitleTextStyle = MaterialTheme.typography.titleSmall.copy(
-                    fontSize = 13.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    letterSpacing = 0.sp,
+                textStyles = LibraryDefaults.m3VariantTextStyles(
+                    headerTitleTextStyle = MaterialTheme.typography.titleLarge.copy(
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Medium,
+                        letterSpacing = (-0.2).sp,
+                    ),
                 ),
-                headerTaglineTextStyle = MaterialTheme.typography.bodySmall.copy(fontSize = 11.sp),
-            ),
-            padding = remember {
-                LibraryDefaults.defaultVariantPadding(
-                    headerPadding = PaddingValues(horizontal = 20.dp, vertical = 12.dp),
-                )
-            },
-            dimensions = remember {
-                LibraryDefaults.defaultVariantDimensions(
-                    headerIconSize = 28.dp,
-                    searchHeight = 30.dp,
-                )
-            },
-            shapes = remember {
-                LibraryDefaults.defaultVariantShapes(
-                    headerSearchShape = androidx.compose.foundation.shape.RoundedCornerShape(8.dp),
-                )
-            },
-        )
-        // Full header icon: primaryContainer tinted bg, primary text, 12dp radius (design: color-mix primary 30%).
-        val fullAppIcon: @Composable () -> Unit = {
-            AppIconBadge(
-                letter = "A",
-                background = MaterialTheme.colorScheme.primaryContainer,
-                contentColor = MaterialTheme.colorScheme.primary,
-                cornerRadius = 12.dp,
-                fontSize = 20.sp,
-                fontWeight = FontWeight.SemiBold,
+                padding = remember {
+                    LibraryDefaults.defaultVariantPadding(
+                        headerPadding = PaddingValues(start = 22.dp, top = 18.dp, end = 22.dp, bottom = 16.dp),
+                    )
+                },
+                dimensions = remember {
+                    LibraryDefaults.defaultVariantDimensions(headerIconSize = 44.dp, searchHeight = 40.dp)
+                },
+            )
+        } else {
+            LibraryDefaults.librariesStyle(
+                colors = LibraryDefaults.m2VariantColors(
+                    headerBackground = M2MaterialTheme.colors.surface,
+                ),
+                textStyles = LibraryDefaults.m2VariantTextStyles(
+                    headerTitleTextStyle = M2MaterialTheme.typography.h6.copy(
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Medium,
+                        letterSpacing = (-0.2).sp,
+                    ),
+                ),
+                padding = remember {
+                    LibraryDefaults.defaultVariantPadding(
+                        headerPadding = PaddingValues(start = 22.dp, top = 18.dp, end = 22.dp, bottom = 16.dp),
+                    )
+                },
+                dimensions = remember {
+                    LibraryDefaults.defaultVariantDimensions(headerIconSize = 44.dp, searchHeight = 40.dp)
+                },
             )
         }
-        // Compact header icon: solid primary bg, onPrimary text, 7dp radius.
-        val compactAppIcon: @Composable () -> Unit = {
-            AppIconBadge(
-                letter = "A",
-                background = MaterialTheme.colorScheme.primary,
-                contentColor = MaterialTheme.colorScheme.onPrimary,
-                cornerRadius = 7.dp,
-                fontSize = 13.sp,
-                fontWeight = FontWeight.Bold,
+        val compactStyle = if (settings.useMaterial3) {
+            LibraryDefaults.librariesStyle(
+                colors = LibraryDefaults.m3VariantColors(
+                    headerBackground = MaterialTheme.colorScheme.surfaceContainerLow,
+                ),
+                textStyles = LibraryDefaults.m3VariantTextStyles(
+                    headerTitleTextStyle = MaterialTheme.typography.titleSmall.copy(
+                        fontSize = 13.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        letterSpacing = 0.sp,
+                    ),
+                    headerTaglineTextStyle = MaterialTheme.typography.bodySmall.copy(fontSize = 11.sp),
+                ),
+                padding = remember {
+                    LibraryDefaults.defaultVariantPadding(
+                        headerPadding = PaddingValues(horizontal = 20.dp, vertical = 12.dp),
+                    )
+                },
+                dimensions = remember {
+                    LibraryDefaults.defaultVariantDimensions(headerIconSize = 28.dp, searchHeight = 30.dp)
+                },
+                shapes = remember {
+                    LibraryDefaults.defaultVariantShapes(
+                        headerSearchShape = androidx.compose.foundation.shape.RoundedCornerShape(8.dp),
+                    )
+                },
             )
+        } else {
+            LibraryDefaults.librariesStyle(
+                colors = LibraryDefaults.m2VariantColors(
+                    headerBackground = M2MaterialTheme.colors.background,
+                ),
+                textStyles = LibraryDefaults.m2VariantTextStyles(
+                    headerTitleTextStyle = M2MaterialTheme.typography.subtitle2.copy(
+                        fontSize = 13.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        letterSpacing = 0.sp,
+                    ),
+                    headerTaglineTextStyle = M2MaterialTheme.typography.caption.copy(fontSize = 11.sp),
+                ),
+                padding = remember {
+                    LibraryDefaults.defaultVariantPadding(
+                        headerPadding = PaddingValues(horizontal = 20.dp, vertical = 12.dp),
+                    )
+                },
+                dimensions = remember {
+                    LibraryDefaults.defaultVariantDimensions(headerIconSize = 28.dp, searchHeight = 30.dp)
+                },
+                shapes = remember {
+                    LibraryDefaults.defaultVariantShapes(
+                        headerSearchShape = androidx.compose.foundation.shape.RoundedCornerShape(8.dp),
+                    )
+                },
+            )
+        }
+        val fullAppIcon: @Composable () -> Unit = if (settings.useMaterial3) {
+            {
+                AppIconBadge(
+                    letter = "A",
+                    background = MaterialTheme.colorScheme.primaryContainer,
+                    contentColor = MaterialTheme.colorScheme.primary,
+                    cornerRadius = 12.dp,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.SemiBold,
+                )
+            }
+        } else {
+            {
+                AppIconBadge(
+                    letter = "A",
+                    background = M2MaterialTheme.colors.primary.copy(alpha = 0.16f),
+                    contentColor = M2MaterialTheme.colors.primary,
+                    cornerRadius = 12.dp,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.SemiBold,
+                )
+            }
+        }
+        val compactAppIcon: @Composable () -> Unit = if (settings.useMaterial3) {
+            {
+                AppIconBadge(
+                    letter = "A",
+                    background = MaterialTheme.colorScheme.primary,
+                    contentColor = MaterialTheme.colorScheme.onPrimary,
+                    cornerRadius = 7.dp,
+                    fontSize = 13.sp,
+                    fontWeight = FontWeight.Bold,
+                )
+            }
+        } else {
+            {
+                AppIconBadge(
+                    letter = "A",
+                    background = M2MaterialTheme.colors.primary,
+                    contentColor = M2MaterialTheme.colors.onPrimary,
+                    cornerRadius = 7.dp,
+                    fontSize = 13.sp,
+                    fontWeight = FontWeight.Bold,
+                )
+            }
         }
 
         val uriHandler = LocalUriHandler.current
@@ -335,6 +404,7 @@ fun App(libs: Libs?) {
                         }
                     } else null
 
+                    val contrastLevel = if (settings.highContrast) ContrastLevel.High else ContrastLevel.Normal
                     if (settings.useMaterial3) {
                         M3LibrariesContainer(
                             libraries = libs?.let { Libs(filteredLibs, it.licenses) },
@@ -347,9 +417,7 @@ fun App(libs: Libs?) {
                             density = settings.density,
                             detailMode = settings.detailMode,
                             actionMode = settings.actionMode,
-                            variantColors = LibraryDefaults.m3VariantColors(
-                                contrastLevel = if (settings.highContrast) ContrastLevel.High else ContrastLevel.Normal,
-                            ),
+                            variantColors = LibraryDefaults.m3VariantColors(contrastLevel = contrastLevel),
                             header = headerLambda,
                         )
                     } else {
@@ -364,6 +432,7 @@ fun App(libs: Libs?) {
                             density = settings.density,
                             detailMode = settings.detailMode,
                             actionMode = settings.actionMode,
+                            variantColors = LibraryDefaults.m2VariantColors(contrastLevel = contrastLevel),
                             header = headerLambda,
                         )
                     }
