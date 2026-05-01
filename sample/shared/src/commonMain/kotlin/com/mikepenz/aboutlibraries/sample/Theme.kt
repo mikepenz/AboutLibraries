@@ -16,6 +16,10 @@ fun AppTheme(
     if (useV3) {
         M3AppTheme(useDarkTheme, accent, content)
     } else {
-        M2AppTheme(useDarkTheme, content)
+        // Wrap in M3 first so sample chrome (SampleHeader, SettingsPanel, etc.) gets
+        // the correct dark/light M3 color scheme, then nest M2 inside for the library UI.
+        M3AppTheme(useDarkTheme, accent) {
+            M2AppTheme(useDarkTheme, content)
+        }
     }
 }
