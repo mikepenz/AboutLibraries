@@ -182,6 +182,16 @@ fun SettingsPanel(
                         },
                     )
                 }
+                val canShowTabsInHeader = settings.showHeader && settings.headerStyle == HeaderStyle.Compact
+                Box(modifier = Modifier.alpha(if (canShowTabsInHeader) 1f else 0.4f)) {
+                    ToggleRow(
+                        label = "Tabs in header",
+                        on = settings.showTabsInHeader,
+                        onChange = {
+                            if (canShowTabsInHeader) onChange(settings.copy(showTabsInHeader = it))
+                        },
+                    )
+                }
                 ToggleRow(
                     label = "License filter bar",
                     on = settings.showLicenseFilter,

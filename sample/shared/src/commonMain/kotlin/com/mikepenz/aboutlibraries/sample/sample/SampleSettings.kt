@@ -21,6 +21,7 @@ data class SampleSettings(
     val headerStyle: HeaderStyle = HeaderStyle.Full,
     val headerPosition: HeaderPosition = HeaderPosition.Fixed,
     val showSearch: Boolean = true,
+    val showTabsInHeader: Boolean = false,
     val showLicenseFilter: Boolean = false,
     val showVersion: Boolean = true,
     val showAuthor: Boolean = true,
