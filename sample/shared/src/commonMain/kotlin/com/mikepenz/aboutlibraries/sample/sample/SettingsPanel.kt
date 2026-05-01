@@ -122,6 +122,14 @@ fun SettingsPanel(
 
         Spacer(Modifier.height(14.dp))
 
+        Section("Material") {
+            Segmented(
+                options = listOf(false to "M2", true to "M3"),
+                selected = settings.useMaterial3,
+                onSelect = { onChange(settings.copy(useMaterial3 = it)) },
+            )
+        }
+
         Section("Variant") {
             Segmented(
                 options = listOf(

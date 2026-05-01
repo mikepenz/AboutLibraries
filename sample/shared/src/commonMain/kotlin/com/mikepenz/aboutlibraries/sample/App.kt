@@ -49,7 +49,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.lazy.LazyListScope
 import com.mikepenz.aboutlibraries.ui.compose.LibraryDefaults
-import com.mikepenz.aboutlibraries.ui.compose.m3.LibrariesContainer
+import com.mikepenz.aboutlibraries.ui.compose.LibrariesContainer as M2LibrariesContainer
+import com.mikepenz.aboutlibraries.ui.compose.m3.LibrariesContainer as M3LibrariesContainer
 import com.mikepenz.aboutlibraries.ui.compose.m3.style.m3VariantColors
 import com.mikepenz.aboutlibraries.ui.compose.style.ContrastLevel
 import com.mikepenz.aboutlibraries.ui.compose.m3.style.m3VariantTextStyles
@@ -112,7 +113,7 @@ fun App(libs: Libs?) {
         }
     }
 
-    AppTheme(useV3 = true, useDarkTheme = settings.darkTheme, accent = settings.accent) {
+    AppTheme(useV3 = settings.useMaterial3, useDarkTheme = settings.darkTheme, accent = settings.accent) {
         // Full header (TraditionalHeader): surfaceContainer bg, 44dp icon, ~20sp title below.
         // Design: padding top 18 / H 22 / bottom 16, title 18-20sp / Medium.
         val fullStyle = LibraryDefaults.librariesStyle(
@@ -334,22 +335,38 @@ fun App(libs: Libs?) {
                         }
                     } else null
 
-                    LibrariesContainer(
-                        libraries = libs?.let { Libs(filteredLibs, it.licenses) },
-                        modifier = Modifier.weight(1f).fillMaxWidth(),
-                        showAuthor = settings.showAuthor,
-                        showDescription = settings.showDescription,
-                        showVersion = settings.showVersion,
-                        showLicenseBadges = settings.showLicense,
-                        variant = settings.variant,
-                        density = settings.density,
-                        detailMode = settings.detailMode,
-                        actionMode = settings.actionMode,
-                        variantColors = LibraryDefaults.m3VariantColors(
-                            contrastLevel = if (settings.highContrast) ContrastLevel.High else ContrastLevel.Normal,
-                        ),
-                        header = headerLambda,
-                    )
+                    if (settings.useMaterial3) {
+                        M3LibrariesContainer(
+                            libraries = libs?.let { Libs(filteredLibs, it.licenses) },
+                            modifier = Modifier.weight(1f).fillMaxWidth(),
+                            showAuthor = settings.showAuthor,
+                            showDescription = settings.showDescription,
+                            showVersion = settings.showVersion,
+                            showLicenseBadges = settings.showLicense,
+                            variant = settings.variant,
+                            density = settings.density,
+                            detailMode = settings.detailMode,
+                            actionMode = settings.actionMode,
+                            variantColors = LibraryDefaults.m3VariantColors(
+                                contrastLevel = if (settings.highContrast) ContrastLevel.High else ContrastLevel.Normal,
+                            ),
+                            header = headerLambda,
+                        )
+                    } else {
+                        M2LibrariesContainer(
+                            libraries = libs?.let { Libs(filteredLibs, it.licenses) },
+                            modifier = Modifier.weight(1f).fillMaxWidth(),
+                            showAuthor = settings.showAuthor,
+                            showDescription = settings.showDescription,
+                            showVersion = settings.showVersion,
+                            showLicenseBadges = settings.showLicense,
+                            variant = settings.variant,
+                            density = settings.density,
+                            detailMode = settings.detailMode,
+                            actionMode = settings.actionMode,
+                            header = headerLambda,
+                        )
+                    }
                 }
 
             }
