@@ -106,7 +106,10 @@ fun LibraryListScaffold(
         ) { index, library ->
             // Per-row toggle is memoized on the row's identity so [TraditionalRow]/[RefinedRow]
             // see a stable lambda reference and can skip when [expanded] is unchanged.
-            val toggle = remember(library.uniqueId, detailMode, onLibraryClick, onSheetRequest) {
+            // expandedLibraryId must be a key so the lambda captures its current value;
+            // without it the closure would stale-capture the value at first composition
+            // and a second click would never collapse the row.
+            val toggle = remember(library.uniqueId, detailMode, onLibraryClick, onSheetRequest, expandedLibraryId) {
                 {
                     val handled = onLibraryClick?.invoke(library) ?: false
                     if (!handled) when (detailMode) {
