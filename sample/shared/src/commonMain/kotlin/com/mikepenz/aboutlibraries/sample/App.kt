@@ -1,7 +1,10 @@
 package com.mikepenz.aboutlibraries.sample
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -14,12 +17,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.windowInsetsPadding
-import androidx.compose.material.MaterialTheme as M2MaterialTheme
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.core.tween
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -27,7 +28,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.foundation.focusable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.input.key.Key
@@ -35,10 +37,10 @@ import androidx.compose.ui.input.key.KeyEventType
 import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.input.key.type
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.sample.sample.HeaderPosition
 import com.mikepenz.aboutlibraries.sample.sample.HeaderStyle
@@ -47,27 +49,20 @@ import com.mikepenz.aboutlibraries.sample.sample.LicenseFilterTab
 import com.mikepenz.aboutlibraries.sample.sample.SampleHeader
 import com.mikepenz.aboutlibraries.sample.sample.SampleSettings
 import com.mikepenz.aboutlibraries.sample.sample.SettingsPanel
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.sp
-import androidx.compose.foundation.lazy.LazyListScope
 import com.mikepenz.aboutlibraries.ui.compose.LibraryDefaults
-import com.mikepenz.aboutlibraries.ui.compose.LibrariesContainer as M2LibrariesContainer
-import com.mikepenz.aboutlibraries.ui.compose.m3.LibrariesContainer as M3LibrariesContainer
-import com.mikepenz.aboutlibraries.ui.compose.m3.style.m3VariantColors
 import com.mikepenz.aboutlibraries.ui.compose.m3.style.m3LibrariesStyle
+import com.mikepenz.aboutlibraries.ui.compose.m3.style.m3VariantColors
 import com.mikepenz.aboutlibraries.ui.compose.style.ContrastLevel
-import com.mikepenz.aboutlibraries.ui.compose.style.m2VariantColors
-import com.mikepenz.aboutlibraries.ui.compose.style.m2LibrariesStyle
 import com.mikepenz.aboutlibraries.ui.compose.style.DefaultLibraryStrings
-import com.mikepenz.aboutlibraries.ui.compose.style.defaultVariantDimensions
-import com.mikepenz.aboutlibraries.ui.compose.style.defaultVariantPadding
-import com.mikepenz.aboutlibraries.ui.compose.style.defaultVariantShapes
-import com.mikepenz.aboutlibraries.ui.compose.style.librariesStyle
+import com.mikepenz.aboutlibraries.ui.compose.style.m2LibrariesStyle
+import com.mikepenz.aboutlibraries.ui.compose.style.m2VariantColors
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibrariesVariant
 import com.mikepenz.aboutlibraries.ui.compose.variant.refined.LicenseTab
 import com.mikepenz.aboutlibraries.ui.compose.variant.refined.RefinedHeader
 import com.mikepenz.aboutlibraries.ui.compose.variant.traditional.TraditionalHeader
+import androidx.compose.material.MaterialTheme as M2MaterialTheme
+import com.mikepenz.aboutlibraries.ui.compose.LibrariesContainer as M2LibrariesContainer
+import com.mikepenz.aboutlibraries.ui.compose.m3.LibrariesContainer as M3LibrariesContainer
 
 private const val TabletBreakpointDp = 600
 
@@ -124,10 +119,8 @@ fun App(libs: Libs?) {
     )
 
     AppTheme(useV3 = settings.useMaterial3, useDarkTheme = settings.darkTheme, accent = animatedAccent) {
-        val fullStyle = if (settings.useMaterial3) LibraryDefaults.m3LibrariesStyle(compact = false)
-        else LibraryDefaults.m2LibrariesStyle(compact = false)
-        val compactStyle = if (settings.useMaterial3) LibraryDefaults.m3LibrariesStyle(compact = true)
-        else LibraryDefaults.m2LibrariesStyle(compact = true)
+        val fullStyle = if (settings.useMaterial3) LibraryDefaults.m3LibrariesStyle(compact = false) else LibraryDefaults.m2LibrariesStyle(compact = false)
+        val compactStyle = if (settings.useMaterial3) LibraryDefaults.m3LibrariesStyle(compact = true) else LibraryDefaults.m2LibrariesStyle(compact = true)
         val fullAppIcon: @Composable () -> Unit = if (settings.useMaterial3) {
             {
                 AppIconBadge(
@@ -219,6 +212,7 @@ fun App(libs: Libs?) {
                                 searchQuery = searchQuery,
                                 onSearchChange = { searchQuery = it },
                             )
+
                             HeaderStyle.Compact -> RefinedHeader(
                                 title = "AboutLibraries",
                                 subtitle = "v11.2.0 · ${libs?.libraries.orEmpty().size} libraries",
@@ -267,6 +261,7 @@ fun App(libs: Libs?) {
                                         searchQuery = searchQuery,
                                         onSearchChange = { searchQuery = it },
                                     )
+
                                     HeaderStyle.Compact -> RefinedHeader(
                                         title = "AboutLibraries",
                                         subtitle = "v11.2.0 · ${libs?.libraries.orEmpty().size} libraries",
@@ -356,7 +351,7 @@ fun App(libs: Libs?) {
             // Desktop / tablet: side drawer floats on the right edge with scrim behind
             if (!isMobile && showSettings) {
                 val focusRequester = remember { FocusRequester() }
-                remember(focusRequester) { focusRequester.requestFocus() }
+                LaunchedEffect(focusRequester) { focusRequester.requestFocus() }
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
