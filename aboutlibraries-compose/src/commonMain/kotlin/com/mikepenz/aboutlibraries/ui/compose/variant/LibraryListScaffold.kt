@@ -1,5 +1,10 @@
 package com.mikepenz.aboutlibraries.ui.compose.variant
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -128,8 +133,22 @@ fun LibraryListScaffold(
             } else Modifier
             Column(modifier = wrapperModifier) {
                 row(library, expanded, toggle)
-                if (expanded && inlineDetail != null) {
-                    inlineDetail(library)
+                AnimatedVisibility(
+                    visible = expanded && inlineDetail != null,
+                    enter = expandVertically(
+                        animationSpec = spring(
+                            dampingRatio = Spring.DampingRatioNoBouncy,
+                            stiffness = Spring.StiffnessMediumLow,
+                        ),
+                    ),
+                    exit = shrinkVertically(
+                        animationSpec = spring(
+                            dampingRatio = Spring.DampingRatioNoBouncy,
+                            stiffness = Spring.StiffnessMediumLow,
+                        ),
+                    ),
+                ) {
+                    inlineDetail?.invoke(library)
                 }
             }
 

@@ -1,5 +1,7 @@
 package com.mikepenz.aboutlibraries.ui.compose.variant.traditional
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -13,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -54,8 +57,11 @@ fun TraditionalRow(
     val colors = style.colors
     val onBg = colors.rowOnBackground.orFallback(Color.Black)
     val subtle = colors.rowSubtleContent.orFallback(onBg.copy(alpha = 0.6f))
-    val rowBg = if (expanded) colors.rowExpandedBackground.orFallback(Color.Transparent)
-    else colors.rowBackground.orFallback(Color.Transparent)
+    val rowBg by animateColorAsState(
+        targetValue = if (expanded) colors.rowExpandedBackground.orFallback(Color.Transparent)
+            else colors.rowBackground.orFallback(Color.Transparent),
+        animationSpec = tween(durationMillis = 200),
+    )
 
     val firstLicense = remember(library) { library.licenses.firstOrNull() }
     val licenseHue = remember(library, colors.licenseHueResolver) {

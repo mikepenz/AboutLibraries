@@ -1,5 +1,8 @@
 package com.mikepenz.aboutlibraries.ui.compose.variant.refined
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -17,6 +20,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -61,8 +65,15 @@ fun RefinedRow(
         firstLicense?.spdxId?.let { colors.licenseHueResolver.colorFor(it) }
             ?: firstLicense?.name?.let { colors.licenseHueResolver.colorFor(it) }
     }
-    val rowBg = if (expanded) colors.rowExpandedBackground.orFallback(Color.Transparent)
-    else colors.rowBackground.orFallback(Color.Transparent)
+    val rowBg by animateColorAsState(
+        targetValue = if (expanded) colors.rowExpandedBackground.orFallback(Color.Transparent)
+            else colors.rowBackground.orFallback(Color.Transparent),
+        animationSpec = tween(durationMillis = 200),
+    )
+    val chevronRotation by animateFloatAsState(
+        targetValue = if (expanded) 180f else 0f,
+        animationSpec = tween(durationMillis = 200),
+    )
     val onBg = colors.rowOnBackground.orFallback(Color.Black)
     val subtle = colors.rowSubtleContent.orFallback(onBg.copy(alpha = 0.6f))
 
@@ -110,7 +121,7 @@ fun RefinedRow(
             ChevronGlyph(
                 color = subtle,
                 size = style.dimensions.chevronSize,
-                rotationDegrees = if (expanded) 180f else 0f,
+                rotationDegrees = chevronRotation,
             )
         }
 
