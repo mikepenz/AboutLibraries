@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.compositeOver
+import androidx.compose.ui.graphics.colorspace.ColorSpaces
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.LineHeightStyle
@@ -69,6 +70,67 @@ val LightM3LicensePalette: Map<String, Color> = mapOf(
     "CC0-1.0" to Color(0xFF666666),
 )
 
+/**
+ * Hue offsets (in HSV degrees) for each SPDX family relative to the accent color.
+ * Chosen so licenses stay visually distinct across the full accent hue range.
+ * `null` = neutral gray (no hue identity).
+ */
+private val LICENSE_HUE_OFFSETS: Map<String, Float?> = mapOf(
+    "Apache-2.0" to -60f,
+    "MIT" to -130f,
+    "EPL-2.0" to 60f,
+    "EPL-1.0" to 60f,
+    "BSD-3-Clause" to 170f,
+    "BSD-2-Clause" to 170f,
+    "GPL-3.0" to 30f,
+    "GPL-3.0-only" to 30f,
+    "GPL-3.0-or-later" to 30f,
+    "GPL-2.0" to 30f,
+    "LGPL-2.1" to 50f,
+    "LGPL-3.0" to 50f,
+    "MPL-2.0" to 75f,
+    "ISC" to -130f,
+    "Unlicense" to null,
+    "CC0-1.0" to null,
+)
+
+/** Returns the HSV hue (0–360°) of this color. */
+private fun Color.hsvHue(): Float {
+    val r = red; val g = green; val b = blue
+    val max = maxOf(r, g, b); val min = minOf(r, g, b)
+    val delta = max - min
+    if (delta == 0f) return 0f
+    val h = when (max) {
+        r -> (g - b) / delta % 6f
+        g -> (b - r) / delta + 2f
+        else -> (r - g) / delta + 4f
+    } * 60f
+    return if (h < 0f) h + 360f else h
+}
+
+/**
+ * Builds a [LicenseHueResolver] whose colors rotate with the Material 3 accent (`primary`).
+ * Each SPDX family keeps its fixed hue offset from the accent, so swapping the accent
+ * shifts all badge and dot colors in lockstep while preserving their relative identities.
+ *
+ * This is the default used by [LibraryDefaults.m3VariantColors].
+ */
+@Composable
+fun accentDerivedLicenseHueResolver(isDark: Boolean = isSystemInDarkTheme()): LicenseHueResolver {
+    val accent = MaterialTheme.colorScheme.primary
+    return remember(accent, isDark) {
+        val accentHue = accent.convert(ColorSpaces.Srgb).hsvHue()
+        val saturation = if (isDark) 0.40f else 0.65f
+        val value = if (isDark) 0.97f else 0.65f
+        val neutral = if (isDark) Color(0xFFB7B7B7) else Color(0xFF666666)
+        val palette = LICENSE_HUE_OFFSETS.mapKeys { it.key }.mapValues { (_, offset) ->
+            if (offset == null) neutral
+            else Color.hsv(((accentHue + offset) % 360f + 360f) % 360f, saturation, value)
+        }
+        LicenseHueResolver(palette)
+    }
+}
+
 /** @suppress kept for source compatibility — prefer [DarkM3LicensePalette] for explicit dark theming. */
 val DefaultM3LicensePalette: Map<String, Color> get() = DarkM3LicensePalette
 
@@ -109,8 +171,7 @@ fun LibraryDefaults.m3VariantColors(
     sheetSurface: Color = MaterialTheme.colorScheme.surfaceContainerHigh,
     sheetSurfaceVariant: Color = MaterialTheme.colorScheme.surfaceContainerHighest,
     sheetDragHandle: Color = MaterialTheme.colorScheme.outline.copy(alpha = 0.5f),
-    licenseHueResolver: LicenseHueResolver = if (isSystemInDarkTheme()) DefaultM3LicenseHueResolver
-        else remember { LicenseHueResolver(LightM3LicensePalette) },
+    licenseHueResolver: LicenseHueResolver = accentDerivedLicenseHueResolver(),
 ): VariantColors = remember(
     headerBackground, headerOnBackground, headerSubtleContent, headerDivider,
     rowBackground, rowExpandedBackground, rowOnBackground, rowSubtleContent, rowDivider,

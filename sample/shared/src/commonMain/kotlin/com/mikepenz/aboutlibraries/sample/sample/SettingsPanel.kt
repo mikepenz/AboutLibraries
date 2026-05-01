@@ -65,13 +65,13 @@ fun SettingsPanel(
                     RoundedCornerShape(0.dp),
                 ) else it
             }
+            .verticalScroll(rememberScrollState())
             .padding(
                 start = if (isMobile) 18.dp else 20.dp,
                 end = if (isMobile) 18.dp else 20.dp,
                 top = if (isMobile) 14.dp else 18.dp,
                 bottom = if (isMobile) 22.dp else 22.dp,
-            )
-            .verticalScroll(rememberScrollState()),
+            ),
     ) {
         if (isMobile) {
             Box(
