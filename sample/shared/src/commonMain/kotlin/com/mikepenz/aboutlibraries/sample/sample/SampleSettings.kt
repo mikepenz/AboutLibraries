@@ -8,6 +8,7 @@ import com.mikepenz.aboutlibraries.ui.compose.variant.LibrariesDensity
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibrariesVariant
 
 enum class HeaderStyle { Full, Compact }
+enum class HeaderPosition { Fixed, InList, Sticky }
 
 @Immutable
 data class SampleSettings(
@@ -17,6 +18,7 @@ data class SampleSettings(
     val actionMode: LibraryActionMode = LibraryActionMode.Chips,
     val showHeader: Boolean = true,
     val headerStyle: HeaderStyle = HeaderStyle.Full,
+    val headerPosition: HeaderPosition = HeaderPosition.Fixed,
     val showSearch: Boolean = true,
     val showLicenseFilter: Boolean = false,
     val showVersion: Boolean = true,

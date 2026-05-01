@@ -37,6 +37,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
 import com.mikepenz.aboutlibraries.Libs
+import com.mikepenz.aboutlibraries.sample.sample.HeaderPosition
 import com.mikepenz.aboutlibraries.sample.sample.HeaderStyle
 import com.mikepenz.aboutlibraries.sample.sample.LicenseFilterBar
 import com.mikepenz.aboutlibraries.sample.sample.LicenseFilterTab
@@ -46,6 +47,7 @@ import com.mikepenz.aboutlibraries.sample.sample.SettingsPanel
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import androidx.compose.foundation.lazy.LazyListScope
 import com.mikepenz.aboutlibraries.ui.compose.LibraryDefaults
 import com.mikepenz.aboutlibraries.ui.compose.m3.LibrariesContainer
 import com.mikepenz.aboutlibraries.ui.compose.m3.style.m3VariantColors
@@ -221,7 +223,7 @@ fun App(libs: Libs?) {
                         appVersion = "11.2.0",
                     )
 
-                    if (settings.showHeader) {
+                    if (settings.showHeader && settings.headerPosition == HeaderPosition.Fixed) {
                         when (settings.headerStyle) {
                             HeaderStyle.Full -> TraditionalHeader(
                                 title = "AboutLibraries",
@@ -253,7 +255,10 @@ fun App(libs: Libs?) {
                         }
                     }
 
-                    if (settings.showLicenseFilter && settings.headerStyle != HeaderStyle.Compact) {
+                    val showFilterBarFixed = settings.showLicenseFilter
+                        && settings.headerStyle != HeaderStyle.Compact
+                        && settings.headerPosition == HeaderPosition.Fixed
+                    if (showFilterBarFixed) {
                         LicenseFilterBar(
                             tabs = tabs,
                             selectedSpdxId = licenseFilter,
@@ -261,6 +266,73 @@ fun App(libs: Libs?) {
                             isMobile = isMobile,
                         )
                     }
+
+                    val needsListHeader = settings.headerPosition != HeaderPosition.Fixed
+                        && (settings.showHeader || (settings.showLicenseFilter && settings.headerStyle != HeaderStyle.Compact))
+                    val headerLambda: (LazyListScope.() -> Unit)? = if (needsListHeader) {
+                        {
+                            val headerContent: @Composable () -> Unit = {
+                                when (settings.headerStyle) {
+                                    HeaderStyle.Full -> TraditionalHeader(
+                                        title = "AboutLibraries",
+                                        tagline = "Open source acknowledgements",
+                                        versionLabel = "v11.2.0",
+                                        style = fullStyle,
+                                        strings = DefaultLibraryStrings,
+                                        appIcon = fullAppIcon,
+                                        showSearch = settings.showSearch,
+                                        searchQuery = searchQuery,
+                                        onSearchChange = { searchQuery = it },
+                                    )
+                                    HeaderStyle.Compact -> RefinedHeader(
+                                        title = "AboutLibraries",
+                                        subtitle = "v11.2.0 · ${libs?.libraries.orEmpty().size} libraries",
+                                        style = compactStyle,
+                                        strings = DefaultLibraryStrings,
+                                        tabs = if (settings.showLicenseFilter) tabs.map {
+                                            LicenseTab(it.spdxId, it.label, it.count)
+                                        } else emptyList(),
+                                        selectedTab = licenseFilter,
+                                        onTabSelected = { licenseFilter = it },
+                                        appIcon = compactAppIcon,
+                                        showSearch = settings.showSearch,
+                                        searchQuery = searchQuery,
+                                        onSearchChange = { searchQuery = it },
+                                        inlineSearch = true,
+                                    )
+                                }
+                            }
+                            if (settings.showHeader) {
+                                if (settings.headerPosition == HeaderPosition.Sticky) {
+                                    stickyHeader { headerContent() }
+                                } else {
+                                    item { headerContent() }
+                                }
+                            }
+                            val showFilterBarInList = settings.showLicenseFilter && settings.headerStyle != HeaderStyle.Compact
+                            if (showFilterBarInList) {
+                                if (settings.headerPosition == HeaderPosition.Sticky) {
+                                    stickyHeader {
+                                        LicenseFilterBar(
+                                            tabs = tabs,
+                                            selectedSpdxId = licenseFilter,
+                                            onSelect = { licenseFilter = it },
+                                            isMobile = isMobile,
+                                        )
+                                    }
+                                } else {
+                                    item {
+                                        LicenseFilterBar(
+                                            tabs = tabs,
+                                            selectedSpdxId = licenseFilter,
+                                            onSelect = { licenseFilter = it },
+                                            isMobile = isMobile,
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                    } else null
 
                     LibrariesContainer(
                         libraries = libs?.let { Libs(filteredLibs, it.licenses) },
@@ -276,6 +348,7 @@ fun App(libs: Libs?) {
                         variantColors = LibraryDefaults.m3VariantColors(
                             contrastLevel = if (settings.highContrast) ContrastLevel.High else ContrastLevel.Normal,
                         ),
+                        header = headerLambda,
                     )
                 }
 
