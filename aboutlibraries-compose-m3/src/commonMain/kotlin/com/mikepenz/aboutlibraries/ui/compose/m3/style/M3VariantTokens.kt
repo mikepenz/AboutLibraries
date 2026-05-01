@@ -13,6 +13,7 @@ import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import com.mikepenz.aboutlibraries.ui.compose.LibraryDefaults
+import com.mikepenz.aboutlibraries.ui.compose.style.ContrastLevel
 import com.mikepenz.aboutlibraries.ui.compose.style.DefaultVariantColors
 import com.mikepenz.aboutlibraries.ui.compose.style.DefaultVariantTextStyles
 import com.mikepenz.aboutlibraries.ui.compose.style.LicenseHueResolver
@@ -117,15 +118,33 @@ private fun Color.hsvHue(): Float {
  * This is the default used by [LibraryDefaults.m3VariantColors].
  */
 @Composable
-fun accentDerivedLicenseHueResolver(isDark: Boolean = isSystemInDarkTheme()): LicenseHueResolver {
+fun accentDerivedLicenseHueResolver(
+    isDark: Boolean = isSystemInDarkTheme(),
+    contrastLevel: ContrastLevel = ContrastLevel.Normal,
+): LicenseHueResolver {
     val accent = MaterialTheme.colorScheme.primary
-    return remember(accent, isDark) {
+    return remember(accent, isDark, contrastLevel) {
         val accentHue = accent.convert(ColorSpaces.Srgb).hsvHue()
         // Light-mode: s=0.75, v=0.45 ensures ≥5.2:1 contrast for all hues including yellow.
         // Yellow/lime (hue 40-80°) are the hardest — at these values they reach ~5-6:1 vs white.
-        val saturation = if (isDark) 0.40f else 0.75f
-        val value = if (isDark) 0.97f else 0.45f
-        val neutral = if (isDark) Color(0xFFB7B7B7) else Color(0xFF5A5A5A)
+        val saturation = when {
+            isDark && contrastLevel == ContrastLevel.High -> 0.55f
+            isDark -> 0.40f
+            contrastLevel == ContrastLevel.High -> 0.90f
+            else -> 0.75f
+        }
+        val value = when {
+            isDark && contrastLevel == ContrastLevel.High -> 1.00f
+            isDark -> 0.97f
+            contrastLevel == ContrastLevel.High -> 0.32f
+            else -> 0.45f
+        }
+        val neutral = when {
+            isDark && contrastLevel == ContrastLevel.High -> Color(0xFFDDDDDD)
+            isDark -> Color(0xFFB7B7B7)
+            contrastLevel == ContrastLevel.High -> Color(0xFF3A3A3A)
+            else -> Color(0xFF5A5A5A)
+        }
         val palette = LICENSE_HUE_OFFSETS.mapKeys { it.key }.mapValues { (_, offset) ->
             if (offset == null) neutral
             else Color.hsv(((accentHue + offset) % 360f + 360f) % 360f, saturation, value)
@@ -149,14 +168,19 @@ fun m3LicenseHueResolver(palette: Map<String, Color> = DarkM3LicensePalette): Li
  */
 @Composable
 fun LibraryDefaults.m3VariantColors(
+    contrastLevel: ContrastLevel = ContrastLevel.Normal,
     headerBackground: Color = MaterialTheme.colorScheme.surfaceContainer,
     headerOnBackground: Color = MaterialTheme.colorScheme.onSurface,
-    headerSubtleContent: Color = MaterialTheme.colorScheme.onSurfaceVariant,
+    headerSubtleContent: Color = if (contrastLevel == ContrastLevel.High)
+        MaterialTheme.colorScheme.onSurface.copy(alpha = 0.87f)
+    else MaterialTheme.colorScheme.onSurfaceVariant,
     headerDivider: Color = MaterialTheme.colorScheme.outlineVariant,
     rowBackground: Color = MaterialTheme.colorScheme.surface,
     rowExpandedBackground: Color = MaterialTheme.colorScheme.surfaceContainerLow,
     rowOnBackground: Color = MaterialTheme.colorScheme.onSurface,
-    rowSubtleContent: Color = MaterialTheme.colorScheme.onSurfaceVariant,
+    rowSubtleContent: Color = if (contrastLevel == ContrastLevel.High)
+        MaterialTheme.colorScheme.onSurface.copy(alpha = 0.87f)
+    else MaterialTheme.colorScheme.onSurfaceVariant,
     rowDivider: Color = MaterialTheme.colorScheme.outlineVariant,
     actionFilledContainer: Color = MaterialTheme.colorScheme.primary,
     actionFilledContent: Color = MaterialTheme.colorScheme.onPrimary,
@@ -174,13 +198,13 @@ fun LibraryDefaults.m3VariantColors(
     sheetSurface: Color = MaterialTheme.colorScheme.surfaceContainerHigh,
     sheetSurfaceVariant: Color = MaterialTheme.colorScheme.surfaceContainerHighest,
     sheetDragHandle: Color = MaterialTheme.colorScheme.outline.copy(alpha = 0.5f),
-    licenseHueResolver: LicenseHueResolver = accentDerivedLicenseHueResolver(),
+    licenseHueResolver: LicenseHueResolver = accentDerivedLicenseHueResolver(contrastLevel = contrastLevel),
 ): VariantColors = remember(
     headerBackground, headerOnBackground, headerSubtleContent, headerDivider,
     rowBackground, rowExpandedBackground, rowOnBackground, rowSubtleContent, rowDivider,
     actionFilledContainer, actionFilledContent, actionOutlineBorder, actionOutlineContent, actionLinkColor,
     tabIdleBackground, tabIdleContent, tabActiveBackground, tabActiveBorder, tabActiveContent,
-    sheetScrim, sheetSurface, sheetSurfaceVariant, sheetDragHandle, licenseHueResolver,
+    sheetScrim, sheetSurface, sheetSurfaceVariant, sheetDragHandle, licenseHueResolver, contrastLevel,
 ) {
     DefaultVariantColors(
         headerBackground, headerOnBackground, headerSubtleContent, headerDivider,
@@ -188,6 +212,7 @@ fun LibraryDefaults.m3VariantColors(
         actionFilledContainer, actionFilledContent, actionOutlineBorder, actionOutlineContent, actionLinkColor,
         tabIdleBackground, tabIdleContent, tabActiveBackground, tabActiveBorder, tabActiveContent,
         sheetScrim, sheetSurface, sheetSurfaceVariant, sheetDragHandle, licenseHueResolver,
+        contrastLevel = contrastLevel,
     )
 }
 

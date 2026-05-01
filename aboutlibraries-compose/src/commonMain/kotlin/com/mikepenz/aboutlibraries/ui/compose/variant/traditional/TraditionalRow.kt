@@ -3,6 +3,7 @@ package com.mikepenz.aboutlibraries.ui.compose.variant.traditional
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -25,6 +26,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.mikepenz.aboutlibraries.entity.Library
+import com.mikepenz.aboutlibraries.ui.compose.style.ContrastLevel
 import com.mikepenz.aboutlibraries.ui.compose.style.LibrariesStyle
 import com.mikepenz.aboutlibraries.ui.compose.style.VariantColors
 import com.mikepenz.aboutlibraries.ui.compose.style.VariantShapes
@@ -151,12 +153,17 @@ private fun LicenseBadge(
     textStyles: VariantTextStyles,
 ) {
     val onBg = colors.rowOnBackground.orFallback(Color.Black)
-    val container = (hue ?: colors.actionFilledContainer.orFallback(onBg)).copy(alpha = 0.15f)
+    val badgeAlpha = if (colors.contrastLevel == ContrastLevel.High) 0.22f else 0.15f
+    val container = (hue ?: colors.actionFilledContainer.orFallback(onBg)).copy(alpha = badgeAlpha)
     val content = hue ?: colors.actionFilledContent.orFallback(onBg)
+    val borderMod = if (colors.contrastLevel == ContrastLevel.High)
+        Modifier.border(1.dp, content.copy(alpha = 0.5f), shapes.licenseTokenShape)
+    else Modifier
     Box(
         modifier = Modifier
             .clip(shapes.licenseTokenShape)
             .background(container)
+            .then(borderMod)
             .padding(horizontal = 10.dp, vertical = 3.dp),
     ) {
         BasicText(text = text, style = textStyles.licenseTextStyle.copy(color = content), maxLines = 1, overflow = TextOverflow.Ellipsis)

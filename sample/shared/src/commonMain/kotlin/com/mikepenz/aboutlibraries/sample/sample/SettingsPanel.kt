@@ -230,14 +230,18 @@ fun SettingsPanel(
         }
 
         Section("Theme") {
-            Segmented(
-                options = listOf(
-                    false to "Light",
-                    true to "Dark",
-                ),
-                selected = settings.darkTheme,
-                onSelect = { onChange(settings.copy(darkTheme = it)) },
-            )
+            Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                Segmented(
+                    options = listOf(false to "Light", true to "Dark"),
+                    selected = settings.darkTheme,
+                    onSelect = { onChange(settings.copy(darkTheme = it)) },
+                )
+                ToggleRow(
+                    label = "High contrast",
+                    on = settings.highContrast,
+                    onChange = { onChange(settings.copy(highContrast = it)) },
+                )
+            }
         }
 
         Section("Show fields") {

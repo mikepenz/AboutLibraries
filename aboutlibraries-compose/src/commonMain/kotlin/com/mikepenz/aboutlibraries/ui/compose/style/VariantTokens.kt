@@ -15,6 +15,9 @@ import androidx.compose.ui.unit.dp
 import com.mikepenz.aboutlibraries.ui.compose.LibraryDefaults
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibrariesDensity
 
+/** Controls how much contrast emphasis is applied to badges, subtle text, and dividers. */
+enum class ContrastLevel { Normal, High }
+
 /**
  * Color tokens used by the new variant entry points (Traditional / Refined).
  *
@@ -52,6 +55,7 @@ interface VariantColors {
     val sheetDragHandle: Color
 
     val licenseHueResolver: LicenseHueResolver
+    val contrastLevel: ContrastLevel
 }
 
 @Immutable
@@ -80,6 +84,7 @@ class DefaultVariantColors(
     override val sheetSurfaceVariant: Color,
     override val sheetDragHandle: Color,
     override val licenseHueResolver: LicenseHueResolver,
+    override val contrastLevel: ContrastLevel = ContrastLevel.Normal,
 ) : VariantColors
 
 /**

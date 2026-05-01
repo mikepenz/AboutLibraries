@@ -53,7 +53,9 @@ import com.mikepenz.aboutlibraries.ui.compose.variant.LibrariesDensity
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibrariesVariant
 import com.mikepenz.aboutlibraries.ui.compose.variant.Libraries
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryBadges
+import com.mikepenz.aboutlibraries.ui.compose.style.ContrastLevel
 import com.mikepenz.aboutlibraries.ui.compose.style.LibrariesStyle
+import com.mikepenz.aboutlibraries.ui.compose.style.VariantColors
 import com.mikepenz.aboutlibraries.ui.compose.style.defaultVariantDimensions
 import com.mikepenz.aboutlibraries.ui.compose.style.defaultVariantPadding
 import com.mikepenz.aboutlibraries.ui.compose.style.defaultVariantShapes
@@ -96,6 +98,7 @@ fun LibrariesContainer(
     density: LibrariesDensity = LibrariesDensity.Cozy,
     detailMode: LibraryDetailMode = LibraryDetailMode.Inline,
     actionMode: LibraryActionMode = LibraryActionMode.Chips,
+    variantColors: VariantColors? = null,
     onLibraryClick: ((Library) -> Unit)? = null,
     onFundingClick: ((Funding) -> Unit)? = null,
     onActionClick: ((Library, LibraryActionKind) -> Unit)? = null,
@@ -151,7 +154,7 @@ fun LibrariesContainer(
         }
     }
     val style: LibrariesStyle = LibraryDefaults.librariesStyle(
-        colors = LibraryDefaults.m3VariantColors(),
+        colors = variantColors ?: LibraryDefaults.m3VariantColors(),
         padding = variantPadding,
         dimensions = variantDimensions,
         textStyles = LibraryDefaults.m3VariantTextStyles(),

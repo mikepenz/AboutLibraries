@@ -18,6 +18,7 @@ import com.mikepenz.aboutlibraries.sample.AppTheme
 import com.mikepenz.aboutlibraries.ui.compose.LibraryDefaults
 import com.mikepenz.aboutlibraries.ui.compose.m3.style.m3VariantColors
 import com.mikepenz.aboutlibraries.ui.compose.m3.style.m3VariantTextStyles
+import com.mikepenz.aboutlibraries.ui.compose.style.ContrastLevel
 import com.mikepenz.aboutlibraries.ui.compose.style.LibrariesStyle
 import com.mikepenz.aboutlibraries.ui.compose.style.DefaultLibraryActionLabels
 import com.mikepenz.aboutlibraries.ui.compose.style.librariesStyle
@@ -383,6 +384,38 @@ fun PreviewSheetReorderedLight() = AppTheme(useV3 = true, useDarkTheme = false) 
     Box(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surfaceContainerHigh)) {
         WithStyle { style ->
             LibrarySheetDetail(SampleLibrary, LibraryActionMode.Chips, style, actionLabels = DefaultLibraryActionLabels)
+        }
+    }
+}
+
+// ── High contrast ──────────────────────────────────────────────────────────
+
+@Preview(name = "Traditional · high contrast · dark", widthDp = 600, heightDp = 260, showBackground = true, backgroundColor = 0xFF141218)
+@Composable
+fun PreviewTraditionalHighContrastDark() = AppTheme(useV3 = true, useDarkTheme = true) {
+    Box(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surface)) {
+        val style = LibraryDefaults.librariesStyle(
+            colors = LibraryDefaults.m3VariantColors(contrastLevel = ContrastLevel.High),
+            textStyles = LibraryDefaults.m3VariantTextStyles(),
+        )
+        Column {
+            TraditionalRow(SampleLibrary, expanded = false, onToggle = {}, density = LibrariesDensity.Cozy, badges = AllBadges, style = style)
+            TraditionalRow(MitLibrary, expanded = false, onToggle = {}, density = LibrariesDensity.Cozy, badges = AllBadges, style = style)
+        }
+    }
+}
+
+@Preview(name = "Traditional · high contrast · light", widthDp = 600, heightDp = 260, showBackground = true, backgroundColor = 0xFFFFFBFF)
+@Composable
+fun PreviewTraditionalHighContrastLight() = AppTheme(useV3 = true, useDarkTheme = false) {
+    Box(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surface)) {
+        val style = LibraryDefaults.librariesStyle(
+            colors = LibraryDefaults.m3VariantColors(contrastLevel = ContrastLevel.High),
+            textStyles = LibraryDefaults.m3VariantTextStyles(),
+        )
+        Column {
+            TraditionalRow(SampleLibrary, expanded = false, onToggle = {}, density = LibrariesDensity.Cozy, badges = AllBadges, style = style)
+            TraditionalRow(MitLibrary, expanded = false, onToggle = {}, density = LibrariesDensity.Cozy, badges = AllBadges, style = style)
         }
     }
 }

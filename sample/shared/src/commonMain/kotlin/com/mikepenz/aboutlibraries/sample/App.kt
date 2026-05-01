@@ -49,6 +49,7 @@ import androidx.compose.ui.unit.sp
 import com.mikepenz.aboutlibraries.ui.compose.LibraryDefaults
 import com.mikepenz.aboutlibraries.ui.compose.m3.LibrariesContainer
 import com.mikepenz.aboutlibraries.ui.compose.m3.style.m3VariantColors
+import com.mikepenz.aboutlibraries.ui.compose.style.ContrastLevel
 import com.mikepenz.aboutlibraries.ui.compose.m3.style.m3VariantTextStyles
 import com.mikepenz.aboutlibraries.ui.compose.style.DefaultLibraryStrings
 import com.mikepenz.aboutlibraries.ui.compose.style.defaultVariantDimensions
@@ -272,6 +273,9 @@ fun App(libs: Libs?) {
                         density = settings.density,
                         detailMode = settings.detailMode,
                         actionMode = settings.actionMode,
+                        variantColors = LibraryDefaults.m3VariantColors(
+                            contrastLevel = if (settings.highContrast) ContrastLevel.High else ContrastLevel.Normal,
+                        ),
                     )
                 }
 

@@ -24,6 +24,7 @@ data class SampleSettings(
     val showDescription: Boolean = true,
     val showLicense: Boolean = true,
     val darkTheme: Boolean = true,
+    val highContrast: Boolean = false,
     val accent: Color = AccentSwatches[0],
 )
 

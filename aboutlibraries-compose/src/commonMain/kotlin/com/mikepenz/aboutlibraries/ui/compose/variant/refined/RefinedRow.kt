@@ -35,6 +35,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.mikepenz.aboutlibraries.entity.Library
+import com.mikepenz.aboutlibraries.ui.compose.style.ContrastLevel
 import com.mikepenz.aboutlibraries.ui.compose.style.LibrariesStyle
 import com.mikepenz.aboutlibraries.ui.compose.style.VariantDimensions
 import com.mikepenz.aboutlibraries.ui.compose.style.orFallback
@@ -98,7 +99,7 @@ fun RefinedRow(
                 modifier = Modifier
                     .size(style.dimensions.licenseDotSize)
                     .clip(CircleShape)
-                    .background(licenseHue ?: subtle.copy(alpha = 0.4f)),
+                    .background(licenseHue ?: subtle.copy(alpha = if (colors.contrastLevel == ContrastLevel.High) 0.7f else 0.4f)),
             )
             Spacer(Modifier.width(10.dp))
             BasicText(
