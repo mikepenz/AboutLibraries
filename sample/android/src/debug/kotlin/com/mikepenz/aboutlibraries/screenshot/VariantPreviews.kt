@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -327,7 +328,7 @@ fun PreviewRefinedLightBadgeColors() = AppTheme(useV3 = true, useDarkTheme = fal
 @Preview(name = "Scaffold · Traditional · inline expanded", widthDp = 600, heightDp = 320, showBackground = true, backgroundColor = 0xFF141218)
 @Composable
 fun PreviewScaffoldTraditionalInlineExpanded() = AppTheme(useV3 = true, useDarkTheme = true) {
-    Box(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surface)) {
+    Box(Modifier.fillMaxWidth().height(320.dp).background(MaterialTheme.colorScheme.surface)) {
         WithStyle { style ->
             LibraryListScaffold(
                 libraries = listOf(MitLibrary, SampleLibrary),
@@ -348,7 +349,7 @@ fun PreviewScaffoldTraditionalInlineExpanded() = AppTheme(useV3 = true, useDarkT
 @Preview(name = "Scaffold · Refined · inline expanded", widthDp = 600, heightDp = 280, showBackground = true, backgroundColor = 0xFF141218)
 @Composable
 fun PreviewScaffoldRefinedInlineExpanded() = AppTheme(useV3 = true, useDarkTheme = true) {
-    Box(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surface)) {
+    Box(Modifier.fillMaxWidth().height(280.dp).background(MaterialTheme.colorScheme.surface)) {
         WithStyle { style ->
             LibraryListScaffold(
                 libraries = listOf(MitLibrary, SampleLibrary),
