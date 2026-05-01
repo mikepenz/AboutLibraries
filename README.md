@@ -296,25 +296,6 @@ with the following contents:
     tools:keep="@raw/aboutlibraries" />
 ```
 
-<details><summary><b>Legacy view-based UI: keeping description resource strings</b></summary>
-
-> **Note:** This only applies to the deprecated legacy view-based UI module (`aboutlibraries`). Consider migrating to the Compose-based UI instead.
-
-If you are using a custom `values/aboutlibraries_description.xml` to configure the library description UI, the string resources it defines will also be removed by resource shrinking. Add them to the keep file as well:
-
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools"
-    tools:keep="@raw/aboutlibraries,
-                @string/aboutLibraries_showLicense,
-                @string/aboutLibraries_showVersion,
-                @string/aboutLibraries_description_name,
-                @string/aboutLibraries_description_showIcon,
-                @string/aboutLibraries_description_showVersion" />
-```
-
-</details>
-
 </p>
 </details>
 
@@ -336,8 +317,6 @@ aboutlibraries-core = { module = "com.mikepenz:aboutlibraries-core", version.ref
 aboutlibraries-compose-core = { module = "com.mikepenz:aboutlibraries-compose-core", version.ref = "aboutLibraries" } # Common compose core
 aboutlibraries-compose-m2 = { module = "com.mikepenz:aboutlibraries-compose", version.ref = "aboutLibraries" }      # Material 2 UI
 aboutlibraries-compose-m3 = { module = "com.mikepenz:aboutlibraries-compose-m3", version.ref = "aboutLibraries" }      # Material 3 UI
-# Deprecated View-based UI module
-aboutlibraries-view = { module = "com.mikepenz:aboutlibraries", version.ref = "aboutLibraries" }
 
 [plugins]
 aboutLibraries = { id = "com.mikepenz.aboutlibraries.plugin", version.ref = "aboutLibraries" }
@@ -483,10 +462,6 @@ Manually export the definitions using the Gradle task. This is typically needed 
 
 </p>
 </details>
-
-### Legacy Usage
-
-The legacy view based UI is deprecated. You can find more details in [README-DEPRECATED.md](README-DEPRECATED.md), however please remember these APIs will be deleted in a future release.
 
 ## Enterprise / Manual JSON Handling
 

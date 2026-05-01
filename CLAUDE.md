@@ -53,7 +53,6 @@ aboutlibraries-compose/       # Base Compose UI (no Material dependency)
 aboutlibraries-compose-m2/    # Material 2 Compose UI
 aboutlibraries-compose-m3/    # Material 3 Compose UI
 aboutlibraries-compose-wear-m3/ # Wear OS Material 3 (Android-only)
-aboutlibraries/               # DEPRECATED: View-based UI (FastAdapter/RecyclerView)
 app/                          # Full showcase Android app
 sample/shared/                # KMP shared sample code
 sample/android/               # Android sample (has Paparazzi screenshot tests)

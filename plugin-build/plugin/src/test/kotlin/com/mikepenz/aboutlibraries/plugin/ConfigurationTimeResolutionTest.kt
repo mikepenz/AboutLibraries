@@ -94,6 +94,96 @@ class ConfigurationTimeResolutionTest {
         )
     }
 
+    /**
+     * Regression test for https://github.com/mikepenz/AboutLibraries/issues/1099
+     *
+     * `tasks.whenTaskAdded {}` forces eager realization of all lazily-registered tasks,
+     * which means the plugin's `configure()` method (and its dependency resolution) runs
+     * at registration time rather than at execution time. This test verifies that the plugin
+     * still produces correct output under those conditions.
+     */
+    @Test
+    fun `whenTaskAdded should not break library definitions generation`() {
+        setupProjectWithWhenTaskAdded(projectDir)
+
+        @Suppress("WithPluginClasspathUsage")
+        val result = GradleRunner.create()
+            .withProjectDir(projectDir)
+            .withArguments("exportLibraryDefinitions", "--stacktrace")
+            .withPluginClasspath()
+            .build()
+
+        assertEquals(
+            org.gradle.testkit.runner.TaskOutcome.SUCCESS,
+            result.task(":exportLibraryDefinitions")?.outcome,
+            "Task should succeed even with whenTaskAdded present. Output: ${result.output}"
+        )
+
+        // Verify the output file exists and has content
+        val outputFile = File(projectDir, "build/generated/aboutLibraries/aboutlibraries.json")
+        assertTrue(outputFile.exists(), "Output file should be created")
+        assertTrue(outputFile.length() > 0, "Output file should not be empty")
+
+        // Verify it actually contains the expected dependencies
+        val content = outputFile.readText()
+        assertTrue(content.contains("gson"), "Should contain gson dependency")
+        assertTrue(content.contains("slf4j"), "Should contain slf4j dependency")
+    }
+
+    /**
+     * Verifies that dry-run does not trigger dependency resolution even with whenTaskAdded.
+     */
+    @Test
+    fun `dry-run with whenTaskAdded should still NOT trigger task execution`() {
+        setupProjectWithWhenTaskAdded(projectDir)
+
+        @Suppress("WithPluginClasspathUsage")
+        val result = GradleRunner.create()
+            .withProjectDir(projectDir)
+            .withArguments("exportLibraryDefinitions", "--dry-run", "--stacktrace")
+            .withPluginClasspath()
+            .build()
+
+        val output = result.output
+        assertTrue(output.contains("SKIPPED"), "Should indicate dry run mode with SKIPPED tasks")
+    }
+
+    private fun setupProjectWithWhenTaskAdded(projectDir: File) {
+        File(projectDir, "settings.gradle.kts").writeText(
+            """
+            rootProject.name = "test-project"
+            """.trimIndent()
+        )
+
+        File(projectDir, "build.gradle.kts").writeText(
+            """
+            plugins {
+                id("java-library")
+                id("com.mikepenz.aboutlibraries.plugin")
+            }
+
+            repositories {
+                mavenCentral()
+            }
+
+            dependencies {
+                implementation("com.google.code.gson:gson:2.11.0")
+                implementation("org.slf4j:slf4j-api:2.0.16")
+            }
+
+            aboutLibraries {
+                offlineMode = true
+            }
+
+            // Regression test for #1099: whenTaskAdded causes eager task realization
+            tasks.whenTaskAdded {
+                // This forces ALL lazily-registered tasks to be eagerly realized
+                println("Task added: ${'$'}{this.name}")
+            }
+            """.trimIndent()
+        )
+    }
+
     private fun setupInstrumentedProject(projectDir: File) {
         File(projectDir, "settings.gradle.kts").writeText(
             """
