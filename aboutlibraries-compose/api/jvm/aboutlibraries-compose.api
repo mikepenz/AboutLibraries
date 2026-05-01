@@ -106,11 +106,372 @@ public final class com/mikepenz/aboutlibraries/ui/compose/layout/LibraryScaffold
 	public static final fun LibraryScaffoldLayout (Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function3;Landroidx/compose/ui/Modifier;Lcom/mikepenz/aboutlibraries/ui/compose/LibraryPadding;Landroidx/compose/runtime/Composer;II)V
 }
 
+public final class com/mikepenz/aboutlibraries/ui/compose/style/DefaultVariantColors : com/mikepenz/aboutlibraries/ui/compose/style/VariantColors {
+	public static final field $stable I
+	public synthetic fun <init> (JJJJJJJJJJJJJJJJJJJJJJJLcom/mikepenz/aboutlibraries/ui/compose/style/LicenseHueResolver;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun getActionFilledContainer-0d7_KjU ()J
+	public fun getActionFilledContent-0d7_KjU ()J
+	public fun getActionLinkColor-0d7_KjU ()J
+	public fun getActionOutlineBorder-0d7_KjU ()J
+	public fun getActionOutlineContent-0d7_KjU ()J
+	public fun getHeaderBackground-0d7_KjU ()J
+	public fun getHeaderDivider-0d7_KjU ()J
+	public fun getHeaderOnBackground-0d7_KjU ()J
+	public fun getHeaderSubtleContent-0d7_KjU ()J
+	public fun getLicenseHueResolver ()Lcom/mikepenz/aboutlibraries/ui/compose/style/LicenseHueResolver;
+	public fun getRowBackground-0d7_KjU ()J
+	public fun getRowDivider-0d7_KjU ()J
+	public fun getRowExpandedBackground-0d7_KjU ()J
+	public fun getRowOnBackground-0d7_KjU ()J
+	public fun getRowSubtleContent-0d7_KjU ()J
+	public fun getSheetDragHandle-0d7_KjU ()J
+	public fun getSheetScrim-0d7_KjU ()J
+	public fun getSheetSurface-0d7_KjU ()J
+	public fun getSheetSurfaceVariant-0d7_KjU ()J
+	public fun getTabActiveBackground-0d7_KjU ()J
+	public fun getTabActiveBorder-0d7_KjU ()J
+	public fun getTabActiveContent-0d7_KjU ()J
+	public fun getTabIdleBackground-0d7_KjU ()J
+	public fun getTabIdleContent-0d7_KjU ()J
+}
+
+public final class com/mikepenz/aboutlibraries/ui/compose/style/DefaultVariantDimensions : com/mikepenz/aboutlibraries/ui/compose/style/VariantDimensions {
+	public static final field $stable I
+	public synthetic fun <init> (FFFFFFFFFFFFLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun getActionIconInnerSize-D9Ej5fM ()F
+	public fun getActionIconSize-D9Ej5fM ()F
+	public fun getChevronSize-D9Ej5fM ()F
+	public fun getDragHandleHeight-D9Ej5fM ()F
+	public fun getDragHandleWidth-D9Ej5fM ()F
+	public fun getHeaderIconSize-D9Ej5fM ()F
+	public fun getLicenseDotSize-D9Ej5fM ()F
+	public fun getRowDividerThickness-D9Ej5fM ()F
+	public fun getSearchHeight-D9Ej5fM ()F
+	public fun getSheetCornerRadius-D9Ej5fM ()F
+	public fun getSheetMaxHeightFraction ()F
+	public fun getTabHeight-D9Ej5fM ()F
+}
+
+public final class com/mikepenz/aboutlibraries/ui/compose/style/DefaultVariantPadding : com/mikepenz/aboutlibraries/ui/compose/style/VariantPadding {
+	public static final field $stable I
+	public synthetic fun <init> (Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;FLandroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;FLandroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun getActionChipPadding ()Landroidx/compose/foundation/layout/PaddingValues;
+	public fun getActionLinkSpacing-D9Ej5fM ()F
+	public fun getHeaderPadding ()Landroidx/compose/foundation/layout/PaddingValues;
+	public fun getInlineActionsPadding ()Landroidx/compose/foundation/layout/PaddingValues;
+	public fun getInlineDetailPadding ()Landroidx/compose/foundation/layout/PaddingValues;
+	public fun getRowHorizontal-D9Ej5fM ()F
+	public fun getRowPaddingCompact ()Landroidx/compose/foundation/layout/PaddingValues;
+	public fun getRowPaddingCozy ()Landroidx/compose/foundation/layout/PaddingValues;
+	public fun getSheetPadding ()Landroidx/compose/foundation/layout/PaddingValues;
+	public fun getTabPadding ()Landroidx/compose/foundation/layout/PaddingValues;
+	public fun rowPaddingFor (Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibrariesDensity;)Landroidx/compose/foundation/layout/PaddingValues;
+}
+
+public final class com/mikepenz/aboutlibraries/ui/compose/style/DefaultVariantShapes : com/mikepenz/aboutlibraries/ui/compose/style/VariantShapes {
+	public static final field $stable I
+	public fun <init> (Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;)V
+	public fun getActionChipShape ()Landroidx/compose/ui/graphics/Shape;
+	public fun getHeaderSearchShape ()Landroidx/compose/ui/graphics/Shape;
+	public fun getLicenseTokenShape ()Landroidx/compose/ui/graphics/Shape;
+	public fun getRowShape ()Landroidx/compose/ui/graphics/Shape;
+	public fun getSheetLicenseShape ()Landroidx/compose/ui/graphics/Shape;
+	public fun getSheetShape ()Landroidx/compose/ui/graphics/Shape;
+	public fun getTabShape ()Landroidx/compose/ui/graphics/Shape;
+}
+
+public final class com/mikepenz/aboutlibraries/ui/compose/style/DefaultVariantTextStyles : com/mikepenz/aboutlibraries/ui/compose/style/VariantTextStyles {
+	public static final field $stable I
+	public fun <init> (Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;)V
+	public fun getActionChipTextStyle ()Landroidx/compose/ui/text/TextStyle;
+	public fun getActionLinkTextStyle ()Landroidx/compose/ui/text/TextStyle;
+	public fun getAuthorTextStyle ()Landroidx/compose/ui/text/TextStyle;
+	public fun getDescriptionTextStyle ()Landroidx/compose/ui/text/TextStyle;
+	public fun getHeaderTaglineTextStyle ()Landroidx/compose/ui/text/TextStyle;
+	public fun getHeaderTitleTextStyle ()Landroidx/compose/ui/text/TextStyle;
+	public fun getLicenseTextStyle ()Landroidx/compose/ui/text/TextStyle;
+	public fun getNameTextStyle ()Landroidx/compose/ui/text/TextStyle;
+	public fun getSheetBodyTextStyle ()Landroidx/compose/ui/text/TextStyle;
+	public fun getSheetMetaTextStyle ()Landroidx/compose/ui/text/TextStyle;
+	public fun getSheetTitleTextStyle ()Landroidx/compose/ui/text/TextStyle;
+	public fun getTabCountTextStyle ()Landroidx/compose/ui/text/TextStyle;
+	public fun getTabTextStyle ()Landroidx/compose/ui/text/TextStyle;
+	public fun getVersionTextStyle ()Landroidx/compose/ui/text/TextStyle;
+}
+
+public final class com/mikepenz/aboutlibraries/ui/compose/style/LibrariesStyle {
+	public static final field $stable I
+	public fun <init> (Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantColors;Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantPadding;Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantDimensions;Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantTextStyles;Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantShapes;)V
+	public final fun getColors ()Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantColors;
+	public final fun getDimensions ()Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantDimensions;
+	public final fun getPadding ()Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantPadding;
+	public final fun getShapes ()Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantShapes;
+	public final fun getTextStyles ()Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantTextStyles;
+}
+
+public final class com/mikepenz/aboutlibraries/ui/compose/style/LibraryActionLabels {
+	public static final field $stable I
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getSource ()Ljava/lang/String;
+	public final fun getSponsor ()Ljava/lang/String;
+	public final fun getViewLicense ()Ljava/lang/String;
+	public final fun getWebsite ()Ljava/lang/String;
+}
+
+public final class com/mikepenz/aboutlibraries/ui/compose/style/LibraryStrings {
+	public static final field $stable I
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getSearchPlaceholder ()Ljava/lang/String;
+}
+
+public abstract interface class com/mikepenz/aboutlibraries/ui/compose/style/LicenseHueResolver {
+	public static final field Companion Lcom/mikepenz/aboutlibraries/ui/compose/style/LicenseHueResolver$Companion;
+	public abstract fun colorFor-ijrfgN4 (Ljava/lang/String;)Landroidx/compose/ui/graphics/Color;
+}
+
+public final class com/mikepenz/aboutlibraries/ui/compose/style/LicenseHueResolver$Companion {
+	public final fun getNone ()Lcom/mikepenz/aboutlibraries/ui/compose/style/LicenseHueResolver;
+}
+
+public final class com/mikepenz/aboutlibraries/ui/compose/style/LicenseHueResolverKt {
+	public static final fun LicenseHueResolver (Ljava/util/Map;)Lcom/mikepenz/aboutlibraries/ui/compose/style/LicenseHueResolver;
+}
+
+public abstract interface class com/mikepenz/aboutlibraries/ui/compose/style/VariantColors {
+	public abstract fun getActionFilledContainer-0d7_KjU ()J
+	public abstract fun getActionFilledContent-0d7_KjU ()J
+	public abstract fun getActionLinkColor-0d7_KjU ()J
+	public abstract fun getActionOutlineBorder-0d7_KjU ()J
+	public abstract fun getActionOutlineContent-0d7_KjU ()J
+	public abstract fun getHeaderBackground-0d7_KjU ()J
+	public abstract fun getHeaderDivider-0d7_KjU ()J
+	public abstract fun getHeaderOnBackground-0d7_KjU ()J
+	public abstract fun getHeaderSubtleContent-0d7_KjU ()J
+	public abstract fun getLicenseHueResolver ()Lcom/mikepenz/aboutlibraries/ui/compose/style/LicenseHueResolver;
+	public abstract fun getRowBackground-0d7_KjU ()J
+	public abstract fun getRowDivider-0d7_KjU ()J
+	public abstract fun getRowExpandedBackground-0d7_KjU ()J
+	public abstract fun getRowOnBackground-0d7_KjU ()J
+	public abstract fun getRowSubtleContent-0d7_KjU ()J
+	public abstract fun getSheetDragHandle-0d7_KjU ()J
+	public abstract fun getSheetScrim-0d7_KjU ()J
+	public abstract fun getSheetSurface-0d7_KjU ()J
+	public abstract fun getSheetSurfaceVariant-0d7_KjU ()J
+	public abstract fun getTabActiveBackground-0d7_KjU ()J
+	public abstract fun getTabActiveBorder-0d7_KjU ()J
+	public abstract fun getTabActiveContent-0d7_KjU ()J
+	public abstract fun getTabIdleBackground-0d7_KjU ()J
+	public abstract fun getTabIdleContent-0d7_KjU ()J
+}
+
+public abstract interface class com/mikepenz/aboutlibraries/ui/compose/style/VariantDimensions {
+	public abstract fun getActionIconInnerSize-D9Ej5fM ()F
+	public abstract fun getActionIconSize-D9Ej5fM ()F
+	public abstract fun getChevronSize-D9Ej5fM ()F
+	public abstract fun getDragHandleHeight-D9Ej5fM ()F
+	public abstract fun getDragHandleWidth-D9Ej5fM ()F
+	public abstract fun getHeaderIconSize-D9Ej5fM ()F
+	public abstract fun getLicenseDotSize-D9Ej5fM ()F
+	public abstract fun getRowDividerThickness-D9Ej5fM ()F
+	public abstract fun getSearchHeight-D9Ej5fM ()F
+	public abstract fun getSheetCornerRadius-D9Ej5fM ()F
+	public abstract fun getSheetMaxHeightFraction ()F
+	public abstract fun getTabHeight-D9Ej5fM ()F
+}
+
+public abstract interface class com/mikepenz/aboutlibraries/ui/compose/style/VariantPadding {
+	public abstract fun getActionChipPadding ()Landroidx/compose/foundation/layout/PaddingValues;
+	public abstract fun getActionLinkSpacing-D9Ej5fM ()F
+	public abstract fun getHeaderPadding ()Landroidx/compose/foundation/layout/PaddingValues;
+	public abstract fun getInlineActionsPadding ()Landroidx/compose/foundation/layout/PaddingValues;
+	public abstract fun getInlineDetailPadding ()Landroidx/compose/foundation/layout/PaddingValues;
+	public abstract fun getRowHorizontal-D9Ej5fM ()F
+	public abstract fun getRowPaddingCompact ()Landroidx/compose/foundation/layout/PaddingValues;
+	public abstract fun getRowPaddingCozy ()Landroidx/compose/foundation/layout/PaddingValues;
+	public abstract fun getSheetPadding ()Landroidx/compose/foundation/layout/PaddingValues;
+	public abstract fun getTabPadding ()Landroidx/compose/foundation/layout/PaddingValues;
+	public fun rowPaddingFor (Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibrariesDensity;)Landroidx/compose/foundation/layout/PaddingValues;
+}
+
+public final class com/mikepenz/aboutlibraries/ui/compose/style/VariantPadding$DefaultImpls {
+	public static fun rowPaddingFor (Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantPadding;Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibrariesDensity;)Landroidx/compose/foundation/layout/PaddingValues;
+}
+
+public abstract interface class com/mikepenz/aboutlibraries/ui/compose/style/VariantShapes {
+	public abstract fun getActionChipShape ()Landroidx/compose/ui/graphics/Shape;
+	public abstract fun getHeaderSearchShape ()Landroidx/compose/ui/graphics/Shape;
+	public abstract fun getLicenseTokenShape ()Landroidx/compose/ui/graphics/Shape;
+	public abstract fun getRowShape ()Landroidx/compose/ui/graphics/Shape;
+	public abstract fun getSheetLicenseShape ()Landroidx/compose/ui/graphics/Shape;
+	public abstract fun getSheetShape ()Landroidx/compose/ui/graphics/Shape;
+	public abstract fun getTabShape ()Landroidx/compose/ui/graphics/Shape;
+}
+
+public abstract interface class com/mikepenz/aboutlibraries/ui/compose/style/VariantTextStyles {
+	public abstract fun getActionChipTextStyle ()Landroidx/compose/ui/text/TextStyle;
+	public abstract fun getActionLinkTextStyle ()Landroidx/compose/ui/text/TextStyle;
+	public abstract fun getAuthorTextStyle ()Landroidx/compose/ui/text/TextStyle;
+	public abstract fun getDescriptionTextStyle ()Landroidx/compose/ui/text/TextStyle;
+	public abstract fun getHeaderTaglineTextStyle ()Landroidx/compose/ui/text/TextStyle;
+	public abstract fun getHeaderTitleTextStyle ()Landroidx/compose/ui/text/TextStyle;
+	public abstract fun getLicenseTextStyle ()Landroidx/compose/ui/text/TextStyle;
+	public abstract fun getNameTextStyle ()Landroidx/compose/ui/text/TextStyle;
+	public abstract fun getSheetBodyTextStyle ()Landroidx/compose/ui/text/TextStyle;
+	public abstract fun getSheetMetaTextStyle ()Landroidx/compose/ui/text/TextStyle;
+	public abstract fun getSheetTitleTextStyle ()Landroidx/compose/ui/text/TextStyle;
+	public abstract fun getTabCountTextStyle ()Landroidx/compose/ui/text/TextStyle;
+	public abstract fun getTabTextStyle ()Landroidx/compose/ui/text/TextStyle;
+	public abstract fun getVersionTextStyle ()Landroidx/compose/ui/text/TextStyle;
+}
+
+public final class com/mikepenz/aboutlibraries/ui/compose/style/VariantTokensKt {
+	public static final fun defaultVariantColors-qJfrjvo (Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDefaults;JJJJJJJJJJJJJJJJJJJJJJJLcom/mikepenz/aboutlibraries/ui/compose/style/LicenseHueResolver;Landroidx/compose/runtime/Composer;IIII)Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantColors;
+	public static final fun defaultVariantDimensions-V3kMr5w (Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDefaults;FFFFFFFFFFFF)Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantDimensions;
+	public static synthetic fun defaultVariantDimensions-V3kMr5w$default (Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDefaults;FFFFFFFFFFFFILjava/lang/Object;)Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantDimensions;
+	public static final fun defaultVariantPadding-V7pCZSM (Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDefaults;Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;FLandroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;FLandroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;)Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantPadding;
+	public static synthetic fun defaultVariantPadding-V7pCZSM$default (Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDefaults;Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;FLandroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;FLandroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;ILjava/lang/Object;)Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantPadding;
+	public static final fun defaultVariantShapes (Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDefaults;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;)Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantShapes;
+	public static synthetic fun defaultVariantShapes$default (Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDefaults;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;ILjava/lang/Object;)Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantShapes;
+	public static final fun defaultVariantTextStyles (Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDefaults;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;)Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantTextStyles;
+	public static synthetic fun defaultVariantTextStyles$default (Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDefaults;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;ILjava/lang/Object;)Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantTextStyles;
+	public static final fun getDefaultLibraryActionLabels ()Lcom/mikepenz/aboutlibraries/ui/compose/style/LibraryActionLabels;
+	public static final fun getDefaultLibraryStrings ()Lcom/mikepenz/aboutlibraries/ui/compose/style/LibraryStrings;
+	public static final fun librariesStyle (Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDefaults;Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantColors;Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantPadding;Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantDimensions;Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantTextStyles;Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantShapes;Landroidx/compose/runtime/Composer;II)Lcom/mikepenz/aboutlibraries/ui/compose/style/LibrariesStyle;
+}
+
 public final class com/mikepenz/aboutlibraries/ui/compose/util/ExtensionsKt {
 	public static final fun getAuthor (Lcom/mikepenz/aboutlibraries/entity/Library;)Ljava/lang/String;
 	public static final fun getHtmlReadyLicenseContent (Lcom/mikepenz/aboutlibraries/entity/Library;)Ljava/lang/String;
 	public static final fun getHtmlReadyLicenseContent (Lcom/mikepenz/aboutlibraries/entity/License;)Ljava/lang/String;
 	public static final fun getStrippedLicenseContent (Lcom/mikepenz/aboutlibraries/entity/Library;)Ljava/lang/String;
 	public static final fun getStrippedLicenseContent (Lcom/mikepenz/aboutlibraries/entity/License;)Ljava/lang/String;
+}
+
+public final class com/mikepenz/aboutlibraries/ui/compose/variant/LibrariesDensity : java/lang/Enum {
+	public static final field Compact Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibrariesDensity;
+	public static final field Cozy Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibrariesDensity;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibrariesDensity;
+	public static fun values ()[Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibrariesDensity;
+}
+
+public final class com/mikepenz/aboutlibraries/ui/compose/variant/LibrariesKt {
+	public static final fun Libraries-SeIR-3g (Ljava/util/List;Lcom/mikepenz/aboutlibraries/ui/compose/style/LibrariesStyle;Landroidx/compose/ui/Modifier;Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibrariesVariant;Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibrariesDensity;Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryDetailMode;Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryActionMode;Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryBadges;Lcom/mikepenz/aboutlibraries/ui/compose/style/LibraryActionLabels;Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/lazy/LazyListState;FLkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;III)V
+}
+
+public final class com/mikepenz/aboutlibraries/ui/compose/variant/LibrariesVariant : java/lang/Enum {
+	public static final field Refined Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibrariesVariant;
+	public static final field Traditional Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibrariesVariant;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibrariesVariant;
+	public static fun values ()[Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibrariesVariant;
+}
+
+public final class com/mikepenz/aboutlibraries/ui/compose/variant/LibrariesVariantKt {
+	public static final fun getDefaultLibraryBadges ()Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryBadges;
+}
+
+public final class com/mikepenz/aboutlibraries/ui/compose/variant/LibraryActionKind : java/lang/Enum {
+	public static final field License Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryActionKind;
+	public static final field Source Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryActionKind;
+	public static final field Sponsor Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryActionKind;
+	public static final field Website Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryActionKind;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryActionKind;
+	public static fun values ()[Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryActionKind;
+}
+
+public final class com/mikepenz/aboutlibraries/ui/compose/variant/LibraryActionMode : java/lang/Enum {
+	public static final field Chips Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryActionMode;
+	public static final field Icons Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryActionMode;
+	public static final field Links Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryActionMode;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryActionMode;
+	public static fun values ()[Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryActionMode;
+}
+
+public final class com/mikepenz/aboutlibraries/ui/compose/variant/LibraryActionsKt {
+	public static final fun LibraryActions (Lcom/mikepenz/aboutlibraries/entity/Library;Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryActionMode;Lcom/mikepenz/aboutlibraries/ui/compose/style/LibrariesStyle;Landroidx/compose/ui/Modifier;Lcom/mikepenz/aboutlibraries/ui/compose/style/LibraryActionLabels;Lkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/mikepenz/aboutlibraries/ui/compose/variant/LibraryBadges {
+	public static final field $stable I
+	public fun <init> ()V
+	public fun <init> (ZZZZ)V
+	public synthetic fun <init> (ZZZZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Z
+	public final fun component2 ()Z
+	public final fun component3 ()Z
+	public final fun component4 ()Z
+	public final fun copy (ZZZZ)Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryBadges;
+	public static synthetic fun copy$default (Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryBadges;ZZZZILjava/lang/Object;)Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryBadges;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAuthor ()Z
+	public final fun getDescription ()Z
+	public final fun getLicense ()Z
+	public final fun getVersion ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/mikepenz/aboutlibraries/ui/compose/variant/LibraryDetailBodyKt {
+	public static final fun LibraryInlineDetail (Lcom/mikepenz/aboutlibraries/entity/Library;Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryActionMode;Lcom/mikepenz/aboutlibraries/ui/compose/style/LibrariesStyle;Landroidx/compose/ui/Modifier;Lcom/mikepenz/aboutlibraries/ui/compose/style/LibraryActionLabels;Landroidx/compose/foundation/layout/PaddingValues;Lkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;II)V
+	public static final fun LibrarySheetDetail (Lcom/mikepenz/aboutlibraries/entity/Library;Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryActionMode;Lcom/mikepenz/aboutlibraries/ui/compose/style/LibrariesStyle;Landroidx/compose/ui/Modifier;Lcom/mikepenz/aboutlibraries/ui/compose/style/LibraryActionLabels;Landroidx/compose/foundation/layout/PaddingValues;Lkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/mikepenz/aboutlibraries/ui/compose/variant/LibraryDetailMode : java/lang/Enum {
+	public static final field Inline Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryDetailMode;
+	public static final field None Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryDetailMode;
+	public static final field Sheet Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryDetailMode;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryDetailMode;
+	public static fun values ()[Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryDetailMode;
+}
+
+public final class com/mikepenz/aboutlibraries/ui/compose/variant/LibraryListScaffoldKt {
+	public static final fun LibraryListScaffold-bo9PjdU (Ljava/util/List;Lkotlin/jvm/functions/Function6;Landroidx/compose/ui/Modifier;Landroidx/compose/foundation/lazy/LazyListState;Landroidx/compose/foundation/layout/PaddingValues;FLcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryDetailMode;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;JLkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;III)V
+	public static final fun LibraryListScaffold-vd0C12I (Ljava/util/List;Ljava/lang/String;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function6;Landroidx/compose/ui/Modifier;Landroidx/compose/foundation/lazy/LazyListState;Landroidx/compose/foundation/layout/PaddingValues;FLcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryDetailMode;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;JLkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;III)V
+}
+
+public final class com/mikepenz/aboutlibraries/ui/compose/variant/SearchFieldKt {
+	public static final fun DefaultSearchField-pAZo6Ak (Lkotlin/jvm/functions/Function1;Ljava/lang/String;JJLandroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/Modifier;Ljava/lang/String;Landroidx/compose/runtime/Composer;II)V
+	public static final fun DefaultSearchField-vRFhKjU (Ljava/lang/String;Lkotlin/jvm/functions/Function1;Ljava/lang/String;JJLandroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/mikepenz/aboutlibraries/ui/compose/variant/refined/LicenseTab {
+	public static final field $stable I
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;I)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()I
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;I)Lcom/mikepenz/aboutlibraries/ui/compose/variant/refined/LicenseTab;
+	public static synthetic fun copy$default (Lcom/mikepenz/aboutlibraries/ui/compose/variant/refined/LicenseTab;Ljava/lang/String;Ljava/lang/String;IILjava/lang/Object;)Lcom/mikepenz/aboutlibraries/ui/compose/variant/refined/LicenseTab;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCount ()I
+	public final fun getLabel ()Ljava/lang/String;
+	public final fun getSpdxId ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/mikepenz/aboutlibraries/ui/compose/variant/refined/RefinedHeaderKt {
+	public static final fun RefinedHeader (Ljava/lang/String;Ljava/lang/String;Lcom/mikepenz/aboutlibraries/ui/compose/style/LibrariesStyle;Lcom/mikepenz/aboutlibraries/ui/compose/style/LibraryStrings;Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function3;ZLjava/lang/String;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;Ljava/util/List;Ljava/lang/String;Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;III)V
+}
+
+public final class com/mikepenz/aboutlibraries/ui/compose/variant/refined/RefinedRowKt {
+	public static final fun RefinedRow (Lcom/mikepenz/aboutlibraries/entity/Library;ZLkotlin/jvm/functions/Function0;Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibrariesDensity;Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryBadges;Lcom/mikepenz/aboutlibraries/ui/compose/style/LibrariesStyle;Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
+	public static final fun RefinedRowDivider-Iv8Zu3U (JLcom/mikepenz/aboutlibraries/ui/compose/style/VariantDimensions;Landroidx/compose/runtime/Composer;I)V
+}
+
+public final class com/mikepenz/aboutlibraries/ui/compose/variant/traditional/TraditionalHeaderKt {
+	public static final fun TraditionalHeader (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/mikepenz/aboutlibraries/ui/compose/style/LibrariesStyle;Lcom/mikepenz/aboutlibraries/ui/compose/style/LibraryStrings;Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function2;ZLjava/lang/String;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function0;Landroidx/compose/runtime/Composer;III)V
+}
+
+public final class com/mikepenz/aboutlibraries/ui/compose/variant/traditional/TraditionalRowKt {
+	public static final fun TraditionalRow (Lcom/mikepenz/aboutlibraries/entity/Library;ZLkotlin/jvm/functions/Function0;Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibrariesDensity;Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryBadges;Lcom/mikepenz/aboutlibraries/ui/compose/style/LibrariesStyle;Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
 }
 

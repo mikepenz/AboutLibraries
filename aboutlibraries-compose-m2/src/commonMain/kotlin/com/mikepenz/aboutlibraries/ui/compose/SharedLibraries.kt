@@ -37,6 +37,19 @@ import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.entity.Funding
 import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.entity.License
+import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryActionKind
+import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryActionMode
+import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryDetailMode
+import com.mikepenz.aboutlibraries.ui.compose.variant.LibrariesDensity
+import com.mikepenz.aboutlibraries.ui.compose.variant.LibrariesVariant
+import com.mikepenz.aboutlibraries.ui.compose.variant.Libraries
+import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryBadges
+import com.mikepenz.aboutlibraries.ui.compose.style.defaultVariantColors
+import com.mikepenz.aboutlibraries.ui.compose.style.defaultVariantDimensions
+import com.mikepenz.aboutlibraries.ui.compose.style.defaultVariantPadding
+import com.mikepenz.aboutlibraries.ui.compose.style.defaultVariantShapes
+import com.mikepenz.aboutlibraries.ui.compose.style.defaultVariantTextStyles
+import com.mikepenz.aboutlibraries.ui.compose.style.librariesStyle
 import com.mikepenz.aboutlibraries.ui.compose.component.DefaultLibraryAuthor
 import com.mikepenz.aboutlibraries.ui.compose.component.DefaultLibraryDescription
 import com.mikepenz.aboutlibraries.ui.compose.component.DefaultLibraryFunding
@@ -68,8 +81,13 @@ fun LibrariesContainer(
     dimensions: LibraryDimensions = LibraryDefaults.libraryDimensions(),
     textStyles: LibraryTextStyles = LibraryDefaults.libraryTextStyles(),
     shapes: LibraryShapes = LibraryDefaults.libraryShapes(),
+    variant: LibrariesVariant = LibrariesVariant.Traditional,
+    density: LibrariesDensity = LibrariesDensity.Cozy,
+    detailMode: LibraryDetailMode = LibraryDetailMode.Inline,
+    actionMode: LibraryActionMode = LibraryActionMode.Chips,
     onLibraryClick: ((Library) -> Unit)? = null,
     onFundingClick: ((Funding) -> Unit)? = null,
+    onActionClick: ((Library, LibraryActionKind) -> Unit)? = null,
     name: @Composable BoxScope.(name: String) -> Unit = { DefaultLibraryName(it, textStyles, colors, typography) },
     version: (@Composable BoxScope.(version: String) -> Unit)? = { version ->
         if (showVersion) DefaultLibraryVersion(version, textStyles, colors, typography, padding, dimensions, shapes)
@@ -96,24 +114,30 @@ fun LibrariesContainer(
     val libs = libraries?.libraries.orEmpty()
     val openDialog = remember { mutableStateOf<Library?>(null) }
 
-    LibrariesScaffold(
+    val style = LibraryDefaults.librariesStyle(colors = LibraryDefaults.defaultVariantColors())
+
+    @Suppress("UNUSED_EXPRESSION") run { name; version; author; description; license; funding; actions; padding; dimensions; textStyles; shapes; typography; onFundingClick; libraryModifier }
+
+    Libraries(
         libraries = libs,
-        modifier = modifier,
-        libraryModifier = libraryModifier.background(colors.libraryBackgroundColor),
-        lazyListState = lazyListState,
+        style = style,
+        modifier = modifier.background(colors.libraryBackgroundColor),
+        variant = variant,
+        density = density,
+        detailMode = detailMode,
+        actionMode = actionMode,
+        badges = LibraryBadges(
+            version = showVersion,
+            author = showAuthor,
+            description = showDescription,
+            license = showLicenseBadges,
+        ),
         contentPadding = contentPadding,
-        padding = padding,
-        dimensions = dimensions,
-        name = name,
-        version = version,
-        author = author,
-        description = description,
-        license = license,
-        funding = funding,
-        actions = actions,
+        state = lazyListState,
         header = header,
         divider = divider,
         footer = footer,
+        onActionClick = onActionClick,
         onLibraryClick = { library ->
             if (onLibraryClick != null) {
                 onLibraryClick(library)

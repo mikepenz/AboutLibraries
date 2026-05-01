@@ -1,10 +1,13 @@
 package com.mikepenz.aboutlibraries.sample.m3
 
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.lerp
 
 
 private val LightColors = lightColorScheme(
@@ -72,19 +75,66 @@ private val DarkColors = darkColorScheme(
     scrim = md_theme_dark_scrim,
 )
 
+/**
+ * Builds a dynamic ColorScheme derived from [accent], matching the design's
+ * `m3Palette(accent, mode)` function:
+ *   - Primary family: lerp-mixed from accent toward the dark/light base.
+ *   - Surface family: ALL surface tones receive a small accent tint (3–7% in dark,
+ *     2–5% in light), matching the design's `color-mix(in oklch, accent N%, base)`.
+ */
+private fun ColorScheme.withAccent(accent: Color, dark: Boolean): ColorScheme {
+    // Primary family
+    val onPrimary = if (dark) Color(0xFF1B0C1A) else Color.White
+    val primaryContainer = if (dark) lerp(Color(0xFF1B0C1A), accent, 0.40f)
+    else lerp(Color.White, accent, 0.25f)
+    val onPrimaryContainer = if (dark) lerp(Color.White, accent, 0.15f)
+    else lerp(Color.Black, accent, 0.40f)
+
+    // Surface family — accent-tinted per design's `color-mix(in oklch, accent N%, base)`
+    // dark bases from #141218 family; light bases from #fef7ff family
+    val surface = lerp(
+        if (dark) Color(0xFF141218) else Color(0xFFFEF7FF), accent, if (dark) 0.03f else 0.02f,
+    )
+    val surfaceContainer = lerp(
+        if (dark) Color(0xFF1D1B20) else Color(0xFFF3EDF7), accent, if (dark) 0.05f else 0.03f,
+    )
+    val surfaceContainerLow = lerp(
+        if (dark) Color(0xFF1A181D) else Color(0xFFF7F2FA), accent, if (dark) 0.04f else 0.02f,
+    )
+    val surfaceContainerHigh = lerp(
+        if (dark) Color(0xFF272529) else Color(0xFFECE6F0), accent, if (dark) 0.06f else 0.04f,
+    )
+    val surfaceContainerHighest = lerp(
+        if (dark) Color(0xFF322F35) else Color(0xFFE6E0E9), accent, if (dark) 0.07f else 0.05f,
+    )
+
+    return copy(
+        primary = accent,
+        onPrimary = onPrimary,
+        primaryContainer = primaryContainer,
+        onPrimaryContainer = onPrimaryContainer,
+        surfaceTint = accent,
+        inversePrimary = if (dark) accent else lerp(Color.White, accent, 0.85f),
+        surface = surface,
+        background = surface,
+        surfaceContainer = surfaceContainer,
+        surfaceContainerLow = surfaceContainerLow,
+        surfaceContainerHigh = surfaceContainerHigh,
+        surfaceContainerHighest = surfaceContainerHighest,
+    )
+}
+
 @Composable
 fun M3AppTheme(
     useDarkTheme: Boolean = isSystemInDarkTheme(),
+    accent: Color = Color.Unspecified,
     content: @Composable () -> Unit,
 ) {
-    val colors = if (!useDarkTheme) {
-        LightColors
-    } else {
-        DarkColors
-    }
+    val base = if (!useDarkTheme) LightColors else DarkColors
+    val colors = if (accent != Color.Unspecified) base.withAccent(accent, useDarkTheme) else base
 
     MaterialTheme(
         colorScheme = colors,
-        content = content
+        content = content,
     )
 }
