@@ -266,6 +266,16 @@ public final class com/mikepenz/aboutlibraries/ui/compose/style/LicenseHueResolv
 
 public final class com/mikepenz/aboutlibraries/ui/compose/style/LicenseHueResolverKt {
 	public static final fun LicenseHueResolver (Ljava/util/Map;)Lcom/mikepenz/aboutlibraries/ui/compose/style/LicenseHueResolver;
+	public static final fun withPaletteFallback (Lcom/mikepenz/aboutlibraries/ui/compose/style/LicenseHueResolver;Ljava/util/List;)Lcom/mikepenz/aboutlibraries/ui/compose/style/LicenseHueResolver;
+}
+
+public final class com/mikepenz/aboutlibraries/ui/compose/style/LicensePaletteKt {
+	public static final fun defaultLicensePalette (ZLcom/mikepenz/aboutlibraries/ui/compose/style/ContrastLevel;)Ljava/util/List;
+	public static synthetic fun defaultLicensePalette$default (ZLcom/mikepenz/aboutlibraries/ui/compose/style/ContrastLevel;ILjava/lang/Object;)Ljava/util/List;
+	public static final fun getDarkHighContrastLicensePalette ()Ljava/util/List;
+	public static final fun getDarkNormalLicensePalette ()Ljava/util/List;
+	public static final fun getLightHighContrastLicensePalette ()Ljava/util/List;
+	public static final fun getLightNormalLicensePalette ()Ljava/util/List;
 }
 
 public abstract interface class com/mikepenz/aboutlibraries/ui/compose/style/VariantColors {
