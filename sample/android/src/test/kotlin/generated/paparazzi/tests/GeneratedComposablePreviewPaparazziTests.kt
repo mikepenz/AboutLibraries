@@ -67,7 +67,7 @@ object ScreenDimensions {
 object DeviceConfigBuilder {
     fun build(preview: AndroidPreviewInfo): DeviceConfig {
         val parsedDevice =
-            DevicePreviewInfoParser.parse(preview.device)?.inPx() ?: return DeviceConfig()
+            (DevicePreviewInfoParser.parse(preview.device) ?: DEFAULT).inPx()
 
         val dimensions = ScreenDimensions.dimensions(
             parsedDevice = parsedDevice,
@@ -175,7 +175,7 @@ object PaparazziPreviewRule {
             showSystemUi = previewInfo.showSystemUi,
             renderingMode = when {
                 previewInfo.showSystemUi -> SessionParams.RenderingMode.NORMAL
-                previewInfo.widthDp > 0 && previewInfo.heightDp > 0 -> SessionParams.RenderingMode.FULL_EXPAND
+                previewInfo.widthDp > 0 && previewInfo.heightDp > 0 -> SessionParams.RenderingMode.NORMAL
                 else -> SessionParams.RenderingMode.SHRINK
             },
             snapshotHandler = when (System.getProperty("paparazzi.test.verify")?.toBoolean() == true) {

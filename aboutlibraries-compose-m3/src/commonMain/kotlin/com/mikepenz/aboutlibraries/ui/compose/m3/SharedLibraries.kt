@@ -40,13 +40,29 @@ import com.mikepenz.aboutlibraries.entity.License
 import com.mikepenz.aboutlibraries.ui.compose.ChipColors
 import com.mikepenz.aboutlibraries.ui.compose.DefaultChipColors
 import com.mikepenz.aboutlibraries.ui.compose.DefaultLibraryColors
-import com.mikepenz.aboutlibraries.ui.compose.LibrariesScaffold
 import com.mikepenz.aboutlibraries.ui.compose.LibraryColors
 import com.mikepenz.aboutlibraries.ui.compose.LibraryDefaults
 import com.mikepenz.aboutlibraries.ui.compose.LibraryDimensions
 import com.mikepenz.aboutlibraries.ui.compose.LibraryPadding
 import com.mikepenz.aboutlibraries.ui.compose.LibraryShapes
 import com.mikepenz.aboutlibraries.ui.compose.LibraryTextStyles
+import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryActionKind
+import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryActionMode
+import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryDetailMode
+import com.mikepenz.aboutlibraries.ui.compose.variant.LibrariesDensity
+import com.mikepenz.aboutlibraries.ui.compose.variant.LibrariesVariant
+import com.mikepenz.aboutlibraries.ui.compose.variant.Libraries
+import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryBadges
+import com.mikepenz.aboutlibraries.ui.compose.style.ContrastLevel
+import com.mikepenz.aboutlibraries.ui.compose.style.LibrariesStyle
+import com.mikepenz.aboutlibraries.ui.compose.style.VariantColors
+import com.mikepenz.aboutlibraries.ui.compose.style.defaultVariantDimensions
+import com.mikepenz.aboutlibraries.ui.compose.style.defaultVariantPadding
+import com.mikepenz.aboutlibraries.ui.compose.style.defaultVariantShapes
+import com.mikepenz.aboutlibraries.ui.compose.style.librariesStyle
+import com.mikepenz.aboutlibraries.ui.compose.m3.sheet.LibraryDetailSheet
+import com.mikepenz.aboutlibraries.ui.compose.m3.style.m3VariantColors
+import com.mikepenz.aboutlibraries.ui.compose.m3.style.m3VariantTextStyles
 import com.mikepenz.aboutlibraries.ui.compose.m3.component.DefaultLibraryAuthor
 import com.mikepenz.aboutlibraries.ui.compose.m3.component.DefaultLibraryDescription
 import com.mikepenz.aboutlibraries.ui.compose.m3.component.DefaultLibraryFunding
@@ -59,6 +75,7 @@ import com.mikepenz.aboutlibraries.ui.compose.util.strippedLicenseContent
 /**
  * Displays all provided libraries in a simple list.
  */
+@OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
 @Composable
 fun LibrariesContainer(
     libraries: Libs?,
@@ -77,8 +94,14 @@ fun LibrariesContainer(
     dimensions: LibraryDimensions = LibraryDefaults.libraryDimensions(),
     textStyles: LibraryTextStyles = LibraryDefaults.libraryTextStyles(),
     shapes: LibraryShapes = LibraryDefaults.libraryShapes(),
+    variant: LibrariesVariant = LibrariesVariant.Traditional,
+    density: LibrariesDensity = LibrariesDensity.Cozy,
+    detailMode: LibraryDetailMode = LibraryDetailMode.Inline,
+    actionMode: LibraryActionMode = LibraryActionMode.Chips,
+    variantColors: VariantColors? = null,
     onLibraryClick: ((Library) -> Unit)? = null,
     onFundingClick: ((Funding) -> Unit)? = null,
+    onActionClick: ((Library, LibraryActionKind) -> Unit)? = null,
     name: @Composable BoxScope.(name: String) -> Unit = { DefaultLibraryName(it, textStyles, colors, typography) },
     version: (@Composable BoxScope.(version: String) -> Unit)? = { version ->
         if (showVersion) DefaultLibraryVersion(version, textStyles, colors, typography, padding, dimensions, shapes)
@@ -104,43 +127,79 @@ fun LibrariesContainer(
 ) {
     val libs = libraries?.libraries.orEmpty()
     val openDialog = remember { mutableStateOf<Library?>(null) }
+    val openSheet = remember { mutableStateOf<Library?>(null) }
 
-    LibrariesScaffold(
+    val variantPadding = remember(variant) {
+        when (variant) {
+            LibrariesVariant.Traditional -> LibraryDefaults.defaultVariantPadding()
+            LibrariesVariant.Refined -> LibraryDefaults.defaultVariantPadding(
+                rowPaddingCozy = PaddingValues(horizontal = 16.dp, vertical = 10.dp),
+                rowPaddingCompact = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+                rowHorizontal = 16.dp,
+            )
+        }
+    }
+    val variantDimensions = remember(variant) {
+        LibraryDefaults.defaultVariantDimensions(
+            headerIconSize = if (variant == LibrariesVariant.Refined) 32.dp else 48.dp,
+            searchHeight = if (variant == LibrariesVariant.Refined) 34.dp else 44.dp,
+        )
+    }
+    val variantShapes = remember(variant) {
+        when (variant) {
+            LibrariesVariant.Traditional -> LibraryDefaults.defaultVariantShapes()
+            LibrariesVariant.Refined -> LibraryDefaults.defaultVariantShapes(
+                headerSearchShape = androidx.compose.foundation.shape.RoundedCornerShape(8.dp),
+            )
+        }
+    }
+    val style: LibrariesStyle = LibraryDefaults.librariesStyle(
+        colors = variantColors ?: LibraryDefaults.m3VariantColors(),
+        padding = variantPadding,
+        dimensions = variantDimensions,
+        textStyles = LibraryDefaults.m3VariantTextStyles(),
+        shapes = variantShapes,
+    )
+
+    // Unused legacy slot lambdas — kept on the API for source compat. The new variant rows
+    // render their own content via theme-agnostic primitives. Reference them so the IDE shows
+    // the parameters as in-use until they are removed in a future major version.
+    @Suppress("UNUSED_EXPRESSION") run { name; version; author; description; license; funding; actions; padding; dimensions; textStyles; shapes; typography; onFundingClick }
+
+    Libraries(
         libraries = libs,
-        modifier = modifier,
-        libraryModifier = libraryModifier.background(colors.libraryBackgroundColor),
-        lazyListState = lazyListState,
+        style = style,
+        modifier = modifier.background(colors.libraryBackgroundColor),
+        variant = variant,
+        density = density,
+        detailMode = detailMode,
+        actionMode = actionMode,
+        badges = LibraryBadges(
+            version = showVersion,
+            author = showAuthor,
+            description = showDescription,
+            license = showLicenseBadges,
+        ),
         contentPadding = contentPadding,
-        padding = padding,
-        dimensions = dimensions,
-        name = name,
-        version = version,
-        author = author,
-        description = description,
-        license = license,
-        funding = funding,
-        actions = actions,
+        state = lazyListState,
         header = header,
         divider = divider,
         footer = footer,
+        onActionClick = onActionClick,
         onLibraryClick = { library ->
             if (onLibraryClick != null) {
                 onLibraryClick(library)
                 true
-            } else {
-                val license = library.licenses.firstOrNull()
-                if (!license?.htmlReadyLicenseContent.isNullOrBlank()) {
-                    openDialog.value = library
-                    true
-                } else false
-            }
+            } else false
         },
+        onSheetRequest = { openSheet.value = it },
     )
+    @Suppress("UNUSED_EXPRESSION") libraryModifier
 
-    val library = openDialog.value
-    if (library != null && licenseDialogBody != null) {
+    val dialogLibrary = openDialog.value
+    if (dialogLibrary != null && licenseDialogBody != null) {
         LicenseDialog(
-            library = library,
+            library = dialogLibrary,
             colors = colors,
             padding = padding,
             confirmText = licenseDialogConfirmText,
@@ -148,6 +207,17 @@ fun LibrariesContainer(
         ) {
             openDialog.value = null
         }
+    }
+
+    val sheetLibrary = openSheet.value
+    if (sheetLibrary != null) {
+        LibraryDetailSheet(
+            library = sheetLibrary,
+            onDismiss = { openSheet.value = null },
+            style = style,
+            actionMode = actionMode,
+            onActionClick = onActionClick,
+        )
     }
 }
 
