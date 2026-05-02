@@ -21,6 +21,7 @@ import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -197,7 +198,8 @@ private fun LicenseTabItem(
     val dotColor = remember(tab.spdxId, colors.licenseHueResolver) {
         tab.spdxId?.let { colors.licenseHueResolver.colorFor(it) }
     }
-    val onClick = remember(tab.spdxId, onTabSelected) { { onTabSelected?.invoke(tab.spdxId); Unit } }
+    val currentOnTabSelected = rememberUpdatedState(onTabSelected)
+    val onClick = remember(tab.spdxId) { { currentOnTabSelected.value?.invoke(tab.spdxId) } }
 
     Row(
         modifier = Modifier
