@@ -33,6 +33,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.mikepenz.aboutlibraries.sample.sample.HeaderPosition
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryActionMode
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryDetailMode
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibrariesDensity
@@ -148,6 +149,19 @@ fun SettingsPanel(
                         selected = settings.headerStyle,
                         onSelect = {
                             if (settings.showHeader) onChange(settings.copy(headerStyle = it))
+                        },
+                    )
+                }
+                Box(modifier = Modifier.alpha(if (settings.showHeader) 1f else 0.4f)) {
+                    Segmented(
+                        options = listOf(
+                            HeaderPosition.Fixed to "Fixed",
+                            HeaderPosition.InList to "In list",
+                            HeaderPosition.Sticky to "Sticky",
+                        ),
+                        selected = settings.headerPosition,
+                        onSelect = {
+                            if (settings.showHeader) onChange(settings.copy(headerPosition = it))
                         },
                     )
                 }
