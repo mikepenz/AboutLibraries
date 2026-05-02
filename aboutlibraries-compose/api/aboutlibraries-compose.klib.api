@@ -504,16 +504,24 @@ final class com.mikepenz.aboutlibraries.ui.compose.style/LibrariesStyle { // com
 }
 
 final class com.mikepenz.aboutlibraries.ui.compose.style/LibraryActionLabels { // com.mikepenz.aboutlibraries.ui.compose.style/LibraryActionLabels|null[0]
-    constructor <init>(kotlin/String = ..., kotlin/String = ..., kotlin/String = ..., kotlin/String = ...) // com.mikepenz.aboutlibraries.ui.compose.style/LibraryActionLabels.<init>|<init>(kotlin.String;kotlin.String;kotlin.String;kotlin.String){}[0]
+    constructor <init>(kotlin/String = ..., androidx.compose.ui.graphics.vector/ImageVector = ..., kotlin/String = ..., androidx.compose.ui.graphics.vector/ImageVector = ..., kotlin/String = ..., androidx.compose.ui.graphics.vector/ImageVector = ..., kotlin/String = ..., androidx.compose.ui.graphics.vector/ImageVector = ...) // com.mikepenz.aboutlibraries.ui.compose.style/LibraryActionLabels.<init>|<init>(kotlin.String;androidx.compose.ui.graphics.vector.ImageVector;kotlin.String;androidx.compose.ui.graphics.vector.ImageVector;kotlin.String;androidx.compose.ui.graphics.vector.ImageVector;kotlin.String;androidx.compose.ui.graphics.vector.ImageVector){}[0]
 
     final val source // com.mikepenz.aboutlibraries.ui.compose.style/LibraryActionLabels.source|{}source[0]
         final fun <get-source>(): kotlin/String // com.mikepenz.aboutlibraries.ui.compose.style/LibraryActionLabels.source.<get-source>|<get-source>(){}[0]
+    final val sourceIcon // com.mikepenz.aboutlibraries.ui.compose.style/LibraryActionLabels.sourceIcon|{}sourceIcon[0]
+        final fun <get-sourceIcon>(): androidx.compose.ui.graphics.vector/ImageVector // com.mikepenz.aboutlibraries.ui.compose.style/LibraryActionLabels.sourceIcon.<get-sourceIcon>|<get-sourceIcon>(){}[0]
     final val sponsor // com.mikepenz.aboutlibraries.ui.compose.style/LibraryActionLabels.sponsor|{}sponsor[0]
         final fun <get-sponsor>(): kotlin/String // com.mikepenz.aboutlibraries.ui.compose.style/LibraryActionLabels.sponsor.<get-sponsor>|<get-sponsor>(){}[0]
+    final val sponsorIcon // com.mikepenz.aboutlibraries.ui.compose.style/LibraryActionLabels.sponsorIcon|{}sponsorIcon[0]
+        final fun <get-sponsorIcon>(): androidx.compose.ui.graphics.vector/ImageVector // com.mikepenz.aboutlibraries.ui.compose.style/LibraryActionLabels.sponsorIcon.<get-sponsorIcon>|<get-sponsorIcon>(){}[0]
     final val viewLicense // com.mikepenz.aboutlibraries.ui.compose.style/LibraryActionLabels.viewLicense|{}viewLicense[0]
         final fun <get-viewLicense>(): kotlin/String // com.mikepenz.aboutlibraries.ui.compose.style/LibraryActionLabels.viewLicense.<get-viewLicense>|<get-viewLicense>(){}[0]
+    final val viewLicenseIcon // com.mikepenz.aboutlibraries.ui.compose.style/LibraryActionLabels.viewLicenseIcon|{}viewLicenseIcon[0]
+        final fun <get-viewLicenseIcon>(): androidx.compose.ui.graphics.vector/ImageVector // com.mikepenz.aboutlibraries.ui.compose.style/LibraryActionLabels.viewLicenseIcon.<get-viewLicenseIcon>|<get-viewLicenseIcon>(){}[0]
     final val website // com.mikepenz.aboutlibraries.ui.compose.style/LibraryActionLabels.website|{}website[0]
         final fun <get-website>(): kotlin/String // com.mikepenz.aboutlibraries.ui.compose.style/LibraryActionLabels.website.<get-website>|<get-website>(){}[0]
+    final val websiteIcon // com.mikepenz.aboutlibraries.ui.compose.style/LibraryActionLabels.websiteIcon|{}websiteIcon[0]
+        final fun <get-websiteIcon>(): androidx.compose.ui.graphics.vector/ImageVector // com.mikepenz.aboutlibraries.ui.compose.style/LibraryActionLabels.websiteIcon.<get-websiteIcon>|<get-websiteIcon>(){}[0]
 }
 
 final class com.mikepenz.aboutlibraries.ui.compose.style/LibraryStrings { // com.mikepenz.aboutlibraries.ui.compose.style/LibraryStrings|null[0]
@@ -603,6 +611,14 @@ final object com.mikepenz.aboutlibraries.ui.compose/LibraryDefaults { // com.mik
     final fun libraryTextStyles(androidx.compose.ui.text.style/TextOverflow?, androidx.compose.ui.text/TextStyle?, kotlin/Int, androidx.compose.ui.text.style/TextOverflow?, androidx.compose.ui.text/TextStyle?, kotlin/Int, androidx.compose.ui.text/TextStyle?, kotlin/Int, androidx.compose.ui.text/TextStyle?, kotlin/Int, androidx.compose.ui.text/TextStyle?, androidx.compose.ui.text/TextStyle?, androidx.compose.runtime/Composer?, kotlin/Int, kotlin/Int, kotlin/Int): com.mikepenz.aboutlibraries.ui.compose/LibraryTextStyles // com.mikepenz.aboutlibraries.ui.compose/LibraryDefaults.libraryTextStyles|libraryTextStyles(androidx.compose.ui.text.style.TextOverflow?;androidx.compose.ui.text.TextStyle?;kotlin.Int;androidx.compose.ui.text.style.TextOverflow?;androidx.compose.ui.text.TextStyle?;kotlin.Int;androidx.compose.ui.text.TextStyle?;kotlin.Int;androidx.compose.ui.text.TextStyle?;kotlin.Int;androidx.compose.ui.text.TextStyle?;androidx.compose.ui.text.TextStyle?;androidx.compose.runtime.Composer?;kotlin.Int;kotlin.Int;kotlin.Int){}[0]
 }
 
+final val com.mikepenz.aboutlibraries.ui.compose.icon/MaterialSymbolsAttachMoney // com.mikepenz.aboutlibraries.ui.compose.icon/MaterialSymbolsAttachMoney|{}MaterialSymbolsAttachMoney[0]
+    final fun <get-MaterialSymbolsAttachMoney>(): androidx.compose.ui.graphics.vector/ImageVector // com.mikepenz.aboutlibraries.ui.compose.icon/MaterialSymbolsAttachMoney.<get-MaterialSymbolsAttachMoney>|<get-MaterialSymbolsAttachMoney>(){}[0]
+final val com.mikepenz.aboutlibraries.ui.compose.icon/MaterialSymbolsCodeXml // com.mikepenz.aboutlibraries.ui.compose.icon/MaterialSymbolsCodeXml|{}MaterialSymbolsCodeXml[0]
+    final fun <get-MaterialSymbolsCodeXml>(): androidx.compose.ui.graphics.vector/ImageVector // com.mikepenz.aboutlibraries.ui.compose.icon/MaterialSymbolsCodeXml.<get-MaterialSymbolsCodeXml>|<get-MaterialSymbolsCodeXml>(){}[0]
+final val com.mikepenz.aboutlibraries.ui.compose.icon/MaterialSymbolsLicense // com.mikepenz.aboutlibraries.ui.compose.icon/MaterialSymbolsLicense|{}MaterialSymbolsLicense[0]
+    final fun <get-MaterialSymbolsLicense>(): androidx.compose.ui.graphics.vector/ImageVector // com.mikepenz.aboutlibraries.ui.compose.icon/MaterialSymbolsLicense.<get-MaterialSymbolsLicense>|<get-MaterialSymbolsLicense>(){}[0]
+final val com.mikepenz.aboutlibraries.ui.compose.icon/MaterialSymbolsLink2 // com.mikepenz.aboutlibraries.ui.compose.icon/MaterialSymbolsLink2|{}MaterialSymbolsLink2[0]
+    final fun <get-MaterialSymbolsLink2>(): androidx.compose.ui.graphics.vector/ImageVector // com.mikepenz.aboutlibraries.ui.compose.icon/MaterialSymbolsLink2.<get-MaterialSymbolsLink2>|<get-MaterialSymbolsLink2>(){}[0]
 final val com.mikepenz.aboutlibraries.ui.compose.style/DefaultLibraryActionLabels // com.mikepenz.aboutlibraries.ui.compose.style/DefaultLibraryActionLabels|{}DefaultLibraryActionLabels[0]
     final fun <get-DefaultLibraryActionLabels>(): com.mikepenz.aboutlibraries.ui.compose.style/LibraryActionLabels // com.mikepenz.aboutlibraries.ui.compose.style/DefaultLibraryActionLabels.<get-DefaultLibraryActionLabels>|<get-DefaultLibraryActionLabels>(){}[0]
 final val com.mikepenz.aboutlibraries.ui.compose.style/DefaultLibraryStrings // com.mikepenz.aboutlibraries.ui.compose.style/DefaultLibraryStrings|{}DefaultLibraryStrings[0]
