@@ -12,6 +12,7 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.LayoutDirection
 import com.mikepenz.aboutlibraries.screenshot.fakeData
 import com.mikepenz.aboutlibraries.ui.compose.m3.LibrariesContainer
+import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryBadges
 
 @Composable
 fun Theme(isDarkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) = MaterialTheme(if (isDarkTheme) darkColorScheme() else lightColorScheme()) { content() }
@@ -20,7 +21,7 @@ fun Theme(isDarkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () 
 @Composable
 fun PreviewLibraries() = Theme {
     Surface {
-        LibrariesContainer(libraries = fakeData, showDescription = true)
+        LibrariesContainer(libraries = fakeData, badges = LibraryBadges(description = true))
     }
 }
 
@@ -28,7 +29,7 @@ fun PreviewLibraries() = Theme {
 @Composable
 fun PreviewLibrariesOff() = Theme {
     Surface {
-        LibrariesContainer(libraries = fakeData, showAuthor = false, showLicenseBadges = false)
+        LibrariesContainer(libraries = fakeData, badges = LibraryBadges(author = false, license = false))
     }
 }
 
