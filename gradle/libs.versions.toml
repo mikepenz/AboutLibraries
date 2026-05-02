@@ -19,6 +19,7 @@ ivy = "2.5.3"
 modelBuilder = "3.9.15"
 materialDrawer = "9.0.2"
 okhttp = "5.3.2"
+dejavu = "0.3.1"
 
 [plugins]
 navSafeArgs = { id = "androidx.navigation.safeargs", version.ref = "navigation" }
@@ -46,6 +47,7 @@ ivy-core = { module = "org.apache.ivy:ivy", version.ref = "ivy" }
 maven-modelBuilder = { module = "org.apache.maven:maven-model-builder", version.ref = "modelBuilder" }
 materialDrawer-core = { module = "com.mikepenz:materialdrawer", version.ref = "materialDrawer" }
 okhttp-core = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
+dejavu = { module = "me.mmckenna.dejavu:dejavu", version.ref = "dejavu" }
 
 [bundles]
 androidx-lifecycle = [
