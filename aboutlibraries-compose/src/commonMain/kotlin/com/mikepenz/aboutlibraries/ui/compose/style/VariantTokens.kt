@@ -247,7 +247,7 @@ class LibraryStrings(
 
 /** Labels and icons shown on per-action affordances. Override for localization or custom icons. */
 @Immutable
-class LibraryActionBadges(
+data class LibraryActionBadges(
     val sourceEnabled: Boolean = true,
     val websiteEnabled: Boolean = true,
     val sponsorEnabled: Boolean = true,
