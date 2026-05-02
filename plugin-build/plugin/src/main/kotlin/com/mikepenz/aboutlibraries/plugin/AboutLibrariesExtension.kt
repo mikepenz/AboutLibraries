@@ -49,15 +49,6 @@ abstract class AboutLibrariesExtension {
         action.execute(license)
     }
 
-    @Deprecated("Removed, no-op - Use the aboutlibsAndroidPlugin instead.")
-    @get:Nested
-    abstract val android: AndroidConfig
-
-    @Deprecated("Removed, no-op - Use the aboutlibsAndroidPlugin instead.")
-    fun android(action: Action<AndroidConfig>) {
-        action.execute(android)
-    }
-
     /**
      * Disables any remote checking of licenses.
      * Please note that this will also disable the download of the LICENSE text from `https://spdx.org/licenses/`.
@@ -90,8 +81,6 @@ abstract class AboutLibrariesExtension {
             it.includeMetaData.convention(false)
             it.excludeFields.convention(emptySet())
             it.prettyPrint.convention(false)
-            @Suppress("DEPRECATION")
-            it.outputFileName.convention(DEFAULT_OUTPUT_NAME)
         }
         library {
             it.requireLicense.convention(false)
@@ -107,44 +96,16 @@ abstract class AboutLibrariesExtension {
             it.includeLicenses.convention(emptySet())
             it.strictMode.convention(StrictMode.IGNORE)
         }
-        android {
-            it.registerAndroidTasks.convention(false)
-        }
     }
 
     companion object {
-        private const val DEFAULT_OUTPUT_NAME = "aboutlibraries.json"
         internal const val PROP_PREFIX = "aboutLibraries."
         internal const val PROP_EXPORT_VARIANT = "exportVariant"
         internal const val PROP_EXPORT_PATH = "exportPath"
         internal const val PROP_EXPORT_ARTIFACT_GROUPS = "artifactGroups"
 
-        @Deprecated("Use `PROP_EXPORT_OUTPUT_FILE` instead")
-        internal const val PROP_EXPORT_OUTPUT_PATH = "outputPath"
         internal const val PROP_EXPORT_OUTPUT_FILE = "outputFile"
     }
-}
-
-@Deprecated("Removed, no-op - Use the aboutlibsAndroidPlugin instead.")
-abstract class AndroidConfig @Inject constructor() {
-
-    /**
-     * Configures the creation and registration of the Android related tasks. Will automatically hook into the build process and create the `aboutlibraries.json` during build time.
-     * If disabled use `exportLibraryDefinitions` manually to create the `.json` output.
-     *
-     * ```
-     * aboutLibraries {
-     *   android {
-     *      registerAndroidTasks = true
-     *   }
-     * }
-     * ```
-     *
-     * The resulting file can for example be added as part of the SCM.
-     */
-    @Deprecated("Removed, no-op - Use the aboutlibsAndroidPlugin instead.")
-    @get:Optional
-    abstract val registerAndroidTasks: Property<Boolean> // = true
 }
 
 abstract class CollectorConfig @Inject constructor() {
@@ -304,23 +265,6 @@ abstract class ExportConfig @Inject constructor(val name: String = "") {
     /** Alias for [outputFile] */
     @get:Optional
     val outputPath: RegularFileProperty get() = outputFile
-
-    /**
-     * The output file name for the generated meta data file.
-     * Adjusting the file name will break the automatic discovery for supported platforms.
-     *
-     * Note: This API has no effect if `outputFile` is used. (unless the property is passed)
-     * ```
-     * aboutLibraries {
-     *   export {
-     *      outputFileName = "aboutlibraries.json"
-     *   }
-     * }
-     * ```
-     */
-    @Deprecated("Use `outputFile` instead, which is the full path including file name")
-    @get:Optional
-    abstract val outputFileName: Property<String>
 
     /**
      * The default export variant to use for this module.

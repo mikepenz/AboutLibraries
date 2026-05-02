@@ -38,12 +38,7 @@ private fun configureAndroidTasks(project: Project, extension: AboutLibrariesExt
         it.group = ""
         it.variant.set(variant.name)
         it.outputDirectory.set(resultsResDirectory)
-        it.configureOutputFile(resultsDirectory.flatMap { dir ->
-            extension.export.outputFileName.map { filename ->
-                @Suppress("DEPRECATION")
-                dir.file(filename)
-            }
-        })
+        it.configureOutputFile(resultsDirectory.map { dir -> dir.file(AboutLibrariesTask.DEFAULT_OUTPUT_NAME) })
         it.configure()
     }
 
