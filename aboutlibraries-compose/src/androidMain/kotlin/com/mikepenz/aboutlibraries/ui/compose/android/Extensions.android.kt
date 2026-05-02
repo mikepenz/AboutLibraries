@@ -52,25 +52,3 @@ fun produceLibraries(
         }
     }
 }
-
-// --- Deprecated wrappers to assist migration from rememberLibraries to produceLibraries ---
-/**
- * Deprecated. Use produceLibraries(block: suspend (Context) -> Libs) instead.
- */
-@Deprecated(
-    message = "Use produceLibraries(block)",
-    replaceWith = ReplaceWith("produceLibraries(block)"),
-)
-@Composable
-fun rememberLibraries(block: suspend (Context) -> Libs): State<Libs?> = produceLibraries(block)
-
-/**
- * Deprecated. Use produceLibraries(resId: Int) instead.
- */
-@Deprecated(
-    message = "Use produceLibraries(resId)",
-    replaceWith = ReplaceWith("produceLibraries(resId)"),
-)
-@Composable
-fun rememberLibraries(@RawRes resId: Int): State<Libs?> = produceLibraries(resId)
-

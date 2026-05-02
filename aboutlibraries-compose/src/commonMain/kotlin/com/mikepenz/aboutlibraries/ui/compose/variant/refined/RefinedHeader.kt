@@ -25,6 +25,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.role
+import androidx.compose.ui.semantics.selected
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.mikepenz.aboutlibraries.ui.compose.style.LibrariesStyle
@@ -200,7 +204,11 @@ private fun LicenseTabItem(
             .clip(style.shapes.tabShape)
             .background(tabBg)
             .border(width = if (active) 1.dp else 0.dp, color = borderColor, shape = style.shapes.tabShape)
-            .clickable(onClick = onClick)
+            .clickable(enabled = onTabSelected != null, onClick = onClick)
+            .semantics {
+                role = Role.Tab
+                selected = active
+            }
             .padding(style.padding.tabPadding),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(6.dp),

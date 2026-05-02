@@ -122,6 +122,7 @@ fun LibraryListScaffold(
                         LibraryDetailMode.Inline -> {
                             onExpandedLibraryIdChange(if (expandedLibraryId == library.uniqueId) null else library.uniqueId)
                         }
+
                         LibraryDetailMode.Sheet -> onSheetRequest?.invoke(library)
                     }
                 }

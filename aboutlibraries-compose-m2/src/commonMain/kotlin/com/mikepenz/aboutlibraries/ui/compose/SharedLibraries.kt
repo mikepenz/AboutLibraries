@@ -6,9 +6,7 @@ import androidx.compose.foundation.focusable
 import androidx.compose.foundation.indication
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.FlowRowScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyItemScope
@@ -22,7 +20,6 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
-import androidx.compose.material.Typography
 import androidx.compose.material.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -34,31 +31,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.mikepenz.aboutlibraries.Libs
-import com.mikepenz.aboutlibraries.entity.Funding
 import com.mikepenz.aboutlibraries.entity.Library
-import com.mikepenz.aboutlibraries.entity.License
-import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryActionKind
-import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryActionMode
-import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryDetailMode
+import com.mikepenz.aboutlibraries.ui.compose.style.VariantColors
+import com.mikepenz.aboutlibraries.ui.compose.style.librariesStyle
+import com.mikepenz.aboutlibraries.ui.compose.style.m2VariantColors
+import com.mikepenz.aboutlibraries.ui.compose.util.strippedLicenseContent
+import com.mikepenz.aboutlibraries.ui.compose.variant.Libraries
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibrariesDensity
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibrariesVariant
-import com.mikepenz.aboutlibraries.ui.compose.variant.Libraries
+import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryActionKind
+import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryActionMode
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryBadges
-import com.mikepenz.aboutlibraries.ui.compose.style.VariantColors
-import com.mikepenz.aboutlibraries.ui.compose.style.defaultVariantColors
-import com.mikepenz.aboutlibraries.ui.compose.style.defaultVariantDimensions
-import com.mikepenz.aboutlibraries.ui.compose.style.defaultVariantPadding
-import com.mikepenz.aboutlibraries.ui.compose.style.defaultVariantShapes
-import com.mikepenz.aboutlibraries.ui.compose.style.defaultVariantTextStyles
-import com.mikepenz.aboutlibraries.ui.compose.style.librariesStyle
-import com.mikepenz.aboutlibraries.ui.compose.component.DefaultLibraryAuthor
-import com.mikepenz.aboutlibraries.ui.compose.component.DefaultLibraryDescription
-import com.mikepenz.aboutlibraries.ui.compose.component.DefaultLibraryFunding
-import com.mikepenz.aboutlibraries.ui.compose.component.DefaultLibraryLicense
-import com.mikepenz.aboutlibraries.ui.compose.component.DefaultLibraryName
-import com.mikepenz.aboutlibraries.ui.compose.component.DefaultLibraryVersion
-import com.mikepenz.aboutlibraries.ui.compose.util.htmlReadyLicenseContent
-import com.mikepenz.aboutlibraries.ui.compose.util.strippedLicenseContent
+import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryDetailMode
 
 
 /**
@@ -68,7 +52,6 @@ import com.mikepenz.aboutlibraries.ui.compose.util.strippedLicenseContent
 fun LibrariesContainer(
     libraries: Libs?,
     modifier: Modifier = Modifier,
-    libraryModifier: Modifier = Modifier,
     lazyListState: LazyListState = rememberLazyListState(),
     contentPadding: PaddingValues = PaddingValues(0.dp),
     showAuthor: Boolean = true,
@@ -76,37 +59,15 @@ fun LibrariesContainer(
     showVersion: Boolean = true,
     showLicenseBadges: Boolean = true,
     showFundingBadges: Boolean = false,
-    typography: Typography = MaterialTheme.typography,
     colors: LibraryColors = LibraryDefaults.libraryColors(),
     padding: LibraryPadding = LibraryDefaults.libraryPadding(),
-    dimensions: LibraryDimensions = LibraryDefaults.libraryDimensions(),
-    textStyles: LibraryTextStyles = LibraryDefaults.libraryTextStyles(),
-    shapes: LibraryShapes = LibraryDefaults.libraryShapes(),
     variant: LibrariesVariant = LibrariesVariant.Traditional,
     density: LibrariesDensity = LibrariesDensity.Cozy,
     detailMode: LibraryDetailMode = LibraryDetailMode.Inline,
     actionMode: LibraryActionMode = LibraryActionMode.Chips,
     variantColors: VariantColors? = null,
     onLibraryClick: ((Library) -> Unit)? = null,
-    onFundingClick: ((Funding) -> Unit)? = null,
-    onActionClick: ((Library, LibraryActionKind) -> Unit)? = null,
-    name: @Composable BoxScope.(name: String) -> Unit = { DefaultLibraryName(it, textStyles, colors, typography) },
-    version: (@Composable BoxScope.(version: String) -> Unit)? = { version ->
-        if (showVersion) DefaultLibraryVersion(version, textStyles, colors, typography, padding, dimensions, shapes)
-    },
-    author: (@Composable BoxScope.(authors: String) -> Unit)? = { author ->
-        if (showAuthor && author.isNotBlank()) DefaultLibraryAuthor(author, textStyles, colors, typography)
-    },
-    description: (@Composable BoxScope.(description: String) -> Unit)? = { description ->
-        if (showDescription) DefaultLibraryDescription(description, textStyles, colors, typography)
-    },
-    license: (@Composable FlowRowScope.(license: License) -> Unit)? = { license ->
-        if (showLicenseBadges) DefaultLibraryLicense(license, textStyles, colors, padding, dimensions, shapes)
-    },
-    funding: (@Composable FlowRowScope.(funding: Funding) -> Unit)? = { funding ->
-        if (showFundingBadges) DefaultLibraryFunding(funding, textStyles, colors, padding, dimensions, shapes, onFundingClick)
-    },
-    actions: (@Composable FlowRowScope.(library: Library) -> Unit)? = null,
+    onActionClick: ((Library, LibraryActionKind) -> Boolean)? = null,
     header: (LazyListScope.() -> Unit)? = null,
     divider: (@Composable LazyItemScope.() -> Unit)? = null,
     footer: (LazyListScope.() -> Unit)? = null,
@@ -116,9 +77,7 @@ fun LibrariesContainer(
     val libs = libraries?.libraries.orEmpty()
     val openDialog = remember { mutableStateOf<Library?>(null) }
 
-    val style = LibraryDefaults.librariesStyle(colors = variantColors ?: LibraryDefaults.defaultVariantColors())
-
-    @Suppress("UNUSED_EXPRESSION") run { name; version; author; description; license; funding; actions; padding; dimensions; textStyles; shapes; typography; onFundingClick; libraryModifier }
+    val style = LibraryDefaults.librariesStyle(colors = variantColors ?: LibraryDefaults.m2VariantColors())
 
     Libraries(
         libraries = libs,
@@ -144,14 +103,9 @@ fun LibrariesContainer(
             if (onLibraryClick != null) {
                 onLibraryClick(library)
                 true
-            } else {
-                val license = library.licenses.firstOrNull()
-                if (!license?.htmlReadyLicenseContent.isNullOrBlank()) {
-                    openDialog.value = library
-                    true
-                } else false
-            }
+            } else false
         },
+        onDialogRequest = { openDialog.value = it },
     )
 
     val library = openDialog.value

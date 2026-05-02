@@ -7,7 +7,7 @@ import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
@@ -27,6 +27,9 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -76,10 +79,11 @@ fun PillToggle(
     Box(
         modifier = modifier
             .size(width, height)
+            .toggleable(value = on, onValueChange = { onToggle() }, role = Role.Switch)
+            .semantics { if (contentDescription != null) this.contentDescription = contentDescription!! }
             .clip(RoundedCornerShape(height / 2))
             .background(trackColor)
-            .border(1.dp, borderColor, RoundedCornerShape(height / 2))
-            .clickable(onClick = onToggle),
+            .border(1.dp, borderColor, RoundedCornerShape(height / 2)),
         contentAlignment = Alignment.CenterStart,
     ) {
         Box(

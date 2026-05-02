@@ -196,7 +196,7 @@ fun App(libs: Libs?) {
                         onOpenGithub = { uriHandler.openUri("https://github.com/mikepenz/AboutLibraries") },
                         onOpenSettings = { showSettings = true },
                         appName = "AboutLibraries",
-                        appVersion = "11.2.0",
+                        appVersion = VERSION,
                     )
 
                     if (settings.showHeader && settings.headerPosition == HeaderPosition.Fixed) {
@@ -204,7 +204,7 @@ fun App(libs: Libs?) {
                             HeaderStyle.Full -> TraditionalHeader(
                                 title = "AboutLibraries",
                                 tagline = "Open source acknowledgements",
-                                versionLabel = "v11.2.0",
+                                versionLabel = "v$VERSION",
                                 style = fullStyle,
                                 strings = DefaultLibraryStrings,
                                 appIcon = fullAppIcon,
@@ -215,7 +215,7 @@ fun App(libs: Libs?) {
 
                             HeaderStyle.Compact -> RefinedHeader(
                                 title = "AboutLibraries",
-                                subtitle = "v11.2.0 · ${libs?.libraries.orEmpty().size} libraries",
+                                subtitle = "v$VERSION · ${libs?.libraries.orEmpty().size} libraries",
                                 style = compactStyle,
                                 strings = DefaultLibraryStrings,
                                 tabs = if (settings.showTabsInHeader) tabs.map {
@@ -233,7 +233,7 @@ fun App(libs: Libs?) {
                     }
 
                     val showFilterBar = settings.showLicenseFilter
-                        && (settings.headerStyle != HeaderStyle.Compact || !settings.showTabsInHeader)
+                        && (!settings.showHeader || settings.headerStyle != HeaderStyle.Compact || !settings.showTabsInHeader)
                     val showFilterBarFixed = showFilterBar && settings.headerPosition == HeaderPosition.Fixed
                     if (showFilterBarFixed) {
                         LicenseFilterBar(
@@ -253,7 +253,7 @@ fun App(libs: Libs?) {
                                     HeaderStyle.Full -> TraditionalHeader(
                                         title = "AboutLibraries",
                                         tagline = "Open source acknowledgements",
-                                        versionLabel = "v11.2.0",
+                                        versionLabel = "v$VERSION",
                                         style = fullStyle,
                                         strings = DefaultLibraryStrings,
                                         appIcon = fullAppIcon,
@@ -264,10 +264,10 @@ fun App(libs: Libs?) {
 
                                     HeaderStyle.Compact -> RefinedHeader(
                                         title = "AboutLibraries",
-                                        subtitle = "v11.2.0 · ${libs?.libraries.orEmpty().size} libraries",
+                                        subtitle = "v$VERSION · ${libs?.libraries.orEmpty().size} libraries",
                                         style = compactStyle,
                                         strings = DefaultLibraryStrings,
-                                        tabs = if (settings.showLicenseFilter) tabs.map {
+                                        tabs = if (settings.showTabsInHeader && settings.showLicenseFilter) tabs.map {
                                             LicenseTab(it.spdxId, it.label, it.count)
                                         } else emptyList(),
                                         selectedTab = licenseFilter,

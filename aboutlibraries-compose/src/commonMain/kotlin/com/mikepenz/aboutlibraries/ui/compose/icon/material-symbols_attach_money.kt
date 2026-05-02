@@ -212,7 +212,7 @@ import androidx.compose.ui.unit.dp
 val MaterialSymbolsAttachMoney: ImageVector
     get() {
         if (_MaterialSymbolsAttachMoney != null) return _MaterialSymbolsAttachMoney!!
-        
+
         _MaterialSymbolsAttachMoney = ImageVector.Builder(
             name = "attach_money",
             defaultWidth = 24.dp,
@@ -259,7 +259,7 @@ val MaterialSymbolsAttachMoney: ImageVector
                 close()
             }
         }.build()
-        
+
         return _MaterialSymbolsAttachMoney!!
     }
 

@@ -212,7 +212,7 @@ import androidx.compose.ui.unit.dp
 val MaterialSymbolsCodeXml: ImageVector
     get() {
         if (_MaterialSymbolsCodeXml != null) return _MaterialSymbolsCodeXml!!
-        
+
         _MaterialSymbolsCodeXml = ImageVector.Builder(
             name = "code_xml",
             defaultWidth = 24.dp,
@@ -247,7 +247,7 @@ val MaterialSymbolsCodeXml: ImageVector
                 close()
             }
         }.build()
-        
+
         return _MaterialSymbolsCodeXml!!
     }
 
