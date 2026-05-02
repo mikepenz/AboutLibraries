@@ -122,6 +122,14 @@ fun SettingsPanel(
 
         Spacer(Modifier.height(14.dp))
 
+        Section("Material") {
+            Segmented(
+                options = listOf(false to "M2", true to "M3"),
+                selected = settings.useMaterial3,
+                onSelect = { onChange(settings.copy(useMaterial3 = it)) },
+            )
+        }
+
         Section("Variant") {
             Segmented(
                 options = listOf(
@@ -171,6 +179,16 @@ fun SettingsPanel(
                         on = settings.showSearch,
                         onChange = {
                             if (settings.showHeader) onChange(settings.copy(showSearch = it))
+                        },
+                    )
+                }
+                val canShowTabsInHeader = settings.showHeader && settings.headerStyle == HeaderStyle.Compact
+                Box(modifier = Modifier.alpha(if (canShowTabsInHeader) 1f else 0.4f)) {
+                    ToggleRow(
+                        label = "Tabs in header",
+                        on = settings.showTabsInHeader,
+                        onChange = {
+                            if (canShowTabsInHeader) onChange(settings.copy(showTabsInHeader = it))
                         },
                     )
                 }

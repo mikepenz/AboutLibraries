@@ -44,6 +44,7 @@ import com.mikepenz.aboutlibraries.ui.compose.variant.LibrariesDensity
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibrariesVariant
 import com.mikepenz.aboutlibraries.ui.compose.variant.Libraries
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryBadges
+import com.mikepenz.aboutlibraries.ui.compose.style.VariantColors
 import com.mikepenz.aboutlibraries.ui.compose.style.defaultVariantColors
 import com.mikepenz.aboutlibraries.ui.compose.style.defaultVariantDimensions
 import com.mikepenz.aboutlibraries.ui.compose.style.defaultVariantPadding
@@ -85,6 +86,7 @@ fun LibrariesContainer(
     density: LibrariesDensity = LibrariesDensity.Cozy,
     detailMode: LibraryDetailMode = LibraryDetailMode.Inline,
     actionMode: LibraryActionMode = LibraryActionMode.Chips,
+    variantColors: VariantColors? = null,
     onLibraryClick: ((Library) -> Unit)? = null,
     onFundingClick: ((Funding) -> Unit)? = null,
     onActionClick: ((Library, LibraryActionKind) -> Unit)? = null,
@@ -114,7 +116,7 @@ fun LibrariesContainer(
     val libs = libraries?.libraries.orEmpty()
     val openDialog = remember { mutableStateOf<Library?>(null) }
 
-    val style = LibraryDefaults.librariesStyle(colors = LibraryDefaults.defaultVariantColors())
+    val style = LibraryDefaults.librariesStyle(colors = variantColors ?: LibraryDefaults.defaultVariantColors())
 
     @Suppress("UNUSED_EXPRESSION") run { name; version; author; description; license; funding; actions; padding; dimensions; textStyles; shapes; typography; onFundingClick; libraryModifier }
 
