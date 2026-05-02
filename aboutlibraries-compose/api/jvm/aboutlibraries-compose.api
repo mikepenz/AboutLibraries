@@ -8,12 +8,6 @@ public abstract interface class com/mikepenz/aboutlibraries/ui/compose/ChipPaddi
 	public abstract fun getContentPadding ()Landroidx/compose/foundation/layout/PaddingValues;
 }
 
-public final class com/mikepenz/aboutlibraries/ui/compose/ComposableSingletons$LibrariesScaffoldKt {
-	public static final field INSTANCE Lcom/mikepenz/aboutlibraries/ui/compose/ComposableSingletons$LibrariesScaffoldKt;
-	public fun <init> ()V
-	public final fun getLambda$1041307645$aboutlibraries_compose ()Lkotlin/jvm/functions/Function4;
-}
-
 public final class com/mikepenz/aboutlibraries/ui/compose/DefaultChipColors : com/mikepenz/aboutlibraries/ui/compose/ChipColors {
 	public static final field $stable I
 	public synthetic fun <init> (JJLkotlin/jvm/internal/DefaultConstructorMarker;)V
@@ -38,10 +32,6 @@ public final class com/mikepenz/aboutlibraries/ui/compose/ExtensionsKt {
 	public static final fun produceLibraries (Ljava/lang/String;Landroidx/compose/runtime/Composer;I)Landroidx/compose/runtime/State;
 	public static final fun produceLibraries (Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;I)Landroidx/compose/runtime/State;
 	public static final fun produceLibraries ([BLandroidx/compose/runtime/Composer;I)Landroidx/compose/runtime/State;
-}
-
-public final class com/mikepenz/aboutlibraries/ui/compose/LibrariesScaffoldKt {
-	public static final fun LibrariesScaffold (Ljava/util/List;Landroidx/compose/ui/Modifier;Landroidx/compose/ui/Modifier;Landroidx/compose/foundation/lazy/LazyListState;Landroidx/compose/foundation/layout/PaddingValues;Lcom/mikepenz/aboutlibraries/ui/compose/LibraryPadding;Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDimensions;Lkotlin/jvm/functions/Function4;Lkotlin/jvm/functions/Function4;Lkotlin/jvm/functions/Function4;Lkotlin/jvm/functions/Function4;Lkotlin/jvm/functions/Function4;Lkotlin/jvm/functions/Function4;Lkotlin/jvm/functions/Function4;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;III)V
 }
 
 public abstract interface class com/mikepenz/aboutlibraries/ui/compose/LibraryColors {
@@ -113,10 +103,6 @@ public final class com/mikepenz/aboutlibraries/ui/compose/icon/Material_symbols_
 
 public final class com/mikepenz/aboutlibraries/ui/compose/icon/Material_symbols_link_2Kt {
 	public static final fun getMaterialSymbolsLink2 ()Landroidx/compose/ui/graphics/vector/ImageVector;
-}
-
-public final class com/mikepenz/aboutlibraries/ui/compose/layout/LibraryScaffoldKt {
-	public static final fun LibraryScaffoldLayout (Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function3;Landroidx/compose/ui/Modifier;Lcom/mikepenz/aboutlibraries/ui/compose/LibraryPadding;Landroidx/compose/runtime/Composer;II)V
 }
 
 public final class com/mikepenz/aboutlibraries/ui/compose/style/ContrastLevel : java/lang/Enum {
