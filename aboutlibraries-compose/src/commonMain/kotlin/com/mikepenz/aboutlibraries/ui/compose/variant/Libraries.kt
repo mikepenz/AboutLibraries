@@ -14,9 +14,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.mikepenz.aboutlibraries.entity.Library
-import com.mikepenz.aboutlibraries.ui.compose.style.DefaultLibraryActionLabels
+import com.mikepenz.aboutlibraries.ui.compose.style.DefaultLibraryActionBadges
 import com.mikepenz.aboutlibraries.ui.compose.style.LibrariesStyle
-import com.mikepenz.aboutlibraries.ui.compose.style.LibraryActionLabels
+import com.mikepenz.aboutlibraries.ui.compose.style.LibraryActionBadges
 import com.mikepenz.aboutlibraries.ui.compose.style.orFallback
 import com.mikepenz.aboutlibraries.ui.compose.variant.refined.RefinedRow
 import com.mikepenz.aboutlibraries.ui.compose.variant.traditional.TraditionalRow
@@ -38,8 +38,7 @@ fun Libraries(
     detailMode: LibraryDetailMode = LibraryDetailMode.Inline,
     actionMode: LibraryActionMode = LibraryActionMode.Chips,
     badges: LibraryBadges = DefaultLibraryBadges,
-    actionVisibility: LibraryActionVisibility = DefaultLibraryActionVisibility,
-    actionLabels: LibraryActionLabels = DefaultLibraryActionLabels,
+    actionLabels: LibraryActionBadges = DefaultLibraryActionBadges,
     contentPadding: PaddingValues = PaddingValues(0.dp),
     state: LazyListState = rememberLazyListState(),
     itemSpacing: Dp = 0.dp,
@@ -77,7 +76,7 @@ fun Libraries(
         }
 
     val inlineDetail: (@Composable (Library) -> Unit)? = remember(
-        detailMode, variant, style, actionMode, actionVisibility, actionLabels, onActionClick, onDialogRequest,
+        detailMode, variant, style, actionMode, actionLabels, onActionClick, onDialogRequest,
     ) {
         if (detailMode != LibraryDetailMode.Inline) null else { library: Library ->
             when (variant) {
@@ -89,7 +88,6 @@ fun Libraries(
                         actionMode = actionMode,
                         style = style,
                         actionLabels = actionLabels,
-                        actionVisibility = actionVisibility,
                         onActionClick = onActionClick,
                         onLicenseContentRequest = onDialogRequest,
                     )
@@ -101,7 +99,6 @@ fun Libraries(
                     actionMode = actionMode,
                     style = style,
                     actionLabels = actionLabels,
-                    actionVisibility = actionVisibility,
                     onActionClick = onActionClick,
                     onDialogRequest = onDialogRequest,
                 )

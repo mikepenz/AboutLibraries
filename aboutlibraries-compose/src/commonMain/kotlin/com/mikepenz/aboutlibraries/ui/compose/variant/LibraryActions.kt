@@ -30,7 +30,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.ui.compose.style.LibrariesStyle
-import com.mikepenz.aboutlibraries.ui.compose.style.LibraryActionLabels
+import com.mikepenz.aboutlibraries.ui.compose.style.LibraryActionBadges
 import com.mikepenz.aboutlibraries.ui.compose.style.orFallback
 
 /**
@@ -44,17 +44,16 @@ fun LibraryActions(
     actionMode: LibraryActionMode,
     style: LibrariesStyle,
     modifier: Modifier = Modifier,
-    actionLabels: LibraryActionLabels,
-    actionVisibility: LibraryActionVisibility = DefaultLibraryActionVisibility,
+    actionLabels: LibraryActionBadges,
     onActionClick: ((Library, LibraryActionKind) -> Boolean)? = null,
     onLicenseContentRequest: ((Library) -> Unit)? = null,
 ) {
     val uriHandler = LocalUriHandler.current
-    val source = library.scm?.url?.takeIf { actionVisibility.source }
-    val website = library.website?.takeIf { actionVisibility.website }
-    val sponsor = library.funding.firstOrNull()?.url?.takeIf { actionVisibility.sponsor }
+    val source = library.scm?.url?.takeIf { actionLabels.sourceEnabled }
+    val website = library.website?.takeIf { actionLabels.websiteEnabled }
+    val sponsor = library.funding.firstOrNull()?.url?.takeIf { actionLabels.sponsorEnabled }
     val licenseUrl = library.licenses.firstOrNull()?.url
-    val licensePresent = actionVisibility.license && library.licenses.firstOrNull() != null
+    val licensePresent = actionLabels.licenseEnabled && library.licenses.firstOrNull() != null
 
     val open = remember(library, onActionClick, onLicenseContentRequest, uriHandler) {
         { kind: LibraryActionKind, url: String? -> dispatchAction(library, kind, url, onActionClick, onLicenseContentRequest, uriHandler) }

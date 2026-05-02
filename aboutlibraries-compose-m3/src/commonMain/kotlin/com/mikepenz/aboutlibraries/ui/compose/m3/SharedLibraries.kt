@@ -48,14 +48,14 @@ import com.mikepenz.aboutlibraries.ui.compose.style.defaultVariantPadding
 import com.mikepenz.aboutlibraries.ui.compose.style.defaultVariantShapes
 import com.mikepenz.aboutlibraries.ui.compose.style.librariesStyle
 import com.mikepenz.aboutlibraries.ui.compose.util.strippedLicenseContent
+import com.mikepenz.aboutlibraries.ui.compose.style.DefaultLibraryActionBadges
+import com.mikepenz.aboutlibraries.ui.compose.style.LibraryActionBadges
 import com.mikepenz.aboutlibraries.ui.compose.variant.Libraries
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibrariesDensity
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibrariesVariant
-import com.mikepenz.aboutlibraries.ui.compose.variant.DefaultLibraryActionVisibility
 import com.mikepenz.aboutlibraries.ui.compose.variant.DefaultLibraryBadges
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryActionKind
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryActionMode
-import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryActionVisibility
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryBadges
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryDetailMode
 
@@ -70,7 +70,7 @@ fun LibrariesContainer(
     lazyListState: LazyListState = rememberLazyListState(),
     contentPadding: PaddingValues = PaddingValues(0.dp),
     badges: LibraryBadges = DefaultLibraryBadges,
-    actionVisibility: LibraryActionVisibility = DefaultLibraryActionVisibility,
+    actionLabels: LibraryActionBadges = DefaultLibraryActionBadges,
     colors: LibraryColors = LibraryDefaults.libraryColors(),
     padding: LibraryPadding = LibraryDefaults.libraryPadding(),
     variant: LibrariesVariant = LibrariesVariant.Traditional,
@@ -131,7 +131,7 @@ fun LibrariesContainer(
         detailMode = detailMode,
         actionMode = actionMode,
         badges = badges,
-        actionVisibility = actionVisibility,
+        actionLabels = actionLabels,
         contentPadding = contentPadding,
         state = lazyListState,
         header = header,
@@ -168,7 +168,7 @@ fun LibrariesContainer(
             onDismiss = { openSheet.value = null },
             style = style,
             actionMode = actionMode,
-            actionVisibility = actionVisibility,
+            actionLabels = actionLabels,
             onActionClick = onActionClick,
         )
     }

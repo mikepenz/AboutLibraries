@@ -247,7 +247,11 @@ class LibraryStrings(
 
 /** Labels and icons shown on per-action affordances. Override for localization or custom icons. */
 @Immutable
-class LibraryActionLabels(
+class LibraryActionBadges(
+    val sourceEnabled: Boolean = true,
+    val websiteEnabled: Boolean = true,
+    val sponsorEnabled: Boolean = true,
+    val licenseEnabled: Boolean = true,
     val source: String = "Source",
     val sourceIcon: ImageVector = MaterialSymbolsCodeXml,
     val website: String = "Website",
@@ -259,7 +263,7 @@ class LibraryActionLabels(
 )
 
 val DefaultLibraryStrings: LibraryStrings = LibraryStrings()
-val DefaultLibraryActionLabels: LibraryActionLabels = LibraryActionLabels()
+val DefaultLibraryActionBadges: LibraryActionBadges = LibraryActionBadges()
 
 /**
  * Theme-agnostic factory functions for the variant token bags.

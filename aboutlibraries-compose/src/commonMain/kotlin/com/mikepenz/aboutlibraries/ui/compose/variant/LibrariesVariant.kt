@@ -54,14 +54,3 @@ data class LibraryBadges(
 /** Singleton default — used as the parameter default to avoid per-recomposition allocations. */
 val DefaultLibraryBadges: LibraryBadges = LibraryBadges()
 
-/** Controls which action affordances are shown in the inline/sheet detail view. */
-@Immutable
-data class LibraryActionVisibility(
-    val source: Boolean = true,
-    val website: Boolean = true,
-    val sponsor: Boolean = true,
-    val license: Boolean = true,
-)
-
-/** Singleton default — used as the parameter default to avoid per-recomposition allocations. */
-val DefaultLibraryActionVisibility: LibraryActionVisibility = LibraryActionVisibility()
