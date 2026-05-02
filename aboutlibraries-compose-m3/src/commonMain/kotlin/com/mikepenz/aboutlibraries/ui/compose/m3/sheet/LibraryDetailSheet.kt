@@ -19,8 +19,10 @@ import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.ui.compose.style.DefaultLibraryActionLabels
 import com.mikepenz.aboutlibraries.ui.compose.style.LibrariesStyle
 import com.mikepenz.aboutlibraries.ui.compose.style.LibraryActionLabels
+import com.mikepenz.aboutlibraries.ui.compose.variant.DefaultLibraryActionVisibility
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryActionKind
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryActionMode
+import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryActionVisibility
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibrarySheetDetail
 
 /**
@@ -38,6 +40,7 @@ fun LibraryDetailSheet(
     modifier: Modifier = Modifier,
     actionMode: LibraryActionMode = LibraryActionMode.Chips,
     actionLabels: LibraryActionLabels = DefaultLibraryActionLabels,
+    actionVisibility: LibraryActionVisibility = DefaultLibraryActionVisibility,
     sheetState: SheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
     dragHandle: (@Composable () -> Unit)? = { DefaultDragHandle(style) },
     onActionClick: ((Library, LibraryActionKind) -> Boolean)? = null,
@@ -57,6 +60,7 @@ fun LibraryDetailSheet(
             actionMode = actionMode,
             style = style,
             actionLabels = actionLabels,
+            actionVisibility = actionVisibility,
             onActionClick = onActionClick,
         )
     }

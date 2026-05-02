@@ -45,15 +45,16 @@ fun LibraryActions(
     style: LibrariesStyle,
     modifier: Modifier = Modifier,
     actionLabels: LibraryActionLabels,
+    actionVisibility: LibraryActionVisibility = DefaultLibraryActionVisibility,
     onActionClick: ((Library, LibraryActionKind) -> Boolean)? = null,
     onLicenseContentRequest: ((Library) -> Unit)? = null,
 ) {
     val uriHandler = LocalUriHandler.current
-    val source = library.scm?.url
-    val website = library.website
-    val sponsor = library.funding.firstOrNull()?.url
+    val source = library.scm?.url?.takeIf { actionVisibility.source }
+    val website = library.website?.takeIf { actionVisibility.website }
+    val sponsor = library.funding.firstOrNull()?.url?.takeIf { actionVisibility.sponsor }
     val licenseUrl = library.licenses.firstOrNull()?.url
-    val licensePresent = library.licenses.firstOrNull() != null
+    val licensePresent = actionVisibility.license && library.licenses.firstOrNull() != null
 
     val open = remember(library, onActionClick, onLicenseContentRequest, uriHandler) {
         { kind: LibraryActionKind, url: String? -> dispatchAction(library, kind, url, onActionClick, onLicenseContentRequest, uriHandler) }

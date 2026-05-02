@@ -398,7 +398,7 @@ public final class com/mikepenz/aboutlibraries/ui/compose/variant/LibrariesDensi
 }
 
 public final class com/mikepenz/aboutlibraries/ui/compose/variant/LibrariesKt {
-	public static final fun Libraries-r1-H6Tc (Ljava/util/List;Lcom/mikepenz/aboutlibraries/ui/compose/style/LibrariesStyle;Landroidx/compose/ui/Modifier;Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibrariesVariant;Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibrariesDensity;Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryDetailMode;Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryActionMode;Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryBadges;Lcom/mikepenz/aboutlibraries/ui/compose/style/LibraryActionLabels;Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/lazy/LazyListState;FLkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;III)V
+	public static final fun Libraries-Bks3BAE (Ljava/util/List;Lcom/mikepenz/aboutlibraries/ui/compose/style/LibrariesStyle;Landroidx/compose/ui/Modifier;Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibrariesVariant;Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibrariesDensity;Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryDetailMode;Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryActionMode;Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryBadges;Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryActionVisibility;Lcom/mikepenz/aboutlibraries/ui/compose/style/LibraryActionLabels;Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/lazy/LazyListState;FLkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;III)V
 }
 
 public final class com/mikepenz/aboutlibraries/ui/compose/variant/LibrariesVariant : java/lang/Enum {
@@ -410,6 +410,7 @@ public final class com/mikepenz/aboutlibraries/ui/compose/variant/LibrariesVaria
 }
 
 public final class com/mikepenz/aboutlibraries/ui/compose/variant/LibrariesVariantKt {
+	public static final fun getDefaultLibraryActionVisibility ()Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryActionVisibility;
 	public static final fun getDefaultLibraryBadges ()Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryBadges;
 }
 
@@ -432,11 +433,7 @@ public final class com/mikepenz/aboutlibraries/ui/compose/variant/LibraryActionM
 	public static fun values ()[Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryActionMode;
 }
 
-public final class com/mikepenz/aboutlibraries/ui/compose/variant/LibraryActionsKt {
-	public static final fun LibraryActions (Lcom/mikepenz/aboutlibraries/entity/Library;Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryActionMode;Lcom/mikepenz/aboutlibraries/ui/compose/style/LibrariesStyle;Landroidx/compose/ui/Modifier;Lcom/mikepenz/aboutlibraries/ui/compose/style/LibraryActionLabels;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;II)V
-}
-
-public final class com/mikepenz/aboutlibraries/ui/compose/variant/LibraryBadges {
+public final class com/mikepenz/aboutlibraries/ui/compose/variant/LibraryActionVisibility {
 	public static final field $stable I
 	public fun <init> ()V
 	public fun <init> (ZZZZ)V
@@ -445,11 +442,37 @@ public final class com/mikepenz/aboutlibraries/ui/compose/variant/LibraryBadges 
 	public final fun component2 ()Z
 	public final fun component3 ()Z
 	public final fun component4 ()Z
-	public final fun copy (ZZZZ)Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryBadges;
-	public static synthetic fun copy$default (Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryBadges;ZZZZILjava/lang/Object;)Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryBadges;
+	public final fun copy (ZZZZ)Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryActionVisibility;
+	public static synthetic fun copy$default (Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryActionVisibility;ZZZZILjava/lang/Object;)Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryActionVisibility;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getLicense ()Z
+	public final fun getSource ()Z
+	public final fun getSponsor ()Z
+	public final fun getWebsite ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/mikepenz/aboutlibraries/ui/compose/variant/LibraryActionsKt {
+	public static final fun LibraryActions (Lcom/mikepenz/aboutlibraries/entity/Library;Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryActionMode;Lcom/mikepenz/aboutlibraries/ui/compose/style/LibrariesStyle;Landroidx/compose/ui/Modifier;Lcom/mikepenz/aboutlibraries/ui/compose/style/LibraryActionLabels;Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryActionVisibility;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/mikepenz/aboutlibraries/ui/compose/variant/LibraryBadges {
+	public static final field $stable I
+	public fun <init> ()V
+	public fun <init> (ZZZZZ)V
+	public synthetic fun <init> (ZZZZZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Z
+	public final fun component2 ()Z
+	public final fun component3 ()Z
+	public final fun component4 ()Z
+	public final fun component5 ()Z
+	public final fun copy (ZZZZZ)Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryBadges;
+	public static synthetic fun copy$default (Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryBadges;ZZZZZILjava/lang/Object;)Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryBadges;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAuthor ()Z
 	public final fun getDescription ()Z
+	public final fun getFunding ()Z
 	public final fun getLicense ()Z
 	public final fun getVersion ()Z
 	public fun hashCode ()I
@@ -457,8 +480,8 @@ public final class com/mikepenz/aboutlibraries/ui/compose/variant/LibraryBadges 
 }
 
 public final class com/mikepenz/aboutlibraries/ui/compose/variant/LibraryDetailBodyKt {
-	public static final fun LibraryInlineDetail (Lcom/mikepenz/aboutlibraries/entity/Library;Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryActionMode;Lcom/mikepenz/aboutlibraries/ui/compose/style/LibrariesStyle;Landroidx/compose/ui/Modifier;Lcom/mikepenz/aboutlibraries/ui/compose/style/LibraryActionLabels;Landroidx/compose/foundation/layout/PaddingValues;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;II)V
-	public static final fun LibrarySheetDetail (Lcom/mikepenz/aboutlibraries/entity/Library;Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryActionMode;Lcom/mikepenz/aboutlibraries/ui/compose/style/LibrariesStyle;Landroidx/compose/ui/Modifier;Lcom/mikepenz/aboutlibraries/ui/compose/style/LibraryActionLabels;Landroidx/compose/foundation/layout/PaddingValues;Lkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;II)V
+	public static final fun LibraryInlineDetail (Lcom/mikepenz/aboutlibraries/entity/Library;Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryActionMode;Lcom/mikepenz/aboutlibraries/ui/compose/style/LibrariesStyle;Landroidx/compose/ui/Modifier;Lcom/mikepenz/aboutlibraries/ui/compose/style/LibraryActionLabels;Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryActionVisibility;Landroidx/compose/foundation/layout/PaddingValues;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;II)V
+	public static final fun LibrarySheetDetail (Lcom/mikepenz/aboutlibraries/entity/Library;Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryActionMode;Lcom/mikepenz/aboutlibraries/ui/compose/style/LibrariesStyle;Landroidx/compose/ui/Modifier;Lcom/mikepenz/aboutlibraries/ui/compose/style/LibraryActionLabels;Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryActionVisibility;Landroidx/compose/foundation/layout/PaddingValues;Lkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;II)V
 }
 
 public final class com/mikepenz/aboutlibraries/ui/compose/variant/LibraryDetailMode : java/lang/Enum {

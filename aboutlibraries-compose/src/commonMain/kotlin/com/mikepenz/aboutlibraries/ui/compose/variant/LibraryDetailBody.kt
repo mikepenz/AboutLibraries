@@ -35,6 +35,7 @@ fun LibraryInlineDetail(
     style: LibrariesStyle,
     modifier: Modifier = Modifier,
     actionLabels: LibraryActionLabels,
+    actionVisibility: LibraryActionVisibility = DefaultLibraryActionVisibility,
     contentPadding: PaddingValues = style.padding.inlineDetailPadding,
     onActionClick: ((Library, LibraryActionKind) -> Boolean)? = null,
     onDialogRequest: ((Library) -> Unit)? = null,
@@ -54,6 +55,7 @@ fun LibraryInlineDetail(
             actionMode = actionMode,
             style = style,
             actionLabels = actionLabels,
+            actionVisibility = actionVisibility,
             onActionClick = onActionClick,
             onLicenseContentRequest = onDialogRequest,
         )
@@ -71,6 +73,7 @@ fun LibrarySheetDetail(
     style: LibrariesStyle,
     modifier: Modifier = Modifier,
     actionLabels: LibraryActionLabels,
+    actionVisibility: LibraryActionVisibility = DefaultLibraryActionVisibility,
     contentPadding: PaddingValues = style.padding.sheetPadding,
     onActionClick: ((Library, LibraryActionKind) -> Boolean)? = null,
 ) {
@@ -106,6 +109,7 @@ fun LibrarySheetDetail(
                 actionMode = actionMode,
                 style = style,
                 actionLabels = actionLabels,
+                actionVisibility = actionVisibility,
                 onActionClick = onActionClick,
             )
 

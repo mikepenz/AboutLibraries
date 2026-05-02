@@ -38,6 +38,7 @@ fun Libraries(
     detailMode: LibraryDetailMode = LibraryDetailMode.Inline,
     actionMode: LibraryActionMode = LibraryActionMode.Chips,
     badges: LibraryBadges = DefaultLibraryBadges,
+    actionVisibility: LibraryActionVisibility = DefaultLibraryActionVisibility,
     actionLabels: LibraryActionLabels = DefaultLibraryActionLabels,
     contentPadding: PaddingValues = PaddingValues(0.dp),
     state: LazyListState = rememberLazyListState(),
@@ -76,7 +77,7 @@ fun Libraries(
         }
 
     val inlineDetail: (@Composable (Library) -> Unit)? = remember(
-        detailMode, variant, style, actionMode, actionLabels, onActionClick, onDialogRequest,
+        detailMode, variant, style, actionMode, actionVisibility, actionLabels, onActionClick, onDialogRequest,
     ) {
         if (detailMode != LibraryDetailMode.Inline) null else { library: Library ->
             when (variant) {
@@ -88,6 +89,7 @@ fun Libraries(
                         actionMode = actionMode,
                         style = style,
                         actionLabels = actionLabels,
+                        actionVisibility = actionVisibility,
                         onActionClick = onActionClick,
                         onLicenseContentRequest = onDialogRequest,
                     )
@@ -99,6 +101,7 @@ fun Libraries(
                     actionMode = actionMode,
                     style = style,
                     actionLabels = actionLabels,
+                    actionVisibility = actionVisibility,
                     onActionClick = onActionClick,
                     onDialogRequest = onDialogRequest,
                 )
