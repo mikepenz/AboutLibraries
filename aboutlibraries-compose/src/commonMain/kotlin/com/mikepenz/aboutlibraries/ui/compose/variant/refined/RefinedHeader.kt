@@ -199,7 +199,7 @@ private fun LicenseTabItem(
         tab.spdxId?.let { colors.licenseHueResolver.colorFor(it) }
     }
     val currentOnTabSelected = rememberUpdatedState(onTabSelected)
-    val onClick = remember(tab.spdxId) { { currentOnTabSelected.value?.invoke(tab.spdxId) } }
+    val onClick = remember(tab.spdxId) { { currentOnTabSelected.value?.invoke(tab.spdxId) ?: Unit } }
 
     Row(
         modifier = Modifier
