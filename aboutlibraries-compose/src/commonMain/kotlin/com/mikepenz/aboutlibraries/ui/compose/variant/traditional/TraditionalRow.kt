@@ -63,10 +63,12 @@ fun TraditionalRow(
         targetValue = if (expanded) colors.rowExpandedBackground.orFallback(Color.Transparent)
         else colors.rowBackground.orFallback(Color.Transparent),
         animationSpec = tween(durationMillis = 200),
+        label = "rowBackground",
     )
 
-    val firstLicense = remember(library) { library.licenses.firstOrNull() }
-    val licenseHue = remember(library, colors.licenseHueResolver) {
+    val licenses = library.licenses
+    val firstLicense = remember(licenses) { licenses.firstOrNull() }
+    val licenseHue = remember(licenses, colors.licenseHueResolver) {
         firstLicense?.spdxId?.let { colors.licenseHueResolver.colorFor(it) }
             ?: firstLicense?.name?.let { colors.licenseHueResolver.colorFor(it) }
     }
@@ -90,7 +92,7 @@ fun TraditionalRow(
             )
             val version = library.artifactVersion
             if (badges.version && !version.isNullOrBlank()) {
-                Spacer(Modifier.width(8.dp))
+                Spacer(Modifier.width(style.dimensions.rowElementSpacing))
                 BasicText(
                     text = version,
                     style = style.textStyles.versionTextStyle.copy(color = subtle, fontFamily = FontFamily.Monospace),

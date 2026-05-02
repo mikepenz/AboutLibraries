@@ -22,8 +22,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -37,7 +39,6 @@ import com.mikepenz.aboutlibraries.ui.compose.DefaultChipColors
 import com.mikepenz.aboutlibraries.ui.compose.DefaultLibraryColors
 import com.mikepenz.aboutlibraries.ui.compose.LibraryColors
 import com.mikepenz.aboutlibraries.ui.compose.LibraryDefaults
-import com.mikepenz.aboutlibraries.ui.compose.LibraryPadding
 import com.mikepenz.aboutlibraries.ui.compose.m3.sheet.LibraryDetailSheet
 import com.mikepenz.aboutlibraries.ui.compose.m3.style.m3VariantColors
 import com.mikepenz.aboutlibraries.ui.compose.m3.style.m3VariantTextStyles
@@ -60,7 +61,9 @@ import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryBadges
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryDetailMode
 
 /**
- * Displays all provided libraries in a simple list.
+ * Stateful overload — owns dialog/sheet state internally.
+ *
+ * Displays all provided libraries in a list using the Material 3 theme.
  */
 @OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
 @Composable
@@ -72,23 +75,82 @@ fun LibrariesContainer(
     badges: LibraryBadges = DefaultLibraryBadges,
     actionLabels: LibraryActionBadges = DefaultLibraryActionBadges,
     colors: LibraryColors = LibraryDefaults.libraryColors(),
-    padding: LibraryPadding = LibraryDefaults.libraryPadding(),
     variant: LibrariesVariant = LibrariesVariant.Traditional,
     density: LibrariesDensity = LibrariesDensity.Cozy,
     detailMode: LibraryDetailMode = LibraryDetailMode.Inline,
     actionMode: LibraryActionMode = LibraryActionMode.Chips,
-    variantColors: VariantColors? = null,
-    onLibraryClick: ((Library) -> Unit)? = null,
+    variantColors: VariantColors = LibraryDefaults.m3VariantColors(),
+    onLibraryClick: ((Library) -> Boolean)? = null,
     onActionClick: ((Library, LibraryActionKind) -> Boolean)? = null,
     header: (LazyListScope.() -> Unit)? = null,
     divider: (@Composable LazyItemScope.() -> Unit)? = null,
     footer: (LazyListScope.() -> Unit)? = null,
-    licenseDialogBody: (@Composable (Library, Modifier) -> Unit)? = { library, modifier -> LicenseDialogBody(library = library, colors = colors, modifier = modifier) },
+    licenseDialogBody: (@Composable (Library, Modifier) -> Unit)? = { library, mod -> LicenseDialogBody(library = library, colors = colors, modifier = mod) },
+    licenseDialogConfirmText: String = "OK",
+) {
+    var openDialog by remember { mutableStateOf<Library?>(null) }
+    var openSheet by remember { mutableStateOf<Library?>(null) }
+
+    LibrariesContainer(
+        libraries = libraries,
+        dialogLibrary = openDialog,
+        sheetLibrary = openSheet,
+        onDialogLibraryChange = { openDialog = it },
+        onSheetLibraryChange = { openSheet = it },
+        modifier = modifier,
+        lazyListState = lazyListState,
+        contentPadding = contentPadding,
+        badges = badges,
+        actionLabels = actionLabels,
+        colors = colors,
+        variant = variant,
+        density = density,
+        detailMode = detailMode,
+        actionMode = actionMode,
+        variantColors = variantColors,
+        onLibraryClick = onLibraryClick,
+        onActionClick = onActionClick,
+        header = header,
+        divider = divider,
+        footer = footer,
+        licenseDialogBody = licenseDialogBody,
+        licenseDialogConfirmText = licenseDialogConfirmText,
+    )
+}
+
+/**
+ * Stateless overload — caller owns [dialogLibrary] and [sheetLibrary] state.
+ *
+ * Use this overload to drive the dialog/sheet from outside (e.g. deep-link navigation, testing).
+ */
+@OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
+@Composable
+fun LibrariesContainer(
+    libraries: Libs?,
+    dialogLibrary: Library?,
+    sheetLibrary: Library?,
+    onDialogLibraryChange: (Library?) -> Unit,
+    onSheetLibraryChange: (Library?) -> Unit,
+    modifier: Modifier = Modifier,
+    lazyListState: LazyListState = rememberLazyListState(),
+    contentPadding: PaddingValues = PaddingValues(0.dp),
+    badges: LibraryBadges = DefaultLibraryBadges,
+    actionLabels: LibraryActionBadges = DefaultLibraryActionBadges,
+    colors: LibraryColors = LibraryDefaults.libraryColors(),
+    variant: LibrariesVariant = LibrariesVariant.Traditional,
+    density: LibrariesDensity = LibrariesDensity.Cozy,
+    detailMode: LibraryDetailMode = LibraryDetailMode.Inline,
+    actionMode: LibraryActionMode = LibraryActionMode.Chips,
+    variantColors: VariantColors = LibraryDefaults.m3VariantColors(),
+    onLibraryClick: ((Library) -> Boolean)? = null,
+    onActionClick: ((Library, LibraryActionKind) -> Boolean)? = null,
+    header: (LazyListScope.() -> Unit)? = null,
+    divider: (@Composable LazyItemScope.() -> Unit)? = null,
+    footer: (LazyListScope.() -> Unit)? = null,
+    licenseDialogBody: (@Composable (Library, Modifier) -> Unit)? = { library, mod -> LicenseDialogBody(library = library, colors = colors, modifier = mod) },
     licenseDialogConfirmText: String = "OK",
 ) {
     val libs = libraries?.libraries.orEmpty()
-    val openDialog = remember { mutableStateOf<Library?>(null) }
-    val openSheet = remember { mutableStateOf<Library?>(null) }
 
     val variantPadding = remember(variant) {
         when (variant) {
@@ -114,13 +176,18 @@ fun LibrariesContainer(
             )
         }
     }
+    val variantTextStyles = LibraryDefaults.m3VariantTextStyles()
     val style: LibrariesStyle = LibraryDefaults.librariesStyle(
-        colors = variantColors ?: LibraryDefaults.m3VariantColors(),
+        colors = variantColors,
         padding = variantPadding,
         dimensions = variantDimensions,
-        textStyles = LibraryDefaults.m3VariantTextStyles(),
+        textStyles = variantTextStyles,
         shapes = variantShapes,
     )
+
+    val wrappedOnLibraryClick = remember(onLibraryClick) { onLibraryClick }
+    val onSheetRequest = remember(onSheetLibraryChange) { { lib: Library -> onSheetLibraryChange(lib) } }
+    val onDialogRequest = remember(onDialogLibraryChange) { { lib: Library -> onDialogLibraryChange(lib) } }
 
     Libraries(
         libraries = libs,
@@ -138,34 +205,26 @@ fun LibrariesContainer(
         divider = divider,
         footer = footer,
         onActionClick = onActionClick,
-        onLibraryClick = { library ->
-            if (onLibraryClick != null) {
-                onLibraryClick(library)
-                true
-            } else false
-        },
-        onSheetRequest = { openSheet.value = it },
-        onDialogRequest = { openDialog.value = it },
+        onLibraryClick = wrappedOnLibraryClick,
+        onSheetRequest = onSheetRequest,
+        onDialogRequest = onDialogRequest,
     )
 
-    val dialogLibrary = openDialog.value
     if (dialogLibrary != null && licenseDialogBody != null) {
         LicenseDialog(
             library = dialogLibrary,
+            style = style,
             colors = colors,
-            padding = padding,
             confirmText = licenseDialogConfirmText,
-            body = licenseDialogBody
-        ) {
-            openDialog.value = null
-        }
+            body = licenseDialogBody,
+            onDismiss = { onDialogLibraryChange(null) },
+        )
     }
 
-    val sheetLibrary = openSheet.value
     if (sheetLibrary != null) {
         LibraryDetailSheet(
             library = sheetLibrary,
-            onDismiss = { openSheet.value = null },
+            onDismiss = { onSheetLibraryChange(null) },
             style = style,
             actionMode = actionMode,
             actionLabels = actionLabels,
@@ -177,8 +236,8 @@ fun LibrariesContainer(
 @Composable
 fun LicenseDialog(
     library: Library,
+    style: LibrariesStyle,
     colors: LibraryColors = LibraryDefaults.libraryColors(),
-    padding: LibraryPadding = LibraryDefaults.libraryPadding(),
     confirmText: String = "OK",
     body: @Composable (Library, Modifier) -> Unit,
     onDismiss: () -> Unit,
@@ -205,7 +264,7 @@ fun LicenseDialog(
                             .weight(1f, fill = false)
                             .verticalScroll(scrollState)
                     ) {
-                        body(library, Modifier.padding(padding.licenseDialogContentPadding))
+                        body(library, Modifier.padding(style.padding.licenseDialogContentPadding))
                     }
                     TextButton(
                         modifier = Modifier
@@ -223,6 +282,7 @@ fun LicenseDialog(
         },
     )
 }
+
 
 @Composable
 expect fun LicenseDialogBody(library: Library, colors: LibraryColors, modifier: Modifier = Modifier)

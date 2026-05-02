@@ -146,7 +146,7 @@ public final class com/mikepenz/aboutlibraries/ui/compose/style/DefaultVariantCo
 
 public final class com/mikepenz/aboutlibraries/ui/compose/style/DefaultVariantDimensions : com/mikepenz/aboutlibraries/ui/compose/style/VariantDimensions {
 	public static final field $stable I
-	public synthetic fun <init> (FFFFFFFFFFFFLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (FFFFFFFFFFFFFLkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun getActionIconInnerSize-D9Ej5fM ()F
 	public fun getActionIconSize-D9Ej5fM ()F
 	public fun getChevronSize-D9Ej5fM ()F
@@ -155,6 +155,7 @@ public final class com/mikepenz/aboutlibraries/ui/compose/style/DefaultVariantDi
 	public fun getHeaderIconSize-D9Ej5fM ()F
 	public fun getLicenseDotSize-D9Ej5fM ()F
 	public fun getRowDividerThickness-D9Ej5fM ()F
+	public fun getRowElementSpacing-D9Ej5fM ()F
 	public fun getSearchHeight-D9Ej5fM ()F
 	public fun getSheetCornerRadius-D9Ej5fM ()F
 	public fun getSheetMaxHeightFraction ()F
@@ -163,12 +164,13 @@ public final class com/mikepenz/aboutlibraries/ui/compose/style/DefaultVariantDi
 
 public final class com/mikepenz/aboutlibraries/ui/compose/style/DefaultVariantPadding : com/mikepenz/aboutlibraries/ui/compose/style/VariantPadding {
 	public static final field $stable I
-	public synthetic fun <init> (Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;FLandroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;FLandroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;FLandroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;FLandroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun getActionChipPadding ()Landroidx/compose/foundation/layout/PaddingValues;
 	public fun getActionLinkSpacing-D9Ej5fM ()F
 	public fun getHeaderPadding ()Landroidx/compose/foundation/layout/PaddingValues;
 	public fun getInlineActionsPadding ()Landroidx/compose/foundation/layout/PaddingValues;
 	public fun getInlineDetailPadding ()Landroidx/compose/foundation/layout/PaddingValues;
+	public fun getLicenseDialogContentPadding ()Landroidx/compose/foundation/layout/PaddingValues;
 	public fun getRowHorizontal-D9Ej5fM ()F
 	public fun getRowPaddingCompact ()Landroidx/compose/foundation/layout/PaddingValues;
 	public fun getRowPaddingCozy ()Landroidx/compose/foundation/layout/PaddingValues;
@@ -179,8 +181,9 @@ public final class com/mikepenz/aboutlibraries/ui/compose/style/DefaultVariantPa
 
 public final class com/mikepenz/aboutlibraries/ui/compose/style/DefaultVariantShapes : com/mikepenz/aboutlibraries/ui/compose/style/VariantShapes {
 	public static final field $stable I
-	public fun <init> (Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;)V
+	public fun <init> (Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;)V
 	public fun getActionChipShape ()Landroidx/compose/ui/graphics/Shape;
+	public fun getActionIconShape ()Landroidx/compose/ui/graphics/Shape;
 	public fun getHeaderSearchShape ()Landroidx/compose/ui/graphics/Shape;
 	public fun getLicenseTokenShape ()Landroidx/compose/ui/graphics/Shape;
 	public fun getRowShape ()Landroidx/compose/ui/graphics/Shape;
@@ -322,6 +325,7 @@ public abstract interface class com/mikepenz/aboutlibraries/ui/compose/style/Var
 	public abstract fun getHeaderIconSize-D9Ej5fM ()F
 	public abstract fun getLicenseDotSize-D9Ej5fM ()F
 	public abstract fun getRowDividerThickness-D9Ej5fM ()F
+	public abstract fun getRowElementSpacing-D9Ej5fM ()F
 	public abstract fun getSearchHeight-D9Ej5fM ()F
 	public abstract fun getSheetCornerRadius-D9Ej5fM ()F
 	public abstract fun getSheetMaxHeightFraction ()F
@@ -334,6 +338,7 @@ public abstract interface class com/mikepenz/aboutlibraries/ui/compose/style/Var
 	public abstract fun getHeaderPadding ()Landroidx/compose/foundation/layout/PaddingValues;
 	public abstract fun getInlineActionsPadding ()Landroidx/compose/foundation/layout/PaddingValues;
 	public abstract fun getInlineDetailPadding ()Landroidx/compose/foundation/layout/PaddingValues;
+	public abstract fun getLicenseDialogContentPadding ()Landroidx/compose/foundation/layout/PaddingValues;
 	public abstract fun getRowHorizontal-D9Ej5fM ()F
 	public abstract fun getRowPaddingCompact ()Landroidx/compose/foundation/layout/PaddingValues;
 	public abstract fun getRowPaddingCozy ()Landroidx/compose/foundation/layout/PaddingValues;
@@ -348,6 +353,7 @@ public final class com/mikepenz/aboutlibraries/ui/compose/style/VariantPadding$D
 
 public abstract interface class com/mikepenz/aboutlibraries/ui/compose/style/VariantShapes {
 	public abstract fun getActionChipShape ()Landroidx/compose/ui/graphics/Shape;
+	public abstract fun getActionIconShape ()Landroidx/compose/ui/graphics/Shape;
 	public abstract fun getHeaderSearchShape ()Landroidx/compose/ui/graphics/Shape;
 	public abstract fun getLicenseTokenShape ()Landroidx/compose/ui/graphics/Shape;
 	public abstract fun getRowShape ()Landroidx/compose/ui/graphics/Shape;
@@ -375,12 +381,12 @@ public abstract interface class com/mikepenz/aboutlibraries/ui/compose/style/Var
 
 public final class com/mikepenz/aboutlibraries/ui/compose/style/VariantTokensKt {
 	public static final fun defaultVariantColors-qJfrjvo (Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDefaults;JJJJJJJJJJJJJJJJJJJJJJJLcom/mikepenz/aboutlibraries/ui/compose/style/LicenseHueResolver;Landroidx/compose/runtime/Composer;IIII)Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantColors;
-	public static final fun defaultVariantDimensions-V3kMr5w (Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDefaults;FFFFFFFFFFFF)Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantDimensions;
-	public static synthetic fun defaultVariantDimensions-V3kMr5w$default (Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDefaults;FFFFFFFFFFFFILjava/lang/Object;)Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantDimensions;
-	public static final fun defaultVariantPadding-V7pCZSM (Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDefaults;Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;FLandroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;FLandroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;)Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantPadding;
-	public static synthetic fun defaultVariantPadding-V7pCZSM$default (Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDefaults;Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;FLandroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;FLandroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;ILjava/lang/Object;)Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantPadding;
-	public static final fun defaultVariantShapes (Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDefaults;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;)Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantShapes;
-	public static synthetic fun defaultVariantShapes$default (Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDefaults;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;ILjava/lang/Object;)Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantShapes;
+	public static final fun defaultVariantDimensions-_n3Fmhg (Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDefaults;FFFFFFFFFFFFF)Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantDimensions;
+	public static synthetic fun defaultVariantDimensions-_n3Fmhg$default (Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDefaults;FFFFFFFFFFFFFILjava/lang/Object;)Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantDimensions;
+	public static final fun defaultVariantPadding-jR4esIQ (Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDefaults;Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;FLandroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;FLandroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;)Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantPadding;
+	public static synthetic fun defaultVariantPadding-jR4esIQ$default (Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDefaults;Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;FLandroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;FLandroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;ILjava/lang/Object;)Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantPadding;
+	public static final fun defaultVariantShapes (Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDefaults;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;)Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantShapes;
+	public static synthetic fun defaultVariantShapes$default (Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDefaults;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;ILjava/lang/Object;)Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantShapes;
 	public static final fun defaultVariantTextStyles (Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDefaults;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;)Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantTextStyles;
 	public static synthetic fun defaultVariantTextStyles$default (Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDefaults;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;ILjava/lang/Object;)Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantTextStyles;
 	public static final fun getDefaultLibraryActionBadges ()Lcom/mikepenz/aboutlibraries/ui/compose/style/LibraryActionBadges;
