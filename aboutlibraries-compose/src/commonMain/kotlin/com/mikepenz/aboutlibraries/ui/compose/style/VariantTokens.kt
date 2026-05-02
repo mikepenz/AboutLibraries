@@ -107,6 +107,7 @@ interface VariantPadding {
     val actionLinkSpacing: Dp
     val inlineDetailPadding: PaddingValues
     val inlineActionsPadding: PaddingValues
+    val licenseDialogContentPadding: PaddingValues
 
     fun rowPaddingFor(density: LibrariesDensity): PaddingValues = when (density) {
         LibrariesDensity.Cozy -> rowPaddingCozy
@@ -126,6 +127,7 @@ class DefaultVariantPadding(
     override val actionLinkSpacing: Dp,
     override val inlineDetailPadding: PaddingValues,
     override val inlineActionsPadding: PaddingValues,
+    override val licenseDialogContentPadding: PaddingValues,
 ) : VariantPadding
 
 @Stable
@@ -142,6 +144,8 @@ interface VariantDimensions {
     val dragHandleHeight: Dp
     val tabHeight: Dp
     val rowDividerThickness: Dp
+    /** Horizontal gap between inline row elements (name↔version, dot↔name, etc.). */
+    val rowElementSpacing: Dp
 }
 
 @Immutable
@@ -158,6 +162,7 @@ class DefaultVariantDimensions(
     override val dragHandleHeight: Dp,
     override val tabHeight: Dp,
     override val rowDividerThickness: Dp,
+    override val rowElementSpacing: Dp,
 ) : VariantDimensions
 
 /**
@@ -211,6 +216,7 @@ interface VariantShapes {
     val tabShape: Shape
     val sheetShape: Shape
     val actionChipShape: Shape
+    val actionIconShape: Shape
     val licenseTokenShape: Shape
     val sheetLicenseShape: Shape
 }
@@ -222,6 +228,7 @@ class DefaultVariantShapes(
     override val tabShape: Shape,
     override val sheetShape: Shape,
     override val actionChipShape: Shape,
+    override val actionIconShape: Shape,
     override val licenseTokenShape: Shape,
     override val sheetLicenseShape: Shape,
 ) : VariantShapes
@@ -326,9 +333,10 @@ fun LibraryDefaults.defaultVariantPadding(
     actionLinkSpacing: Dp = 16.dp,
     inlineDetailPadding: PaddingValues = PaddingValues(start = 30.dp, top = 10.dp, end = 16.dp, bottom = 14.dp),
     inlineActionsPadding: PaddingValues = PaddingValues(horizontal = 20.dp, vertical = 8.dp),
+    licenseDialogContentPadding: PaddingValues = PaddingValues(8.dp),
 ): VariantPadding = DefaultVariantPadding(
     rowPaddingCozy, rowPaddingCompact, rowHorizontal, headerPadding, sheetPadding, tabPadding,
-    actionChipPadding, actionLinkSpacing, inlineDetailPadding, inlineActionsPadding,
+    actionChipPadding, actionLinkSpacing, inlineDetailPadding, inlineActionsPadding, licenseDialogContentPadding,
 )
 
 fun LibraryDefaults.defaultVariantDimensions(
@@ -344,11 +352,12 @@ fun LibraryDefaults.defaultVariantDimensions(
     dragHandleHeight: Dp = 4.dp,
     tabHeight: Dp = 28.dp,
     rowDividerThickness: Dp = 1.dp,
+    rowElementSpacing: Dp = 8.dp,
 ): VariantDimensions = DefaultVariantDimensions(
     licenseDotSize, chevronSize, headerIconSize, searchHeight,
     sheetMaxHeightFraction, sheetCornerRadius,
     actionIconSize, actionIconInnerSize, dragHandleWidth, dragHandleHeight,
-    tabHeight, rowDividerThickness,
+    tabHeight, rowDividerThickness, rowElementSpacing,
 )
 
 private val FallbackTextStyle = TextStyle.Default
@@ -382,10 +391,11 @@ fun LibraryDefaults.defaultVariantShapes(
     tabShape: Shape = RoundedCornerShape(CornerSize(percent = 50)),
     sheetShape: Shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp, bottomStart = 0.dp, bottomEnd = 0.dp),
     actionChipShape: Shape = RoundedCornerShape(8.dp),
+    actionIconShape: Shape = RoundedCornerShape(CornerSize(percent = 50)),
     licenseTokenShape: Shape = RoundedCornerShape(CornerSize(percent = 50)),
     sheetLicenseShape: Shape = RoundedCornerShape(16.dp),
 ): VariantShapes = DefaultVariantShapes(
-    rowShape, headerSearchShape, tabShape, sheetShape, actionChipShape, licenseTokenShape, sheetLicenseShape,
+    rowShape, headerSearchShape, tabShape, sheetShape, actionChipShape, actionIconShape, licenseTokenShape, sheetLicenseShape,
 )
 
 /** Bundle the five token bags into a single [LibrariesStyle] holder, [remember]ed across recompositions. */

@@ -61,8 +61,9 @@ fun RefinedRow(
     modifier: Modifier = Modifier,
 ) {
     val colors = style.colors
-    val firstLicense = remember(library) { library.licenses.firstOrNull() }
-    val licenseHue = remember(library, colors.licenseHueResolver) {
+    val licenses = library.licenses
+    val firstLicense = remember(licenses) { licenses.firstOrNull() }
+    val licenseHue = remember(licenses, colors.licenseHueResolver) {
         firstLicense?.spdxId?.let { colors.licenseHueResolver.colorFor(it) }
             ?: firstLicense?.name?.let { colors.licenseHueResolver.colorFor(it) }
     }
@@ -70,6 +71,7 @@ fun RefinedRow(
         targetValue = if (expanded) colors.rowExpandedBackground.orFallback(Color.Transparent)
         else colors.rowBackground.orFallback(Color.Transparent),
         animationSpec = tween(durationMillis = 200),
+        label = "rowBackground",
     )
     val chevronRotationState = animateFloatAsState(
         targetValue = if (expanded) 180f else 0f,
@@ -101,7 +103,7 @@ fun RefinedRow(
                     .clip(CircleShape)
                     .background(licenseHue ?: subtle.copy(alpha = if (colors.contrastLevel == ContrastLevel.High) 0.7f else 0.4f)),
             )
-            Spacer(Modifier.width(10.dp))
+            Spacer(Modifier.width(style.dimensions.licenseDotSize + 2.dp))
             BasicText(
                 text = library.name,
                 modifier = Modifier.weight(1f),
@@ -111,14 +113,14 @@ fun RefinedRow(
             )
             val version = library.artifactVersion
             if (badges.version && !version.isNullOrBlank()) {
-                Spacer(Modifier.width(8.dp))
+                Spacer(Modifier.width(style.dimensions.rowElementSpacing))
                 BasicText(
                     text = version,
                     style = style.textStyles.versionTextStyle.copy(color = subtle, fontFamily = FontFamily.Monospace),
                     maxLines = 1,
                 )
             }
-            Spacer(Modifier.width(6.dp))
+            Spacer(Modifier.width(style.dimensions.rowElementSpacing))
             ChevronGlyph(
                 color = subtle,
                 size = style.dimensions.chevronSize,

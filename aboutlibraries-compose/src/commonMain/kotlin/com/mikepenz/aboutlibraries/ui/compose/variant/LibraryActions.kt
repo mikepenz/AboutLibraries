@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -147,12 +146,13 @@ private fun ActionIconButton(
     val colors = style.colors
     val border = colors.actionOutlineBorder.orFallback(colors.actionOutlineContent.orFallback(Color.Black).copy(alpha = 0.4f))
     val content = colors.actionOutlineContent.orFallback(Color.Black)
+    val iconShape = style.shapes.actionIconShape
     val cd = contentDescription
     Box(
         modifier = Modifier
             .size(style.dimensions.actionIconSize)
-            .clip(CircleShape)
-            .border(1.dp, border, CircleShape)
+            .clip(iconShape)
+            .border(1.dp, border, iconShape)
             .clickable(role = Role.Button, onClick = onClick)
             .semantics {
                 this.role = Role.Button
