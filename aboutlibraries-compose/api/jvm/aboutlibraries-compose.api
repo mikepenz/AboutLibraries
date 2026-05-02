@@ -106,14 +106,24 @@ public final class com/mikepenz/aboutlibraries/ui/compose/layout/LibraryScaffold
 	public static final fun LibraryScaffoldLayout (Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function3;Landroidx/compose/ui/Modifier;Lcom/mikepenz/aboutlibraries/ui/compose/LibraryPadding;Landroidx/compose/runtime/Composer;II)V
 }
 
+public final class com/mikepenz/aboutlibraries/ui/compose/style/ContrastLevel : java/lang/Enum {
+	public static final field High Lcom/mikepenz/aboutlibraries/ui/compose/style/ContrastLevel;
+	public static final field Normal Lcom/mikepenz/aboutlibraries/ui/compose/style/ContrastLevel;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/mikepenz/aboutlibraries/ui/compose/style/ContrastLevel;
+	public static fun values ()[Lcom/mikepenz/aboutlibraries/ui/compose/style/ContrastLevel;
+}
+
 public final class com/mikepenz/aboutlibraries/ui/compose/style/DefaultVariantColors : com/mikepenz/aboutlibraries/ui/compose/style/VariantColors {
 	public static final field $stable I
-	public synthetic fun <init> (JJJJJJJJJJJJJJJJJJJJJJJLcom/mikepenz/aboutlibraries/ui/compose/style/LicenseHueResolver;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (JJJJJJJJJJJJJJJJJJJJJJJLcom/mikepenz/aboutlibraries/ui/compose/style/LicenseHueResolver;Lcom/mikepenz/aboutlibraries/ui/compose/style/ContrastLevel;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (JJJJJJJJJJJJJJJJJJJJJJJLcom/mikepenz/aboutlibraries/ui/compose/style/LicenseHueResolver;Lcom/mikepenz/aboutlibraries/ui/compose/style/ContrastLevel;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun getActionFilledContainer-0d7_KjU ()J
 	public fun getActionFilledContent-0d7_KjU ()J
 	public fun getActionLinkColor-0d7_KjU ()J
 	public fun getActionOutlineBorder-0d7_KjU ()J
 	public fun getActionOutlineContent-0d7_KjU ()J
+	public fun getContrastLevel ()Lcom/mikepenz/aboutlibraries/ui/compose/style/ContrastLevel;
 	public fun getHeaderBackground-0d7_KjU ()J
 	public fun getHeaderDivider-0d7_KjU ()J
 	public fun getHeaderOnBackground-0d7_KjU ()J
@@ -247,6 +257,7 @@ public abstract interface class com/mikepenz/aboutlibraries/ui/compose/style/Var
 	public abstract fun getActionLinkColor-0d7_KjU ()J
 	public abstract fun getActionOutlineBorder-0d7_KjU ()J
 	public abstract fun getActionOutlineContent-0d7_KjU ()J
+	public abstract fun getContrastLevel ()Lcom/mikepenz/aboutlibraries/ui/compose/style/ContrastLevel;
 	public abstract fun getHeaderBackground-0d7_KjU ()J
 	public abstract fun getHeaderDivider-0d7_KjU ()J
 	public abstract fun getHeaderOnBackground-0d7_KjU ()J
@@ -459,7 +470,7 @@ public final class com/mikepenz/aboutlibraries/ui/compose/variant/refined/Licens
 }
 
 public final class com/mikepenz/aboutlibraries/ui/compose/variant/refined/RefinedHeaderKt {
-	public static final fun RefinedHeader (Ljava/lang/String;Ljava/lang/String;Lcom/mikepenz/aboutlibraries/ui/compose/style/LibrariesStyle;Lcom/mikepenz/aboutlibraries/ui/compose/style/LibraryStrings;Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function3;ZLjava/lang/String;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;Ljava/util/List;Ljava/lang/String;Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;III)V
+	public static final fun RefinedHeader (Ljava/lang/String;Ljava/lang/String;Lcom/mikepenz/aboutlibraries/ui/compose/style/LibrariesStyle;Lcom/mikepenz/aboutlibraries/ui/compose/style/LibraryStrings;Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function3;ZLjava/lang/String;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;Ljava/util/List;Ljava/lang/String;Lkotlin/jvm/functions/Function1;ZLandroidx/compose/runtime/Composer;III)V
 }
 
 public final class com/mikepenz/aboutlibraries/ui/compose/variant/refined/RefinedRowKt {
