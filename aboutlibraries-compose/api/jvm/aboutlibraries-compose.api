@@ -102,6 +102,22 @@ public abstract interface class com/mikepenz/aboutlibraries/ui/compose/LibraryTe
 	public abstract fun getVersionTextStyle ()Landroidx/compose/ui/text/TextStyle;
 }
 
+public final class com/mikepenz/aboutlibraries/ui/compose/icon/Material_symbols_attach_moneyKt {
+	public static final fun getMaterialSymbolsAttachMoney ()Landroidx/compose/ui/graphics/vector/ImageVector;
+}
+
+public final class com/mikepenz/aboutlibraries/ui/compose/icon/Material_symbols_code_xmlKt {
+	public static final fun getMaterialSymbolsCodeXml ()Landroidx/compose/ui/graphics/vector/ImageVector;
+}
+
+public final class com/mikepenz/aboutlibraries/ui/compose/icon/Material_symbols_licenseKt {
+	public static final fun getMaterialSymbolsLicense ()Landroidx/compose/ui/graphics/vector/ImageVector;
+}
+
+public final class com/mikepenz/aboutlibraries/ui/compose/icon/Material_symbols_link_2Kt {
+	public static final fun getMaterialSymbolsLink2 ()Landroidx/compose/ui/graphics/vector/ImageVector;
+}
+
 public final class com/mikepenz/aboutlibraries/ui/compose/layout/LibraryScaffoldKt {
 	public static final fun LibraryScaffoldLayout (Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function3;Landroidx/compose/ui/Modifier;Lcom/mikepenz/aboutlibraries/ui/compose/LibraryPadding;Landroidx/compose/runtime/Composer;II)V
 }
@@ -222,12 +238,16 @@ public final class com/mikepenz/aboutlibraries/ui/compose/style/LibrariesStyle {
 public final class com/mikepenz/aboutlibraries/ui/compose/style/LibraryActionLabels {
 	public static final field $stable I
 	public fun <init> ()V
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Landroidx/compose/ui/graphics/vector/ImageVector;Ljava/lang/String;Landroidx/compose/ui/graphics/vector/ImageVector;Ljava/lang/String;Landroidx/compose/ui/graphics/vector/ImageVector;Ljava/lang/String;Landroidx/compose/ui/graphics/vector/ImageVector;)V
+	public synthetic fun <init> (Ljava/lang/String;Landroidx/compose/ui/graphics/vector/ImageVector;Ljava/lang/String;Landroidx/compose/ui/graphics/vector/ImageVector;Ljava/lang/String;Landroidx/compose/ui/graphics/vector/ImageVector;Ljava/lang/String;Landroidx/compose/ui/graphics/vector/ImageVector;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun getSource ()Ljava/lang/String;
+	public final fun getSourceIcon ()Landroidx/compose/ui/graphics/vector/ImageVector;
 	public final fun getSponsor ()Ljava/lang/String;
+	public final fun getSponsorIcon ()Landroidx/compose/ui/graphics/vector/ImageVector;
 	public final fun getViewLicense ()Ljava/lang/String;
+	public final fun getViewLicenseIcon ()Landroidx/compose/ui/graphics/vector/ImageVector;
 	public final fun getWebsite ()Ljava/lang/String;
+	public final fun getWebsiteIcon ()Landroidx/compose/ui/graphics/vector/ImageVector;
 }
 
 public final class com/mikepenz/aboutlibraries/ui/compose/style/LibraryStrings {

@@ -9,10 +9,15 @@ import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.mikepenz.aboutlibraries.ui.compose.LibraryDefaults
+import com.mikepenz.aboutlibraries.ui.compose.icon.MaterialSymbolsAttachMoney
+import com.mikepenz.aboutlibraries.ui.compose.icon.MaterialSymbolsCodeXml
+import com.mikepenz.aboutlibraries.ui.compose.icon.MaterialSymbolsLicense
+import com.mikepenz.aboutlibraries.ui.compose.icon.MaterialSymbolsLink2
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibrariesDensity
 
 /** Controls how much contrast emphasis is applied to badges, subtle text, and dividers. */
@@ -240,13 +245,17 @@ class LibraryStrings(
     val searchPlaceholder: String = "Search libraries",
 )
 
-/** Labels shown on per-action affordances. Override for localization. */
+/** Labels and icons shown on per-action affordances. Override for localization or custom icons. */
 @Immutable
 class LibraryActionLabels(
     val source: String = "Source",
+    val sourceIcon: ImageVector = MaterialSymbolsCodeXml,
     val website: String = "Website",
+    val websiteIcon: ImageVector = MaterialSymbolsLink2,
     val sponsor: String = "Sponsor",
+    val sponsorIcon: ImageVector = MaterialSymbolsAttachMoney,
     val viewLicense: String = "View license",
+    val viewLicenseIcon: ImageVector = MaterialSymbolsLicense,
 )
 
 val DefaultLibraryStrings: LibraryStrings = LibraryStrings()

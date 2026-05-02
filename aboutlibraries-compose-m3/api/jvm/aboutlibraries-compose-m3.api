@@ -33,6 +33,10 @@ public final class com/mikepenz/aboutlibraries/ui/compose/m3/sheet/LibraryDetail
 	public static final fun LibraryDetailSheet (Lcom/mikepenz/aboutlibraries/entity/Library;Lkotlin/jvm/functions/Function0;Lcom/mikepenz/aboutlibraries/ui/compose/style/LibrariesStyle;Landroidx/compose/ui/Modifier;Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryActionMode;Lcom/mikepenz/aboutlibraries/ui/compose/style/LibraryActionLabels;Landroidx/compose/material3/SheetState;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;II)V
 }
 
+public final class com/mikepenz/aboutlibraries/ui/compose/m3/style/M3LibrariesStyleKt {
+	public static final fun m3LibrariesStyle (Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDefaults;ZLandroidx/compose/runtime/Composer;II)Lcom/mikepenz/aboutlibraries/ui/compose/style/LibrariesStyle;
+}
+
 public final class com/mikepenz/aboutlibraries/ui/compose/m3/style/M3VariantTokensKt {
 	public static final fun accentDerivedLicenseHueResolver (ZLcom/mikepenz/aboutlibraries/ui/compose/style/ContrastLevel;Landroidx/compose/runtime/Composer;II)Lcom/mikepenz/aboutlibraries/ui/compose/style/LicenseHueResolver;
 	public static final fun getDarkM3LicensePalette ()Ljava/util/Map;

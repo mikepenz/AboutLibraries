@@ -29,6 +29,10 @@ public final class com/mikepenz/aboutlibraries/ui/compose/component/LibrariesChi
 	public static final fun LibraryChip-cm3T3N0 (Landroidx/compose/ui/Modifier;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/foundation/BorderStroke;JJFLkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;II)V
 }
 
+public final class com/mikepenz/aboutlibraries/ui/compose/style/M2LibrariesStyleKt {
+	public static final fun m2LibrariesStyle (Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDefaults;ZLandroidx/compose/runtime/Composer;II)Lcom/mikepenz/aboutlibraries/ui/compose/style/LibrariesStyle;
+}
+
 public final class com/mikepenz/aboutlibraries/ui/compose/style/M2VariantTokensKt {
 	public static final fun getDefaultM2LicenseHueResolver ()Lcom/mikepenz/aboutlibraries/ui/compose/style/LicenseHueResolver;
 	public static final fun m2VariantColors-qFui-Go (Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDefaults;Lcom/mikepenz/aboutlibraries/ui/compose/style/ContrastLevel;JJJJJJJJJJJJJJJJJJJJJJJLcom/mikepenz/aboutlibraries/ui/compose/style/LicenseHueResolver;Landroidx/compose/runtime/Composer;IIII)Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantColors;

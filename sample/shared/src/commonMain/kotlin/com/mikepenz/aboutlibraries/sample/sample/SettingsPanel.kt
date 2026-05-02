@@ -29,15 +29,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.mikepenz.aboutlibraries.sample.sample.HeaderPosition
-import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryActionMode
-import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryDetailMode
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibrariesDensity
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibrariesVariant
+import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryActionMode
+import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryDetailMode
 
 /**
  * The settings panel from the Sample App design.
@@ -298,7 +296,7 @@ fun SettingsPanel(
                 .background(MaterialTheme.colorScheme.outlineVariant),
         )
         Text(
-            text = "Settings are saved locally. This sample app demonstrates every public configuration of the AboutLibraries component — variant, density, detail surface, and action style.",
+            text = "This sample app demonstrates every public configuration of the AboutLibraries component — variant, density, detail surface, and action style.",
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 11.sp,
             modifier = Modifier.padding(top = 14.dp),
