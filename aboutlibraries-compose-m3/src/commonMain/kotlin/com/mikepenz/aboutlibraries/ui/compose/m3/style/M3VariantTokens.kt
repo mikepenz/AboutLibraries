@@ -5,8 +5,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.graphics.colorspace.ColorSpaces
+import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.LineHeightStyle
@@ -98,8 +98,11 @@ private val LICENSE_HUE_OFFSETS: Map<String, Float?> = mapOf(
 
 /** Returns the HSV hue (0–360°) of this color. */
 private fun Color.hsvHue(): Float {
-    val r = red; val g = green; val b = blue
-    val max = maxOf(r, g, b); val min = minOf(r, g, b)
+    val r = red;
+    val g = green;
+    val b = blue
+    val max = maxOf(r, g, b);
+    val min = minOf(r, g, b)
     val delta = max - min
     if (delta == 0f) return 0f
     val h = when (max) {

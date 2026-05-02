@@ -212,7 +212,7 @@ import androidx.compose.ui.unit.dp
 val MaterialSymbolsLink2: ImageVector
     get() {
         if (_MaterialSymbolsLink2 != null) return _MaterialSymbolsLink2!!
-        
+
         _MaterialSymbolsLink2 = ImageVector.Builder(
             name = "link_2",
             defaultWidth = 24.dp,
@@ -271,7 +271,7 @@ val MaterialSymbolsLink2: ImageVector
                 close()
             }
         }.build()
-        
+
         return _MaterialSymbolsLink2!!
     }
 

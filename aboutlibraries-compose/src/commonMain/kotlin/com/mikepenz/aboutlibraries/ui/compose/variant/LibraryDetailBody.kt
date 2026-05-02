@@ -80,46 +80,46 @@ fun LibrarySheetDetail(
     val sheetVariantBg = style.colors.sheetSurfaceVariant.orFallback(onBg.copy(alpha = 0.08f))
 
     BoxWithConstraints(modifier = modifier.fillMaxWidth()) {
-    val scrollModifier = if (constraints.hasBoundedHeight) Modifier.verticalScroll(rememberScrollState()) else Modifier
-    Column(
-        modifier = Modifier.fillMaxWidth().then(scrollModifier).padding(contentPadding),
-        verticalArrangement = Arrangement.spacedBy(12.dp),
-    ) {
-        BasicText(text = library.name, style = style.textStyles.sheetTitleTextStyle.copy(color = onBg))
+        val scrollModifier = if (constraints.hasBoundedHeight) Modifier.verticalScroll(rememberScrollState()) else Modifier
+        Column(
+            modifier = Modifier.fillMaxWidth().then(scrollModifier).padding(contentPadding),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+        ) {
+            BasicText(text = library.name, style = style.textStyles.sheetTitleTextStyle.copy(color = onBg))
 
-        val author = library.author
-        val version = library.artifactVersion
-        if (author.isNotBlank() || !version.isNullOrBlank()) {
-            val meta = remember(author, version) {
-                listOfNotNull(author.takeIf { it.isNotBlank() }, version).joinToString(" · ")
+            val author = library.author
+            val version = library.artifactVersion
+            if (author.isNotBlank() || !version.isNullOrBlank()) {
+                val meta = remember(author, version) {
+                    listOfNotNull(author.takeIf { it.isNotBlank() }, version).joinToString(" · ")
+                }
+                BasicText(text = meta, style = style.textStyles.sheetMetaTextStyle.copy(color = subtle))
             }
-            BasicText(text = meta, style = style.textStyles.sheetMetaTextStyle.copy(color = subtle))
-        }
 
-        val description = library.description
-        if (!description.isNullOrBlank()) {
-            BasicText(text = description, style = style.textStyles.sheetBodyTextStyle.copy(color = onBg))
-        }
+            val description = library.description
+            if (!description.isNullOrBlank()) {
+                BasicText(text = description, style = style.textStyles.sheetBodyTextStyle.copy(color = onBg))
+            }
 
-        LibraryActions(
-            library = library,
-            actionMode = actionMode,
-            style = style,
-            actionLabels = actionLabels,
-            onActionClick = onActionClick,
-        )
+            LibraryActions(
+                library = library,
+                actionMode = actionMode,
+                style = style,
+                actionLabels = actionLabels,
+                onActionClick = onActionClick,
+            )
 
-        if (licenseContent != null) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clip(style.shapes.sheetLicenseShape)
-                    .background(sheetVariantBg)
-                    .padding(14.dp),
-            ) {
-                BasicText(text = licenseContent, style = style.textStyles.sheetBodyTextStyle.copy(color = subtle))
+            if (licenseContent != null) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(style.shapes.sheetLicenseShape)
+                        .background(sheetVariantBg)
+                        .padding(14.dp),
+                ) {
+                    BasicText(text = licenseContent, style = style.textStyles.sheetBodyTextStyle.copy(color = subtle))
+                }
             }
         }
-    }
     }
 }

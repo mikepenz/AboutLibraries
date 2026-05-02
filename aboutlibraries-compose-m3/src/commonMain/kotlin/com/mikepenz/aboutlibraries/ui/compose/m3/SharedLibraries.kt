@@ -38,23 +38,23 @@ import com.mikepenz.aboutlibraries.ui.compose.DefaultLibraryColors
 import com.mikepenz.aboutlibraries.ui.compose.LibraryColors
 import com.mikepenz.aboutlibraries.ui.compose.LibraryDefaults
 import com.mikepenz.aboutlibraries.ui.compose.LibraryPadding
-import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryActionKind
-import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryActionMode
-import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryDetailMode
-import com.mikepenz.aboutlibraries.ui.compose.variant.LibrariesDensity
-import com.mikepenz.aboutlibraries.ui.compose.variant.LibrariesVariant
-import com.mikepenz.aboutlibraries.ui.compose.variant.Libraries
-import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryBadges
+import com.mikepenz.aboutlibraries.ui.compose.m3.sheet.LibraryDetailSheet
+import com.mikepenz.aboutlibraries.ui.compose.m3.style.m3VariantColors
+import com.mikepenz.aboutlibraries.ui.compose.m3.style.m3VariantTextStyles
 import com.mikepenz.aboutlibraries.ui.compose.style.LibrariesStyle
 import com.mikepenz.aboutlibraries.ui.compose.style.VariantColors
 import com.mikepenz.aboutlibraries.ui.compose.style.defaultVariantDimensions
 import com.mikepenz.aboutlibraries.ui.compose.style.defaultVariantPadding
 import com.mikepenz.aboutlibraries.ui.compose.style.defaultVariantShapes
 import com.mikepenz.aboutlibraries.ui.compose.style.librariesStyle
-import com.mikepenz.aboutlibraries.ui.compose.m3.sheet.LibraryDetailSheet
-import com.mikepenz.aboutlibraries.ui.compose.m3.style.m3VariantColors
-import com.mikepenz.aboutlibraries.ui.compose.m3.style.m3VariantTextStyles
 import com.mikepenz.aboutlibraries.ui.compose.util.strippedLicenseContent
+import com.mikepenz.aboutlibraries.ui.compose.variant.Libraries
+import com.mikepenz.aboutlibraries.ui.compose.variant.LibrariesDensity
+import com.mikepenz.aboutlibraries.ui.compose.variant.LibrariesVariant
+import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryActionKind
+import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryActionMode
+import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryBadges
+import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryDetailMode
 
 /**
  * Displays all provided libraries in a simple list.

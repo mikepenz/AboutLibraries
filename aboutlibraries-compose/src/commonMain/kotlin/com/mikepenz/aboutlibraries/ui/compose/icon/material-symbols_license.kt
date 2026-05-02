@@ -212,7 +212,7 @@ import androidx.compose.ui.unit.dp
 val MaterialSymbolsLicense: ImageVector
     get() {
         if (_MaterialSymbolsLicense != null) return _MaterialSymbolsLicense!!
-        
+
         _MaterialSymbolsLicense = ImageVector.Builder(
             name = "license",
             defaultWidth = 24.dp,
@@ -271,7 +271,7 @@ val MaterialSymbolsLicense: ImageVector
                 close()
             }
         }.build()
-        
+
         return _MaterialSymbolsLicense!!
     }
 

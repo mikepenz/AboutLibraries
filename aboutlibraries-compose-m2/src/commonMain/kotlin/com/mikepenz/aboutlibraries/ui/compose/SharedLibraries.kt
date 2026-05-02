@@ -32,17 +32,17 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.entity.Library
-import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryActionKind
-import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryActionMode
-import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryDetailMode
-import com.mikepenz.aboutlibraries.ui.compose.variant.LibrariesDensity
-import com.mikepenz.aboutlibraries.ui.compose.variant.LibrariesVariant
-import com.mikepenz.aboutlibraries.ui.compose.variant.Libraries
-import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryBadges
 import com.mikepenz.aboutlibraries.ui.compose.style.VariantColors
 import com.mikepenz.aboutlibraries.ui.compose.style.librariesStyle
 import com.mikepenz.aboutlibraries.ui.compose.style.m2VariantColors
 import com.mikepenz.aboutlibraries.ui.compose.util.strippedLicenseContent
+import com.mikepenz.aboutlibraries.ui.compose.variant.Libraries
+import com.mikepenz.aboutlibraries.ui.compose.variant.LibrariesDensity
+import com.mikepenz.aboutlibraries.ui.compose.variant.LibrariesVariant
+import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryActionKind
+import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryActionMode
+import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryBadges
+import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryDetailMode
 
 
 /**

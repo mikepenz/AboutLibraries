@@ -14,9 +14,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.mikepenz.aboutlibraries.entity.Library
+import com.mikepenz.aboutlibraries.ui.compose.style.DefaultLibraryActionLabels
 import com.mikepenz.aboutlibraries.ui.compose.style.LibrariesStyle
 import com.mikepenz.aboutlibraries.ui.compose.style.LibraryActionLabels
-import com.mikepenz.aboutlibraries.ui.compose.style.DefaultLibraryActionLabels
 import com.mikepenz.aboutlibraries.ui.compose.style.orFallback
 import com.mikepenz.aboutlibraries.ui.compose.variant.refined.RefinedRow
 import com.mikepenz.aboutlibraries.ui.compose.variant.traditional.TraditionalRow
@@ -62,6 +62,7 @@ fun Libraries(
                         badges = badges,
                         style = style,
                     )
+
                     LibrariesVariant.Refined -> RefinedRow(
                         library = library,
                         expanded = expanded,
