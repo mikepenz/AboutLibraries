@@ -6,7 +6,8 @@ import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.ui.draw.clip
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -29,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -51,12 +53,15 @@ fun <T> Segmented(
     val onPrimary = MaterialTheme.colorScheme.onPrimary
     val onSurface = MaterialTheme.colorScheme.onSurface
 
+    if (options.isEmpty()) return
+
     val n = options.size
     val selectedIndex = options.indexOfFirst { it.first == selected }.coerceAtLeast(0)
 
     BoxWithConstraints(
         modifier = modifier
             .fillMaxWidth()
+            .selectableGroup()
             .background(MaterialTheme.colorScheme.surfaceContainerHighest, RoundedCornerShape(10.dp))
             .padding(4.dp),
     ) {
@@ -97,7 +102,7 @@ fun <T> Segmented(
                         modifier = Modifier
                             .weight(1f)
                             .clip(pillShape)
-                            .clickable { onSelect(key) }
+                            .selectable(selected = active, onClick = { onSelect(key) }, role = Role.RadioButton)
                             .padding(horizontal = 10.dp, vertical = 8.dp),
                         contentAlignment = Alignment.Center,
                     ) {

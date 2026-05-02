@@ -45,7 +45,8 @@ fun LibraryActions(
     style: LibrariesStyle,
     modifier: Modifier = Modifier,
     actionLabels: LibraryActionLabels,
-    onActionClick: ((Library, LibraryActionKind) -> Unit)? = null,
+    onActionClick: ((Library, LibraryActionKind) -> Boolean)? = null,
+    onLicenseContentRequest: ((Library) -> Unit)? = null,
 ) {
     val uriHandler = LocalUriHandler.current
     val source = library.scm?.url
@@ -54,8 +55,8 @@ fun LibraryActions(
     val licenseUrl = library.licenses.firstOrNull()?.url
     val licensePresent = library.licenses.firstOrNull() != null
 
-    val open = remember(library, onActionClick, uriHandler) {
-        { kind: LibraryActionKind, url: String? -> dispatchAction(library, kind, url, onActionClick, uriHandler) }
+    val open = remember(library, onActionClick, onLicenseContentRequest, uriHandler) {
+        { kind: LibraryActionKind, url: String? -> dispatchAction(library, kind, url, onActionClick, onLicenseContentRequest, uriHandler) }
     }
 
     when (actionMode) {
@@ -98,15 +99,17 @@ private fun dispatchAction(
     library: Library,
     kind: LibraryActionKind,
     url: String?,
-    onActionClick: ((Library, LibraryActionKind) -> Unit)?,
+    onActionClick: ((Library, LibraryActionKind) -> Boolean)?,
+    onLicenseContentRequest: ((Library) -> Unit)?,
     uriHandler: UriHandler,
 ) {
-    if (onActionClick != null) {
-        onActionClick(library, kind)
-    } else if (!url.isNullOrBlank()) {
-        // Surface errors to a caller-installed handler if any; otherwise rethrow so the host
-        // can decide. Silent swallow hides URI-handling bugs in production.
-        uriHandler.openUri(url)
+    val consumed = onActionClick?.invoke(library, kind) ?: false
+    if (!consumed) {
+        if (!url.isNullOrBlank()) {
+            uriHandler.openUri(url)
+        } else if (kind == LibraryActionKind.License && onLicenseContentRequest != null) {
+            onLicenseContentRequest(library)
+        }
     }
 }
 

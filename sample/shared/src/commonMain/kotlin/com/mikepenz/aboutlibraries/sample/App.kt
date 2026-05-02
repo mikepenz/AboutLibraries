@@ -233,7 +233,7 @@ fun App(libs: Libs?) {
                     }
 
                     val showFilterBar = settings.showLicenseFilter
-                        && (settings.headerStyle != HeaderStyle.Compact || !settings.showTabsInHeader)
+                        && (!settings.showHeader || settings.headerStyle != HeaderStyle.Compact || !settings.showTabsInHeader)
                     val showFilterBarFixed = showFilterBar && settings.headerPosition == HeaderPosition.Fixed
                     if (showFilterBarFixed) {
                         LicenseFilterBar(
@@ -267,7 +267,7 @@ fun App(libs: Libs?) {
                                         subtitle = "v11.2.0 · ${libs?.libraries.orEmpty().size} libraries",
                                         style = compactStyle,
                                         strings = DefaultLibraryStrings,
-                                        tabs = if (settings.showLicenseFilter) tabs.map {
+                                        tabs = if (settings.showTabsInHeader && settings.showLicenseFilter) tabs.map {
                                             LicenseTab(it.spdxId, it.label, it.count)
                                         } else emptyList(),
                                         selectedTab = licenseFilter,

@@ -54,12 +54,6 @@ private fun configureAndroidTasks(project: Project, extension: AboutLibrariesExt
     // task to generate libraries, and their license into the build folder (not hooked to the build task)
     project.tasks.configure("exportLibraryDefinitions${variantName}", AboutLibrariesTask::class.java) {
         it.variant.set(variant.name)
-        it.configureOutputFile(resultsDirectory.flatMap { dir ->
-            extension.export.outputFileName.map { filename ->
-                @Suppress("DEPRECATION")
-                dir.file(filename)
-            }
-        })
         it.configure()
     }
 

@@ -36,7 +36,8 @@ fun LibraryInlineDetail(
     modifier: Modifier = Modifier,
     actionLabels: LibraryActionLabels,
     contentPadding: PaddingValues = style.padding.inlineDetailPadding,
-    onActionClick: ((Library, LibraryActionKind) -> Unit)? = null,
+    onActionClick: ((Library, LibraryActionKind) -> Boolean)? = null,
+    onDialogRequest: ((Library) -> Unit)? = null,
 ) {
     val onBg = style.colors.rowOnBackground.orFallback(Color.Black)
 
@@ -54,6 +55,7 @@ fun LibraryInlineDetail(
             style = style,
             actionLabels = actionLabels,
             onActionClick = onActionClick,
+            onLicenseContentRequest = onDialogRequest,
         )
     }
 }
@@ -70,7 +72,7 @@ fun LibrarySheetDetail(
     modifier: Modifier = Modifier,
     actionLabels: LibraryActionLabels,
     contentPadding: PaddingValues = style.padding.sheetPadding,
-    onActionClick: ((Library, LibraryActionKind) -> Unit)? = null,
+    onActionClick: ((Library, LibraryActionKind) -> Boolean)? = null,
 ) {
     val licenseContent = remember(library) { library.strippedLicenseContent.takeIf { it.isNotBlank() } }
     val onBg = style.colors.rowOnBackground.orFallback(Color.Black)

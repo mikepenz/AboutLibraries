@@ -108,7 +108,7 @@ abstract class AboutLibrariesExtension {
             it.strictMode.convention(StrictMode.IGNORE)
         }
         android {
-            it.registerAndroidTasks.convention(true)
+            it.registerAndroidTasks.convention(false)
         }
     }
 

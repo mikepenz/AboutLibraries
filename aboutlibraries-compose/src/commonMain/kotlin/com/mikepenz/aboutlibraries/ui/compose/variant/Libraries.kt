@@ -47,7 +47,8 @@ fun Libraries(
     footer: (LazyListScope.() -> Unit)? = null,
     onLibraryClick: ((Library) -> Boolean)? = null,
     onSheetRequest: ((Library) -> Unit)? = null,
-    onActionClick: ((Library, LibraryActionKind) -> Unit)? = null,
+    onActionClick: ((Library, LibraryActionKind) -> Boolean)? = null,
+    onDialogRequest: ((Library) -> Unit)? = null,
 ) {
     val row: @Composable LazyItemScope.(Library, Boolean, () -> Unit) -> Unit =
         remember(variant, density, badges, style) {
@@ -74,7 +75,7 @@ fun Libraries(
         }
 
     val inlineDetail: (@Composable (Library) -> Unit)? = remember(
-        detailMode, variant, style, actionMode, actionLabels, onActionClick,
+        detailMode, variant, style, actionMode, actionLabels, onActionClick, onDialogRequest,
     ) {
         if (detailMode != LibraryDetailMode.Inline) null else { library: Library ->
             when (variant) {
@@ -87,6 +88,7 @@ fun Libraries(
                         style = style,
                         actionLabels = actionLabels,
                         onActionClick = onActionClick,
+                        onLicenseContentRequest = onDialogRequest,
                     )
                 }
                 // Refined row only shows name/version/author/license-label — the inline body
@@ -97,6 +99,7 @@ fun Libraries(
                     style = style,
                     actionLabels = actionLabels,
                     onActionClick = onActionClick,
+                    onDialogRequest = onDialogRequest,
                 )
             }
         }

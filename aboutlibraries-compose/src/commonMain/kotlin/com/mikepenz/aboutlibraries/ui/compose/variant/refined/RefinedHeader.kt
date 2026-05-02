@@ -3,6 +3,10 @@ package com.mikepenz.aboutlibraries.ui.compose.variant.refined
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.role
+import androidx.compose.ui.semantics.selected
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -200,7 +204,11 @@ private fun LicenseTabItem(
             .clip(style.shapes.tabShape)
             .background(tabBg)
             .border(width = if (active) 1.dp else 0.dp, color = borderColor, shape = style.shapes.tabShape)
-            .clickable(onClick = onClick)
+            .clickable(enabled = onTabSelected != null, onClick = onClick)
+            .semantics {
+                role = Role.Tab
+                selected = active
+            }
             .padding(style.padding.tabPadding),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(6.dp),

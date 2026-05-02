@@ -40,7 +40,7 @@ fun LibraryDetailSheet(
     actionLabels: LibraryActionLabels = DefaultLibraryActionLabels,
     sheetState: SheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
     dragHandle: (@Composable () -> Unit)? = { DefaultDragHandle(style) },
-    onActionClick: ((Library, LibraryActionKind) -> Unit)? = null,
+    onActionClick: ((Library, LibraryActionKind) -> Boolean)? = null,
 ) {
     ModalBottomSheet(
         onDismissRequest = onDismiss,
