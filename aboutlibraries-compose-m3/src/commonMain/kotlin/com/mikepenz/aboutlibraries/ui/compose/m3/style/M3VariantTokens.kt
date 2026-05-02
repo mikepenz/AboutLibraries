@@ -19,6 +19,8 @@ import com.mikepenz.aboutlibraries.ui.compose.style.DefaultVariantTextStyles
 import com.mikepenz.aboutlibraries.ui.compose.style.LicenseHueResolver
 import com.mikepenz.aboutlibraries.ui.compose.style.VariantColors
 import com.mikepenz.aboutlibraries.ui.compose.style.VariantTextStyles
+import com.mikepenz.aboutlibraries.ui.compose.style.defaultLicensePalette
+import com.mikepenz.aboutlibraries.ui.compose.style.withPaletteFallback
 
 /**
  * SPDX → color palette for **dark** surfaces.
@@ -152,7 +154,7 @@ fun accentDerivedLicenseHueResolver(
             if (offset == null) neutral
             else Color.hsv(((accentHue + offset) % 360f + 360f) % 360f, saturation, value)
         }
-        LicenseHueResolver(palette)
+        LicenseHueResolver(palette).withPaletteFallback(defaultLicensePalette(isDark, contrastLevel))
     }
 }
 

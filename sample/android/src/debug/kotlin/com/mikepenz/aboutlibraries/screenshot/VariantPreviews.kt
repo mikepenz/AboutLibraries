@@ -21,7 +21,7 @@ import com.mikepenz.aboutlibraries.ui.compose.m3.style.m3VariantColors
 import com.mikepenz.aboutlibraries.ui.compose.m3.style.m3VariantTextStyles
 import com.mikepenz.aboutlibraries.ui.compose.style.ContrastLevel
 import com.mikepenz.aboutlibraries.ui.compose.style.LibrariesStyle
-import com.mikepenz.aboutlibraries.ui.compose.style.DefaultLibraryActionLabels
+import com.mikepenz.aboutlibraries.ui.compose.style.DefaultLibraryActionBadges
 import com.mikepenz.aboutlibraries.ui.compose.style.librariesStyle
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryActionMode
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibrariesDensity
@@ -118,7 +118,7 @@ fun PreviewTraditionalExpandedChips() = AppTheme(useV3 = true, useDarkTheme = tr
             Column {
                 TraditionalRow(SampleLibrary, expanded = true, onToggle = {}, density = LibrariesDensity.Cozy, badges = AllBadges, style = style)
                 Box(Modifier.padding(horizontal = 20.dp, vertical = 8.dp)) {
-                    LibraryActions(SampleLibrary, LibraryActionMode.Chips, style, actionLabels = DefaultLibraryActionLabels)
+                    LibraryActions(SampleLibrary, LibraryActionMode.Chips, style, actionLabels = DefaultLibraryActionBadges)
                 }
             }
         }
@@ -133,7 +133,7 @@ fun PreviewTraditionalExpandedIcons() = AppTheme(useV3 = true, useDarkTheme = tr
             Column {
                 TraditionalRow(SampleLibrary, expanded = true, onToggle = {}, density = LibrariesDensity.Cozy, badges = AllBadges, style = style)
                 Box(Modifier.padding(horizontal = 20.dp, vertical = 8.dp)) {
-                    LibraryActions(SampleLibrary, LibraryActionMode.Icons, style, actionLabels = DefaultLibraryActionLabels)
+                    LibraryActions(SampleLibrary, LibraryActionMode.Icons, style, actionLabels = DefaultLibraryActionBadges)
                 }
             }
         }
@@ -148,7 +148,7 @@ fun PreviewTraditionalExpandedLinks() = AppTheme(useV3 = true, useDarkTheme = tr
             Column {
                 TraditionalRow(SampleLibrary, expanded = true, onToggle = {}, density = LibrariesDensity.Cozy, badges = AllBadges, style = style)
                 Box(Modifier.padding(horizontal = 20.dp, vertical = 8.dp)) {
-                    LibraryActions(SampleLibrary, LibraryActionMode.Links, style, actionLabels = DefaultLibraryActionLabels)
+                    LibraryActions(SampleLibrary, LibraryActionMode.Links, style, actionLabels = DefaultLibraryActionBadges)
                 }
             }
         }
@@ -184,7 +184,7 @@ fun PreviewRefinedExpandedLinks() = AppTheme(useV3 = true, useDarkTheme = true) 
         WithStyle { style ->
             Column {
                 RefinedRow(SampleLibrary, expanded = true, onToggle = {}, density = LibrariesDensity.Cozy, badges = AllBadges, style = style)
-                LibraryInlineDetail(SampleLibrary, LibraryActionMode.Links, style, actionLabels = DefaultLibraryActionLabels)
+                LibraryInlineDetail(SampleLibrary, LibraryActionMode.Links, style, actionLabels = DefaultLibraryActionBadges)
             }
         }
     }
@@ -197,7 +197,7 @@ fun PreviewRefinedExpandedChips() = AppTheme(useV3 = true, useDarkTheme = true) 
         WithStyle { style ->
             Column {
                 RefinedRow(SampleLibrary, expanded = true, onToggle = {}, density = LibrariesDensity.Cozy, badges = AllBadges, style = style)
-                LibraryInlineDetail(SampleLibrary, LibraryActionMode.Chips, style, actionLabels = DefaultLibraryActionLabels)
+                LibraryInlineDetail(SampleLibrary, LibraryActionMode.Chips, style, actionLabels = DefaultLibraryActionBadges)
             }
         }
     }
@@ -210,7 +210,7 @@ fun PreviewRefinedExpandedIcons() = AppTheme(useV3 = true, useDarkTheme = true) 
         WithStyle { style ->
             Column {
                 RefinedRow(SampleLibrary, expanded = true, onToggle = {}, density = LibrariesDensity.Cozy, badges = AllBadges, style = style)
-                LibraryInlineDetail(SampleLibrary, LibraryActionMode.Icons, style, actionLabels = DefaultLibraryActionLabels)
+                LibraryInlineDetail(SampleLibrary, LibraryActionMode.Icons, style, actionLabels = DefaultLibraryActionBadges)
             }
         }
     }
@@ -238,7 +238,7 @@ fun PreviewRefinedStack() = AppTheme(useV3 = true, useDarkTheme = true) {
 fun PreviewSheetChips() = AppTheme(useV3 = true, useDarkTheme = true) {
     Box(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surfaceContainerHigh)) {
         WithStyle { style ->
-            LibrarySheetDetail(SampleLibrary, LibraryActionMode.Chips, style, actionLabels = DefaultLibraryActionLabels)
+            LibrarySheetDetail(SampleLibrary, LibraryActionMode.Chips, style, actionLabels = DefaultLibraryActionBadges)
         }
     }
 }
@@ -248,7 +248,7 @@ fun PreviewSheetChips() = AppTheme(useV3 = true, useDarkTheme = true) {
 fun PreviewSheetIcons() = AppTheme(useV3 = true, useDarkTheme = true) {
     Box(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surfaceContainerHigh)) {
         WithStyle { style ->
-            LibrarySheetDetail(SampleLibrary, LibraryActionMode.Icons, style, actionLabels = DefaultLibraryActionLabels)
+            LibrarySheetDetail(SampleLibrary, LibraryActionMode.Icons, style, actionLabels = DefaultLibraryActionBadges)
         }
     }
 }
@@ -258,7 +258,7 @@ fun PreviewSheetIcons() = AppTheme(useV3 = true, useDarkTheme = true) {
 fun PreviewSheetLinks() = AppTheme(useV3 = true, useDarkTheme = true) {
     Box(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surfaceContainerHigh)) {
         WithStyle { style ->
-            LibrarySheetDetail(SampleLibrary, LibraryActionMode.Links, style, actionLabels = DefaultLibraryActionLabels)
+            LibrarySheetDetail(SampleLibrary, LibraryActionMode.Links, style, actionLabels = DefaultLibraryActionBadges)
         }
     }
 }
@@ -270,7 +270,7 @@ fun PreviewSheetLinks() = AppTheme(useV3 = true, useDarkTheme = true) {
 fun PreviewActionsChips() = AppTheme(useV3 = true, useDarkTheme = true) {
     WithStyle { style ->
         Box(Modifier.fillMaxWidth().padding(16.dp).background(MaterialTheme.colorScheme.surface)) {
-            LibraryActions(SampleLibrary, LibraryActionMode.Chips, style, actionLabels = DefaultLibraryActionLabels)
+            LibraryActions(SampleLibrary, LibraryActionMode.Chips, style, actionLabels = DefaultLibraryActionBadges)
         }
     }
 }
@@ -280,7 +280,7 @@ fun PreviewActionsChips() = AppTheme(useV3 = true, useDarkTheme = true) {
 fun PreviewActionsIcons() = AppTheme(useV3 = true, useDarkTheme = true) {
     WithStyle { style ->
         Box(Modifier.fillMaxWidth().padding(16.dp).background(MaterialTheme.colorScheme.surface)) {
-            LibraryActions(SampleLibrary, LibraryActionMode.Icons, style, actionLabels = DefaultLibraryActionLabels)
+            LibraryActions(SampleLibrary, LibraryActionMode.Icons, style, actionLabels = DefaultLibraryActionBadges)
         }
     }
 }
@@ -290,7 +290,7 @@ fun PreviewActionsIcons() = AppTheme(useV3 = true, useDarkTheme = true) {
 fun PreviewActionsLinks() = AppTheme(useV3 = true, useDarkTheme = true) {
     WithStyle { style ->
         Box(Modifier.fillMaxWidth().padding(16.dp).background(MaterialTheme.colorScheme.surface)) {
-            LibraryActions(SampleLibrary, LibraryActionMode.Links, style, actionLabels = DefaultLibraryActionLabels)
+            LibraryActions(SampleLibrary, LibraryActionMode.Links, style, actionLabels = DefaultLibraryActionBadges)
         }
     }
 }
@@ -339,7 +339,7 @@ fun PreviewScaffoldTraditionalInlineExpanded() = AppTheme(useV3 = true, useDarkT
                 },
                 detailMode = LibraryDetailMode.Inline,
                 inlineDetail = { library ->
-                    LibraryInlineDetail(library, LibraryActionMode.Chips, style, actionLabels = DefaultLibraryActionLabels)
+                    LibraryInlineDetail(library, LibraryActionMode.Chips, style, actionLabels = DefaultLibraryActionBadges)
                 },
             )
         }
@@ -360,7 +360,7 @@ fun PreviewScaffoldRefinedInlineExpanded() = AppTheme(useV3 = true, useDarkTheme
                 },
                 detailMode = LibraryDetailMode.Inline,
                 inlineDetail = { library ->
-                    LibraryInlineDetail(library, LibraryActionMode.Chips, style, actionLabels = DefaultLibraryActionLabels)
+                    LibraryInlineDetail(library, LibraryActionMode.Chips, style, actionLabels = DefaultLibraryActionBadges)
                 },
             )
         }
@@ -374,7 +374,7 @@ fun PreviewScaffoldRefinedInlineExpanded() = AppTheme(useV3 = true, useDarkTheme
 fun PreviewSheetReordered() = AppTheme(useV3 = true, useDarkTheme = true) {
     Box(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surfaceContainerHigh)) {
         WithStyle { style ->
-            LibrarySheetDetail(SampleLibrary, LibraryActionMode.Chips, style, actionLabels = DefaultLibraryActionLabels)
+            LibrarySheetDetail(SampleLibrary, LibraryActionMode.Chips, style, actionLabels = DefaultLibraryActionBadges)
         }
     }
 }
@@ -384,7 +384,7 @@ fun PreviewSheetReordered() = AppTheme(useV3 = true, useDarkTheme = true) {
 fun PreviewSheetReorderedLight() = AppTheme(useV3 = true, useDarkTheme = false) {
     Box(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surfaceContainerHigh)) {
         WithStyle { style ->
-            LibrarySheetDetail(SampleLibrary, LibraryActionMode.Chips, style, actionLabels = DefaultLibraryActionLabels)
+            LibrarySheetDetail(SampleLibrary, LibraryActionMode.Chips, style, actionLabels = DefaultLibraryActionBadges)
         }
     }
 }

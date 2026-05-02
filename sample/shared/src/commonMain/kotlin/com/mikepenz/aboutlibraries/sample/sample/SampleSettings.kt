@@ -2,7 +2,11 @@ package com.mikepenz.aboutlibraries.sample.sample
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
+import com.mikepenz.aboutlibraries.ui.compose.style.DefaultLibraryActionBadges
+import com.mikepenz.aboutlibraries.ui.compose.style.LibraryActionBadges
+import com.mikepenz.aboutlibraries.ui.compose.variant.DefaultLibraryBadges
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryActionMode
+import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryBadges
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryDetailMode
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibrariesDensity
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibrariesVariant
@@ -23,10 +27,8 @@ data class SampleSettings(
     val showSearch: Boolean = true,
     val showTabsInHeader: Boolean = false,
     val showLicenseFilter: Boolean = false,
-    val showVersion: Boolean = true,
-    val showAuthor: Boolean = true,
-    val showDescription: Boolean = true,
-    val showLicense: Boolean = true,
+    val badges: LibraryBadges = LibraryBadges(description = true),
+    val actionLabels: LibraryActionBadges = DefaultLibraryActionBadges,
     val darkTheme: Boolean = true,
     val highContrast: Boolean = false,
     val accent: Color = AccentSwatches[0],

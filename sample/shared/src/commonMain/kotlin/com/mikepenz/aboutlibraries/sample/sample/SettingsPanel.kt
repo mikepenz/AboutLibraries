@@ -281,10 +281,12 @@ fun SettingsPanel(
 
         Section("Show fields") {
             Column {
-                ToggleRow("Author", settings.showAuthor) { onChange(settings.copy(showAuthor = it)) }
-                ToggleRow("Version", settings.showVersion) { onChange(settings.copy(showVersion = it)) }
-                ToggleRow("Description", settings.showDescription) { onChange(settings.copy(showDescription = it)) }
-                ToggleRow("License", settings.showLicense) { onChange(settings.copy(showLicense = it)) }
+                ToggleRow("Author", settings.badges.author) { onChange(settings.copy(badges = settings.badges.copy(author = it))) }
+                ToggleRow("Version", settings.badges.version) { onChange(settings.copy(badges = settings.badges.copy(version = it))) }
+                ToggleRow("Description", settings.badges.description) { onChange(settings.copy(badges = settings.badges.copy(description = it))) }
+                ToggleRow("License", settings.badges.license) { onChange(settings.copy(badges = settings.badges.copy(license = it))) }
+                ToggleRow("Funding", settings.badges.funding) { onChange(settings.copy(badges = settings.badges.copy(funding = it))) }
+                ToggleRow("Show sponsor action", settings.actionLabels.sponsorEnabled) { onChange(settings.copy(actionLabels = settings.actionLabels.copy(sponsorEnabled = it))) }
             }
         }
 

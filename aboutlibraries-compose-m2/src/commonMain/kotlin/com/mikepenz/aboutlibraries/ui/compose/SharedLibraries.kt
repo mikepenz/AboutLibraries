@@ -32,6 +32,8 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.entity.Library
+import com.mikepenz.aboutlibraries.ui.compose.style.DefaultLibraryActionBadges
+import com.mikepenz.aboutlibraries.ui.compose.style.LibraryActionBadges
 import com.mikepenz.aboutlibraries.ui.compose.style.VariantColors
 import com.mikepenz.aboutlibraries.ui.compose.style.librariesStyle
 import com.mikepenz.aboutlibraries.ui.compose.style.m2VariantColors
@@ -39,6 +41,7 @@ import com.mikepenz.aboutlibraries.ui.compose.util.strippedLicenseContent
 import com.mikepenz.aboutlibraries.ui.compose.variant.Libraries
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibrariesDensity
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibrariesVariant
+import com.mikepenz.aboutlibraries.ui.compose.variant.DefaultLibraryBadges
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryActionKind
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryActionMode
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryBadges
@@ -54,11 +57,8 @@ fun LibrariesContainer(
     modifier: Modifier = Modifier,
     lazyListState: LazyListState = rememberLazyListState(),
     contentPadding: PaddingValues = PaddingValues(0.dp),
-    showAuthor: Boolean = true,
-    showDescription: Boolean = false,
-    showVersion: Boolean = true,
-    showLicenseBadges: Boolean = true,
-    showFundingBadges: Boolean = false,
+    badges: LibraryBadges = DefaultLibraryBadges,
+    actionLabels: LibraryActionBadges = DefaultLibraryActionBadges,
     colors: LibraryColors = LibraryDefaults.libraryColors(),
     padding: LibraryPadding = LibraryDefaults.libraryPadding(),
     variant: LibrariesVariant = LibrariesVariant.Traditional,
@@ -87,12 +87,8 @@ fun LibrariesContainer(
         density = density,
         detailMode = detailMode,
         actionMode = actionMode,
-        badges = LibraryBadges(
-            version = showVersion,
-            author = showAuthor,
-            description = showDescription,
-            license = showLicenseBadges,
-        ),
+        badges = badges,
+        actionLabels = actionLabels,
         contentPadding = contentPadding,
         state = lazyListState,
         header = header,

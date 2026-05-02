@@ -73,6 +73,7 @@ import com.mikepenz.aboutlibraries.sample.icons.Github
 import com.mikepenz.aboutlibraries.sample.legacy.R
 import com.mikepenz.aboutlibraries.ui.compose.android.produceLibraries
 import com.mikepenz.aboutlibraries.ui.compose.m3.LibrariesContainer
+import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryBadges
 import kotlinx.coroutines.launch
 
 class ComposeActivity : ComponentActivity() {
@@ -198,10 +199,12 @@ fun MainLayout() {
                         libraries = libraries,
                         modifier = Modifier.fillMaxSize(),
                         contentPadding = contentPadding,
-                        showAuthor = showAuthor,
-                        showDescription = showDescription,
-                        showVersion = showVersion,
-                        showLicenseBadges = showLicenseBadges,
+                        badges = LibraryBadges(
+                            author = showAuthor,
+                            description = showDescription,
+                            version = showVersion,
+                            license = showLicenseBadges,
+                        ),
                         header = {
                             if (showHeader) {
                                 stickyHeader {

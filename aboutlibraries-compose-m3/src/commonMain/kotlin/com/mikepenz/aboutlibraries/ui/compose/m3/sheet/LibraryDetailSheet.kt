@@ -16,9 +16,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.takeOrElse
 import androidx.compose.ui.unit.dp
 import com.mikepenz.aboutlibraries.entity.Library
-import com.mikepenz.aboutlibraries.ui.compose.style.DefaultLibraryActionLabels
+import com.mikepenz.aboutlibraries.ui.compose.style.DefaultLibraryActionBadges
 import com.mikepenz.aboutlibraries.ui.compose.style.LibrariesStyle
-import com.mikepenz.aboutlibraries.ui.compose.style.LibraryActionLabels
+import com.mikepenz.aboutlibraries.ui.compose.style.LibraryActionBadges
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryActionKind
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryActionMode
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibrarySheetDetail
@@ -37,7 +37,7 @@ fun LibraryDetailSheet(
     style: LibrariesStyle,
     modifier: Modifier = Modifier,
     actionMode: LibraryActionMode = LibraryActionMode.Chips,
-    actionLabels: LibraryActionLabels = DefaultLibraryActionLabels,
+    actionLabels: LibraryActionBadges = DefaultLibraryActionBadges,
     sheetState: SheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
     dragHandle: (@Composable () -> Unit)? = { DefaultDragHandle(style) },
     onActionClick: ((Library, LibraryActionKind) -> Boolean)? = null,

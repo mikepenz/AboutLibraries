@@ -79,9 +79,9 @@ fun PillToggle(
     Box(
         modifier = modifier
             .size(width, height)
+            .clip(RoundedCornerShape(height / 2))
             .toggleable(value = on, onValueChange = { onToggle() }, role = Role.Switch)
             .semantics { if (contentDescription != null) this.contentDescription = contentDescription!! }
-            .clip(RoundedCornerShape(height / 2))
             .background(trackColor)
             .border(1.dp, borderColor, RoundedCornerShape(height / 2)),
         contentAlignment = Alignment.CenterStart,

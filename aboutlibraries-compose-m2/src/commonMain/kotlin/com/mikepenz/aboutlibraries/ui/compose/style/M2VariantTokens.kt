@@ -1,5 +1,6 @@
 package com.mikepenz.aboutlibraries.ui.compose.style
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -10,6 +11,8 @@ import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import com.mikepenz.aboutlibraries.ui.compose.LibraryDefaults
+import com.mikepenz.aboutlibraries.ui.compose.style.defaultLicensePalette
+import com.mikepenz.aboutlibraries.ui.compose.style.withPaletteFallback
 
 /**
  * Builds Material 2 defaults for the variant color tokens.
@@ -40,7 +43,7 @@ fun LibraryDefaults.m2VariantColors(
     sheetSurface: Color = MaterialTheme.colors.surface,
     sheetSurfaceVariant: Color = MaterialTheme.colors.surface,
     sheetDragHandle: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.24f),
-    licenseHueResolver: LicenseHueResolver = DefaultM2LicenseHueResolver,
+    licenseHueResolver: LicenseHueResolver = DefaultM2LicenseHueResolver.withPaletteFallback(defaultLicensePalette(isSystemInDarkTheme(), contrastLevel)),
 ): VariantColors = remember(
     headerBackground, headerOnBackground, headerSubtleContent, headerDivider,
     rowBackground, rowExpandedBackground, rowOnBackground, rowSubtleContent, rowDivider,

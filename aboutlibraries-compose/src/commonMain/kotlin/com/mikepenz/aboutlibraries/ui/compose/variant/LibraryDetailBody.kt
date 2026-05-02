@@ -19,7 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.ui.compose.style.LibrariesStyle
-import com.mikepenz.aboutlibraries.ui.compose.style.LibraryActionLabels
+import com.mikepenz.aboutlibraries.ui.compose.style.LibraryActionBadges
 import com.mikepenz.aboutlibraries.ui.compose.style.orFallback
 import com.mikepenz.aboutlibraries.ui.compose.util.author
 import com.mikepenz.aboutlibraries.ui.compose.util.strippedLicenseContent
@@ -34,7 +34,7 @@ fun LibraryInlineDetail(
     actionMode: LibraryActionMode,
     style: LibrariesStyle,
     modifier: Modifier = Modifier,
-    actionLabels: LibraryActionLabels,
+    actionLabels: LibraryActionBadges,
     contentPadding: PaddingValues = style.padding.inlineDetailPadding,
     onActionClick: ((Library, LibraryActionKind) -> Boolean)? = null,
     onDialogRequest: ((Library) -> Unit)? = null,
@@ -70,7 +70,7 @@ fun LibrarySheetDetail(
     actionMode: LibraryActionMode,
     style: LibrariesStyle,
     modifier: Modifier = Modifier,
-    actionLabels: LibraryActionLabels,
+    actionLabels: LibraryActionBadges,
     contentPadding: PaddingValues = style.padding.sheetPadding,
     onActionClick: ((Library, LibraryActionKind) -> Boolean)? = null,
 ) {
