@@ -1,6 +1,29 @@
 package com.mikepenz.aboutlibraries.screenshot
 
 import com.mikepenz.aboutlibraries.Libs
+import com.mikepenz.aboutlibraries.entity.Developer
+import com.mikepenz.aboutlibraries.entity.Funding
+import com.mikepenz.aboutlibraries.entity.Library
+import com.mikepenz.aboutlibraries.entity.License
+import com.mikepenz.aboutlibraries.entity.Scm
+
+private val apacheLicense = License("Apache 2.0", "https://spdx.org/licenses/Apache-2.0.html", null, "Apache-2.0", null, "Apache-2.0")
+private val mitLicense = License("MIT", "https://spdx.org/licenses/MIT.html", null, "MIT", null, "MIT")
+
+private val mikePenz = Developer(name = "Mike Penz", organisationUrl = "https://mikepenz.dev")
+private val jetbrainsTeam = Developer(name = "Kotlin Team", organisationUrl = "https://www.jetbrains.com")
+
+internal val fakeLibraries: Libs = Libs(
+    libraries = listOf(
+        Library("com.mikepenz:aboutlibraries", "11.2.0", "AboutLibraries", "Automatically collects dependencies and licenses and provides a themed Compose component to show them to the user.", "https://github.com/mikepenz/AboutLibraries", listOf(mikePenz), null, Scm("https://github.com/mikepenz/AboutLibraries", null, null), setOf(apacheLicense), emptySet()),
+        Library("com.mikepenz:materialdrawer", "9.0.0", "MaterialDrawer", "The flexible, easy to use, all in one drawer library for your Android project.", "https://github.com/mikepenz/MaterialDrawer", listOf(mikePenz), null, Scm("https://github.com/mikepenz/MaterialDrawer", null, null), setOf(apacheLicense), emptySet()),
+        Library("com.mikepenz:fastadapter", "5.5.1", "FastAdapter", "The bullet proof, fast and easy to use adapter library.", "https://github.com/mikepenz/FastAdapter", listOf(mikePenz), null, Scm("https://github.com/mikepenz/FastAdapter", null, null), setOf(apacheLicense), emptySet()),
+        Library("org.jetbrains.kotlin:kotlin-stdlib", "1.9.0", "Kotlin Stdlib", "Kotlin Standard Library for JVM.", "https://kotlinlang.org/", listOf(jetbrainsTeam), null, Scm("https://github.com/JetBrains/kotlin", null, null), setOf(apacheLicense), emptySet()),
+        Library("org.jetbrains:annotations", "23.0.0", "IntelliJ IDEA Annotations", "A set of annotations used for code inspection support.", "https://www.jetbrains.org", listOf(jetbrainsTeam), null, null, setOf(apacheLicense), emptySet()),
+        Library("com.example:mit-sample", "1.0.0", "MIT Sample Lib", "An example library released under the MIT license.", null, listOf(mikePenz), null, null, setOf(mitLicense), emptySet()),
+    ).sortedBy { it.name.lowercase() },
+    licenses = setOf(apacheLicense, mitLicense),
+)
 
 internal val fakeData: Libs
     get() = Libs.Builder().withJson(
