@@ -41,7 +41,7 @@ This library collects dependency details, including licenses at compile time, an
 
 ## Latest releases 🛠
 
-- Compose 1.11.x | New UI | [v15.0.0-a01](https://github.com/mikepenz/AboutLibraries/tree/15.0.0-a01)
+- Compose 1.11.x | New UI | [v15.0.0-a02](https://github.com/mikepenz/AboutLibraries/tree/15.0.0-a02)
 - Compose 1.10.x | AGP 9 | [v14.1.0](https://github.com/mikepenz/AboutLibraries/tree/14.1.0)
 - Compose 1.10.x | [v13.2.1](https://github.com/mikepenz/AboutLibraries/tree/13.2.1)
 
