@@ -84,6 +84,8 @@ tasks.named<Test>("test") {
     javaLauncher.set(javaToolchains.launcherFor {
         languageVersion.set(JavaLanguageVersion.of(17))
     })
+    systemProperty("test.kotlin.version", baseLibs.versions.kotlin.get())
+    systemProperty("test.agp.version", baseLibs.versions.agp.get())
 }
 
 mavenPublishing {

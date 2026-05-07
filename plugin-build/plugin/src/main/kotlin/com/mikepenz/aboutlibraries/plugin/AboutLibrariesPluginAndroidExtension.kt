@@ -26,6 +26,14 @@ internal fun configureAndroidTasks(
             }
         }
     }
+    project.pluginManager.withPlugin("com.android.kotlin.multiplatform.library") {
+        AboutLibrariesPlugin.LOGGER.debug("Registering Android task for Kotlin Multiplatform Library")
+        project.extensions.configure(AndroidComponentsExtension::class.java) {
+            it.onVariants { variant ->
+                block(project, extension, variant)
+            }
+        }
+    }
 }
 
 private fun configureAndroidTasks(project: Project, extension: AboutLibrariesExtension, variant: com.android.build.api.variant.Variant) {
