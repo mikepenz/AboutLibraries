@@ -6,6 +6,7 @@
     - Migrate to the Compose UI modules: `com.mikepenz:aboutlibraries-compose`, `com.mikepenz:aboutlibraries-compose-m2` (M2) or `com.mikepenz:aboutlibraries-compose-m3` (M3).
     - Remove `LibsBuilder`, `LibsActivity`, `LibsFragment`, and `LibsConfiguration` usages from your code.
     - See the [README](README.md) for the Compose UI setup and usage.
+- **Breaking Change**: Upgrade to Compose 1.11.x which drops support for `macosX64` and `iosX64` targets. If you were using these targets, you will need to migrate to the new `macosArm64` and `iosArm64` targets respectively.
 
 #### v14.0.0
 
