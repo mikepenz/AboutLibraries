@@ -7,7 +7,7 @@ cardview = "1.0.0"
 constraintLayout = "2.2.1"
 core = "1.18.0"
 lifecycle = { require = "2.10.0" }
-navigation = "2.9.7"
+navigation = "2.9.8"
 recyclerView = "1.4.0"
 # google
 material = "1.13.0"
