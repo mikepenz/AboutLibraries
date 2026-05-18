@@ -75,7 +75,7 @@ dependencies {
     // test dependencies
     testImplementation(gradleTestKit())
     testImplementation(kotlin("test"))
-    testImplementation("org.junit.jupiter:junit-jupiter:5.14.3")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.14.4")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
