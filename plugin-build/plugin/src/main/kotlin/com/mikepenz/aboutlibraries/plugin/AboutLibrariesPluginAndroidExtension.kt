@@ -1,6 +1,7 @@
 package com.mikepenz.aboutlibraries.plugin
 
 import com.android.build.api.variant.AndroidComponentsExtension
+import com.android.build.api.AndroidPluginVersion
 import com.mikepenz.aboutlibraries.plugin.util.configure
 import org.gradle.api.Project
 
@@ -13,6 +14,10 @@ internal fun configureAndroidTasks(
         AboutLibrariesPlugin.LOGGER.debug("Registering Android task for Application")
 
         project.extensions.configure(AndroidComponentsExtension::class.java) {
+            if (it.pluginVersion < AndroidPluginVersion(8, 13, 0)) {
+                project.logger.error("Android Gradle Plugin 8.13.0 or greater is required to apply this plugin. (Found: ${it.pluginVersion})")
+                return@configure
+            }
             it.onVariants { variant ->
                 block(project, extension, variant)
             }
@@ -21,6 +26,10 @@ internal fun configureAndroidTasks(
     project.pluginManager.withPlugin("com.android.library") {
         AboutLibrariesPlugin.LOGGER.debug("Registering Android task for Library")
         project.extensions.configure(AndroidComponentsExtension::class.java) {
+            if (it.pluginVersion < AndroidPluginVersion(8, 13, 0)) {
+                project.logger.error("Android Gradle Plugin 8.13.0 or greater is required to apply this plugin. (Found: ${it.pluginVersion})")
+                return@configure
+            }
             it.onVariants { variant ->
                 block(project, extension, variant)
             }
@@ -29,6 +38,10 @@ internal fun configureAndroidTasks(
     project.pluginManager.withPlugin("com.android.kotlin.multiplatform.library") {
         AboutLibrariesPlugin.LOGGER.debug("Registering Android task for Kotlin Multiplatform Library")
         project.extensions.configure(AndroidComponentsExtension::class.java) {
+            if (it.pluginVersion < AndroidPluginVersion(8, 13, 0)) {
+                project.logger.error("Android Gradle Plugin 8.13.0 or greater is required to apply this plugin. (Found: ${it.pluginVersion})")
+                return@configure
+            }
             it.onVariants { variant ->
                 block(project, extension, variant)
             }
