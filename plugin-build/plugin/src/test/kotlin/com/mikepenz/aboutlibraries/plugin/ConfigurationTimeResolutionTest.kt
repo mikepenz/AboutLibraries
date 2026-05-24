@@ -216,4 +216,68 @@ class ConfigurationTimeResolutionTest {
             """.trimIndent()
         )
     }
+
+    @Test
+    fun `multi-module project dependency under configure-on-demand should NOT fail`() {
+        setupMultiModuleProject(projectDir)
+
+        @Suppress("WithPluginClasspathUsage")
+        val result = GradleRunner.create()
+            .withProjectDir(projectDir)
+            .withArguments(":app:tasks", "-Dorg.gradle.configureondemand=true", "--stacktrace")
+            .withPluginClasspath()
+            .build()
+
+        val output = result.output
+        assertTrue(output.contains("exportLibraryDefinitions"))
+    }
+
+    private fun setupMultiModuleProject(projectDir: File) {
+        val appDir = File(projectDir, "app").apply { mkdirs() }
+        val libDir = File(projectDir, "lib").apply { mkdirs() }
+
+        File(projectDir, "settings.gradle.kts").writeText(
+            """
+            rootProject.name = "multi-module-test"
+            include(":app")
+            include(":lib")
+            """.trimIndent()
+        )
+
+        File(projectDir, "build.gradle.kts").writeText("")
+
+        File(libDir, "build.gradle.kts").writeText(
+            """
+            plugins {
+                id("java-library")
+            }
+            
+            project.afterEvaluate {
+                // Simulates AGP or other plugins that register afterEvaluate
+            }
+            """.trimIndent()
+        )
+
+        File(appDir, "build.gradle.kts").writeText(
+            """
+            plugins {
+                id("java-library")
+                id("com.mikepenz.aboutlibraries.plugin")
+            }
+            
+            repositories {
+                mavenCentral()
+            }
+            
+            dependencies {
+                implementation(project(":lib"))
+                implementation("com.google.code.gson:gson:2.11.0")
+            }
+            
+            aboutLibraries {
+                offlineMode = true
+            }
+            """.trimIndent()
+        )
+    }
 }
