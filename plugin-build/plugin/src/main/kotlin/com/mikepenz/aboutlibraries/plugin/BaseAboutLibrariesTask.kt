@@ -9,7 +9,9 @@ import com.mikepenz.aboutlibraries.plugin.util.LibraryPostProcessor
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader
 import org.gradle.api.DefaultTask
 import org.gradle.api.artifacts.Configuration
+import org.gradle.api.artifacts.ConfigurationContainer
 import org.gradle.api.artifacts.component.ModuleComponentIdentifier
+import org.gradle.api.artifacts.dsl.DependencyHandler
 import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.provider.ListProperty
@@ -250,36 +252,35 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
 
         configurationNames.set(selectedConfigs.map { it.name })
 
-        // Single-pass dependency-graph walk: compute per-configuration coordinates AND the
-        // union set used for POM resolution in one traversal per configuration. The previous
-        // implementation walked the graph twice (once for `configToCoordinateKeys`, once
-        // inside `resolvePomFiles`).
         val capturedIncludePlatform = includePlatform.get()
-        val collector = DependencyCollector(capturedIncludePlatform)
-        val perConfigCoords = LinkedHashMap<String, List<DependencyCoordinates>>(selectedConfigs.size)
-        val unionCoords = LinkedHashSet<DependencyCoordinates>()
-        for (config in selectedConfigs) {
-            val root = config.incoming.resolutionResult.rootComponent.get()
-            // Sort per-config coordinates by cacheKey() so the @Input map value is stable across
-            // runs and machines. The dependency-graph walk visits children in
-            // `ResolvedComponentResult.getDependencies()` iteration order, which is not formally
-            // specified — sorting is what guarantees a portable build-cache key.
-            val coords = collector.loadDependencyCoordinates(root).sortedBy { it.cacheKey() }
-            perConfigCoords[config.name] = coords
-            unionCoords.addAll(coords)
-        }
-        configToCoordinates.set(perConfigCoords)
+        val capturedConfigs = selectedConfigs
+        val dependencyHandler = project.dependencies
+        val configContainer = project.configurations
 
-        // Resolve POM files eagerly at configuration time. Eager resolution avoids capturing
-        // any `Configuration` references inside a `project.provider {}` closure (which would
-        // otherwise live in the configuration-cache state until store time). All Gradle API
-        // access happens here, in [configure], which itself runs lazily via the
-        // `tasks.named { … }` task-realization mechanism.
-        val resolvedPomMap = if (unionCoords.isEmpty()) emptyMap() else resolvePomFiles(unionCoords)
-        pomFileMap.set(resolvedPomMap)
+        val resolvedProvider = project.provider {
+            val collector = DependencyCollector(capturedIncludePlatform)
+            val perConfigCoords = LinkedHashMap<String, List<DependencyCoordinates>>(capturedConfigs.size)
+            val unionCoords = LinkedHashSet<DependencyCoordinates>()
+            for (config in capturedConfigs) {
+                val root = config.incoming.resolutionResult.rootComponent.get()
+                // Sort per-config coordinates by cacheKey() so the @Input map value is stable across
+                // runs and machines. The dependency-graph walk visits children in
+                // `ResolvedComponentResult.getDependencies()` iteration order, which is not formally
+                // specified — sorting is what guarantees a portable build-cache key.
+                val coords = collector.loadDependencyCoordinates(root).sortedBy { it.cacheKey() }
+                perConfigCoords[config.name] = coords
+                unionCoords.addAll(coords)
+            }
+            val resolvedPomMap = if (unionCoords.isEmpty()) emptyMap<String, String>()
+            else resolvePomFiles(unionCoords, dependencyHandler, configContainer)
+            perConfigCoords to resolvedPomMap
+        }
+
+        configToCoordinates.set(resolvedProvider.map { it.first })
+        pomFileMap.set(resolvedProvider.map { it.second })
 
         // Register the actual POM files as @InputFiles for content-addressed UP-TO-DATE tracking.
-        pomFiles.from(resolvedPomMap.values.map { File(it) })
+        pomFiles.from(resolvedProvider.map { it.second.values.map { path -> File(path) } })
         pomFiles.finalizeValueOnRead()
     }
 
@@ -297,13 +298,17 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
      * Phase 2 repeatedly drains the parent-POM queue and fetches each level in slot batches
      * until no new parents are discovered.
      */
-    private fun resolvePomFiles(initialCoordinates: Set<DependencyCoordinates>): Map<String, String> {
+    private fun resolvePomFiles(
+        initialCoordinates: Set<DependencyCoordinates>,
+        dependencyHandler: DependencyHandler,
+        configContainer: ConfigurationContainer,
+    ): Map<String, String> {
         val pomMap = LinkedHashMap<String, String>(initialCoordinates.size * 2)
         val parentsToFetch = ArrayDeque<DependencyCoordinates>()
         val attempted = HashSet<String>(initialCoordinates.size * 2)
 
         // Phase 1: initial coordinates.
-        fetchInVersionSlots(initialCoordinates, pomMap, parentsToFetch, attempted)
+        fetchInVersionSlots(initialCoordinates, pomMap, parentsToFetch, attempted, dependencyHandler, configContainer)
 
         // Phase 2: parent POMs, drained one level at a time so parents-of-parents land in
         // the next iteration. Each level is itself batched into version slots. Drain into a
@@ -313,7 +318,7 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
         while (parentsToFetch.isNotEmpty()) {
             val level = LinkedHashSet<DependencyCoordinates>(parentsToFetch.size)
             while (parentsToFetch.isNotEmpty()) level.add(parentsToFetch.removeFirst())
-            fetchInVersionSlots(level, pomMap, parentsToFetch, attempted)
+            fetchInVersionSlots(level, pomMap, parentsToFetch, attempted, dependencyHandler, configContainer)
         }
 
         return pomMap
@@ -329,6 +334,8 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
         pomMap: MutableMap<String, String>,
         parentsToFetch: ArrayDeque<DependencyCoordinates>,
         attempted: MutableSet<String>,
+        dependencyHandler: DependencyHandler,
+        configContainer: ConfigurationContainer,
     ) {
         if (coordinates.isEmpty()) return
         val byGa = LinkedHashMap<String, ArrayList<DependencyCoordinates>>()
@@ -343,7 +350,7 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
             for (versions in byGa.values) {
                 if (slot < versions.size) batch.add(versions[slot])
             }
-            if (batch.isNotEmpty()) fetchPomBatch(batch, pomMap, parentsToFetch, attempted)
+            if (batch.isNotEmpty()) fetchPomBatch(batch, pomMap, parentsToFetch, attempted, dependencyHandler, configContainer)
         }
     }
 
@@ -359,13 +366,15 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
         pomMap: MutableMap<String, String>,
         parentsToFetch: ArrayDeque<DependencyCoordinates>,
         attempted: MutableSet<String>,
+        dependencyHandler: DependencyHandler,
+        configContainer: ConfigurationContainer,
     ) {
         if (batch.isEmpty()) return
         // Mark every coordinate in this batch as attempted so we don't requeue them on failure.
         batch.forEach { attempted.add(it.cacheKey()) }
 
-        val pomDeps = batch.map { project.dependencies.create("${it.group}:${it.artifact}:${it.version}@pom") }.toTypedArray()
-        val detached = project.configurations.detachedConfiguration(*pomDeps).apply {
+        val pomDeps = batch.map { dependencyHandler.create("${it.group}:${it.artifact}:${it.version}@pom") }.toTypedArray()
+        val detached = configContainer.detachedConfiguration(*pomDeps).apply {
             isCanBeConsumed = false
             isCanBeResolved = true
             // `@pom` deps don't pull transitives, but disabling explicitly skips graph-build.
