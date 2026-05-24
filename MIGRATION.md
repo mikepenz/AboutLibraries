@@ -7,6 +7,7 @@
     - Remove `LibsBuilder`, `LibsActivity`, `LibsFragment`, and `LibsConfiguration` usages from your code.
     - See the [README](README.md) for the Compose UI setup and usage.
 - **Breaking Change**: Upgrade to Compose 1.11.x which drops support for `macosX64` and `iosX64` targets. If you were using these targets, you will need to migrate to the new `macosArm64` and `iosArm64` targets respectively.
+- **Breaking Change**: The Android Gradle Plugin (AGP) version 8.13.0 or greater is now required when applying the `.android` plugin.
 
 #### v14.0.0
 
