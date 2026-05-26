@@ -1,6 +1,7 @@
 package com.mikepenz.aboutlibraries.ui.compose
 
 import androidx.compose.foundation.LocalIndication
+import androidx.compose.foundation.OverscrollEffect
 import androidx.compose.foundation.background
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.indication
@@ -13,6 +14,7 @@ import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.rememberOverscrollEffect
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ButtonDefaults
@@ -82,6 +84,7 @@ fun LibrariesContainer(
     footer: (LazyListScope.() -> Unit)? = null,
     licenseDialogBody: (@Composable (Library, Modifier) -> Unit)? = { library, mod -> LicenseDialogBody(library = library, colors = colors, modifier = mod) },
     licenseDialogConfirmText: String = "OK",
+    overscrollEffect: OverscrollEffect? = rememberOverscrollEffect(),
 ) {
     var openDialog by remember { mutableStateOf<Library?>(null) }
 
@@ -91,6 +94,7 @@ fun LibrariesContainer(
         onDialogLibraryChange = { openDialog = it },
         modifier = modifier,
         lazyListState = lazyListState,
+        overscrollEffect = overscrollEffect,
         contentPadding = contentPadding,
         badges = badges,
         actionLabels = actionLabels,
@@ -140,6 +144,7 @@ fun LibrariesContainer(
     footer: (LazyListScope.() -> Unit)? = null,
     licenseDialogBody: (@Composable (Library, Modifier) -> Unit)? = { library, mod -> LicenseDialogBody(library = library, colors = colors, modifier = mod) },
     licenseDialogConfirmText: String = "OK",
+    overscrollEffect: OverscrollEffect? = rememberOverscrollEffect(),
 ) {
     val libs = libraries?.libraries.orEmpty()
 
@@ -163,6 +168,7 @@ fun LibrariesContainer(
         actionLabels = actionLabels,
         contentPadding = contentPadding,
         state = lazyListState,
+        overscrollEffect = overscrollEffect,
         header = header,
         divider = divider,
         footer = footer,

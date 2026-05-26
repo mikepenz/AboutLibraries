@@ -5,6 +5,7 @@ import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
+import androidx.compose.foundation.OverscrollEffect
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -15,6 +16,7 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.rememberOverscrollEffect
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -49,6 +51,7 @@ fun LibraryListScaffold(
     header: (LazyListScope.() -> Unit)? = null,
     divider: (@Composable LazyItemScope.() -> Unit)? = null,
     footer: (LazyListScope.() -> Unit)? = null,
+    overscrollEffect: OverscrollEffect? = rememberOverscrollEffect(),
 ) {
     var expandedId by rememberSaveable { mutableStateOf<String?>(null) }
     LibraryListScaffold(
@@ -58,6 +61,7 @@ fun LibraryListScaffold(
         row = row,
         modifier = modifier,
         state = state,
+        overscrollEffect = overscrollEffect,
         contentPadding = contentPadding,
         itemSpacing = itemSpacing,
         detailMode = detailMode,
@@ -93,6 +97,7 @@ fun LibraryListScaffold(
     header: (LazyListScope.() -> Unit)? = null,
     divider: (@Composable LazyItemScope.() -> Unit)? = null,
     footer: (LazyListScope.() -> Unit)? = null,
+    overscrollEffect: OverscrollEffect? = rememberOverscrollEffect(),
 ) {
     val verticalArrangement = remember(itemSpacing) {
         if (itemSpacing.value > 0f) Arrangement.spacedBy(itemSpacing) else Arrangement.Top
@@ -102,6 +107,7 @@ fun LibraryListScaffold(
         state = state,
         contentPadding = contentPadding,
         verticalArrangement = verticalArrangement,
+        overscrollEffect = overscrollEffect,
     ) {
         header?.invoke(this)
         itemsIndexed(
