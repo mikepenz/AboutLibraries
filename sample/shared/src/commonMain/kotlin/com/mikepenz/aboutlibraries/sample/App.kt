@@ -315,7 +315,6 @@ fun App(libs: Libs?) {
                     val contrastLevel = if (settings.highContrast) ContrastLevel.High else ContrastLevel.Normal
                     if (settings.useMaterial3) {
                         M3LibrariesContainer(
-                            overscrollEffect = null,
                             libraries = libs?.let { Libs(filteredLibs, it.licenses) },
                             modifier = Modifier.weight(1f).fillMaxWidth(),
                             badges = settings.badges,
