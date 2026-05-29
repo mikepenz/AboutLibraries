@@ -424,6 +424,35 @@ LibrariesContainer(
 )
 ```
 
+#### Custom library row
+
+Override the `libraryRow` slot to take full control of how each library item is rendered. The
+slot provides the `index`, `library`, `expanded` state, `toggle` callback, and the resolved
+`style`. Reuse the stock `LibraryRow` to only adjust its `modifier`, or replace it entirely with
+your own layout.
+
+```kotlin
+// adjust the default row (e.g. add horizontal padding) via the reusable `LibraryRow`
+LibrariesContainer(
+    libraries = libraries,
+    modifier = Modifier.fillMaxSize(),
+    libraryRow = { index, library, expanded, toggle, style ->
+        LibraryRow(
+            library = library,
+            expanded = expanded,
+            onToggle = toggle,
+            style = style,
+            modifier = Modifier.padding(horizontal = 8.dp),
+        )
+    },
+)
+```
+
+`LibraryRow` is a `LazyItemScope` extension (it calls `Modifier.animateItem()`), so it must be
+invoked from within the list item — which the `libraryRow` slot already provides. It owns the
+full item visual: item animation, expanded background, the variant row, and the inline-detail
+expansion.
+
 </p>
 </details>
 

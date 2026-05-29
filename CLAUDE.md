@@ -16,8 +16,8 @@ The Gradle plugin lives in a **separate Gradle build** under `plugin-build/`. Th
 ./gradlew lintDebug                                      # Lint Android modules
 ./gradlew apiCheck                                       # Binary compatibility validation
 ./gradlew :sample:android:assembleDebug                  # Build Android sample
-./gradlew :sample:android:validateDebugScreenshotTest    # Run Paparazzi screenshot tests
-./gradlew :sample:android:updateDebugScreenshotTest      # Update screenshot baselines
+./gradlew :sample:android:verifyPaparazziDebug           # Run Paparazzi screenshot tests
+./gradlew :sample:android:recordPaparazziDebug           # Update (record) screenshot baselines
 ./gradlew :sample:desktop:run                            # Run desktop sample
 ./gradlew :sample:web:wasmJsBrowserDevelopmentRun        # Run WASM sample
 ```

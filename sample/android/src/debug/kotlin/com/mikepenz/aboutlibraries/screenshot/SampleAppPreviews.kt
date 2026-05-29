@@ -6,7 +6,9 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -141,42 +143,47 @@ private fun compactStyle() = LibraryDefaults.librariesStyle(
 
 // ── Previews ──────────────────────────────────────────────────────────────
 
-@Preview(name = "SampleHeader · desktop", widthDp = 928, heightDp = 80, showBackground = true, backgroundColor = 0xFF141218)
+@Preview(name = "SampleHeader · desktop", showBackground = true, backgroundColor = 0xFF141218)
 @Composable
 fun PreviewSampleHeaderDesktop() = AppTheme(useV3 = true, useDarkTheme = true, accent = Accent) {
-    SampleHeader(
-        settings = DemoSettings,
-        isMobile = false,
-        onToggleTheme = {},
-        onToggleHeader = {},
-        onToggleVariant = {},
-        onOpenGithub = {},
-        onOpenSettings = {},
-        appName = "AboutLibraries",
-        appVersion = "11.2.0",
-    )
+    Box(Modifier.width(360.dp)) {
+        SampleHeader(
+            settings = DemoSettings,
+            isMobile = false,
+            onToggleTheme = {},
+            onToggleHeader = {},
+            onToggleVariant = {},
+            onOpenGithub = {},
+            onOpenSettings = {},
+            appName = "AboutLibraries",
+            appVersion = "11.2.0",
+        )
+    }
 }
 
-@Preview(name = "SampleHeader · mobile", widthDp = 376, heightDp = 64, showBackground = true, backgroundColor = 0xFF141218)
+@Preview(name = "SampleHeader · mobile", showBackground = true, backgroundColor = 0xFF141218)
 @Composable
 fun PreviewSampleHeaderMobile() = AppTheme(useV3 = true, useDarkTheme = true, accent = Accent) {
-    SampleHeader(
-        settings = DemoSettings,
-        isMobile = true,
-        onToggleTheme = {},
-        onToggleHeader = {},
-        onToggleVariant = {},
-        onOpenGithub = null,
-        onOpenSettings = {},
-        appName = "AboutLibraries",
-        appVersion = "11.2.0",
-    )
+    Box(Modifier.width(360.dp)) {
+        SampleHeader(
+            settings = DemoSettings,
+            isMobile = true,
+            onToggleTheme = {},
+            onToggleHeader = {},
+            onToggleVariant = {},
+            onOpenGithub = null,
+            onOpenSettings = {},
+            appName = "AboutLibraries",
+            appVersion = "11.2.0",
+        )
+    }
 }
 
-@Preview(name = "TraditionalHeader (full) · dark", widthDp = 600, heightDp = 130, showBackground = true, backgroundColor = 0xFF141218)
+@Preview(name = "TraditionalHeader (full) · dark", showBackground = true, backgroundColor = 0xFF141218)
 @Composable
 fun PreviewTraditionalHeaderDark() = AppTheme(useV3 = true, useDarkTheme = true, accent = Accent) {
     TraditionalHeader(
+        modifier = Modifier.width(360.dp),
         title = "AboutLibraries",
         tagline = "Open source acknowledgements",
         versionLabel = "v11.2.0",
@@ -187,10 +194,11 @@ fun PreviewTraditionalHeaderDark() = AppTheme(useV3 = true, useDarkTheme = true,
     )
 }
 
-@Preview(name = "TraditionalHeader (full) · light", widthDp = 600, heightDp = 130, showBackground = true, backgroundColor = 0xFFFFFBFF)
+@Preview(name = "TraditionalHeader (full) · light", showBackground = true, backgroundColor = 0xFFFFFBFF)
 @Composable
 fun PreviewTraditionalHeaderLight() = AppTheme(useV3 = true, useDarkTheme = false, accent = Accent) {
     TraditionalHeader(
+        modifier = Modifier.width(360.dp),
         title = "AboutLibraries",
         tagline = "Open source acknowledgements",
         versionLabel = "v11.2.0",
@@ -201,10 +209,11 @@ fun PreviewTraditionalHeaderLight() = AppTheme(useV3 = true, useDarkTheme = fals
     )
 }
 
-@Preview(name = "RefinedHeader (compact) · dark", widthDp = 600, heightDp = 66, showBackground = true, backgroundColor = 0xFF141218)
+@Preview(name = "RefinedHeader (compact) · dark", showBackground = true, backgroundColor = 0xFF141218)
 @Composable
 fun PreviewRefinedHeaderDark() = AppTheme(useV3 = true, useDarkTheme = true, accent = Accent) {
     RefinedHeader(
+        modifier = Modifier.width(360.dp),
         title = "AboutLibraries",
         subtitle = "v11.2.0 · 23 libraries",
         style = compactStyle(),
@@ -215,10 +224,11 @@ fun PreviewRefinedHeaderDark() = AppTheme(useV3 = true, useDarkTheme = true, acc
     )
 }
 
-@Preview(name = "RefinedHeader (compact) · light", widthDp = 600, heightDp = 66, showBackground = true, backgroundColor = 0xFFFFFBFF)
+@Preview(name = "RefinedHeader (compact) · light", showBackground = true, backgroundColor = 0xFFFFFBFF)
 @Composable
 fun PreviewRefinedHeaderLight() = AppTheme(useV3 = true, useDarkTheme = false, accent = Accent) {
     RefinedHeader(
+        modifier = Modifier.width(360.dp),
         title = "AboutLibraries",
         subtitle = "v11.2.0 · 23 libraries",
         style = compactStyle(),
@@ -229,10 +239,11 @@ fun PreviewRefinedHeaderLight() = AppTheme(useV3 = true, useDarkTheme = false, a
     )
 }
 
-@Preview(name = "RefinedHeader (compact) + tabs · dark", widthDp = 600, heightDp = 100, showBackground = true, backgroundColor = 0xFF141218)
+@Preview(name = "RefinedHeader (compact) + tabs · dark", showBackground = true, backgroundColor = 0xFF141218)
 @Composable
 fun PreviewRefinedHeaderWithTabsDark() = AppTheme(useV3 = true, useDarkTheme = true, accent = Accent) {
     RefinedHeader(
+        modifier = Modifier.width(360.dp),
         title = "AboutLibraries",
         subtitle = "v11.2.0 · 23 libraries",
         style = compactStyle(),
@@ -249,10 +260,11 @@ fun PreviewRefinedHeaderWithTabsDark() = AppTheme(useV3 = true, useDarkTheme = t
     )
 }
 
-@Preview(name = "LicenseFilterBar · dark", widthDp = 600, heightDp = 50, showBackground = true, backgroundColor = 0xFF141218)
+@Preview(name = "LicenseFilterBar · dark", showBackground = true, backgroundColor = 0xFF141218)
 @Composable
 fun PreviewLicenseFilterBarDark() = AppTheme(useV3 = true, useDarkTheme = true, accent = Accent) {
     LicenseFilterBar(
+        modifier = Modifier.width(360.dp),
         tabs = listOf(
             LicenseFilterTab(null, "All", 23),
             LicenseFilterTab("Apache-2.0", "Apache 2.0", 18),
@@ -265,10 +277,11 @@ fun PreviewLicenseFilterBarDark() = AppTheme(useV3 = true, useDarkTheme = true, 
     )
 }
 
-@Preview(name = "LicenseFilterBar · light", widthDp = 600, heightDp = 50, showBackground = true, backgroundColor = 0xFFFFFBFF)
+@Preview(name = "LicenseFilterBar · light", showBackground = true, backgroundColor = 0xFFFFFBFF)
 @Composable
 fun PreviewLicenseFilterBarLight() = AppTheme(useV3 = true, useDarkTheme = false, accent = Accent) {
     LicenseFilterBar(
+        modifier = Modifier.width(360.dp),
         tabs = listOf(
             LicenseFilterTab(null, "All", 23),
             LicenseFilterTab("Apache-2.0", "Apache 2.0", 18),
@@ -281,11 +294,11 @@ fun PreviewLicenseFilterBarLight() = AppTheme(useV3 = true, useDarkTheme = false
     )
 }
 
-@Preview(name = "PillToggle · dark", widthDp = 200, heightDp = 60, showBackground = true, backgroundColor = 0xFF141218)
+@Preview(name = "PillToggle · dark", showBackground = true, backgroundColor = 0xFF141218)
 @Composable
 fun PreviewPillToggleRowDark() = AppTheme(useV3 = true, useDarkTheme = true, accent = Accent) {
     Box(
-        modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.surface),
+        modifier = Modifier.width(360.dp).background(MaterialTheme.colorScheme.surface),
         contentAlignment = Alignment.Center,
     ) {
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -296,11 +309,11 @@ fun PreviewPillToggleRowDark() = AppTheme(useV3 = true, useDarkTheme = true, acc
     }
 }
 
-@Preview(name = "PillToggle · light", widthDp = 200, heightDp = 60, showBackground = true, backgroundColor = 0xFFFFFBFF)
+@Preview(name = "PillToggle · light", showBackground = true, backgroundColor = 0xFFFFFBFF)
 @Composable
 fun PreviewPillToggleRowLight() = AppTheme(useV3 = true, useDarkTheme = false, accent = Accent) {
     Box(
-        modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.surface),
+        modifier = Modifier.width(360.dp).background(MaterialTheme.colorScheme.surface),
         contentAlignment = Alignment.Center,
     ) {
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -311,11 +324,11 @@ fun PreviewPillToggleRowLight() = AppTheme(useV3 = true, useDarkTheme = false, a
     }
 }
 
-@Preview(name = "Segmented", widthDp = 320, heightDp = 60, showBackground = true, backgroundColor = 0xFF141218)
+@Preview(name = "Segmented", showBackground = true, backgroundColor = 0xFF141218)
 @Composable
 fun PreviewSegmented() = AppTheme(useV3 = true, useDarkTheme = true, accent = Accent) {
     Box(
-        modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.surface).padding(16.dp),
+        modifier = Modifier.width(360.dp).background(MaterialTheme.colorScheme.surface).padding(16.dp),
     ) {
         Segmented(
             options = listOf("a" to "Traditional", "c" to "Refined"),
@@ -325,7 +338,7 @@ fun PreviewSegmented() = AppTheme(useV3 = true, useDarkTheme = true, accent = Ac
     }
 }
 
-@Preview(name = "SettingsPanel · desktop · dark", widthDp = 320, heightDp = 800, showBackground = true, backgroundColor = 0xFF141218)
+@Preview(name = "SettingsPanel · desktop · dark", showBackground = true, backgroundColor = 0xFF141218)
 @Composable
 fun PreviewSettingsPanelDark() = AppTheme(useV3 = true, useDarkTheme = true, accent = Accent) {
     val settingsState = remember { mutableStateOf(DemoSettings) }
@@ -334,11 +347,11 @@ fun PreviewSettingsPanelDark() = AppTheme(useV3 = true, useDarkTheme = true, acc
         onChange = { settingsState.value = it },
         onClose = {},
         isMobile = false,
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.width(360.dp).height(640.dp),
     )
 }
 
-@Preview(name = "SettingsPanel · desktop · light", widthDp = 320, heightDp = 800, showBackground = true, backgroundColor = 0xFFFFFBFF)
+@Preview(name = "SettingsPanel · desktop · light", showBackground = true, backgroundColor = 0xFFFFFBFF)
 @Composable
 fun PreviewSettingsPanelLight() = AppTheme(useV3 = true, useDarkTheme = false, accent = Accent) {
     val settingsState = remember { mutableStateOf(SampleSettings(darkTheme = false, accent = Accent)) }
@@ -347,6 +360,6 @@ fun PreviewSettingsPanelLight() = AppTheme(useV3 = true, useDarkTheme = false, a
         onChange = { settingsState.value = it },
         onClose = {},
         isMobile = false,
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.width(360.dp).height(640.dp),
     )
 }
