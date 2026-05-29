@@ -1,14 +1,7 @@
 package com.mikepenz.aboutlibraries.ui.compose.variant
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.Spring
-import androidx.compose.animation.core.spring
-import androidx.compose.animation.expandVertically
-import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.OverscrollEffect
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyItemScope
@@ -24,7 +17,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.mikepenz.aboutlibraries.entity.Library
@@ -38,7 +30,7 @@ import com.mikepenz.aboutlibraries.entity.Library
 @Composable
 fun LibraryListScaffold(
     libraries: List<Library>,
-    row: @Composable LazyItemScope.(library: Library, expanded: Boolean, toggle: () -> Unit) -> Unit,
+    row: @Composable LazyItemScope.(index: Int, library: Library, expanded: Boolean, toggle: () -> Unit) -> Unit,
     modifier: Modifier = Modifier,
     state: LazyListState = rememberLazyListState(),
     contentPadding: PaddingValues = PaddingValues(0.dp),
@@ -46,8 +38,6 @@ fun LibraryListScaffold(
     detailMode: LibraryDetailMode = LibraryDetailMode.None,
     onLibraryClick: ((Library) -> Boolean)? = null,
     onSheetRequest: ((Library) -> Unit)? = null,
-    inlineDetail: (@Composable (Library) -> Unit)? = null,
-    expandedBackground: Color = Color.Unspecified,
     header: (LazyListScope.() -> Unit)? = null,
     divider: (@Composable LazyItemScope.() -> Unit)? = null,
     footer: (LazyListScope.() -> Unit)? = null,
@@ -67,8 +57,6 @@ fun LibraryListScaffold(
         detailMode = detailMode,
         onLibraryClick = onLibraryClick,
         onSheetRequest = onSheetRequest,
-        inlineDetail = inlineDetail,
-        expandedBackground = expandedBackground,
         header = header,
         divider = divider,
         footer = footer,
@@ -84,7 +72,7 @@ fun LibraryListScaffold(
     libraries: List<Library>,
     expandedLibraryId: String?,
     onExpandedLibraryIdChange: (String?) -> Unit,
-    row: @Composable LazyItemScope.(library: Library, expanded: Boolean, toggle: () -> Unit) -> Unit,
+    row: @Composable LazyItemScope.(index: Int, library: Library, expanded: Boolean, toggle: () -> Unit) -> Unit,
     modifier: Modifier = Modifier,
     state: LazyListState = rememberLazyListState(),
     contentPadding: PaddingValues = PaddingValues(0.dp),
@@ -92,8 +80,6 @@ fun LibraryListScaffold(
     detailMode: LibraryDetailMode = LibraryDetailMode.None,
     onLibraryClick: ((Library) -> Boolean)? = null,
     onSheetRequest: ((Library) -> Unit)? = null,
-    inlineDetail: (@Composable (Library) -> Unit)? = null,
-    expandedBackground: Color = Color.Unspecified,
     header: (LazyListScope.() -> Unit)? = null,
     divider: (@Composable LazyItemScope.() -> Unit)? = null,
     footer: (LazyListScope.() -> Unit)? = null,
@@ -115,8 +101,8 @@ fun LibraryListScaffold(
             key = { _, l -> l.uniqueId },
             contentType = { _, _ -> LibraryItemContentType },
         ) { index, library ->
-            // Per-row toggle is memoized on the row's identity so [TraditionalRow]/[RefinedRow]
-            // see a stable lambda reference and can skip when [expanded] is unchanged.
+            // Per-row toggle is memoized on the row's identity so the [row] slot sees a stable
+            // lambda reference and can skip when [expanded] is unchanged.
             // expandedLibraryId must be a key so the lambda captures its current value;
             // without it the closure would stale-capture the value at first composition
             // and a second click would never collapse the row.
@@ -135,29 +121,9 @@ fun LibraryListScaffold(
             }
             val expanded = detailMode == LibraryDetailMode.Inline && expandedLibraryId == library.uniqueId
 
-            val wrapperModifier = if (expanded && expandedBackground != Color.Unspecified) {
-                Modifier.animateItem().background(expandedBackground)
-            } else Modifier.animateItem()
-            Column(modifier = wrapperModifier) {
-                row(library, expanded, toggle)
-                AnimatedVisibility(
-                    visible = expanded && inlineDetail != null,
-                    enter = expandVertically(
-                        animationSpec = spring(
-                            dampingRatio = Spring.DampingRatioNoBouncy,
-                            stiffness = Spring.StiffnessMediumLow,
-                        ),
-                    ),
-                    exit = shrinkVertically(
-                        animationSpec = spring(
-                            dampingRatio = Spring.DampingRatioNoBouncy,
-                            stiffness = Spring.StiffnessMediumLow,
-                        ),
-                    ),
-                ) {
-                    inlineDetail?.invoke(library)
-                }
-            }
+            // The [row] slot owns the full item visual — item animation, expanded background,
+            // and inline-detail expansion — so the scaffold only drives list mechanics here.
+            row(index, library, expanded, toggle)
 
             if (divider != null && index < libraries.lastIndex) {
                 divider.invoke(this)

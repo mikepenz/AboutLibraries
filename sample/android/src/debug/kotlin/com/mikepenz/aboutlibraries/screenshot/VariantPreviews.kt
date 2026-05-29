@@ -1,15 +1,18 @@
 package com.mikepenz.aboutlibraries.screenshot
 
+import androidx.compose.animation.core.FiniteAnimationSpec
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.mikepenz.aboutlibraries.entity.Funding
 import com.mikepenz.aboutlibraries.entity.Library
@@ -28,7 +31,9 @@ import com.mikepenz.aboutlibraries.ui.compose.variant.LibrariesDensity
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryActions
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryBadges
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryDetailMode
+import com.mikepenz.aboutlibraries.ui.compose.variant.LibrariesVariant
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryInlineDetail
+import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryRow
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibrarySheetDetail
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryListScaffold
 import com.mikepenz.aboutlibraries.ui.compose.variant.refined.RefinedRow
@@ -80,40 +85,40 @@ private val MinimalBadges = LibraryBadges(version = true, author = false, descri
 
 // ── Traditional row matrix ────────────────────────────────────────────────────
 
-@Preview(name = "Traditional · Cozy · collapsed", widthDp = 600, heightDp = 130, showBackground = true, backgroundColor = 0xFF141218)
+@Preview(name = "Traditional · Cozy · collapsed", showBackground = true, backgroundColor = 0xFF141218)
 @Composable
 fun PreviewTraditionalCozyCollapsed() = AppTheme(useV3 = true, useDarkTheme = true) {
-    Box(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surface)) {
+    Box(Modifier.width(360.dp).background(MaterialTheme.colorScheme.surface)) {
         WithStyle { style ->
             TraditionalRow(SampleLibrary, expanded = false, onToggle = {}, density = LibrariesDensity.Cozy, badges = AllBadges, style = style)
         }
     }
 }
 
-@Preview(name = "Traditional · Compact · collapsed", widthDp = 600, heightDp = 110, showBackground = true, backgroundColor = 0xFF141218)
+@Preview(name = "Traditional · Compact · collapsed", showBackground = true, backgroundColor = 0xFF141218)
 @Composable
 fun PreviewTraditionalCompactCollapsed() = AppTheme(useV3 = true, useDarkTheme = true) {
-    Box(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surface)) {
+    Box(Modifier.width(360.dp).background(MaterialTheme.colorScheme.surface)) {
         WithStyle { style ->
             TraditionalRow(SampleLibrary, expanded = false, onToggle = {}, density = LibrariesDensity.Compact, badges = AllBadges, style = style)
         }
     }
 }
 
-@Preview(name = "Traditional · Cozy · minimal badges", widthDp = 600, heightDp = 80, showBackground = true, backgroundColor = 0xFF141218)
+@Preview(name = "Traditional · Cozy · minimal badges", showBackground = true, backgroundColor = 0xFF141218)
 @Composable
 fun PreviewTraditionalCozyMinimal() = AppTheme(useV3 = true, useDarkTheme = true) {
-    Box(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surface)) {
+    Box(Modifier.width(360.dp).background(MaterialTheme.colorScheme.surface)) {
         WithStyle { style ->
             TraditionalRow(SampleLibrary, expanded = false, onToggle = {}, density = LibrariesDensity.Cozy, badges = MinimalBadges, style = style)
         }
     }
 }
 
-@Preview(name = "Traditional · Inline expanded · Chips", widthDp = 600, heightDp = 260, showBackground = true, backgroundColor = 0xFF141218)
+@Preview(name = "Traditional · Inline expanded · Chips", showBackground = true, backgroundColor = 0xFF141218)
 @Composable
 fun PreviewTraditionalExpandedChips() = AppTheme(useV3 = true, useDarkTheme = true) {
-    Box(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surface)) {
+    Box(Modifier.width(360.dp).background(MaterialTheme.colorScheme.surface)) {
         WithStyle { style ->
             Column {
                 TraditionalRow(SampleLibrary, expanded = true, onToggle = {}, density = LibrariesDensity.Cozy, badges = AllBadges, style = style)
@@ -125,10 +130,10 @@ fun PreviewTraditionalExpandedChips() = AppTheme(useV3 = true, useDarkTheme = tr
     }
 }
 
-@Preview(name = "Traditional · Inline expanded · Icons", widthDp = 600, heightDp = 260, showBackground = true, backgroundColor = 0xFF141218)
+@Preview(name = "Traditional · Inline expanded · Icons", showBackground = true, backgroundColor = 0xFF141218)
 @Composable
 fun PreviewTraditionalExpandedIcons() = AppTheme(useV3 = true, useDarkTheme = true) {
-    Box(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surface)) {
+    Box(Modifier.width(360.dp).background(MaterialTheme.colorScheme.surface)) {
         WithStyle { style ->
             Column {
                 TraditionalRow(SampleLibrary, expanded = true, onToggle = {}, density = LibrariesDensity.Cozy, badges = AllBadges, style = style)
@@ -140,10 +145,10 @@ fun PreviewTraditionalExpandedIcons() = AppTheme(useV3 = true, useDarkTheme = tr
     }
 }
 
-@Preview(name = "Traditional · Inline expanded · Links", widthDp = 600, heightDp = 260, showBackground = true, backgroundColor = 0xFF141218)
+@Preview(name = "Traditional · Inline expanded · Links", showBackground = true, backgroundColor = 0xFF141218)
 @Composable
 fun PreviewTraditionalExpandedLinks() = AppTheme(useV3 = true, useDarkTheme = true) {
-    Box(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surface)) {
+    Box(Modifier.width(360.dp).background(MaterialTheme.colorScheme.surface)) {
         WithStyle { style ->
             Column {
                 TraditionalRow(SampleLibrary, expanded = true, onToggle = {}, density = LibrariesDensity.Cozy, badges = AllBadges, style = style)
@@ -157,30 +162,30 @@ fun PreviewTraditionalExpandedLinks() = AppTheme(useV3 = true, useDarkTheme = tr
 
 // ── Refined row matrix ────────────────────────────────────────────────────────
 
-@Preview(name = "Refined · Cozy · collapsed", widthDp = 600, heightDp = 80, showBackground = true, backgroundColor = 0xFF141218)
+@Preview(name = "Refined · Cozy · collapsed", showBackground = true, backgroundColor = 0xFF141218)
 @Composable
 fun PreviewRefinedCozyCollapsed() = AppTheme(useV3 = true, useDarkTheme = true) {
-    Box(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surface)) {
+    Box(Modifier.width(360.dp).background(MaterialTheme.colorScheme.surface)) {
         WithStyle { style ->
             RefinedRow(SampleLibrary, expanded = false, onToggle = {}, density = LibrariesDensity.Cozy, badges = AllBadges, style = style)
         }
     }
 }
 
-@Preview(name = "Refined · Compact · collapsed", widthDp = 600, heightDp = 70, showBackground = true, backgroundColor = 0xFF141218)
+@Preview(name = "Refined · Compact · collapsed", showBackground = true, backgroundColor = 0xFF141218)
 @Composable
 fun PreviewRefinedCompactCollapsed() = AppTheme(useV3 = true, useDarkTheme = true) {
-    Box(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surface)) {
+    Box(Modifier.width(360.dp).background(MaterialTheme.colorScheme.surface)) {
         WithStyle { style ->
             RefinedRow(SampleLibrary, expanded = false, onToggle = {}, density = LibrariesDensity.Compact, badges = AllBadges, style = style)
         }
     }
 }
 
-@Preview(name = "Refined · Inline expanded · Links", widthDp = 600, heightDp = 200, showBackground = true, backgroundColor = 0xFF141218)
+@Preview(name = "Refined · Inline expanded · Links", showBackground = true, backgroundColor = 0xFF141218)
 @Composable
 fun PreviewRefinedExpandedLinks() = AppTheme(useV3 = true, useDarkTheme = true) {
-    Box(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surface)) {
+    Box(Modifier.width(360.dp).background(MaterialTheme.colorScheme.surface)) {
         WithStyle { style ->
             Column {
                 RefinedRow(SampleLibrary, expanded = true, onToggle = {}, density = LibrariesDensity.Cozy, badges = AllBadges, style = style)
@@ -190,10 +195,10 @@ fun PreviewRefinedExpandedLinks() = AppTheme(useV3 = true, useDarkTheme = true) 
     }
 }
 
-@Preview(name = "Refined · Inline expanded · Chips", widthDp = 600, heightDp = 200, showBackground = true, backgroundColor = 0xFF141218)
+@Preview(name = "Refined · Inline expanded · Chips", showBackground = true, backgroundColor = 0xFF141218)
 @Composable
 fun PreviewRefinedExpandedChips() = AppTheme(useV3 = true, useDarkTheme = true) {
-    Box(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surface)) {
+    Box(Modifier.width(360.dp).background(MaterialTheme.colorScheme.surface)) {
         WithStyle { style ->
             Column {
                 RefinedRow(SampleLibrary, expanded = true, onToggle = {}, density = LibrariesDensity.Cozy, badges = AllBadges, style = style)
@@ -203,10 +208,10 @@ fun PreviewRefinedExpandedChips() = AppTheme(useV3 = true, useDarkTheme = true) 
     }
 }
 
-@Preview(name = "Refined · Inline expanded · Icons", widthDp = 600, heightDp = 200, showBackground = true, backgroundColor = 0xFF141218)
+@Preview(name = "Refined · Inline expanded · Icons", showBackground = true, backgroundColor = 0xFF141218)
 @Composable
 fun PreviewRefinedExpandedIcons() = AppTheme(useV3 = true, useDarkTheme = true) {
-    Box(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surface)) {
+    Box(Modifier.width(360.dp).background(MaterialTheme.colorScheme.surface)) {
         WithStyle { style ->
             Column {
                 RefinedRow(SampleLibrary, expanded = true, onToggle = {}, density = LibrariesDensity.Cozy, badges = AllBadges, style = style)
@@ -218,10 +223,10 @@ fun PreviewRefinedExpandedIcons() = AppTheme(useV3 = true, useDarkTheme = true) 
 
 // ── Stacked rows (mixed licenses, shows hue resolver) ─────────────────────────
 
-@Preview(name = "Refined · stacked rows · mixed licenses", widthDp = 600, heightDp = 200, showBackground = true, backgroundColor = 0xFF141218)
+@Preview(name = "Refined · stacked rows · mixed licenses", showBackground = true, backgroundColor = 0xFF141218)
 @Composable
 fun PreviewRefinedStack() = AppTheme(useV3 = true, useDarkTheme = true) {
-    Box(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surface)) {
+    Box(Modifier.width(360.dp).background(MaterialTheme.colorScheme.surface)) {
         WithStyle { style ->
             Column {
                 RefinedRow(SampleLibrary, expanded = false, onToggle = {}, density = LibrariesDensity.Cozy, badges = AllBadges, style = style)
@@ -233,30 +238,30 @@ fun PreviewRefinedStack() = AppTheme(useV3 = true, useDarkTheme = true) {
 
 // ── Detail sheet body (action mode matrix) ────────────────────────────────────
 
-@Preview(name = "Sheet body · Chips", widthDp = 400, heightDp = 380, showBackground = true, backgroundColor = 0xFF272529)
+@Preview(name = "Sheet body · Chips", showBackground = true, backgroundColor = 0xFF272529)
 @Composable
 fun PreviewSheetChips() = AppTheme(useV3 = true, useDarkTheme = true) {
-    Box(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surfaceContainerHigh)) {
+    Box(Modifier.width(360.dp).background(MaterialTheme.colorScheme.surfaceContainerHigh)) {
         WithStyle { style ->
             LibrarySheetDetail(SampleLibrary, LibraryActionMode.Chips, style, actionLabels = DefaultLibraryActionBadges)
         }
     }
 }
 
-@Preview(name = "Sheet body · Icons", widthDp = 400, heightDp = 380, showBackground = true, backgroundColor = 0xFF272529)
+@Preview(name = "Sheet body · Icons", showBackground = true, backgroundColor = 0xFF272529)
 @Composable
 fun PreviewSheetIcons() = AppTheme(useV3 = true, useDarkTheme = true) {
-    Box(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surfaceContainerHigh)) {
+    Box(Modifier.width(360.dp).background(MaterialTheme.colorScheme.surfaceContainerHigh)) {
         WithStyle { style ->
             LibrarySheetDetail(SampleLibrary, LibraryActionMode.Icons, style, actionLabels = DefaultLibraryActionBadges)
         }
     }
 }
 
-@Preview(name = "Sheet body · Links", widthDp = 400, heightDp = 380, showBackground = true, backgroundColor = 0xFF272529)
+@Preview(name = "Sheet body · Links", showBackground = true, backgroundColor = 0xFF272529)
 @Composable
 fun PreviewSheetLinks() = AppTheme(useV3 = true, useDarkTheme = true) {
-    Box(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surfaceContainerHigh)) {
+    Box(Modifier.width(360.dp).background(MaterialTheme.colorScheme.surfaceContainerHigh)) {
         WithStyle { style ->
             LibrarySheetDetail(SampleLibrary, LibraryActionMode.Links, style, actionLabels = DefaultLibraryActionBadges)
         }
@@ -265,31 +270,31 @@ fun PreviewSheetLinks() = AppTheme(useV3 = true, useDarkTheme = true) {
 
 // ── Standalone LibraryActions previews ────────────────────────────────────────
 
-@Preview(name = "Actions · Chips", widthDp = 500, heightDp = 60, showBackground = true, backgroundColor = 0xFF141218)
+@Preview(name = "Actions · Chips", showBackground = true, backgroundColor = 0xFF141218)
 @Composable
 fun PreviewActionsChips() = AppTheme(useV3 = true, useDarkTheme = true) {
     WithStyle { style ->
-        Box(Modifier.fillMaxWidth().padding(16.dp).background(MaterialTheme.colorScheme.surface)) {
+        Box(Modifier.width(360.dp).padding(16.dp).background(MaterialTheme.colorScheme.surface)) {
             LibraryActions(SampleLibrary, LibraryActionMode.Chips, style, actionLabels = DefaultLibraryActionBadges)
         }
     }
 }
 
-@Preview(name = "Actions · Icons", widthDp = 500, heightDp = 60, showBackground = true, backgroundColor = 0xFF141218)
+@Preview(name = "Actions · Icons", showBackground = true, backgroundColor = 0xFF141218)
 @Composable
 fun PreviewActionsIcons() = AppTheme(useV3 = true, useDarkTheme = true) {
     WithStyle { style ->
-        Box(Modifier.fillMaxWidth().padding(16.dp).background(MaterialTheme.colorScheme.surface)) {
+        Box(Modifier.width(360.dp).padding(16.dp).background(MaterialTheme.colorScheme.surface)) {
             LibraryActions(SampleLibrary, LibraryActionMode.Icons, style, actionLabels = DefaultLibraryActionBadges)
         }
     }
 }
 
-@Preview(name = "Actions · Links", widthDp = 500, heightDp = 60, showBackground = true, backgroundColor = 0xFF141218)
+@Preview(name = "Actions · Links", showBackground = true, backgroundColor = 0xFF141218)
 @Composable
 fun PreviewActionsLinks() = AppTheme(useV3 = true, useDarkTheme = true) {
     WithStyle { style ->
-        Box(Modifier.fillMaxWidth().padding(16.dp).background(MaterialTheme.colorScheme.surface)) {
+        Box(Modifier.width(360.dp).padding(16.dp).background(MaterialTheme.colorScheme.surface)) {
             LibraryActions(SampleLibrary, LibraryActionMode.Links, style, actionLabels = DefaultLibraryActionBadges)
         }
     }
@@ -297,10 +302,10 @@ fun PreviewActionsLinks() = AppTheme(useV3 = true, useDarkTheme = true) {
 
 // ── Light theme — shows accent-derived badge + dot colors ────────────────────
 
-@Preview(name = "Traditional · light · badge colors", widthDp = 600, heightDp = 130, showBackground = true, backgroundColor = 0xFFFFFBFF)
+@Preview(name = "Traditional · light · badge colors", showBackground = true, backgroundColor = 0xFFFFFBFF)
 @Composable
 fun PreviewTraditionalLightBadgeColors() = AppTheme(useV3 = true, useDarkTheme = false) {
-    Box(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surface)) {
+    Box(Modifier.width(360.dp).background(MaterialTheme.colorScheme.surface)) {
         WithStyle { style ->
             Column {
                 TraditionalRow(SampleLibrary, expanded = false, onToggle = {}, density = LibrariesDensity.Cozy, badges = AllBadges, style = style)
@@ -310,10 +315,10 @@ fun PreviewTraditionalLightBadgeColors() = AppTheme(useV3 = true, useDarkTheme =
     }
 }
 
-@Preview(name = "Refined · light · badge colors", widthDp = 600, heightDp = 160, showBackground = true, backgroundColor = 0xFFFFFBFF)
+@Preview(name = "Refined · light · badge colors", showBackground = true, backgroundColor = 0xFFFFFBFF)
 @Composable
 fun PreviewRefinedLightBadgeColors() = AppTheme(useV3 = true, useDarkTheme = false) {
-    Box(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surface)) {
+    Box(Modifier.width(360.dp).background(MaterialTheme.colorScheme.surface)) {
         WithStyle { style ->
             Column {
                 RefinedRow(SampleLibrary, expanded = false, onToggle = {}, density = LibrariesDensity.Cozy, badges = AllBadges, style = style)
@@ -325,43 +330,47 @@ fun PreviewRefinedLightBadgeColors() = AppTheme(useV3 = true, useDarkTheme = fal
 
 // ── LibraryListScaffold inline-expand (expanded end state) ───────────────────
 
-@Preview(name = "Scaffold · Traditional · inline expanded", widthDp = 600, heightDp = 320, showBackground = true, backgroundColor = 0xFF141218)
+@Preview(name = "Scaffold · Traditional · inline expanded", showBackground = true, backgroundColor = 0xFF141218)
 @Composable
 fun PreviewScaffoldTraditionalInlineExpanded() = AppTheme(useV3 = true, useDarkTheme = true) {
-    Box(Modifier.fillMaxWidth().height(320.dp).background(MaterialTheme.colorScheme.surface)) {
+    Box(Modifier.width(360.dp).height(320.dp).background(MaterialTheme.colorScheme.surface)) {
         WithStyle { style ->
             LibraryListScaffold(
                 libraries = listOf(MitLibrary, SampleLibrary),
                 expandedLibraryId = SampleLibrary.uniqueId,
                 onExpandedLibraryIdChange = {},
-                row = { library, expanded, toggle ->
-                    TraditionalRow(library, expanded, toggle, LibrariesDensity.Cozy, AllBadges, style)
+                row = { _, library, expanded, toggle ->
+                    Column {
+                        TraditionalRow(library, expanded, toggle, LibrariesDensity.Cozy, AllBadges, style)
+                        if (expanded) {
+                            LibraryInlineDetail(library, LibraryActionMode.Chips, style, actionLabels = DefaultLibraryActionBadges)
+                        }
+                    }
                 },
                 detailMode = LibraryDetailMode.Inline,
-                inlineDetail = { library ->
-                    LibraryInlineDetail(library, LibraryActionMode.Chips, style, actionLabels = DefaultLibraryActionBadges)
-                },
             )
         }
     }
 }
 
-@Preview(name = "Scaffold · Refined · inline expanded", widthDp = 600, heightDp = 280, showBackground = true, backgroundColor = 0xFF141218)
+@Preview(name = "Scaffold · Refined · inline expanded", showBackground = true, backgroundColor = 0xFF141218)
 @Composable
 fun PreviewScaffoldRefinedInlineExpanded() = AppTheme(useV3 = true, useDarkTheme = true) {
-    Box(Modifier.fillMaxWidth().height(280.dp).background(MaterialTheme.colorScheme.surface)) {
+    Box(Modifier.width(360.dp).height(280.dp).background(MaterialTheme.colorScheme.surface)) {
         WithStyle { style ->
             LibraryListScaffold(
                 libraries = listOf(MitLibrary, SampleLibrary),
                 expandedLibraryId = SampleLibrary.uniqueId,
                 onExpandedLibraryIdChange = {},
-                row = { library, expanded, toggle ->
-                    RefinedRow(library, expanded, toggle, LibrariesDensity.Cozy, AllBadges, style)
+                row = { _, library, expanded, toggle ->
+                    Column {
+                        RefinedRow(library, expanded, toggle, LibrariesDensity.Cozy, AllBadges, style)
+                        if (expanded) {
+                            LibraryInlineDetail(library, LibraryActionMode.Chips, style, actionLabels = DefaultLibraryActionBadges)
+                        }
+                    }
                 },
                 detailMode = LibraryDetailMode.Inline,
-                inlineDetail = { library ->
-                    LibraryInlineDetail(library, LibraryActionMode.Chips, style, actionLabels = DefaultLibraryActionBadges)
-                },
             )
         }
     }
@@ -369,20 +378,20 @@ fun PreviewScaffoldRefinedInlineExpanded() = AppTheme(useV3 = true, useDarkTheme
 
 // ── Sheet detail — reordered (description + actions first, license last) ──────
 
-@Preview(name = "Sheet body · reordered · dark", widthDp = 400, heightDp = 420, showBackground = true, backgroundColor = 0xFF272529)
+@Preview(name = "Sheet body · reordered · dark", showBackground = true, backgroundColor = 0xFF272529)
 @Composable
 fun PreviewSheetReordered() = AppTheme(useV3 = true, useDarkTheme = true) {
-    Box(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surfaceContainerHigh)) {
+    Box(Modifier.width(360.dp).background(MaterialTheme.colorScheme.surfaceContainerHigh)) {
         WithStyle { style ->
             LibrarySheetDetail(SampleLibrary, LibraryActionMode.Chips, style, actionLabels = DefaultLibraryActionBadges)
         }
     }
 }
 
-@Preview(name = "Sheet body · reordered · light", widthDp = 400, heightDp = 420, showBackground = true, backgroundColor = 0xFFECE6F0)
+@Preview(name = "Sheet body · reordered · light", showBackground = true, backgroundColor = 0xFFECE6F0)
 @Composable
 fun PreviewSheetReorderedLight() = AppTheme(useV3 = true, useDarkTheme = false) {
-    Box(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surfaceContainerHigh)) {
+    Box(Modifier.width(360.dp).background(MaterialTheme.colorScheme.surfaceContainerHigh)) {
         WithStyle { style ->
             LibrarySheetDetail(SampleLibrary, LibraryActionMode.Chips, style, actionLabels = DefaultLibraryActionBadges)
         }
@@ -391,10 +400,10 @@ fun PreviewSheetReorderedLight() = AppTheme(useV3 = true, useDarkTheme = false) 
 
 // ── High contrast ──────────────────────────────────────────────────────────
 
-@Preview(name = "Traditional · high contrast · dark", widthDp = 600, heightDp = 260, showBackground = true, backgroundColor = 0xFF141218)
+@Preview(name = "Traditional · high contrast · dark", showBackground = true, backgroundColor = 0xFF141218)
 @Composable
 fun PreviewTraditionalHighContrastDark() = AppTheme(useV3 = true, useDarkTheme = true) {
-    Box(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surface)) {
+    Box(Modifier.width(360.dp).background(MaterialTheme.colorScheme.surface)) {
         val style = LibraryDefaults.librariesStyle(
             colors = LibraryDefaults.m3VariantColors(contrastLevel = ContrastLevel.High),
             textStyles = LibraryDefaults.m3VariantTextStyles(),
@@ -406,10 +415,118 @@ fun PreviewTraditionalHighContrastDark() = AppTheme(useV3 = true, useDarkTheme =
     }
 }
 
-@Preview(name = "Traditional · high contrast · light", widthDp = 600, heightDp = 260, showBackground = true, backgroundColor = 0xFFFFFBFF)
+// ── LibraryRow (default item renderer) ───────────────────────────────────────
+// Covers the public `LibraryRow` slot composable: the per-item wrapper (item animation +
+// expanded background), variant dispatch, inline-detail expansion, and the `modifier` hook.
+//
+// `LibraryRow` is a `LazyItemScope` extension. A real `LazyColumn` fills the canvas height (and
+// collapses width) under the screenshot scanner's `RenderingMode.SHRINK`, producing narrow,
+// over-tall captures. Hosting it in a fixed-width `Box` via a no-op `LazyItemScope` keeps the
+// capture sized to the row content (item-placement animation is inert in a static snapshot).
+
+private object PreviewLazyItemScope : LazyItemScope {
+    override fun Modifier.fillParentMaxSize(fraction: Float) = this
+    override fun Modifier.fillParentMaxWidth(fraction: Float) = this
+    override fun Modifier.fillParentMaxHeight(fraction: Float) = this
+    override fun Modifier.animateItem(
+        fadeInSpec: FiniteAnimationSpec<Float>?,
+        placementSpec: FiniteAnimationSpec<IntOffset>?,
+        fadeOutSpec: FiniteAnimationSpec<Float>?,
+    ) = this
+}
+
+@Composable
+private fun RowHost(
+    dark: Boolean = true,
+    content: @Composable LazyItemScope.(LibrariesStyle) -> Unit,
+) = AppTheme(useV3 = true, useDarkTheme = dark) {
+    WithStyle { style ->
+        Box(Modifier.width(360.dp).background(MaterialTheme.colorScheme.surface)) {
+            with(PreviewLazyItemScope) { content(style) }
+        }
+    }
+}
+
+@Preview(name = "LibraryRow · Traditional · collapsed", showBackground = true)
+@Composable
+fun PreviewLibraryRowTraditionalCollapsed() = RowHost { style ->
+    LibraryRow(
+        library = SampleLibrary,
+        expanded = false,
+        onToggle = {},
+        style = style,
+        variant = LibrariesVariant.Traditional,
+        badges = AllBadges,
+    )
+}
+
+@Preview(name = "LibraryRow · Traditional · expanded (bg + inline)", showBackground = true)
+@Composable
+fun PreviewLibraryRowTraditionalExpanded() = RowHost { style ->
+    LibraryRow(
+        library = SampleLibrary,
+        expanded = true,
+        onToggle = {},
+        style = style,
+        variant = LibrariesVariant.Traditional,
+        badges = AllBadges,
+        expandedBackground = MaterialTheme.colorScheme.surfaceContainerHigh,
+        inlineDetail = { library ->
+            Box(Modifier.padding(style.padding.inlineActionsPadding)) {
+                LibraryActions(library, LibraryActionMode.Chips, style, actionLabels = DefaultLibraryActionBadges)
+            }
+        },
+    )
+}
+
+@Preview(name = "LibraryRow · Refined · collapsed", showBackground = true)
+@Composable
+fun PreviewLibraryRowRefinedCollapsed() = RowHost { style ->
+    LibraryRow(
+        library = SampleLibrary,
+        expanded = false,
+        onToggle = {},
+        style = style,
+        variant = LibrariesVariant.Refined,
+        badges = AllBadges,
+    )
+}
+
+@Preview(name = "LibraryRow · Refined · expanded (bg + inline)", showBackground = true)
+@Composable
+fun PreviewLibraryRowRefinedExpanded() = RowHost { style ->
+    LibraryRow(
+        library = SampleLibrary,
+        expanded = true,
+        onToggle = {},
+        style = style,
+        variant = LibrariesVariant.Refined,
+        badges = AllBadges,
+        expandedBackground = MaterialTheme.colorScheme.surfaceContainerHigh,
+        inlineDetail = { library ->
+            LibraryInlineDetail(library, LibraryActionMode.Chips, style, actionLabels = DefaultLibraryActionBadges)
+        },
+    )
+}
+
+@Preview(name = "LibraryRow · modifier override (padding)", showBackground = true)
+@Composable
+fun PreviewLibraryRowModifierOverride() = RowHost { style ->
+    LibraryRow(
+        library = SampleLibrary,
+        expanded = false,
+        onToggle = {},
+        style = style,
+        modifier = Modifier.padding(horizontal = 24.dp),
+        variant = LibrariesVariant.Traditional,
+        badges = AllBadges,
+    )
+}
+
+@Preview(name = "Traditional · high contrast · light", showBackground = true, backgroundColor = 0xFFFFFBFF)
 @Composable
 fun PreviewTraditionalHighContrastLight() = AppTheme(useV3 = true, useDarkTheme = false) {
-    Box(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surface)) {
+    Box(Modifier.width(360.dp).background(MaterialTheme.colorScheme.surface)) {
         val style = LibraryDefaults.librariesStyle(
             colors = LibraryDefaults.m3VariantColors(contrastLevel = ContrastLevel.High),
             textStyles = LibraryDefaults.m3VariantTextStyles(),

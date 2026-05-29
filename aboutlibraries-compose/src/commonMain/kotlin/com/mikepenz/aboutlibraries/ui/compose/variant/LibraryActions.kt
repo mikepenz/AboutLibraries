@@ -26,6 +26,7 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.ui.compose.style.LibrariesStyle
@@ -132,7 +133,12 @@ private fun ActionChip(
             .clickable(role = Role.Button, onClick = onClick)
             .padding(style.padding.actionChipPadding),
     ) {
-        BasicText(text = label, style = style.textStyles.actionChipTextStyle.copy(color = content))
+        BasicText(
+            text = label,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            style = style.textStyles.actionChipTextStyle.copy(color = content),
+        )
     }
 }
 
@@ -174,6 +180,8 @@ private fun ActionLink(label: String, style: LibrariesStyle, onClick: () -> Unit
     BasicText(
         text = label,
         modifier = Modifier.clickable(role = Role.Button, onClick = onClick),
+        maxLines = 1,
+        overflow = TextOverflow.Ellipsis,
         style = style.textStyles.actionLinkTextStyle.copy(
             color = style.colors.actionLinkColor.orFallback(style.colors.rowOnBackground.orFallback(Color.Black)),
             textDecoration = TextDecoration.Underline,
