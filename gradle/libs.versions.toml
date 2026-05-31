@@ -10,7 +10,7 @@ lifecycle = { require = "2.10.0" }
 navigation = "2.9.8"
 recyclerView = "1.4.0"
 # google
-material = "1.13.0"
+material = "1.14.0"
 # other
 fastAdapter = "5.7.0"
 iconics = "5.5.0"
