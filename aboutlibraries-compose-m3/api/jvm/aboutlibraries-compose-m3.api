@@ -13,12 +13,12 @@ public final class com/mikepenz/aboutlibraries/ui/compose/m3/SharedLibraries_jvm
 public final class com/mikepenz/aboutlibraries/ui/compose/m3/component/ComposableSingletons$LibraryDefaultComponentsKt {
 	public static final field INSTANCE Lcom/mikepenz/aboutlibraries/ui/compose/m3/component/ComposableSingletons$LibraryDefaultComponentsKt;
 	public fun <init> ()V
-	public final fun getLambda$-1214273397$aboutlibraries_compose_m3 ()Lkotlin/jvm/functions/Function7;
-	public final fun getLambda$-1516390438$aboutlibraries_compose_m3 ()Lkotlin/jvm/functions/Function7;
-	public final fun getLambda$-295294694$aboutlibraries_compose_m3 ()Lkotlin/jvm/functions/Function7;
-	public final fun getLambda$-556584516$aboutlibraries_compose_m3 ()Lkotlin/jvm/functions/Function10;
-	public final fun getLambda$1730597827$aboutlibraries_compose_m3 ()Lkotlin/jvm/functions/Function9;
-	public final fun getLambda$426096472$aboutlibraries_compose_m3 ()Lkotlin/jvm/functions/Function10;
+	public final fun getLambda$-1214273397$AboutLibraries_aboutlibraries_compose_m3 ()Lkotlin/jvm/functions/Function7;
+	public final fun getLambda$-1516390438$AboutLibraries_aboutlibraries_compose_m3 ()Lkotlin/jvm/functions/Function7;
+	public final fun getLambda$-295294694$AboutLibraries_aboutlibraries_compose_m3 ()Lkotlin/jvm/functions/Function7;
+	public final fun getLambda$-556584516$AboutLibraries_aboutlibraries_compose_m3 ()Lkotlin/jvm/functions/Function10;
+	public final fun getLambda$1730597827$AboutLibraries_aboutlibraries_compose_m3 ()Lkotlin/jvm/functions/Function9;
+	public final fun getLambda$426096472$AboutLibraries_aboutlibraries_compose_m3 ()Lkotlin/jvm/functions/Function10;
 }
 
 public final class com/mikepenz/aboutlibraries/ui/compose/m3/component/LibrariesChipKt {
