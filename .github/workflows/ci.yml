@@ -20,7 +20,7 @@ jobs:
 
     steps:
       - name: Checkout the repo
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
 
       - uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5
         with:
@@ -96,7 +96,7 @@ jobs:
       security-events: write
     steps:
       - name: Checkout
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
         with:
           fetch-depth: 100
 
@@ -169,28 +169,28 @@ jobs:
 
       - name: Upload Lint SARIF (aboutlibraries)
         if: always() && github.event_name == 'pull_request' && hashFiles('aboutlibraries/build/reports/lint-results-debug.sarif') != ''
-        uses: github/codeql-action/upload-sarif@7211b7c8077ea37d8641b6271f6a365a22a5fbfa # v4
+        uses: github/codeql-action/upload-sarif@8aad20d150bbac5944a9f9d289da16a4b0d87c1e # v4
         with:
           sarif_file: 'aboutlibraries/build/reports/lint-results-debug.sarif'
           category: lint-aboutlibraries
 
       - name: Upload Lint SARIF (aboutlibraries-compose-wear-m3)
         if: always() && github.event_name == 'pull_request' && hashFiles('aboutlibraries-compose-wear-m3/build/reports/lint-results-debug.sarif') != ''
-        uses: github/codeql-action/upload-sarif@7211b7c8077ea37d8641b6271f6a365a22a5fbfa # v4
+        uses: github/codeql-action/upload-sarif@8aad20d150bbac5944a9f9d289da16a4b0d87c1e # v4
         with:
           sarif_file: 'aboutlibraries-compose-wear-m3/build/reports/lint-results-debug.sarif'
           category: lint-aboutlibraries-compose-wear-m3
 
       - name: Upload Lint SARIF (app)
         if: always() && github.event_name == 'pull_request' && hashFiles('app/build/reports/lint-results-debug.sarif') != ''
-        uses: github/codeql-action/upload-sarif@7211b7c8077ea37d8641b6271f6a365a22a5fbfa # v4
+        uses: github/codeql-action/upload-sarif@8aad20d150bbac5944a9f9d289da16a4b0d87c1e # v4
         with:
           sarif_file: 'app/build/reports/lint-results-debug.sarif'
           category: lint-app
 
       - name: Upload Lint SARIF (sample/android)
         if: always() && github.event_name == 'pull_request' && hashFiles('sample/android/build/reports/lint-results-debug.sarif') != ''
-        uses: github/codeql-action/upload-sarif@7211b7c8077ea37d8641b6271f6a365a22a5fbfa # v4
+        uses: github/codeql-action/upload-sarif@8aad20d150bbac5944a9f9d289da16a4b0d87c1e # v4
         with:
           sarif_file: 'sample/android/build/reports/lint-results-debug.sarif'
           category: lint-sample-android
@@ -228,7 +228,7 @@ jobs:
       contents: write
     steps:
       - name: Checkout
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
         with:
           fetch-depth: 100
 
