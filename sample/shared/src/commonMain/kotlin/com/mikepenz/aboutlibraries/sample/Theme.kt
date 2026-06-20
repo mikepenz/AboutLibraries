@@ -2,6 +2,7 @@ package com.mikepenz.aboutlibraries.sample
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import com.mikepenz.aboutlibraries.sample.m2.M2AppTheme
 import com.mikepenz.aboutlibraries.sample.m3.M3AppTheme
 
@@ -9,11 +10,16 @@ import com.mikepenz.aboutlibraries.sample.m3.M3AppTheme
 fun AppTheme(
     useV3: Boolean,
     useDarkTheme: Boolean = isSystemInDarkTheme(),
+    accent: Color = Color.Unspecified,
     content: @Composable () -> Unit,
 ) {
     if (useV3) {
-        M3AppTheme(useDarkTheme, content)
+        M3AppTheme(useDarkTheme, accent, content)
     } else {
-        M2AppTheme(useDarkTheme, content)
+        // Wrap in M3 first so sample chrome (SampleHeader, SettingsPanel, etc.) gets
+        // the correct dark/light M3 color scheme, then nest M2 inside for the library UI.
+        M3AppTheme(useDarkTheme, accent) {
+            M2AppTheme(useDarkTheme, content)
+        }
     }
 }

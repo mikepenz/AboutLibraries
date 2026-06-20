@@ -30,6 +30,11 @@ dependencies {
     implementation(compose.components.resources)
     implementation(libs.androidx.activity.compose)
     debugImplementation(compose.uiTooling)
+
+    // Recomposition-stability tests
+    androidTestImplementation(libs.dejavu)
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+    debugImplementation("androidx.compose.ui:ui-test-manifest")
 }
 
 compose.resources {

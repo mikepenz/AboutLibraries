@@ -1,7 +1,6 @@
 package com.mikepenz.aboutlibraries.plugin
 
 import com.mikepenz.aboutlibraries.plugin.AboutLibrariesExtension.Companion.PROP_EXPORT_OUTPUT_FILE
-import com.mikepenz.aboutlibraries.plugin.AboutLibrariesExtension.Companion.PROP_EXPORT_OUTPUT_PATH
 import com.mikepenz.aboutlibraries.plugin.AboutLibrariesExtension.Companion.PROP_EXPORT_PATH
 import com.mikepenz.aboutlibraries.plugin.AboutLibrariesExtension.Companion.PROP_PREFIX
 import com.mikepenz.aboutlibraries.plugin.mapping.Library
@@ -43,17 +42,8 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
         } else {
             val projectDirectory = project.layout.projectDirectory
             val buildDirectory = project.layout.buildDirectory
-            
-            // Capture extension values during configuration time to avoid accessing
-            // extension (which references project) during Provider evaluation
             val exports = extension.exports
             val export = extension.export
-
-            @Suppress("DEPRECATION")
-            val fileNameProvider = project.provider {
-                val config = exports.findByName(variant.getOrElse(""))
-                config?.outputFileName?.orNull ?: export.outputFileName.get()
-            }
 
             val outputFileProvider = project.provider {
                 val config = exports.findByName(variant.getOrElse(""))
@@ -61,15 +51,12 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
             }
 
             val providers = project.providers
-
-            @Suppress("DEPRECATION")
             this.outputFile.set(
                 providers.gradleProperty("${PROP_PREFIX}${PROP_EXPORT_OUTPUT_FILE}").map { path -> projectDirectory.file(path) }.orElse(
-                    providers.gradleProperty("${PROP_PREFIX}${PROP_EXPORT_OUTPUT_PATH}").map { path -> projectDirectory.file(path) }.orElse(
-                        providers.gradleProperty("${PROP_PREFIX}${PROP_EXPORT_PATH}").flatMap { path -> fileNameProvider.map { filename -> projectDirectory.dir(path).file(filename) } }.orElse(
-                            providers.gradleProperty(PROP_EXPORT_PATH).flatMap { path -> fileNameProvider.map { filename -> projectDirectory.dir(path).file(filename) } }).orElse(
+                    providers.gradleProperty("${PROP_PREFIX}${PROP_EXPORT_PATH}").map { path -> projectDirectory.dir(path).file(DEFAULT_OUTPUT_NAME) }.orElse(
+                        providers.gradleProperty(PROP_EXPORT_PATH).map { path -> projectDirectory.dir(path).file(DEFAULT_OUTPUT_NAME) }.orElse(
                             outputFileProvider.orElse(
-                                buildDirectory.dir("generated/aboutLibraries/").flatMap { dir -> fileNameProvider.map { filename -> dir.file(filename) } }
+                                buildDirectory.file("generated/aboutLibraries/$DEFAULT_OUTPUT_NAME")
                             )
                         )
                     )
@@ -77,6 +64,7 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
             )
         }
     }
+
 
     @TaskAction
     fun action() {
@@ -187,6 +175,7 @@ abstract class AboutLibrariesTask : BaseAboutLibrariesTask() {
     }
 
     companion object {
+        internal const val DEFAULT_OUTPUT_NAME = "aboutlibraries.json"
         private val LOGGER = LoggerFactory.getLogger(AboutLibrariesTask::class.java)
     }
 }

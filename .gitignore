@@ -23,3 +23,5 @@ docs
 iosApp/iosApp.xcodeproj
 /gradle-user-home/
 /tmp/
+
+kotlin-js-store/wasm

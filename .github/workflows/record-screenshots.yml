@@ -1,0 +1,50 @@
+name: Record Screenshots
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to record screenshots for'
+        required: false
+        default: ''
+
+jobs:
+  record:
+    name: Record Paparazzi Screenshots
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+        with:
+          ref: ${{ github.event.inputs.branch || github.ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5
+        with:
+          distribution: 'zulu'
+          java-version: |
+            17
+            21
+
+      - name: Copy CI gradle.properties
+        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@3f131e8634966bd73d06cc69884922b02e6faf92 # v6
+
+      - name: Publish plugin locally
+        run: |
+          cd plugin-build
+          ./gradlew publishToMavenLocal --no-configuration-cache
+
+      - name: Record Paparazzi Screenshots
+        run: ./gradlew :sample:android:recordPaparazziDebug
+
+      - name: Commit updated screenshots
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add sample/android/src/test/snapshots/
+          git diff --cached --quiet || git commit -m "chore(screenshots): update Paparazzi golden images"
+          git push

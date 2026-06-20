@@ -75,7 +75,7 @@ dependencies {
     // test dependencies
     testImplementation(gradleTestKit())
     testImplementation(kotlin("test"))
-    testImplementation("org.junit.jupiter:junit-jupiter:5.14.3")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.14.4")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
@@ -84,6 +84,8 @@ tasks.named<Test>("test") {
     javaLauncher.set(javaToolchains.launcherFor {
         languageVersion.set(JavaLanguageVersion.of(17))
     })
+    systemProperty("test.kotlin.version", baseLibs.versions.kotlin.get())
+    systemProperty("test.agp.version", baseLibs.versions.agp.get())
 }
 
 mavenPublishing {

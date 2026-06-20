@@ -1,20 +1,20 @@
 package com.mikepenz.aboutlibraries.ui.compose
 
 import androidx.compose.foundation.LocalIndication
+import androidx.compose.foundation.OverscrollEffect
 import androidx.compose.foundation.background
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.indication
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.FlowRowScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.rememberOverscrollEffect
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ButtonDefaults
@@ -22,11 +22,12 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
-import androidx.compose.material.Typography
 import androidx.compose.material.contentColorFor
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -34,111 +35,161 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.mikepenz.aboutlibraries.Libs
-import com.mikepenz.aboutlibraries.entity.Funding
 import com.mikepenz.aboutlibraries.entity.Library
-import com.mikepenz.aboutlibraries.entity.License
-import com.mikepenz.aboutlibraries.ui.compose.component.DefaultLibraryAuthor
-import com.mikepenz.aboutlibraries.ui.compose.component.DefaultLibraryDescription
-import com.mikepenz.aboutlibraries.ui.compose.component.DefaultLibraryFunding
-import com.mikepenz.aboutlibraries.ui.compose.component.DefaultLibraryLicense
-import com.mikepenz.aboutlibraries.ui.compose.component.DefaultLibraryName
-import com.mikepenz.aboutlibraries.ui.compose.component.DefaultLibraryVersion
-import com.mikepenz.aboutlibraries.ui.compose.util.htmlReadyLicenseContent
+import com.mikepenz.aboutlibraries.ui.compose.style.DefaultLibraryActionBadges
+import com.mikepenz.aboutlibraries.ui.compose.style.LibraryActionBadges
+import com.mikepenz.aboutlibraries.ui.compose.style.LibrariesStyle
+import com.mikepenz.aboutlibraries.ui.compose.style.VariantColors
+import com.mikepenz.aboutlibraries.ui.compose.style.defaultVariantDimensions
+import com.mikepenz.aboutlibraries.ui.compose.style.defaultVariantPadding
+import com.mikepenz.aboutlibraries.ui.compose.style.defaultVariantShapes
+import com.mikepenz.aboutlibraries.ui.compose.style.librariesStyle
+import com.mikepenz.aboutlibraries.ui.compose.style.m2VariantColors
+import com.mikepenz.aboutlibraries.ui.compose.style.m2VariantTextStyles
 import com.mikepenz.aboutlibraries.ui.compose.util.strippedLicenseContent
+import com.mikepenz.aboutlibraries.ui.compose.variant.Libraries
+import com.mikepenz.aboutlibraries.ui.compose.variant.LibrariesDensity
+import com.mikepenz.aboutlibraries.ui.compose.variant.LibrariesVariant
+import com.mikepenz.aboutlibraries.ui.compose.variant.DefaultLibraryBadges
+import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryActionKind
+import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryActionMode
+import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryBadges
+import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryDetailMode
 
 
 /**
- * Displays all provided libraries in a simple list.
+ * Stateful overload — owns dialog state internally.
+ *
+ * Displays all provided libraries in a list using the Material 2 theme.
  */
 @Composable
 fun LibrariesContainer(
     libraries: Libs?,
     modifier: Modifier = Modifier,
-    libraryModifier: Modifier = Modifier,
     lazyListState: LazyListState = rememberLazyListState(),
     contentPadding: PaddingValues = PaddingValues(0.dp),
-    showAuthor: Boolean = true,
-    showDescription: Boolean = false,
-    showVersion: Boolean = true,
-    showLicenseBadges: Boolean = true,
-    showFundingBadges: Boolean = false,
-    typography: Typography = MaterialTheme.typography,
+    badges: LibraryBadges = DefaultLibraryBadges,
+    actionLabels: LibraryActionBadges = DefaultLibraryActionBadges,
     colors: LibraryColors = LibraryDefaults.libraryColors(),
     padding: LibraryPadding = LibraryDefaults.libraryPadding(),
-    dimensions: LibraryDimensions = LibraryDefaults.libraryDimensions(),
-    textStyles: LibraryTextStyles = LibraryDefaults.libraryTextStyles(),
-    shapes: LibraryShapes = LibraryDefaults.libraryShapes(),
-    onLibraryClick: ((Library) -> Unit)? = null,
-    onFundingClick: ((Funding) -> Unit)? = null,
-    name: @Composable BoxScope.(name: String) -> Unit = { DefaultLibraryName(it, textStyles, colors, typography) },
-    version: (@Composable BoxScope.(version: String) -> Unit)? = { version ->
-        if (showVersion) DefaultLibraryVersion(version, textStyles, colors, typography, padding, dimensions, shapes)
-    },
-    author: (@Composable BoxScope.(authors: String) -> Unit)? = { author ->
-        if (showAuthor && author.isNotBlank()) DefaultLibraryAuthor(author, textStyles, colors, typography)
-    },
-    description: (@Composable BoxScope.(description: String) -> Unit)? = { description ->
-        if (showDescription) DefaultLibraryDescription(description, textStyles, colors, typography)
-    },
-    license: (@Composable FlowRowScope.(license: License) -> Unit)? = { license ->
-        if (showLicenseBadges) DefaultLibraryLicense(license, textStyles, colors, padding, dimensions, shapes)
-    },
-    funding: (@Composable FlowRowScope.(funding: Funding) -> Unit)? = { funding ->
-        if (showFundingBadges) DefaultLibraryFunding(funding, textStyles, colors, padding, dimensions, shapes, onFundingClick)
-    },
-    actions: (@Composable FlowRowScope.(library: Library) -> Unit)? = null,
+    variant: LibrariesVariant = LibrariesVariant.Traditional,
+    density: LibrariesDensity = LibrariesDensity.Cozy,
+    detailMode: LibraryDetailMode = LibraryDetailMode.Inline,
+    actionMode: LibraryActionMode = LibraryActionMode.Chips,
+    variantColors: VariantColors = LibraryDefaults.m2VariantColors(),
+    onLibraryClick: ((Library) -> Boolean)? = null,
+    onActionClick: ((Library, LibraryActionKind) -> Boolean)? = null,
     header: (LazyListScope.() -> Unit)? = null,
     divider: (@Composable LazyItemScope.() -> Unit)? = null,
     footer: (LazyListScope.() -> Unit)? = null,
-    licenseDialogBody: (@Composable (Library, Modifier) -> Unit)? = { library, modifier -> LicenseDialogBody(library = library, colors = colors, modifier = modifier) },
+    libraryRow: (@Composable LazyItemScope.(index: Int, library: Library, expanded: Boolean, toggle: () -> Unit, style: LibrariesStyle) -> Unit)? = null,
+    licenseDialogBody: (@Composable (Library, Modifier) -> Unit)? = { library, mod -> LicenseDialogBody(library = library, colors = colors, modifier = mod) },
     licenseDialogConfirmText: String = "OK",
+    overscrollEffect: OverscrollEffect? = rememberOverscrollEffect(),
 ) {
-    val libs = libraries?.libraries.orEmpty()
-    val openDialog = remember { mutableStateOf<Library?>(null) }
+    var openDialog by remember { mutableStateOf<Library?>(null) }
 
-    LibrariesScaffold(
-        libraries = libs,
+    LibrariesContainer(
+        libraries = libraries,
+        dialogLibrary = openDialog,
+        onDialogLibraryChange = { openDialog = it },
         modifier = modifier,
-        libraryModifier = libraryModifier.background(colors.libraryBackgroundColor),
         lazyListState = lazyListState,
+        overscrollEffect = overscrollEffect,
         contentPadding = contentPadding,
+        badges = badges,
+        actionLabels = actionLabels,
+        colors = colors,
         padding = padding,
-        dimensions = dimensions,
-        name = name,
-        version = version,
-        author = author,
-        description = description,
-        license = license,
-        funding = funding,
-        actions = actions,
+        variant = variant,
+        density = density,
+        detailMode = detailMode,
+        actionMode = actionMode,
+        variantColors = variantColors,
+        onLibraryClick = onLibraryClick,
+        onActionClick = onActionClick,
         header = header,
         divider = divider,
         footer = footer,
-        onLibraryClick = { library ->
-            if (onLibraryClick != null) {
-                onLibraryClick(library)
-                true
-            } else {
-                val license = library.licenses.firstOrNull()
-                if (!license?.htmlReadyLicenseContent.isNullOrBlank()) {
-                    openDialog.value = library
-                    true
-                } else false
-            }
-        },
+        libraryRow = libraryRow,
+        licenseDialogBody = licenseDialogBody,
+        licenseDialogConfirmText = licenseDialogConfirmText,
+    )
+}
+
+/**
+ * Stateless overload — caller owns [dialogLibrary] state.
+ *
+ * Use this overload to drive the dialog from outside (e.g. deep-link navigation, testing).
+ */
+@Composable
+fun LibrariesContainer(
+    libraries: Libs?,
+    dialogLibrary: Library?,
+    onDialogLibraryChange: (Library?) -> Unit,
+    modifier: Modifier = Modifier,
+    lazyListState: LazyListState = rememberLazyListState(),
+    contentPadding: PaddingValues = PaddingValues(0.dp),
+    badges: LibraryBadges = DefaultLibraryBadges,
+    actionLabels: LibraryActionBadges = DefaultLibraryActionBadges,
+    colors: LibraryColors = LibraryDefaults.libraryColors(),
+    padding: LibraryPadding = LibraryDefaults.libraryPadding(),
+    variant: LibrariesVariant = LibrariesVariant.Traditional,
+    density: LibrariesDensity = LibrariesDensity.Cozy,
+    detailMode: LibraryDetailMode = LibraryDetailMode.Inline,
+    actionMode: LibraryActionMode = LibraryActionMode.Chips,
+    variantColors: VariantColors = LibraryDefaults.m2VariantColors(),
+    onLibraryClick: ((Library) -> Boolean)? = null,
+    onActionClick: ((Library, LibraryActionKind) -> Boolean)? = null,
+    header: (LazyListScope.() -> Unit)? = null,
+    divider: (@Composable LazyItemScope.() -> Unit)? = null,
+    footer: (LazyListScope.() -> Unit)? = null,
+    libraryRow: (@Composable LazyItemScope.(index: Int, library: Library, expanded: Boolean, toggle: () -> Unit, style: LibrariesStyle) -> Unit)? = null,
+    licenseDialogBody: (@Composable (Library, Modifier) -> Unit)? = { library, mod -> LicenseDialogBody(library = library, colors = colors, modifier = mod) },
+    licenseDialogConfirmText: String = "OK",
+    overscrollEffect: OverscrollEffect? = rememberOverscrollEffect(),
+) {
+    val libs = libraries?.libraries.orEmpty()
+
+    val variantTextStyles = LibraryDefaults.m2VariantTextStyles()
+    val style: LibrariesStyle = LibraryDefaults.librariesStyle(
+        colors = variantColors,
+        textStyles = variantTextStyles,
     )
 
-    val library = openDialog.value
-    if (library != null && licenseDialogBody != null) {
+    val onDialogRequest = remember(onDialogLibraryChange) { { lib: Library -> onDialogLibraryChange(lib) } }
+
+    Libraries(
+        libraries = libs,
+        style = style,
+        modifier = modifier.background(colors.libraryBackgroundColor),
+        variant = variant,
+        density = density,
+        detailMode = detailMode,
+        actionMode = actionMode,
+        badges = badges,
+        actionLabels = actionLabels,
+        contentPadding = contentPadding,
+        state = lazyListState,
+        overscrollEffect = overscrollEffect,
+        header = header,
+        divider = divider,
+        footer = footer,
+        libraryRow = libraryRow,
+        onActionClick = onActionClick,
+        onLibraryClick = onLibraryClick,
+        onDialogRequest = onDialogRequest,
+    )
+
+    if (dialogLibrary != null && licenseDialogBody != null) {
         LicenseDialog(
-            library = library,
+            library = dialogLibrary,
             colors = colors,
             padding = padding,
             confirmText = licenseDialogConfirmText,
-            body = licenseDialogBody
-        ) {
-            openDialog.value = null
-        }
+            body = licenseDialogBody,
+            onDismiss = { onDialogLibraryChange(null) },
+        )
     }
 }
 

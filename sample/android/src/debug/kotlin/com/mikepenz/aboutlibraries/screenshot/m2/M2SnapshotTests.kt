@@ -1,17 +1,21 @@
 package com.mikepenz.aboutlibraries.screenshot.m2
 
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.LayoutDirection
-import com.mikepenz.aboutlibraries.screenshot.fakeData
+import androidx.compose.ui.unit.dp
+import com.mikepenz.aboutlibraries.screenshot.fakeLibraries
 import com.mikepenz.aboutlibraries.ui.compose.LibrariesContainer
+import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryBadges
 
 @Composable
 fun Theme(isDarkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) = MaterialTheme(if (isDarkTheme) darkColors() else lightColors()) { content() }
@@ -20,7 +24,7 @@ fun Theme(isDarkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () 
 @Composable
 fun PreviewLibraries() = Theme {
     Surface {
-        LibrariesContainer(libraries = fakeData, showDescription = true)
+        LibrariesContainer(libraries = fakeLibraries, badges = LibraryBadges(description = true), modifier = Modifier.width(360.dp))
     }
 }
 
@@ -28,7 +32,7 @@ fun PreviewLibraries() = Theme {
 @Composable
 fun PreviewLibrariesOff() = Theme {
     Surface {
-        LibrariesContainer(fakeData, showAuthor = false, showLicenseBadges = false)
+        LibrariesContainer(fakeLibraries, badges = LibraryBadges(author = false, license = false), modifier = Modifier.width(360.dp))
     }
 }
 
@@ -37,7 +41,7 @@ fun PreviewLibrariesOff() = Theme {
 fun PreviewLibraryRTL() = Theme {
     CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
         Surface {
-            LibrariesContainer(fakeData)
+            LibrariesContainer(fakeLibraries, modifier = Modifier.width(360.dp))
         }
     }
 }

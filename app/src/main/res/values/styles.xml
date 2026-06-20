@@ -1,16 +1,3 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <style name="AboutLibrariesStyleCustom" parent="AboutLibrariesStyle">
-        <!-- AboutLibraries specific values -->
-        <item name="aboutLibrariesCardBackground">@color/about_libraries_card</item>
-        <item name="aboutLibrariesOpenSourceTitle">@color/about_libraries_title_openSource</item>
-        <item name="aboutLibrariesOpenSourceText">@color/about_libraries_text_openSource</item>
-        <item name="aboutLibrariesSpecialButtonText">
-            @color/about_libraries_special_button_openSource
-        </item>
-        <item name="aboutLibrariesOpenSourceDivider">
-            @color/about_libraries_dividerDark_openSource
-        </item>
-    </style>
 </resources>

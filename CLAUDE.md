@@ -16,8 +16,8 @@ The Gradle plugin lives in a **separate Gradle build** under `plugin-build/`. Th
 ./gradlew lintDebug                                      # Lint Android modules
 ./gradlew apiCheck                                       # Binary compatibility validation
 ./gradlew :sample:android:assembleDebug                  # Build Android sample
-./gradlew :sample:android:validateDebugScreenshotTest    # Run Paparazzi screenshot tests
-./gradlew :sample:android:updateDebugScreenshotTest      # Update screenshot baselines
+./gradlew :sample:android:verifyPaparazziDebug           # Run Paparazzi screenshot tests
+./gradlew :sample:android:recordPaparazziDebug           # Update (record) screenshot baselines
 ./gradlew :sample:desktop:run                            # Run desktop sample
 ./gradlew :sample:web:wasmJsBrowserDevelopmentRun        # Run WASM sample
 ```
@@ -53,7 +53,6 @@ aboutlibraries-compose/       # Base Compose UI (no Material dependency)
 aboutlibraries-compose-m2/    # Material 2 Compose UI
 aboutlibraries-compose-m3/    # Material 3 Compose UI
 aboutlibraries-compose-wear-m3/ # Wear OS Material 3 (Android-only)
-aboutlibraries/               # DEPRECATED: View-based UI (FastAdapter/RecyclerView)
 app/                          # Full showcase Android app
 sample/shared/                # KMP shared sample code
 sample/android/               # Android sample (has Paparazzi screenshot tests)

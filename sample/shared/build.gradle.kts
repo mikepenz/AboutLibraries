@@ -1,9 +1,17 @@
+import com.mikepenz.gradle.tasks.VersionTask
 import com.mikepenz.gradle.utils.readPropertyOrElse
 
 plugins {
     id("com.mikepenz.convention.kotlin-multiplatform")
     id("com.mikepenz.convention.compose")
     id("com.mikepenz.aboutlibraries.plugin")
+}
+
+val generateVersion = tasks.register<VersionTask>("generateVersion") {
+    packageString.set("com.mikepenz.aboutlibraries.sample")
+    version.set(providers.gradleProperty("VERSION_NAME"))
+    store(resources)
+    into(layout.buildDirectory.dir("generated-version/kotlin/"))
 }
 
 composeCompiler {
@@ -25,7 +33,6 @@ kotlin {
     }
 
     listOf(
-        iosX64(),
         iosArm64(),
         iosSimulatorArm64(),
     ).forEach { iosTarget ->
@@ -36,6 +43,9 @@ kotlin {
     }
 
     sourceSets {
+        commonMain {
+            kotlin.srcDir(generateVersion)
+        }
         commonMain.dependencies {
             api(project(":aboutlibraries-core"))
             implementation(project(":aboutlibraries-compose-m2"))

@@ -1,5 +1,105 @@
 ### Upgrade Notes
 
+#### v15.0.0
+
+- **Breaking Change**: The legacy View-based UI module (`com.mikepenz:aboutlibraries`) has been removed.
+    - Migrate to the Compose UI modules: `com.mikepenz:aboutlibraries-compose`, `com.mikepenz:aboutlibraries-compose-m2` (M2) or `com.mikepenz:aboutlibraries-compose-m3` (M3).
+    - Remove `LibsBuilder`, `LibsActivity`, `LibsFragment`, and `LibsConfiguration` usages from your code.
+    - See the [README](README.md) for the Compose UI setup and usage.
+- **Breaking Change**: Upgrade to Compose 1.11.x which drops support for `macosX64` and `iosX64` targets. If you were using these targets, you will need to migrate to the new
+  `macosArm64` and `iosArm64` targets respectively.
+- **Breaking Change**: The Android Gradle Plugin (AGP) version 8.13.0 or greater is now required when applying the `.android` plugin.
+- **Breaking Change (Gradle Plugin)**: Removed previously deprecated configuration API.
+    - `AndroidConfig` and the `android { }` block on `AboutLibrariesExtension` were removed (`registerAndroidTasks` was already a no-op). Apply the
+      `com.mikepenz.aboutlibraries.plugin.android` plugin to auto-hook the Android build instead.
+    - `outputFileName` on `ExportConfig` was removed — use `outputFile` (full path) instead.
+    - The `aboutLibraries.outputPath` Gradle property was removed — use `aboutLibraries.outputFile` instead.
+- **Breaking Change (Compose UI)**: The Compose UI received a major overhaul (variant system, accent theming, search). The public `LibrariesContainer` API changed;
+  see [Compose UI API migration](#compose-ui-api-migration-v14x--v15) below.
+    - `onLibraryClick` now returns `Boolean` instead of `Unit`, and the new `onActionClick` callback (replacing `onFundingClick`) returns `Boolean`. Return `true` to consume the
+      event and suppress the default handling (URI open / license dialog / sheet).
+    - The `show*` boolean parameters (`showAuthor`, `showDescription`, `showVersion`, `showLicenseBadges`, `showFundingBadges`) are replaced by a single `badges: LibraryBadges`.
+    - The styling parameters (`typography`, `padding`, `dimensions`, `textStyles`, `shapes`) and `libraryModifier`/`onFundingClick` were removed from the M2/M3
+      `LibrariesContainer`. Styling now flows through the variant token system (see below).
+    - The deprecated `rememberLibraries` overloads and the deprecated `LibrariesContainer` wrapper files (deprecated in v12.2.0) were removed.
+
+##### Compose UI API migration (v14.x → v15)
+
+The styling knobs that used to be individual `LibrariesContainer` parameters are now grouped into the variant token system. Where each one moved:
+
+| Removed v14 parameter                                                                        | v15 replacement                                                                                                                                                                |
+|----------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `showAuthor` / `showDescription` / `showVersion` / `showLicenseBadges` / `showFundingBadges` | `badges = LibraryBadges(author, description, version, license, funding)`                                                                                                       |
+| `typography: Typography`                                                                     | Derived from `MaterialTheme.typography` inside the style; override via `textStyles` on `LibraryDefaults.librariesStyle(...)`                                                   |
+| `padding: LibraryPadding`                                                                    | `LibrariesStyle.padding` (`VariantPadding`) via `LibraryDefaults.defaultVariantPadding(...)`                                                                                   |
+| `dimensions: LibraryDimensions`                                                              | `LibrariesStyle.dimensions` (`VariantDimensions`) via `LibraryDefaults.defaultVariantDimensions(...)`                                                                          |
+| `textStyles: LibraryTextStyles`                                                              | `LibrariesStyle.textStyles` (`VariantTextStyles`) via `LibraryDefaults.m3VariantTextStyles(...)` / `defaultVariantTextStyles(...)`                                             |
+| `shapes: LibraryShapes`                                                                      | `LibrariesStyle.shapes` (`VariantShapes`) via `LibraryDefaults.defaultVariantShapes(...)`                                                                                      |
+| `colors: LibraryColors`                                                                      | Kept (chips + license dialog). Header / row / action chrome colors moved to `variantColors: VariantColors` via `LibraryDefaults.m3VariantColors(...)` / `m2VariantColors(...)` |
+| `libraryModifier`, `onFundingClick`, per-slot lambdas (`name`/`version`/`author`/…)          | Replaced by `variant` / `actionMode` / `detailMode` enums and the `libraryRow` slot                                                                                            |
+
+> Note: `LibraryColors` and the legacy `LibraryDefaults.libraryColors()` / `libraryPadding()` / `libraryDimensions()` / `libraryTextStyles()` / `libraryShapes()` factories still
+> exist — only the `LibrariesContainer` parameters changed.
+
+**Before (v14.x):**
+
+```kotlin
+LibrariesContainer(
+    libraries = libs,
+    showAuthor = true,
+    showVersion = true,
+    showLicenseBadges = true,
+    showFundingBadges = false,
+    colors = LibraryDefaults.libraryColors(),
+    padding = LibraryDefaults.libraryPadding(),
+    dimensions = LibraryDefaults.libraryDimensions(),
+    textStyles = LibraryDefaults.libraryTextStyles(),
+    shapes = LibraryDefaults.libraryShapes(),
+    onLibraryClick = { library -> /* handle */ },
+)
+```
+
+**After (v15):**
+
+```kotlin
+LibrariesContainer(
+    libraries = libs,
+    badges = LibraryBadges(
+        author = true,
+        version = true,
+        license = true,
+        funding = false,
+        description = false,
+    ),
+    colors = LibraryDefaults.libraryColors(),          // chips + license dialog (unchanged)
+    variantColors = LibraryDefaults.m3VariantColors(), // header / row / action chrome
+    variant = LibrariesVariant.Traditional,            // or .Refined
+    actionMode = LibraryActionMode.Chips,              // or .Icons / .Links
+    detailMode = LibraryDetailMode.Inline,             // or .None / .Sheet
+    onLibraryClick = { library -> false },             // return true to consume the click
+    onActionClick = { library, kind -> false },        // return true to suppress default open
+)
+```
+
+**Customizing padding / dimensions / text styles / shapes:** the M2/M3 `LibrariesContainer` builds its `LibrariesStyle` internally and only exposes `variantColors`. For full
+control over the remaining tokens, use the Material-agnostic `Libraries` composable from `aboutlibraries-compose` and pass a `LibrariesStyle`:
+
+```kotlin
+import com.mikepenz.aboutlibraries.ui.compose.variant.Libraries
+
+Libraries(
+    libraries = libs,
+    style = LibraryDefaults.m3LibrariesStyle(compact = false),   // shortcut, or build granularly:
+    // style = LibraryDefaults.librariesStyle(
+    //     colors = LibraryDefaults.m3VariantColors(),
+    //     padding = LibraryDefaults.defaultVariantPadding(headerPadding = PaddingValues(20.dp)),
+    //     dimensions = LibraryDefaults.defaultVariantDimensions(headerIconSize = 28.dp),
+    //     textStyles = LibraryDefaults.m3VariantTextStyles(),
+    //     shapes = LibraryDefaults.defaultVariantShapes(),
+    // ),
+)
+```
+
 #### v14.0.0
 
 - **Breaking Change**: The `core` plugin no longer depends on the `kotlinx.immutable` collections library.
@@ -18,6 +118,7 @@
 #### v13.1.0
 
 - **Behaviour Change**: The `Gradle Plugin` now by default enables MERGING duplicates with EXACT matches. In prior releases, duplicates would be kept.
+
 ```kotlin
 // To enable the prior behavior, you can simply configure this in your build script
 aboutLibraries {
@@ -29,25 +130,26 @@ aboutLibraries {
 
 ```
 
-
 #### v13.0.0
 
 - **Breaking Change**: Deprecated APIs from v12.x.y were removed
-- **Breaking Change**: The `Gradle Plugin` was split into 2. The main plugin that is registering all the manual tasks, and an Android specific one automatically registering the Android auto
+- **Breaking Change**: The `Gradle Plugin` was split into 2. The main plugin that is registering all the manual tasks, and an Android specific one automatically registering the
+  Android auto
   generation task.
-  - For most projects the manual tasks are recommended. Only if you require or want to use the generation as part of the android build, use the `.android` plugin.
-  - The main plugin (`com.mikepenz.aboutlibraries.plugin`) provides tasks like `exportLibraryDefinitions` that need to be manually executed
-  - The Android plugin (`com.mikepenz.aboutlibraries.plugin.android`) automatically hooks into the Android build process
+    - For most projects the manual tasks are recommended. Only if you require or want to use the generation as part of the android build, use the `.android` plugin.
+    - The main plugin (`com.mikepenz.aboutlibraries.plugin`) provides tasks like `exportLibraryDefinitions` that need to be manually executed
+    - The Android plugin (`com.mikepenz.aboutlibraries.plugin.android`) automatically hooks into the Android build process
 
 ```kotlin
 // To use the Android auto registering plugin - add the following to your module:
 id("com.mikepenz.aboutlibraries.plugin.android")
 ```
+
 - **Breaking Change**: The `AndroidConfig` class and its `registerAndroidTasks` property were removed, replaced by the Android-specific plugin
 - **Breaking Change**: Reworked the `LibraryColors` interface to be more descriptive and more flexible
-  - Renamed `backgroundColor` to `libraryBackgroundColor`
-  - Renamed `contentColor` to `libraryContentColor`
-  - Added new background, content color variants for the dialog
+    - Renamed `backgroundColor` to `libraryBackgroundColor`
+    - Renamed `contentColor` to `libraryContentColor`
+    - Added new background, content color variants for the dialog
 
 #### v12.2.0
 
