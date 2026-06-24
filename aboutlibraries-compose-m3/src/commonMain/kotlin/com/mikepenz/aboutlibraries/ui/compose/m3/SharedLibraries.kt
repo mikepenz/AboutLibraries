@@ -46,7 +46,9 @@ import com.mikepenz.aboutlibraries.ui.compose.LibraryDefaults
 import com.mikepenz.aboutlibraries.ui.compose.m3.sheet.LibraryDetailSheet
 import com.mikepenz.aboutlibraries.ui.compose.m3.style.m3VariantColors
 import com.mikepenz.aboutlibraries.ui.compose.m3.style.m3VariantTextStyles
+import com.mikepenz.aboutlibraries.ui.compose.style.DefaultLibraryActionBadges
 import com.mikepenz.aboutlibraries.ui.compose.style.LibrariesStyle
+import com.mikepenz.aboutlibraries.ui.compose.style.LibraryActionBadges
 import com.mikepenz.aboutlibraries.ui.compose.style.VariantColors
 import com.mikepenz.aboutlibraries.ui.compose.style.VariantTextStyles
 import com.mikepenz.aboutlibraries.ui.compose.style.defaultVariantDimensions
@@ -54,12 +56,10 @@ import com.mikepenz.aboutlibraries.ui.compose.style.defaultVariantPadding
 import com.mikepenz.aboutlibraries.ui.compose.style.defaultVariantShapes
 import com.mikepenz.aboutlibraries.ui.compose.style.librariesStyle
 import com.mikepenz.aboutlibraries.ui.compose.util.strippedLicenseContent
-import com.mikepenz.aboutlibraries.ui.compose.style.DefaultLibraryActionBadges
-import com.mikepenz.aboutlibraries.ui.compose.style.LibraryActionBadges
+import com.mikepenz.aboutlibraries.ui.compose.variant.DefaultLibraryBadges
 import com.mikepenz.aboutlibraries.ui.compose.variant.Libraries
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibrariesDensity
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibrariesVariant
-import com.mikepenz.aboutlibraries.ui.compose.variant.DefaultLibraryBadges
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryActionKind
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryActionMode
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryBadges
