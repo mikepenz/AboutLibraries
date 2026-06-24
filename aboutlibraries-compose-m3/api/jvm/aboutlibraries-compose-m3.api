@@ -26,7 +26,7 @@ public final class com/mikepenz/aboutlibraries/ui/compose/m3/component/Libraries
 }
 
 public final class com/mikepenz/aboutlibraries/ui/compose/m3/sheet/LibraryDetailSheetKt {
-	public static final fun LibraryDetailSheet (Lcom/mikepenz/aboutlibraries/entity/Library;Lkotlin/jvm/functions/Function0;Lcom/mikepenz/aboutlibraries/ui/compose/style/LibrariesStyle;Landroidx/compose/ui/Modifier;Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryActionMode;Lcom/mikepenz/aboutlibraries/ui/compose/style/LibraryActionBadges;Landroidx/compose/material3/SheetState;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;II)V
+	public static final fun LibraryDetailSheet (Lcom/mikepenz/aboutlibraries/entity/Library;Lkotlin/jvm/functions/Function0;Lcom/mikepenz/aboutlibraries/ui/compose/style/LibrariesStyle;Landroidx/compose/ui/Modifier;Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryActionMode;Lcom/mikepenz/aboutlibraries/ui/compose/style/LibraryActionBadges;Landroidx/compose/material3/SheetState;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;II)V
 }
 
 public final class com/mikepenz/aboutlibraries/ui/compose/m3/style/M3LibrariesStyleKt {
