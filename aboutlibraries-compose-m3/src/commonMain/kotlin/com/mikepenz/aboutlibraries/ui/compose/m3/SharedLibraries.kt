@@ -46,6 +46,7 @@ import com.mikepenz.aboutlibraries.ui.compose.m3.style.m3VariantColors
 import com.mikepenz.aboutlibraries.ui.compose.m3.style.m3VariantTextStyles
 import com.mikepenz.aboutlibraries.ui.compose.style.LibrariesStyle
 import com.mikepenz.aboutlibraries.ui.compose.style.VariantColors
+import com.mikepenz.aboutlibraries.ui.compose.style.VariantTextStyles
 import com.mikepenz.aboutlibraries.ui.compose.style.defaultVariantDimensions
 import com.mikepenz.aboutlibraries.ui.compose.style.defaultVariantPadding
 import com.mikepenz.aboutlibraries.ui.compose.style.defaultVariantShapes
@@ -82,6 +83,7 @@ fun LibrariesContainer(
     detailMode: LibraryDetailMode = LibraryDetailMode.Inline,
     actionMode: LibraryActionMode = LibraryActionMode.Chips,
     variantColors: VariantColors = LibraryDefaults.m3VariantColors(),
+    variantTextStyles: VariantTextStyles = LibraryDefaults.m3VariantTextStyles(),
     onLibraryClick: ((Library) -> Boolean)? = null,
     onActionClick: ((Library, LibraryActionKind) -> Boolean)? = null,
     header: (LazyListScope.() -> Unit)? = null,
@@ -113,6 +115,7 @@ fun LibrariesContainer(
         detailMode = detailMode,
         actionMode = actionMode,
         variantColors = variantColors,
+        variantTextStyles = variantTextStyles,
         onLibraryClick = onLibraryClick,
         onActionClick = onActionClick,
         header = header,
@@ -148,6 +151,7 @@ fun LibrariesContainer(
     detailMode: LibraryDetailMode = LibraryDetailMode.Inline,
     actionMode: LibraryActionMode = LibraryActionMode.Chips,
     variantColors: VariantColors = LibraryDefaults.m3VariantColors(),
+    variantTextStyles: VariantTextStyles = LibraryDefaults.m3VariantTextStyles(),
     onLibraryClick: ((Library) -> Boolean)? = null,
     onActionClick: ((Library, LibraryActionKind) -> Boolean)? = null,
     header: (LazyListScope.() -> Unit)? = null,
@@ -184,7 +188,6 @@ fun LibrariesContainer(
             )
         }
     }
-    val variantTextStyles = LibraryDefaults.m3VariantTextStyles()
     val style: LibrariesStyle = LibraryDefaults.librariesStyle(
         colors = variantColors,
         padding = variantPadding,

@@ -13,8 +13,12 @@ import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.compose.ui.text.font.FontWeight
 import com.mikepenz.aboutlibraries.screenshot.fakeLibraries
+import com.mikepenz.aboutlibraries.ui.compose.LibraryDefaults
 import com.mikepenz.aboutlibraries.ui.compose.m3.LibrariesContainer
+import com.mikepenz.aboutlibraries.ui.compose.m3.style.m3VariantTextStyles
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryBadges
 
 @Composable
@@ -33,6 +37,21 @@ fun PreviewLibraries() = Theme {
 fun PreviewLibrariesOff() = Theme {
     Surface {
         LibrariesContainer(libraries = fakeLibraries, badges = LibraryBadges(author = false, license = false), modifier = Modifier.width(360.dp))
+    }
+}
+
+@PreviewLightDark
+@Composable
+fun PreviewLibrariesCustomTextStyles() = Theme {
+    Surface {
+        LibrariesContainer(
+            libraries = fakeLibraries,
+            modifier = Modifier.width(360.dp),
+            variantTextStyles = LibraryDefaults.m3VariantTextStyles(
+                nameTextStyle = MaterialTheme.typography.titleMedium.copy(fontSize = 20.sp, fontWeight = FontWeight.Bold),
+                versionTextStyle = MaterialTheme.typography.bodyLarge.copy(fontSize = 14.sp),
+            ),
+        )
     }
 }
 

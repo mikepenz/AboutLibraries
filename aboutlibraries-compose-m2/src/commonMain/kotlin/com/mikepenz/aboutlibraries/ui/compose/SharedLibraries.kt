@@ -40,6 +40,7 @@ import com.mikepenz.aboutlibraries.ui.compose.style.DefaultLibraryActionBadges
 import com.mikepenz.aboutlibraries.ui.compose.style.LibraryActionBadges
 import com.mikepenz.aboutlibraries.ui.compose.style.LibrariesStyle
 import com.mikepenz.aboutlibraries.ui.compose.style.VariantColors
+import com.mikepenz.aboutlibraries.ui.compose.style.VariantTextStyles
 import com.mikepenz.aboutlibraries.ui.compose.style.defaultVariantDimensions
 import com.mikepenz.aboutlibraries.ui.compose.style.defaultVariantPadding
 import com.mikepenz.aboutlibraries.ui.compose.style.defaultVariantShapes
@@ -77,6 +78,7 @@ fun LibrariesContainer(
     detailMode: LibraryDetailMode = LibraryDetailMode.Inline,
     actionMode: LibraryActionMode = LibraryActionMode.Chips,
     variantColors: VariantColors = LibraryDefaults.m2VariantColors(),
+    variantTextStyles: VariantTextStyles = LibraryDefaults.m2VariantTextStyles(),
     onLibraryClick: ((Library) -> Boolean)? = null,
     onActionClick: ((Library, LibraryActionKind) -> Boolean)? = null,
     header: (LazyListScope.() -> Unit)? = null,
@@ -106,6 +108,7 @@ fun LibrariesContainer(
         detailMode = detailMode,
         actionMode = actionMode,
         variantColors = variantColors,
+        variantTextStyles = variantTextStyles,
         onLibraryClick = onLibraryClick,
         onActionClick = onActionClick,
         header = header,
@@ -139,6 +142,7 @@ fun LibrariesContainer(
     detailMode: LibraryDetailMode = LibraryDetailMode.Inline,
     actionMode: LibraryActionMode = LibraryActionMode.Chips,
     variantColors: VariantColors = LibraryDefaults.m2VariantColors(),
+    variantTextStyles: VariantTextStyles = LibraryDefaults.m2VariantTextStyles(),
     onLibraryClick: ((Library) -> Boolean)? = null,
     onActionClick: ((Library, LibraryActionKind) -> Boolean)? = null,
     header: (LazyListScope.() -> Unit)? = null,
@@ -151,7 +155,6 @@ fun LibrariesContainer(
 ) {
     val libs = libraries?.libraries.orEmpty()
 
-    val variantTextStyles = LibraryDefaults.m2VariantTextStyles()
     val style: LibrariesStyle = LibraryDefaults.librariesStyle(
         colors = variantColors,
         textStyles = variantTextStyles,
