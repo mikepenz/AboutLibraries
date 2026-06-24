@@ -108,8 +108,9 @@ fun LibraryListScaffold(
             // lambda reference and can skip when [expanded] is unchanged.
             // expandedLibraryId must be a key so the lambda captures its current value;
             // without it the closure would stale-capture the value at first composition
-            // and a second click would never collapse the row.
-            val toggle = remember(library.uniqueId, detailMode, onLibraryClick, onSheetRequest, onDialogRequest, expandedLibraryId) {
+            // and a second click would never collapse the row. onExpandedLibraryIdChange is keyed
+            // for the same reason — so a caller swapping the callback isn't invoked stale.
+            val toggle = remember(library.uniqueId, detailMode, onLibraryClick, onSheetRequest, onDialogRequest, onExpandedLibraryIdChange, expandedLibraryId) {
                 {
                     val handled = onLibraryClick?.invoke(library) ?: false
                     if (!handled) when (detailMode) {
