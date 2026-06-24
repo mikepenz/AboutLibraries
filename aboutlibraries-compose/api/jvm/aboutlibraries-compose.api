@@ -477,6 +477,7 @@ public final class com/mikepenz/aboutlibraries/ui/compose/variant/LibraryDetailB
 }
 
 public final class com/mikepenz/aboutlibraries/ui/compose/variant/LibraryDetailMode : java/lang/Enum {
+	public static final field Dialog Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryDetailMode;
 	public static final field Inline Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryDetailMode;
 	public static final field None Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryDetailMode;
 	public static final field Sheet Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryDetailMode;
@@ -486,8 +487,8 @@ public final class com/mikepenz/aboutlibraries/ui/compose/variant/LibraryDetailM
 }
 
 public final class com/mikepenz/aboutlibraries/ui/compose/variant/LibraryListScaffoldKt {
-	public static final fun LibraryListScaffold-KUi3TG8 (Ljava/util/List;Ljava/lang/String;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function7;Landroidx/compose/ui/Modifier;Landroidx/compose/foundation/lazy/LazyListState;Landroidx/compose/foundation/layout/PaddingValues;FLcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryDetailMode;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function1;Landroidx/compose/foundation/OverscrollEffect;Landroidx/compose/runtime/Composer;III)V
-	public static final fun LibraryListScaffold-xYaah8o (Ljava/util/List;Lkotlin/jvm/functions/Function7;Landroidx/compose/ui/Modifier;Landroidx/compose/foundation/lazy/LazyListState;Landroidx/compose/foundation/layout/PaddingValues;FLcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryDetailMode;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function1;Landroidx/compose/foundation/OverscrollEffect;Landroidx/compose/runtime/Composer;III)V
+	public static final fun LibraryListScaffold-RnoHquI (Ljava/util/List;Ljava/lang/String;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function7;Landroidx/compose/ui/Modifier;Landroidx/compose/foundation/lazy/LazyListState;Landroidx/compose/foundation/layout/PaddingValues;FLcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryDetailMode;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function1;Landroidx/compose/foundation/OverscrollEffect;Landroidx/compose/runtime/Composer;III)V
+	public static final fun LibraryListScaffold-oI3XNZo (Ljava/util/List;Lkotlin/jvm/functions/Function7;Landroidx/compose/ui/Modifier;Landroidx/compose/foundation/lazy/LazyListState;Landroidx/compose/foundation/layout/PaddingValues;FLcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryDetailMode;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function1;Landroidx/compose/foundation/OverscrollEffect;Landroidx/compose/runtime/Composer;III)V
 }
 
 public final class com/mikepenz/aboutlibraries/ui/compose/variant/LibraryRowKt {

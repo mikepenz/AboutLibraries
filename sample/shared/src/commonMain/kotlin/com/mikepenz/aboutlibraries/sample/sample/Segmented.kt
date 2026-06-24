@@ -8,6 +8,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -46,6 +47,7 @@ fun <T> Segmented(
     selected: T,
     onSelect: (T) -> Unit,
     modifier: Modifier = Modifier,
+    enabled: (T) -> Boolean = { true },
 ) {
     val pillShape = RoundedCornerShape(7.dp)
     val spacingDp = 6.dp
@@ -94,6 +96,7 @@ fun <T> Segmented(
             ) {
                 options.forEach { (key, label) ->
                     val active = key == selected
+                    val itemEnabled = enabled(key)
                     val textColor by animateColorAsState(
                         targetValue = if (active) onPrimary else onSurface,
                         animationSpec = tween(durationMillis = 150),
@@ -101,8 +104,14 @@ fun <T> Segmented(
                     Box(
                         modifier = Modifier
                             .weight(1f)
+                            .alpha(if (itemEnabled) 1f else 0.38f)
                             .clip(pillShape)
-                            .selectable(selected = active, onClick = { onSelect(key) }, role = Role.RadioButton)
+                            .selectable(
+                                selected = active,
+                                enabled = itemEnabled,
+                                onClick = { onSelect(key) },
+                                role = Role.RadioButton,
+                            )
                             .padding(horizontal = 10.dp, vertical = 8.dp),
                         contentAlignment = Alignment.Center,
                     ) {

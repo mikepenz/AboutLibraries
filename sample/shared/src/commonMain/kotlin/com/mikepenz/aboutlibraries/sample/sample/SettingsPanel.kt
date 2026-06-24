@@ -9,12 +9,19 @@ import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.displayCutout
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.union
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -69,6 +76,19 @@ fun SettingsPanel(
     Column(
         modifier = Modifier
             .fillMaxWidth()
+            // Desktop/tablet drawer sits at the screen edge outside App's inset padding, so honor the
+            // system bars + display cutout here (e.g. a side notch in landscape). The surface stays
+            // full-height; only the content is inset. Mobile is inside a ModalBottomSheet, which insets.
+            .then(
+                if (!isMobile) {
+                    Modifier.windowInsetsPadding(
+                        WindowInsets.systemBars.union(WindowInsets.displayCutout)
+                            .only(WindowInsetsSides.End + WindowInsetsSides.Vertical),
+                    )
+                } else {
+                    Modifier
+                },
+            )
             .then(scrollModifier)
             .padding(
                 start = if (isMobile) 18.dp else 20.dp,
@@ -77,22 +97,8 @@ fun SettingsPanel(
                 bottom = if (isMobile) 22.dp else 22.dp,
             ),
     ) {
-        if (isMobile) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 14.dp),
-                contentAlignment = Alignment.Center,
-            ) {
-                Box(
-                    modifier = Modifier
-                        .size(width = 36.dp, height = 4.dp)
-                        .clip(RoundedCornerShape(2.dp))
-                        .background(MaterialTheme.colorScheme.outline.copy(alpha = 0.4f)),
-                )
-            }
-        }
-
+        // No drag handle here on mobile — the wrapping ModalBottomSheet (App.kt) already renders the
+        // Material default handle. Drawing one here too would show two stacked grabbers.
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(
                 text = "Settings",
@@ -124,7 +130,15 @@ fun SettingsPanel(
             Segmented(
                 options = listOf(false to "M2", true to "M3"),
                 selected = settings.useMaterial3,
-                onSelect = { onChange(settings.copy(useMaterial3 = it)) },
+                onSelect = { useM3 ->
+                    // M2 has no bottom sheet — fall back to Dialog so a click still opens detail.
+                    val detailMode = if (!useM3 && settings.detailMode == LibraryDetailMode.Sheet) {
+                        LibraryDetailMode.Dialog
+                    } else {
+                        settings.detailMode
+                    }
+                    onChange(settings.copy(useMaterial3 = useM3, detailMode = detailMode))
+                },
             )
         }
 
@@ -215,8 +229,11 @@ fun SettingsPanel(
                     LibraryDetailMode.None to "None",
                     LibraryDetailMode.Inline to "Inline",
                     LibraryDetailMode.Sheet to "Sheet",
+                    LibraryDetailMode.Dialog to "Dialog",
                 ),
                 selected = settings.detailMode,
+                // Sheet is M3-only; disable it under M2 (Material toggle auto-switches Sheet -> Dialog).
+                enabled = { it != LibraryDetailMode.Sheet || settings.useMaterial3 },
                 onSelect = { onChange(settings.copy(detailMode = it)) },
             )
         }

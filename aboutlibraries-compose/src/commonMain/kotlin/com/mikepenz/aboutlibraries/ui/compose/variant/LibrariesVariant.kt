@@ -24,6 +24,13 @@ enum class LibraryDetailMode {
 
     /** Open in a modal bottom sheet — caller renders the sheet via the `onSheetRequest` callback. */
     Sheet,
+
+    /**
+     * Open in a dialog — the click delegates to the `onDialogRequest` callback, which the M2 and M3
+     * `LibrariesContainer` adapters render as a `LicenseDialog`. The portable alternative to [Sheet]
+     * for themes without a modal bottom sheet (e.g. Material 2).
+     */
+    Dialog,
 }
 
 /** How action affordances (source / website / sponsor / view license) render. */

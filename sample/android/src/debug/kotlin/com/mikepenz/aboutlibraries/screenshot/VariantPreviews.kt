@@ -6,10 +6,15 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
@@ -20,6 +25,8 @@ import com.mikepenz.aboutlibraries.entity.License
 import com.mikepenz.aboutlibraries.entity.Scm
 import com.mikepenz.aboutlibraries.sample.AppTheme
 import com.mikepenz.aboutlibraries.ui.compose.LibraryDefaults
+import com.mikepenz.aboutlibraries.ui.compose.m3.LicenseDialogBody
+import com.mikepenz.aboutlibraries.ui.compose.m3.libraryColors
 import com.mikepenz.aboutlibraries.ui.compose.m3.style.m3VariantColors
 import com.mikepenz.aboutlibraries.ui.compose.m3.style.m3VariantTextStyles
 import com.mikepenz.aboutlibraries.ui.compose.style.ContrastLevel
@@ -264,6 +271,57 @@ fun PreviewSheetLinks() = AppTheme(useV3 = true, useDarkTheme = true) {
     Box(Modifier.width(360.dp).background(MaterialTheme.colorScheme.surfaceContainerHigh)) {
         WithStyle { style ->
             LibrarySheetDetail(SampleLibrary, LibraryActionMode.Links, style, actionLabels = DefaultLibraryActionBadges)
+        }
+    }
+}
+
+// ── License dialog body (Dialog detail mode) ──────────────────────────────────
+
+/** SampleLibrary with embedded license text so the dialog body renders content. */
+private val LicensedLibrary: Library = SampleLibrary.copy(
+    licenses = setOf(
+        License(
+            name = "Apache 2.0",
+            url = null,
+            year = null,
+            spdxId = "Apache-2.0",
+            licenseContent = "Licensed under the Apache License, Version 2.0 (the \"License\");\n" +
+                "you may not use this file except in compliance with the License.\n" +
+                "You may obtain a copy of the License at\n\n" +
+                "    https://www.apache.org/licenses/LICENSE-2.0\n\n" +
+                "Unless required by applicable law or agreed to in writing, software\n" +
+                "distributed under the License is distributed on an \"AS IS\" BASIS,\n" +
+                "WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.",
+            hash = "apl",
+        ),
+    ),
+)
+
+// Mirrors the LicenseDialog frame (Surface + body + confirm) — the Dialog popup window itself can't
+// be rendered by Paparazzi, so only the content is snapshotted.
+@Preview(name = "Dialog body · License", showBackground = true, backgroundColor = 0xFF000000)
+@Composable
+fun PreviewLicenseDialogBody() = AppTheme(useV3 = true, useDarkTheme = true) {
+    val colors = LibraryDefaults.libraryColors()
+    Box(Modifier.width(360.dp).padding(16.dp)) {
+        Surface(
+            shape = MaterialTheme.shapes.medium,
+            color = colors.dialogBackgroundColor,
+            contentColor = colors.dialogContentColor,
+        ) {
+            Column {
+                LicenseDialogBody(
+                    library = LicensedLibrary,
+                    colors = colors,
+                    modifier = Modifier.fillMaxWidth().padding(16.dp),
+                )
+                TextButton(
+                    onClick = {},
+                    modifier = Modifier.align(Alignment.End).padding(horizontal = 8.dp, vertical = 4.dp),
+                ) {
+                    Text("OK")
+                }
+            }
         }
     }
 }
