@@ -9,7 +9,9 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
@@ -259,13 +261,18 @@ fun LicenseDialog(
 
     Dialog(
         onDismissRequest = onDismiss,
-        properties = DialogProperties(),
+        // Opt out of the platform default width so the dialog isn't pinned to a narrow centered
+        // column; cap the width and use a smaller horizontal margin instead.
+        properties = DialogProperties(usePlatformDefaultWidth = false),
         content = {
             Surface(
                 shape = MaterialTheme.shapes.medium,
                 color = colors.dialogBackgroundColor,
                 contentColor = colors.dialogContentColor,
-                modifier = Modifier.padding(8.dp),
+                // widthIn before fillMaxWidth: cap the width first, then fill up to the cap. The
+                // reverse order fills to the incoming max (the full window on desktop, where the
+                // dialog gets the whole window as its width constraint) and the cap has no effect.
+                modifier = Modifier.widthIn(max = style.dimensions.licenseDialogMaxWidth).fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp),
             ) {
                 Column {
                     val interactionSource = remember { MutableInteractionSource() }

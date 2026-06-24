@@ -146,6 +146,8 @@ interface VariantDimensions {
     val rowDividerThickness: Dp
     /** Horizontal gap between inline row elements (name↔version, dot↔name, etc.). */
     val rowElementSpacing: Dp
+    /** Max width the license dialog grows to; it fills the available width up to this cap. */
+    val licenseDialogMaxWidth: Dp
 }
 
 @Immutable
@@ -163,6 +165,7 @@ class DefaultVariantDimensions(
     override val tabHeight: Dp,
     override val rowDividerThickness: Dp,
     override val rowElementSpacing: Dp,
+    override val licenseDialogMaxWidth: Dp,
 ) : VariantDimensions
 
 /**
@@ -353,11 +356,12 @@ fun LibraryDefaults.defaultVariantDimensions(
     tabHeight: Dp = 28.dp,
     rowDividerThickness: Dp = 1.dp,
     rowElementSpacing: Dp = 8.dp,
+    licenseDialogMaxWidth: Dp = 560.dp,
 ): VariantDimensions = DefaultVariantDimensions(
     licenseDotSize, chevronSize, headerIconSize, searchHeight,
     sheetMaxHeightFraction, sheetCornerRadius,
     actionIconSize, actionIconInnerSize, dragHandleWidth, dragHandleHeight,
-    tabHeight, rowDividerThickness, rowElementSpacing,
+    tabHeight, rowDividerThickness, rowElementSpacing, licenseDialogMaxWidth,
 )
 
 private val FallbackTextStyle = TextStyle.Default

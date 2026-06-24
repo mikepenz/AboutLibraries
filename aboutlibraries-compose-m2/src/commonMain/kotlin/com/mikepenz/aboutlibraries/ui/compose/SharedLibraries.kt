@@ -9,7 +9,9 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
@@ -41,7 +43,6 @@ import com.mikepenz.aboutlibraries.ui.compose.style.LibraryActionBadges
 import com.mikepenz.aboutlibraries.ui.compose.style.LibrariesStyle
 import com.mikepenz.aboutlibraries.ui.compose.style.VariantColors
 import com.mikepenz.aboutlibraries.ui.compose.style.VariantTextStyles
-import com.mikepenz.aboutlibraries.ui.compose.style.defaultVariantDimensions
 import com.mikepenz.aboutlibraries.ui.compose.style.defaultVariantPadding
 import com.mikepenz.aboutlibraries.ui.compose.style.defaultVariantShapes
 import com.mikepenz.aboutlibraries.ui.compose.style.librariesStyle
@@ -72,7 +73,6 @@ fun LibrariesContainer(
     badges: LibraryBadges = DefaultLibraryBadges,
     actionLabels: LibraryActionBadges = DefaultLibraryActionBadges,
     colors: LibraryColors = LibraryDefaults.libraryColors(),
-    padding: LibraryPadding = LibraryDefaults.libraryPadding(),
     variant: LibrariesVariant = LibrariesVariant.Traditional,
     density: LibrariesDensity = LibrariesDensity.Cozy,
     detailMode: LibraryDetailMode = LibraryDetailMode.Inline,
@@ -102,7 +102,6 @@ fun LibrariesContainer(
         badges = badges,
         actionLabels = actionLabels,
         colors = colors,
-        padding = padding,
         variant = variant,
         density = density,
         detailMode = detailMode,
@@ -136,7 +135,6 @@ fun LibrariesContainer(
     badges: LibraryBadges = DefaultLibraryBadges,
     actionLabels: LibraryActionBadges = DefaultLibraryActionBadges,
     colors: LibraryColors = LibraryDefaults.libraryColors(),
-    padding: LibraryPadding = LibraryDefaults.libraryPadding(),
     variant: LibrariesVariant = LibrariesVariant.Traditional,
     density: LibrariesDensity = LibrariesDensity.Cozy,
     detailMode: LibraryDetailMode = LibraryDetailMode.Inline,
@@ -187,8 +185,8 @@ fun LibrariesContainer(
     if (dialogLibrary != null && licenseDialogBody != null) {
         LicenseDialog(
             library = dialogLibrary,
+            style = style,
             colors = colors,
-            padding = padding,
             confirmText = licenseDialogConfirmText,
             body = licenseDialogBody,
             onDismiss = { onDialogLibraryChange(null) },
@@ -199,8 +197,8 @@ fun LibrariesContainer(
 @Composable
 fun LicenseDialog(
     library: Library,
+    style: LibrariesStyle,
     colors: LibraryColors = LibraryDefaults.libraryColors(),
-    padding: LibraryPadding = LibraryDefaults.libraryPadding(),
     confirmText: String = "OK",
     body: @Composable (Library, Modifier) -> Unit,
     onDismiss: () -> Unit,
@@ -208,13 +206,18 @@ fun LicenseDialog(
     val scrollState = rememberScrollState()
     Dialog(
         onDismissRequest = onDismiss,
-        properties = DialogProperties(),
+        // Opt out of the platform default width so the dialog isn't pinned to a narrow centered
+        // column; cap the width and use a smaller horizontal margin instead.
+        properties = DialogProperties(usePlatformDefaultWidth = false),
         content = {
             Surface(
                 shape = MaterialTheme.shapes.medium,
                 color = colors.dialogBackgroundColor,
                 contentColor = colors.dialogContentColor,
-                modifier = Modifier.padding(8.dp),
+                // widthIn before fillMaxWidth: cap the width first, then fill up to the cap. The
+                // reverse order fills to the incoming max (the full window on desktop, where the
+                // dialog gets the whole window as its width constraint) and the cap has no effect.
+                modifier = Modifier.widthIn(max = style.dimensions.licenseDialogMaxWidth).fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp),
             ) {
                 Column {
                     val interactionSource = remember { MutableInteractionSource() }
@@ -225,7 +228,7 @@ fun LicenseDialog(
                             .verticalScroll(scrollState)
                             .weight(1f, fill = false)
                     ) {
-                        body(library, Modifier.padding(padding.licenseDialogContentPadding))
+                        body(library, Modifier.padding(style.padding.licenseDialogContentPadding))
                     }
                     TextButton(
                         modifier = Modifier.align(Alignment.End).padding(horizontal = 8.dp, vertical = 4.dp),
