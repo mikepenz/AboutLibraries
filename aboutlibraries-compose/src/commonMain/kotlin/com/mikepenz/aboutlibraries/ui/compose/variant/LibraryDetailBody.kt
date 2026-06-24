@@ -6,8 +6,15 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.displayCutout
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.union
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.foundation.verticalScroll
@@ -63,6 +70,13 @@ fun LibraryInlineDetail(
 /**
  * Sheet body rendered inside a modal bottom sheet — title, meta line, description, license body
  * and action bar. The wrapping [LibraryDetailSheet] adapter (M3) supplies the sheet shell.
+ *
+ * Consumes the bottom + horizontal system-bar and display-cutout insets on its own content so the
+ * sheet surface can render edge-to-edge (behind the gesture indicator, side nav bar, and notch)
+ * while text stays clear of them. The top inset is intentionally excluded — the wrapping sheet's
+ * drag handle owns it — so handle and content cover disjoint sides with no double padding. This
+ * holds across portrait, landscape, and reverse-portrait, where the bars/cutout move between edges.
+ * The inset scrolls with the content, so the last item can be scrolled fully clear of the bars.
  */
 @Composable
 fun LibrarySheetDetail(
@@ -82,7 +96,12 @@ fun LibrarySheetDetail(
     BoxWithConstraints(modifier = modifier.fillMaxWidth()) {
         val scrollModifier = if (constraints.hasBoundedHeight) Modifier.verticalScroll(rememberScrollState()) else Modifier
         Column(
-            modifier = Modifier.fillMaxWidth().then(scrollModifier).padding(contentPadding),
+            modifier = Modifier.fillMaxWidth().then(scrollModifier)
+                .windowInsetsPadding(
+                    WindowInsets.systemBars.union(WindowInsets.displayCutout)
+                        .only(WindowInsetsSides.Horizontal + WindowInsetsSides.Bottom),
+                )
+                .padding(contentPadding),
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
             BasicText(text = library.name, style = style.textStyles.sheetTitleTextStyle.copy(color = onBg))
