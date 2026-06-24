@@ -38,6 +38,7 @@ fun LibraryListScaffold(
     detailMode: LibraryDetailMode = LibraryDetailMode.None,
     onLibraryClick: ((Library) -> Boolean)? = null,
     onSheetRequest: ((Library) -> Unit)? = null,
+    onDialogRequest: ((Library) -> Unit)? = null,
     header: (LazyListScope.() -> Unit)? = null,
     divider: (@Composable LazyItemScope.() -> Unit)? = null,
     footer: (LazyListScope.() -> Unit)? = null,
@@ -57,6 +58,7 @@ fun LibraryListScaffold(
         detailMode = detailMode,
         onLibraryClick = onLibraryClick,
         onSheetRequest = onSheetRequest,
+        onDialogRequest = onDialogRequest,
         header = header,
         divider = divider,
         footer = footer,
@@ -80,6 +82,7 @@ fun LibraryListScaffold(
     detailMode: LibraryDetailMode = LibraryDetailMode.None,
     onLibraryClick: ((Library) -> Boolean)? = null,
     onSheetRequest: ((Library) -> Unit)? = null,
+    onDialogRequest: ((Library) -> Unit)? = null,
     header: (LazyListScope.() -> Unit)? = null,
     divider: (@Composable LazyItemScope.() -> Unit)? = null,
     footer: (LazyListScope.() -> Unit)? = null,
@@ -106,7 +109,7 @@ fun LibraryListScaffold(
             // expandedLibraryId must be a key so the lambda captures its current value;
             // without it the closure would stale-capture the value at first composition
             // and a second click would never collapse the row.
-            val toggle = remember(library.uniqueId, detailMode, onLibraryClick, onSheetRequest, expandedLibraryId) {
+            val toggle = remember(library.uniqueId, detailMode, onLibraryClick, onSheetRequest, onDialogRequest, expandedLibraryId) {
                 {
                     val handled = onLibraryClick?.invoke(library) ?: false
                     if (!handled) when (detailMode) {
@@ -116,6 +119,7 @@ fun LibraryListScaffold(
                         }
 
                         LibraryDetailMode.Sheet -> onSheetRequest?.invoke(library)
+                        LibraryDetailMode.Dialog -> onDialogRequest?.invoke(library)
                     }
                 }
             }
