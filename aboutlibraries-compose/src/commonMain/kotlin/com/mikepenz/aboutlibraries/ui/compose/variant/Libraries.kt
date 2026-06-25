@@ -124,6 +124,7 @@ fun Libraries(
         detailMode = detailMode,
         onLibraryClick = onLibraryClick,
         onSheetRequest = onSheetRequest,
+        onDialogRequest = onDialogRequest,
         header = header,
         divider = divider,
         footer = footer,

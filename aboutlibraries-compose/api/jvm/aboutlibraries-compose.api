@@ -146,13 +146,14 @@ public final class com/mikepenz/aboutlibraries/ui/compose/style/DefaultVariantCo
 
 public final class com/mikepenz/aboutlibraries/ui/compose/style/DefaultVariantDimensions : com/mikepenz/aboutlibraries/ui/compose/style/VariantDimensions {
 	public static final field $stable I
-	public synthetic fun <init> (FFFFFFFFFFFFFLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (FFFFFFFFFFFFFFLkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun getActionIconInnerSize-D9Ej5fM ()F
 	public fun getActionIconSize-D9Ej5fM ()F
 	public fun getChevronSize-D9Ej5fM ()F
 	public fun getDragHandleHeight-D9Ej5fM ()F
 	public fun getDragHandleWidth-D9Ej5fM ()F
 	public fun getHeaderIconSize-D9Ej5fM ()F
+	public fun getLicenseDialogMaxWidth-D9Ej5fM ()F
 	public fun getLicenseDotSize-D9Ej5fM ()F
 	public fun getRowDividerThickness-D9Ej5fM ()F
 	public fun getRowElementSpacing-D9Ej5fM ()F
@@ -323,6 +324,7 @@ public abstract interface class com/mikepenz/aboutlibraries/ui/compose/style/Var
 	public abstract fun getDragHandleHeight-D9Ej5fM ()F
 	public abstract fun getDragHandleWidth-D9Ej5fM ()F
 	public abstract fun getHeaderIconSize-D9Ej5fM ()F
+	public abstract fun getLicenseDialogMaxWidth-D9Ej5fM ()F
 	public abstract fun getLicenseDotSize-D9Ej5fM ()F
 	public abstract fun getRowDividerThickness-D9Ej5fM ()F
 	public abstract fun getRowElementSpacing-D9Ej5fM ()F
@@ -381,8 +383,8 @@ public abstract interface class com/mikepenz/aboutlibraries/ui/compose/style/Var
 
 public final class com/mikepenz/aboutlibraries/ui/compose/style/VariantTokensKt {
 	public static final fun defaultVariantColors-qJfrjvo (Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDefaults;JJJJJJJJJJJJJJJJJJJJJJJLcom/mikepenz/aboutlibraries/ui/compose/style/LicenseHueResolver;Landroidx/compose/runtime/Composer;IIII)Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantColors;
-	public static final fun defaultVariantDimensions-_n3Fmhg (Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDefaults;FFFFFFFFFFFFF)Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantDimensions;
-	public static synthetic fun defaultVariantDimensions-_n3Fmhg$default (Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDefaults;FFFFFFFFFFFFFILjava/lang/Object;)Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantDimensions;
+	public static final fun defaultVariantDimensions-BbNTOh4 (Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDefaults;FFFFFFFFFFFFFF)Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantDimensions;
+	public static synthetic fun defaultVariantDimensions-BbNTOh4$default (Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDefaults;FFFFFFFFFFFFFFILjava/lang/Object;)Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantDimensions;
 	public static final fun defaultVariantPadding-jR4esIQ (Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDefaults;Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;FLandroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;FLandroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;)Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantPadding;
 	public static synthetic fun defaultVariantPadding-jR4esIQ$default (Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDefaults;Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;FLandroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;FLandroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;ILjava/lang/Object;)Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantPadding;
 	public static final fun defaultVariantShapes (Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDefaults;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;)Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantShapes;
@@ -477,6 +479,7 @@ public final class com/mikepenz/aboutlibraries/ui/compose/variant/LibraryDetailB
 }
 
 public final class com/mikepenz/aboutlibraries/ui/compose/variant/LibraryDetailMode : java/lang/Enum {
+	public static final field Dialog Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryDetailMode;
 	public static final field Inline Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryDetailMode;
 	public static final field None Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryDetailMode;
 	public static final field Sheet Lcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryDetailMode;
@@ -486,8 +489,8 @@ public final class com/mikepenz/aboutlibraries/ui/compose/variant/LibraryDetailM
 }
 
 public final class com/mikepenz/aboutlibraries/ui/compose/variant/LibraryListScaffoldKt {
-	public static final fun LibraryListScaffold-KUi3TG8 (Ljava/util/List;Ljava/lang/String;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function7;Landroidx/compose/ui/Modifier;Landroidx/compose/foundation/lazy/LazyListState;Landroidx/compose/foundation/layout/PaddingValues;FLcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryDetailMode;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function1;Landroidx/compose/foundation/OverscrollEffect;Landroidx/compose/runtime/Composer;III)V
-	public static final fun LibraryListScaffold-xYaah8o (Ljava/util/List;Lkotlin/jvm/functions/Function7;Landroidx/compose/ui/Modifier;Landroidx/compose/foundation/lazy/LazyListState;Landroidx/compose/foundation/layout/PaddingValues;FLcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryDetailMode;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function1;Landroidx/compose/foundation/OverscrollEffect;Landroidx/compose/runtime/Composer;III)V
+	public static final fun LibraryListScaffold-RnoHquI (Ljava/util/List;Ljava/lang/String;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function7;Landroidx/compose/ui/Modifier;Landroidx/compose/foundation/lazy/LazyListState;Landroidx/compose/foundation/layout/PaddingValues;FLcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryDetailMode;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function1;Landroidx/compose/foundation/OverscrollEffect;Landroidx/compose/runtime/Composer;III)V
+	public static final fun LibraryListScaffold-oI3XNZo (Ljava/util/List;Lkotlin/jvm/functions/Function7;Landroidx/compose/ui/Modifier;Landroidx/compose/foundation/lazy/LazyListState;Landroidx/compose/foundation/layout/PaddingValues;FLcom/mikepenz/aboutlibraries/ui/compose/variant/LibraryDetailMode;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function1;Landroidx/compose/foundation/OverscrollEffect;Landroidx/compose/runtime/Composer;III)V
 }
 
 public final class com/mikepenz/aboutlibraries/ui/compose/variant/LibraryRowKt {

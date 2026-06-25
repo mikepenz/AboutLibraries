@@ -41,6 +41,31 @@ class KmpAndroidFunctionalTest {
     }
 
     @Test
+    fun `android-specific exportLibraryDefinitions task runs without requiring outputFile`() {
+        setupKmpAndroidProject(projectDir)
+
+        // discover the android-specific task name (e.g. exportLibraryDefinitionsAndroid)
+        val tasksResult = GradleRunner.create()
+            .withProjectDir(projectDir)
+            .withArguments("tasks", "--all", "--stacktrace")
+            .build()
+        val taskName = Regex("exportLibraryDefinitions(Android\\w*|Debug|Release)")
+            .find(tasksResult.output)?.value
+            ?: error("Expected an android-specific exportLibraryDefinitions* task. Tasks output:\n${tasksResult.output}")
+
+        // regression: without configureOutputFile() this fails with "outputFile Value not set"
+        val result = GradleRunner.create()
+            .withProjectDir(projectDir)
+            .withArguments(taskName, "--stacktrace")
+            .build()
+
+        assertEquals(TaskOutcome.SUCCESS, result.task(":$taskName")?.outcome)
+
+        val outputFile = File(projectDir, "build/generated/aboutLibraries/aboutlibraries.json")
+        assertTrue(outputFile.exists(), "Output file should be created by :$taskName")
+    }
+
+    @Test
     fun `plugin resolves android-target dependencies in KMP module`() {
         setupKmpAndroidProject(projectDir)
 

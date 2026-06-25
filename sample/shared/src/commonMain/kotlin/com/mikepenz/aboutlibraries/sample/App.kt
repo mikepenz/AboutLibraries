@@ -11,11 +11,13 @@ import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.displayCutout
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.union
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -176,7 +178,9 @@ fun App(libs: Libs?) {
                 modifier = Modifier
                     .fillMaxSize()
                     .windowInsetsPadding(
-                        WindowInsets.systemBars.only(
+                        // Include displayCutout so the landscape side notch is honored, not just the
+                        // status/nav bars (systemBars alone leaves content under a side cutout).
+                        WindowInsets.systemBars.union(WindowInsets.displayCutout).only(
                             WindowInsetsSides.Horizontal + WindowInsetsSides.Top,
                         ),
                     ),

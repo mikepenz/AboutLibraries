@@ -18,7 +18,7 @@ itemAnimators = "1.1.0"
 ivy = "2.5.3"
 modelBuilder = "3.9.16"
 materialDrawer = "9.0.2"
-okhttp = "5.3.2"
+okhttp = "5.4.0"
 dejavu = "0.3.1"
 
 [plugins]
