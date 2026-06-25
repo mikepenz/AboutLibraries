@@ -22,6 +22,12 @@
     - The styling parameters (`typography`, `padding`, `dimensions`, `textStyles`, `shapes`) and `libraryModifier`/`onFundingClick` were removed from the M2/M3
       `LibrariesContainer`. Styling now flows through the variant token system (see below).
     - The deprecated `rememberLibraries` overloads and the deprecated `LibrariesContainer` wrapper files (deprecated in v12.2.0) were removed.
+- **Breaking Change (Compose UI M2)**: The Material 2 license dialog was aligned with the Material 3 variant, which now drives it through the variant token system.
+    - `LicenseDialog` (M2) now requires a `LibrariesStyle` parameter (added after `library`) and no longer accepts a `LibraryPadding`. It reads the content padding from `style.padding`
+      and the max width from `style.dimensions.licenseDialogMaxWidth`.
+    - The M2 `LibrariesContainer` overloads no longer accept a `padding: LibraryPadding` parameter — it only fed the license dialog, which now sources padding from the style. Customize
+      the dialog padding via `LibraryDefaults.defaultVariantPadding(licenseDialogContentPadding = ...)` on the `LibrariesStyle` instead.
+    - The license dialog now fills the available width up to `VariantDimensions.licenseDialogMaxWidth` (default `560.dp`); override it via `LibraryDefaults.defaultVariantDimensions(licenseDialogMaxWidth = ...)`.
 
 ##### Compose UI API migration (v14.x → v15)
 

@@ -9,7 +9,9 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
@@ -44,7 +46,9 @@ import com.mikepenz.aboutlibraries.ui.compose.LibraryDefaults
 import com.mikepenz.aboutlibraries.ui.compose.m3.sheet.LibraryDetailSheet
 import com.mikepenz.aboutlibraries.ui.compose.m3.style.m3VariantColors
 import com.mikepenz.aboutlibraries.ui.compose.m3.style.m3VariantTextStyles
+import com.mikepenz.aboutlibraries.ui.compose.style.DefaultLibraryActionBadges
 import com.mikepenz.aboutlibraries.ui.compose.style.LibrariesStyle
+import com.mikepenz.aboutlibraries.ui.compose.style.LibraryActionBadges
 import com.mikepenz.aboutlibraries.ui.compose.style.VariantColors
 import com.mikepenz.aboutlibraries.ui.compose.style.VariantTextStyles
 import com.mikepenz.aboutlibraries.ui.compose.style.defaultVariantDimensions
@@ -52,12 +56,10 @@ import com.mikepenz.aboutlibraries.ui.compose.style.defaultVariantPadding
 import com.mikepenz.aboutlibraries.ui.compose.style.defaultVariantShapes
 import com.mikepenz.aboutlibraries.ui.compose.style.librariesStyle
 import com.mikepenz.aboutlibraries.ui.compose.util.strippedLicenseContent
-import com.mikepenz.aboutlibraries.ui.compose.style.DefaultLibraryActionBadges
-import com.mikepenz.aboutlibraries.ui.compose.style.LibraryActionBadges
+import com.mikepenz.aboutlibraries.ui.compose.variant.DefaultLibraryBadges
 import com.mikepenz.aboutlibraries.ui.compose.variant.Libraries
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibrariesDensity
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibrariesVariant
-import com.mikepenz.aboutlibraries.ui.compose.variant.DefaultLibraryBadges
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryActionKind
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryActionMode
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryBadges
@@ -259,13 +261,18 @@ fun LicenseDialog(
 
     Dialog(
         onDismissRequest = onDismiss,
-        properties = DialogProperties(),
+        // Opt out of the platform default width so the dialog isn't pinned to a narrow centered
+        // column; cap the width and use a smaller horizontal margin instead.
+        properties = DialogProperties(usePlatformDefaultWidth = false),
         content = {
             Surface(
                 shape = MaterialTheme.shapes.medium,
                 color = colors.dialogBackgroundColor,
                 contentColor = colors.dialogContentColor,
-                modifier = Modifier.padding(8.dp),
+                // widthIn before fillMaxWidth: cap the width first, then fill up to the cap. The
+                // reverse order fills to the incoming max (the full window on desktop, where the
+                // dialog gets the whole window as its width constraint) and the cap has no effect.
+                modifier = Modifier.widthIn(max = style.dimensions.licenseDialogMaxWidth).fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp),
             ) {
                 Column {
                     val interactionSource = remember { MutableInteractionSource() }
