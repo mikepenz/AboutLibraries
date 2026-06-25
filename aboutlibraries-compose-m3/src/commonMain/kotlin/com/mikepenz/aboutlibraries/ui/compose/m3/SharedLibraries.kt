@@ -21,10 +21,12 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SheetState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.contentColorFor
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -144,6 +146,7 @@ fun LibrariesContainer(
     onSheetLibraryChange: (Library?) -> Unit,
     modifier: Modifier = Modifier,
     lazyListState: LazyListState = rememberLazyListState(),
+    sheetState: SheetState? = null,
     contentPadding: PaddingValues = PaddingValues(0.dp),
     badges: LibraryBadges = DefaultLibraryBadges,
     actionLabels: LibraryActionBadges = DefaultLibraryActionBadges,
@@ -243,6 +246,7 @@ fun LibrariesContainer(
             style = style,
             actionMode = actionMode,
             actionLabels = actionLabels,
+            sheetState = sheetState ?: rememberModalBottomSheetState(skipPartiallyExpanded = true),
             onActionClick = onActionClick,
         )
     }
