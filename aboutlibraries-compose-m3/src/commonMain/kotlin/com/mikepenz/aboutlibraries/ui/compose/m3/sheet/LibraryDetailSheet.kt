@@ -44,14 +44,20 @@ import com.mikepenz.aboutlibraries.ui.compose.variant.LibrarySheetDetail
  * Provides the Material `ModalBottomSheet` shell, drag handle, and surface colors. All inner
  * layout (title, meta, description, license body, action affordances) lives in core.
  *
- * The sheet is fullscreen edge-to-edge by default ([contentWindowInsets] is empty): the surface
- * fills behind the status bar / display cutout at the top and behind the gesture navigation bar at
- * the bottom when fully expanded. Insets are instead applied to the elements that need them — the
- * [DefaultDragHandle] takes the top status-bar + cutout inset (so it clears the camera cutout), and
- * the inner [LibrarySheetDetail] takes the bottom + horizontal navigation-bar / cutout inset (so
- * text clears the indicator, side nav bar, and notch in landscape / reverse-portrait). Handle and
- * content cover disjoint sides, and all pad via `windowInsetsPadding`, whose inset consumption means
- * overriding [contentWindowInsets] is deduplicated rather than double-padded.
+ * Insets are split between three owners so each side is handled exactly once:
+ *  - [DefaultDragHandle] owns the **top** (status-bar + display-cutout top) so the handle clears
+ *    the camera notch when the sheet is fully expanded.
+ *  - The sheet's `modifier` owns the **horizontal** sides via `windowInsetsPadding` (systemBars +
+ *    displayCutout horizontal). Applying insets here constrains the sheet surface width itself
+ *    rather than padding content inside, so text fills the available width naturally and the sheet
+ *    does not extend behind side navigation bars or side cutouts. Because `windowInsetsPadding`
+ *    marks insets as consumed, [LibrarySheetDetail] inside sees the horizontal values as zero and
+ *    never double-pads.
+ *  - [LibrarySheetDetail] owns the **bottom** (navigation bar + bottom display-cutout) for
+ *    edge-to-edge scrolling.
+ *
+ * All three use `windowInsetsPadding`, whose consumption propagation means [contentWindowInsets]
+ * overrides are automatically deduplicated — inner composables never double-pad.
  *
  * The top corners animate from the style's `sheetShape` rounding to square as the sheet is dragged
  * to the top edge (fully expanded, covering the screen), and back when collapsed. A sheet shorter
@@ -73,7 +79,10 @@ fun LibraryDetailSheet(
 ) {
     ModalBottomSheet(
         onDismissRequest = onDismiss,
-        modifier = modifier,
+        modifier = modifier.windowInsetsPadding(
+            WindowInsets.systemBars.union(WindowInsets.displayCutout)
+                .only(WindowInsetsSides.Horizontal),
+        ),
         sheetState = sheetState,
         shape = rememberExpandingSheetShape(style.shapes.sheetShape, sheetState),
         containerColor = style.colors.sheetSurface.takeOrElse { MaterialTheme.colorScheme.surfaceContainerHigh },
