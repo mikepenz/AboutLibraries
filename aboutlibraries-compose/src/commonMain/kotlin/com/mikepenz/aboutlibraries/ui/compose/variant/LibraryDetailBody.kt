@@ -71,12 +71,11 @@ fun LibraryInlineDetail(
  * Sheet body rendered inside a modal bottom sheet — title, meta line, description, license body
  * and action bar. The wrapping [LibraryDetailSheet] adapter (M3) supplies the sheet shell.
  *
- * Consumes the bottom + horizontal system-bar and display-cutout insets on its own content so the
- * sheet surface can render edge-to-edge (behind the gesture indicator, side nav bar, and notch)
- * while text stays clear of them. The top inset is intentionally excluded — the wrapping sheet's
- * drag handle owns it — so handle and content cover disjoint sides with no double padding. This
- * holds across portrait, landscape, and reverse-portrait, where the bars/cutout move between edges.
- * The inset scrolls with the content, so the last item can be scrolled fully clear of the bars.
+ * Consumes only the **bottom** system-bar and display-cutout insets so text stays clear of the
+ * gesture indicator and (rare) bottom-edge notch. Horizontal insets are intentionally excluded:
+ * when rendered inside [LibraryDetailSheet] they are already consumed by the sheet's own modifier
+ * and resolve to zero here. The top inset is intentionally excluded — the wrapping sheet's drag
+ * handle owns it.
  */
 @Composable
 fun LibrarySheetDetail(
@@ -99,7 +98,7 @@ fun LibrarySheetDetail(
             modifier = Modifier.fillMaxWidth().then(scrollModifier)
                 .windowInsetsPadding(
                     WindowInsets.systemBars.union(WindowInsets.displayCutout)
-                        .only(WindowInsetsSides.Horizontal + WindowInsetsSides.Bottom),
+                        .only(WindowInsetsSides.Bottom),
                 )
                 .padding(contentPadding),
             verticalArrangement = Arrangement.spacedBy(12.dp),
