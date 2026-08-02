@@ -22,7 +22,7 @@ jobs:
       - name: Checkout the repo
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
-      - uses: actions/setup-java@03ad4de0992f5dab5e18fcb136590ce7c4a0ac95 # v5
+      - uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5
         with:
           distribution: 'zulu'
           java-version: |
@@ -33,7 +33,7 @@ jobs:
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
 
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@3f131e8634966bd73d06cc69884922b02e6faf92 # v6
+        uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6
 
       - name: Cache konan
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
@@ -100,7 +100,7 @@ jobs:
         with:
           fetch-depth: 100
 
-      - uses: actions/setup-java@03ad4de0992f5dab5e18fcb136590ce7c4a0ac95 # v5
+      - uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5
         with:
           distribution: 'zulu'
           java-version: |
@@ -108,10 +108,10 @@ jobs:
             21
 
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@3f131e8634966bd73d06cc69884922b02e6faf92 # v6
+        uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6
 
       - name: Validate gradle wrapper
-        uses: gradle/actions/wrapper-validation@3f131e8634966bd73d06cc69884922b02e6faf92 # v6
+        uses: gradle/actions/wrapper-validation@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6
 
       - name: Copy CI gradle.properties
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
@@ -169,28 +169,28 @@ jobs:
 
       - name: Upload Lint SARIF (aboutlibraries)
         if: always() && github.event_name == 'pull_request' && hashFiles('aboutlibraries/build/reports/lint-results-debug.sarif') != ''
-        uses: github/codeql-action/upload-sarif@e4fba868fa4b1b91e1fdab776edc8cfbe6e9fb81 # v4
+        uses: github/codeql-action/upload-sarif@f205ea1c3313d32999d8d6a48b4f6530d4437b38 # v4
         with:
           sarif_file: 'aboutlibraries/build/reports/lint-results-debug.sarif'
           category: lint-aboutlibraries
 
       - name: Upload Lint SARIF (aboutlibraries-compose-wear-m3)
         if: always() && github.event_name == 'pull_request' && hashFiles('aboutlibraries-compose-wear-m3/build/reports/lint-results-debug.sarif') != ''
-        uses: github/codeql-action/upload-sarif@e4fba868fa4b1b91e1fdab776edc8cfbe6e9fb81 # v4
+        uses: github/codeql-action/upload-sarif@f205ea1c3313d32999d8d6a48b4f6530d4437b38 # v4
         with:
           sarif_file: 'aboutlibraries-compose-wear-m3/build/reports/lint-results-debug.sarif'
           category: lint-aboutlibraries-compose-wear-m3
 
       - name: Upload Lint SARIF (app)
         if: always() && github.event_name == 'pull_request' && hashFiles('app/build/reports/lint-results-debug.sarif') != ''
-        uses: github/codeql-action/upload-sarif@e4fba868fa4b1b91e1fdab776edc8cfbe6e9fb81 # v4
+        uses: github/codeql-action/upload-sarif@f205ea1c3313d32999d8d6a48b4f6530d4437b38 # v4
         with:
           sarif_file: 'app/build/reports/lint-results-debug.sarif'
           category: lint-app
 
       - name: Upload Lint SARIF (sample/android)
         if: always() && github.event_name == 'pull_request' && hashFiles('sample/android/build/reports/lint-results-debug.sarif') != ''
-        uses: github/codeql-action/upload-sarif@e4fba868fa4b1b91e1fdab776edc8cfbe6e9fb81 # v4
+        uses: github/codeql-action/upload-sarif@f205ea1c3313d32999d8d6a48b4f6530d4437b38 # v4
         with:
           sarif_file: 'sample/android/build/reports/lint-results-debug.sarif'
           category: lint-sample-android
