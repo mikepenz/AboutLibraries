@@ -1,5 +1,11 @@
 ### Upgrade Notes
 
+#### v15.1.0
+
+- **Breaking Change (Gradle Plugin)**: The Gradle plugin now targets Java 17 (previously Java 11), following AGP 9.3.1 which raised its own JVM target to 17.
+    - Your Gradle build must run on JDK 17 or newer. Gradle 9 already requires JDK 17+, so no change is needed if you are on Gradle 9.
+    - On Gradle 8.x with a JDK 11 daemon you will see `Unsupported class file major version` or a variant resolution failure — switch the daemon to JDK 17+ via `org.gradle.java.home` or your toolchain setup.
+
 #### v15.0.0
 
 - **Breaking Change**: The legacy View-based UI module (`com.mikepenz:aboutlibraries`) has been removed.
