@@ -169,28 +169,28 @@ jobs:
 
       - name: Upload Lint SARIF (aboutlibraries)
         if: always() && github.event_name == 'pull_request' && hashFiles('aboutlibraries/build/reports/lint-results-debug.sarif') != ''
-        uses: github/codeql-action/upload-sarif@f205ea1c3313d32999d8d6a48b4f6530d4437b38 # v4
+        uses: github/codeql-action/upload-sarif@5595ccaf912efad79be6eef63a5619ff05969be3 # v4
         with:
           sarif_file: 'aboutlibraries/build/reports/lint-results-debug.sarif'
           category: lint-aboutlibraries
 
       - name: Upload Lint SARIF (aboutlibraries-compose-wear-m3)
         if: always() && github.event_name == 'pull_request' && hashFiles('aboutlibraries-compose-wear-m3/build/reports/lint-results-debug.sarif') != ''
-        uses: github/codeql-action/upload-sarif@f205ea1c3313d32999d8d6a48b4f6530d4437b38 # v4
+        uses: github/codeql-action/upload-sarif@5595ccaf912efad79be6eef63a5619ff05969be3 # v4
         with:
           sarif_file: 'aboutlibraries-compose-wear-m3/build/reports/lint-results-debug.sarif'
           category: lint-aboutlibraries-compose-wear-m3
 
       - name: Upload Lint SARIF (app)
         if: always() && github.event_name == 'pull_request' && hashFiles('app/build/reports/lint-results-debug.sarif') != ''
-        uses: github/codeql-action/upload-sarif@f205ea1c3313d32999d8d6a48b4f6530d4437b38 # v4
+        uses: github/codeql-action/upload-sarif@5595ccaf912efad79be6eef63a5619ff05969be3 # v4
         with:
           sarif_file: 'app/build/reports/lint-results-debug.sarif'
           category: lint-app
 
       - name: Upload Lint SARIF (sample/android)
         if: always() && github.event_name == 'pull_request' && hashFiles('sample/android/build/reports/lint-results-debug.sarif') != ''
-        uses: github/codeql-action/upload-sarif@f205ea1c3313d32999d8d6a48b4f6530d4437b38 # v4
+        uses: github/codeql-action/upload-sarif@5595ccaf912efad79be6eef63a5619ff05969be3 # v4
         with:
           sarif_file: 'sample/android/build/reports/lint-results-debug.sarif'
           category: lint-sample-android
