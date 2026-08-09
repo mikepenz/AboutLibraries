@@ -30,6 +30,7 @@ abstract class AboutLibrariesExportFundingTask : BaseAboutLibrariesTask() {
         val libraries = result.libraries
 
         val outputFundingFile = configDirectory.dir(FUNDING_DIR).file(FUNDING_FILE).asFile
+        outputFundingFile.parentFile?.mkdirs()
         val allFunding = mutableMapOf<String, Set<Funding>>()
         libraries.forEach {
             if (it.funding.isNotEmpty()) {
