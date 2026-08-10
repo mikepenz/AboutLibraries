@@ -229,6 +229,8 @@ jobs:
     if: startsWith(github.ref, 'refs/tags/')
     permissions:
       contents: write
+      id-token: write # mint the Sigstore certificate for provenance
+      attestations: write # upload the attestation to the repository
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
@@ -249,6 +251,19 @@ jobs:
           ignorePreReleases: ${{ !contains(github.ref, '-') }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Attest build provenance
+        id: attest
+        uses: actions/attest-build-provenance@4d101475d8b20a2381f78447822ac1eab6504dd8 # v4.2.2
+        with:
+          subject-path: artifacts/*
+
+      # The attestation lives in the repository store by default; Scorecard's
+      # Signed-Releases check only looks at release assets, so ship it alongside them.
+      - name: Attach provenance to the release assets
+        env:
+          BUNDLE_PATH: ${{ steps.attest.outputs.bundle-path }}
+        run: cp "$BUNDLE_PATH" "artifacts/AboutLibraries-${GITHUB_REF_NAME}.intoto.jsonl"
 
       - name: Release
         uses: mikepenz/action-gh-release@2a00e201320fb618d8e705a736286b2e31aa48e2 # v3
