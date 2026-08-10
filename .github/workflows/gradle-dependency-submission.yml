@@ -4,6 +4,8 @@ on:
     branches:
       - develop
 
+permissions: {}
+
 jobs:
   gradle-dependency-detection:
     runs-on: ubuntu-latest

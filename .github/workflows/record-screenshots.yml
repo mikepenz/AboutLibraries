@@ -8,10 +8,14 @@ on:
         required: false
         default: ''
 
+permissions: {}
+
 jobs:
   record:
     name: Record Paparazzi Screenshots
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # commits the re-recorded golden images back to the branch
 
     steps:
       - name: Checkout the repo
