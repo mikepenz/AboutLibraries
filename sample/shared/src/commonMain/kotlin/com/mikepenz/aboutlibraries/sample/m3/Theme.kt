@@ -83,8 +83,7 @@ private val OnAccentDark = Color(0xFF141414)
  * Builds a dynamic ColorScheme derived from [accent], matching the design's
  * `m3Palette(accent, mode)` function:
  *   - Primary family: lerp-mixed from accent toward the dark/light base.
- *   - Surface family: ALL surface tones receive a small accent tint (3–7% in dark,
- *     2–5% in light), matching the design's `color-mix(in oklch, accent N%, base)`.
+ *   - Surface family: strictly neutral greys; the accent is the only hue in the UI.
  */
 private fun ColorScheme.withAccent(accent: Color, dark: Boolean): ColorScheme {
     // Content drawn on top of [accent]. Derived from the accent's own luminance rather than from
@@ -97,16 +96,15 @@ private fun ColorScheme.withAccent(accent: Color, dark: Boolean): ColorScheme {
     val onPrimaryContainer = if (dark) lerp(Color.White, accent, 0.15f)
     else lerp(Color.Black, accent, 0.40f)
 
-    // Surface family — accent-tinted per design's `color-mix(in oklch, accent N%, base)`, over a
-    // neutral #1a1a1a / #ffffff family. The tint percentages are deliberately low: they were tuned
-    // for a mid-luminance accent, and a highly saturated one (lime) turns the upper surface tones
-    // visibly olive at the original 3–7%. Keep the surfaces reading as neutral grey.
-    val tint = if (dark) 0.02f else 0.015f
-    val surface = lerp(if (dark) Color(0xFF1A1A1A) else Color(0xFFFFFFFF), accent, tint)
-    val surfaceContainerLow = lerp(if (dark) Color(0xFF1F1F1F) else Color(0xFFFAFAFA), accent, tint)
-    val surfaceContainer = lerp(if (dark) Color(0xFF232323) else Color(0xFFF4F4F4), accent, tint)
-    val surfaceContainerHigh = lerp(if (dark) Color(0xFF2B2B2B) else Color(0xFFEEEEEE), accent, tint)
-    val surfaceContainerHighest = lerp(if (dark) Color(0xFF363636) else Color(0xFFE7E7E7), accent, tint)
+    // Surface family — strictly neutral, no accent tint. The design originally mixed 3–7% of the
+    // accent into every surface tone, but that only stays neutral-looking for a low-chroma accent;
+    // a saturated one (lime) pushes the greys olive. Leaving the surfaces at exactly #1a1a1a /
+    // #ffffff keeps the accent the only hue in the UI.
+    val surface = if (dark) Color(0xFF1A1A1A) else Color(0xFFFFFFFF)
+    val surfaceContainerLow = if (dark) Color(0xFF1F1F1F) else Color(0xFFFAFAFA)
+    val surfaceContainer = if (dark) Color(0xFF232323) else Color(0xFFF4F4F4)
+    val surfaceContainerHigh = if (dark) Color(0xFF2B2B2B) else Color(0xFFEEEEEE)
+    val surfaceContainerHighest = if (dark) Color(0xFF363636) else Color(0xFFE7E7E7)
 
     return copy(
         primary = accent,
