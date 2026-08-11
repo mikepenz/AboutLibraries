@@ -23,6 +23,13 @@ composeCompiler {
 }
 
 kotlin {
+    // No JS test sources exist here; skip provisioning the unmaintained karma toolchain.
+    js {
+        browser {
+            testTask { enabled = false }
+        }
+    }
+
     applyDefaultHierarchyTemplate()
 
     android {
