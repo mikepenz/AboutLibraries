@@ -67,7 +67,8 @@ dependencies {
     implementation(libs.maven.modelBuilder)
 
     // add better android support
-    compileOnly(baseLibs.android.gradlePlugin)
+    // `gradle-api` (not `gradle`): AGP 10 hides all internal classes, only this artifact stays available
+    compileOnly("com.android.tools.build:gradle-api:${baseLibs.versions.agp.get()}")
 
     // lint rules
     lintChecks(baseLibs.android.lint.gradle)
