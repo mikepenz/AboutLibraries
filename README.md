@@ -9,8 +9,8 @@
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/mikepenz/AboutLibraries/develop/art/hero-dark.svg">
-    <img src="https://raw.githubusercontent.com/mikepenz/AboutLibraries/develop/art/hero-light.svg" width="100%" alt="AboutLibraries — collects every dependency and license of your Gradle project at build time, then renders them with Compose on Android, iOS, desktop, web and Wear. Three stages: build.gradle.kts, a generated aboutlibraries.json, and a LibrariesContainer showing license pills.">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/mikepenz/AboutLibraries/feature/readme-redesign/art/hero-dark.svg">
+    <img src="https://raw.githubusercontent.com/mikepenz/AboutLibraries/feature/readme-redesign/art/hero-light.svg" width="100%" alt="AboutLibraries — collects every dependency and license of your Gradle project at build time, then renders them with Compose on Android, iOS, desktop, web and Wear. Three stages: build.gradle.kts, a generated aboutlibraries.json, and a LibrariesContainer showing license pills.">
   </picture>
 </p>
 
@@ -62,22 +62,22 @@ Each shot is a [Paparazzi](https://github.com/cashapp/paparazzi) render of [`Rea
 
 | `LibrariesVariant.Refined` | `LibrariesVariant.Traditional` |
 |:--------------------------:|:------------------------------:|
-| <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/mikepenz/AboutLibraries/develop/art/showcase-variant-refined-dark.png"><img src="https://raw.githubusercontent.com/mikepenz/AboutLibraries/develop/art/showcase-variant-refined-light.png" alt="Refined variant"></picture> | <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/mikepenz/AboutLibraries/develop/art/showcase-variant-traditional-dark.png"><img src="https://raw.githubusercontent.com/mikepenz/AboutLibraries/develop/art/showcase-variant-traditional-light.png" alt="Traditional variant"></picture> |
+| <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/mikepenz/AboutLibraries/feature/readme-redesign/art/showcase-variant-refined-dark.png"><img src="https://raw.githubusercontent.com/mikepenz/AboutLibraries/feature/readme-redesign/art/showcase-variant-refined-light.png" alt="Refined variant"></picture> | <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/mikepenz/AboutLibraries/feature/readme-redesign/art/showcase-variant-traditional-dark.png"><img src="https://raw.githubusercontent.com/mikepenz/AboutLibraries/feature/readme-redesign/art/showcase-variant-traditional-light.png" alt="Traditional variant"></picture> |
 
 | `LibrariesDensity.Compact` | `LibrariesDensity.Cozy` |
 |:--------------------------:|:-----------------------:|
-| <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/mikepenz/AboutLibraries/develop/art/showcase-density-compact-dark.png"><img src="https://raw.githubusercontent.com/mikepenz/AboutLibraries/develop/art/showcase-density-compact-light.png" alt="Compact density"></picture> | <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/mikepenz/AboutLibraries/develop/art/showcase-density-cozy-dark.png"><img src="https://raw.githubusercontent.com/mikepenz/AboutLibraries/develop/art/showcase-density-cozy-light.png" alt="Cozy density"></picture> |
+| <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/mikepenz/AboutLibraries/feature/readme-redesign/art/showcase-density-compact-dark.png"><img src="https://raw.githubusercontent.com/mikepenz/AboutLibraries/feature/readme-redesign/art/showcase-density-compact-light.png" alt="Compact density"></picture> | <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/mikepenz/AboutLibraries/feature/readme-redesign/art/showcase-density-cozy-dark.png"><img src="https://raw.githubusercontent.com/mikepenz/AboutLibraries/feature/readme-redesign/art/showcase-density-cozy-light.png" alt="Cozy density"></picture> |
 
 | `LibraryActionMode.Chips` | `LibraryActionMode.Icons` |
 |:-------------------------:|:-------------------------:|
-| <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/mikepenz/AboutLibraries/develop/art/showcase-actions-chips-dark.png"><img src="https://raw.githubusercontent.com/mikepenz/AboutLibraries/develop/art/showcase-actions-chips-light.png" alt="Chip actions"></picture> | <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/mikepenz/AboutLibraries/develop/art/showcase-actions-icons-dark.png"><img src="https://raw.githubusercontent.com/mikepenz/AboutLibraries/develop/art/showcase-actions-icons-light.png" alt="Icon actions"></picture> |
+| <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/mikepenz/AboutLibraries/feature/readme-redesign/art/showcase-actions-chips-dark.png"><img src="https://raw.githubusercontent.com/mikepenz/AboutLibraries/feature/readme-redesign/art/showcase-actions-chips-light.png" alt="Chip actions"></picture> | <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/mikepenz/AboutLibraries/feature/readme-redesign/art/showcase-actions-icons-dark.png"><img src="https://raw.githubusercontent.com/mikepenz/AboutLibraries/feature/readme-redesign/art/showcase-actions-icons-light.png" alt="Icon actions"></picture> |
 
 Tapping a library opens its details — inline, in a dialog, or in a bottom sheet via `LibraryDetailMode`:
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/mikepenz/AboutLibraries/develop/art/showcase-detail-sheet-dark.png">
-    <img src="https://raw.githubusercontent.com/mikepenz/AboutLibraries/develop/art/showcase-detail-sheet-light.png" width="480" alt="Library detail sheet">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/mikepenz/AboutLibraries/feature/readme-redesign/art/showcase-detail-sheet-dark.png">
+    <img src="https://raw.githubusercontent.com/mikepenz/AboutLibraries/feature/readme-redesign/art/showcase-detail-sheet-light.png" width="480" alt="Library detail sheet">
   </picture>
 </p>
 
@@ -547,8 +547,8 @@ Manually export the definitions using the Gradle task. This is typically needed 
 The sample UI below lives in [`sample/shared`](sample/shared/src/commonMain/kotlin/com/mikepenz/aboutlibraries/sample/App.kt) — the same common code the desktop, web and iOS samples run.
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/mikepenz/AboutLibraries/develop/art/hero-app-dark.png">
-  <img src="https://raw.githubusercontent.com/mikepenz/AboutLibraries/develop/art/hero-app-light.png" height="420" alt="The shared Compose Multiplatform sample">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/mikepenz/AboutLibraries/feature/readme-redesign/art/hero-app-dark.png">
+  <img src="https://raw.githubusercontent.com/mikepenz/AboutLibraries/feature/readme-redesign/art/hero-app-light.png" height="420" alt="The shared Compose Multiplatform sample">
 </picture>
 
 </p>
