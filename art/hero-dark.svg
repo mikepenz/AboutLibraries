@@ -1,22 +1,25 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="400" viewBox="0 0 1200 400" role="img" aria-labelledby="t d">
 <title id="t">AboutLibraries</title>
 <desc id="d">AboutLibraries collects the dependencies and licenses of a Gradle project at build time and renders them with Compose. Three stages: build.gradle.kts, a generated aboutlibraries.json, and a LibrariesContainer showing license pills.</desc>
-<rect width="1200" height="400" rx="26" fill="#141218"/>
-<circle cx="70" cy="78" r="5" fill="#E94B8E"/>
-<text x="88" y="84" font-family="ui-monospace, SFMono-Regular, Menlo, 'Cascadia Mono', monospace" font-size="19" letter-spacing="2.6" fill="#B7B0BE">GRADLE PLUGIN &#183; KOTLIN MULTIPLATFORM &#183; COMPOSE UI</text>
-<text x="64" y="166" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif" font-size="68" font-weight="700" fill="#ECE6F0">AboutLibraries</text>
-<text x="64" y="212" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif" font-size="25" fill="#B7B0BE">Collects every dependency and license of your Gradle project at build time,</text>
-<text x="64" y="246" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif" font-size="25" fill="#B7B0BE">then renders them with Compose — on Android, iOS, desktop, web and Wear.</text>
-<rect x="64" y="280" width="325" height="88" rx="14" fill="#1D1B20" stroke="#322F35"/>
-<text x="86" y="318" font-family="ui-monospace, SFMono-Regular, Menlo, 'Cascadia Mono', monospace" font-size="21" fill="#CAC4D0">build.gradle.kts</text>
-<text x="86" y="346" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif" font-size="18" fill="#B7B0BE">your Gradle dependencies</text>
-<path d="M401 324 h26" stroke="#322F35" stroke-width="2" fill="none"/><path d="M423 319 l6 5 l-6 5" stroke="#B7B0BE" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<rect x="437" y="280" width="325" height="88" rx="14" fill="#1D1B20" stroke="#322F35"/>
-<text x="459" y="318" font-family="ui-monospace, SFMono-Regular, Menlo, 'Cascadia Mono', monospace" font-size="21" fill="#CAC4D0">aboutlibraries.json</text>
-<text x="459" y="346" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif" font-size="18" fill="#B7B0BE">generated at build time</text>
-<path d="M774 324 h26" stroke="#322F35" stroke-width="2" fill="none"/><path d="M796 319 l6 5 l-6 5" stroke="#B7B0BE" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<rect x="810" y="280" width="325" height="88" rx="14" fill="#1D1B20" stroke="#5A2942"/>
-<text x="832" y="318" font-family="ui-monospace, SFMono-Regular, Menlo, 'Cascadia Mono', monospace" font-size="21" fill="#E94B8E">LibrariesContainer()</text>
-<rect x="832" y="330" width="122" height="26" rx="13" fill="#3A2131"/><text x="893" y="349" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif" font-size="18" font-weight="600" fill="#F5A8C8">Apache 2.0</text>
-<rect x="964" y="330" width="67" height="26" rx="13" fill="#3A2131"/><text x="998" y="349" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif" font-size="18" font-weight="600" fill="#F5A8C8">MIT</text>
+<rect width="1200" height="400" rx="26" fill="#1A1A1A"/>
+<circle cx="70" cy="78" r="5" fill="#C7FF1E"/>
+<text x="88" y="84" font-family="ui-monospace, SFMono-Regular, Menlo, 'Cascadia Mono', monospace" font-size="19" letter-spacing="2.6" fill="#B4B4B4">GRADLE PLUGIN &#183; KOTLIN MULTIPLATFORM &#183; COMPOSE UI</text>
+<text x="64" y="166" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif" font-size="68" font-weight="700" fill="#FFFFFF">AboutLibraries</text>
+<text x="64" y="212" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif" font-size="25" fill="#B4B4B4">Collects every dependency and license of your Gradle project at build time,</text>
+<text x="64" y="246" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif" font-size="25" fill="#B4B4B4">then renders them with Compose — on Android, iOS, desktop, web and Wear.</text>
+<rect x="64" y="280" width="325" height="88" rx="14" fill="#232323" stroke="#3D4A16"/>
+<path d="M65 294 a13 13 0 0 1 13 -13 h3 v86 h-3 a13 13 0 0 1 -13 -13 z" fill="#C7FF1E"/>
+<text x="94" y="318" font-family="ui-monospace, SFMono-Regular, Menlo, 'Cascadia Mono', monospace" font-size="21" fill="#D0D0D0">build.gradle.kts</text>
+<text x="94" y="346" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif" font-size="18" fill="#B4B4B4">your Gradle dependencies</text>
+<path d="M401 324 h26" stroke="#333333" stroke-width="2" fill="none"/><path d="M423 319 l6 5 l-6 5" stroke="#B4B4B4" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="437" y="280" width="325" height="88" rx="14" fill="#232323" stroke="#12482A"/>
+<path d="M438 294 a13 13 0 0 1 13 -13 h3 v86 h-3 a13 13 0 0 1 -13 -13 z" fill="#00FF6A"/>
+<text x="467" y="318" font-family="ui-monospace, SFMono-Regular, Menlo, 'Cascadia Mono', monospace" font-size="21" fill="#D0D0D0">aboutlibraries.json</text>
+<text x="467" y="346" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif" font-size="18" fill="#B4B4B4">generated at build time</text>
+<path d="M774 324 h26" stroke="#333333" stroke-width="2" fill="none"/><path d="M796 319 l6 5 l-6 5" stroke="#B4B4B4" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="810" y="280" width="325" height="88" rx="14" fill="#232323" stroke="#123C4D"/>
+<path d="M811 294 a13 13 0 0 1 13 -13 h3 v86 h-3 a13 13 0 0 1 -13 -13 z" fill="#00B9FF"/>
+<text x="840" y="318" font-family="ui-monospace, SFMono-Regular, Menlo, 'Cascadia Mono', monospace" font-size="21" fill="#00B9FF">LibrariesContainer()</text>
+<rect x="840" y="330" width="122" height="26" rx="13" fill="#22331F"/><text x="901" y="349" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif" font-size="18" font-weight="600" fill="#C7FF1E">Apache 2.0</text>
+<rect x="972" y="330" width="67" height="26" rx="13" fill="#22331F"/><text x="1006" y="349" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif" font-size="18" font-weight="600" fill="#C7FF1E">MIT</text>
 </svg>
