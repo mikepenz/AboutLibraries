@@ -13,6 +13,13 @@ composeCompiler {
 }
 
 kotlin {
+    // No JS test sources exist here; skip provisioning the unmaintained karma toolchain.
+    js {
+        browser {
+            testTask { enabled = false }
+        }
+    }
+
     android {
         namespace = "com.mikepenz.aboutlibraries.ui.compose"
     }

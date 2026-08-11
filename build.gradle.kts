@@ -57,5 +57,11 @@ plugins.withType<org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlugin> {
         resolution("tmp", "0.2.7")
         resolution("webpack", "5.104.1")
         resolution("websocket-driver", "0.7.5")
+
+        resolution("ajv", "8.18.0")
+        resolution("body-parser", "1.20.6")
+        resolution("cookie", "0.7.2")
+        resolution("serialize-javascript", "7.0.5")
+        resolution("ws", "8.21.0")
     }
 }
