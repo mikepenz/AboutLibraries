@@ -104,3 +104,48 @@ aboutLibraries {
         duplicationRule = DuplicateRule.EXACT
     }
 }
+
+// Paparazzi snapshot -> `art/` filename, for the images referenced by the README.
+// Snapshot names are unstable (they encode the preview function name) and contain characters
+// that need URL encoding, so they are copied to stable, link-safe names instead of referenced directly.
+val readmeArt = mapOf(
+    "sampleapppreviewskt.previewsampleappmobilelight.sample_app_·_mobile_·_light.png" to "hero-app-light.png",
+    "sampleapppreviewskt.previewsampleappmobiledark.sample_app_·_mobile_·_dark_night.png" to "hero-app-dark.png",
+    "readmeshowcasepreviewskt.previewshowcasevariantrefined.light.png" to "showcase-variant-refined-light.png",
+    "readmeshowcasepreviewskt.previewshowcasevariantrefined.dark_night.png" to "showcase-variant-refined-dark.png",
+    "readmeshowcasepreviewskt.previewshowcasevarianttraditional.light.png" to "showcase-variant-traditional-light.png",
+    "readmeshowcasepreviewskt.previewshowcasevarianttraditional.dark_night.png" to "showcase-variant-traditional-dark.png",
+    "readmeshowcasepreviewskt.previewshowcasedensitycompact.light.png" to "showcase-density-compact-light.png",
+    "readmeshowcasepreviewskt.previewshowcasedensitycompact.dark_night.png" to "showcase-density-compact-dark.png",
+    "readmeshowcasepreviewskt.previewshowcasedensitycozy.light.png" to "showcase-density-cozy-light.png",
+    "readmeshowcasepreviewskt.previewshowcasedensitycozy.dark_night.png" to "showcase-density-cozy-dark.png",
+    "readmeshowcasepreviewskt.previewshowcaseactionschips.light.png" to "showcase-actions-chips-light.png",
+    "readmeshowcasepreviewskt.previewshowcaseactionschips.dark_night.png" to "showcase-actions-chips-dark.png",
+    "readmeshowcasepreviewskt.previewshowcaseactionsicons.light.png" to "showcase-actions-icons-light.png",
+    "readmeshowcasepreviewskt.previewshowcaseactionsicons.dark_night.png" to "showcase-actions-icons-dark.png",
+    "readmeshowcasepreviewskt.previewshowcasedetailsheet.light.png" to "showcase-detail-sheet-light.png",
+    "readmeshowcasepreviewskt.previewshowcasedetailsheet.dark_night.png" to "showcase-detail-sheet-dark.png",
+)
+
+tasks.register<Copy>("copyReadmeArt") {
+    group = "documentation"
+    description = "Copies the Paparazzi snapshots referenced by the README into art/."
+
+    val snapshots = layout.projectDirectory.dir("src/test/snapshots/images")
+    val prefix = "Paparazzi_Preview_Test_com.mikepenz.aboutlibraries.screenshot."
+
+    into(rootProject.layout.projectDirectory.dir("art"))
+    readmeArt.forEach { (source, target) ->
+        from(snapshots.file(prefix + source)) { rename { target } }
+    }
+
+    // A `from` pointing at a missing file is silently skipped, which would leave the README
+    // referencing stale art. Fail loudly instead — snapshot names change when previews are renamed.
+    doFirst {
+        val missing = readmeArt.keys.filterNot { snapshots.file(prefix + it).asFile.exists() }
+        require(missing.isEmpty()) {
+            "Missing Paparazzi snapshots: ${missing.joinToString()}. " +
+                "Run `./gradlew :sample:android:recordPaparazziDebug` first, or update `readmeArt` if a preview was renamed."
+        }
+    }
+}

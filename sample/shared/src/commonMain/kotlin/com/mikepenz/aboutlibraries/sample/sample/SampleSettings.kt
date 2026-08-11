@@ -36,10 +36,10 @@ data class SampleSettings(
 
 /** Accent swatches that the user can pick from in the settings panel. */
 val AccentSwatches: List<Color> = listOf(
+    Color(0xFFC7FF1E), // lime
+    Color(0xFF00FF6A), // green
+    Color(0xFF00B9FF), // cyan
     Color(0xFFE94B8E), // pink
-    Color(0xFF1967D2), // blue
     Color(0xFF7C3AED), // purple
-    Color(0xFF0EA5A4), // teal
     Color(0xFFF59E0B), // amber
-    Color(0xFFEF4444), // red
 )
