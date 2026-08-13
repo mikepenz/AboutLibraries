@@ -16,6 +16,7 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.File
 import java.util.Locale
+import java.util.TreeSet
 
 internal class LibraryPostProcessor(
     private val variantToDependencyData: Map<String, List<DependencyData>>,
@@ -31,6 +32,7 @@ internal class LibraryPostProcessor(
     private var variant: String? = null,
     private val mapLicensesToSpdx: Boolean = true,
     gitHubToken: String? = null,
+    private val includeVariants: Boolean = false,
 ) {
     private val additionalLicenses: MutableSet<String> = additionalLicenses.toMutableSet()
 
@@ -59,15 +61,37 @@ internal class LibraryPostProcessor(
         } else emptySet()
 
         val variant = variant
-        val dependencyDataForVariant = if (variant.isNullOrBlank()) {
-            variantToDependencyData.flatMap { (_, dependencies) -> dependencies }.deduplicateDependencies() ?: emptySet()
-        } else {
-            variantToDependencyData[variant] ?: variantToDependencyData.flatMap { (configName, dependencies) ->
-                // if we don't have an exact match, use all variants starting with
-                val cleanedConfigName = configName.removeSuffix("CompileClasspath").removeSuffix("RuntimeClasspath")
-                if (cleanedConfigName == variant) dependencies else emptyList()
-            }.deduplicateDependencies()
+
+        // The configurations contributing to this task's output. Retained separately from the
+        // flattened + deduplicated dependency list below, because deduplication collapses entries
+        // by `uniqueId` and would otherwise discard which configuration each dependency came from.
+        val selectedConfigs: Map<String, List<DependencyData>> = when {
+            variant.isNullOrBlank() -> variantToDependencyData
+            variantToDependencyData.containsKey(variant) -> mapOf(variant to variantToDependencyData.getValue(variant))
+            // if we don't have an exact match, use all variants starting with
+            else -> variantToDependencyData.filterKeys { configName ->
+                configName.removeSuffix("CompileClasspath").removeSuffix("RuntimeClasspath") == variant
+            }
         }
+
+        val dependencyDataForVariant: Collection<DependencyData>? = if (variant.isNullOrBlank()) {
+            selectedConfigs.flatMap { (_, dependencies) -> dependencies }.deduplicateDependencies() ?: emptySet()
+        } else {
+            variantToDependencyData[variant] ?: selectedConfigs.flatMap { (_, dependencies) -> dependencies }
+                .deduplicateDependencies()
+        }
+
+        // uniqueId -> names of every selected configuration containing it. Sorted so the generated
+        // output is byte-for-byte stable regardless of configuration iteration order.
+        val variantsByUniqueId: Map<String, Set<String>> = if (includeVariants) {
+            buildMap<String, TreeSet<String>> {
+                selectedConfigs.forEach { (configName, dependencies) ->
+                    dependencies.forEach { dependency ->
+                        getOrPut(dependency.uniqueId) { sortedSetOf() }.add(configName)
+                    }
+                }
+            }
+        } else emptyMap()
 
         if (dependencyDataForVariant != null) {
             dependencyDataForVariant.onEach { dependencyData ->
@@ -117,6 +141,7 @@ internal class LibraryPostProcessor(
                         licenses.map { it.hash }.toSet(),
                         funding,
                         null,
+                        if (includeVariants) variantsByUniqueId[dependencyData.uniqueId] ?: emptySet() else null,
                         dependencyData.artifactFolder,
                     )
 

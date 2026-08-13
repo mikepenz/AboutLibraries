@@ -16,6 +16,8 @@ import kotlinx.serialization.Serializable
  * @param scm information, linking to the repository hosting the source
  * @param licenses all identified licenses for this artifact
  * @param funding all identified funding opportunities for this artifact
+ * @param variants names of the Gradle configurations this artifact was resolved from (e.g. `androidCompileClasspath`).
+ * Empty unless the `collect.includeVariants` option was enabled when generating the metadata file.
  */
 @Serializable
 data class Library(
@@ -30,6 +32,7 @@ data class Library(
     @SerialName("licenses") val licenses: Set<License> = emptySet(),
     @SerialName("funding") val funding: Set<Funding> = emptySet(),
     @SerialName("tag") val tag: String? = null,
+    @SerialName("variants") val variants: Set<String> = emptySet(),
 ) {
     /**
      * defines the [uniqueId]:[artifactVersion] combined

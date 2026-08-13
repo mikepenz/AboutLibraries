@@ -75,6 +75,7 @@ abstract class AboutLibrariesExtension {
             it.fetchRemoteLicense.convention(false)
             it.fetchRemoteFunding.convention(false)
             it.filterVariants.convention(emptySet())
+            it.includeVariants.convention(false)
         }
         export {
             // it.variant.convention("") (mp) intentionally not set, we use it as `orNull` in places
@@ -237,6 +238,26 @@ abstract class CollectorConfig @Inject constructor() {
      */
     @get:Optional
     abstract val filterVariants: SetProperty<String>
+
+    /**
+     * Includes the names of the Gradle configurations a library was resolved from, as a `variants`
+     * array on each library in the generated metadata file.
+     *
+     * The reported values are the raw Gradle configuration names (e.g. `androidCompileClasspath`,
+     * `runtimeClasspath`), limited to the configurations collected for the respective task.
+     *
+     * Disabled by default. If disabled, the `variants` field is omitted from the output entirely.
+     *
+     * ```
+     * aboutLibraries {
+     *   collect {
+     *      includeVariants = true
+     *   }
+     * }
+     * ```
+     */
+    @get:Optional
+    abstract val includeVariants: Property<Boolean>
 }
 
 abstract class ExportConfig @Inject constructor(val name: String = "") {

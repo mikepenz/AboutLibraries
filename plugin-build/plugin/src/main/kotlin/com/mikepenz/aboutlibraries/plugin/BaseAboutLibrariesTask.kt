@@ -56,6 +56,9 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     @Input
     val filterVariants = extension.collect.filterVariants
 
+    @Input
+    val includeVariants = extension.collect.includeVariants
+
     @get:Optional
     @get:Input
     abstract val variant: Property<String>
@@ -464,7 +467,8 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
             duplicationRule = duplicationRule.get(),
             variant = variant.orNull,
             mapLicensesToSpdx = mapLicensesToSpdx.get(),
-            gitHubToken = gitHubApiToken.orNull
+            gitHubToken = gitHubApiToken.orNull,
+            includeVariants = includeVariants.get(),
         )
     }
 

@@ -218,6 +218,13 @@ aboutLibraries {
 
         // Enable inclusion of `platform` dependencies in the library report
         includePlatform = true
+
+        // Enable reporting of the Gradle configurations each library was resolved from, as a
+        // `variants` array on every library (e.g. ["androidCompileClasspath", "androidRuntimeClasspath"]).
+        // Only the configurations collected for the respective task are reported.
+        // Disabled by default; when disabled the `variants` field is omitted from the output entirely.
+        // It can also be dropped per export via `excludeFields.add("Library.variants")`.
+        includeVariants = false
     }
 
     export {
