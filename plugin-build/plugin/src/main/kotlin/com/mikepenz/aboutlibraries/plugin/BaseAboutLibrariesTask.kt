@@ -94,6 +94,9 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
     val duplicationRule = extension.library.duplicationRule
 
     @Input
+    val mergePlatformArtifacts = extension.library.mergePlatformArtifacts
+
+    @Input
     val mapLicensesToSpdx = extension.license.mapLicensesToSpdx
 
     @Input
@@ -283,12 +286,13 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
         })
 
         val capturedIncludePlatform = includePlatform.get()
+        val capturedMergePlatformArtifacts = mergePlatformArtifacts.get()
         val capturedConfigs = selectedConfigs
         val dependencyHandler = project.dependencies
         val configContainer = project.configurations
 
         val resolvedProvider = project.provider {
-            val collector = DependencyCollector(capturedIncludePlatform)
+            val collector = DependencyCollector(capturedIncludePlatform, capturedMergePlatformArtifacts)
             val perConfigCoords = LinkedHashMap<String, List<DependencyCoordinates>>(capturedConfigs.size)
             val unionCoords = LinkedHashSet<DependencyCoordinates>()
             for (config in capturedConfigs) {

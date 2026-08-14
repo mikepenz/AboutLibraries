@@ -31,6 +31,7 @@ import java.io.InputStream
 
 internal class DependencyCollector(
     private val includePlatform: Boolean = false,
+    private val mergePlatformArtifacts: Boolean = false,
 ) {
 
     /**
@@ -42,7 +43,18 @@ internal class DependencyCollector(
      */
     internal fun loadDependencyCoordinates(root: ResolvedComponentResult): Set<DependencyCoordinates> {
         val coordinates = mutableSetOf<DependencyCoordinates>()
-        loadDependencyCoordinates(root, coordinates, mutableSetOf())
+        // "group:platformArtifact" → module name of the redirect shell it is published under.
+        val redirects = mutableMapOf<String, String>()
+        loadDependencyCoordinates(root, coordinates, redirects, mutableSetOf())
+        if (redirects.isEmpty()) return coordinates
+        // Applied as a pass over the finished set rather than during the walk: a platform artifact
+        // can be reached directly (e.g. a dependency declaring `annotation-jvm`) before the shell
+        // that redirects to it is visited, and the graph walk order is not specified.
+        // Stamped in place — `rootModule` is not part of the coordinate's identity, so mutating it
+        // cannot disturb the set.
+        coordinates.forEach { coords ->
+            redirects["${coords.group}:${coords.artifact}"]?.let { coords.rootModule = it }
+        }
         return coordinates
     }
 
@@ -71,12 +83,24 @@ internal class DependencyCollector(
     private fun loadDependencyCoordinates(
         root: ResolvedComponentResult,
         destination: MutableSet<DependencyCoordinates>,
+        redirects: MutableMap<String, String>,
         seen: MutableSet<ComponentIdentifier>,
         depth: Int = 1,
     ) {
         val id = root.id
+        // Non-null when this component is a pure Gradle `available-at` redirect (a KMP root module
+        // such as `androidx.collection:collection` pointing at `androidx.collection:collection-jvm`).
+        // With `mergePlatformArtifacts` the shell itself is dropped and its module name is
+        // recorded, so the artifact it points at can be reported under the declared coordinate.
+        val redirectTarget = if (mergePlatformArtifacts) root.redirectTargetModule() else null
         var ignoreSuffix: String? = null
         when {
+            redirectTarget != null -> {
+                id as ModuleComponentIdentifier
+                redirects["${id.group}:$redirectTarget"] = id.module
+                ignoreSuffix = " merge platform artifact $redirectTarget into ${id.module}"
+            }
+
             id is ProjectComponentIdentifier -> {
                 ignoreSuffix = " skip project dependency" // Local dependency, do nothing.
             }
@@ -122,6 +146,7 @@ internal class DependencyCollector(
                     loadDependencyCoordinates(
                         selected,
                         destination,
+                        redirects,
                         seen,
                         depth + 1,
                     )
@@ -209,7 +234,10 @@ internal class DependencyCollector(
             LOGGER.debug("--> ArtifactPom for [{}:{}]:\n{}\n\n", pom.groupId, pom.artifactId, pom.pomFile.readText().trim())
         }
 
-        val uniqueId = pom.groupId + ":" + pom.artifactId
+        // With `mergePlatformArtifacts` a KMP platform artifact is reported under the root coordinate it was
+        // resolved through, so the id matches what was declared in the build script. Everything else
+        // (name, description, licenses, …) still comes from the resolved variant's POM.
+        val uniqueId = pom.groupId + ":" + (coordinates.rootModule ?: pom.artifactId)
 
         // check if we shall skip this specific uniqueId
         if (shouldSkip(uniqueId)) return null
@@ -253,6 +281,23 @@ internal class DependencyCollector(
         pom.let(block) ?: parentRawModel.firstOrNull()?.let(block)
 
     private fun ModuleComponentIdentifier.toDependencyCoordinates() = DependencyCoordinates(group, module, version)
+
+    /**
+     * Returns the module name this component redirects to via Gradle `available-at`
+     * (`androidx.collection:collection` → `collection-jvm`), or `null` if it is a regular module.
+     *
+     * A redirecting component carries no artifacts of its own — every one of its variants only
+     * points at a variant of the target module. Requiring *all* variants to redirect, and requiring
+     * a single target within the same group, keeps this from firing on regular modules.
+     */
+    private fun ResolvedComponentResult.redirectTargetModule(): String? {
+        val self = id as? ModuleComponentIdentifier ?: return null
+        val owners = runCatching {
+            variants.map { (it.externalVariant.orElse(null) ?: return null).owner }
+        }.getOrNull()?.takeIf { it.isNotEmpty() } ?: return null
+        val target = owners.distinct().singleOrNull() as? ModuleComponentIdentifier ?: return null
+        return target.module.takeIf { target.group == self.group && it != self.module }
+    }
 
     private fun ResolvedComponentResult.isPlatform(): Boolean {
         val singleVariant = variants.singleOrNull() ?: return false
@@ -304,6 +349,22 @@ internal data class DependencyCoordinates(
     val artifact: String,
     val version: String,
 ) : java.io.Serializable {
+    /**
+     * Module name of the parent (root) module this artifact was resolved *through*, for Gradle
+     * `available-at` redirects as used by Kotlin Multiplatform publications
+     * (`androidx.collection:collection` → `androidx.collection:collection-jvm`).
+     *
+     * Only populated when `mergePlatformArtifacts` is enabled; `null` otherwise, and always `null` for
+     * artifacts that were not reached via a redirect.
+     *
+     * Deliberately outside the constructor, so it takes no part in `equals`/`hashCode`: this
+     * records *how* an artifact was reached, not which artifact it is. The same `g:a:v` can be
+     * reached through a redirect in one configuration and directly in another; were that two
+     * distinct coordinates, its POM would be resolved twice and the two would occupy separate
+     * version slots. `cacheKey()` has always ignored it for the same reason.
+     */
+    var rootModule: String? = null
+
     fun pomCoordinate() = "$group:$artifact:$version@pom"
     fun cacheKey() = "$group:$artifact:$version"
 }

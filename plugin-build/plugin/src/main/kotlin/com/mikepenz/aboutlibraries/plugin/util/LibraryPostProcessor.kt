@@ -82,8 +82,12 @@ internal class LibraryPostProcessor(
         val dependencyDataForVariant: Collection<DependencyData>? = if (variant.isNullOrBlank()) {
             selectedConfigs.flatMap { (_, dependencies) -> dependencies }.deduplicateDependencies() ?: emptySet()
         } else {
-            variantToDependencyData[variant] ?: selectedConfigs.flatMap { (_, dependencies) -> dependencies }
-                .deduplicateDependencies()
+            // deduplicate as well on an exact variant hit: with `mergePlatformArtifacts` several
+            // resolved artifacts can collapse onto the same root uniqueId within one configuration.
+            // `deduplicateDependencies()` returns null for an empty result, so an exact hit with no
+            // dependencies must not fall through to the prefix-match branch below.
+            variantToDependencyData[variant]?.let { it.deduplicateDependencies() ?: emptySet() }
+                ?: selectedConfigs.flatMap { (_, dependencies) -> dependencies }.deduplicateDependencies()
         }
 
         // uniqueId -> Kotlin target names consuming it. Sorted so the generated output is
