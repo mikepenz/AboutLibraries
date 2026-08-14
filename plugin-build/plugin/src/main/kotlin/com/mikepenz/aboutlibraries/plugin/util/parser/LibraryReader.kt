@@ -49,6 +49,9 @@ object LibraryReader {
                 funding.add(Funding(it["platform"] ?: "", it["url"] ?: ""))
             }
 
+            // left `null` when absent so overrides never materialize the field in the output
+            val targets = (c["targets"] as? List<*>)?.mapNotNullTo(sortedSetOf()) { it as? String }
+
             Library(
                 c["uniqueId"] as String,
                 c["artifactVersion"] as? String,
@@ -60,7 +63,8 @@ object LibraryReader {
                 scm,
                 licenses,
                 funding,
-                c["tag"] as? String
+                c["tag"] as? String,
+                targets
             )
         } catch (t: Throwable) {
             LOGGER.error("Could not read the license ($name)", t)

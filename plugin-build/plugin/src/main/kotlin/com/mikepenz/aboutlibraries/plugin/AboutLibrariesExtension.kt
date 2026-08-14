@@ -75,6 +75,7 @@ abstract class AboutLibrariesExtension {
             it.fetchRemoteLicense.convention(false)
             it.fetchRemoteFunding.convention(false)
             it.filterVariants.convention(emptySet())
+            it.includeTargets.convention(false)
         }
         export {
             // it.variant.convention("") (mp) intentionally not set, we use it as `orNull` in places
@@ -237,6 +238,34 @@ abstract class CollectorConfig @Inject constructor() {
      */
     @get:Optional
     abstract val filterVariants: SetProperty<String>
+
+    /**
+     * Includes the Kotlin targets a library is consumed by, as a `targets` array on each library
+     * in the generated metadata file (e.g. `["android", "jvm", "iosX64"]`).
+     *
+     * The reported values are Kotlin target names as declared in the `kotlin { }` block, resolved
+     * from the Kotlin target model rather than from configuration names — a configuration is
+     * attributed to the target whose compilation declares it as its compile or runtime classpath.
+     *
+     * Lets a consumer narrow the rendered list to what the running target actually links against,
+     * e.g. `libs.libraries.filter { "iosArm64" in it.targets }`.
+     *
+     * Only multiplatform projects report anything: an Android-only, JVM-only or `java-library`
+     * project builds a single implicit target, so every library reports an empty `targets` array.
+     * Use `export.variant` to split an Android build by build variant instead.
+     *
+     * Disabled by default. If disabled, the `targets` field is omitted from the output entirely.
+     *
+     * ```
+     * aboutLibraries {
+     *   collect {
+     *      includeTargets = true
+     *   }
+     * }
+     * ```
+     */
+    @get:Optional
+    abstract val includeTargets: Property<Boolean>
 }
 
 abstract class ExportConfig @Inject constructor(val name: String = "") {

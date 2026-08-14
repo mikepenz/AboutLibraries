@@ -16,6 +16,10 @@ import kotlinx.serialization.Serializable
  * @param scm information, linking to the repository hosting the source
  * @param licenses all identified licenses for this artifact
  * @param funding all identified funding opportunities for this artifact
+ * @param targets Kotlin target names this artifact is consumed by (e.g. `android`, `jvm`, `iosX64`).
+ * Empty unless the `collect.includeTargets` option was enabled when generating the metadata file.
+ * Lets a consumer narrow the list to what the running target links against, e.g.
+ * `libs.libraries.filter { "iosArm64" in it.targets }`.
  */
 @Serializable
 data class Library(
@@ -30,6 +34,7 @@ data class Library(
     @SerialName("licenses") val licenses: Set<License> = emptySet(),
     @SerialName("funding") val funding: Set<Funding> = emptySet(),
     @SerialName("tag") val tag: String? = null,
+    @SerialName("targets") val targets: Set<String> = emptySet(),
 ) {
     /**
      * defines the [uniqueId]:[artifactVersion] combined
