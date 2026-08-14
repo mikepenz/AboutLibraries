@@ -65,6 +65,10 @@ internal class LibraryPostProcessor(
         // The configurations contributing to this task's output. Retained separately from the
         // flattened + deduplicated dependency list below, because deduplication collapses entries
         // by `uniqueId` and would otherwise discard which configuration each dependency came from.
+        //
+        // Ordered runtime classpaths first: when compile and runtime resolve different versions of the
+        // same module, `deduplicateDependencies` keeps the first entry, and the runtime resolution is
+        // the version that actually ships.
         val selectedConfigs: Map<String, List<DependencyData>> = when {
             variant.isNullOrBlank() -> variantToDependencyData
             variantToDependencyData.containsKey(variant) -> mapOf(variant to variantToDependencyData.getValue(variant))
@@ -72,7 +76,7 @@ internal class LibraryPostProcessor(
             else -> variantToDependencyData.filterKeys { configName ->
                 configName.removeSuffix("CompileClasspath").removeSuffix("RuntimeClasspath") == variant
             }
-        }
+        }.toSortedMap(compareBy({ !it.endsWith("RuntimeClasspath") }, { it }))
 
         val dependencyDataForVariant: Collection<DependencyData>? = if (variant.isNullOrBlank()) {
             selectedConfigs.flatMap { (_, dependencies) -> dependencies }.deduplicateDependencies() ?: emptySet()
@@ -168,6 +172,9 @@ internal class LibraryPostProcessor(
             val librariesMap = librariesList.associateBy { it.uniqueId }.toMutableMap()
             LibraryReader.readLibraries(configFolder).takeIf { it.isNotEmpty() }?.also { customLibs ->
                 customLibs.forEach { lib ->
+                    // never let an override materialize `variants` while the feature is disabled
+                    if (!includeVariants) lib.variants = null
+
                     /** Make sure we fetch any additional needed licenses */
                     fun Library.handleLicenses() {
                         this.licenses.forEach {
@@ -193,6 +200,8 @@ internal class LibraryPostProcessor(
                         if (librariesMap.containsKey(lib.uniqueId)) {
                             librariesMap[lib.uniqueId]?.mergeWithCustom()
                         } else {
+                            // config-only library, not part of any resolved configuration
+                            if (includeVariants && lib.variants == null) lib.variants = emptySet()
                             lib.handleLicenses()
                             librariesList.add(lib)
                             librariesMap[lib.uniqueId] = lib
