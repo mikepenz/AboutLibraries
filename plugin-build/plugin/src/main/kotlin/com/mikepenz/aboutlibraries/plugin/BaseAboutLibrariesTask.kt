@@ -547,6 +547,11 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
  * Returns an empty map when the Kotlin plugin is not applied. The `kotlin` extension is looked up
  * by name so no Kotlin Gradle Plugin class is touched in that case — the plugin declares KGP as
  * `compileOnly`.
+ *
+ * Targets with a blank name are skipped: the single-target extensions (`kotlin("android")`,
+ * `kotlin("jvm")`) name their only target `""`, because there is no sibling to disambiguate it
+ * from. Such a project compiles for exactly one target, so there is nothing to attribute and
+ * nothing a consumer could filter by.
  */
 private fun collectKotlinTargets(extensions: ExtensionContainer): Map<String, String> {
     val kotlin = extensions.findByName("kotlin") ?: return emptyMap()
@@ -557,9 +562,10 @@ private fun collectKotlinTargets(extensions: ExtensionContainer): Map<String, St
     }
     return buildMap {
         targets.forEach { target ->
+            val name = target.targetName.takeIf { it.isNotBlank() } ?: return@forEach
             target.compilations.forEach { compilation ->
-                put(compilation.compileDependencyConfigurationName, target.targetName)
-                compilation.runtimeDependencyConfigurationName?.let { put(it, target.targetName) }
+                put(compilation.compileDependencyConfigurationName, name)
+                compilation.runtimeDependencyConfigurationName?.let { put(it, name) }
             }
         }
     }

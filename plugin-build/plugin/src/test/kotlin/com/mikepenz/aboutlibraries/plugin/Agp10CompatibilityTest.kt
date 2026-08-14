@@ -3,6 +3,7 @@ package com.mikepenz.aboutlibraries.plugin
 import org.gradle.testkit.runner.GradleRunner
 import org.gradle.testkit.runner.TaskOutcome
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
@@ -66,7 +67,40 @@ class Agp10CompatibilityTest {
         cp.split(File.pathSeparator).joinToString(", ") { "files(\"${it.replace("\\", "\\\\")}\")" }
     }
 
-    private fun setupAndroidProject(projectDir: File, androidPluginId: String, extensionType: String) {
+    /**
+     * An Android-only project has a single implicit target, and the single-target Kotlin extension
+     * names it `""` — reporting that verbatim yields `"targets":[""]`, and falling back to the
+     * configuration name yields build variants (`debug`, `release`), which are not targets.
+     * Neither is something a consumer could filter by, so the array stays empty.
+     */
+    @Test
+    fun `targets field is empty for an android-only module`() {
+        setupAndroidProject(
+            projectDir,
+            "com.android.application",
+            "com.android.build.api.dsl.ApplicationExtension",
+            includeTargets = true,
+        )
+
+        val result = GradleRunner.create()
+            .withProjectDir(projectDir)
+            .withArguments("exportLibraryDefinitionsRelease", "--stacktrace")
+            .build()
+
+        assertEquals(TaskOutcome.SUCCESS, result.task(":exportLibraryDefinitionsRelease")?.outcome)
+
+        val content = File(projectDir, "build/generated/aboutLibraries/aboutlibraries.json").readText()
+        assertTrue(content.contains("\"targets\":[]"), "targets must be empty, was: $content")
+        assertFalse(content.contains("\"targets\":[\"\"]"), "the unnamed single target must not be reported: $content")
+        assertFalse(content.contains("\"release\""), "build variants are not targets: $content")
+    }
+
+    private fun setupAndroidProject(
+        projectDir: File,
+        androidPluginId: String,
+        extensionType: String,
+        includeTargets: Boolean = false,
+    ) {
         File(projectDir, "gradle.properties").writeText(
             """
             android.useAndroidX=true
@@ -129,6 +163,9 @@ class Agp10CompatibilityTest {
 
             extensions.configure<com.mikepenz.aboutlibraries.plugin.AboutLibrariesExtension>("aboutLibraries") {
                 offlineMode = true
+                collect {
+                    includeTargets = $includeTargets
+                }
             }
             """.trimIndent()
         )

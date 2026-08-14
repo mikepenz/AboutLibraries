@@ -285,32 +285,27 @@ internal class LibraryPostProcessor(
     }
 
     /**
-     * Target name for a configuration no Kotlin *compilation* claims.
+     * Target name for a configuration no Kotlin *compilation* claims directly.
      *
-     * Two cases, in order:
-     *  - a KMP source-set level configuration (`jvmMainCompileClasspath`), which is folded into the
-     *    [knownTargets] entry it is named after;
-     *  - an AGP-only build (`debug`, `release`) or plain `java-library` project with no Kotlin
-     *    target model at all, where the stripped configuration name is the best available answer.
+     * Covers the source-set level configurations a multiplatform project adds alongside the
+     * compilation ones (`jvmMainCompileClasspath` next to `jvmCompileClasspath`), by folding them
+     * into the [knownTargets] entry they are named after.
      *
-     * `null` when stripping the classpath suffix leaves nothing (`compileClasspath` on a non-Kotlin
-     * project — a single implicit target, so there is nothing to filter by), or when a Kotlin
-     * target model exists but none of its targets matches: inventing a target name there would
-     * produce a value no consumer can ever match against.
+     * `null` for anything else. A configuration that matches no declared target is not evidence of
+     * an undeclared one — an Android-only or `java-library` project builds a single implicit
+     * target, and naming it after its build variant (`debug`, `release`) would emit a value no
+     * consumer could ever match against. That is what `export.variant` is for.
      */
     private fun String.toFallbackTargetName(knownTargets: List<String>): String? {
-        val stripped = stripClasspathSuffix() ?: return null
-        if (knownTargets.isEmpty()) return stripped
+        // matched case-insensitively: an unprefixed config is `compileClasspath`, a prefixed one
+        // `jvmMainCompileClasspath` — the same casing rule the configuration selection applies
+        val stripped = when {
+            endsWith("CompileClasspath", true) -> dropLast("CompileClasspath".length)
+            endsWith("RuntimeClasspath", true) -> dropLast("RuntimeClasspath".length)
+            else -> this
+        }
         return knownTargets.firstOrNull { stripped.startsWith(it) }
     }
-
-    private fun String.stripClasspathSuffix(): String? = when {
-        // matched case-insensitively: an unprefixed config is `compileClasspath`, a prefixed one
-        // `debugCompileClasspath` — the same casing rule the configuration selection applies
-        endsWith("CompileClasspath", true) -> dropLast("CompileClasspath".length)
-        endsWith("RuntimeClasspath", true) -> dropLast("RuntimeClasspath".length)
-        else -> this
-    }.takeIf { it.isNotEmpty() }
 
     private fun List<DependencyData>.deduplicateDependencies() = groupBy {
         it.uniqueId

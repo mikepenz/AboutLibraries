@@ -411,10 +411,12 @@ class OutputCorrectnessTest {
     }
 
     /**
-     * A plain `java-library` project has no Kotlin target model, and its `compileClasspath` /
-     * `runtimeClasspath` names leave nothing behind once the classpath suffix is stripped. Such a
-     * project has a single implicit target, so the key is emitted but empty rather than filled
-     * with invented names.
+     * A single-target project — `java-library` here, but equally `kotlin("jvm")` or an Android-only
+     * build — has exactly one implicit target, so the key is emitted but empty rather than filled
+     * with a configuration or build-variant name no consumer could match against.
+     *
+     * Note the single-target Kotlin extensions name their only target `""`; reporting that verbatim
+     * would emit `"targets":[""]`.
      *
      * The multi-target behaviour this field exists for is covered by [KmpAndroidFunctionalTest].
      */

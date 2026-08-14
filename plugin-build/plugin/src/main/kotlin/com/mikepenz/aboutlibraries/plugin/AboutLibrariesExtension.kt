@@ -246,12 +246,13 @@ abstract class CollectorConfig @Inject constructor() {
      * The reported values are Kotlin target names as declared in the `kotlin { }` block, resolved
      * from the Kotlin target model rather than from configuration names — a configuration is
      * attributed to the target whose compilation declares it as its compile or runtime classpath.
-     * Configurations that belong to no Kotlin target (a plain `java-library` project, or an
-     * AGP-only build) fall back to the configuration name with its `CompileClasspath` /
-     * `RuntimeClasspath` suffix removed, and are dropped when that leaves an empty name.
      *
      * Lets a consumer narrow the rendered list to what the running target actually links against,
      * e.g. `libs.libraries.filter { "iosArm64" in it.targets }`.
+     *
+     * Only multiplatform projects report anything: an Android-only, JVM-only or `java-library`
+     * project builds a single implicit target, so every library reports an empty `targets` array.
+     * Use `export.variant` to split an Android build by build variant instead.
      *
      * Disabled by default. If disabled, the `targets` field is omitted from the output entirely.
      *

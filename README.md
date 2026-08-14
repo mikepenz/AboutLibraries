@@ -223,6 +223,8 @@ aboutLibraries {
         // on every library (e.g. ["android", "jvm", "iosX64"]). Target names are taken from the
         // Kotlin target model, so a consumer can narrow the rendered list to what the running
         // target links against: `libs.libraries.filter { "iosArm64" in it.targets }`.
+        // Only multiplatform projects report anything — an Android-only or JVM-only project builds
+        // a single implicit target, so every library reports an empty array.
         // Disabled by default; when disabled the `targets` field is omitted from the output entirely.
         // It can also be dropped per export via `excludeFields.add("Library.targets")`.
         includeTargets = false
