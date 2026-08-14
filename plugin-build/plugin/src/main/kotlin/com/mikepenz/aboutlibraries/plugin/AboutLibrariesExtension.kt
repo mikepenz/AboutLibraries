@@ -88,6 +88,7 @@ abstract class AboutLibrariesExtension {
             it.exclusionPatterns.convention(emptySet<Pattern>())
             it.duplicationMode.convention(DuplicateMode.MERGE)
             it.duplicationRule.convention(DuplicateRule.EXACT)
+            it.mergePlatformArtifacts.convention(false)
         }
         license {
             it.mapLicensesToSpdx.convention(true)
@@ -451,6 +452,47 @@ abstract class LibraryConfig @Inject constructor() {
      */
     @get:Optional
     abstract val duplicationRule: Property<DuplicateRule>
+
+    /**
+     * Reports the per-platform artifacts of a Kotlin Multiplatform publication under the single
+     * root coordinate they were resolved through, instead of under the resolved artifact's own id.
+     *
+     * A dependency declared as `com.mikepenz:aboutlibraries-compose-core` resolves to
+     * `com.mikepenz:aboutlibraries-compose-core-android` on Android. With this enabled the reported
+     * `uniqueId` is `com.mikepenz:aboutlibraries-compose-core` again, matching what the build script
+     * declares — which keeps `config` overrides and funding mappings keyed on the declared id.
+     *
+     * Note this is *not* about Android build variants — see [filterVariants] and `export.variant`
+     * for those. The unit here is a Gradle module variant, one per Kotlin target.
+     *
+     * Only Gradle `available-at` redirects are collapsed: no coordinate is rewritten unless the
+     * redirecting root module is itself part of the resolved graph. A suffixed coordinate with no
+     * such root module (e.g. `androidx.annotation:annotation-jvm` in a graph that never resolves
+     * `androidx.annotation:annotation`) is untouched — but once the root module is present, the
+     * platform artifact is reported under it even where it was declared directly.
+     * Metadata (name, description, licenses) still comes from the resolved artifact.
+     *
+     * This is independent of [duplicationMode] / [duplicationRule] and applied before them. Note
+     * that the default [DuplicateMode.MERGE] already collapses these artifacts onto *one* entry —
+     * but onto whichever the graph walk reached first, so the surviving id may be a platform one
+     * (`collection-jvm`) even though the entry stands for every platform. Enabling this makes the
+     * survivor deterministic and names it after what the build script declared.
+     *
+     * Pairs with `collect.includeTargets`: the merged entry reports the union of the targets its
+     * artifacts were consumed by.
+     *
+     * ```
+     * aboutLibraries {
+     *   library {
+     *      mergePlatformArtifacts = true
+     *   }
+     * }
+     * ```
+     *
+     * @see duplicationMode
+     */
+    @get:Optional
+    abstract val mergePlatformArtifacts: Property<Boolean>
 }
 
 abstract class LicenseConfig @Inject constructor() {
