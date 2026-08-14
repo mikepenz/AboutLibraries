@@ -30,10 +30,10 @@ fun List<Library>.processDuplicates(
                 } else {
                     group.first()
                 }
-                // the discarded siblings may have originated from configurations the survivor was
-                // not part of; retain the union so no provenance is silently lost
-                if (group.size > 1 && group.any { it.variants != null }) {
-                    kept.variants = group.flatMapTo(sortedSetOf()) { it.variants.orEmpty() }
+                // the discarded siblings may have been consumed by targets the survivor was not
+                // part of; retain the union so no target is silently lost
+                if (group.size > 1 && group.any { it.targets != null }) {
+                    kept.targets = group.flatMapTo(sortedSetOf()) { it.targets.orEmpty() }
                 }
                 deDuplicatedList.add(kept)
             }
@@ -111,11 +111,11 @@ fun Library.merge(with: Library) {
         it.addAll(orgLib.funding)
     }
 
-    // merge variants, keeping `null` (== feature disabled) if neither side provides any
-    if (orgLib.variants != null || with.variants != null) {
-        orgLib.variants = sortedSetOf<String>().also {
-            it.addAll(with.variants.orEmpty())
-            it.addAll(orgLib.variants.orEmpty())
+    // merge targets, keeping `null` (== feature disabled) if neither side provides any
+    if (orgLib.targets != null || with.targets != null) {
+        orgLib.targets = sortedSetOf<String>().also {
+            it.addAll(with.targets.orEmpty())
+            it.addAll(orgLib.targets.orEmpty())
         }
     }
 }

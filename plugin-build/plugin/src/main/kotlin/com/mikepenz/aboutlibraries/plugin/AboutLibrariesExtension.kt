@@ -75,7 +75,7 @@ abstract class AboutLibrariesExtension {
             it.fetchRemoteLicense.convention(false)
             it.fetchRemoteFunding.convention(false)
             it.filterVariants.convention(emptySet())
-            it.includeVariants.convention(false)
+            it.includeTargets.convention(false)
         }
         export {
             // it.variant.convention("") (mp) intentionally not set, we use it as `orNull` in places
@@ -240,24 +240,31 @@ abstract class CollectorConfig @Inject constructor() {
     abstract val filterVariants: SetProperty<String>
 
     /**
-     * Includes the names of the Gradle configurations a library was resolved from, as a `variants`
-     * array on each library in the generated metadata file.
+     * Includes the Kotlin targets a library is consumed by, as a `targets` array on each library
+     * in the generated metadata file (e.g. `["android", "jvm", "iosX64"]`).
      *
-     * The reported values are the raw Gradle configuration names (e.g. `androidCompileClasspath`,
-     * `runtimeClasspath`), limited to the configurations collected for the respective task.
+     * The reported values are Kotlin target names as declared in the `kotlin { }` block, resolved
+     * from the Kotlin target model rather than from configuration names — a configuration is
+     * attributed to the target whose compilation declares it as its compile or runtime classpath.
+     * Configurations that belong to no Kotlin target (a plain `java-library` project, or an
+     * AGP-only build) fall back to the configuration name with its `CompileClasspath` /
+     * `RuntimeClasspath` suffix removed, and are dropped when that leaves an empty name.
      *
-     * Disabled by default. If disabled, the `variants` field is omitted from the output entirely.
+     * Lets a consumer narrow the rendered list to what the running target actually links against,
+     * e.g. `libs.libraries.filter { "iosArm64" in it.targets }`.
+     *
+     * Disabled by default. If disabled, the `targets` field is omitted from the output entirely.
      *
      * ```
      * aboutLibraries {
      *   collect {
-     *      includeVariants = true
+     *      includeTargets = true
      *   }
      * }
      * ```
      */
     @get:Optional
-    abstract val includeVariants: Property<Boolean>
+    abstract val includeTargets: Property<Boolean>
 }
 
 abstract class ExportConfig @Inject constructor(val name: String = "") {

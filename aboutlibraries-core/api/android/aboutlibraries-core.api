@@ -121,8 +121,8 @@ public final class com/mikepenz/aboutlibraries/entity/Library {
 	public final fun getOrganization ()Lcom/mikepenz/aboutlibraries/entity/Organization;
 	public final fun getScm ()Lcom/mikepenz/aboutlibraries/entity/Scm;
 	public final fun getTag ()Ljava/lang/String;
+	public final fun getTargets ()Ljava/util/Set;
 	public final fun getUniqueId ()Ljava/lang/String;
-	public final fun getVariants ()Ljava/util/Set;
 	public final fun getWebsite ()Ljava/lang/String;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;

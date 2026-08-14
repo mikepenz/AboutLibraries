@@ -219,12 +219,13 @@ aboutLibraries {
         // Enable inclusion of `platform` dependencies in the library report
         includePlatform = true
 
-        // Enable reporting of the Gradle configurations each library was resolved from, as a
-        // `variants` array on every library (e.g. ["androidCompileClasspath", "androidRuntimeClasspath"]).
-        // Only the configurations collected for the respective task are reported.
-        // Disabled by default; when disabled the `variants` field is omitted from the output entirely.
-        // It can also be dropped per export via `excludeFields.add("Library.variants")`.
-        includeVariants = false
+        // Enable reporting of the Kotlin targets each library is consumed by, as a `targets` array
+        // on every library (e.g. ["android", "jvm", "iosX64"]). Target names are taken from the
+        // Kotlin target model, so a consumer can narrow the rendered list to what the running
+        // target links against: `libs.libraries.filter { "iosArm64" in it.targets }`.
+        // Disabled by default; when disabled the `targets` field is omitted from the output entirely.
+        // It can also be dropped per export via `excludeFields.add("Library.targets")`.
+        includeTargets = false
     }
 
     export {

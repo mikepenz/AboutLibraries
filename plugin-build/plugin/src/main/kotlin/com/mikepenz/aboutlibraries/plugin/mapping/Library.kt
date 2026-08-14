@@ -18,12 +18,12 @@ data class Library(
     var funding: Set<Funding> = emptySet(),
     var tag: String? = null,
     /**
-     * Names of the Gradle configurations this library was resolved from (e.g. `androidCompileClasspath`).
+     * Kotlin target names this library is consumed by (e.g. `android`, `jvm`, `iosX64`).
      *
-     * `null` unless `collect.includeVariants` is enabled — the JSON writer excludes nulls, so the
+     * `null` unless `collect.includeTargets` is enabled — the JSON writer excludes nulls, so the
      * field is omitted from the output entirely when the feature is off.
      */
-    var variants: Set<String>? = null,
+    var targets: Set<String>? = null,
     var artifactFolder: File? = null,
 ) {
     val artifactId: String

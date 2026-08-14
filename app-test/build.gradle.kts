@@ -26,7 +26,7 @@ kotlin {
 aboutLibraries {
     collect {
         fetchRemoteLicense = true
-        includeVariants = true
+        includeTargets = true
     }
     export {
         prettyPrint = true

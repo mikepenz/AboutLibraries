@@ -32,7 +32,8 @@ internal class LibraryPostProcessor(
     private var variant: String? = null,
     private val mapLicensesToSpdx: Boolean = true,
     gitHubToken: String? = null,
-    private val includeVariants: Boolean = false,
+    private val includeTargets: Boolean = false,
+    private val configToTarget: Map<String, String> = emptyMap(),
 ) {
     private val additionalLicenses: MutableSet<String> = additionalLicenses.toMutableSet()
 
@@ -85,13 +86,20 @@ internal class LibraryPostProcessor(
                 .deduplicateDependencies()
         }
 
-        // uniqueId -> names of every selected configuration containing it. Sorted so the generated
-        // output is byte-for-byte stable regardless of configuration iteration order.
-        val variantsByUniqueId: Map<String, Set<String>> = if (includeVariants) {
+        // uniqueId -> Kotlin target names consuming it. Sorted so the generated output is
+        // byte-for-byte stable regardless of configuration iteration order.
+        val targetsByUniqueId: Map<String, Set<String>> = if (includeTargets) {
             buildMap<String, TreeSet<String>> {
+                // longest first, so `iosX64` wins over a hypothetical `ios` when both are declared
+                val knownTargets = configToTarget.values.distinct().sortedByDescending { it.length }
                 selectedConfigs.forEach { (configName, dependencies) ->
+                    val target = configToTarget[configName] ?: configName.toFallbackTargetName(knownTargets)
+                    if (target == null) {
+                        LOGGER.info("No Kotlin target owns configuration $configName, omitting it from `targets`")
+                        return@forEach
+                    }
                     dependencies.forEach { dependency ->
-                        getOrPut(dependency.uniqueId) { sortedSetOf() }.add(configName)
+                        getOrPut(dependency.uniqueId) { sortedSetOf() }.add(target)
                     }
                 }
             }
@@ -145,7 +153,7 @@ internal class LibraryPostProcessor(
                         licenses.map { it.hash }.toSet(),
                         funding,
                         null,
-                        if (includeVariants) variantsByUniqueId[dependencyData.uniqueId] ?: emptySet() else null,
+                        if (includeTargets) targetsByUniqueId[dependencyData.uniqueId] ?: emptySet() else null,
                         dependencyData.artifactFolder,
                     )
 
@@ -172,8 +180,8 @@ internal class LibraryPostProcessor(
             val librariesMap = librariesList.associateBy { it.uniqueId }.toMutableMap()
             LibraryReader.readLibraries(configFolder).takeIf { it.isNotEmpty() }?.also { customLibs ->
                 customLibs.forEach { lib ->
-                    // never let an override materialize `variants` while the feature is disabled
-                    if (!includeVariants) lib.variants = null
+                    // never let an override materialize `targets` while the feature is disabled
+                    if (!includeTargets) lib.targets = null
 
                     /** Make sure we fetch any additional needed licenses */
                     fun Library.handleLicenses() {
@@ -201,7 +209,7 @@ internal class LibraryPostProcessor(
                             librariesMap[lib.uniqueId]?.mergeWithCustom()
                         } else {
                             // config-only library, not part of any resolved configuration
-                            if (includeVariants && lib.variants == null) lib.variants = emptySet()
+                            if (includeTargets && lib.targets == null) lib.targets = emptySet()
                             lib.handleLicenses()
                             librariesList.add(lib)
                             librariesMap[lib.uniqueId] = lib
@@ -275,6 +283,34 @@ internal class LibraryPostProcessor(
     private fun fixLibraryDescription(value: String?): String {
         return value?.takeIf { it != "null" }?.trimIndent() ?: ""
     }
+
+    /**
+     * Target name for a configuration no Kotlin *compilation* claims.
+     *
+     * Two cases, in order:
+     *  - a KMP source-set level configuration (`jvmMainCompileClasspath`), which is folded into the
+     *    [knownTargets] entry it is named after;
+     *  - an AGP-only build (`debug`, `release`) or plain `java-library` project with no Kotlin
+     *    target model at all, where the stripped configuration name is the best available answer.
+     *
+     * `null` when stripping the classpath suffix leaves nothing (`compileClasspath` on a non-Kotlin
+     * project — a single implicit target, so there is nothing to filter by), or when a Kotlin
+     * target model exists but none of its targets matches: inventing a target name there would
+     * produce a value no consumer can ever match against.
+     */
+    private fun String.toFallbackTargetName(knownTargets: List<String>): String? {
+        val stripped = stripClasspathSuffix() ?: return null
+        if (knownTargets.isEmpty()) return stripped
+        return knownTargets.firstOrNull { stripped.startsWith(it) }
+    }
+
+    private fun String.stripClasspathSuffix(): String? = when {
+        // matched case-insensitively: an unprefixed config is `compileClasspath`, a prefixed one
+        // `debugCompileClasspath` — the same casing rule the configuration selection applies
+        endsWith("CompileClasspath", true) -> dropLast("CompileClasspath".length)
+        endsWith("RuntimeClasspath", true) -> dropLast("RuntimeClasspath".length)
+        else -> this
+    }.takeIf { it.isNotEmpty() }
 
     private fun List<DependencyData>.deduplicateDependencies() = groupBy {
         it.uniqueId

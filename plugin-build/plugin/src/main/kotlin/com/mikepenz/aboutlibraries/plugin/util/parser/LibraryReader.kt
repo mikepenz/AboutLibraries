@@ -50,7 +50,7 @@ object LibraryReader {
             }
 
             // left `null` when absent so overrides never materialize the field in the output
-            val variants = (c["variants"] as? List<*>)?.mapNotNullTo(sortedSetOf()) { it as? String }
+            val targets = (c["targets"] as? List<*>)?.mapNotNullTo(sortedSetOf()) { it as? String }
 
             Library(
                 c["uniqueId"] as String,
@@ -64,7 +64,7 @@ object LibraryReader {
                 licenses,
                 funding,
                 c["tag"] as? String,
-                variants
+                targets
             )
         } catch (t: Throwable) {
             LOGGER.error("Could not read the license ($name)", t)

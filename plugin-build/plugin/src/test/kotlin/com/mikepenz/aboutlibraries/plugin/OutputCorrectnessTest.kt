@@ -390,12 +390,12 @@ class OutputCorrectnessTest {
     }
 
     /**
-     * `collect.includeVariants` is opt-in. With it disabled (the default) the `variants` key must be
+     * `collect.includeTargets` is opt-in. With it disabled (the default) the `targets` key must be
      * absent from the output entirely — this guards the committed `aboutlibraries.json` fixtures
      * against churn.
      */
     @Test
-    fun `variants field is absent by default`() {
+    fun `targets field is absent by default`() {
         setupProject(
             projectDir,
             deps = """
@@ -407,16 +407,19 @@ class OutputCorrectnessTest {
         val content = readOutput()
 
         assertTrue(content.contains("\"uniqueId\":\"com.google.code.gson:gson\""), "gson should be present")
-        assertFalse(content.contains("\"variants\""), "variants must not be emitted unless opted in")
+        assertFalse(content.contains("\"targets\""), "targets must not be emitted unless opted in")
     }
 
     /**
-     * With `collect.includeVariants` enabled every library reports the Gradle configurations it was
-     * resolved from, using the raw configuration names. A `java-library` project with no variant
-     * filter collects exactly `compileClasspath` and `runtimeClasspath`.
+     * A plain `java-library` project has no Kotlin target model, and its `compileClasspath` /
+     * `runtimeClasspath` names leave nothing behind once the classpath suffix is stripped. Such a
+     * project has a single implicit target, so the key is emitted but empty rather than filled
+     * with invented names.
+     *
+     * The multi-target behaviour this field exists for is covered by [KmpAndroidFunctionalTest].
      */
     @Test
-    fun `variants field reports the resolved configuration names when enabled`() {
+    fun `targets field is empty for a project without kotlin targets`() {
         setupProject(
             projectDir,
             deps = """
@@ -424,7 +427,7 @@ class OutputCorrectnessTest {
             """.trimIndent(),
             extraConfig = """
                 collect {
-                    includeVariants = true
+                    includeTargets = true
                 }
             """.trimIndent()
         )
@@ -434,47 +437,8 @@ class OutputCorrectnessTest {
 
         assertTrue(entry != null, "gson entry should be present")
         assertTrue(
-            entry!!.contains("\"variants\":[\"compileClasspath\",\"runtimeClasspath\"]"),
-            "an `implementation` dependency should list both classpaths in sorted order, was: $entry"
-        )
-    }
-
-    /**
-     * The provenance must survive the `uniqueId`-keyed deduplication that collapses the per-config
-     * dependency lists. A `runtimeOnly` dependency exists in only one of the two collected
-     * configurations, so it is the case that actually distinguishes real tracking from a stub that
-     * reports every configuration for every library.
-     */
-    @Test
-    fun `variants field distinguishes runtimeOnly from implementation dependencies`() {
-        setupProject(
-            projectDir,
-            deps = """
-                implementation("com.google.code.gson:gson:2.11.0")
-                runtimeOnly("org.slf4j:slf4j-api:2.0.16")
-            """.trimIndent(),
-            extraConfig = """
-                collect {
-                    includeVariants = true
-                }
-            """.trimIndent()
-        )
-
-        run("exportLibraryDefinitions")
-        val content = readOutput()
-
-        val gson = extractLibraryEntry(content, "com.google.code.gson:gson")
-        val slf4j = extractLibraryEntry(content, "org.slf4j:slf4j-api")
-
-        assertTrue(gson != null, "gson entry should be present")
-        assertTrue(slf4j != null, "slf4j entry should be present")
-        assertTrue(
-            gson!!.contains("\"variants\":[\"compileClasspath\",\"runtimeClasspath\"]"),
-            "gson is on both classpaths, was: $gson"
-        )
-        assertTrue(
-            slf4j!!.contains("\"variants\":[\"runtimeClasspath\"]"),
-            "a runtimeOnly dependency must only report runtimeClasspath, was: $slf4j"
+            entry!!.contains("\"targets\":[]"),
+            "a non-Kotlin project has no targets to report, was: $entry"
         )
     }
 

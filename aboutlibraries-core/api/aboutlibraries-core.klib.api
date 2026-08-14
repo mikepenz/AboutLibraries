@@ -89,10 +89,10 @@ final class com.mikepenz.aboutlibraries.entity/Library { // com.mikepenz.aboutli
         final fun <get-scm>(): com.mikepenz.aboutlibraries.entity/Scm? // com.mikepenz.aboutlibraries.entity/Library.scm.<get-scm>|<get-scm>(){}[0]
     final val tag // com.mikepenz.aboutlibraries.entity/Library.tag|{}tag[0]
         final fun <get-tag>(): kotlin/String? // com.mikepenz.aboutlibraries.entity/Library.tag.<get-tag>|<get-tag>(){}[0]
+    final val targets // com.mikepenz.aboutlibraries.entity/Library.targets|{}targets[0]
+        final fun <get-targets>(): kotlin.collections/Set<kotlin/String> // com.mikepenz.aboutlibraries.entity/Library.targets.<get-targets>|<get-targets>(){}[0]
     final val uniqueId // com.mikepenz.aboutlibraries.entity/Library.uniqueId|{}uniqueId[0]
         final fun <get-uniqueId>(): kotlin/String // com.mikepenz.aboutlibraries.entity/Library.uniqueId.<get-uniqueId>|<get-uniqueId>(){}[0]
-    final val variants // com.mikepenz.aboutlibraries.entity/Library.variants|{}variants[0]
-        final fun <get-variants>(): kotlin.collections/Set<kotlin/String> // com.mikepenz.aboutlibraries.entity/Library.variants.<get-variants>|<get-variants>(){}[0]
     final val website // com.mikepenz.aboutlibraries.entity/Library.website|{}website[0]
         final fun <get-website>(): kotlin/String? // com.mikepenz.aboutlibraries.entity/Library.website.<get-website>|<get-website>(){}[0]
 
