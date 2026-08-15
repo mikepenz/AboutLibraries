@@ -75,11 +75,16 @@ compose.resources {
 }
 
 aboutLibraries {
+    collect {
+        all = true
+        includeTargets = true
+    }
     export {
         outputPath = file("src/commonMain/composeResources/files/aboutlibraries.json")
         prettyPrint = true
     }
     library {
         duplicationMode = com.mikepenz.aboutlibraries.plugin.DuplicateMode.MERGE
+        mergePlatformArtifacts = true
     }
 }
