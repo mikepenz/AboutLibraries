@@ -104,6 +104,30 @@ class MergePlatformArtifactsFunctionalTest {
         )
     }
 
+    /**
+     * A Kotlin/Native platform artifact (`androidx.collection:collection-linuxx64`) is a klib
+     * module: the attribute-less detached configuration that fetches POMs cannot choose between its
+     * variants, so it resolves to no POM and produces no metadata at all. Merging must therefore
+     * keep the `available-at` shell rather than trading it for an artifact that evaporates —
+     * otherwise the dependency loses its native `targets`, and a native-only one disappears.
+     *
+     * `filterVariants` narrows collection to the two target compile classpaths, which is what makes
+     * the loss observable: with every configuration collected the `metadata` one still contributes
+     * the root coordinate directly and masks it.
+     */
+    @Test
+    fun `native targets survive merging even though their platform artifact has no resolvable POM`() {
+        val json = runKmpExport(
+            mergePlatformArtifacts = true,
+            targets = listOf("jvm()", "iosSimulatorArm64()"),
+            collect = """all = true; includeTargets = true; filterVariants.addAll("jvmCompileClasspath", "iosSimulatorArm64CompileKlibraries")""",
+        )
+        val merged = extractEntry(json, "androidx.collection:collection")
+            ?: error("expected the declared root coordinate to be reported. Output:\n$json")
+
+        assertEquals(setOf("iosSimulatorArm64", "jvm"), targetsOf(merged), "Entry: $merged")
+    }
+
     private fun targetsOf(entry: String): Set<String> =
         Regex("\"targets\":\\[(.*?)]").find(entry)?.groupValues?.get(1)
             ?.split(",")?.mapNotNull { it.trim().trim('"').takeIf(String::isNotEmpty) }?.toSet()
@@ -130,7 +154,11 @@ class MergePlatformArtifactsFunctionalTest {
      * to `collection-jvm` on one and `collection-js` on the other. `duplicationMode` is left at its
      * default here — the point is what a normal consumer sees.
      */
-    private fun runKmpExport(mergePlatformArtifacts: Boolean): String {
+    private fun runKmpExport(
+        mergePlatformArtifacts: Boolean,
+        targets: List<String> = listOf("jvm()", "js { nodejs() }"),
+        collect: String = "includeTargets = true",
+    ): String {
         File(projectDir, "settings.gradle.kts").writeText(
             """
             pluginManagement { repositories { gradlePluginPortal(); mavenCentral(); google() } }
@@ -153,8 +181,7 @@ class MergePlatformArtifactsFunctionalTest {
             repositories { mavenCentral(); google() }
 
             extensions.configure<org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension> {
-                jvm()
-                js { nodejs() }
+                ${targets.joinToString("\n                ")}
                 sourceSets.getByName("commonMain").dependencies {
                     implementation("androidx.collection:collection:1.5.0")
                 }
@@ -162,7 +189,7 @@ class MergePlatformArtifactsFunctionalTest {
 
             extensions.configure<com.mikepenz.aboutlibraries.plugin.AboutLibrariesExtension>("aboutLibraries") {
                 offlineMode = true
-                collect { includeTargets = true }
+                collect { $collect }
                 library { mergePlatformArtifacts = $mergePlatformArtifacts }
             }
             """.trimIndent()
