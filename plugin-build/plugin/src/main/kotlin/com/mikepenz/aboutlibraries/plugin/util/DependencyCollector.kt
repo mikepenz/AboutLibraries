@@ -90,15 +90,22 @@ internal class DependencyCollector(
         val id = root.id
         // Non-null when this component is a pure Gradle `available-at` redirect (a KMP root module
         // such as `androidx.collection:collection` pointing at `androidx.collection:collection-jvm`).
-        // With `mergePlatformArtifacts` the shell itself is dropped and its module name is
-        // recorded, so the artifact it points at can be reported under the declared coordinate.
+        // With `mergePlatformArtifacts` its module name is recorded, so the artifact it points at
+        // can be reported under the declared coordinate.
         val redirectTarget = if (mergePlatformArtifacts) root.redirectTargetModule() else null
         var ignoreSuffix: String? = null
         when {
             redirectTarget != null -> {
                 id as ModuleComponentIdentifier
                 redirects["${id.group}:$redirectTarget"] = id.module
-                ignoreSuffix = " merge platform artifact $redirectTarget into ${id.module}"
+                // The shell is kept, not dropped: its coordinate already *is* the declared root id,
+                // so it deduplicates against the platform artifact rather than adding an entry. It
+                // is also the only one that survives for Kotlin/Native targets — a klib platform
+                // artifact (`…-iossimulatorarm64`) cannot be resolved by the attribute-less
+                // detached configuration that fetches POMs, so it yields no metadata and, without
+                // the shell, the dependency (and its `targets`) would vanish entirely.
+                destination += id.toDependencyCoordinates()
+                ignoreSuffix =" merge platform artifact $redirectTarget into ${id.module}"
             }
 
             id is ProjectComponentIdentifier -> {

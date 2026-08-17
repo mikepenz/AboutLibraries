@@ -470,7 +470,10 @@ abstract class LibraryConfig @Inject constructor() {
      * such root module (e.g. `androidx.annotation:annotation-jvm` in a graph that never resolves
      * `androidx.annotation:annotation`) is untouched — but once the root module is present, the
      * platform artifact is reported under it even where it was declared directly.
-     * Metadata (name, description, licenses) still comes from the resolved artifact.
+     * Metadata (name, description, licenses) comes from the root module's POM, which a Kotlin
+     * Multiplatform publication fills in identically to its platform artifacts'. It is also the
+     * only POM available for Kotlin/Native targets: a klib platform artifact resolves to no POM
+     * at all, so the root module is what keeps such a dependency (and its `targets`) reported.
      *
      * This is independent of [duplicationMode] / [duplicationRule] and applied before them. Note
      * that the default [DuplicateMode.MERGE] already collapses these artifacts onto *one* entry —
