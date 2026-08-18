@@ -98,7 +98,7 @@ Tapping a library opens its details — inline, in a dialog, or in a bottom shee
 
 ## Latest releases 🛠
 
-- Compose 1.11.x | New UI | AGP 9 | Kotlin 2.4 | Compile 37 | [v15.0.4](https://github.com/mikepenz/AboutLibraries/tree/15.0.4) / [v15.1.0-b01](https://github.com/mikepenz/AboutLibraries/tree/15.1.0-b01)
+- Compose 1.11.x | New UI | AGP 9 | Kotlin 2.4 | Compile 37 | [v15.0.4](https://github.com/mikepenz/AboutLibraries/tree/15.0.4) / [v15.1.0-b02](https://github.com/mikepenz/AboutLibraries/tree/15.1.0-b02)
 - Compose 1.10.x | AGP 9 | [v14.1.0](https://github.com/mikepenz/AboutLibraries/tree/14.1.0)
 
 ## Gradle Plugin
