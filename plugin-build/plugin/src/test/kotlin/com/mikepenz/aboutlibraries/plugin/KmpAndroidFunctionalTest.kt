@@ -3,6 +3,7 @@ package com.mikepenz.aboutlibraries.plugin
 import org.gradle.testkit.runner.GradleRunner
 import org.gradle.testkit.runner.TaskOutcome
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
@@ -90,6 +91,69 @@ class KmpAndroidFunctionalTest {
         )
     }
 
+    /**
+     * `collect.includeTargets` must report the Kotlin *target* names, not the Gradle configuration
+     * names the dependencies were resolved from. `androidx.annotation` is declared in `androidMain`
+     * only, so it is the case that distinguishes real per-target attribution from a stub that
+     * reports every target for every library.
+     */
+    @Test
+    fun `targets field reports the kotlin targets consuming each dependency`() {
+        setupKmpAndroidProject(projectDir, includeTargets = true)
+
+        val result = GradleRunner.create()
+            .withProjectDir(projectDir)
+            .withArguments("exportLibraryDefinitions", "--stacktrace")
+            .build()
+
+        assertEquals(TaskOutcome.SUCCESS, result.task(":exportLibraryDefinitions")?.outcome)
+
+        val content = File(projectDir, "build/generated/aboutLibraries/aboutlibraries.json").readText()
+        val gson = extractLibraryEntry(content, "com.google.code.gson:gson")
+            ?: error("gson entry not found in output: $content")
+        // resolves through the KMP `available-at` redirect, so it lands under its platform artifact
+        val annotation = extractLibraryEntry(content, "androidx.annotation:annotation-jvm")
+            ?: error("androidx.annotation entry not found in output: $content")
+
+        // no raw configuration name may leak into the field
+        assertFalse(
+            content.contains("Classpath\""),
+            "targets must hold kotlin target names, not configuration names. Output: $content"
+        )
+
+        val gsonTargets = targetsOf(gson)
+        assertTrue(
+            gsonTargets.containsAll(setOf("android", "jvm")),
+            "a commonMain dependency is consumed by every target, was: $gsonTargets"
+        )
+        assertEquals(
+            setOf("android"),
+            targetsOf(annotation),
+            "an androidMain-only dependency must report the android target alone. Entry: $annotation"
+        )
+    }
+
+    private fun targetsOf(entry: String): Set<String> =
+        Regex("\"targets\":\\[(.*?)]").find(entry)?.groupValues?.get(1)
+            ?.split(",")?.mapNotNull { it.trim().trim('"').takeIf(String::isNotEmpty) }?.toSet()
+            ?: error("no `targets` field in entry: $entry")
+
+    /** Slices out a single library object by `uniqueId` from the (non pretty-printed) output. */
+    private fun extractLibraryEntry(json: String, uniqueId: String): String? {
+        val keyIdx = json.indexOf("\"uniqueId\":\"$uniqueId\"")
+        if (keyIdx < 0) return null
+        var start = keyIdx
+        while (start > 0 && json[start] != '{') start--
+        var depth = 0
+        for (end in start until json.length) {
+            when (json[end]) {
+                '{' -> depth++
+                '}' -> if (--depth == 0) return json.substring(start, end + 1)
+            }
+        }
+        return null
+    }
+
     private val pluginClasspath: String by lazy {
         val resource = javaClass.classLoader.getResource("plugin-under-test-metadata.properties")
             ?: error("plugin-under-test-metadata.properties not found on test classpath")
@@ -99,7 +163,7 @@ class KmpAndroidFunctionalTest {
         cp.split(File.pathSeparator).joinToString(", ") { "files(\"${it.replace("\\", "\\\\")}\")" }
     }
 
-    private fun setupKmpAndroidProject(projectDir: File) {
+    private fun setupKmpAndroidProject(projectDir: File, includeTargets: Boolean = false) {
         File(projectDir, "settings.gradle.kts").writeText(
             """
             pluginManagement {
@@ -156,6 +220,9 @@ class KmpAndroidFunctionalTest {
 
             extensions.configure<com.mikepenz.aboutlibraries.plugin.AboutLibrariesExtension>("aboutLibraries") {
                 offlineMode = true
+                collect {
+                    includeTargets = $includeTargets
+                }
             }
             """.trimIndent()
         )

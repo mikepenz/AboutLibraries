@@ -390,6 +390,61 @@ class OutputCorrectnessTest {
     }
 
     /**
+     * `collect.includeTargets` is opt-in. With it disabled (the default) the `targets` key must be
+     * absent from the output entirely — this guards the committed `aboutlibraries.json` fixtures
+     * against churn.
+     */
+    @Test
+    fun `targets field is absent by default`() {
+        setupProject(
+            projectDir,
+            deps = """
+                implementation("com.google.code.gson:gson:2.11.0")
+            """.trimIndent()
+        )
+
+        run("exportLibraryDefinitions")
+        val content = readOutput()
+
+        assertTrue(content.contains("\"uniqueId\":\"com.google.code.gson:gson\""), "gson should be present")
+        assertFalse(content.contains("\"targets\""), "targets must not be emitted unless opted in")
+    }
+
+    /**
+     * A single-target project — `java-library` here, but equally `kotlin("jvm")` or an Android-only
+     * build — has exactly one implicit target, so the key is emitted but empty rather than filled
+     * with a configuration or build-variant name no consumer could match against.
+     *
+     * Note the single-target Kotlin extensions name their only target `""`; reporting that verbatim
+     * would emit `"targets":[""]`.
+     *
+     * The multi-target behaviour this field exists for is covered by [KmpAndroidFunctionalTest].
+     */
+    @Test
+    fun `targets field is empty for a project without kotlin targets`() {
+        setupProject(
+            projectDir,
+            deps = """
+                implementation("com.google.code.gson:gson:2.11.0")
+            """.trimIndent(),
+            extraConfig = """
+                collect {
+                    includeTargets = true
+                }
+            """.trimIndent()
+        )
+
+        run("exportLibraryDefinitions")
+        val entry = extractLibraryEntry(readOutput(), "com.google.code.gson:gson")
+
+        assertTrue(entry != null, "gson entry should be present")
+        assertTrue(
+            entry!!.contains("\"targets\":[]"),
+            "a non-Kotlin project has no targets to report, was: $entry"
+        )
+    }
+
+    /**
      * `exclusionPatterns` with regex must work for arbitrary patterns including alternation.
      */
     @Test

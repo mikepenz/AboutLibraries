@@ -1,5 +1,11 @@
 ### Upgrade Notes
 
+#### v15.1.0
+
+- **Breaking Change (Gradle Plugin)**: The Gradle plugin now targets Java 17 (previously Java 11), following AGP 9.3.1 which raised its own JVM target to 17.
+    - Your Gradle build must run on JDK 17 or newer. Gradle 9 already requires JDK 17+, so no change is needed if you are on Gradle 9.
+    - On Gradle 8.x with a JDK 11 daemon you will see `Unsupported class file major version` or a variant resolution failure — switch the daemon to JDK 17+ via `org.gradle.java.home` or your toolchain setup.
+
 #### v15.0.0
 
 - **Breaking Change**: The legacy View-based UI module (`com.mikepenz:aboutlibraries`) has been removed.
@@ -41,7 +47,7 @@ The styling knobs that used to be individual `LibrariesContainer` parameters are
 | `dimensions: LibraryDimensions`                                                              | `LibrariesStyle.dimensions` (`VariantDimensions`) via `LibraryDefaults.defaultVariantDimensions(...)`                                                                          |
 | `textStyles: LibraryTextStyles`                                                              | `LibrariesStyle.textStyles` (`VariantTextStyles`) via `LibraryDefaults.m3VariantTextStyles(...)` / `defaultVariantTextStyles(...)`                                             |
 | `shapes: LibraryShapes`                                                                      | `LibrariesStyle.shapes` (`VariantShapes`) via `LibraryDefaults.defaultVariantShapes(...)`                                                                                      |
-| `colors: LibraryColors`                                                                      | Kept (chips + license dialog). Header / row / action chrome colors moved to `variantColors: VariantColors` via `LibraryDefaults.m3VariantColors(...)` / `m2VariantColors(...)` |
+| `colors: LibraryColors`                                                                      | Kept, but now only styles the **license dialog**. All list row colors — including the license chips — moved to `variantColors: VariantColors` via `LibraryDefaults.m3VariantColors(...)` / `m2VariantColors(...)` |
 | `libraryModifier`, `onFundingClick`, per-slot lambdas (`name`/`version`/`author`/…)          | Replaced by `variant` / `actionMode` / `detailMode` enums and the `libraryRow` slot                                                                                            |
 
 > Note: `LibraryColors` and the legacy `LibraryDefaults.libraryColors()` / `libraryPadding()` / `libraryDimensions()` / `libraryTextStyles()` / `libraryShapes()` factories still
@@ -77,13 +83,24 @@ LibrariesContainer(
         funding = false,
         description = false,
     ),
-    colors = LibraryDefaults.libraryColors(),          // chips + license dialog (unchanged)
+    colors = LibraryDefaults.libraryColors(),          // license dialog only
     variantColors = LibraryDefaults.m3VariantColors(), // header / row / action chrome
     variant = LibrariesVariant.Traditional,            // or .Refined
     actionMode = LibraryActionMode.Chips,              // or .Icons / .Links
     detailMode = LibraryDetailMode.Inline,             // or .None / .Sheet
     onLibraryClick = { library -> false },             // return true to consume the click
     onActionClick = { library, kind -> false },        // return true to suppress default open
+)
+```
+
+**Keeping the v14 license chip colors:** v15 colors each license chip from its SPDX id via a `LicenseHueResolver` (tinted background + matching label). To restore the v14 look — one solid
+color pair for every chip — disable the resolver and set the two license badge colors:
+
+```kotlin
+variantColors = LibraryDefaults.m3VariantColors(
+    licenseHueResolver = LicenseHueResolver.None,
+    licenseBadgeContainer = MaterialTheme.colorScheme.primary,   // v14 `licenseChipColors.containerColor`
+    licenseBadgeContent = MaterialTheme.colorScheme.onPrimary,   // v14 `licenseChipColors.contentColor`
 )
 ```
 

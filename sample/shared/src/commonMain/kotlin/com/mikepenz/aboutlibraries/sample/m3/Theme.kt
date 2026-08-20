@@ -7,6 +7,7 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.lerp
 
 
@@ -75,42 +76,39 @@ private val DarkColors = darkColorScheme(
     scrim = md_theme_dark_scrim,
 )
 
+/** Near-black used for content on top of a light accent. */
+private val OnAccentDark = Color(0xFF141414)
+
 /**
  * Builds a dynamic ColorScheme derived from [accent], matching the design's
  * `m3Palette(accent, mode)` function:
  *   - Primary family: lerp-mixed from accent toward the dark/light base.
- *   - Surface family: ALL surface tones receive a small accent tint (3–7% in dark,
- *     2–5% in light), matching the design's `color-mix(in oklch, accent N%, base)`.
+ *   - Surface family: strictly neutral greys; the accent is the only hue in the UI.
  */
 private fun ColorScheme.withAccent(accent: Color, dark: Boolean): ColorScheme {
-    // Primary family
-    val onPrimary = if (dark) Color(0xFF1B0C1A) else Color.White
-    val primaryContainer = if (dark) lerp(Color(0xFF1B0C1A), accent, 0.40f)
+    // Content drawn on top of [accent]. Derived from the accent's own luminance rather than from
+    // the theme: a light accent (lime #C7FF1E sits at ~0.84) needs dark content in *both* themes,
+    // and hardcoding white here made the filled action unreadable. 0.179 is the WCAG crossover
+    // where black and white contrast equally.
+    val onAccent = if (accent.luminance() > 0.179f) OnAccentDark else Color.White
+    val primaryContainer = if (dark) lerp(Color(0xFF141414), accent, 0.40f)
     else lerp(Color.White, accent, 0.25f)
     val onPrimaryContainer = if (dark) lerp(Color.White, accent, 0.15f)
     else lerp(Color.Black, accent, 0.40f)
 
-    // Surface family — accent-tinted per design's `color-mix(in oklch, accent N%, base)`
-    // dark bases from #141218 family; light bases from #fef7ff family
-    val surface = lerp(
-        if (dark) Color(0xFF141218) else Color(0xFFFEF7FF), accent, if (dark) 0.03f else 0.02f,
-    )
-    val surfaceContainer = lerp(
-        if (dark) Color(0xFF1D1B20) else Color(0xFFF3EDF7), accent, if (dark) 0.05f else 0.03f,
-    )
-    val surfaceContainerLow = lerp(
-        if (dark) Color(0xFF1A181D) else Color(0xFFF7F2FA), accent, if (dark) 0.04f else 0.02f,
-    )
-    val surfaceContainerHigh = lerp(
-        if (dark) Color(0xFF272529) else Color(0xFFECE6F0), accent, if (dark) 0.06f else 0.04f,
-    )
-    val surfaceContainerHighest = lerp(
-        if (dark) Color(0xFF322F35) else Color(0xFFE6E0E9), accent, if (dark) 0.07f else 0.05f,
-    )
+    // Surface family — strictly neutral, no accent tint. The design originally mixed 3–7% of the
+    // accent into every surface tone, but that only stays neutral-looking for a low-chroma accent;
+    // a saturated one (lime) pushes the greys olive. Leaving the surfaces at exactly #1a1a1a /
+    // #ffffff keeps the accent the only hue in the UI.
+    val surface = if (dark) Color(0xFF1A1A1A) else Color(0xFFFFFFFF)
+    val surfaceContainerLow = if (dark) Color(0xFF1F1F1F) else Color(0xFFFAFAFA)
+    val surfaceContainer = if (dark) Color(0xFF232323) else Color(0xFFF4F4F4)
+    val surfaceContainerHigh = if (dark) Color(0xFF2B2B2B) else Color(0xFFEEEEEE)
+    val surfaceContainerHighest = if (dark) Color(0xFF363636) else Color(0xFFE7E7E7)
 
     return copy(
         primary = accent,
-        onPrimary = onPrimary,
+        onPrimary = onAccent,
         primaryContainer = primaryContainer,
         onPrimaryContainer = onPrimaryContainer,
         surfaceTint = accent,
@@ -121,6 +119,13 @@ private fun ColorScheme.withAccent(accent: Color, dark: Boolean): ColorScheme {
         surfaceContainerLow = surfaceContainerLow,
         surfaceContainerHigh = surfaceContainerHigh,
         surfaceContainerHighest = surfaceContainerHighest,
+        // The stock on-surface tones are warm/pink-tinted, which reads as mauve over the neutral
+        // surfaces above. Keep them neutral so the accent stays the only hue in the UI.
+        onSurface = if (dark) Color(0xFFEDEDED) else Color(0xFF1A1A1A),
+        onBackground = if (dark) Color(0xFFEDEDED) else Color(0xFF1A1A1A),
+        onSurfaceVariant = if (dark) Color(0xFFB4B4B4) else Color(0xFF4A4A4A),
+        outline = if (dark) Color(0xFF8A8A8A) else Color(0xFF7A7A7A),
+        outlineVariant = if (dark) Color(0xFF3A3A3A) else Color(0xFFD6D6D6),
     )
 }
 

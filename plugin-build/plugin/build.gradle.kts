@@ -44,12 +44,12 @@ gradlePlugin {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 kotlin {
-    jvmToolchain(11)
+    jvmToolchain(17)
     compilerOptions {
         apiVersion.set(KotlinVersion.KOTLIN_2_1)
         languageVersion.set(KotlinVersion.KOTLIN_2_1)
@@ -67,7 +67,8 @@ dependencies {
     implementation(libs.maven.modelBuilder)
 
     // add better android support
-    compileOnly(baseLibs.android.gradlePlugin)
+    // `gradle-api` (not `gradle`): AGP 10 hides all internal classes, only this artifact stays available
+    compileOnly("com.android.tools.build:gradle-api:${baseLibs.versions.agp.get()}")
 
     // lint rules
     lintChecks(baseLibs.android.lint.gradle)

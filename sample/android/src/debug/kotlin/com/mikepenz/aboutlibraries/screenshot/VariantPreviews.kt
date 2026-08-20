@@ -332,7 +332,7 @@ fun PreviewLicenseDialogBody() = AppTheme(useV3 = true, useDarkTheme = true) {
 @Composable
 fun PreviewActionsChips() = AppTheme(useV3 = true, useDarkTheme = true) {
     WithStyle { style ->
-        Box(Modifier.width(360.dp).padding(16.dp).background(MaterialTheme.colorScheme.surface)) {
+        Box(Modifier.width(360.dp).background(MaterialTheme.colorScheme.surface).padding(16.dp)) {
             LibraryActions(SampleLibrary, LibraryActionMode.Chips, style, actionLabels = DefaultLibraryActionBadges)
         }
     }
@@ -342,7 +342,7 @@ fun PreviewActionsChips() = AppTheme(useV3 = true, useDarkTheme = true) {
 @Composable
 fun PreviewActionsIcons() = AppTheme(useV3 = true, useDarkTheme = true) {
     WithStyle { style ->
-        Box(Modifier.width(360.dp).padding(16.dp).background(MaterialTheme.colorScheme.surface)) {
+        Box(Modifier.width(360.dp).background(MaterialTheme.colorScheme.surface).padding(16.dp)) {
             LibraryActions(SampleLibrary, LibraryActionMode.Icons, style, actionLabels = DefaultLibraryActionBadges)
         }
     }
@@ -352,7 +352,7 @@ fun PreviewActionsIcons() = AppTheme(useV3 = true, useDarkTheme = true) {
 @Composable
 fun PreviewActionsLinks() = AppTheme(useV3 = true, useDarkTheme = true) {
     WithStyle { style ->
-        Box(Modifier.width(360.dp).padding(16.dp).background(MaterialTheme.colorScheme.surface)) {
+        Box(Modifier.width(360.dp).background(MaterialTheme.colorScheme.surface).padding(16.dp)) {
             LibraryActions(SampleLibrary, LibraryActionMode.Links, style, actionLabels = DefaultLibraryActionBadges)
         }
     }

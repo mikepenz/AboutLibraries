@@ -44,12 +44,15 @@ fun LibraryDefaults.m2VariantColors(
     sheetSurfaceVariant: Color = MaterialTheme.colors.surface,
     sheetDragHandle: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.24f),
     licenseHueResolver: LicenseHueResolver = DefaultM2LicenseHueResolver.withPaletteFallback(defaultLicensePalette(isSystemInDarkTheme(), contrastLevel)),
+    licenseBadgeContainer: Color = Color.Unspecified,
+    licenseBadgeContent: Color = Color.Unspecified,
 ): VariantColors = remember(
     headerBackground, headerOnBackground, headerSubtleContent, headerDivider,
     rowBackground, rowExpandedBackground, rowOnBackground, rowSubtleContent, rowDivider,
     actionFilledContainer, actionFilledContent, actionOutlineBorder, actionOutlineContent, actionLinkColor,
     tabIdleBackground, tabIdleContent, tabActiveBackground, tabActiveBorder, tabActiveContent,
     sheetScrim, sheetSurface, sheetSurfaceVariant, sheetDragHandle, licenseHueResolver, contrastLevel,
+    licenseBadgeContainer, licenseBadgeContent,
 ) {
     DefaultVariantColors(
         headerBackground, headerOnBackground, headerSubtleContent, headerDivider,
@@ -58,6 +61,8 @@ fun LibraryDefaults.m2VariantColors(
         tabIdleBackground, tabIdleContent, tabActiveBackground, tabActiveBorder, tabActiveContent,
         sheetScrim, sheetSurface, sheetSurfaceVariant, sheetDragHandle, licenseHueResolver,
         contrastLevel = contrastLevel,
+        licenseBadgeContainer = licenseBadgeContainer,
+        licenseBadgeContent = licenseBadgeContent,
     )
 }
 

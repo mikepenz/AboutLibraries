@@ -1,5 +1,6 @@
 package com.mikepenz.aboutlibraries.screenshot
 
+import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -21,6 +22,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.mikepenz.aboutlibraries.sample.App
 import com.mikepenz.aboutlibraries.sample.AppTheme
 import com.mikepenz.aboutlibraries.sample.sample.LicenseFilterBar
 import com.mikepenz.aboutlibraries.sample.sample.LicenseFilterTab
@@ -363,3 +365,13 @@ fun PreviewSettingsPanelLight() = AppTheme(useV3 = true, useDarkTheme = false, a
         modifier = Modifier.width(360.dp).height(640.dp),
     )
 }
+
+// Full-screen renders of the actual sample app, at phone size. Unlike the component previews above,
+// these show the assembled product (header, license tabs, list) and are what the README hero uses.
+@Preview(name = "Sample app · mobile · light", widthDp = 412, heightDp = 915)
+@Composable
+fun PreviewSampleAppMobileLight() = App(fakeLibraries)
+
+@Preview(name = "Sample app · mobile · dark", widthDp = 412, heightDp = 915, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun PreviewSampleAppMobileDark() = App(fakeLibraries)

@@ -44,6 +44,7 @@ actual fun parseData(json: String): Result {
             val funding = optJSONArray("funding").forEachObject {
                 Funding(getString("platform"), getString("url"))
             }.toSet()
+            val targets = optJSONArray("targets").forEachString { this }.toSet()
             val id = getString("uniqueId")
             Library(
                 id,
@@ -56,7 +57,8 @@ actual fun parseData(json: String): Result {
                 scm,
                 libLicenses,
                 funding,
-                optStringOrNull("tag")
+                optStringOrNull("tag"),
+                targets
             )
         }
         return Result(libraries, licenses)

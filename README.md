@@ -1,49 +1,105 @@
-# AboutLibraries
-
-<!-- Badges -->
-[![Maven Central](https://img.shields.io/maven-central/v/com.mikepenz/aboutlibraries-core?style=for-the-badge)](https://search.maven.org/artifact/com.mikepenz/aboutlibraries-core)
-[![Gradle Plugin Portal](https://img.shields.io/gradle-plugin-portal/v/com.mikepenz.aboutlibraries.plugin?label=Gradle%20Plugin&style=for-the-badge)](https://plugins.gradle.org/plugin/com.mikepenz.aboutlibraries.plugin)
-[![Apache 2.0 License](https://img.shields.io/github/license/mikepenz/AboutLibraries?style=for-the-badge)](https://github.com/mikepenz/AboutLibraries/blob/develop/LICENSE)
-
-This library collects dependency details, including licenses at compile time, and offers simple APIs to visualize these in the app.
-*No runtime overhead.* Strong caching. Supports any Gradle dependency.
-
--------
+<h1 align="center">AboutLibraries</h1>
 
 <p align="center">
-    <a href="#whats-included-">What's Included 🚀</a> &bull;
-    <a href="#setup">Setup Guide 🛠️</a> &bull;
-    <a href="#gradle-api">Gradle Tasks ⚙️</a> &bull;
-    <a href="MIGRATION.md">Migration Guide 🧬</a> &bull;
+  <a href="https://search.maven.org/artifact/com.mikepenz/aboutlibraries-core"><img src="https://img.shields.io/maven-central/v/com.mikepenz/aboutlibraries-core?style=for-the-badge" alt="Maven Central"></a>
+  <a href="https://plugins.gradle.org/plugin/com.mikepenz.aboutlibraries.plugin"><img src="https://img.shields.io/gradle-plugin-portal/v/com.mikepenz.aboutlibraries.plugin?label=Gradle%20Plugin&style=for-the-badge" alt="Gradle Plugin Portal"></a>
+  <a href="https://github.com/mikepenz/AboutLibraries/blob/develop/LICENSE"><img src="https://img.shields.io/github/license/mikepenz/AboutLibraries?style=for-the-badge" alt="Apache 2.0 License"></a>
+  <a href="https://scorecard.dev/viewer/?uri=github.com/mikepenz/AboutLibraries"><img src="https://img.shields.io/ossf-scorecard/github.com/mikepenz/AboutLibraries?style=for-the-badge&label=Scorecard" alt="OpenSSF Scorecard"></a>
+</p>
+
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/mikepenz/AboutLibraries/develop/art/hero-dark.svg">
+    <img src="https://raw.githubusercontent.com/mikepenz/AboutLibraries/develop/art/hero-light.svg" width="100%" alt="AboutLibraries — collects every dependency and license of your Gradle project at build time, then renders them with Compose on Android, iOS, desktop, web and Wear. Three stages: build.gradle.kts, a generated aboutlibraries.json, and a LibrariesContainer showing license pills.">
+  </picture>
+</p>
+
+<p align="center">
+  <a href="#quickstart">Quickstart ⚡</a> &bull;
+  <a href="#showcase">Showcase 🎨</a> &bull;
+  <a href="#reference">Reference 📚</a> &bull;
+  <a href="MIGRATION.md">Migration Guide 🧬</a>
+</p>
+
+|                                    |                                                              |
+|------------------------------------|--------------------------------------------------------------|
+| 🚀 **Kotlin Multiplatform**        | Android, JVM desktop, iOS, native, JS and Wasm                |
+| ⚡ **No runtime overhead**          | Everything is collected at build time and strongly cached      |
+| 🎨 **Compose UI, your way**        | Material 2, Material 3 and Wear — or build your own on `core` |
+| 🔌 **Gradle plugin**               | Generates dependency and license metadata for any dependency   |
+| 📋 **Compliance ready**            | CSV/text exports, compliance reports and license *strict mode* |
+| 💰 **Funding detection**           | Surfaces funding options of the projects you depend on         |
+
+## Quickstart
+
+**1.** Apply the Gradle plugin (use `com.mikepenz.aboutlibraries.plugin.android` to hook into the Android build automatically):
+
+```kts
+// App build.gradle.kts
+id("com.mikepenz.aboutlibraries.plugin")
+```
+
+**2.** Add the UI module matching your Material version:
+
+```kts
+implementation("com.mikepenz:aboutlibraries-compose-m3:${latestAboutLibsRelease}")
+```
+
+**3.** Show it:
+
+```kotlin
+val libraries by produceLibraries(R.raw.aboutlibraries)
+LibrariesContainer(libraries, Modifier.fillMaxSize())
+```
+
+Full setup, multiplatform loading and plugin configuration live in the [Reference](#reference).
+
+## Showcase
+
+`LibrariesContainer` takes `variant`, `density`, `detailMode` and `actionMode` — one component covers every look below.
+
+Each shot is a [Paparazzi](https://github.com/cashapp/paparazzi) render of [`ReadmeShowcasePreviews.kt`](sample/android/src/debug/kotlin/com/mikepenz/aboutlibraries/screenshot/ReadmeShowcasePreviews.kt), which passes the *same* arguments and theme as the sample app and varies only the one knob named above it. They follow your GitHub theme.
+
+| `LibrariesVariant.Refined` | `LibrariesVariant.Traditional` |
+|:--------------------------:|:------------------------------:|
+| <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/mikepenz/AboutLibraries/develop/art/showcase-variant-refined-dark.png"><img src="https://raw.githubusercontent.com/mikepenz/AboutLibraries/develop/art/showcase-variant-refined-light.png" alt="Refined variant"></picture> | <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/mikepenz/AboutLibraries/develop/art/showcase-variant-traditional-dark.png"><img src="https://raw.githubusercontent.com/mikepenz/AboutLibraries/develop/art/showcase-variant-traditional-light.png" alt="Traditional variant"></picture> |
+
+| `LibrariesDensity.Compact` | `LibrariesDensity.Cozy` |
+|:--------------------------:|:-----------------------:|
+| <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/mikepenz/AboutLibraries/develop/art/showcase-density-compact-dark.png"><img src="https://raw.githubusercontent.com/mikepenz/AboutLibraries/develop/art/showcase-density-compact-light.png" alt="Compact density"></picture> | <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/mikepenz/AboutLibraries/develop/art/showcase-density-cozy-dark.png"><img src="https://raw.githubusercontent.com/mikepenz/AboutLibraries/develop/art/showcase-density-cozy-light.png" alt="Cozy density"></picture> |
+
+| `LibraryActionMode.Chips` | `LibraryActionMode.Icons` |
+|:-------------------------:|:-------------------------:|
+| <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/mikepenz/AboutLibraries/develop/art/showcase-actions-chips-dark.png"><img src="https://raw.githubusercontent.com/mikepenz/AboutLibraries/develop/art/showcase-actions-chips-light.png" alt="Chip actions"></picture> | <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/mikepenz/AboutLibraries/develop/art/showcase-actions-icons-dark.png"><img src="https://raw.githubusercontent.com/mikepenz/AboutLibraries/develop/art/showcase-actions-icons-light.png" alt="Icon actions"></picture> |
+
+Tapping a library opens its details — inline, in a dialog, or in a bottom sheet via `LibraryDetailMode`:
+
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/mikepenz/AboutLibraries/develop/art/showcase-detail-sheet-dark.png">
+    <img src="https://raw.githubusercontent.com/mikepenz/AboutLibraries/develop/art/showcase-detail-sheet-light.png" width="480" alt="Library detail sheet">
+  </picture>
 </p>
 
 -------
 
-### What's included 🚀
+# Reference
 
-- Kotlin Multiplatform support (including wasm)
-- Lightweight multiplatform core module
-    - Access all generated information
-    - Build custom UIs
-- Compose UI module
-- Gradle Plugin
-    - Generating dependency / license metadata
-    - Different exports, compliance report
-    - Identify possible project funding
-    - License *strict mode*
-- Simple and fast integration
-
-# Screenshots
-
-![AboutLibraries Screenshots](https://raw.githubusercontent.com/mikepenz/AboutLibraries/develop/DEV/screenshots/Screenshots.png)
+| Topic | |
+|---|---|
+| [Setup](#setup) | Plugin application, version matrix, configuration options |
+| [Dependencies](#dependencies) | Version catalog and module coordinates |
+| [Core module](#core-module) | Access the generated data programmatically |
+| [Compose UI](#ui-module-compose) | `LibrariesContainer`, custom rows, advanced usage |
+| [Enterprise / manual JSON](#enterprise--manual-json-handling) | Full control over generation and checked-in metadata |
+| [Gradle tasks](#gradle-api--tasks) | Exports, compliance reports, funding |
 
 # Setup
 
 ## Latest releases 🛠
 
-- Compose 1.11.x | New UI | AGP 9 | Kotlin 2.4 | Compile 37 | [v15.0.4](https://github.com/mikepenz/AboutLibraries/tree/15.0.4)
+- Compose 1.11.x | New UI | AGP 9 | Kotlin 2.4 | Compile 37 | [v15.1.0](https://github.com/mikepenz/AboutLibraries/tree/15.1.0)
 - Compose 1.10.x | AGP 9 | [v14.1.0](https://github.com/mikepenz/AboutLibraries/tree/14.1.0)
-- Compose 1.10.x | [v13.2.1](https://github.com/mikepenz/AboutLibraries/tree/13.2.1)
 
 ## Gradle Plugin
 
@@ -161,6 +217,16 @@ aboutLibraries {
 
         // Enable inclusion of `platform` dependencies in the library report
         includePlatform = true
+
+        // Enable reporting of the Kotlin targets each library is consumed by, as a `targets` array
+        // on every library (e.g. ["android", "jvm", "iosX64"]). Target names are taken from the
+        // Kotlin target model, so a consumer can narrow the rendered list to what the running
+        // target links against: `libs.libraries.filter { "iosArm64" in it.targets }`.
+        // Only multiplatform projects report anything — an Android-only or JVM-only project builds
+        // a single implicit target, so every library reports an empty array.
+        // Disabled by default; when disabled the `targets` field is omitted from the output entirely.
+        // It can also be dropped per export via `excludeFields.add("Library.targets")`.
+        includeTargets = false
     }
 
     export {
@@ -212,6 +278,10 @@ aboutLibraries {
         duplicationMode = com.mikepenz.aboutlibraries.plugin.DuplicateMode.MERGE
         // Configure the duplication rule, to match "duplicates" with
         duplicationRule = com.mikepenz.aboutlibraries.plugin.DuplicateRule.SIMPLE
+        // Report the per-platform artifacts of a Kotlin Multiplatform publication under the declared
+        // root coordinate (`androidx.collection:collection`, not `androidx.collection:collection-jvm`).
+        // Unrelated to Android build variants — see `filterVariants` for those.
+        mergePlatformArtifacts = true
     }
 }
 ```
@@ -453,6 +523,35 @@ invoked from within the list item — which the `libraryRow` slot already provid
 full item visual: item animation, expanded background, the variant row, and the inline-detail
 expansion.
 
+#### Static license chip colors
+
+Since v15 the license chips are colored *per license*: a `LicenseHueResolver` maps the SPDX id
+(`Apache-2.0`, `MIT`, ...) to an accent-derived hue, drawn as a tinted background with matching
+label. To turn that off and paint every license chip with one fixed color pair — the v14 look —
+set `LicenseHueResolver.None` together with the two license badge colors:
+
+```kotlin
+LibrariesContainer(
+    libraries = libraries,
+    modifier = Modifier.fillMaxSize(),
+    variantColors = LibraryDefaults.m3VariantColors(
+        // no per-license hue: also removes the colored dot / license tab tint in the Refined variant
+        licenseHueResolver = LicenseHueResolver.None,
+        // v14 default: solid `primary` chip with `onPrimary` label
+        licenseBadgeContainer = MaterialTheme.colorScheme.primary,
+        licenseBadgeContent = MaterialTheme.colorScheme.onPrimary,
+    ),
+)
+```
+
+Both badge colors default to `Color.Unspecified`, which keeps the dynamic behavior. Set only
+`licenseHueResolver = LicenseHueResolver.None` and the chip falls back to `actionFilledContainer`
+at the same low-alpha tint — a neutral, still-tinted chip.
+
+> [!NOTE]
+> `colors: LibraryColors` (`licenseChipColors`, ...) no longer feeds the list rows in v15 — it
+> only styles the license dialog. Row chrome lives in `variantColors: VariantColors`.
+
 </p>
 </details>
 
@@ -461,7 +560,7 @@ expansion.
 <p>
 
 The core and compose modules are Kotlin Multiplatform compatible.
-The `app-desktop` and `app-wasm` modules demonstrate usage outside of Android, including manual generation and inclusion of the dependency metadata.
+The `sample:desktop` and `sample:web` modules demonstrate usage outside of Android, including manual generation and inclusion of the dependency metadata.
 
 ### Generate Dependency Information
 
@@ -469,25 +568,30 @@ Manually export the definitions using the Gradle task. This is typically needed 
 
 ```bash
 # Export definitions to the specified file (e.g., for desktop)
-./gradlew :app-desktop:exportLibraryDefinitions -PaboutLibraries.outputFile=src/main/resources/libraries.json
+./gradlew :sample:desktop:exportLibraryDefinitions -PaboutLibraries.outputFile=src/commonMain/composeResources/files/aboutlibraries.json -PaboutLibraries.exportVariant=jvmMain
 
 # Filter exported definition by variant (e.g., for wasmJs target)
-./gradlew :app-wasm:exportLibraryDefinitions -PaboutLibraries.outputFile=src/jsMain/resources/aboutlibraries.json -PaboutLibraries.exportVariant=wasmJs
+./gradlew :sample:web:exportLibraryDefinitions -PaboutLibraries.outputFile=src/commonMain/composeResources/files/aboutlibraries.json -PaboutLibraries.exportVariant=wasmJs
 ```
 
 ### Run Demo app(s)
 
 ```bash
 # JVM Desktop app
-./gradlew :app-desktop:run
+./gradlew :sample:desktop:run
 
 # WASM Web app
-./gradlew :app-wasm:run
+./gradlew :sample:web:wasmJsBrowserDevelopmentRun
 ```
 
 ### Screenshot
 
-![Compose Multiplatform Screenshot](https://raw.githubusercontent.com/mikepenz/AboutLibraries/develop/DEV/screenshots/compose-jb.png)
+The sample UI below lives in [`sample/shared`](sample/shared/src/commonMain/kotlin/com/mikepenz/aboutlibraries/sample/App.kt) — the same common code the desktop, web and iOS samples run.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/mikepenz/AboutLibraries/develop/art/hero-app-dark.png">
+  <img src="https://raw.githubusercontent.com/mikepenz/AboutLibraries/develop/art/hero-app-light.png" height="420" alt="The shared Compose Multiplatform sample">
+</picture>
 
 </p>
 </details>
@@ -530,9 +634,9 @@ For other environments or for more advanced usages the plugin offers additional 
 ```bash
 # Manually generate the dependency metaData in the provided location. Allows to commit it in SCM
 # Exports the metaData in `src/main/resources/` relative to the module root
-./gradlew app-desktop:exportLibraryDefinitions -PaboutLibraries.outputFile=src/main/resources/libraries.json
+./gradlew :sample:desktop:exportLibraryDefinitions -PaboutLibraries.outputFile=src/main/resources/libraries.json
 # Export only for a specific variant: `release`
-./gradlew app-desktop:exportLibraryDefinitions -PaboutLibraries.outputFile=src/main/resources/libraries.json -PaboutLibraries.exportVariant=release
+./gradlew :sample:desktop:exportLibraryDefinitions -PaboutLibraries.outputFile=src/main/resources/libraries.json -PaboutLibraries.exportVariant=release
 
 # Export dependencies to CLI in CSV format
 ./gradlew app:exportLibraries
@@ -586,7 +690,7 @@ Some of these refactored components were heavily inspired by the amazing https:/
 
 # License
 
-    Copyright 2024 Mike Penz
+    Copyright 2026 Mike Penz
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.

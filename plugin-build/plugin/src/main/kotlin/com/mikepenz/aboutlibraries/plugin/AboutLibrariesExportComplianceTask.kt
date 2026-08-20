@@ -9,7 +9,6 @@ import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
-import org.gradle.util.GradleVersion
 import org.gradle.work.DisableCachingByDefault
 import org.slf4j.LoggerFactory
 import java.io.File
@@ -32,14 +31,11 @@ abstract class AboutLibrariesExportComplianceTask : BaseAboutLibrariesTask() {
 
     override fun configure() {
         super.configure()
-        val rootDir = if (GradleVersion.current() < GradleVersion.version("8.8")) {
-            LOGGER.info("Fallback to non project isolated safe API for root directory.")
-            // noinspection GradleProjectIsolation
-            project.rootProject.layout.projectDirectory
-        } else {
-            @Suppress("UnstableApiUsage")
-            project.isolated.rootProject.projectDirectory
-        }
+        // `project.isolated` is the project-isolation safe way to reach the root project. The
+        // plugin requires Gradle 8.8+ (enforced in `AboutLibrariesPlugin.apply`), which is also
+        // the version that introduced this API — so no `project.rootProject` fallback is needed.
+        @Suppress("UnstableApiUsage")
+        val rootDir = project.isolated.rootProject.projectDirectory
         // When the user supplies an export path we resolve it relative to the root project.
         // Otherwise we fall back to a dedicated subdirectory under the current project's build
         // folder. Defaulting to the root project directory would make Gradle treat the entire

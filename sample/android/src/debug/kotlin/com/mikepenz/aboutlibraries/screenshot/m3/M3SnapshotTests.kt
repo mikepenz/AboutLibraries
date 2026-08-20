@@ -22,7 +22,9 @@ import androidx.compose.ui.text.font.FontWeight
 import com.mikepenz.aboutlibraries.screenshot.fakeLibraries
 import com.mikepenz.aboutlibraries.ui.compose.LibraryDefaults
 import com.mikepenz.aboutlibraries.ui.compose.m3.LibrariesContainer
+import com.mikepenz.aboutlibraries.ui.compose.m3.style.m3VariantColors
 import com.mikepenz.aboutlibraries.ui.compose.m3.style.m3VariantTextStyles
+import com.mikepenz.aboutlibraries.ui.compose.style.LicenseHueResolver
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryBadges
 
 @Composable
@@ -81,6 +83,26 @@ fun PreviewLibraryDetailSheet() = Theme {
             onSheetLibraryChange = {},
             sheetState = rememberStandardBottomSheetState(initialValue = SheetValue.Expanded),
             modifier = Modifier.fillMaxSize(),
+        )
+    }
+}
+
+/**
+ * The v14 look: static, solid `primary` license chips instead of the v15 accent-derived tint.
+ * Documented in the README under "Static license chip colors".
+ */
+@PreviewLightDark
+@Composable
+fun PreviewLibrariesStaticLicenseChips() = Theme {
+    Surface {
+        LibrariesContainer(
+            libraries = fakeLibraries,
+            modifier = Modifier.width(360.dp),
+            variantColors = LibraryDefaults.m3VariantColors(
+                licenseHueResolver = LicenseHueResolver.None,
+                licenseBadgeContainer = MaterialTheme.colorScheme.primary,
+                licenseBadgeContent = MaterialTheme.colorScheme.onPrimary,
+            ),
         )
     }
 }

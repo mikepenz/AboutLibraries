@@ -75,6 +75,7 @@ abstract class AboutLibrariesExtension {
             it.fetchRemoteLicense.convention(false)
             it.fetchRemoteFunding.convention(false)
             it.filterVariants.convention(emptySet())
+            it.includeTargets.convention(false)
         }
         export {
             // it.variant.convention("") (mp) intentionally not set, we use it as `orNull` in places
@@ -87,6 +88,7 @@ abstract class AboutLibrariesExtension {
             it.exclusionPatterns.convention(emptySet<Pattern>())
             it.duplicationMode.convention(DuplicateMode.MERGE)
             it.duplicationRule.convention(DuplicateRule.EXACT)
+            it.mergePlatformArtifacts.convention(false)
         }
         license {
             it.mapLicensesToSpdx.convention(true)
@@ -237,6 +239,34 @@ abstract class CollectorConfig @Inject constructor() {
      */
     @get:Optional
     abstract val filterVariants: SetProperty<String>
+
+    /**
+     * Includes the Kotlin targets a library is consumed by, as a `targets` array on each library
+     * in the generated metadata file (e.g. `["android", "jvm", "iosX64"]`).
+     *
+     * The reported values are Kotlin target names as declared in the `kotlin { }` block, resolved
+     * from the Kotlin target model rather than from configuration names — a configuration is
+     * attributed to the target whose compilation declares it as its compile or runtime classpath.
+     *
+     * Lets a consumer narrow the rendered list to what the running target actually links against,
+     * e.g. `libs.libraries.filter { "iosArm64" in it.targets }`.
+     *
+     * Only multiplatform projects report anything: an Android-only, JVM-only or `java-library`
+     * project builds a single implicit target, so every library reports an empty `targets` array.
+     * Use `export.variant` to split an Android build by build variant instead.
+     *
+     * Disabled by default. If disabled, the `targets` field is omitted from the output entirely.
+     *
+     * ```
+     * aboutLibraries {
+     *   collect {
+     *      includeTargets = true
+     *   }
+     * }
+     * ```
+     */
+    @get:Optional
+    abstract val includeTargets: Property<Boolean>
 }
 
 abstract class ExportConfig @Inject constructor(val name: String = "") {
@@ -422,6 +452,50 @@ abstract class LibraryConfig @Inject constructor() {
      */
     @get:Optional
     abstract val duplicationRule: Property<DuplicateRule>
+
+    /**
+     * Reports the per-platform artifacts of a Kotlin Multiplatform publication under the single
+     * root coordinate they were resolved through, instead of under the resolved artifact's own id.
+     *
+     * A dependency declared as `com.mikepenz:aboutlibraries-compose-core` resolves to
+     * `com.mikepenz:aboutlibraries-compose-core-android` on Android. With this enabled the reported
+     * `uniqueId` is `com.mikepenz:aboutlibraries-compose-core` again, matching what the build script
+     * declares — which keeps `config` overrides and funding mappings keyed on the declared id.
+     *
+     * Note this is *not* about Android build variants — see [filterVariants] and `export.variant`
+     * for those. The unit here is a Gradle module variant, one per Kotlin target.
+     *
+     * Only Gradle `available-at` redirects are collapsed: no coordinate is rewritten unless the
+     * redirecting root module is itself part of the resolved graph. A suffixed coordinate with no
+     * such root module (e.g. `androidx.annotation:annotation-jvm` in a graph that never resolves
+     * `androidx.annotation:annotation`) is untouched — but once the root module is present, the
+     * platform artifact is reported under it even where it was declared directly.
+     * Metadata (name, description, licenses) comes from the root module's POM, which a Kotlin
+     * Multiplatform publication fills in identically to its platform artifacts'. It is also the
+     * only POM available for Kotlin/Native targets: a klib platform artifact resolves to no POM
+     * at all, so the root module is what keeps such a dependency (and its `targets`) reported.
+     *
+     * This is independent of [duplicationMode] / [duplicationRule] and applied before them. Note
+     * that the default [DuplicateMode.MERGE] already collapses these artifacts onto *one* entry —
+     * but onto whichever the graph walk reached first, so the surviving id may be a platform one
+     * (`collection-jvm`) even though the entry stands for every platform. Enabling this makes the
+     * survivor deterministic and names it after what the build script declared.
+     *
+     * Pairs with `collect.includeTargets`: the merged entry reports the union of the targets its
+     * artifacts were consumed by.
+     *
+     * ```
+     * aboutLibraries {
+     *   library {
+     *      mergePlatformArtifacts = true
+     *   }
+     * }
+     * ```
+     *
+     * @see duplicationMode
+     */
+    @get:Optional
+    abstract val mergePlatformArtifacts: Property<Boolean>
 }
 
 abstract class LicenseConfig @Inject constructor() {

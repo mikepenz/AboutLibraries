@@ -24,14 +24,18 @@ fun List<Library>.processDuplicates(
         DuplicateMode.MERGE -> {
             val deDuplicatedList = mutableListOf<Library>()
             mappedLibs().forEach { (_, group) ->
-                deDuplicatedList.add(
-                    if (group.size > 1) {
-                        // on duplicates, assumption is the shorter title is the base dependency
-                        group.minByOrNull { it.name?.length ?: it.description?.length ?: Int.MAX_VALUE } ?: group.first()
-                    } else {
-                        group.first()
-                    }
-                )
+                val kept = if (group.size > 1) {
+                    // on duplicates, assumption is the shorter title is the base dependency
+                    group.minByOrNull { it.name?.length ?: it.description?.length ?: Int.MAX_VALUE } ?: group.first()
+                } else {
+                    group.first()
+                }
+                // the discarded siblings may have been consumed by targets the survivor was not
+                // part of; retain the union so no target is silently lost
+                if (group.size > 1 && group.any { it.targets != null }) {
+                    kept.targets = group.flatMapTo(sortedSetOf()) { it.targets.orEmpty() }
+                }
+                deDuplicatedList.add(kept)
             }
             return deDuplicatedList
         }
@@ -105,5 +109,13 @@ fun Library.merge(with: Library) {
     orgLib.funding = mutableSetOf<Funding>().also {
         it.addAll(with.funding)
         it.addAll(orgLib.funding)
+    }
+
+    // merge targets, keeping `null` (== feature disabled) if neither side provides any
+    if (orgLib.targets != null || with.targets != null) {
+        orgLib.targets = sortedSetOf<String>().also {
+            it.addAll(with.targets.orEmpty())
+            it.addAll(orgLib.targets.orEmpty())
+        }
     }
 }

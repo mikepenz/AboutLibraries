@@ -14,6 +14,7 @@ import org.gradle.api.artifacts.component.ModuleComponentIdentifier
 import org.gradle.api.artifacts.dsl.DependencyHandler
 import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.file.DirectoryProperty
+import org.gradle.api.plugins.ExtensionContainer
 import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.MapProperty
 import org.gradle.api.provider.Property
@@ -27,6 +28,8 @@ import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.PathSensitive
 import org.gradle.api.tasks.PathSensitivity
 import org.gradle.work.DisableCachingByDefault
+import org.jetbrains.kotlin.gradle.dsl.KotlinSingleTargetExtension
+import org.jetbrains.kotlin.gradle.plugin.KotlinTargetsContainer
 import org.slf4j.LoggerFactory
 import java.io.File
 import java.util.regex.Pattern
@@ -55,6 +58,9 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
 
     @Input
     val filterVariants = extension.collect.filterVariants
+
+    @Input
+    val includeTargets = extension.collect.includeTargets
 
     @get:Optional
     @get:Input
@@ -86,6 +92,9 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
 
     @Input
     val duplicationRule = extension.library.duplicationRule
+
+    @Input
+    val mergePlatformArtifacts = extension.library.mergePlatformArtifacts
 
     @Input
     val mapLicensesToSpdx = extension.license.mapLicensesToSpdx
@@ -149,6 +158,20 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
      */
     @get:Input
     internal abstract val configToCoordinates: MapProperty<String, List<DependencyCoordinates>>
+
+    /**
+     * Maps configuration name → the Kotlin target name that consumes it (`jvm`, `android`,
+     * `iosX64`, …), for the configurations selected during [configure].
+     *
+     * Derived from the Kotlin target model ([KotlinTarget.getCompilations]) rather than from the
+     * `org.jetbrains.kotlin.platform.type` attribute: that attribute is absent on source-set level
+     * configurations (`jvmMainCompileClasspath`) and cannot tell `wasmJs` from `wasmWasi`.
+     *
+     * Empty for projects without the Kotlin plugin; [LibraryPostProcessor] applies the
+     * configuration-name fallback for anything missing here.
+     */
+    @get:Input
+    internal abstract val configToTarget: MapProperty<String, String>
 
     /**
      * Maps "group:artifact:version" → absolute path of the resolved POM file for every external
@@ -252,13 +275,24 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
 
         configurationNames.set(selectedConfigs.map { it.name })
 
+        // Deferred: the Kotlin plugin may still be applied after this task is configured. Gradle
+        // finalizes the provider at configuration-cache store time, by which point it is present.
+        // Captures the extension container rather than the `Project` itself, matching the
+        // handling of `dependencyHandler`/`configContainer` below.
+        val selectedConfigNames = selectedConfigs.mapTo(HashSet()) { it.name }
+        val extensionContainer = project.extensions
+        configToTarget.set(project.provider {
+            collectKotlinTargets(extensionContainer).filterKeys { it in selectedConfigNames }
+        })
+
         val capturedIncludePlatform = includePlatform.get()
+        val capturedMergePlatformArtifacts = mergePlatformArtifacts.get()
         val capturedConfigs = selectedConfigs
         val dependencyHandler = project.dependencies
         val configContainer = project.configurations
 
         val resolvedProvider = project.provider {
-            val collector = DependencyCollector(capturedIncludePlatform)
+            val collector = DependencyCollector(capturedIncludePlatform, capturedMergePlatformArtifacts)
             val perConfigCoords = LinkedHashMap<String, List<DependencyCoordinates>>(capturedConfigs.size)
             val unionCoords = LinkedHashSet<DependencyCoordinates>()
             for (config in capturedConfigs) {
@@ -464,7 +498,9 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
             duplicationRule = duplicationRule.get(),
             variant = variant.orNull,
             mapLicensesToSpdx = mapLicensesToSpdx.get(),
-            gitHubToken = gitHubApiToken.orNull
+            gitHubToken = gitHubApiToken.orNull,
+            includeTargets = includeTargets.get(),
+            configToTarget = configToTarget.get(),
         )
     }
 
@@ -502,6 +538,40 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
 
     companion object {
         private val LOGGER = LoggerFactory.getLogger(BaseAboutLibrariesTask::class.java)!!
+    }
+}
+
+/**
+ * Builds a `configurationName` → Kotlin target name map from the project's Kotlin target model.
+ *
+ * A configuration is attributed to the target whose compilation declares it as its compile or
+ * runtime dependency configuration, which is exact (it separates `wasmJs` from `wasmWasi`, and
+ * `iosX64` from `iosArm64`) where the `org.jetbrains.kotlin.platform.type` attribute is not.
+ *
+ * Returns an empty map when the Kotlin plugin is not applied. The `kotlin` extension is looked up
+ * by name so no Kotlin Gradle Plugin class is touched in that case — the plugin declares KGP as
+ * `compileOnly`.
+ *
+ * Targets with a blank name are skipped: the single-target extensions (`kotlin("android")`,
+ * `kotlin("jvm")`) name their only target `""`, because there is no sibling to disambiguate it
+ * from. Such a project compiles for exactly one target, so there is nothing to attribute and
+ * nothing a consumer could filter by.
+ */
+private fun collectKotlinTargets(extensions: ExtensionContainer): Map<String, String> {
+    val kotlin = extensions.findByName("kotlin") ?: return emptyMap()
+    val targets = when (kotlin) {
+        is KotlinTargetsContainer -> kotlin.targets
+        is KotlinSingleTargetExtension<*> -> listOf(kotlin.target)
+        else -> return emptyMap()
+    }
+    return buildMap {
+        targets.forEach { target ->
+            val name = target.targetName.takeIf { it.isNotBlank() } ?: return@forEach
+            target.compilations.forEach { compilation ->
+                put(compilation.compileDependencyConfigurationName, name)
+                compilation.runtimeDependencyConfigurationName?.let { put(it, name) }
+            }
+        }
     }
 }
 
