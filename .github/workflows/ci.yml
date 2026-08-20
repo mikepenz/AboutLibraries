@@ -266,7 +266,7 @@ jobs:
         run: cp "$BUNDLE_PATH" "artifacts/AboutLibraries-${GITHUB_REF_NAME}.intoto.jsonl"
 
       - name: Release
-        uses: mikepenz/action-gh-release@2a00e201320fb618d8e705a736286b2e31aa48e2 # v3
+        uses: mikepenz/action-gh-release@7a1a2d94070db8d22681770f42cdb85a9c38d6ac # v3
         with:
           body: ${{steps.github_release.outputs.changelog}}
           prerelease: ${{ contains(github.ref, '-rc') || contains(github.ref, '-b') || contains(github.ref, '-a') }}
