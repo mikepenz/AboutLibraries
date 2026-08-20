@@ -523,6 +523,35 @@ invoked from within the list item — which the `libraryRow` slot already provid
 full item visual: item animation, expanded background, the variant row, and the inline-detail
 expansion.
 
+#### Static license chip colors
+
+Since v15 the license chips are colored *per license*: a `LicenseHueResolver` maps the SPDX id
+(`Apache-2.0`, `MIT`, ...) to an accent-derived hue, drawn as a tinted background with matching
+label. To turn that off and paint every license chip with one fixed color pair — the v14 look —
+set `LicenseHueResolver.None` together with the two license badge colors:
+
+```kotlin
+LibrariesContainer(
+    libraries = libraries,
+    modifier = Modifier.fillMaxSize(),
+    variantColors = LibraryDefaults.m3VariantColors(
+        // no per-license hue: also removes the colored dot / license tab tint in the Refined variant
+        licenseHueResolver = LicenseHueResolver.None,
+        // v14 default: solid `primary` chip with `onPrimary` label
+        licenseBadgeContainer = MaterialTheme.colorScheme.primary,
+        licenseBadgeContent = MaterialTheme.colorScheme.onPrimary,
+    ),
+)
+```
+
+Both badge colors default to `Color.Unspecified`, which keeps the dynamic behavior. Set only
+`licenseHueResolver = LicenseHueResolver.None` and the chip falls back to `actionFilledContainer`
+at the same low-alpha tint — a neutral, still-tinted chip.
+
+> [!NOTE]
+> `colors: LibraryColors` (`licenseChipColors`, ...) no longer feeds the list rows in v15 — it
+> only styles the license dialog. Row chrome lives in `variantColors: VariantColors`.
+
 </p>
 </details>
 

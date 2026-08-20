@@ -31,7 +31,7 @@ public final class com/mikepenz/aboutlibraries/ui/compose/style/M2LibrariesStyle
 
 public final class com/mikepenz/aboutlibraries/ui/compose/style/M2VariantTokensKt {
 	public static final fun getDefaultM2LicenseHueResolver ()Lcom/mikepenz/aboutlibraries/ui/compose/style/LicenseHueResolver;
-	public static final fun m2VariantColors-qFui-Go (Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDefaults;Lcom/mikepenz/aboutlibraries/ui/compose/style/ContrastLevel;JJJJJJJJJJJJJJJJJJJJJJJLcom/mikepenz/aboutlibraries/ui/compose/style/LicenseHueResolver;Landroidx/compose/runtime/Composer;IIII)Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantColors;
+	public static final fun m2VariantColors-EQ6T93Q (Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDefaults;Lcom/mikepenz/aboutlibraries/ui/compose/style/ContrastLevel;JJJJJJJJJJJJJJJJJJJJJJJLcom/mikepenz/aboutlibraries/ui/compose/style/LicenseHueResolver;JJLandroidx/compose/runtime/Composer;IIII)Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantColors;
 	public static final fun m2VariantTextStyles (Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDefaults;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/runtime/Composer;III)Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantTextStyles;
 }
 
