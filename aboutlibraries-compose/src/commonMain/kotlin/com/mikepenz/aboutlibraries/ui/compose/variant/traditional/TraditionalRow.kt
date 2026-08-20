@@ -156,8 +156,9 @@ private fun LicenseBadge(
 ) {
     val onBg = colors.rowOnBackground.orFallback(Color.Black)
     val badgeAlpha = if (colors.contrastLevel == ContrastLevel.High) 0.22f else 0.15f
-    val container = (hue ?: colors.actionFilledContainer.orFallback(onBg)).copy(alpha = badgeAlpha)
-    val content = hue ?: colors.actionFilledContent.orFallback(onBg)
+    val container = colors.licenseBadgeContainer
+        .orFallback((hue ?: colors.actionFilledContainer.orFallback(onBg)).copy(alpha = badgeAlpha))
+    val content = colors.licenseBadgeContent.orFallback(hue ?: colors.actionFilledContent.orFallback(onBg))
     val borderMod = if (colors.contrastLevel == ContrastLevel.High)
         Modifier.border(1.dp, content.copy(alpha = 0.5f), shapes.licenseTokenShape)
     else Modifier

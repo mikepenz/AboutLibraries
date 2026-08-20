@@ -204,12 +204,15 @@ fun LibraryDefaults.m3VariantColors(
     sheetSurfaceVariant: Color = MaterialTheme.colorScheme.surfaceContainerHighest,
     sheetDragHandle: Color = MaterialTheme.colorScheme.outline.copy(alpha = 0.5f),
     licenseHueResolver: LicenseHueResolver = accentDerivedLicenseHueResolver(contrastLevel = contrastLevel),
+    licenseBadgeContainer: Color = Color.Unspecified,
+    licenseBadgeContent: Color = Color.Unspecified,
 ): VariantColors = remember(
     headerBackground, headerOnBackground, headerSubtleContent, headerDivider,
     rowBackground, rowExpandedBackground, rowOnBackground, rowSubtleContent, rowDivider,
     actionFilledContainer, actionFilledContent, actionOutlineBorder, actionOutlineContent, actionLinkColor,
     tabIdleBackground, tabIdleContent, tabActiveBackground, tabActiveBorder, tabActiveContent,
     sheetScrim, sheetSurface, sheetSurfaceVariant, sheetDragHandle, licenseHueResolver, contrastLevel,
+    licenseBadgeContainer, licenseBadgeContent,
 ) {
     DefaultVariantColors(
         headerBackground, headerOnBackground, headerSubtleContent, headerDivider,
@@ -218,6 +221,8 @@ fun LibraryDefaults.m3VariantColors(
         tabIdleBackground, tabIdleContent, tabActiveBackground, tabActiveBorder, tabActiveContent,
         sheetScrim, sheetSurface, sheetSurfaceVariant, sheetDragHandle, licenseHueResolver,
         contrastLevel = contrastLevel,
+        licenseBadgeContainer = licenseBadgeContainer,
+        licenseBadgeContent = licenseBadgeContent,
     )
 }
 

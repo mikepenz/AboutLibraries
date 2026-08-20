@@ -115,8 +115,8 @@ public final class com/mikepenz/aboutlibraries/ui/compose/style/ContrastLevel : 
 
 public final class com/mikepenz/aboutlibraries/ui/compose/style/DefaultVariantColors : com/mikepenz/aboutlibraries/ui/compose/style/VariantColors {
 	public static final field $stable I
-	public synthetic fun <init> (JJJJJJJJJJJJJJJJJJJJJJJLcom/mikepenz/aboutlibraries/ui/compose/style/LicenseHueResolver;Lcom/mikepenz/aboutlibraries/ui/compose/style/ContrastLevel;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun <init> (JJJJJJJJJJJJJJJJJJJJJJJLcom/mikepenz/aboutlibraries/ui/compose/style/LicenseHueResolver;Lcom/mikepenz/aboutlibraries/ui/compose/style/ContrastLevel;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (JJJJJJJJJJJJJJJJJJJJJJJLcom/mikepenz/aboutlibraries/ui/compose/style/LicenseHueResolver;Lcom/mikepenz/aboutlibraries/ui/compose/style/ContrastLevel;JJILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (JJJJJJJJJJJJJJJJJJJJJJJLcom/mikepenz/aboutlibraries/ui/compose/style/LicenseHueResolver;Lcom/mikepenz/aboutlibraries/ui/compose/style/ContrastLevel;JJLkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun getActionFilledContainer-0d7_KjU ()J
 	public fun getActionFilledContent-0d7_KjU ()J
 	public fun getActionLinkColor-0d7_KjU ()J
@@ -127,6 +127,8 @@ public final class com/mikepenz/aboutlibraries/ui/compose/style/DefaultVariantCo
 	public fun getHeaderDivider-0d7_KjU ()J
 	public fun getHeaderOnBackground-0d7_KjU ()J
 	public fun getHeaderSubtleContent-0d7_KjU ()J
+	public fun getLicenseBadgeContainer-0d7_KjU ()J
+	public fun getLicenseBadgeContent-0d7_KjU ()J
 	public fun getLicenseHueResolver ()Lcom/mikepenz/aboutlibraries/ui/compose/style/LicenseHueResolver;
 	public fun getRowBackground-0d7_KjU ()J
 	public fun getRowDivider-0d7_KjU ()J
@@ -300,6 +302,8 @@ public abstract interface class com/mikepenz/aboutlibraries/ui/compose/style/Var
 	public abstract fun getHeaderDivider-0d7_KjU ()J
 	public abstract fun getHeaderOnBackground-0d7_KjU ()J
 	public abstract fun getHeaderSubtleContent-0d7_KjU ()J
+	public fun getLicenseBadgeContainer-0d7_KjU ()J
+	public fun getLicenseBadgeContent-0d7_KjU ()J
 	public abstract fun getLicenseHueResolver ()Lcom/mikepenz/aboutlibraries/ui/compose/style/LicenseHueResolver;
 	public abstract fun getRowBackground-0d7_KjU ()J
 	public abstract fun getRowDivider-0d7_KjU ()J
@@ -315,6 +319,11 @@ public abstract interface class com/mikepenz/aboutlibraries/ui/compose/style/Var
 	public abstract fun getTabActiveContent-0d7_KjU ()J
 	public abstract fun getTabIdleBackground-0d7_KjU ()J
 	public abstract fun getTabIdleContent-0d7_KjU ()J
+}
+
+public final class com/mikepenz/aboutlibraries/ui/compose/style/VariantColors$DefaultImpls {
+	public static fun getLicenseBadgeContainer-0d7_KjU (Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantColors;)J
+	public static fun getLicenseBadgeContent-0d7_KjU (Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantColors;)J
 }
 
 public abstract interface class com/mikepenz/aboutlibraries/ui/compose/style/VariantDimensions {
@@ -382,7 +391,7 @@ public abstract interface class com/mikepenz/aboutlibraries/ui/compose/style/Var
 }
 
 public final class com/mikepenz/aboutlibraries/ui/compose/style/VariantTokensKt {
-	public static final fun defaultVariantColors-qJfrjvo (Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDefaults;JJJJJJJJJJJJJJJJJJJJJJJLcom/mikepenz/aboutlibraries/ui/compose/style/LicenseHueResolver;Landroidx/compose/runtime/Composer;IIII)Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantColors;
+	public static final fun defaultVariantColors-VYEDziw (Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDefaults;JJJJJJJJJJJJJJJJJJJJJJJLcom/mikepenz/aboutlibraries/ui/compose/style/LicenseHueResolver;JJLandroidx/compose/runtime/Composer;IIII)Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantColors;
 	public static final fun defaultVariantDimensions-BbNTOh4 (Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDefaults;FFFFFFFFFFFFFF)Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantDimensions;
 	public static synthetic fun defaultVariantDimensions-BbNTOh4$default (Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDefaults;FFFFFFFFFFFFFFILjava/lang/Object;)Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantDimensions;
 	public static final fun defaultVariantPadding-jR4esIQ (Lcom/mikepenz/aboutlibraries/ui/compose/LibraryDefaults;Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;FLandroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;FLandroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/PaddingValues;)Lcom/mikepenz/aboutlibraries/ui/compose/style/VariantPadding;

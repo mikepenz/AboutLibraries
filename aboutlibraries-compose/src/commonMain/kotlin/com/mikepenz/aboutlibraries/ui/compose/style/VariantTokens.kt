@@ -61,6 +61,18 @@ interface VariantColors {
 
     val licenseHueResolver: LicenseHueResolver
     val contrastLevel: ContrastLevel
+
+    /**
+     * Overrides the license badge background. Unspecified keeps the default behaviour: the
+     * license hue (or [actionFilledContainer]) at a low alpha tint.
+     */
+    val licenseBadgeContainer: Color get() = Color.Unspecified
+
+    /**
+     * Overrides the license badge label color. Unspecified keeps the default behaviour: the
+     * license hue (or [actionFilledContent]).
+     */
+    val licenseBadgeContent: Color get() = Color.Unspecified
 }
 
 @Immutable
@@ -90,6 +102,8 @@ class DefaultVariantColors(
     override val sheetDragHandle: Color,
     override val licenseHueResolver: LicenseHueResolver,
     override val contrastLevel: ContrastLevel = ContrastLevel.Normal,
+    override val licenseBadgeContainer: Color = Color.Unspecified,
+    override val licenseBadgeContent: Color = Color.Unspecified,
 ) : VariantColors
 
 /**
@@ -307,13 +321,15 @@ fun LibraryDefaults.defaultVariantColors(
     sheetSurfaceVariant: Color = Color.Unspecified,
     sheetDragHandle: Color = Color.Unspecified,
     licenseHueResolver: LicenseHueResolver = LicenseHueResolver.None,
+    licenseBadgeContainer: Color = Color.Unspecified,
+    licenseBadgeContent: Color = Color.Unspecified,
 ): VariantColors = remember(
     headerBackground, headerOnBackground, headerSubtleContent, headerDivider,
     rowBackground, rowExpandedBackground, rowOnBackground, rowSubtleContent, rowDivider,
     actionFilledContainer, actionFilledContent, actionOutlineBorder, actionOutlineContent, actionLinkColor,
     tabIdleBackground, tabIdleContent, tabActiveBackground, tabActiveBorder, tabActiveContent,
     sheetScrim, sheetSurface, sheetSurfaceVariant, sheetDragHandle,
-    licenseHueResolver,
+    licenseHueResolver, licenseBadgeContainer, licenseBadgeContent,
 ) {
     DefaultVariantColors(
         headerBackground, headerOnBackground, headerSubtleContent, headerDivider,
@@ -322,6 +338,8 @@ fun LibraryDefaults.defaultVariantColors(
         tabIdleBackground, tabIdleContent, tabActiveBackground, tabActiveBorder, tabActiveContent,
         sheetScrim, sheetSurface, sheetSurfaceVariant, sheetDragHandle,
         licenseHueResolver,
+        licenseBadgeContainer = licenseBadgeContainer,
+        licenseBadgeContent = licenseBadgeContent,
     )
 }
 
