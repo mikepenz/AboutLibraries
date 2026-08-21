@@ -130,6 +130,35 @@ class MergePlatformArtifactsFunctionalTest {
         assertEquals(setOf("iosSimulatorArm64", "jvm"), targetsOf(merged), "Entry: $merged")
     }
 
+    /**
+     * https://github.com/mikepenz/AboutLibraries/issues/1430 — end to end, with a real resolution
+     * rather than a hand-fed redirect map.
+     *
+     * `com.materialkolor:material-kolor` and `com.materialkolor:material-color-utilities` publish
+     * the same POM `name` ("MaterialKolor") and `description`, so `DuplicateRule.EXACT` considers
+     * them equal and the default `DuplicateMode.MERGE` collapsed them onto one entry — dropping a
+     * library the build actually depends on. Only the platform artifacts of one module may merge.
+     *
+     * Runs with `mergePlatformArtifacts` **off**: that is the default configuration, and the one
+     * the report came from. It is also what proves the `available-at` redirects are recorded (and
+     * reach the duplicate handling) regardless of the flag.
+     */
+    @Test
+    fun `sibling modules sharing name and description are both reported`() {
+        val json = runExport(
+            mergePlatformArtifacts = false,
+            dependencies = listOf("com.materialkolor:material-kolor:5.0.0"),
+            duplicationMode = DuplicateMode.MERGE,
+        )
+        val reported = Regex("\"uniqueId\":\"(com\\.materialkolor:[^\"]*)\"").findAll(json).map { it.groupValues[1] }.toSet()
+
+        assertEquals(
+            setOf("com.materialkolor:material-kolor", "com.materialkolor:material-color-utilities"),
+            reported,
+            "both modules must survive, each under the coordinate that was declared. Output:\n$json",
+        )
+    }
+
     private fun targetsOf(entry: String): Set<String> =
         Regex("\"targets\":\\[(.*?)]").find(entry)?.groupValues?.get(1)
             ?.split(",")?.mapNotNull { it.trim().trim('"').takeIf(String::isNotEmpty) }?.toSet()
@@ -221,6 +250,7 @@ class MergePlatformArtifactsFunctionalTest {
     private fun runExport(
         mergePlatformArtifacts: Boolean,
         dependencies: List<String> = listOf("androidx.collection:collection:1.5.0", "androidx.annotation:annotation-jvm:1.9.1"),
+        duplicationMode: DuplicateMode = DuplicateMode.KEEP,
     ): String {
         File(projectDir, "settings.gradle.kts").writeText("""rootProject.name = "test-project"""")
         File(projectDir, "build.gradle.kts").writeText(
@@ -243,7 +273,7 @@ class MergePlatformArtifactsFunctionalTest {
                 offlineMode = true
                 library {
                     mergePlatformArtifacts = $mergePlatformArtifacts
-                    duplicationMode = com.mikepenz.aboutlibraries.plugin.DuplicateMode.KEEP
+                    duplicationMode = com.mikepenz.aboutlibraries.plugin.DuplicateMode.$duplicationMode
                 }
             }
             """.trimIndent()
