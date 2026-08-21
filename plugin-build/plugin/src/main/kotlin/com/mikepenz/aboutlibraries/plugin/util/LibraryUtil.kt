@@ -84,11 +84,34 @@ private fun List<Library>.clusterByArtifactId(): List<List<Library>> {
     val clusters = mutableListOf<Pair<String, MutableList<Library>>>() // root module -> members
     for (library in sortedBy { it.module().length }) {
         val module = library.module()
-        val cluster = clusters.firstOrNull { (root, _) -> module.startsWith("$root-") }
+        val cluster = clusters.firstOrNull { (root, _) -> module.isPlatformArtifactOf(root) }
         if (cluster != null) cluster.second += library else clusters += module to mutableListOf(library)
     }
     return clusters.map { it.second }
 }
+
+/**
+ * Kotlin target names as they appear in a published artifact id, lowercased: the fixed targets, the
+ * Compose/Kotlin publication suffixes, and the native target families (`linuxx64`,
+ * `iossimulatorarm64`, `watchosdevicearm64`, …).
+ */
+private val PLATFORM_SUFFIX = Regex(
+    "jvm[a-z0-9]*|android|js|wasm-?(js|wasi)|desktop|uikit|native|metadata|common|" +
+        "(linux|mingw|macos|ios|watchos|tvos|androidnative)[a-z0-9]*"
+)
+
+/**
+ * Whether this module id looks like a platform artifact of [root] — the root id plus a Kotlin
+ * target suffix (`collection` → `collection-jvm`).
+ *
+ * Matching the suffix against known target names rather than accepting any suffix is what keeps a
+ * sibling module from being swallowed by a shorter one it happens to share a prefix with
+ * (`androidx.core:core` must not absorb `core-ktx`, a `com.foo:android` module must not absorb
+ * `android-core`). An unknown target name degrades to reporting the artifact separately, which is
+ * the same output as before merging — never to a wrong merge.
+ */
+private fun String.isPlatformArtifactOf(root: String): Boolean =
+    startsWith("$root-") && PLATFORM_SUFFIX.matches(substring(root.length + 1))
 
 fun Library.merge(with: Library) {
     val orgLib = this
