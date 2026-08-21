@@ -258,9 +258,30 @@ internal class LibraryPostProcessor(
         }
 
         return ResultContainer(
-            librariesList.processDuplicates(duplicationMode, duplicationRule).sortedBy { it.uniqueId },
+            librariesList.processDuplicates(duplicationMode, duplicationRule, rootIds()).sortedBy { it.uniqueId },
             licensesMap
         )
+    }
+
+    /**
+     * `uniqueId` of a resolved artifact → `uniqueId` of the module it is a platform artifact of.
+     *
+     * Built from the Gradle `available-at` redirects recorded during dependency collection, so the
+     * duplicate handling merges exactly the artifacts of one Kotlin Multiplatform publication
+     * (`androidx.collection:collection-jvm` → `androidx.collection:collection`) and never two
+     * sibling modules that merely share their POM `name` and `description`.
+     *
+     * Empty for non-multiplatform graphs. Identity entries (a redirect shell mapping to itself)
+     * are harmless — they are what an unlisted artifact falls back to anyway.
+     */
+    private fun rootIds(): Map<String, String> = buildMap {
+        variantToDependencyData.values.forEach { dependencies ->
+            dependencies.forEach { dependency ->
+                val coordinates = dependency.dependencyCoordinates
+                val rootModule = coordinates.rootModule ?: return@forEach
+                put(dependency.uniqueId, "${coordinates.group}:$rootModule")
+            }
+        }
     }
 
     /**

@@ -26,6 +26,14 @@ class LibraryUtilTest {
     )
 
     /**
+     * The `available-at` redirects the dependency collection records: platform artifact id → the
+     * root module id it is published under. In a real build this comes from Gradle, not from the
+     * artifact names.
+     */
+    private fun redirects(root: String, vararg platformArtifacts: String): Map<String, String> =
+        platformArtifacts.associateWith { root }
+
+    /**
      * https://github.com/mikepenz/AboutLibraries/issues/1430 — sibling modules of one project share
      * the POM `name` and `description`, which made every duplicate rule consider them equal. Only
      * the platform artifacts of the *same* module may be merged.
@@ -39,7 +47,12 @@ class LibraryUtilTest {
             library("com.materialkolor:material-color-utilities-jvm", "MaterialKolor"),
         )
 
-        val result = libraries.processDuplicates(DuplicateMode.MERGE, DuplicateRule.EXACT)
+        val result = libraries.processDuplicates(
+            DuplicateMode.MERGE,
+            DuplicateRule.EXACT,
+            redirects("com.materialkolor:material-kolor", "com.materialkolor:material-kolor-jvm") +
+                redirects("com.materialkolor:material-color-utilities", "com.materialkolor:material-color-utilities-jvm"),
+        )
 
         assertEquals(
             setOf("com.materialkolor:material-kolor", "com.materialkolor:material-color-utilities"),
@@ -48,16 +61,86 @@ class LibraryUtilTest {
     }
 
     @Test
-    fun `platform artifacts of the same module are still merged`() {
+    fun `platform artifacts of the same module are merged`() {
         val libraries = listOf(
             library("androidx.collection:collection-jvm", "collection"),
             library("androidx.collection:collection", "collection"),
             library("androidx.collection:collection-js", "collection"),
         )
 
-        val result = libraries.processDuplicates(DuplicateMode.MERGE, DuplicateRule.EXACT)
+        val result = libraries.processDuplicates(
+            DuplicateMode.MERGE,
+            DuplicateRule.EXACT,
+            redirects("androidx.collection:collection", "androidx.collection:collection-jvm", "androidx.collection:collection-js"),
+        )
 
         assertEquals(listOf("androidx.collection:collection"), result.map { it.uniqueId })
+    }
+
+    /**
+     * The published suffix is the publisher's choice — `-wasm-js` carries a second hyphen,
+     * `-desktop` names no Kotlin target at all. Since the relationship is read from Gradle rather
+     * than inferred from the id, none of that matters.
+     */
+    @Test
+    fun `platform artifacts are merged whatever their suffix looks like`() {
+        val platformArtifacts = listOf(
+            "androidx.collection:collection-iossimulatorarm64",
+            "androidx.collection:collection-linuxx64",
+            "androidx.collection:collection-wasm-js",
+            "androidx.collection:collection-jvmstubs",
+            "androidx.collection:collection-desktop",
+            "androidx.collection:collection-some-target-invented-next-year",
+        )
+        val libraries = (listOf("androidx.collection:collection") + platformArtifacts).map { library(it, "collection") }
+
+        val result = libraries.processDuplicates(
+            DuplicateMode.MERGE,
+            DuplicateRule.EXACT,
+            redirects("androidx.collection:collection", *platformArtifacts.toTypedArray()),
+        )
+
+        assertEquals(listOf("androidx.collection:collection"), result.map { it.uniqueId })
+    }
+
+    /**
+     * A sibling module whose id happens to start with a shorter module's id is not a platform
+     * artifact of it — only an `available-at` redirect makes one.
+     */
+    @Test
+    fun `a shorter sibling module does not absorb the ones it prefixes`() {
+        val libraries = listOf(
+            library("com.foo:android", "Foo"),
+            library("com.foo:android-core", "Foo"),
+            library("com.foo:android-core-jvm", "Foo"),
+            library("com.foo:android-extra", "Foo"),
+            library("com.foo:android-extra-jvm", "Foo"),
+        )
+
+        val result = libraries.processDuplicates(
+            DuplicateMode.MERGE,
+            DuplicateRule.EXACT,
+            redirects("com.foo:android-core", "com.foo:android-core-jvm") +
+                redirects("com.foo:android-extra", "com.foo:android-extra-jvm"),
+        )
+
+        assertEquals(
+            setOf("com.foo:android", "com.foo:android-core", "com.foo:android-extra"),
+            result.map { it.uniqueId }.toSet(),
+            "each module keeps its own entry, absorbing only its own platform artifact",
+        )
+    }
+
+    @Test
+    fun `a module without a redirect is never merged into another`() {
+        val libraries = listOf(
+            library("androidx.core:core", "Core"),
+            library("androidx.core:core-ktx", "Core"),
+        )
+
+        val result = libraries.processDuplicates(DuplicateMode.MERGE, DuplicateRule.EXACT)
+
+        assertEquals(libraries.map { it.uniqueId }.toSet(), result.map { it.uniqueId }.toSet())
     }
 
     @Test
@@ -67,7 +150,11 @@ class LibraryUtilTest {
             library("androidx.collection:collection-jvm", "collection"),
         )
 
-        val result = libraries.processDuplicates(DuplicateMode.KEEP, DuplicateRule.EXACT)
+        val result = libraries.processDuplicates(
+            DuplicateMode.KEEP,
+            DuplicateRule.EXACT,
+            redirects("androidx.collection:collection", "androidx.collection:collection-jvm"),
+        )
 
         assertEquals(libraries.map { it.uniqueId }, result.map { it.uniqueId })
         assertEquals(listOf(null, null), result.map { it.associated })
@@ -81,7 +168,11 @@ class LibraryUtilTest {
             library("androidx.collection:collection-js", "collection"),
         )
 
-        val result = libraries.processDuplicates(DuplicateMode.LINK, DuplicateRule.EXACT)
+        val result = libraries.processDuplicates(
+            DuplicateMode.LINK,
+            DuplicateRule.EXACT,
+            redirects("androidx.collection:collection", "androidx.collection:collection-jvm", "androidx.collection:collection-js"),
+        )
 
         assertEquals(libraries.map { it.uniqueId }, result.map { it.uniqueId }, "LINK must not drop anything")
         // a library is associated to its siblings, never to itself
@@ -114,14 +205,15 @@ class LibraryUtilTest {
             library("androidx.collection:collection", "collection", description = "Standalone efficient collections."),
             library("androidx.collection:collection-jvm", "collection", description = "Collections, but for the JVM."),
         )
+        val rootIds = redirects("androidx.collection:collection", "androidx.collection:collection-jvm")
 
         assertEquals(
             listOf("androidx.collection:collection"),
-            libraries.processDuplicates(DuplicateMode.MERGE, DuplicateRule.SIMPLE).map { it.uniqueId },
+            libraries.processDuplicates(DuplicateMode.MERGE, DuplicateRule.SIMPLE, rootIds).map { it.uniqueId },
         )
         assertEquals(
             libraries.map { it.uniqueId },
-            libraries.processDuplicates(DuplicateMode.MERGE, DuplicateRule.EXACT).map { it.uniqueId },
+            libraries.processDuplicates(DuplicateMode.MERGE, DuplicateRule.EXACT, rootIds).map { it.uniqueId },
             "differing descriptions are distinct under EXACT",
         )
     }
@@ -135,7 +227,11 @@ class LibraryUtilTest {
             library("androidx.collection:collection-ktx", "Collection KTX", licenses = setOf("MIT")),
         )
 
-        val result = libraries.processDuplicates(DuplicateMode.MERGE, DuplicateRule.GROUP)
+        val result = libraries.processDuplicates(
+            DuplicateMode.MERGE,
+            DuplicateRule.GROUP,
+            redirects("androidx.collection:collection", "androidx.collection:collection-jvm"),
+        )
 
         assertEquals(
             setOf("androidx.collection:collection", "androidx.collection:collection-ktx"),
@@ -145,9 +241,9 @@ class LibraryUtilTest {
     }
 
     /**
-     * The coarser rules match far more libraries, so the module-id clustering that keeps sibling
-     * modules apart has to hold for them too — group + licenses alone would otherwise collapse a
-     * whole group onto one entry.
+     * The coarser rules match far more libraries, so the clustering that keeps sibling modules
+     * apart has to hold for them too — group + licenses alone would otherwise collapse a whole
+     * group onto one entry.
      */
     @Test
     fun `GROUP does not merge unrelated modules sharing a license`() {
@@ -157,57 +253,6 @@ class LibraryUtilTest {
         )
 
         val result = libraries.processDuplicates(DuplicateMode.MERGE, DuplicateRule.GROUP)
-
-        assertEquals(libraries.map { it.uniqueId }.toSet(), result.map { it.uniqueId }.toSet())
-    }
-
-    @Test
-    fun `native and web platform artifacts are merged too`() {
-        val libraries = listOf(
-            library("androidx.collection:collection", "collection"),
-            library("androidx.collection:collection-iossimulatorarm64", "collection"),
-            library("androidx.collection:collection-linuxx64", "collection"),
-            library("androidx.collection:collection-wasm-js", "collection"),
-            library("androidx.collection:collection-jvmstubs", "collection"),
-            library("androidx.collection:collection-desktop", "collection"),
-        )
-
-        val result = libraries.processDuplicates(DuplicateMode.MERGE, DuplicateRule.EXACT)
-
-        assertEquals(listOf("androidx.collection:collection"), result.map { it.uniqueId })
-    }
-
-    /**
-     * A sibling module whose id happens to start with a shorter module's id is not a platform
-     * artifact of it — only a known Kotlin target suffix makes one.
-     */
-    @Test
-    fun `a shorter sibling module does not absorb the ones it prefixes`() {
-        val libraries = listOf(
-            library("com.foo:android", "Foo"),
-            library("com.foo:android-core", "Foo"),
-            library("com.foo:android-core-jvm", "Foo"),
-            library("com.foo:android-extra", "Foo"),
-            library("com.foo:android-extra-jvm", "Foo"),
-        )
-
-        val result = libraries.processDuplicates(DuplicateMode.MERGE, DuplicateRule.EXACT)
-
-        assertEquals(
-            setOf("com.foo:android", "com.foo:android-core", "com.foo:android-extra"),
-            result.map { it.uniqueId }.toSet(),
-            "each module keeps its own entry, absorbing only its own platform artifact",
-        )
-    }
-
-    @Test
-    fun `a non-target suffix is not treated as a platform artifact`() {
-        val libraries = listOf(
-            library("androidx.core:core", "Core"),
-            library("androidx.core:core-ktx", "Core"),
-        )
-
-        val result = libraries.processDuplicates(DuplicateMode.MERGE, DuplicateRule.EXACT)
 
         assertEquals(libraries.map { it.uniqueId }.toSet(), result.map { it.uniqueId }.toSet())
     }
