@@ -8,7 +8,12 @@ import org.junit.jupiter.api.Test
 
 class LibraryUtilTest {
 
-    private fun library(uniqueId: String, name: String, description: String = "Material You dynamic color") = Library(
+    private fun library(
+        uniqueId: String,
+        name: String,
+        description: String = "Material You dynamic color",
+        licenses: Set<String> = setOf("Apache-2.0"),
+    ) = Library(
         uniqueId = uniqueId,
         artifactVersion = "5.0.0",
         name = name,
@@ -17,6 +22,7 @@ class LibraryUtilTest {
         developers = emptyList(),
         organization = null,
         scm = null,
+        licenses = licenses,
     )
 
     /**
@@ -52,5 +58,106 @@ class LibraryUtilTest {
         val result = libraries.processDuplicates(DuplicateMode.MERGE, DuplicateRule.EXACT)
 
         assertEquals(listOf("androidx.collection:collection"), result.map { it.uniqueId })
+    }
+
+    @Test
+    fun `KEEP reports every coordinate untouched`() {
+        val libraries = listOf(
+            library("androidx.collection:collection", "collection"),
+            library("androidx.collection:collection-jvm", "collection"),
+        )
+
+        val result = libraries.processDuplicates(DuplicateMode.KEEP, DuplicateRule.EXACT)
+
+        assertEquals(libraries.map { it.uniqueId }, result.map { it.uniqueId })
+        assertEquals(listOf(null, null), result.map { it.associated })
+    }
+
+    @Test
+    fun `LINK keeps every coordinate and cross-references the others`() {
+        val libraries = listOf(
+            library("androidx.collection:collection", "collection"),
+            library("androidx.collection:collection-jvm", "collection"),
+            library("androidx.collection:collection-js", "collection"),
+        )
+
+        val result = libraries.processDuplicates(DuplicateMode.LINK, DuplicateRule.EXACT)
+
+        assertEquals(libraries.map { it.uniqueId }, result.map { it.uniqueId }, "LINK must not drop anything")
+        // a library is associated to its siblings, never to itself
+        assertEquals(
+            listOf(
+                setOf("androidx.collection:collection-jvm", "androidx.collection:collection-js"),
+                setOf("androidx.collection:collection", "androidx.collection:collection-js"),
+                setOf("androidx.collection:collection", "androidx.collection:collection-jvm"),
+            ),
+            result.map { it.associated?.toSet() },
+        )
+    }
+
+    @Test
+    fun `LINK leaves a library without siblings unassociated`() {
+        val libraries = listOf(
+            library("androidx.collection:collection", "collection"),
+            library("com.google.code.gson:gson", "Gson"),
+        )
+
+        val result = libraries.processDuplicates(DuplicateMode.LINK, DuplicateRule.EXACT)
+
+        assertEquals(listOf(null, null), result.map { it.associated })
+    }
+
+    /** [DuplicateRule.SIMPLE] matches on group + name, so a differing description must not split. */
+    @Test
+    fun `SIMPLE ignores the description EXACT distinguishes on`() {
+        val libraries = listOf(
+            library("androidx.collection:collection", "collection", description = "Standalone efficient collections."),
+            library("androidx.collection:collection-jvm", "collection", description = "Collections, but for the JVM."),
+        )
+
+        assertEquals(
+            listOf("androidx.collection:collection"),
+            libraries.processDuplicates(DuplicateMode.MERGE, DuplicateRule.SIMPLE).map { it.uniqueId },
+        )
+        assertEquals(
+            libraries.map { it.uniqueId },
+            libraries.processDuplicates(DuplicateMode.MERGE, DuplicateRule.EXACT).map { it.uniqueId },
+            "differing descriptions are distinct under EXACT",
+        )
+    }
+
+    /** [DuplicateRule.GROUP] matches on group + licenses alone, ignoring name and description. */
+    @Test
+    fun `GROUP matches on licenses regardless of name`() {
+        val libraries = listOf(
+            library("androidx.collection:collection", "collection", description = "Collections"),
+            library("androidx.collection:collection-jvm", "Collection for JVM", description = "Collections for the JVM"),
+            library("androidx.collection:collection-ktx", "Collection KTX", licenses = setOf("MIT")),
+        )
+
+        val result = libraries.processDuplicates(DuplicateMode.MERGE, DuplicateRule.GROUP)
+
+        assertEquals(
+            setOf("androidx.collection:collection", "androidx.collection:collection-ktx"),
+            result.map { it.uniqueId }.toSet(),
+            "the two Apache-2.0 artifacts merge, the MIT one stays on its own",
+        )
+    }
+
+    /**
+     * The coarser rules match far more libraries, so the module-id clustering that keeps sibling
+     * modules apart has to hold for them too — group + licenses alone would otherwise collapse a
+     * whole group onto one entry.
+     */
+    @Test
+    fun `GROUP does not merge unrelated modules sharing a license`() {
+        val libraries = listOf(
+            library("com.materialkolor:material-kolor", "MaterialKolor"),
+            library("com.materialkolor:material-color-utilities", "MaterialKolor"),
+        )
+
+        val result = libraries.processDuplicates(DuplicateMode.MERGE, DuplicateRule.GROUP)
+
+        assertEquals(libraries.map { it.uniqueId }.toSet(), result.map { it.uniqueId }.toSet())
     }
 }

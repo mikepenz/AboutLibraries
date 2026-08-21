@@ -49,7 +49,8 @@ fun List<Library>.processDuplicates(
                 if (group.size > 1) {
                     val allAssociated = group.map { it.uniqueId }
                     group.forEach {
-                        it.associated = allAssociated.filter { a -> a == it.uniqueId }
+                        // the *other* members of the group — a library is not associated to itself
+                        it.associated = allAssociated.filter { a -> a != it.uniqueId }
                     }
                 }
             }
