@@ -9,24 +9,33 @@ import com.mikepenz.aboutlibraries.plugin.mapping.Library
 fun List<Library>.processDuplicates(
     duplicateMode: DuplicateMode,
     duplicateRule: DuplicateRule,
+    rootIds: Map<String, String> = emptyMap(),
 ): List<Library> {
-    fun mappedLibs(): Map<String, List<Library>> {
+    fun mappedLibs(): List<List<Library>> {
         return this.groupBy {
             when (duplicateRule) {
                 DuplicateRule.GROUP -> it.groupId + it.licenses.joinToString(",")
                 DuplicateRule.SIMPLE -> it.groupId + it.name
                 DuplicateRule.EXACT -> it.groupId + it.name + it.description?.toMD5()
             }
+        }.values.flatMap { group ->
+            // one cluster per module: platform artifacts fall onto the root they redirect from,
+            // everything else onto its own id
+            group.groupBy { rootIds[it.uniqueId] ?: it.uniqueId }.values
         }
     }
 
     when (duplicateMode) {
         DuplicateMode.MERGE -> {
             val deDuplicatedList = mutableListOf<Library>()
-            mappedLibs().forEach { (_, group) ->
+            mappedLibs().forEach { group ->
                 val kept = if (group.size > 1) {
-                    // on duplicates, assumption is the shorter title is the base dependency
-                    group.minByOrNull { it.name?.length ?: it.description?.length ?: Int.MAX_VALUE } ?: group.first()
+                    // on duplicates, assumption is the shorter title is the base dependency; on a
+                    // tie (a KMP publication names every platform artifact identically) the
+                    // shortest id is the root module the others are platform variants of
+                    group.minWithOrNull(
+                        compareBy({ it.name?.length ?: it.description?.length ?: Int.MAX_VALUE }, { it.uniqueId.length })
+                    ) ?: group.first()
                 } else {
                     group.first()
                 }
@@ -41,11 +50,12 @@ fun List<Library>.processDuplicates(
         }
 
         DuplicateMode.LINK -> {
-            mappedLibs().forEach { (_, group) ->
+            mappedLibs().forEach { group ->
                 if (group.size > 1) {
                     val allAssociated = group.map { it.uniqueId }
                     group.forEach {
-                        it.associated = allAssociated.filter { a -> a == it.uniqueId }
+                        // the *other* members of the group — a library is not associated to itself
+                        it.associated = allAssociated.filter { a -> a != it.uniqueId }
                     }
                 }
             }

@@ -476,7 +476,7 @@ abstract class BaseAboutLibrariesTask : DefaultTask() {
         // the Maven Model Builder for each occurrence — a measurable execution-time cost on
         // larger projects.
         val allCoords: Set<DependencyCoordinates> = resolvedPerConfigCoords.values.flatten().toSet()
-        val parsedByCoord: Map<DependencyCoordinates, DependencyData> = DependencyCollector(includePlatform.get())
+        val parsedByCoord: Map<DependencyCoordinates, DependencyData> = DependencyCollector(includePlatform.get(), mergePlatformArtifacts.get())
             .loadDependenciesFromCoordinates(allCoords, resolvedPomFileMap)
             .associateBy { it.dependencyCoordinates }
         val variantToDependencyData = resolvedPerConfigCoords.mapValues { (_, coords) ->

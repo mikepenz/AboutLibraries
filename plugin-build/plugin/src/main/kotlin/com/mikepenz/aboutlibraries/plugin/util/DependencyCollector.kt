@@ -90,9 +90,15 @@ internal class DependencyCollector(
         val id = root.id
         // Non-null when this component is a pure Gradle `available-at` redirect (a KMP root module
         // such as `androidx.collection:collection` pointing at `androidx.collection:collection-jvm`).
-        // With `mergePlatformArtifacts` its module name is recorded, so the artifact it points at
-        // can be reported under the declared coordinate.
-        val redirectTarget = if (mergePlatformArtifacts) root.redirectTargetModule() else null
+        // Its module name is recorded so the artifact it points at can be tied back to the declared
+        // coordinate.
+        //
+        // Recorded unconditionally, not only under `mergePlatformArtifacts`: the duplicate handling
+        // needs to know which artifacts are variants of one module in every mode, and this is the
+        // authoritative answer. The flag decides only whether the root coordinate also becomes the
+        // reported `uniqueId` — see [loadLibraryFromPom]. Costs one `Optional` lookup per resolved
+        // component (~0.5µs), as a component exposes only the variant selected in this graph.
+        val redirectTarget = root.redirectTargetModule()
         var ignoreSuffix: String? = null
         when {
             redirectTarget != null -> {
@@ -243,8 +249,9 @@ internal class DependencyCollector(
 
         // With `mergePlatformArtifacts` a KMP platform artifact is reported under the root coordinate it was
         // resolved through, so the id matches what was declared in the build script. Everything else
-        // (name, description, licenses, …) still comes from the resolved variant's POM.
-        val uniqueId = pom.groupId + ":" + (coordinates.rootModule ?: pom.artifactId)
+        // (name, description, licenses, …) still comes from the resolved variant's POM. Without the
+        // flag the root is only remembered (on the coordinate), never substituted.
+        val uniqueId = pom.groupId + ":" + (coordinates.rootModule.takeIf { mergePlatformArtifacts } ?: pom.artifactId)
 
         // check if we shall skip this specific uniqueId
         if (shouldSkip(uniqueId)) return null

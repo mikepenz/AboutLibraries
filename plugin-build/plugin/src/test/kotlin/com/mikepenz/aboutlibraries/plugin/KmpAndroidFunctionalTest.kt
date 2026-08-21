@@ -111,8 +111,9 @@ class KmpAndroidFunctionalTest {
         val content = File(projectDir, "build/generated/aboutLibraries/aboutlibraries.json").readText()
         val gson = extractLibraryEntry(content, "com.google.code.gson:gson")
             ?: error("gson entry not found in output: $content")
-        // resolves through the KMP `available-at` redirect, so it lands under its platform artifact
-        val annotation = extractLibraryEntry(content, "androidx.annotation:annotation-jvm")
+        // resolves through the KMP `available-at` redirect; the redirect shell and the platform
+        // artifact are merged onto the root module they share
+        val annotation = extractLibraryEntry(content, "androidx.annotation:annotation")
             ?: error("androidx.annotation entry not found in output: $content")
 
         // no raw configuration name may leak into the field
