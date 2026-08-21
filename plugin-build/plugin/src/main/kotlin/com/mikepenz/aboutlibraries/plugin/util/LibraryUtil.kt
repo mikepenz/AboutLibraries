@@ -10,23 +10,27 @@ fun List<Library>.processDuplicates(
     duplicateMode: DuplicateMode,
     duplicateRule: DuplicateRule,
 ): List<Library> {
-    fun mappedLibs(): Map<String, List<Library>> {
+    fun mappedLibs(): List<List<Library>> {
         return this.groupBy {
             when (duplicateRule) {
                 DuplicateRule.GROUP -> it.groupId + it.licenses.joinToString(",")
                 DuplicateRule.SIMPLE -> it.groupId + it.name
                 DuplicateRule.EXACT -> it.groupId + it.name + it.description?.toMD5()
             }
-        }
+        }.values.flatMap { it.clusterByArtifactId() }
     }
 
     when (duplicateMode) {
         DuplicateMode.MERGE -> {
             val deDuplicatedList = mutableListOf<Library>()
-            mappedLibs().forEach { (_, group) ->
+            mappedLibs().forEach { group ->
                 val kept = if (group.size > 1) {
-                    // on duplicates, assumption is the shorter title is the base dependency
-                    group.minByOrNull { it.name?.length ?: it.description?.length ?: Int.MAX_VALUE } ?: group.first()
+                    // on duplicates, assumption is the shorter title is the base dependency; on a
+                    // tie (a KMP publication names every platform artifact identically) the
+                    // shortest id is the root module the others are platform variants of
+                    group.minWithOrNull(
+                        compareBy({ it.name?.length ?: it.description?.length ?: Int.MAX_VALUE }, { it.uniqueId.length })
+                    ) ?: group.first()
                 } else {
                     group.first()
                 }
@@ -41,7 +45,7 @@ fun List<Library>.processDuplicates(
         }
 
         DuplicateMode.LINK -> {
-            mappedLibs().forEach { (_, group) ->
+            mappedLibs().forEach { group ->
                 if (group.size > 1) {
                     val allAssociated = group.map { it.uniqueId }
                     group.forEach {
@@ -57,6 +61,33 @@ fun List<Library>.processDuplicates(
             return this
         }
     }
+}
+
+/**
+ * Splits libraries the [DuplicateRule] considered equal into clusters that really are one library
+ * published under several coordinates: a Kotlin Multiplatform publication such as
+ * `androidx.collection:collection` + `collection-jvm`, where the platform artifact id is the root
+ * id plus a target suffix.
+ *
+ * Sibling modules of one project routinely share the POM `name` and `description` — e.g.
+ * `com.materialkolor:material-kolor` and `com.materialkolor:material-color-utilities`, both named
+ * "MaterialKolor" with the same description. Those are distinct libraries, and merging them
+ * silently dropped one of them.
+ */
+private fun List<Library>.clusterByArtifactId(): List<List<Library>> {
+    if (size < 2) return listOf(this)
+    // `Library.artifactId` is the full `group:artifact:version` — the module name is what a
+    // platform suffix is appended to
+    fun Library.module() = uniqueId.substringAfterLast(':')
+
+    // shortest first, so the root module is the one every platform artifact attaches to
+    val clusters = mutableListOf<Pair<String, MutableList<Library>>>() // root module -> members
+    for (library in sortedBy { it.module().length }) {
+        val module = library.module()
+        val cluster = clusters.firstOrNull { (root, _) -> module.startsWith("$root-") }
+        if (cluster != null) cluster.second += library else clusters += module to mutableListOf(library)
+    }
+    return clusters.map { it.second }
 }
 
 fun Library.merge(with: Library) {

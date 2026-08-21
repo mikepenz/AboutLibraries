@@ -97,10 +97,12 @@ class MergePlatformArtifactsFunctionalTest {
             ?: error("expected the declared root coordinate to be reported")
         assertEquals(setOf("js", "jvm"), targetsOf(merged) - "metadata", "Entry: $merged")
 
+        // without merging the platform artifacts are still collapsed by `DuplicateMode.MERGE`, but
+        // only into the root module they are variants of — their own ids are gone either way
         val unmerged = runKmpExport(mergePlatformArtifacts = false)
         assertFalse(
-            unmerged.contains("\"uniqueId\":\"androidx.collection:collection\","),
-            "without merging the survivor is a platform artifact, not the root. Output:\n$unmerged"
+            unmerged.contains("\"uniqueId\":\"androidx.collection:collection-js\","),
+            "platform artifacts must not survive the duplicate merge. Output:\n$unmerged"
         )
     }
 
