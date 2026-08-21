@@ -160,4 +160,55 @@ class LibraryUtilTest {
 
         assertEquals(libraries.map { it.uniqueId }.toSet(), result.map { it.uniqueId }.toSet())
     }
+
+    @Test
+    fun `native and web platform artifacts are merged too`() {
+        val libraries = listOf(
+            library("androidx.collection:collection", "collection"),
+            library("androidx.collection:collection-iossimulatorarm64", "collection"),
+            library("androidx.collection:collection-linuxx64", "collection"),
+            library("androidx.collection:collection-wasm-js", "collection"),
+            library("androidx.collection:collection-jvmstubs", "collection"),
+            library("androidx.collection:collection-desktop", "collection"),
+        )
+
+        val result = libraries.processDuplicates(DuplicateMode.MERGE, DuplicateRule.EXACT)
+
+        assertEquals(listOf("androidx.collection:collection"), result.map { it.uniqueId })
+    }
+
+    /**
+     * A sibling module whose id happens to start with a shorter module's id is not a platform
+     * artifact of it — only a known Kotlin target suffix makes one.
+     */
+    @Test
+    fun `a shorter sibling module does not absorb the ones it prefixes`() {
+        val libraries = listOf(
+            library("com.foo:android", "Foo"),
+            library("com.foo:android-core", "Foo"),
+            library("com.foo:android-core-jvm", "Foo"),
+            library("com.foo:android-extra", "Foo"),
+            library("com.foo:android-extra-jvm", "Foo"),
+        )
+
+        val result = libraries.processDuplicates(DuplicateMode.MERGE, DuplicateRule.EXACT)
+
+        assertEquals(
+            setOf("com.foo:android", "com.foo:android-core", "com.foo:android-extra"),
+            result.map { it.uniqueId }.toSet(),
+            "each module keeps its own entry, absorbing only its own platform artifact",
+        )
+    }
+
+    @Test
+    fun `a non-target suffix is not treated as a platform artifact`() {
+        val libraries = listOf(
+            library("androidx.core:core", "Core"),
+            library("androidx.core:core-ktx", "Core"),
+        )
+
+        val result = libraries.processDuplicates(DuplicateMode.MERGE, DuplicateRule.EXACT)
+
+        assertEquals(libraries.map { it.uniqueId }.toSet(), result.map { it.uniqueId }.toSet())
+    }
 }
