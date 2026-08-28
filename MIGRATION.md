@@ -1,6 +1,6 @@
 ### Upgrade Notes
 
-#### Unreleased
+#### v15.2.0
 
 - **Dependency Upgrade**: Compose 1.12.x
 
