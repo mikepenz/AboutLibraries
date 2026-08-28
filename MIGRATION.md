@@ -1,5 +1,9 @@
 ### Upgrade Notes
 
+#### Unreleased
+
+- **Dependency Upgrade**: Compose 1.12.x
+
 #### v15.1.0
 
 - **Breaking Change (Gradle Plugin)**: The Gradle plugin now targets Java 17 (previously Java 11), following AGP 9.3.1 which raised its own JVM target to 17.
