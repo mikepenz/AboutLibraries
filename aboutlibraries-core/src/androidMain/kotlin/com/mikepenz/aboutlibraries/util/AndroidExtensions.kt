@@ -48,7 +48,7 @@ fun Libs.Builder.withJson(ctx: Context, rawResId: Int): Libs.Builder {
             "AboutLibraries", """
             Unable to retrieve library information given the `raw` resource identifier. 
             Please make sure either the gradle plugin is properly set up, or the file is manually provided. 
-        """.trimIndent()
+        """.trimIndent(), t
         )
         println("Could not retrieve libraries")
     }
