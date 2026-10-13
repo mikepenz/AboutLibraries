@@ -50,7 +50,7 @@ fun Libs.Builder.withJson(ctx: Context, rawResId: Int): Libs.Builder {
             Please make sure either the gradle plugin is properly set up, or the file is manually provided. 
         """.trimIndent(), t
         )
-        println("Could not retrieve libraries")
+        withJson("""{"libraries":[],"licenses":{}}""")
     }
     return this
 }
