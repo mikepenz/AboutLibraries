@@ -186,7 +186,7 @@ internal class GitHubApi(
         val parts = url.split("/").filter { it.isNotBlank() }
         if (parts.size > 3) {
             if (parts[parts.size - 3].contains("github")) {
-                return parts[parts.size - 2] to parts[parts.size - 1]
+                return parts[parts.size - 2] to parts[parts.size - 1].removeSuffix(".git")
             }
         }
         return null
