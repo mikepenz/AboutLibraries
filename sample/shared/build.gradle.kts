@@ -34,7 +34,10 @@ kotlin {
 
     android {
         namespace = "com.mikepenz.aboutlibraries.sample.shared"
-        compileSdk = baseLibs.versions.compileSdk.get().toInt()
+        compileSdk {
+            val (major, minor) = baseLibs.versions.compileSdk.get().split(".").map { it.toInt() }.let { it[0] to it.getOrElse(1) { 0 } }
+            version = release(major) { minorApiLevel = minor }
+        }
         minSdk = project.readPropertyOrElse("com.mikepenz.android.minSdk", baseLibs.versions.minSdk.get(), null)?.toInt()
         experimentalProperties["android.experimental.kmp.enableAndroidResources"] = true
     }
