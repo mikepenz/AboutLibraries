@@ -26,7 +26,7 @@ dependencyResolutionManagement {
             from(files("../gradle/libs.versions.toml"))
         }
         create("baseLibs") {
-            from("com.mikepenz:version-catalog:0.23.2")
+            from("com.mikepenz:version-catalog:0.24.0")
         }
     }
 }
